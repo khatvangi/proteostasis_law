@@ -1,0 +1,4 @@
+organism	total_k_A	two_codon_k	two_codon_count	exceeds_16
+E. coli	47	18	9	YES
+B. subtilis	48	18	9	YES
+S. cerevisiae	48	18	9	YES

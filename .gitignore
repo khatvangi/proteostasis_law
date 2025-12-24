@@ -1,0 +1,14 @@
+# Large data directories
+pdb_mmcif_ecoli/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# Claude Code
+.claude/
+
+# OS files
+.DS_Store
