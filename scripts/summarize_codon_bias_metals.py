@@ -69,9 +69,13 @@ def main():
     gene_to_seq = load_cds_by_gene(args.cds_fasta)
     print(f"[INFO] Loaded {len(gene_to_seq)} CDS sequences")
 
-    # 1) Collect ligand codon counts
+    # 1) Collect ligand codon counts — deduplicated by (gene, uniprot_pos)
+    # each biological residue counted once, regardless of how many PDB structures contain it
     ligand_counts = defaultdict(int)
     genes_with_ligands = set()
+    seen_positions = set()  # (gene, uniprot_pos) dedup key
+    total_rows = 0
+    skipped_dups = 0
 
     print(f"[INFO] Reading metal sites from {args.metal_codons_csv}")
     with open(args.metal_codons_csv, "r") as f:
@@ -99,9 +103,21 @@ def main():
                 # skip weird mismatches
                 continue
 
+            total_rows += 1
+            uniprot_pos = row.get("uniprot_pos", "").strip()
+            pos_key = (gene, uniprot_pos)
+
+            # deduplicate: same gene + position = same biological residue
+            if pos_key in seen_positions:
+                skipped_dups += 1
+                continue
+            seen_positions.add(pos_key)
+
             key = (aa, codon)
             ligand_counts[key] += 1
             genes_with_ligands.add(gene)
+
+    print(f"[INFO] Total filtered rows: {total_rows}, deduplicated: {len(seen_positions)}, skipped dups: {skipped_dups}")
 
     print(f"[INFO] Ligand genes: {len(genes_with_ligands)}")
 
