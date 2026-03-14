@@ -1,38 +1,37 @@
-# Proteostasis Law — Triplet Code Necessity
+# Proteostasis Law Project
 
-## status: ACTIVE — CRITICAL AUDIT NEEDED
+## status
 
-proves triplet codons are mathematically necessary under proteostasis constraint.
-K=47 mode-capacity bound (demand) exceeds doublet ceiling of 16.
+Active project scope has changed.
 
-## core result (SOLID)
-- E. coli: K=47, B. subtilis: K=48, S. cerevisiae: K=48
-- all 9 two-codon AAs have k_A=2, contributing 18 > 16 (doublet impossible)
-- mode assignments from per-AA median split in (μ, tAI) space
+This repo no longer treats the triplet-code necessity paper as the active
+manuscript. The active manuscript work lives in:
 
-## CRITICAL AUDIT (must fix before submission)
-1. **fabricated μ values** — section 3.2 table has μ=0.135, 0.120 etc. that exist nowhere in the pipeline. actual Landerer values are 1000x-3000x smaller.
-2. **wrong enriched codons** — Cys: pipeline says TGC, manuscript says TGT. Glu: pipeline says GAG, manuscript says GAA.
-3. **PDB deduplication bug** — ligand counts in metal_codon_bias_summary.csv inflated ~9x by counting each PDB separately. must deduplicate by (gene, uniprot_pos).
-4. **no manuscript file** — prose exists only in conversation context.
+- `/storage/kiran-stuff/proteostasis_law/proteostasis-paper/`
 
-## fix checklist
-- [ ] deduplicate ligand counts by (gene, uniprot_pos) in summarize_codon_bias_metals.py
-- [ ] rerun Fisher's exact with deduplicated counts
-- [ ] replace fabricated μ values with actual Landerer values
-- [ ] fix enriched codons: Cys→TGC, Glu→GAG
-- [ ] rewrite Pareto interpretation with corrected data
-- [ ] regenerate Figure 3
-- [ ] save manuscript as .md or .tex in the repo
+## active claim
 
-## key data files
-- `errors/codon_modes_ecoli.tsv` — 61 sense codons with μ, tAI, modes
-- `errors/aa_mode_summary.tsv` — k_A per amino acid
-- `errors/codon_error_rates.tsv` — Landerer μ values
-- `metals/metal_codon_bias_summary.csv` — enrichment counts (NEEDS DEDUP)
-- `cross_species/results/cross_species_comparison.tsv` — K across organisms
+Proteostasis law is an operational constraint on extant translation systems.
+Translation output, decoding fidelity, folding success, aggregation burden, and
+quality-control demand are coupled. Viability requires that combined burden stay
+within finite buffering and clearance capacity.
 
-## related projects
-- `triplet-proof/` — SGC optimality (Monte Carlo), COMPLETE
-- `proteostasis-paper/` — manuscript repo (empty manuscript/ dir)
-- `codon_project/` — circular permutation analysis
+## current state
+
+- active evidence-first manuscript repo:
+  `proteostasis-paper/`
+- active manuscript:
+  `proteostasis-paper/manuscript/MANUSCRIPT.md`
+- active figures:
+  `proteostasis-paper/figures/stability_regions.svg`
+  `proteostasis-paper/figures/codon_load_allocation.svg`
+- active tests:
+  `cd proteostasis-paper && python -m unittest discover -s tests -p 'test_*.py'`
+
+## archived / legacy material
+
+The older triplet-origin / Pareto / metal-enrichment project remains in this
+repo as legacy computational material. It is not the current manuscript claim.
+
+If old files are needed, treat them as archived analysis assets, not active
+evidence for the current paper.
