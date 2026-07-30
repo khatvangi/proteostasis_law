@@ -24,7 +24,7 @@ One command rebuilds every number, figure, and table, then runs the tests.
 Nothing needs network access; all inputs are in `data/raw/`.
 
 ```bash
-python scripts/run_all.py            # ~3 min end to end, then 60 tests
+python scripts/run_all.py            # ~3 min end to end, then 73 tests
 python scripts/run_all.py --fast     # skip the two 10,000-permutation runs
 python scripts/run_all.py --no-tests # rebuild only
 ```
@@ -46,7 +46,9 @@ cd scripts && python 10_fig4_supraadditivity.py       # Fig 4
 python scripts/08_make_tables.py                      # ~1 s    tables
 python scripts/11_headroom_sensitivity.py             # ~1 s    headroom across two axes
 python scripts/12_chaperone_availability.py           # ~1 s    chaperone availability (theta)
-python -m unittest discover -s tests -v               # 60 tests
+python scripts/13_nu_power.py                         # ~3 min  axis power / minimum detectable effect
+python scripts/14_mu_jackknife.py                     # ~1 min  mu jackknife + detectability
+python -m unittest discover -s tests -v               # 73 tests
 ```
 
 Requires Python 3 with numpy, pandas, scipy, seaborn, openpyxl. No build step.
@@ -68,13 +70,15 @@ scripts/                   every number and figure is generated here
   10_fig4_supraadditivity.py  Fig 4  supraadditivity
   11_headroom_sensitivity.py  headroom vs evaluation point x chaperone anchoring
   12_chaperone_availability.py  headroom vs chaperone availability theta
+  13_nu_power.py           minimum detectable effect and power on each axis
+  14_mu_jackknife.py       leave-one-codon-out jackknife + detectability exposure
   vendor/two_pool_ode.py   upstream model, verbatim (do not edit)
   run_all.py               rebuild everything, then run the tests
   figstyle.py              shared seaborn style
 data/raw/                  staged inputs, self-contained
 data/computed/             script outputs; the manuscript's only source of numbers
 figures/                   Fig 1-4, PNG + PDF
-tables/                    Tables 1-7 and S1-S6 as TSV, plus TABLES.md
+tables/                    Tables 1-5, 7 and S1-S9 as TSV, plus TABLES.md
 tests/                     asserts the manuscript against data/computed/ and tables/
 ```
 
@@ -143,7 +147,6 @@ corrected analyses reported in the Discussion and reproduced by
 | Table 3 | permutation tests: both axes, both nulls, both mu statistics |
 | Table 4 | **removed result** — metal sites under both backgrounds |
 | Table 5 | supraadditivity: interaction vs remaining margin |
-| Table 6 | headroom across evaluation point and chaperone anchoring |
 | Table 7 | headroom vs chaperone availability θ, over documented C_tot/K_d |
 | Table S1 | per-codon (mu, nu) coordinates, all 59 analysed codons |
 | Table S2 | per-amino-acid operational spread |
@@ -151,6 +154,9 @@ corrected analyses reported in the Discussion and reproduced by
 | Table S4 | **removed result** — cross-species conservation of Delta |
 | Table S5 | supraadditivity effect-size grid at the observed rate |
 | Table S6 | the two capacity knobs are not equivalent |
+| Table S7 | what each axis test could have detected (minimum detectable effect) |
+| Table S8 | leave-one-codon-out jackknife on the μ axis |
+| Table S9 | retired coarse anchoring grid, superseded by Table 7 |
 
 Tables 4 and S4 report analyses this paper *excludes*; both are labelled as such
 in `tables/TABLES.md`, and a test enforces that labelling.

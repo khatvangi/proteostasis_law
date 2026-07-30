@@ -48,7 +48,7 @@ _spec.loader.exec_module(axis_mod)
 
 N_PERM_SWEEP = 2000      # for the sweeps; the chosen point is confirmed at 10,000
 N_PERM_CONFIRM = 10_000
-N_POWER_REPS = 100
+N_POWER_REPS = 40
 ALPHA = 0.05
 SEED = 42
 
@@ -96,23 +96,27 @@ def test_once(df, coord, n_perm, seed):
         vals[k] = axis_mod.mean_delta(d, xy[perm])
     z = (obs - vals.mean()) / vals.std(ddof=0)
     p = (int((vals <= obs).sum()) + 1) / (n_perm + 1)
-    return obs, float(z), float(p)
+    return obs, float(z), float(p), float(vals.mean()), float(vals.std(ddof=0))
 
 
 def minimum_detectable(df, col, label):
     """largest s (weakest true clustering) still rejected at alpha = 0.05."""
-    obs_delta, _, _ = test_once(df, df[col].to_numpy(float), N_PERM_SWEEP, SEED)
+    obs_delta, _, _, obs_null, _ = test_once(df, df[col].to_numpy(float),
+                                             N_PERM_SWEEP, SEED)
     rows = []
     for s in np.arange(1.0, -0.001, -0.05):
         coord = shrink(df, col, float(s))
-        d, z, p = test_once(df, coord, N_PERM_SWEEP, SEED)
+        d, z, p, nm, nsd = test_once(df, coord, N_PERM_SWEEP, SEED)
         rows.append({"axis": label, "s": round(float(s), 3), "delta": d,
-                     "z": z, "p": p, "reject": bool(p < ALPHA),
-                     "delta_reduction_pct": 100.0 * (obs_delta - d) / obs_delta})
+                     "null_mean": nm, "null_sd": nsd, "z": z, "p": p,
+                     "reject": bool(p < ALPHA),
+                     "delta_reduction_pct": 100.0 * (obs_delta - d) / obs_delta,
+                     "pct_below_null": 100.0 * (nm - d) / nm})
     sweep = pd.DataFrame(rows)
     rej = sweep[sweep.reject]
     mde = rej.iloc[0] if len(rej) else None
-    return sweep, obs_delta, mde
+    obs_pct_below_null = 100.0 * (obs_null - obs_delta) / obs_null
+    return sweep, obs_delta, mde, obs_pct_below_null
 
 
 def power_at(df, col, s, reps=N_POWER_REPS):
@@ -121,7 +125,7 @@ def power_at(df, col, s, reps=N_POWER_REPS):
     n_rej = 0
     for r in range(reps):
         coord = shrink(df, col, s, rng=rng, subset_prob=0.5)
-        _, _, p = test_once(df, coord, N_PERM_SWEEP, SEED + 1 + r)
+        _, _, p, _, _ = test_once(df, coord, 800, SEED + 1 + r)
         n_rej += int(p < ALPHA)
     return n_rej / reps
 
@@ -148,42 +152,50 @@ def main():
     out = {}
     sweeps = []
     for col, label in (("nu_tai", "nu"), ("log_mu", "mu")):
-        sweep, obs_delta, mde = minimum_detectable(df, col, label)
+        sweep, obs_delta, mde, obs_below_null = minimum_detectable(df, col, label)
         sweeps.append(sweep)
         if mde is None:
             print(f"  {label:3s}: no shrinkage level rejected -- test has no power")
-            out[label] = {"observed_delta": obs_delta, "mde_s": None}
+            out[label] = {"observed_delta": obs_delta, "mde_s": None,
+                          "observed_pct_below_null": obs_below_null}
             continue
         # confirm the chosen point at full permutation count
         coord = shrink(df, col, float(mde.s))
-        dc, zc, pc = test_once(df, coord, N_PERM_CONFIRM, SEED)
+        dc, zc, pc, _, _ = test_once(df, coord, N_PERM_CONFIRM, SEED)
         print(f"  {label:3s}: observed Delta = {obs_delta:.4f}; detects clustering "
               f"of >= {mde.delta_reduction_pct:.1f}% reduction in Delta "
               f"(s <= {mde.s:.2f}, z = {zc:+.2f}, p = {pc:.4f} at "
               f"{N_PERM_CONFIRM:,} perms)")
         out[label] = {
             "observed_delta": float(obs_delta),
+            "observed_pct_below_null": float(obs_below_null),
             "mde_s": float(mde.s),
+            "mde_pct_below_null": float(mde.pct_below_null),
             "mde_delta_reduction_pct": float(mde.delta_reduction_pct),
             "mde_z_confirmed": zc, "mde_p_confirmed": pc,
         }
     pd.concat(sweeps, ignore_index=True).to_csv(
         COMP / "nu_power_sweep.tsv", sep="\t", index=False)
 
-    # how much of the observed mu clustering does the nu test have the power to see?
-    if out.get("nu", {}).get("mde_delta_reduction_pct") is not None:
-        mu_obs_red = 100.0 * (1 - out["mu"]["observed_delta"] /
-                              axis_mod.mean_delta(
-                                  df, df[["log_mu"]].to_numpy() * 0 +
-                                  df[["log_mu"]].to_numpy()))
-        # the meaningful comparison: mu's real effect size vs nu's detection floor
-        mu_sweep = [s for s in sweeps if s.axis.iloc[0] == "mu"][0]
-        print(f"\n  for scale, the mu axis's own clustering corresponds to a "
-              f"{100 * (1 - 0.7301 / 1.1690):.0f}% reduction below its null mean,"
-              f"\n  well above the nu axis's "
-              f"{out['nu']['mde_delta_reduction_pct']:.0f}% detection floor -- so an "
-              f"effect the size of\n  mu's would have been detected on nu had it "
-              f"been there.")
+    # THE comparison that answers the objection: is mu's real effect larger than
+    # nu's detection floor? if not, the asymmetry in Result 4 is about resolution.
+    if out["nu"].get("mde_pct_below_null") is not None:
+        mu_real = out["mu"]["observed_pct_below_null"]
+        nu_floor = out["nu"]["mde_pct_below_null"]
+        print(f"\n  mu's observed clustering sits {mu_real:.1f}% below its null "
+              f"mean.")
+        print(f"  the nu test's detection floor is {nu_floor:.1f}% below null "
+              f"(alpha = {ALPHA}).")
+        verdict = ("detectable" if mu_real > nu_floor else "NOT detectable")
+        print(f"  so an effect of mu's magnitude on the nu axis would have been "
+              f"{verdict}\n  -- by a margin of "
+              f"{abs(mu_real - nu_floor):.1f} percentage points.")
+        out["comparison"] = {
+            "mu_observed_pct_below_null": mu_real,
+            "nu_detection_floor_pct_below_null": nu_floor,
+            "mu_effect_exceeds_nu_floor": bool(mu_real > nu_floor),
+            "margin_percentage_points": float(mu_real - nu_floor),
+        }
 
     # ---- 3. power curve ----
     print("\n" + "=" * 74)
@@ -191,10 +203,10 @@ def main():
           f"random half of amino acids)")
     print("=" * 74)
     pw = []
-    for s in (0.9, 0.8, 0.7, 0.6, 0.5, 0.3):
+    for s in (0.8, 0.6, 0.4, 0.2):
         power = power_at(df, "nu_tai", s)
         coord = shrink(df, "nu_tai", s)
-        d, _, _ = test_once(df, coord, 200, SEED)
+        d, _, _, _, _ = test_once(df, coord, 200, SEED)
         red = 100.0 * (out["nu"]["observed_delta"] - d) / out["nu"]["observed_delta"]
         pw.append({"s": s, "delta_reduction_pct_if_all_aa": red, "power": power})
         print(f"  s = {s:.1f}  (~{red:4.1f}% reduction in Delta)   "

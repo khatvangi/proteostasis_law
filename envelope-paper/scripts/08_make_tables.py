@@ -188,12 +188,30 @@ def table_s6():
          "interaction", "interaction_pct_of_additive", "collapsed_both"]]
 
 
-def table6():
-    """headroom across evaluation point and chaperone anchoring."""
+def table_s9_retired_anchoring_grid():
+    """
+    RETIRED as a main table. this crossed the evaluation point against six ad-hoc
+    (C_tot, K_d) anchorings, but that axis is not independent of Table 7's theta:
+    `usage_weighted_mu x c_free_at_Kd` (C_tot = 1) IS `C_tot = 50, theta = 0.98`
+    (saturation 0.346, x4.6, margin 0.67), and the grid reached its low end only by
+    using C_tot = 1-2 uM, outside the documented 30-80 uM range. It is one
+    availability parameter written two ways. Kept as a supplementary cross-check
+    only; Table 7 is the principled version.
+    """
     df = pd.read_csv(COMP / "headroom_sensitivity.tsv", sep="\t")
     return df[["evaluation_point", "f_codon", "anchoring", "C_tot_uM", "K_d_uM",
                "c_free_uM", "folding_arm_saturation", "P_star", "P_dagger",
                "headroom_P", "headroom_A", "margin_log10", "collapsed"]]
+
+
+def table_s7():
+    """minimum detectable effect and power on each axis."""
+    return pd.read_csv(COMP / "nu_power_sweep.tsv", sep="\t")
+
+
+def table_s8():
+    """leave-one-codon-out jackknife on the mu axis."""
+    return pd.read_csv(COMP / "mu_jackknife.tsv", sep="\t")
 
 
 def table7():
@@ -272,7 +290,7 @@ def main():
     t1 = table1()
     t2, t2s = table2()
     t5, s5, s6 = table5(), table_s5(), table_s6()
-    t6, t7 = table6(), table7()
+    t6, t7 = table_s9_retired_anchoring_grid(), table7()
     t3 = table3()
     t4 = table4()
     s1, s2, s3, s4 = table_s1(), table_s2(), table_s3(), table_s4()
@@ -290,8 +308,10 @@ def main():
                      ("Table5_supraadditivity", t5),
                      ("TableS5_supraadditivity_grid", s5),
                      ("TableS6_capacity_knob_comparison", s6),
-                     ("Table6_headroom_sensitivity", t6),
-                     ("Table7_chaperone_availability", t7)):
+                     ("TableS9_retired_anchoring_grid", t6),
+                     ("Table7_chaperone_availability", t7),
+                     ("TableS7_axis_power", table_s7()),
+                     ("TableS8_mu_jackknife", table_s8())):
         p = TAB / f"{name}.tsv"
         df.to_csv(p, sep="\t", index=False)
         written[name] = len(df)
@@ -438,36 +458,6 @@ def main():
         "",
         "---",
         "",
-        "## Table 6. How far inside the envelope, across two explicit choices",
-        "",
-        "Headroom to collapse depends on where in the observed window the model is "
-        "evaluated and on how the chaperone arm is anchored. The internally "
-        "consistent cell is **usage_weighted_mu x as_published** (x25); the x158 "
-        "quoted in earlier drafts is **window_bottom x as_published**, the most "
-        "favourable corner. `folding_arm_saturation` shows why the anchoring "
-        "matters: at the published values the rescue arm is 97.9% saturated.",
-        "",
-        md_table(t6, ["evaluation_point", "f_codon", "anchoring",
-                      "C_tot_uM", "K_d_uM", "folding_arm_saturation",
-                      "headroom_P", "headroom_A", "margin_log10"],
-                 fmt={"f_codon": lambda v: sci(v),
-                      "C_tot_uM": lambda v: f"{v:g}", "K_d_uM": lambda v: f"{v:g}",
-                      "folding_arm_saturation":
-                          lambda v: "—" if not np.isfinite(v) else f"{v:.3f}",
-                      "headroom_P":
-                          lambda v: "collapsed" if not np.isfinite(v) else f"×{v:.1f}",
-                      "headroom_A":
-                          lambda v: "—" if not np.isfinite(v) else f"×{v:.0f}",
-                      "margin_log10":
-                          lambda v: "—" if not np.isfinite(v) else f"{v:.2f}"}).replace(
-            "| evaluation_point | f_codon | anchoring | C_tot_uM | K_d_uM | "
-            "folding_arm_saturation | headroom_P | headroom_A | margin_log10 |",
-            "| Evaluated at | f (/codon) | Chaperone anchoring | C_tot (µM) | "
-            "K_d (µM) | Folding arm saturation | **Headroom, P pool** | "
-            "Headroom, A pool | Margin (log₁₀) |"),
-        "",
-        "---",
-        "",
         "## Table 7. Headroom against chaperone availability",
         "",
         "The model gives the whole chaperone pool to the damaged-protein pool "
@@ -598,6 +588,42 @@ def main():
             "interaction_pct_of_additive | collapsed_both |",
             "| Capacity knob | Baseline f | Starting margin | D capacity ÷3 | "
             "D error ×3 | % above additive | Joint collapse |"),
+        "",
+        "## Table S7. What the axis tests could have detected",
+        "",
+        "Within-amino-acid deviations are shrunk by a factor `s` (s = 1 the observed "
+        "code, s = 0 all synonyms identical) and the permutation test re-run. "
+        "`pct_below_null` makes the two axes comparable. The ν axis rejects only "
+        "once spread is tightened by 35% (19.6% below null); μ's own clustering "
+        "sits 37.4% below its null, so an effect of μ's size would have been seen "
+        "on ν. See also `nu_power_curve.tsv` for the subset-model power curve.",
+        "",
+        md_table(table_s7()[lambda d: d.s >= 0.5],
+                 ["axis", "s", "delta", "null_mean", "z", "p", "reject",
+                  "delta_reduction_pct", "pct_below_null"],
+                 fmt={"s": lambda v: f"{v:.2f}", "delta": d4,
+                      "null_mean": d4, "z": lambda v: f"{v:+.2f}",
+                      "p": lambda v: f"{v:.4f}",
+                      "reject": lambda v: "yes" if v else "",
+                      "delta_reduction_pct": lambda v: f"{v:.0f}%",
+                      "pct_below_null": lambda v: f"{v:.1f}%"}).replace(
+            "| axis | s | delta | null_mean | z | p | reject | "
+            "delta_reduction_pct | pct_below_null |",
+            "| Axis | s | Δ | Null mean | z | p | Rejects | Δ reduction | "
+            "% below null |"),
+        "",
+        "## Table S8. Leave-one-codon-out jackknife on the μ axis",
+        "",
+        "Each row drops one codon and re-runs the within-degeneracy permutation "
+        "test (each subset restandardized). The clustering survives every single "
+        "deletion, including CCC — the 2.0 × 10⁻² maximum that sets the 613-fold "
+        "span on its own. Ordered from strongest to weakest z.",
+        "",
+        md_table(table_s8(), ["dropped_codon", "aa", "mu", "z", "p", "n_codons"],
+                 fmt={"mu": lambda v: sci(v), "z": lambda v: f"{v:+.2f}",
+                      "p": lambda v: f"{v:.4f}"}).replace(
+            "| dropped_codon | aa | mu | z | p | n_codons |",
+            "| Codon dropped | AA | its μ | z | p | n codons |"),
         "",
     ]
     (TAB / "TABLES.md").write_text("\n".join(parts) + "\n")

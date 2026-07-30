@@ -191,19 +191,31 @@ class ManuscriptContainsClaim(unittest.TestCase):
 
     def test_headroom_range_is_reported_not_a_point(self):
         h = load_json(COMP / "headroom_sensitivity_summary.json")
-        lo, hi = h["usage_weighted_mu_range_across_anchorings"]
-        self.assertAlmostEqual(lo, 4.6, delta=0.2)
-        self.assertAlmostEqual(hi, 24.8, delta=0.2)
-        self.assertStated("×4.6", "low end of the chaperone-anchoring range")
+        # the range is now the theta grid of Table 7, not the retired anchoring grid
+        c = load_json(COMP / "chaperone_availability_summary.json")
+        lo, hi = c["headroom_range_over_documented_grid"]
+        self.assertAlmostEqual(lo, 1.9, delta=0.15)
+        self.assertAlmostEqual(hi, 25.3, delta=0.2)
+        self.assertStated("×1.9", "low end of the availability range")
         # scoped: both the abstract and Result 3 must carry the range, not a point
         for name, heading in (("abstract", "## Abstract"),
                               ("Result 3", "### Result 3")):
             sec = flat(section(heading))
-            self.assertIn("×4.6", sec,
+            self.assertIn("×1.9", sec,
                           f"{name} reports a point headroom, not the range")
         self.assertIn("roughly one order of magnitude inside", flat())
         self.assertNotIn("roughly two orders of magnitude inside", flat(),
                          "the superseded claim is back")
+
+    def test_table6_is_retired_not_silently_kept(self):
+        """
+        the old anchoring grid duplicated Table 7's theta and reached its low end
+        outside the documented C_tot range. it must not be cited as a main table.
+        """
+        self.assertNotIn("Table 6", flat())
+        self.assertTrue((TAB / "TableS9_retired_anchoring_grid.tsv").exists())
+        src = (SCRIPTS / "08_make_tables.py").read_text()
+        self.assertIn("RETIRED as a main table", src)
 
     def test_result3_inline_table_matches_computed_headroom(self):
         """
@@ -218,6 +230,7 @@ class ManuscriptContainsClaim(unittest.TestCase):
                 if ln.startswith("| ") and "×" in ln and "Evaluated at" not in ln]
         self.assertEqual(len(rows), 4,
                          f"expected 4 headroom rows in Result 3, found {len(rows)}")
+        ok = ok[ok.anchoring == "as_published"]
 
         # match on the parenthetical, not the exponent: "10⁻⁴" is a substring of
         # "6.3 × 10⁻⁴" and silently matched the wrong row
@@ -227,18 +240,12 @@ class ManuscriptContainsClaim(unittest.TestCase):
                "window top": "window_top"}
         for line in rows:
             cells = [c.strip().replace("*", "") for c in line.strip("|").split("|")]
-            label, published, rng = cells[0], cells[1], cells[2]
+            label, published = cells[0], cells[1]
             ep = next(v for k, v in key.items() if k in label)
-            g = ok[ok.evaluation_point == ep]
-            pub = g[g.anchoring == "as_published"].iloc[0].headroom_P
+            pub = ok[ok.evaluation_point == ep].iloc[0].headroom_P
             self.assertAlmostEqual(
-                float(published.lstrip("×")), pub, delta=0.6,
+                float(published.replace("*", "").lstrip("×")), pub, delta=0.6,
                 msg=f"{ep}: manuscript says {published}, computed ×{pub:.1f}")
-            lo_s, hi_s = [x.strip().lstrip("×") for x in rng.split("–")]
-            self.assertAlmostEqual(float(lo_s), g.headroom_P.min(), delta=0.6,
-                                   msg=f"{ep}: range low disagrees")
-            self.assertAlmostEqual(float(hi_s), g.headroom_P.max(), delta=0.6,
-                                   msg=f"{ep}: range high disagrees")
 
     def test_margin_is_near_the_supraadditivity_onset(self):
         h = load_json(COMP / "headroom_sensitivity_summary.json")
@@ -465,7 +472,10 @@ class ArtifactsExist(unittest.TestCase):
                      "headroom_sensitivity.tsv",
                      "headroom_sensitivity_summary.json",
                      "chaperone_availability.tsv",
-                     "chaperone_availability_summary.json"):
+                     "chaperone_availability_summary.json",
+                     "nu_power_sweep.tsv", "nu_power_curve.tsv",
+                     "nu_power_summary.json", "mu_jackknife.tsv",
+                     "mu_depth_sensitivity.tsv", "mu_jackknife_summary.json"):
             self.assertTrue((COMP / name).exists(), f"missing artifact {name}")
 
     def test_no_triplet_origin_claim(self):
@@ -719,6 +729,93 @@ class ChaperoneAvailability(unittest.TestCase):
         self.assertIn("chaperone occupancy by nascent-chain folding", self.flat)
 
 
+class AxisPowerAndRobustness(unittest.TestCase):
+    """
+    the two objections a reviewer raises about Result 4: an unpowered nu null, and
+    a mu signal that may be leverage or mass-spec detectability rather than biology.
+    """
+
+    def setUp(self):
+        self.flat = flat()
+        self.pw = load_json(COMP / "nu_power_summary.json")
+        self.jk = load_json(COMP / "mu_jackknife_summary.json")
+
+    # ---------- nu resolution and power ----------
+    def test_resolution_asymmetry_is_reported(self):
+        t = self.pw["tie_structure"]
+        self.assertEqual(t["nu"]["n_distinct"], 21)
+        self.assertEqual(t["log_mu"]["n_distinct"], 59)
+        self.assertEqual(t["nu"]["largest_tied_group"], 13)
+        self.assertIn("21 of 59 codons carry distinct ν values", self.flat)
+        self.assertIn("largest tied group spanning 13", self.flat)
+
+    def test_mu_effect_exceeds_the_nu_detection_floor(self):
+        c = self.pw["minimum_detectable_effect"]["comparison"]
+        self.assertTrue(c["mu_effect_exceeds_nu_floor"],
+                        "if this fails, the Result 4 contrast is a resolution "
+                        "artifact and must be withdrawn")
+        self.assertAlmostEqual(c["mu_observed_pct_below_null"], 37.4, delta=0.5)
+        self.assertAlmostEqual(c["nu_detection_floor_pct_below_null"], 19.6,
+                               delta=0.5)
+        self.assertAlmostEqual(c["margin_percentage_points"], 17.8, delta=0.6)
+        self.assertIn("37.4% below its null mean", self.flat)
+        self.assertIn("19.6% below its", self.flat)
+        self.assertIn("17.8", self.flat)
+
+    def test_the_subset_power_limit_is_conceded(self):
+        """the floor assumes a uniform effect; the paper must say so."""
+        self.assertIsNone(self.pw["s_at_80_percent_power"],
+                          "80% power was reached; update the concession")
+        self.assertIn("uniformly across amino acids", self.flat)
+        self.assertIn("is not excluded", self.flat)
+        # the blanket claim must not be asserted anywhere
+        self.assertNotIn("no structure on the supply axis at all", self.flat.lower())
+        self.assertIn("narrower than a blanket absence", self.flat)
+
+    def test_nu_p_values_are_labelled_descriptive(self):
+        self.assertIn("descriptive rather than evidential", self.flat)
+        self.assertIn("would be ≈0.68", self.flat)
+
+    # ---------- mu leverage and detectability ----------
+    def test_jackknife_survives_every_deletion(self):
+        j = self.jk["jackknife"]
+        self.assertTrue(j["all_remain_significant"])
+        self.assertEqual(j["n_significant"], 59)
+        self.assertEqual(j["n_total"], 59)
+        self.assertIn("59 of 59 deletions", self.flat)
+
+    def test_CCC_does_not_carry_the_result(self):
+        j = self.jk["jackknife"]
+        self.assertLess(j["p_without_CCC"], 0.05)
+        self.assertAlmostEqual(j["z_without_CCC"], -3.67, delta=0.1)
+        self.assertIn("z = −3.67", self.flat)
+        # and the span must be reported both ways
+        self.assertAlmostEqual(self.jk["mu_span_fold_without_CCC"], 286, delta=2)
+        self.assertIn("286-fold", self.flat)
+
+    def test_detectability_confound_is_disclosed_with_numbers(self):
+        d = self.jk["detectability"]
+        self.assertAlmostEqual(d["spearman_depth_vs_log_mu"], -0.366, delta=0.01)
+        self.assertAlmostEqual(d["eta2_between_aa_sampling_depth"], 0.560,
+                               delta=0.005)
+        # the damaging comparison: depth carries as much AA structure as mu
+        self.assertAlmostEqual(d["eta2_between_aa_sampling_depth"],
+                               d["eta2_between_aa_log_mu"], delta=0.02)
+        self.assertIn("η² = 0.560 between amino acids for depth against 0.556",
+                      self.flat)
+        self.assertIn("cannot be separated from amino-acid-level structure in "
+                      "detectability", self.flat)
+        # and it must be conceded in Limitations, not only in Results
+        lim = flat(section("### Limitations"))
+        self.assertIn("detectability", lim)
+
+    def test_clustering_survives_dropping_thin_codons(self):
+        thin = {r["drop_below_percentile"]: r
+                for r in self.jk["detectability"]["depth_sensitivity"]}
+        self.assertLess(thin[25]["p"], 0.05)
+        self.assertIn("z = −2.85, p = 0.007", self.flat)
+
+
 class TablesAgreeWithData(unittest.TestCase):
     """
     the generated tables must match data/computed/, and the manuscript must
@@ -821,9 +918,9 @@ class TablesAgreeWithData(unittest.TestCase):
 
     def test_manuscript_cites_the_tables(self):
         text = manuscript()
-        for label in ("Table 1", "Table 2", "Table 3", "Table 4", "Table 5", "Table 6", "Table 7",
+        for label in ("Table 1", "Table 2", "Table 3", "Table 4", "Table 5", "Table 7",
                       "Table S1", "Table S2", "Table S3", "Table S4",
-                      "Table S5", "Table S6"):
+                      "Table S5", "Table S6", "Table S7", "Table S8"):
             self.assertIn(label, text, f"manuscript never refers to {label}")
 
     def test_removed_result_tables_are_marked_as_removed(self):

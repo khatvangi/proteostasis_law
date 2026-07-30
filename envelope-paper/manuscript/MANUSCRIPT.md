@@ -38,13 +38,15 @@ burden state exists. We then ask where the envelope's edge lies relative to
 observed translation. Two routes bound the maximum tolerable per-codon
 mistranslation rate — a combinatorial bound integrated over the E. coli proteome
 and a two-pool dynamical bound whose closure mechanism is aggregation-death — and
-in a paired Monte Carlo they agree to within a median factor of 3.1, with the
-arithmetic bound tighter in 76.8% of draws. Both sit one to two orders of
+in a paired Monte Carlo their medians differ by a factor of 3.1 (the median of the
+paired ratio is 3.0), with the arithmetic bound tighter in 76.8% of draws. Both sit one to two orders of
 magnitude above the observed E. coli rate of ~10⁻⁴–10⁻³ per codon. Evaluated at
 the usage-weighted mean error rate implied by our own μ data (6.3 × 10⁻⁴ per
 codon), the two-pool system rests on its low-burden branch with ×25 headroom to
-collapse — ×4.6–×25 across defensible chaperone parameterizations, rather than the
-×158 previously quoted by evaluating at the bottom of the observed window.
+collapse if the whole chaperone pool is available to damaged protein, and
+×1.9–×25 once that availability is treated as the free parameter it is — rather
+than the ×158 previously quoted by evaluating at the bottom of the observed
+window.
 Within that margin, we find that the genetic code is strongly organized on the
 error axis — synonymous codons cluster in mistranslation rate far more tightly
 than permutation nulls (z = −3.56, p = 0.0010), with 56% of the variance in
@@ -253,8 +255,10 @@ Over 5,000 paired draws (Table 2, Fig. 3a,b):
 | Median paired ratio `r = f_arith / f_ODE` | 0.334 |
 | P(arithmetic is the tighter bound) | **0.768** |
 
-The two agree to within a median factor of three, with the arithmetic bound
-tighter in roughly three draws out of four and fully overlapping 95% intervals.
+The two agree to within a factor of about three — the ratio of medians is 3.10 and
+the median of the paired ratio is 3.00, which we distinguish because they are
+different statistics — with the arithmetic bound tighter in roughly three draws out
+of four and fully overlapping 95% intervals.
 For two arguments built on different logic — combinatorial accounting versus
 aggregation dynamics — agreement at this resolution is the substantive claim; the
 point estimates are order-of-magnitude statements on literature-anchored
@@ -264,7 +268,7 @@ parameters, not organism-fitted values.
 
 Both bounds lie above the observed E. coli mistranslation rate of ~10⁻⁴–10⁻³ per
 codon [1,2]. How far above depends on two choices that must be made explicitly,
-because the answer moves by more than an order of magnitude across them (Table 6,
+because the answer moves by more than an order of magnitude across them (Table 7,
 Fig. 3c).
 
 The first is **where in the observed window to evaluate the model**. Weighting the
@@ -301,21 +305,21 @@ exponentially growing E. coli — would collapse this range to a point, and woul
 decide whether E. coli already sits inside the regime where burden and capacity
 perturbations compound. If θ ≥ 0.90, it does.
 
-Crossing the evaluation point against six coarse chaperone anchorings (Table 6;
-Table 7 replaces these with the principled θ axis):
+Evaluated across the observed window at the published anchoring
+(θ = 0, Table 7):
 
-| Evaluated at | As published | Range over six chaperone anchorings |
-|---|---|---|
-| 10⁻⁴ (window bottom) | ×158 | ×40 – ×158 |
-| **6.3 × 10⁻⁴ (usage-weighted μ)** | **×25** | **×4.6 – ×25** |
-| 1.1 × 10⁻³ (unweighted mean) | ×14 | ×1.4 – ×14 |
-| 10⁻³ (window top) | ×16 | ×2.1 – ×16 |
+| Evaluated at | Headroom |
+|---|---|
+| 10⁻⁴ (window bottom) | ×158 |
+| **6.3 × 10⁻⁴ (usage-weighted μ)** | **×25** |
+| 1.1 × 10⁻³ (unweighted mean) | ×14 |
+| 10⁻³ (window top) | ×16 |
 
 The defensible statement is therefore that extant translation operates **roughly
 one order of magnitude inside the envelope** — about 1.4 orders (×25) at the
-internally consistent evaluation point, and as little as ×4.6 if the chaperone
-network is anchored at capacity. "Roughly two orders" holds only at the most
-favourable corner of the grid.
+internally consistent evaluation point with full chaperone availability, and as
+little as ×1.9 once availability is varied over the documented parameter ranges
+(Table 7). "Roughly two orders" holds only at the window bottom.
 
 This matters for more than accuracy. A margin of ×25 rather than the ×158 quoted
 previously places E. coli close to, rather than far from, the regime in which
@@ -341,7 +345,11 @@ the **operational spread** Δ_A, the mean pairwise distance among its synonyms i
 standardized coordinates, and compared the mean over amino acids against 10,000
 permutation nulls (Methods). Per-codon coordinates are in Table S1, per-amino-acid
 spreads in Table S2, and the full test grid — both axes, both null models, both
-μ summary statistics — in Table 3.
+μ summary statistics — in Table 3. Table 3 also lists the combined (μ, ν) space
+for completeness; we do not interpret it, because Δ in that space is a weighted
+mixture of a signal axis and a null axis and its value moves with the mixing
+weights rather than with anything biological. Its one non-significant cell
+(2D/median/full shuffle, p = 0.079) reflects that arbitrariness, not a finding.
 
 On the **error axis**, synonymous codons cluster far more tightly than either null
 (Fig. 2a): z = −3.56, p = 0.0010 against a within-degeneracy permutation, and
@@ -351,15 +359,72 @@ p = 0.0064), which matters because the underlying per-codon distributions are
 strongly right-skewed.
 
 On the **supply axis** there is no detectable structure at all (Fig. 2b):
-z = −0.06, p = 0.45 (within-degeneracy) and z = +0.47, p = 0.32 (full shuffle).
-The observed spread is within a twentieth of a standard deviation of the null
-mean.
+z = −0.06 (within-degeneracy) and z = +0.47 (full shuffle). The observed spread is
+within a twentieth of a standard deviation of the null mean under the first null,
+and half a standard deviation *above* it under the second. The quoted p-values
+(0.45 and 0.32) are one-sided in whichever direction the statistic happened to
+fall, so they are descriptive rather than evidential: tested in the hypothesised
+direction — clustering — the full-shuffle value would be ≈0.68. We report them
+only to show the statistic sits in the body of its null, and rest the ν claim on
+the power analysis below rather than on a p-value.
 
 The descriptive form of the μ result is a variance decomposition (Fig. 2c):
 **56% of the variance in log μ sits between amino acids rather than within them**
 (η² = 0.556, F = 3.02, p = 0.0019, 59 codons in 18 amino acids). Synonyms of one
 amino acid tend to be decoded with similar error rates; different amino acids
 differ substantially.
+
+**Is the supply-axis null just an unpowered test?** The two axes are not equally
+well resolved, and this matters. ν is tAI derived from integer tRNA gene copy
+numbers and is heavily tied: only **21 of 59 codons carry distinct ν values**
+(36%), with the largest tied group spanning 13 codons, whereas all 59 log μ values
+are distinct. Coarse measurement attenuates real structure toward the null, so the
+ν result cannot be reported as an absence without saying what the test could have
+seen (Table S7).
+
+We therefore computed the minimum detectable effect on each axis by shrinking
+within-amino-acid deviations by a factor s and asking how weak a true clustering
+the permutation test still rejects. On ν the test rejects once synonym spread is
+tightened by 35% (s ≤ 0.65; z = −1.94, p = 0.037), which places it 19.6% below its
+null mean. **μ's observed clustering sits 37.4% below its null mean** — 17.8
+percentage points beyond the ν axis's detection floor. An effect of μ's magnitude,
+had it been present on ν, would have been detected.
+
+That defends the contrast, with one boundary stated explicitly. The floor above
+assumes an effect present across all amino acids. Under a harsher model in which
+the clustering is confined to a random half of them, power reaches only 0.53 at a
+60% tightening and 0.75 at 80%, and never attains 0.80 on our grid. The defensible
+claim is therefore narrower than a blanket absence of structure: whatever
+produces the μ structure does not operate on ν *uniformly across amino acids* at a
+magnitude comparable to μ's. A ν effect confined to a subset of amino acids is not
+excluded by these data.
+
+**Is the μ clustering carried by a few codons, or by detectability?** Two
+robustness checks, one reassuring and one not (Table S8).
+
+The clustering is not leverage. A leave-one-codon-out jackknife leaves it
+significant in **59 of 59 deletions** (z from −3.86 to −2.62). Dropping CCC — the
+2.0 × 10⁻² maximum that sets the 613-fold span single-handed, and gives Pro the
+largest Δ(μ) of any amino acid — leaves z = −3.67, p = 0.0010, marginally stronger
+than the full set. We note that the 613-fold span itself falls to 286-fold without
+CCC, and report both. The most influential codons are the two Cys codons, whose
+removal weakens z to −2.62; the result survives.
+
+Detectability is a real and unresolved confound. Landerer's per-codon μ is a mean
+over *detected* substitutions, and detection probability varies with amino acid
+through ionization efficiency, mass-shift resolvability and peptide abundance —
+which manufactures amino-acid-level structure with no biological content, and
+predicts exactly the pattern we observe. The exposure is quantifiable and it is
+not small. Per-codon sampling depth ranges from 1 to 16 detected substitutions
+(median 10), depth is inversely related to μ (Spearman ρ = −0.37, p = 0.004), and
+critically, **sampling depth carries as much amino-acid-level structure as μ
+itself**: η² = 0.560 between amino acids for depth against 0.556 for log μ. The
+clustering does survive dropping the most thinly sampled quartile of codons
+(z = −2.85, p = 0.007), so it is not purely an artifact of the sparsest
+measurements. But with these data the amino-acid-level structure in μ cannot be
+separated from amino-acid-level structure in detectability. Result 4's μ finding
+should be read as a property of the measured error landscape, whose biological
+and instrumental components we cannot disentangle here.
 
 **What this test can and cannot show.** The permutation null asks whether
 reassigning μ values across amino acids would loosen within-amino-acid spread. If
@@ -370,8 +435,10 @@ misreading are largely set by which amino acid it encodes, so synonyms share muc
 of their error spectrum by biochemistry. The test therefore establishes that the
 error axis *is* organized at the amino-acid level, and quantifies how strongly.
 It does not establish that the code was selected to produce that organization,
-and we do not claim it was. The contrast with the supply axis is the more robust
-observation: whatever produces the μ structure does not operate on ν.
+and we do not claim it was. The contrast with the supply axis is
+the more robust observation, within the bound established above: whatever produces
+the μ structure does not operate on ν uniformly across amino acids at comparable
+magnitude.
 
 ### Result 5 — The distinguishing prediction holds in the model, and E. coli sits where it bites
 
@@ -446,8 +513,9 @@ presenting the framework as established.
 The quantitative payoff is Result 3. Two arguments with different logic converge
 on a bound roughly one order of magnitude above where E. coli actually operates
 (Result 3). That margin is the framework's most useful output — not because it is
-large, but because it is small enough to matter: at ×25, and as little as ×4.6 if
-the chaperone network is anchored at capacity, E. coli sits near the margin at
+large, but because it is small enough to matter: at ×25, and as little as ×1.9 once
+chaperone availability is varied over its documented ranges, E. coli sits at or
+past the margin at
 which burden-stage perturbations stop combining additively (Result 5).
 
 ### Two results removed from this paper
@@ -533,7 +601,18 @@ that represented nascent-chain folding explicitly, rather than absorbing it into
 free parameter, is the right next refinement; on the evidence in Result 1 —
 Hsp70 buffering of production costs [4] and metastable-protein interference [21],
 both indicating limited spare capacity — we would expect it to place θ high, and
-therefore the margin low. Most importantly, the framework's distinguishing prediction —
+therefore the margin low. Two limitations bear on Result 4 specifically. The supply axis is coarsely
+resolved — 21 distinct ν values across 59 codons — so while the test could have
+detected an effect of μ's magnitude applied uniformly (17.8 percentage points of
+margin), it is underpowered for an effect confined to a subset of amino acids, and
+such an effect is not excluded. And the μ clustering cannot be separated from
+mass-spectrometry detectability: per-codon sampling depth carries essentially the
+same amino-acid-level structure as μ (η² = 0.560 versus 0.556), so the finding is a
+property of the measured error landscape rather than a demonstrated property of
+decoding. Resolving that needs per-codon error rates from a method whose detection
+probability does not vary with amino acid identity.
+
+Most importantly, the framework's distinguishing prediction —
 supraadditivity across burden stages — remains untested. Until it is tested this
 is a motivated framework, not an established constraint.
 
@@ -617,6 +696,19 @@ the value pool within each degeneracy class. The **full shuffle** permutes value
 across all analysed codons, preserving only alphabet size. Axis-specific tests
 compute Δ on μ alone or ν alone. One-sided empirical p-values are reported in the
 observed direction with a +1 correction, so p is never reported as zero.
+
+### Power and robustness of the axis tests
+
+Minimum detectable effect: within-amino-acid deviations are shrunk toward the
+amino-acid mean by a factor s (s = 1 the observed code, s = 0 all synonyms
+identical), and the smallest tightening the permutation test rejects at α = 0.05
+is reported, expressed both as a percentage reduction in Δ and as a percentage
+below the null mean so the two axes are comparable. The chosen point is confirmed
+at 10,000 permutations. The power curve applies the shrinkage to a random half of
+amino acids to make Δ stochastic; this is a stated model, not a measurement of tAI
+error. Robustness of the μ result: a leave-one-codon-out jackknife (each subset
+restandardized), and re-tests after dropping the most thinly sampled codons by
+number of detected substitutions, taken from the Landerer supplement.
 
 ### Variance decomposition
 

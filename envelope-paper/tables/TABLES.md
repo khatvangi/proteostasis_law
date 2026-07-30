@@ -92,39 +92,6 @@ All two-bound comparisons use the **paired** Monte Carlo, in which the parameter
 
 ---
 
-## Table 6. How far inside the envelope, across two explicit choices
-
-Headroom to collapse depends on where in the observed window the model is evaluated and on how the chaperone arm is anchored. The internally consistent cell is **usage_weighted_mu x as_published** (x25); the x158 quoted in earlier drafts is **window_bottom x as_published**, the most favourable corner. `folding_arm_saturation` shows why the anchoring matters: at the published values the rescue arm is 97.9% saturated.
-
-| Evaluated at | f (/codon) | Chaperone anchoring | C_tot (µM) | K_d (µM) | Folding arm saturation | **Headroom, P pool** | Headroom, A pool | Margin (log₁₀) |
-|---|---|---|---|---|---|---|---|---|
-| window_bottom | 1.00 × 10⁻⁴ | as_published | 50 | 1 | 0.979 | ×158.1 | ×11091 | 2.20 |
-| window_bottom | 1.00 × 10⁻⁴ | weaker_binding | 50 | 10 | 0.832 | ×135.1 | ×8098 | 2.13 |
-| window_bottom | 1.00 × 10⁻⁴ | smaller_pool | 5 | 1 | 0.825 | ×104.7 | ×7956 | 2.02 |
-| window_bottom | 1.00 × 10⁻⁴ | near_capacity | 2 | 1 | 0.650 | ×61.5 | ×5033 | 1.79 |
-| window_bottom | 1.00 × 10⁻⁴ | c_free_at_Kd | 1 | 1 | 0.475 | ×39.7 | ×2780 | 1.60 |
-| window_bottom | 1.00 × 10⁻⁴ | Kd_at_C_tot | 50 | 50 | 0.500 | ×82.9 | ×3053 | 1.92 |
-| usage_weighted_mu | 6.33 × 10⁻⁴ | as_published | 50 | 1 | 0.974 | ×24.8 | ×275 | 1.39 |
-| usage_weighted_mu | 6.33 × 10⁻⁴ | weaker_binding | 50 | 10 | 0.828 | ×21.2 | ×201 | 1.33 |
-| usage_weighted_mu | 6.33 × 10⁻⁴ | smaller_pool | 5 | 1 | 0.780 | ×15.7 | ×179 | 1.19 |
-| usage_weighted_mu | 6.33 × 10⁻⁴ | near_capacity | 2 | 1 | 0.561 | ×8.4 | ×96 | 0.93 |
-| usage_weighted_mu | 6.33 × 10⁻⁴ | c_free_at_Kd | 1 | 1 | 0.346 | ×4.6 | ×39 | 0.67 |
-| usage_weighted_mu | 6.33 × 10⁻⁴ | Kd_at_C_tot | 50 | 50 | 0.497 | ×13.0 | ×76 | 1.11 |
-| unweighted_mean_mu | 1.14 × 10⁻³ | as_published | 50 | 1 | 0.969 | ×13.7 | ×85 | 1.14 |
-| unweighted_mean_mu | 1.14 × 10⁻³ | weaker_binding | 50 | 10 | 0.824 | ×11.7 | ×62 | 1.07 |
-| unweighted_mean_mu | 1.14 × 10⁻³ | smaller_pool | 5 | 1 | 0.738 | ×8.2 | ×51 | 0.92 |
-| unweighted_mean_mu | 1.14 × 10⁻³ | near_capacity | 2 | 1 | 0.478 | ×4.0 | ×22 | 0.60 |
-| unweighted_mean_mu | 1.14 × 10⁻³ | c_free_at_Kd | 1 | 1 | 0.205 | ×1.4 | ×5 | 0.16 |
-| unweighted_mean_mu | 1.14 × 10⁻³ | Kd_at_C_tot | 50 | 50 | 0.494 | ×7.2 | ×24 | 0.85 |
-| window_top | 1.00 × 10⁻³ | as_published | 50 | 1 | 0.970 | ×15.7 | ×110 | 1.19 |
-| window_top | 1.00 × 10⁻³ | weaker_binding | 50 | 10 | 0.825 | ×13.4 | ×81 | 1.13 |
-| window_top | 1.00 × 10⁻³ | smaller_pool | 5 | 1 | 0.749 | ×9.5 | ×67 | 0.98 |
-| window_top | 1.00 × 10⁻³ | near_capacity | 2 | 1 | 0.501 | ×4.8 | ×31 | 0.68 |
-| window_top | 1.00 × 10⁻³ | c_free_at_Kd | 1 | 1 | 0.253 | ×2.1 | ×9 | 0.32 |
-| window_top | 1.00 × 10⁻³ | Kd_at_C_tot | 50 | 50 | 0.495 | ×8.2 | ×31 | 0.91 |
-
----
-
 ## Table 7. Headroom against chaperone availability
 
 The model gives the whole chaperone pool to the damaged-protein pool because it does not represent nascent-chain folding. `theta` makes that assumption explicit: `C_avail = C_tot(1 - theta)`. `C_tot` (30-80 µM) and `K_d` (0.06-2 µM) are swept over their **documented** ranges; **theta is not measured** and is not estimated here. Shown at K_d = 1 µM; the full grid is in the TSV. theta = 0 is the assumption earlier drafts made implicitly.
@@ -326,4 +293,99 @@ At the observed operating point the folding arm is 97.9% saturated (47.5 µM fre
 | C_tot | 1.00 × 10⁻³ | 1.19 | 0.0250 | 0.4915 | +4.1% |  |
 | C_tot | 2.00 × 10⁻³ | 0.89 | 0.0347 | 0.5305 | +14.7% |  |
 | C_tot | 5.00 × 10⁻³ | 0.46 | nan | nan | — | yes |
+
+## Table S7. What the axis tests could have detected
+
+Within-amino-acid deviations are shrunk by a factor `s` (s = 1 the observed code, s = 0 all synonyms identical) and the permutation test re-run. `pct_below_null` makes the two axes comparable. The ν axis rejects only once spread is tightened by 35% (19.6% below null); μ's own clustering sits 37.4% below its null, so an effect of μ's size would have been seen on ν. See also `nu_power_curve.tsv` for the subset-model power curve.
+
+| Axis | s | Δ | Null mean | z | p | Rejects | Δ reduction | % below null |
+|---|---|---|---|---|---|---|---|---|
+| nu | 1.00 | 0.2283 | 0.2295 | -0.05 | 0.4543 |  | 0% | 0.5% |
+| nu | 0.95 | 0.2169 | 0.2227 | -0.27 | 0.3698 |  | 5% | 2.6% |
+| nu | 0.90 | 0.2055 | 0.2162 | -0.51 | 0.2919 |  | 10% | 4.9% |
+| nu | 0.85 | 0.1941 | 0.2096 | -0.77 | 0.2274 |  | 15% | 7.4% |
+| nu | 0.80 | 0.1827 | 0.2032 | -1.03 | 0.1574 |  | 20% | 10.1% |
+| nu | 0.75 | 0.1712 | 0.1968 | -1.31 | 0.1064 |  | 25% | 13.0% |
+| nu | 0.70 | 0.1598 | 0.1906 | -1.60 | 0.0705 |  | 30% | 16.1% |
+| nu | 0.65 | 0.1484 | 0.1845 | -1.90 | 0.0370 | yes | 35% | 19.6% |
+| nu | 0.60 | 0.1370 | 0.1787 | -2.22 | 0.0160 | yes | 40% | 23.3% |
+| nu | 0.55 | 0.1256 | 0.1732 | -2.57 | 0.0075 | yes | 45% | 27.5% |
+| nu | 0.50 | 0.1142 | 0.1680 | -2.94 | 0.0030 | yes | 50% | 32.0% |
+| mu | 1.00 | 0.8410 | 1.3435 | -3.54 | 0.0010 | yes | 0% | 37.4% |
+| mu | 0.95 | 0.7989 | 1.3183 | -3.69 | 0.0010 | yes | 5% | 39.4% |
+| mu | 0.90 | 0.7569 | 1.2942 | -3.85 | 0.0005 | yes | 10% | 41.5% |
+| mu | 0.85 | 0.7148 | 1.2709 | -4.01 | 0.0005 | yes | 15% | 43.8% |
+| mu | 0.80 | 0.6728 | 1.2482 | -4.18 | 0.0005 | yes | 20% | 46.1% |
+| mu | 0.75 | 0.6307 | 1.2264 | -4.35 | 0.0005 | yes | 25% | 48.6% |
+| mu | 0.70 | 0.5887 | 1.2059 | -4.53 | 0.0005 | yes | 30% | 51.2% |
+| mu | 0.65 | 0.5466 | 1.1866 | -4.72 | 0.0005 | yes | 35% | 53.9% |
+| mu | 0.60 | 0.5046 | 1.1683 | -4.92 | 0.0005 | yes | 40% | 56.8% |
+| mu | 0.55 | 0.4625 | 1.1509 | -5.12 | 0.0005 | yes | 45% | 59.8% |
+| mu | 0.50 | 0.4205 | 1.1345 | -5.33 | 0.0005 | yes | 50% | 62.9% |
+
+## Table S8. Leave-one-codon-out jackknife on the μ axis
+
+Each row drops one codon and re-runs the within-degeneracy permutation test (each subset restandardized). The clustering survives every single deletion, including CCC — the 2.0 × 10⁻² maximum that sets the 613-fold span on its own. Ordered from strongest to weakest z.
+
+| Codon dropped | AA | its μ | z | p | n codons |
+|---|---|---|---|---|---|
+| ATA | I | 8.26 × 10⁻⁴ | -3.86 | 0.0005 | 58 |
+| CAA | Q | 4.53 × 10⁻⁴ | -3.72 | 0.0005 | 57 |
+| CAG | Q | 1.15 × 10⁻⁴ | -3.72 | 0.0005 | 57 |
+| TAC | Y | 1.05 × 10⁻³ | -3.68 | 0.0005 | 57 |
+| TAT | Y | 2.98 × 10⁻⁴ | -3.68 | 0.0005 | 57 |
+| CCC | P | 2.03 × 10⁻² | -3.67 | 0.0010 | 58 |
+| AAA | K | 1.47 × 10⁻⁴ | -3.61 | 0.0010 | 57 |
+| AAG | K | 3.92 × 10⁻⁴ | -3.61 | 0.0010 | 57 |
+| GAA | E | 3.09 × 10⁻⁴ | -3.59 | 0.0010 | 57 |
+| GAG | E | 1.18 × 10⁻⁴ | -3.59 | 0.0010 | 57 |
+| CTA | L | 4.69 × 10⁻⁴ | -3.56 | 0.0007 | 58 |
+| TTA | L | 3.58 × 10⁻⁴ | -3.56 | 0.0007 | 58 |
+| CTT | L | 1.76 × 10⁻⁴ | -3.56 | 0.0007 | 58 |
+| CTG | L | 7.56 × 10⁻⁴ | -3.56 | 0.0007 | 58 |
+| CTC | L | 1.90 × 10⁻⁴ | -3.56 | 0.0007 | 58 |
+| TTG | L | 3.22 × 10⁻⁴ | -3.56 | 0.0007 | 58 |
+| GGG | G | 5.67 × 10⁻⁴ | -3.54 | 0.0020 | 58 |
+| GGC | G | 2.35 × 10⁻⁴ | -3.54 | 0.0015 | 58 |
+| TCT | S | 2.16 × 10⁻⁴ | -3.54 | 0.0010 | 58 |
+| AGC | S | 6.55 × 10⁻⁴ | -3.54 | 0.0010 | 58 |
+| TCA | S | 1.01 × 10⁻⁴ | -3.54 | 0.0010 | 58 |
+| AGT | S | 7.99 × 10⁻⁴ | -3.54 | 0.0010 | 58 |
+| TCG | S | 1.69 × 10⁻⁴ | -3.54 | 0.0010 | 58 |
+| TCC | S | 1.33 × 10⁻⁴ | -3.54 | 0.0010 | 58 |
+| GCC | A | 3.18 × 10⁻⁴ | -3.53 | 0.0017 | 58 |
+| GGT | G | 2.67 × 10⁻⁴ | -3.53 | 0.0017 | 58 |
+| GCG | A | 2.13 × 10⁻⁴ | -3.53 | 0.0017 | 58 |
+| ACA | T | 2.71 × 10⁻⁴ | -3.52 | 0.0010 | 58 |
+| GCA | A | 2.40 × 10⁻⁴ | -3.51 | 0.0017 | 58 |
+| ACT | T | 2.61 × 10⁻⁴ | -3.51 | 0.0012 | 58 |
+| GCT | A | 2.63 × 10⁻⁴ | -3.51 | 0.0020 | 58 |
+| GGA | G | 4.12 × 10⁻⁴ | -3.50 | 0.0017 | 58 |
+| ACC | T | 1.84 × 10⁻⁴ | -3.49 | 0.0012 | 58 |
+| ACG | T | 1.85 × 10⁻⁴ | -3.49 | 0.0012 | 58 |
+| ATT | I | 2.10 × 10⁻⁴ | -3.49 | 0.0005 | 58 |
+| GTC | V | 3.38 × 10⁻⁴ | -3.49 | 0.0020 | 58 |
+| TTT | F | 2.63 × 10⁻⁴ | -3.48 | 0.0010 | 57 |
+| TTC | F | 4.78 × 10⁻⁴ | -3.48 | 0.0010 | 57 |
+| CCA | P | 2.47 × 10⁻⁴ | -3.48 | 0.0015 | 58 |
+| CCG | P | 1.75 × 10⁻⁴ | -3.46 | 0.0017 | 58 |
+| CCT | P | 1.64 × 10⁻⁴ | -3.46 | 0.0017 | 58 |
+| ATC | I | 2.42 × 10⁻⁴ | -3.44 | 0.0005 | 58 |
+| AAC | N | 4.34 × 10⁻⁴ | -3.42 | 0.0010 | 57 |
+| AAT | N | 2.75 × 10⁻⁴ | -3.42 | 0.0010 | 57 |
+| GTG | V | 4.58 × 10⁻⁴ | -3.42 | 0.0022 | 58 |
+| AGG | R | 6.28 × 10⁻³ | -3.40 | 0.0010 | 58 |
+| CGA | R | 1.03 × 10⁻³ | -3.40 | 0.0010 | 58 |
+| CGC | R | 1.05 × 10⁻³ | -3.40 | 0.0010 | 58 |
+| CGG | R | 1.16 × 10⁻³ | -3.40 | 0.0010 | 58 |
+| CGT | R | 1.75 × 10⁻⁴ | -3.40 | 0.0010 | 58 |
+| AGA | R | 5.37 × 10⁻⁴ | -3.40 | 0.0010 | 58 |
+| GTT | V | 1.06 × 10⁻³ | -3.35 | 0.0022 | 58 |
+| GTA | V | 1.33 × 10⁻³ | -3.35 | 0.0020 | 58 |
+| CAT | H | 1.78 × 10⁻³ | -3.16 | 0.0080 | 57 |
+| CAC | H | 1.95 × 10⁻³ | -3.16 | 0.0080 | 57 |
+| GAC | D | 6.70 × 10⁻⁵ | -2.86 | 0.0042 | 57 |
+| GAT | D | 3.32 × 10⁻⁵ | -2.86 | 0.0042 | 57 |
+| TGT | C | 9.47 × 10⁻³ | -2.62 | 0.0100 | 57 |
+| TGC | C | 5.81 × 10⁻³ | -2.62 | 0.0100 | 57 |
 
