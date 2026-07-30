@@ -36,7 +36,8 @@ STEPS = [
     ("14_mu_jackknife.py", [], "mu jackknife and detectability exposure", True),
     ("05_fig3_bounds.py", [], "Fig 3  bounds and headroom sensitivity", False),
     ("10_fig4_supraadditivity.py", [], "Fig 4  supraadditivity", False),
-    ("08_make_tables.py", [], "Tables 1-5, 7 and S1-S9", False),
+    ("08_make_tables.py", [], "Tables 1-5 and S1-S7", False),
+    ("15_build_paper.py", [], "assemble PAPER.md / .html / .pdf / .docx", False),
 ]
 
 

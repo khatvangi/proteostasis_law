@@ -1,3 +1,0 @@
-vector	rho_tai_vs_delta_usage	p_delta	rho_tai_vs_usage_all_genes	rho_tai_vs_usage_ribosomal	n_aa_where_high_tai_synonym_gains	p_sign_test	verdict
-reference (R tAI package, E. coli K-12)	0.3118	0.0153	0.4918	0.5674	15/18	0.00377	PASS
-CORRUPT (codon-deployment/data/computed)	0.3167	0.0137	0.2887	0.4511	12/18	0.119	FAIL

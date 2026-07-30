@@ -2,22 +2,40 @@
 """
 generate the paper's tables from data/computed/.
 
-emits, into ../tables/:
-  Table1_burden_terms.tsv          burden terms and their flux operationalization
-  Table2_bounds.tsv                bounds on the tolerable per-codon error rate
-  Table3_axis_tests.tsv            permutation tests on both axes, both mu stats
-  Table4_metal_site_backgrounds.tsv  the removed metal-site result, both backgrounds
-  TableS1_codon_coordinates.tsv    per-codon (mu, nu) and standardized coordinates
-  TableS2_delta_per_aa.tsv         per-amino-acid operational spread
-  TableS3_tai_validation.tsv       the nu-axis validation, both candidate vectors
-  TableS4_crossspecies.tsv         the removed cross-species result
-  TABLES.md                        all of the above, formatted for reading
+table numbering follows manuscript_v2_draft.md, in which the two excluded
+analyses are no longer paper tables:
+
+  Table 1   burden terms and their flux operationalization
+  Table 2   bounds on the tolerable per-codon error rate (+ 2b, derived stats)
+  Table 3   headroom against chaperone availability theta
+  Table 4   supraadditivity against starting margin
+  Table 5   permutation tests on the operational axes
+  Table S1  per-codon (mu, nu) coordinates
+  Table S2  per-amino-acid operational spread
+  Table S3  validation of the nu axis
+  Table S4  supraadditivity effect-size grid at the operating point
+  Table S5  the two capacity knobs are not equivalent
+  Table S6  what the axis tests could have detected
+  Table S7  leave-one-codon-out jackknife on the mu axis
+
+plus three files that are NOT paper tables and are named so they cannot be
+mistaken for one: the two excluded analyses, and the retired anchoring grid that
+Table 3 supersedes.
+
+the functions below are named for their CONTENT, not their table number. the
+number appears exactly once, in OUTPUTS, so renumbering cannot leave a function
+called table7() emitting Table 3.
 
 the TSVs carry full precision for deposition; TABLES.md carries the rounded,
 typeset values. numbers in TABLES.md are formatted the same way as in the
 manuscript so that tests/ can check the two against each other -- drift between
 a generated table and the manuscript text is exactly the failure mode that sank
 the previous draft.
+
+every descriptive number in a TABLES.md caption is interpolated from the data,
+not typed. captions went stale twice: they still quoted the window-bottom
+saturation triple (97.9% / 47.5 uM / 0.052 uM) and "f = 1e-4" after the
+manuscript had corrected both.
 """
 import json
 from pathlib import Path
@@ -50,8 +68,8 @@ def load_json(name):
     return json.loads((COMP / name).read_text())
 
 
-# --------------------------------------------------------------------------
-def table1():
+# ---------------------------------------------------------------- main tables
+def burden_terms():
     """the burden decomposition. static by design -- it defines the vocabulary."""
     rows = [
         ("B_error", "decoding ambiguity / mistranslation burden",
@@ -72,7 +90,7 @@ def table1():
     return pd.DataFrame(rows, columns=["term", "meaning", "flux_operationalization"])
 
 
-def table2():
+def bounds():
     """bounds on the maximum tolerable per-codon mistranslation rate."""
     b = load_json("bounds_summary.json")
     h = load_json("headroom_sensitivity_summary.json")
@@ -81,11 +99,11 @@ def table2():
         {"quantity": "Observed E. coli mistranslation rate",
          "value_per_codon": np.nan, "ci_low": lo, "ci_high": hi,
          "basis": "literature consensus"},
-        {"quantity": "Arithmetic bound, deterministic reference point",
+        {"quantity": "Combinatorial bound, deterministic reference point",
          "value_per_codon": b["arithmetic_deterministic"],
          "ci_low": np.nan, "ci_high": np.nan,
          "basis": "N=300, P_correct=0.7, p_misfold=0.3, S_syn=0.3"},
-        {"quantity": "Arithmetic bound, paired MC median",
+        {"quantity": "Combinatorial bound, paired MC median",
          "value_per_codon": b["arithmetic_paired_median"],
          "ci_low": b["arithmetic_paired_ci95"][0],
          "ci_high": b["arithmetic_paired_ci95"][1],
@@ -103,11 +121,11 @@ def table2():
     df = pd.DataFrame(rows)
 
     stats = pd.DataFrame([
-        {"statistic": "ODE / arithmetic at the paired median",
+        {"statistic": "ODE / combinatorial at the paired median",
          "value": b["ode_over_arith_at_median"], "unit": "ratio"},
         {"statistic": "Median paired ratio r = f_arith / f_ODE",
          "value": b["paired_median_ratio_arith_over_ode"], "unit": "ratio"},
-        {"statistic": "P(arithmetic is the tighter bound)",
+        {"statistic": "P(combinatorial is the tighter bound)",
          "value": b["paired_P_arith_tighter"], "unit": "probability"},
         {"statistic": "Draws closed by aggregation-death, not monomer runaway",
          "value": b["mechanism_frac_aggregation_death"], "unit": "fraction"},
@@ -116,14 +134,31 @@ def table2():
          "value": h["internally_consistent_headroom_P"], "unit": "fold"},
         {"statistic": "Headroom, aggregated pool, at the same rate",
          "value": h["internally_consistent_headroom_A"], "unit": "fold"},
-        {"statistic": "Headroom at f = 10\u207b\u2074 (window bottom; quoted in "
+        {"statistic": "Headroom at f = 10⁻⁴ (window bottom; quoted in "
                       "earlier drafts, not used here)",
          "value": b["headroom_P_at_window_bottom"], "unit": "fold"},
     ])
     return df, stats
 
 
-def table3():
+def chaperone_availability():
+    """headroom vs chaperone availability theta, over documented C_tot / K_d."""
+    return pd.read_csv(COMP / "chaperone_availability.tsv", sep="\t")[
+        ["C_tot_uM", "K_d_uM", "theta", "C_avail_uM", "c_free_uM",
+         "folding_arm_saturation", "headroom_P", "margin_log10", "collapsed"]]
+
+
+def supraadditivity_margin():
+    """the supraadditivity test: interaction vs remaining margin."""
+    df = pd.read_csv(COMP / "supraadditivity_margin_sweep.tsv", sep="\t")
+    df["additive_expectation"] = df.D_error + df.D_capacity
+    return df[["f_base", "margin_baseline", "error_factor", "capacity_factor",
+               "D_error", "D_capacity", "additive_expectation", "D_both",
+               "interaction", "interaction_pct_of_additive",
+               "collapsed_both", "qualitative_supraadditive"]]
+
+
+def axis_tests():
     """permutation tests on both axes, under both mu summary statistics."""
     frames = []
     for stat, fname in (("mean", "axis_tests.tsv"),
@@ -157,90 +192,57 @@ def table3():
     return df
 
 
-def table4():
-    """the removed metal-site result under both backgrounds."""
-    df = pd.read_csv(COMP / "removed_metal_site_test.tsv", sep="\t")
-    aa_name = {"D": "Asp", "C": "Cys", "E": "Glu", "H": "His"}
-    df.insert(1, "amino_acid_name", df.amino_acid.map(aa_name))
-    return df.sort_values("amino_acid_name").reset_index(drop=True)
+# ------------------------------------------------------- supplementary tables
+def codon_coordinates():
+    df = pd.read_csv(COMP / "codon_axes.tsv", sep="\t")
+    return df[["codon", "aa", "degeneracy", "mu", "log_mu", "mu_z",
+               "nu_tai", "nu_z"]].sort_values(["aa", "codon"]).reset_index(drop=True)
 
 
-def table5():
-    """the supraadditivity test: interaction vs remaining margin."""
-    df = pd.read_csv(COMP / "supraadditivity_margin_sweep.tsv", sep="\t")
-    df["additive_expectation"] = df.D_error + df.D_capacity
-    return df[["f_base", "margin_baseline", "error_factor", "capacity_factor",
-               "D_error", "D_capacity", "additive_expectation", "D_both",
-               "interaction", "interaction_pct_of_additive",
-               "collapsed_both", "qualitative_supraadditive"]]
+def delta_per_aa():
+    m = pd.read_csv(COMP / "delta_per_aa.tsv", sep="\t")
+    d = pd.read_csv(COMP / "delta_per_aa_median.tsv", sep="\t")
+    out = m.merge(d[["aa", "delta_mu"]], on="aa", suffixes=("", "_mu_median"))
+    return out.rename(columns={"delta_mu_mu_median": "delta_mu_median_stat"})
 
 
-def table_s5():
+def tai_validation():
+    return pd.DataFrame(load_json("tai_validation_report.json"))
+
+
+def supraadditivity_grid():
     return pd.read_csv(COMP / "supraadditivity_effect_grid.tsv", sep="\t")[
         ["error_factor", "capacity_factor", "margin_baseline", "D_error",
          "D_capacity", "D_both", "interaction", "interaction_pct_of_additive",
          "collapsed_both", "qualitative_supraadditive"]]
 
 
-def table_s6():
+def knob_comparison():
     return pd.read_csv(COMP / "supraadditivity_knob_comparison.tsv", sep="\t")[
         ["knob", "f_base", "margin_baseline", "D_capacity", "D_error",
          "interaction", "interaction_pct_of_additive", "collapsed_both"]]
 
 
-def table_s9_retired_anchoring_grid():
-    """
-    RETIRED as a main table. this crossed the evaluation point against six ad-hoc
-    (C_tot, K_d) anchorings, but that axis is not independent of Table 7's theta:
-    `usage_weighted_mu x c_free_at_Kd` (C_tot = 1) IS `C_tot = 50, theta = 0.98`
-    (saturation 0.346, x4.6, margin 0.67), and the grid reached its low end only by
-    using C_tot = 1-2 uM, outside the documented 30-80 uM range. It is one
-    availability parameter written two ways. Kept as a supplementary cross-check
-    only; Table 7 is the principled version.
-    """
-    df = pd.read_csv(COMP / "headroom_sensitivity.tsv", sep="\t")
-    return df[["evaluation_point", "f_codon", "anchoring", "C_tot_uM", "K_d_uM",
-               "c_free_uM", "folding_arm_saturation", "P_star", "P_dagger",
-               "headroom_P", "headroom_A", "margin_log10", "collapsed"]]
-
-
-def table_s7():
+def axis_power():
     """minimum detectable effect and power on each axis."""
     return pd.read_csv(COMP / "nu_power_sweep.tsv", sep="\t")
 
 
-def table_s8():
+def mu_jackknife():
     """leave-one-codon-out jackknife on the mu axis."""
     return pd.read_csv(COMP / "mu_jackknife.tsv", sep="\t")
 
 
-def table7():
-    """headroom vs chaperone availability theta, over documented C_tot / K_d."""
-    return pd.read_csv(COMP / "chaperone_availability.tsv", sep="\t")[
-        ["C_tot_uM", "K_d_uM", "theta", "C_avail_uM", "c_free_uM",
-         "folding_arm_saturation", "headroom_P", "margin_log10", "collapsed"]]
+# ------------------------------------------- not paper tables: excluded work
+def excluded_metal_sites():
+    """the excluded metal-site result under both backgrounds."""
+    df = pd.read_csv(COMP / "removed_metal_site_test.tsv", sep="\t")
+    aa_name = {"D": "Asp", "C": "Cys", "E": "Glu", "H": "His"}
+    df.insert(1, "amino_acid_name", df.amino_acid.map(aa_name))
+    return df.sort_values("amino_acid_name").reset_index(drop=True)
 
 
-def table_s1():
-    df = pd.read_csv(COMP / "codon_axes.tsv", sep="\t")
-    return df[["codon", "aa", "degeneracy", "mu", "log_mu", "mu_z",
-               "nu_tai", "nu_z"]].sort_values(["aa", "codon"]).reset_index(drop=True)
-
-
-def table_s2():
-    m = pd.read_csv(COMP / "delta_per_aa.tsv", sep="\t")
-    d = pd.read_csv(COMP / "delta_per_aa_median.tsv", sep="\t")
-    out = m.merge(d[["aa", "delta_mu"]], on="aa",
-                  suffixes=("", "_mu_median"))
-    return out.rename(columns={"delta_mu_mu_median": "delta_mu_median_stat"})
-
-
-def table_s3():
-    rep = load_json("tai_validation_report.json")
-    return pd.DataFrame(rep)
-
-
-def table_s4():
+def excluded_crossspecies():
     s = load_json("removed_crossspecies_test.json")
     rows = []
     pub = s["published_rho_2D"]
@@ -259,6 +261,22 @@ def table_s4():
                 s["rho_nu_only_independent_canonical_tai"][comp]["p"],
         })
     return pd.DataFrame(rows)
+
+
+def retired_anchoring_grid():
+    """
+    RETIRED as a main table. this crossed the evaluation point against six ad-hoc
+    (C_tot, K_d) anchorings, but that axis is not independent of Table 3's theta:
+    `usage_weighted_mu x c_free_at_Kd` (C_tot = 1) IS `C_tot = 50, theta = 0.98`
+    (saturation 0.346, x4.6, margin 0.67), and the grid reached its low end only by
+    using C_tot = 1-2 uM, outside the documented 30-80 uM range. It is one
+    availability parameter written two ways. Kept as a repository cross-check
+    only; Table 3 is the principled version.
+    """
+    df = pd.read_csv(COMP / "headroom_sensitivity.tsv", sep="\t")
+    return df[["evaluation_point", "f_codon", "anchoring", "C_tot_uM", "K_d_uM",
+               "c_free_uM", "folding_arm_saturation", "P_star", "P_dagger",
+               "headroom_P", "headroom_A", "margin_log10", "collapsed"]]
 
 
 # --------------------------------------------------------------------------
@@ -284,41 +302,70 @@ def md_table(df, cols=None, fmt=None):
     return "\n".join(lines)
 
 
+# the one place a table number is written down
+OUTPUTS = (
+    ("Table1_burden_terms", burden_terms),
+    ("Table2_bounds", None),                       # filled in main(), returns 2 frames
+    ("Table2_bounds_statistics", None),
+    ("Table3_chaperone_availability", chaperone_availability),
+    ("Table4_supraadditivity", supraadditivity_margin),
+    ("Table5_axis_tests", axis_tests),
+    ("TableS1_codon_coordinates", codon_coordinates),
+    ("TableS2_delta_per_aa", delta_per_aa),
+    ("TableS3_tai_validation", tai_validation),
+    ("TableS4_supraadditivity_grid", supraadditivity_grid),
+    ("TableS5_capacity_knob_comparison", knob_comparison),
+    ("TableS6_axis_power", axis_power),
+    ("TableS7_mu_jackknife", mu_jackknife),
+    ("Excluded_metal_site_backgrounds", excluded_metal_sites),
+    ("Excluded_crossspecies", excluded_crossspecies),
+    ("Retired_anchoring_grid", retired_anchoring_grid),
+)
+
+# files the earlier numbering wrote. they would otherwise sit in tables/ looking
+# current, and a reader has no way to tell a stale Table 7 from a live one.
+SUPERSEDED = ("Table3_axis_tests", "Table4_metal_site_backgrounds",
+              "Table5_supraadditivity", "Table7_chaperone_availability",
+              "TableS4_crossspecies", "TableS5_supraadditivity_grid",
+              "TableS6_capacity_knob_comparison", "TableS7_axis_power",
+              "TableS8_mu_jackknife", "TableS9_retired_anchoring_grid")
+
+
 def main():
     TAB.mkdir(parents=True, exist_ok=True)
 
-    t1 = table1()
-    t2, t2s = table2()
-    t5, s5, s6 = table5(), table_s5(), table_s6()
-    t6, t7 = table_s9_retired_anchoring_grid(), table7()
-    t3 = table3()
-    t4 = table4()
-    s1, s2, s3, s4 = table_s1(), table_s2(), table_s3(), table_s4()
+    t2, t2s = bounds()
+    frames = {}
+    for name, fn in OUTPUTS:
+        frames[name] = t2 if name == "Table2_bounds" else (
+            t2s if name == "Table2_bounds_statistics" else fn())
 
-    written = {}
-    for name, df in (("Table1_burden_terms", t1),
-                     ("Table2_bounds", t2),
-                     ("Table2_bounds_statistics", t2s),
-                     ("Table3_axis_tests", t3),
-                     ("Table4_metal_site_backgrounds", t4),
-                     ("TableS1_codon_coordinates", s1),
-                     ("TableS2_delta_per_aa", s2),
-                     ("TableS3_tai_validation", s3),
-                     ("TableS4_crossspecies", s4),
-                     ("Table5_supraadditivity", t5),
-                     ("TableS5_supraadditivity_grid", s5),
-                     ("TableS6_capacity_knob_comparison", s6),
-                     ("TableS9_retired_anchoring_grid", t6),
-                     ("Table7_chaperone_availability", t7),
-                     ("TableS7_axis_power", table_s7()),
-                     ("TableS8_mu_jackknife", table_s8())):
+    for name, df in frames.items():
+        df.to_csv(TAB / f"{name}.tsv", sep="\t", index=False)
+
+    removed = []
+    for name in SUPERSEDED:
         p = TAB / f"{name}.tsv"
-        df.to_csv(p, sep="\t", index=False)
-        written[name] = len(df)
+        if p.exists():
+            p.unlink()
+            removed.append(name)
+
+    t1 = frames["Table1_burden_terms"]
+    t3 = frames["Table3_chaperone_availability"]
+    t4 = frames["Table4_supraadditivity"]
+    t5 = frames["Table5_axis_tests"]
+    s1, s2, s3 = (frames["TableS1_codon_coordinates"],
+                  frames["TableS2_delta_per_aa"],
+                  frames["TableS3_tai_validation"])
+    s4, s5 = (frames["TableS4_supraadditivity_grid"],
+              frames["TableS5_capacity_knob_comparison"])
+    s6, s7 = frames["TableS6_axis_power"], frames["TableS7_mu_jackknife"]
+    xm, xc = (frames["Excluded_metal_site_backgrounds"],
+              frames["Excluded_crossspecies"])
 
     # ---------------- TABLES.md ----------------
     # unicode minus, matching the manuscript, so tests can compare directly
-    z3 = lambda v: f"{v:+.2f}".replace("-", "\u2212")
+    z3 = lambda v: f"{v:+.2f}".replace("-", "−")
     p4 = lambda v: f"{v:.4f}"
     d4 = lambda v: f"{v:.4f}"
 
@@ -337,8 +384,8 @@ def main():
             return f"×{r.value:,.0f}"
         if r.unit in ("probability", "fraction"):
             return f"{r.value:.4f}"
-        # a ratio labelled r is just a number; only the ODE/arithmetic comparison
-        # reads naturally with a multiplication sign
+        # a ratio labelled r is just a number; only the ODE/combinatorial
+        # comparison reads naturally with a multiplication sign
         if r.statistic.startswith("ODE /"):
             return f"{r.value:.2f}×"
         return f"{r.value:.3f}"
@@ -346,11 +393,27 @@ def main():
     t2sv = t2s.copy()
     t2sv["value_fmt"] = [stat_fmt(r) for _, r in t2sv.iterrows()]
 
+    # caption values, read from the data rather than typed. the previous version
+    # of this file described the knob table with the window-bottom saturation
+    # triple and the grid as "f = 1e-4", both retracted in the manuscript.
+    sup = load_json("supraadditivity_summary.json")
+    f_eval = sup["evaluation_point_f_codon"]
+    sat_pct = 100 * sup["folding_arm_saturation_at_observed_rate"]
+    c_free = sup["free_chaperone_uM_at_observed_rate"]
+    p_mis = sup["misfolded_protein_uM_at_observed_rate"]
+    ca = load_json("chaperone_availability_summary.json")
+    hr_lo, hr_hi = ca["headroom_range_over_documented_grid"]
+    pw = load_json("nu_power_summary.json")["minimum_detectable_effect"]
+    jk = load_json("mu_jackknife_summary.json")
+    mu_max = load_json("translation_burden.json")["mu_max"]
+
     parts = [
         "# Tables",
         "",
         "Generated by `scripts/08_make_tables.py` from `data/computed/`. "
-        "Full-precision versions are the `.tsv` files in this directory.",
+        "Full-precision versions are the `.tsv` files in this directory. "
+        "Numbering follows the manuscript; the three files at the end are **not** "
+        "paper tables.",
         "",
         "---",
         "",
@@ -381,51 +444,40 @@ def main():
         "",
         "---",
         "",
-        "## Table 3. Permutation tests on the operational axes",
+        "## Table 3. Headroom against chaperone availability",
         "",
-        "Δ is the mean pairwise distance among synonymous codons in standardized "
-        "coordinates, averaged over the 18 multi-codon amino acids (59 codons). "
-        "10,000 permutations per test, seed 42; one-sided empirical p in the "
-        "observed direction with a +1 correction.",
+        "The model gives the whole chaperone pool to the damaged-protein pool "
+        "because it does not represent nascent-chain folding. θ makes that "
+        "assumption explicit: `C_avail = C_tot(1 − θ)`. `C_tot` (30 to 80 µM) and "
+        "`K_d` (0.06 to 2 µM) are swept over their **documented** ranges; **θ is "
+        "not measured** and is not estimated here. Across the full grid the "
+        f"headroom spans ×{hr_lo:.1f} to ×{hr_hi:.0f}. Shown at K_d = 1 µM; the "
+        "full grid is in `tables/Table3_chaperone_availability.tsv`. θ = 0 is the "
+        "assumption earlier drafts made implicitly. This table supersedes the "
+        "retired anchoring grid in `tables/TABLES.md`.",
         "",
-        md_table(t3, ["axis", "mu_stat", "null", "observed", "null_mean",
-                      "null_sd", "z", "p_one_sided", "direction"],
-                 fmt={"observed": d4, "null_mean": d4, "null_sd": d4,
-                      "z": z3, "p_one_sided": p4}).replace(
-            "| axis | mu_stat | null | observed | null_mean | null_sd | z | p_one_sided | direction |",
-            "| Axis | μ statistic | Null model | Observed Δ | Null mean | Null SD | z | p | Direction |"),
-        "",
-        "---",
-        "",
-        "## Table 4. A removed result: metal-binding-site codon enrichment",
-        "",
-        "**This result is excluded from the paper.** It is reported here because "
-        "the negative is informative. The published version used a genome-wide "
-        "background; metalloproteins are enriched for abundant enzymes and "
-        "abundant genes have stronger codon bias, so that comparison confounds "
-        "site-level selection with gene-level expression. Against non-metal "
-        "positions of the *same* genes, nothing survives.",
-        "",
-        md_table(t4, ["amino_acid_name", "enriched_codon", "alt_codon",
-                      "n_sites_enriched", "n_sites_alt",
-                      "genomewide_or", "genomewide_p",
-                      "within_gene_or", "within_gene_p",
-                      "published_or", "published_p"],
-                 fmt={"genomewide_or": lambda v: f"{v:.3f}",
-                      "genomewide_p": lambda v: f"{v:.4f}",
-                      "within_gene_or": lambda v: f"{v:.3f}",
-                      "within_gene_p": lambda v: f"{v:.4f}",
-                      "published_or": lambda v: f"{v:.3f}",
-                      "published_p": lambda v: f"{v:.4f}"}).replace(
-            "| amino_acid_name | enriched_codon | alt_codon | n_sites_enriched | "
-            "n_sites_alt | genomewide_or | genomewide_p | within_gene_or | "
-            "within_gene_p | published_or | published_p |",
-            "| Amino acid | Enriched | Alternative | n sites (enr) | n sites (alt) | "
-            "OR (genome-wide) | p | **OR (within-gene)** | **p** | OR (published) | p |"),
+        md_table(t3[(t3.K_d_uM == 1.0)],
+                 ["C_tot_uM", "theta", "C_avail_uM", "c_free_uM",
+                  "folding_arm_saturation", "headroom_P", "margin_log10"],
+                 fmt={"C_tot_uM": lambda v: f"{v:g}",
+                      "theta": lambda v: f"{v:g}",
+                      "C_avail_uM": lambda v: f"{v:.2f}",
+                      "c_free_uM":
+                          lambda v: "—" if not np.isfinite(v) else f"{v:.2f}",
+                      "folding_arm_saturation":
+                          lambda v: "—" if not np.isfinite(v) else f"{v:.3f}",
+                      "headroom_P":
+                          lambda v: "collapsed" if not np.isfinite(v) else f"×{v:.1f}",
+                      "margin_log10":
+                          lambda v: "—" if not np.isfinite(v) else f"{v:.2f}"}).replace(
+            "| C_tot_uM | theta | C_avail_uM | c_free_uM | "
+            "folding_arm_saturation | headroom_P | margin_log10 |",
+            "| C_tot (µM) | θ | C_avail (µM) | Free chaperone (µM) | "
+            "Folding arm saturation | **Headroom** | Margin (log₁₀) |"),
         "",
         "---",
         "",
-        "## Table 5. The distinguishing prediction, tested in the model",
+        "## Table 4. Supraadditivity against starting margin",
         "",
         "2x2 factorial on the two-pool ODE: error rate x3 (raising `B_error`) "
         "against rescue throughput /3 (lowering `C_buffer`). The readout is the "
@@ -433,9 +485,10 @@ def main():
         "lost; the interaction is observed joint damage minus the additive "
         "expectation, so positive means supraadditive. Where the combination has "
         "no stable state the margin loss is unbounded and no numeric interaction "
-        "is defined -- those rows are marked, not assigned a value.",
+        "is defined -- those rows are marked, not assigned a value. The paper's "
+        f"own operating point is f = {sci(f_eval)} per codon.",
         "",
-        md_table(t5, ["f_base", "margin_baseline", "D_error", "D_capacity",
+        md_table(t4, ["f_base", "margin_baseline", "D_error", "D_capacity",
                       "additive_expectation", "D_both", "interaction",
                       "interaction_pct_of_additive", "collapsed_both"],
                  fmt={"f_base": lambda v: sci(v),
@@ -458,34 +511,21 @@ def main():
         "",
         "---",
         "",
-        "## Table 7. Headroom against chaperone availability",
+        "## Table 5. Permutation tests on the operational axes",
         "",
-        "The model gives the whole chaperone pool to the damaged-protein pool "
-        "because it does not represent nascent-chain folding. `theta` makes that "
-        "assumption explicit: `C_avail = C_tot(1 - theta)`. `C_tot` (30-80 µM) and "
-        "`K_d` (0.06-2 µM) are swept over their **documented** ranges; **theta is "
-        "not measured** and is not estimated here. Shown at K_d = 1 µM; the full "
-        "grid is in the TSV. theta = 0 is the assumption earlier drafts made "
-        "implicitly.",
+        "Δ is the mean pairwise distance among synonymous codons in standardized "
+        "coordinates, averaged over the 18 multi-codon amino acids (59 codons). "
+        "10,000 permutations per test, seed 42; one-sided empirical p in the "
+        "observed direction with a +1 correction. The combined (μ, ν) rows are "
+        "listed for completeness and are not interpreted: Δ in that space is a "
+        "weighted mixture of a structured and an unstructured axis.",
         "",
-        md_table(t7[(t7.K_d_uM == 1.0)],
-                 ["C_tot_uM", "theta", "C_avail_uM", "c_free_uM",
-                  "folding_arm_saturation", "headroom_P", "margin_log10"],
-                 fmt={"C_tot_uM": lambda v: f"{v:g}",
-                      "theta": lambda v: f"{v:g}",
-                      "C_avail_uM": lambda v: f"{v:.2f}",
-                      "c_free_uM":
-                          lambda v: "—" if not np.isfinite(v) else f"{v:.2f}",
-                      "folding_arm_saturation":
-                          lambda v: "—" if not np.isfinite(v) else f"{v:.3f}",
-                      "headroom_P":
-                          lambda v: "collapsed" if not np.isfinite(v) else f"×{v:.1f}",
-                      "margin_log10":
-                          lambda v: "—" if not np.isfinite(v) else f"{v:.2f}"}).replace(
-            "| C_tot_uM | theta | C_avail_uM | c_free_uM | "
-            "folding_arm_saturation | headroom_P | margin_log10 |",
-            "| C_tot (µM) | θ | C_avail (µM) | Free chaperone (µM) | "
-            "Folding arm saturation | **Headroom** | Margin (log₁₀) |"),
+        md_table(t5, ["axis", "mu_stat", "null", "observed", "null_mean",
+                      "null_sd", "z", "p_one_sided", "direction"],
+                 fmt={"observed": d4, "null_mean": d4, "null_sd": d4,
+                      "z": z3, "p_one_sided": p4}).replace(
+            "| axis | mu_stat | null | observed | null_mean | null_sd | z | p_one_sided | direction |",
+            "| Axis | μ statistic | Null model | Observed Δ | Null mean | Null SD | z | p | Direction |"),
         "",
         "---",
         "",
@@ -530,53 +570,43 @@ def main():
             "| Candidate ν vector | ρ(tAI, usage shift) | p | ρ(tAI, usage in "
             "ribosomal genes) | AAs where higher-tAI synonym gains | Sign test p | Verdict |"),
         "",
-        "## Table S4. A removed result: cross-species conservation of Δ",
+        "## Table S4. Supraadditivity effect-size grid at the operating point",
         "",
-        "**This result is excluded from the paper.** The published ρ used Δ in "
-        "combined (μ, ν) space with **E. coli μ for all three species**, so the "
-        "correlated vectors shared an identical coordinate. The ν-only columns "
-        "isolate the genuinely species-varying part. The independent-tAI column is "
-        "indicative only: it uses the prior script's own hardcoded tRNA counts, "
-        "which are unverified.",
+        f"All {len(s4)} perturbation combinations at the paper's own evaluation "
+        f"point, f = {sci(f_eval)} per codon. Blank interaction means the "
+        "combination collapses, where the loss is unbounded rather than large; "
+        f"{int(s4.qualitative_supraadditive.sum())} of {len(s4)} combinations are "
+        "survivable alone but lethal together.",
         "",
-        md_table(s4, ["comparison", "rho_published_2D_shared_mu",
-                      "rho_nu_only_vectors_as_used", "p_nu_only_vectors_as_used",
-                      "rho_nu_only_independent_tai", "p_nu_only_independent_tai"],
-                 fmt={"p_nu_only_vectors_as_used": lambda v: f"{v:.3g}",
-                      "p_nu_only_independent_tai": lambda v: f"{v:.3g}"}).replace(
-            "| comparison | rho_published_2D_shared_mu | "
-            "rho_nu_only_vectors_as_used | p_nu_only_vectors_as_used | "
-            "rho_nu_only_independent_tai | p_nu_only_independent_tai |",
-            "| Comparison | ρ published (2D, shared μ) | ρ (ν only, vectors as "
-            "used) | p | ρ (ν only, independent tAI) | p |"),
-        "",
-        "## Table S5. Supraadditivity effect-size grid at the observed rate",
-        "",
-        f"All {len(s5)} perturbation combinations at f = 1e-4. Blank interaction "
-        "means the combination collapses, where the loss is unbounded.",
-        "",
-        md_table(s5, ["error_factor", "capacity_factor", "D_error", "D_capacity",
-                      "D_both", "interaction_pct_of_additive", "collapsed_both"],
+        md_table(s4, ["error_factor", "capacity_factor", "D_error", "D_capacity",
+                      "D_both", "interaction_pct_of_additive", "collapsed_both",
+                      "qualitative_supraadditive"],
                  fmt={"D_error": d4, "D_capacity": d4,
                       "D_both": lambda v: ("unbounded" if not np.isfinite(v)
                                            else f"{v:.4f}"),
                       "interaction_pct_of_additive":
                           lambda v: ("—" if not np.isfinite(v) else f"{v:+.2f}%"),
-                      "collapsed_both": lambda v: "yes" if v else ""}).replace(
+                      "collapsed_both": lambda v: "yes" if v else "",
+                      "qualitative_supraadditive":
+                          lambda v: "SL" if v else ""}).replace(
             "| error_factor | capacity_factor | D_error | D_capacity | D_both | "
-            "interaction_pct_of_additive | collapsed_both |",
+            "interaction_pct_of_additive | collapsed_both | "
+            "qualitative_supraadditive |",
             "| Error × | Capacity ÷ | D error | D capacity | Observed, both | "
-            "% above additive | Joint collapse |"),
+            "% above additive | Joint collapse | Synthetic lethal |"),
         "",
-        "## Table S6. The two capacity knobs are not equivalent",
+        "## Table S5. The two capacity knobs are not equivalent",
         "",
-        "At the observed operating point the folding arm is 97.9% saturated "
-        "(47.5 µM free chaperone against 0.052 µM misfolded protein), so shrinking "
-        "the chaperone pool `C_tot` barely changes the rescue rate while cutting "
+        f"At the operating point the folding arm is {sat_pct:.1f}% saturated "
+        f"({c_free:.1f} µM free chaperone against {p_mis:.3f} µM misfolded "
+        f"protein, a {c_free / p_mis:.0f}-fold excess), so shrinking the "
+        "chaperone pool `C_tot` barely changes the rescue rate while cutting "
         "throughput `k_obs_max` acts proportionally. This is a property of the "
-        "model's parameterization, not of the framework — see Limitations.",
+        "model's parameterization, not of the framework — the model omits the "
+        "nascent-chain folding load, so it hands the whole pool to the damaged "
+        "pool. See Limitations.",
         "",
-        md_table(s6, ["knob", "f_base", "margin_baseline", "D_capacity",
+        md_table(s5, ["knob", "f_base", "margin_baseline", "D_capacity",
                       "D_error", "interaction_pct_of_additive", "collapsed_both"],
                  fmt={"f_base": lambda v: sci(v),
                       "margin_baseline": lambda v: f"{v:.2f}",
@@ -589,16 +619,19 @@ def main():
             "| Capacity knob | Baseline f | Starting margin | D capacity ÷3 | "
             "D error ×3 | % above additive | Joint collapse |"),
         "",
-        "## Table S7. What the axis tests could have detected",
+        "## Table S6. What the axis tests could have detected",
         "",
         "Within-amino-acid deviations are shrunk by a factor `s` (s = 1 the observed "
         "code, s = 0 all synonyms identical) and the permutation test re-run. "
         "`pct_below_null` makes the two axes comparable. The ν axis rejects only "
-        "once spread is tightened by 35% (19.6% below null); μ's own clustering "
-        "sits 37.4% below its null, so an effect of μ's size would have been seen "
-        "on ν. See also `nu_power_curve.tsv` for the subset-model power curve.",
+        f"once spread is tightened by "
+        f"{pw['nu']['mde_delta_reduction_pct']:.0f}% "
+        f"({pw['nu']['mde_pct_below_null']:.1f}% below null); μ's own clustering "
+        f"sits {pw['mu']['observed_pct_below_null']:.1f}% below its null, so an "
+        "effect of μ's size would have been seen on ν. See also "
+        "`nu_power_curve.tsv` for the subset-model power curve.",
         "",
-        md_table(table_s7()[lambda d: d.s >= 0.5],
+        md_table(s6[lambda d: d.s >= 0.5],
                  ["axis", "s", "delta", "null_mean", "z", "p", "reject",
                   "delta_reduction_pct", "pct_below_null"],
                  fmt={"s": lambda v: f"{v:.2f}", "delta": d4,
@@ -612,26 +645,94 @@ def main():
             "| Axis | s | Δ | Null mean | z | p | Rejects | Δ reduction | "
             "% below null |"),
         "",
-        "## Table S8. Leave-one-codon-out jackknife on the μ axis",
+        "## Table S7. Leave-one-codon-out jackknife on the μ axis",
         "",
         "Each row drops one codon and re-runs the within-degeneracy permutation "
-        "test (each subset restandardized). The clustering survives every single "
-        "deletion, including CCC — the 2.0 × 10⁻² maximum that sets the 613-fold "
-        "span on its own. Ordered from strongest to weakest z.",
+        f"test (each subset restandardized). The clustering survives all "
+        f"{jk['jackknife']['n_total']} single deletions, including CCC — the "
+        f"{sci(mu_max, 2)} maximum that sets the "   # 2 sig figs, as the prose has it
+        f"{jk['mu_span_fold_with_CCC']:.0f}-fold span on its own, without which "
+        f"the span falls to {jk['mu_span_fold_without_CCC']:.0f}-fold. Ordered "
+        "from strongest to weakest z.",
         "",
-        md_table(table_s8(), ["dropped_codon", "aa", "mu", "z", "p", "n_codons"],
+        md_table(s7, ["dropped_codon", "aa", "mu", "z", "p", "n_codons"],
                  fmt={"mu": lambda v: sci(v), "z": lambda v: f"{v:+.2f}",
                       "p": lambda v: f"{v:.4f}"}).replace(
             "| dropped_codon | aa | mu | z | p | n_codons |",
             "| Codon dropped | AA | its μ | z | p | n codons |"),
         "",
+        "---",
+        "",
+        "# Not paper tables",
+        "",
+        "The three sections below are kept for the record and are **not** results "
+        "of this paper. The first two are the analyses excluded during "
+        "verification; the third is a superseded version of Table 3.",
+        "",
+        "## Excluded analysis A: metal-binding-site codon enrichment",
+        "",
+        "**Excluded from the paper.** Reported here because the negative is "
+        "informative. The earlier version used a genome-wide background; "
+        "metalloproteins are enriched for abundant enzymes and abundant genes have "
+        "stronger codon bias, so that comparison confounds site-level selection "
+        "with gene-level expression. Against non-metal positions of the *same* "
+        "genes, nothing survives.",
+        "",
+        md_table(xm, ["amino_acid_name", "enriched_codon", "alt_codon",
+                      "n_sites_enriched", "n_sites_alt",
+                      "genomewide_or", "genomewide_p",
+                      "within_gene_or", "within_gene_p",
+                      "published_or", "published_p"],
+                 fmt={"genomewide_or": lambda v: f"{v:.3f}",
+                      "genomewide_p": lambda v: f"{v:.4f}",
+                      "within_gene_or": lambda v: f"{v:.3f}",
+                      "within_gene_p": lambda v: f"{v:.4f}",
+                      "published_or": lambda v: f"{v:.3f}",
+                      "published_p": lambda v: f"{v:.4f}"}).replace(
+            "| amino_acid_name | enriched_codon | alt_codon | n_sites_enriched | "
+            "n_sites_alt | genomewide_or | genomewide_p | within_gene_or | "
+            "within_gene_p | published_or | published_p |",
+            "| Amino acid | Enriched | Alternative | n sites (enr) | n sites (alt) | "
+            "OR (genome-wide) | p | **OR (within-gene)** | **p** | OR (published) | p |"),
+        "",
+        "## Excluded analysis B: cross-species conservation of Δ",
+        "",
+        "**Excluded from the paper.** The earlier ρ used Δ in combined (μ, ν) "
+        "space with **E. coli μ for all three species**, so the correlated vectors "
+        "shared an identical coordinate. The ν-only columns isolate the genuinely "
+        "species-varying part. The independent-tAI column is indicative only: it "
+        "uses the prior script's own hardcoded tRNA counts, which are unverified.",
+        "",
+        md_table(xc, ["comparison", "rho_published_2D_shared_mu",
+                      "rho_nu_only_vectors_as_used", "p_nu_only_vectors_as_used",
+                      "rho_nu_only_independent_tai", "p_nu_only_independent_tai"],
+                 fmt={"p_nu_only_vectors_as_used": lambda v: f"{v:.3g}",
+                      "p_nu_only_independent_tai": lambda v: f"{v:.3g}"}).replace(
+            "| comparison | rho_published_2D_shared_mu | "
+            "rho_nu_only_vectors_as_used | p_nu_only_vectors_as_used | "
+            "rho_nu_only_independent_tai | p_nu_only_independent_tai |",
+            "| Comparison | ρ published (2D, shared μ) | ρ (ν only, vectors as "
+            "used) | p | ρ (ν only, independent tAI) | p |"),
+        "",
+        "## Retired: the evaluation-point × anchoring grid",
+        "",
+        "**Superseded by Table 3.** This crossed the evaluation point against six "
+        "ad-hoc (C_tot, K_d) anchorings, but that axis is not independent of "
+        "Table 3's θ, and it reached its low end only by using C_tot = 1–2 µM, "
+        "outside the documented 30–80 µM range. It is one availability parameter "
+        "written two ways. Full grid in `Retired_anchoring_grid.tsv`.",
+        "",
     ]
     (TAB / "TABLES.md").write_text("\n".join(parts) + "\n")
 
-    print(f"wrote {len(written) + 1} files to {TAB}")
-    for name, n in written.items():
-        print(f"  {name + '.tsv':42s} {n:>4} rows")
+    print(f"wrote {len(frames) + 1} files to {TAB}")
+    for name, df in frames.items():
+        print(f"  {name + '.tsv':42s} {len(df):>4} rows")
     print(f"  {'TABLES.md':42s}")
+    if removed:
+        print("removed superseded files from the old numbering:")
+        for name in removed:
+            print(f"  {name}.tsv")
 
 
 if __name__ == "__main__":

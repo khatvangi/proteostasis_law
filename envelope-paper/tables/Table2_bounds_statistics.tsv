@@ -1,8 +1,0 @@
-statistic	value	unit
-ODE / arithmetic at the paired median	3.101074883267744	ratio
-Median paired ratio r = f_arith / f_ODE	0.3337158827204835	ratio
-P(arithmetic is the tighter bound)	0.7684	probability
-Draws closed by aggregation-death, not monomer runaway	0.9994	fraction
-Headroom, misfolded-monomer pool, at the usage-weighted mean error rate (this paper's estimate)	24.817281807890474	fold
-Headroom, aggregated pool, at the same rate	274.6521619913062	fold
-Headroom at f = 10⁻⁴ (window bottom; quoted in earlier drafts, not used here)	158.05573178050503	fold

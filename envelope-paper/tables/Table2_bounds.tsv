@@ -1,6 +1,0 @@
-quantity	value_per_codon	ci_low	ci_high	basis
-Observed E. coli mistranslation rate		0.0001	0.001	literature consensus
-Arithmetic bound, deterministic reference point	0.0011882099986079142			N=300, P_correct=0.7, p_misfold=0.3, S_syn=0.3
-Arithmetic bound, paired MC median	0.008348346937521657	0.0013849951259280722	0.08791114460225828	5,000 paired draws
-Two-pool ODE bound, deterministic	0.01000320880691999			aggregation-death closure
-Two-pool ODE bound, paired MC median	0.0258888490047536	0.001248203122084804	0.5868114485318731	5,000 paired draws

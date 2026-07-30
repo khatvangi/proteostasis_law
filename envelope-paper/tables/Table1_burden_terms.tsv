@@ -1,7 +1,0 @@
-term	meaning	flux_operationalization
-B_error	decoding ambiguity / mistranslation burden	rate of production of mistranslated chains (proteome-scale misincorporation frequency × synthesis flux)
-B_fold	folding-failure burden	rate at which nascent or mature chains fail to reach native state (folding-yield deficit × flux)
-B_agg	aggregation / toxic load	rate of irreversible conversion of misfolded monomer into aggregate
-B_qc	rescue and clearance demand	chaperone and protease occupancy imposed by the above
-C_buffer	effective proteostasis network capacity	finite throughput of the rescue-and-clearance network
-B_total	summed burden; viability requires B_total ≤ C_buffer	sum of the four burden fluxes
