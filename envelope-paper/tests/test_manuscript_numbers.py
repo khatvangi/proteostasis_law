@@ -496,12 +496,57 @@ class Supraadditivity(unittest.TestCase):
         self.assertTrue((defined.interaction >= -1e-9).all(),
                         "the model must not produce subadditive interactions")
 
-    def test_effect_is_negligible_at_wild_type_margin(self):
-        pct = self.s["interaction_pct_at_observed_rate"]
-        self.assertLess(pct, 1.0, "if this grew, the claim below would change")
-        self.assertGreater(pct, 0.0)
-        self.assertIn("+0.2% of the additive expectation", self.flat)
-        self.assertIn("not a detectable effect", self.flat)
+    def test_evaluated_at_the_internally_consistent_point(self):
+        """
+        THE defect this class exists to prevent. scripts/09 hardcoded f = 1e-4 --
+        the window bottom, the evaluation point Result 3 spends a page rejecting --
+        so Result 5 was anchored at margin 2.20 while the paper's own margin is
+        1.39, and reported the interaction as +0.2% instead of +7.4%. The error ran
+        AGAINST the paper: it argued a real result away. And this suite pinned it in
+        place by asserting the string "+0.2% of the additive expectation".
+        """
+        b = load_json(COMP / "translation_burden.json")
+        self.assertAlmostEqual(self.s["evaluation_point_f_codon"],
+                               b["usage_weighted_mean_mu_per_codon"], places=12,
+                               msg="Result 5 is not evaluated at the point Result 3 "
+                                   "establishes")
+        h = load_json(COMP / "headroom_sensitivity_summary.json")
+        self.assertAlmostEqual(self.s["baseline_margin_log10"],
+                               h["internally_consistent_margin_log10"], delta=0.01,
+                               msg="Result 5 and Result 3 disagree on the margin")
+
+    def test_the_evaluation_point_is_not_hardcoded(self):
+        """a literal 1e-4 anchor is how this went wrong; keep it read-from-disk."""
+        src = (SCRIPTS / "09_supraadditivity.py").read_text()
+        self.assertIn("def consistent_f()", src)
+        self.assertIn("translation_burden.json", src)
+        self.assertNotIn("OBSERVED_F = 1e-4", src,
+                         "the evaluation point is hardcoded again")
+
+    def test_effect_size_at_the_evaluation_point(self):
+        pct = self.s["interaction_pct_at_evaluation_point"]
+        self.assertAlmostEqual(pct, 7.44, delta=0.1)
+        self.assertGreater(pct, 5.0,
+                           "the effect at E. coli's own margin is not negligible")
+        self.assertIn("+7.4%", self.flat)
+        self.assertIn("+9.6%", self.flat)
+        for bad in ("+0.2% of the additive expectation", "not a detectable effect",
+                    "far too small to measure"):
+            self.assertNotIn(bad, self.flat,
+                             f"superseded conclusion {bad!r} is back")
+
+    def test_window_bottom_is_kept_only_as_a_comparison(self):
+        self.assertAlmostEqual(self.s["interaction_pct_at_window_bottom"], 0.196,
+                               delta=0.01)
+        self.assertAlmostEqual(self.s["baseline_margin_log10_at_window_bottom"],
+                               2.199, delta=0.01)
+        # where +0.2% appears it must be marked as the window bottom, not E. coli
+        for para in self.text.split("\n\n"):
+            if "+0.2%" in para:
+                self.assertTrue(
+                    any(w in para.lower() for w in
+                        ("window bottom", "not* e. coli", "earlier draft")),
+                    "+0.2% appears unmarked as the window bottom:\n" + para[:220])
 
     def test_interaction_grows_as_margin_closes(self):
         self.assertTrue(self.s["interaction_grows_as_margin_closes"])
@@ -509,16 +554,29 @@ class Supraadditivity(unittest.TestCase):
         d = t[t.interaction.notna()].sort_values("margin_baseline", ascending=False)
         self.assertTrue(d.interaction_pct_of_additive.is_monotonic_increasing,
                         "interaction should rise monotonically as margin closes")
-        for stated in ("+0.6% at 1.90", "+4.2% at 1.50"):
-            self.assertIn(stated, self.flat)
+
+    def test_result5_margin_ladder_matches_computed(self):
+        """the inline ladder in Result 5 must match the margin sweep."""
+        t = pd.read_csv(COMP / "supraadditivity_margin_sweep.tsv", sep="\t")
+        for margin, pct in ((2.20, 0.2), (1.90, 0.6), (1.39, 7.4)):
+            row = t.iloc[(t.margin_baseline - margin).abs().argmin()]
+            self.assertAlmostEqual(row.interaction_pct_of_additive, pct, delta=0.15,
+                                   msg=f"margin {margin}: computed "
+                                       f"{row.interaction_pct_of_additive:+.2f}%")
+            self.assertIn(f"{margin:.2f}", self.flat)
 
     def test_qualitative_synthetic_lethality(self):
         margin = self.s["qualitative_supraadditivity_first_seen_at_margin_log10"]
         self.assertAlmostEqual(margin, 1.195, delta=0.01)
-        self.assertIn("1.19 log₁₀", self.flat)
-        self.assertIn("×16 headroom", self.flat)
-        self.assertEqual(self.s["n_qualitatively_supraadditive_grid_points"], 338)
-        self.assertIn("338 of 676", self.flat)
+        self.assertIn("1.19", self.flat)
+        self.assertEqual(self.s["n_qualitatively_supraadditive_grid_points"], 114)
+        self.assertIn("114 of 676", self.flat)
+        # the headline count is over the 36-cell grid at E. coli's own margin
+        g = pd.read_csv(COMP / "supraadditivity_effect_grid.tsv", sep="\t")
+        self.assertEqual(len(g), 36)
+        self.assertEqual(int(g.qualitative_supraadditive.sum()), 12)
+        self.assertIn("12 of the 36", self.flat)
+        self.assertIn("no sensitization is required", self.flat)
 
     def test_collapse_cells_have_no_numeric_interaction(self):
         """
@@ -533,11 +591,35 @@ class Supraadditivity(unittest.TestCase):
                              f"{f}: {len(bad)} collapsed cells carry a numeric "
                              "interaction, which cannot be meaningful")
 
-    def test_saturation_limitation_is_disclosed(self):
+    def test_saturation_numbers_are_at_the_evaluation_point(self):
+        """
+        the "97.9% / 47.5 uM / 0.052 uM" triple was the window-bottom operating
+        point and contradicted Table 7's own theta = 0 row. all three must now be
+        the evaluation-point values, and must agree with Table 7.
+        """
         sat = self.s["folding_arm_saturation_at_observed_rate"]
-        self.assertAlmostEqual(sat, 0.979, delta=0.002)
-        self.assertIn("97.9% saturated", self.flat)
-        self.assertIn("47.5 µM free", self.flat)
+        self.assertAlmostEqual(sat, 0.974, delta=0.002)
+        self.assertAlmostEqual(self.s["free_chaperone_uM_at_observed_rate"], 37.56,
+                               delta=0.1)
+        self.assertAlmostEqual(self.s["misfolded_protein_uM_at_observed_rate"],
+                               0.331, delta=0.005)
+        self.assertIn("97.4% saturated", self.flat)
+        self.assertIn("37.6 µM free", self.flat)
+        self.assertIn("0.331 µM", self.flat)
+        for bad in ("97.9% saturated", "47.5 µM free", "0.052 µM misfolded",
+                    "900-fold"):
+            self.assertNotIn(bad, self.flat,
+                             f"window-bottom figure {bad!r} is back")
+
+        # and it must agree with Table 7's theta = 0, C_tot = 50 row
+        t7 = pd.read_csv(TAB / "Table7_chaperone_availability.tsv", sep="\t")
+        row = t7[(t7.theta == 0.0) & (t7.C_tot_uM == 50.0)
+                 & (t7.K_d_uM == 1.0)].iloc[0]
+        self.assertAlmostEqual(row.folding_arm_saturation, sat, delta=0.002,
+                               msg="Result 5 and Table 7 disagree on saturation")
+        self.assertAlmostEqual(
+            row.c_free_uM, self.s["free_chaperone_uM_at_observed_rate"], delta=0.1,
+            msg="Result 5 and Table 7 disagree on free chaperone")
         # it must be named as a limitation, not just a methods note -- but as the
         # STRUCTURAL omission it is, not as the parameter criticism an earlier
         # pass wrongly made (see ChaperoneAvailability)
@@ -553,7 +635,9 @@ class Supraadditivity(unittest.TestCase):
 
     def test_predictions_were_rewritten_not_left_stale(self):
         """prediction 1 must no longer promise a wild-type additivity deviation."""
-        self.assertIn("synthetic lethality in a sensitized background", self.flat)
+        self.assertIn("Synthetic lethality in wild type", self.flat)
+        self.assertNotIn("synthetic lethality in a sensitized background", self.flat,
+                         "the superseded sensitized-background framing is back")
         self.assertNotIn("Combining a synonymous change that raises folding "
                          "burden with a reduction in chaperone capacity",
                          self.flat)
@@ -614,7 +698,7 @@ class ChaperoneAvailability(unittest.TestCase):
         self.assertIn("θ ≳ 0.90", self.flat)
         self.assertIn("If θ ≥ 0.90, it does.", self.flat)
 
-    def test_theta_zero_reproduces_the_published_cell(self):
+    def test_theta_zero_agrees_with_result5(self):
         h = load_json(COMP / "headroom_sensitivity_summary.json")
         z = self.s["at_theta_zero"]
         self.assertAlmostEqual(z["headroom_P"],

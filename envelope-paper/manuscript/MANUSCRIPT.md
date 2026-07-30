@@ -49,11 +49,12 @@ Within that margin, we find that the genetic code is strongly organized on the
 error axis — synonymous codons cluster in mistranslation rate far more tightly
 than permutation nulls (z = −3.56, p = 0.0010), with 56% of the variance in
 log μ sitting between rather than within amino acids — while showing no
-detectable structure on translational supply (z = −0.06, p = 0.45). That places E. coli within 0.2
-log₁₀ of the margin at which a 3-fold rise in error rate and a 3-fold reduction in
-rescue throughput, each individually survivable, become jointly lethal in the
-model — so the framework's distinguishing prediction, supraadditive interaction
-between burden stages, is experimentally reachable although still untested. We make no
+detectable structure on translational supply (z = −0.06, p = 0.45). At that margin the framework's
+distinguishing prediction — supraadditive interaction between burden stages — is
+not merely reachable but already sharp: a 3-fold rise in error rate combined with
+a 3-fold reduction in rescue throughput exceeds additivity by 7%, and 12 of 36
+tested perturbation pairs are survivable alone but lethal together, with no
+sensitized background required. The prediction remains untested experimentally. We make no
 claim about the origin of the triplet code.
 
 ## Significance statement
@@ -275,8 +276,9 @@ arithmetic bound at its deterministic reference point rather than its Monte Carl
 median.
 
 The second is **how much of the chaperone pool the damaged proteins actually
-get**. At the operating point the model's folding arm is 97.9% saturated — 47.5 µM
-free chaperone against 0.052 µM misfolded protein (Result 5). That is not a
+get**. At the operating point the model's folding arm is 97.4% saturated — 37.6 µM
+free chaperone against 0.331 µM misfolded protein (Result 5), matching Table 7's
+θ = 0 row. That is not a
 mis-set parameter: `C_tot` = 50 µM and `K_d` = 1 µM are both used within their
 sourced ranges (30–80 µM from GroEL and DnaK abundance; 0.06–2 µM from
 DnaK–substrate dissociation constants; Methods). It is structural. The rescue term
@@ -371,7 +373,7 @@ It does not establish that the code was selected to produce that organization,
 and we do not claim it was. The contrast with the supply axis is the more robust
 observation: whatever produces the μ structure does not operate on ν.
 
-### Result 5 — The distinguishing prediction holds in the model, but only once the margin closes
+### Result 5 — The distinguishing prediction holds in the model, and E. coli sits where it bites
 
 The framework's distinguishing claim is that perturbations at different burden
 stages interact supraadditively: independent terms would combine additively,
@@ -381,41 +383,53 @@ be wrong on its own terms. We ran a 2×2 factorial on the two-pool system,
 raising the per-codon error rate (`B_error` up) against knocking down rescue
 throughput (`C_buffer` down), with the viability margin
 log₁₀(min(P†/P*, A_max/A*)) as the readout and the interaction defined as
-observed joint damage minus the additive expectation (Table 5, Fig. 4).
+observed joint damage minus the additive expectation (Table 5, Fig. 4). The
+factorial is evaluated at the usage-weighted mean error rate established in
+Result 3, not at the bottom of the observed window.
 
 The interaction is positive everywhere it is defined — never subadditive — so the
-prediction is directionally confirmed. But its magnitude at the wild-type
-operating point is **+0.2% of the additive expectation** (+0.0018 log₁₀ units).
-That is not a detectable effect. Even a 5-fold error increase combined with a
-20-fold rescue knockdown reaches only +13% (Table S5).
+prediction is directionally confirmed. At E. coli's own operating point
+(margin 1.39 log₁₀) a 3-fold error increase combined with a 3-fold rescue
+knockdown exceeds the additive expectation by **+7.4%**, and the largest excess
+among combinations that remain viable is +9.6% (2-fold error, 5-fold knockdown;
+Table S5).
 
-The interaction grows as the starting margin is compressed: +0.2% at margin
-2.20 log₁₀, +0.6% at 1.90, +4.2% at 1.50. (These margins are reported on the
-model's own scale; Result 3 places E. coli itself at 1.39 log₁₀, near the lower
-end of this ladder rather than at the top of it.) At a
-starting margin of 1.19 log₁₀ (×16 headroom) the character of the result changes
-qualitatively — a 3-fold error increase and a 3-fold rescue knockdown are each
-individually survivable, but together the system has no stable state at all
-(Fig. 4a). Across the perturbation grid, 338 of 676 combinations are
-single-viable but jointly lethal.
+The effect is strongly margin-dependent, which is why the evaluation point
+matters so much:
 
-This merges the framework's first two predictions into one experimental design.
-Supraadditivity is not detectable far from the fold, where the system is
-effectively linear; the effect appears not as a few-percent deviation from
-additivity but as outright synthetic lethality once the margin is closed. Taken
-with Result 3 — which places E. coli at margin 1.39 log₁₀, only 0.20 above the
-onset — the required sensitization is modest rather than extreme. Earlier drafts of this work implied the
-prediction was straightforwardly testable in wild type; it is not, but on the
-corrected margin it is reachable with a modest sensitization.
+| Starting margin (log₁₀) | Interaction, 3× error / ÷3 rescue |
+|---|---|
+| 2.20 (window bottom — *not* E. coli) | +0.2% |
+| 1.90 | +0.6% |
+| **1.39 (E. coli, usage-weighted μ)** | **+7.4%** |
+| 1.19 | jointly lethal; each perturbation survivable alone |
+
+Below about 1.2 log₁₀ the result changes character: the combination has no stable
+state while each perturbation alone is survivable (Fig. 4a). At E. coli's
+operating point, **12 of the 36 perturbation combinations tested are already
+survivable alone but lethal together** (Fig. 4b), the mildest being a 1.5-fold
+error increase with a 10-fold rescue knockdown; a further 12 are lethal from one
+perturbation alone. Over a finer grid, 114 of 676 combinations are
+single-viable-but-jointly-lethal.
+
+**This is a correction to earlier drafts of this work, in the direction that
+strengthens the claim.** Those drafts evaluated this factorial at f = 10⁻⁴ — the
+bottom of the observed window, the same evaluation point Result 3 rejects — and
+therefore reported the interaction as +0.2%, concluded it was undetectable, and
+argued that any experiment would first have to compress the viability margin.
+At the paper's own evaluation point the effect is 38-fold larger and no
+sensitization is required: synthetic lethality is already present at
+perturbation strengths that are routine in the laboratory. The prediction is
+directly testable in wild-type E. coli.
 
 Two caveats bound the result. It tests whether the *model* predicts
 supraadditivity, not whether cells do; it cannot validate the framework. And the
 two capacity knobs available in the model are not equivalent (Table S6): at the
-observed operating point the folding arm is 97.9% saturated — 47.5 µM free
-chaperone against 0.052 µM misfolded protein — so shrinking the chaperone pool
-barely changes the rescue rate (margin loss 0.017 log₁₀ for a 3-fold cut) while
-cutting throughput acts proportionally (0.453). The results above use the
-throughput knob. That saturation is itself a limitation, discussed below.
+operating point the folding arm is 97.4% saturated — 37.6 µM free chaperone
+against 0.331 µM misfolded protein — so shrinking the chaperone pool barely
+changes the rescue rate (margin loss 0.022 log₁₀ for a 3-fold cut) while cutting
+throughput acts proportionally (0.460). The results above use the throughput
+knob. That saturation is itself a limitation, discussed below.
 
 
 ---
@@ -507,9 +521,9 @@ derived from tRNA gene copy number, not a measured ribosome transit time
 weighted, with no archaea and no mammalian systems, so generality rests on
 structural convergence rather than molecular homology. The reduced ODE is not fit
 to data and establishes only threshold *existence*; the two-pool bound is
-order-of-magnitude. The two-pool model leaves the folding arm 97.9% saturated at
-the observed operating point, a ~900-fold excess of free chaperone over misfolded
-protein (Result 5, Table S6). Its parameters are not at fault — `C_tot` and `K_d`
+order-of-magnitude. The two-pool model leaves the folding arm 97.4% saturated at
+the operating point, a ~113-fold excess of free chaperone over misfolded protein
+(Result 5, Table S6). Its parameters are not at fault — `C_tot` and `K_d`
 are used within their sourced ranges — but the model omits the nascent-chain
 folding load entirely, so it treats the whole chaperone pool as available to
 damaged protein. Result 3 exposes that as the availability parameter θ and reports
@@ -525,17 +539,18 @@ is a motivated framework, not an established constraint.
 
 ### Predictions
 
-1. **Synthetic lethality under compressed buffering (distinguishing, untested
-   experimentally; confirmed in the model).** Combining a burden-raising
-   perturbation with a reduction in rescue throughput should produce fitness
-   defects worse than the sum of each alone. Result 5 shows the model predicts
-   this, and quantifies the design constraint: at wild-type buffering the excess
-   over additivity is ~0.2%, far too small to measure, so the experiment must
-   first compress the viability margin. Once the margin is reduced to roughly
-   ×16 headroom, 3-fold perturbations that are each individually survivable
-   become jointly lethal. The prediction to test is therefore synthetic
-   lethality in a sensitized background, not a small deviation from additivity
-   in wild type.
+1. **Synthetic lethality in wild type (distinguishing, untested experimentally;
+   confirmed in the model).** Combining a burden-raising perturbation with a
+   reduction in rescue throughput should produce fitness defects worse than the
+   sum of each alone. Result 5 shows the model predicts this at E. coli's own
+   operating point, and sizes it: a 3-fold error increase with a 3-fold rescue
+   knockdown exceeds additivity by ~7%, and 12 of 36 tested combinations —
+   from a 1.5-fold error increase with a 10-fold knockdown upward — are
+   survivable alone but lethal together. No sensitized background is required.
+   The experiment is a mistranslation-raising perturbation (a ribosomal
+   ambiguity mutation or an aminoglycoside) crossed with a chaperone knockdown,
+   scored for synthetic lethality rather than for a small deviation from
+   additivity.
 2. **Effects should scale with margin closed, not perturbation size.** Because
    extant translation sits roughly one order of magnitude inside the bound
    (Result 3), and the interaction strengthens sharply as that margin closes
@@ -666,7 +681,11 @@ computed** — substituting the baseline margin as a lower bound produces spurio
 negative interactions whenever the two single damages already exceed it. Those
 cells are recorded as qualitative synthetic lethality instead. Capacity is
 perturbed through `k_obs_max` (rescue throughput); `C_tot` is reported alongside
-because the folding arm is saturated in this parameterization (Table S6).
+because the folding arm is saturated in this parameterization (Table S6). The
+factorial is evaluated at the usage-weighted mean per-codon error rate, read at
+run time from the burden analysis rather than written into the script, so that it
+cannot drift from Result 1; the window-bottom value is retained only as a
+labelled comparison row.
 
 ### Data and code availability
 
@@ -728,18 +747,20 @@ literature-anchored parameters, not organism-fitted models.
 
 (a) Margin lost under both perturbations (error ×3, rescue throughput ÷3, blue
 squares) against the additive expectation (grey circles), as the starting margin
-is compressed from left to right. The two nearly coincide at wild-type margin and
-separate as the margin closes. In the shaded region each single perturbation is
-still survivable but the combination has no stable state, so the margin loss is
-unbounded; those points are marked with crosses at the top of the axis rather
-than assigned a value. (b) Interaction as a percentage of the additive
-expectation across the perturbation grid at the observed rate; grey cells marked
-"coll." are joint collapse, where the interaction is unbounded rather than large.
-(c) The two capacity knobs are not equivalent: shrinking the chaperone pool
-`C_tot` is nearly inert because the folding arm is 97.9% saturated, while cutting
-throughput `k_obs_max` acts proportionally. Dashed line, the error-×3 damage for
-scale. Parameters are the upstream literature-anchored baseline; nothing is
-fitted.
+is compressed from left to right. Teal line, E. coli's own margin at the
+usage-weighted mean error rate (1.39 log₁₀); earlier drafts evaluated this
+factorial off the left edge of the panel, at 2.20. In the shaded region each
+single perturbation is survivable but the combination has no stable state, so the
+margin loss is unbounded; those points are marked with crosses at the top of the
+axis rather than assigned a value. (b) Interaction as a percentage of the
+additive expectation across the perturbation grid, at E. coli's evaluation point.
+Cells marked **SL** are synthetic lethality — survivable alone, lethal together
+(12 of 36); cells marked 1× are already lethal from a single perturbation, and
+are shown separately because the two are different claims. (c) The two capacity
+knobs are not equivalent: shrinking the chaperone pool `C_tot` is nearly inert
+because the folding arm is 97.4% saturated, while cutting throughput `k_obs_max`
+acts proportionally. Dashed line, the error-×3 damage for scale. Parameters are
+the upstream literature-anchored baseline; nothing is fitted.
 
 ---
 

@@ -67,7 +67,31 @@ sys.path.insert(0, str(Path(__file__).resolve().parent / "vendor"))
 
 import two_pool_ode as m  # noqa: E402  (vendored, unmodified)
 
-OBSERVED_F = 1e-4          # observed E. coli per-codon mistranslation rate
+# ---------------------------------------------------------------------------
+# EVALUATION POINT. this was hardcoded to 1e-4 -- the BOTTOM of the quoted
+# observed window -- which is exactly the evaluation point Result 3 rejects as
+# inflating the headroom sixfold. Result 5 was therefore anchored at a margin of
+# 2.20 log10 while the paper's own internally consistent margin is 1.39, and the
+# effect it reported (+0.2% over additive) was ~38x smaller than the effect at
+# its own evaluation point (+7.4%). the error ran AGAINST the paper: it argued a
+# real result away.
+#
+# the evaluation point is now read from the burden analysis rather than written
+# here, so it cannot drift from Result 1 again. the window bottom is retained as
+# an explicitly labelled comparison, not as the anchor.
+# ---------------------------------------------------------------------------
+F_WINDOW_BOTTOM = 1e-4     # bottom of the quoted observed window; comparison only
+
+
+def consistent_f():
+    """
+    the usage-weighted mean per-codon error rate derived in scripts/06.
+
+    read from disk on purpose: hardcoding it is how Result 5 came to be anchored
+    at a premise Result 3 spends a page rejecting.
+    """
+    b = json.loads((COMP / "translation_burden.json").read_text())
+    return float(b["usage_weighted_mean_mu_per_codon"])
 
 
 def J_from_f(f, p):
@@ -192,21 +216,35 @@ def factorial(f_base, e, c, knob="k_obs_max"):
 
 # --------------------------------------------------------------------------
 def sweep_margin(e=3.0, c=3.0, knob="k_obs_max"):
-    """sweep 1 -- interaction as a function of how much margin is left."""
-    fs = [1e-4, 2e-4, 5e-4, 1e-3, 2e-3, 5e-3]
-    rows = [factorial(f, e, c, knob) for f in fs]
+    """
+    sweep 1 -- interaction as a function of how much margin is left.
+
+    the grid spans the observed window and beyond, and explicitly includes both
+    the window bottom (for comparison with earlier drafts) and the internally
+    consistent evaluation point.
+    """
+    fc = consistent_f()
+    fs = sorted({F_WINDOW_BOTTOM, 2e-4, fc, 1e-3, 2e-3, 5e-3})
+    rows = []
+    for f in fs:
+        r = factorial(f, e, c, knob)
+        r["evaluation_point"] = ("window_bottom" if f == F_WINDOW_BOTTOM else
+                                 "usage_weighted_mu" if f == fc else "")
+        rows.append(r)
     return pd.DataFrame(rows)
 
 
-def sweep_effect_sizes(f_base=OBSERVED_F):
-    """sweep 2 -- effect-size grid at the observed rate."""
+def sweep_effect_sizes(f_base=None):
+    """sweep 2 -- effect-size grid at the internally consistent evaluation point."""
+    f_base = consistent_f() if f_base is None else f_base
     factors = [1.5, 2.0, 3.0, 5.0, 10.0, 20.0]
     rows = [factorial(f_base, e, c) for e in factors for c in factors]
     return pd.DataFrame(rows)
 
 
-def collapse_frontier(f_base=OBSERVED_F):
+def collapse_frontier(f_base=None):
     """sweep 3 -- single-viable but jointly lethal combinations."""
+    f_base = consistent_f() if f_base is None else f_base
     grid = np.geomspace(1.5, 200, 26)
     rows = []
     for e in grid:
@@ -224,9 +262,12 @@ def collapse_frontier(f_base=OBSERVED_F):
 def main():
     COMP.mkdir(parents=True, exist_ok=True)
 
-    base = state(OBSERVED_F)
+    F = consistent_f()
+    base = state(F)
+    wb = state(F_WINDOW_BOTTOM)
     print("=" * 78)
-    print("baseline at the observed E. coli rate")
+    print(f"baseline at the internally consistent evaluation point "
+          f"(f = {F:.3e} /codon)")
     print("=" * 78)
     print(f"  P* = {base['P_star']:.4e}   P_dagger = {base['P_dagger']:.4e}   "
           f"margin_P = {base['margin_P']:.2f} log10 (x{10**base['margin_P']:.0f})")
@@ -234,6 +275,10 @@ def main():
           f"margin_A = {base['margin_A']:.2f} log10 (x{10**base['margin_A']:.0f})")
     print(f"  binding pool: {base['binding_pool']}   "
           f"closure mechanism: {base['mechanism']}")
+    print(f"\n  for comparison, at the window bottom (f = {F_WINDOW_BOTTOM:.0e}, "
+          f"what earlier drafts used):")
+    print(f"    margin {wb['margin']:.2f} log10 vs {base['margin']:.2f} here; "
+          f"P* {wb['P_star']*300:.3f} uM vs {base['P_star']*300:.3f} uM")
 
     # saturation diagnostic: how much room each capacity knob actually has
     p0 = m.Params()
@@ -248,6 +293,8 @@ def main():
 
     s1 = sweep_margin()
     s1.to_csv(COMP / "supraadditivity_margin_sweep.tsv", sep="\t", index=False)
+    cons = s1[s1.evaluation_point == "usage_weighted_mu"].iloc[0]
+    wbrow = s1[s1.evaluation_point == "window_bottom"].iloc[0]
     print("\n" + "=" * 78)
     print("sweep 1 -- interaction vs remaining margin  (error x3, capacity /3)")
     print("=" * 78)
@@ -271,7 +318,7 @@ def main():
     s2 = sweep_effect_sizes()
     s2.to_csv(COMP / "supraadditivity_effect_grid.tsv", sep="\t", index=False)
     print("\n" + "=" * 78)
-    print(f"sweep 2 -- interaction (log10 margin units) at f = {OBSERVED_F:.0e}")
+    print(f"sweep 2 -- interaction (log10 margin units) at f = {F:.3e}")
     print("=" * 78)
     piv = s2.pivot_table(index="error_factor", columns="capacity_factor",
                          values="interaction")
@@ -316,6 +363,14 @@ def main():
     # the experimentally actionable case: modest, individually survivable
     # perturbations that are jointly lethal once the margin is compressed
     actionable = s1[s1.qualitative_supraadditive]
+    print(f"\n  at the internally consistent evaluation point: interaction "
+          f"{cons.interaction_pct_of_additive:+.2f}% of additive "
+          f"(margin {cons.margin_baseline:.2f} log10)")
+    print(f"  at the window bottom, the same perturbation pair gives "
+          f"{wbrow.interaction_pct_of_additive:+.2f}% "
+          f"(margin {wbrow.margin_baseline:.2f}) -- a "
+          f"{cons.interaction_pct_of_additive / wbrow.interaction_pct_of_additive:.0f}x "
+          f"understatement")
     if len(actionable):
         a = actionable.iloc[0]
         print(f"\n  first margin at which error x{a.error_factor:.0f} and "
@@ -342,12 +397,16 @@ def main():
         "margin_definition": "log10(min(P_dagger/P*, A_max/A*))",
         "sweep1_error_factor": 3.0,
         "sweep1_capacity_factor": 3.0,
-        "interaction_at_observed_rate":
-            float(s1.iloc[0].interaction),
-        "interaction_pct_at_observed_rate":
-            float(s1.iloc[0].interaction_pct_of_additive),
-        "interaction_is_supraadditive_at_observed_rate":
-            bool(s1.iloc[0].interaction > 0),
+        "evaluation_point_f_codon": F,
+        "evaluation_point_source": "usage-weighted mean per-codon error rate from "
+                                   "scripts/06 (translation_burden.json)",
+        "baseline_margin_log10_at_window_bottom": float(wb["margin"]),
+        "interaction_at_evaluation_point": float(cons.interaction),
+        "interaction_pct_at_evaluation_point":
+            float(cons.interaction_pct_of_additive),
+        "interaction_pct_at_window_bottom": float(wbrow.interaction_pct_of_additive),
+        "interaction_is_supraadditive_at_evaluation_point":
+            bool(cons.interaction > 0),
         "interaction_grows_as_margin_closes": bool(
             s1.dropna(subset=["interaction"]).interaction.is_monotonic_increasing
             or s1.dropna(subset=["interaction"]).interaction.iloc[-1]
