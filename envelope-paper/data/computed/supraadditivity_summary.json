@@ -1,4 +1,10 @@
 {
+  "capacity_knob": "k_obs_max (rescue throughput)",
+  "qualitative_supraadditivity_first_seen_at_f": 0.001,
+  "qualitative_supraadditivity_first_seen_at_margin_log10": 1.1946809249440333,
+  "folding_arm_saturation_at_observed_rate": 0.9793933394850884,
+  "free_chaperone_uM_at_observed_rate": 47.527998958218966,
+  "misfolded_protein_uM_at_observed_rate": 0.052011468943898104,
   "baseline_margin_log10": 2.198810249846641,
   "baseline_margin_fold": 158.05573178050506,
   "binding_pool": "P",
@@ -9,12 +15,12 @@
   "margin_definition": "log10(min(P_dagger/P*, A_max/A*))",
   "sweep1_error_factor": 3.0,
   "sweep1_capacity_factor": 3.0,
-  "interaction_at_observed_rate": 0.0017253339431073655,
-  "interaction_pct_at_observed_rate": 0.3485201802989688,
+  "interaction_at_observed_rate": 0.001820716034631964,
+  "interaction_pct_at_observed_rate": 0.19560951659500955,
   "interaction_is_supraadditive_at_observed_rate": true,
   "interaction_grows_as_margin_closes": true,
-  "max_interaction_in_effect_grid": 0.23364459914813374,
-  "n_qualitatively_supraadditive_grid_points": 192,
+  "max_interaction_in_effect_grid": 0.23605957544434042,
+  "n_qualitatively_supraadditive_grid_points": 338,
   "n_grid_points": 676,
   "caveat": "this tests whether the MODEL predicts supraadditivity, not whether cells do. it cannot validate the framework; it checks internal coherence and sizes the effect an experiment must detect. parameters are the upstream literature-anchored baseline and are not fitted."
 }

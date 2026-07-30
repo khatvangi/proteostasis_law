@@ -37,6 +37,18 @@ def manuscript():
     return MS.read_text()
 
 
+def flat(text=None):
+    """
+    manuscript text with runs of whitespace collapsed.
+
+    prose is hard-wrapped, so a phrase assertion can straddle a newline and an
+    indent. normalize before matching phrases, so the tests constrain the CLAIM
+    rather than the line breaks -- otherwise reflowing a paragraph breaks a test
+    and the temptation is to reword the paper to fit the test.
+    """
+    return " ".join((manuscript() if text is None else text).split())
+
+
 def load_json(p):
     return json.loads(Path(p).read_text())
 
@@ -324,13 +336,15 @@ class ArtifactsExist(unittest.TestCase):
 
     def test_every_figure_has_a_generating_script(self):
         src = "\n".join(p.read_text() for p in SCRIPTS.glob("*.py"))
-        for stem in ("Fig1_envelope", "Fig2_axis_structure", "Fig3_bounds"):
+        for stem in ("Fig1_envelope", "Fig2_axis_structure", "Fig3_bounds",
+                     "Fig4_supraadditivity"):
             self.assertIn(stem, src,
                           f"no script in scripts/ generates {stem}")
 
     def test_figures_referenced_in_manuscript(self):
         text = manuscript()
-        for stem in ("Fig1_envelope", "Fig2_axis_structure", "Fig3_bounds"):
+        for stem in ("Fig1_envelope", "Fig2_axis_structure", "Fig3_bounds",
+                     "Fig4_supraadditivity"):
             self.assertIn(stem, text, f"{stem} has no figure legend")
 
     def test_computed_outputs_present(self):
@@ -338,7 +352,12 @@ class ArtifactsExist(unittest.TestCase):
                      "axis_tests.tsv", "axis_tests_median.tsv",
                      "mu_variance_decomposition.json", "translation_burden.json",
                      "bounds_summary.json", "removed_metal_site_test.tsv",
-                     "removed_crossspecies_test.json"):
+                     "removed_crossspecies_test.json",
+                     "supraadditivity_summary.json",
+                     "supraadditivity_margin_sweep.tsv",
+                     "supraadditivity_effect_grid.tsv",
+                     "supraadditivity_collapse_frontier.tsv",
+                     "supraadditivity_knob_comparison.tsv"):
             self.assertTrue((COMP / name).exists(), f"missing artifact {name}")
 
     def test_no_triplet_origin_claim(self):
@@ -347,6 +366,92 @@ class ArtifactsExist(unittest.TestCase):
         self.assertTrue(
             "no code-origin claim" in text or "no claim about the origin" in text,
             "the manuscript must explicitly disclaim a code-origin reading")
+
+
+class Supraadditivity(unittest.TestCase):
+    """
+    Result 5. the framework's distinguishing prediction, tested in its own model.
+    the point of these assertions is that the result must stay HONEST: the effect
+    is real in sign but negligible at wild-type margin, and the paper has to keep
+    saying so.
+    """
+
+    def setUp(self):
+        self.text = manuscript()
+        self.flat = flat()
+        self.s = load_json(COMP / "supraadditivity_summary.json")
+
+    def test_interaction_is_supraadditive_never_sub(self):
+        t = pd.read_csv(COMP / "supraadditivity_effect_grid.tsv", sep="\t")
+        defined = t[t.interaction.notna()]
+        self.assertGreater(len(defined), 0)
+        self.assertTrue((defined.interaction >= -1e-9).all(),
+                        "the model must not produce subadditive interactions")
+
+    def test_effect_is_negligible_at_wild_type_margin(self):
+        pct = self.s["interaction_pct_at_observed_rate"]
+        self.assertLess(pct, 1.0, "if this grew, the claim below would change")
+        self.assertGreater(pct, 0.0)
+        self.assertIn("+0.2% of the additive expectation", self.flat)
+        self.assertIn("not a detectable effect", self.flat)
+
+    def test_interaction_grows_as_margin_closes(self):
+        self.assertTrue(self.s["interaction_grows_as_margin_closes"])
+        t = pd.read_csv(COMP / "supraadditivity_margin_sweep.tsv", sep="\t")
+        d = t[t.interaction.notna()].sort_values("margin_baseline", ascending=False)
+        self.assertTrue(d.interaction_pct_of_additive.is_monotonic_increasing,
+                        "interaction should rise monotonically as margin closes")
+        for stated in ("+0.6% at 1.90", "+4.2% at 1.50"):
+            self.assertIn(stated, self.flat)
+
+    def test_qualitative_synthetic_lethality(self):
+        margin = self.s["qualitative_supraadditivity_first_seen_at_margin_log10"]
+        self.assertAlmostEqual(margin, 1.195, delta=0.01)
+        self.assertIn("1.19 log₁₀", self.flat)
+        self.assertIn("×16 headroom", self.flat)
+        self.assertEqual(self.s["n_qualitatively_supraadditive_grid_points"], 338)
+        self.assertIn("338 of 676", self.flat)
+
+    def test_collapse_cells_have_no_numeric_interaction(self):
+        """
+        substituting a lower bound there yields spurious NEGATIVE interactions.
+        the tables must leave those cells undefined.
+        """
+        for f in ("supraadditivity_margin_sweep.tsv",
+                  "supraadditivity_effect_grid.tsv"):
+            t = pd.read_csv(COMP / f, sep="\t")
+            bad = t[t.collapsed_both & t.interaction.notna()]
+            self.assertEqual(len(bad), 0,
+                             f"{f}: {len(bad)} collapsed cells carry a numeric "
+                             "interaction, which cannot be meaningful")
+
+    def test_saturation_limitation_is_disclosed(self):
+        sat = self.s["folding_arm_saturation_at_observed_rate"]
+        self.assertAlmostEqual(sat, 0.979, delta=0.002)
+        self.assertIn("97.9% saturated", self.flat)
+        self.assertIn("47.5 µM free", self.flat)
+        # and it must be named as a limitation, not just a methods note
+        lim = flat(self.text[self.text.index("### Limitations"):])
+        self.assertIn("understates how tightly", lim,
+                      "the saturation problem must appear in Limitations")
+
+    def test_model_only_caveat_is_stated(self):
+        self.assertIn("not whether cells do", self.flat)
+        self.assertIn("cannot validate the framework", self.flat)
+
+    def test_predictions_were_rewritten_not_left_stale(self):
+        """prediction 1 must no longer promise a wild-type additivity deviation."""
+        self.assertIn("synthetic lethality in a sensitized background", self.flat)
+        self.assertNotIn("Combining a synonymous change that raises folding "
+                         "burden with a reduction in chaperone capacity",
+                         self.flat)
+
+    def test_vendored_model_is_unmodified(self):
+        a = (SCRIPTS / "vendor" / "two_pool_ode.py").read_bytes()
+        b = Path("/storage/kiran-stuff/proteostasis-P1/two_pool_ode.py")
+        if b.exists():
+            self.assertEqual(a, b.read_bytes(),
+                             "the vendored model has drifted from upstream")
 
 
 class TablesAgreeWithData(unittest.TestCase):
@@ -361,6 +466,8 @@ class TablesAgreeWithData(unittest.TestCase):
         "Table3_axis_tests", "Table4_metal_site_backgrounds",
         "TableS1_codon_coordinates", "TableS2_delta_per_aa",
         "TableS3_tai_validation", "TableS4_crossspecies",
+        "Table5_supraadditivity", "TableS5_supraadditivity_grid",
+        "TableS6_capacity_knob_comparison",
     ]
 
     def test_all_tables_written(self):
@@ -449,8 +556,9 @@ class TablesAgreeWithData(unittest.TestCase):
 
     def test_manuscript_cites_the_tables(self):
         text = manuscript()
-        for label in ("Table 1", "Table 2", "Table 3", "Table 4",
-                      "Table S1", "Table S2", "Table S3", "Table S4"):
+        for label in ("Table 1", "Table 2", "Table 3", "Table 4", "Table 5",
+                      "Table S1", "Table S2", "Table S3", "Table S4",
+                      "Table S5", "Table S6"):
             self.assertIn(label, text, f"manuscript never refers to {label}")
 
     def test_removed_result_tables_are_marked_as_removed(self):

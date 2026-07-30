@@ -24,7 +24,7 @@ One command rebuilds every number, figure, and table, then runs the tests.
 Nothing needs network access; all inputs are in `data/raw/`.
 
 ```bash
-python scripts/run_all.py            # ~2.5 min end to end, then 41 tests
+python scripts/run_all.py            # ~3 min end to end, then 50 tests
 python scripts/run_all.py --fast     # skip the two 10,000-permutation runs
 python scripts/run_all.py --no-tests # rebuild only
 ```
@@ -41,8 +41,10 @@ python scripts/02_axis_structure.py --mu-stat median  # ~65 s   mu summary-stati
 python scripts/06_translation_burden.py               # ~1 s    burden magnitude
 python scripts/07_removed_results.py                  # ~4 s    the two dropped results
 cd scripts && python 03_fig1_envelope.py && python 04_fig2_axis.py && python 05_fig3_bounds.py
+python scripts/09_supraadditivity.py                  # ~28 s   the distinguishing prediction
+cd scripts && python 10_fig4_supraadditivity.py       # Fig 4
 python scripts/08_make_tables.py                      # ~1 s    tables
-python -m unittest discover -s tests -v               # 41 tests
+python -m unittest discover -s tests -v               # 50 tests
 ```
 
 Requires Python 3 with numpy, pandas, scipy, seaborn, openpyxl. No build step.
@@ -59,13 +61,16 @@ scripts/                   every number and figure is generated here
   05_fig3_bounds.py        Fig 3  paired bounds and headroom
   06_translation_burden.py burden magnitude implied by the mu data
   07_removed_results.py    reproduces the two results this paper drops
-  08_make_tables.py        Tables 1-4 and S1-S4
+  08_make_tables.py        Tables 1-5 and S1-S6
+  09_supraadditivity.py    2x2 factorial: the distinguishing prediction
+  10_fig4_supraadditivity.py  Fig 4  supraadditivity
+  vendor/two_pool_ode.py   upstream model, verbatim (do not edit)
   run_all.py               rebuild everything, then run the tests
   figstyle.py              shared seaborn style
 data/raw/                  staged inputs, self-contained
 data/computed/             script outputs; the manuscript's only source of numbers
-figures/                   Fig 1-3, PNG + PDF
-tables/                    Tables 1-4 and S1-S4 as TSV, plus TABLES.md
+figures/                   Fig 1-4, PNG + PDF
+tables/                    Tables 1-5 and S1-S6 as TSV, plus TABLES.md
 tests/                     asserts the manuscript against data/computed/ and tables/
 ```
 
@@ -100,8 +105,13 @@ corrected analyses reported in the Discussion and reproduced by
 ## Known gaps before submission
 
 - Public deposition DOI is not yet assigned (`Data and code availability`).
-- The framework's distinguishing prediction (supraadditivity) is untested. This
-  is stated in the manuscript, not hidden.
+- The framework's distinguishing prediction is untested **experimentally**.
+  Result 5 confirms it holds in the model but is only ~0.2% above additive at
+  wild-type margin, so the experiment must first compress the viability margin;
+  the manuscript says so plainly rather than implying it is easy to test.
+- The two-pool model leaves the folding arm 97.9% saturated at the observed
+  operating point, which sits against the capacity evidence cited in Result 1.
+  Re-anchoring `C_tot`/`K_d` is the obvious next refinement.
 - ν is validated for E. coli only. No validated B. subtilis or S. cerevisiae
   supply vector exists; see `../../codon-deployment/data/computed/README_TAI_IS_CORRUPT.md`.
 
@@ -112,14 +122,18 @@ corrected analyses reported in the Discussion and reproduced by
 | Fig 1 | envelope regimes and the saddle-node threshold |
 | Fig 2 | mu clustering, nu null, between/within-amino-acid variance |
 | Fig 3 | paired bounds, the paired ratio, and headroom |
+| Fig 4 | the distinguishing prediction tested in the model |
 | Table 1 | burden terms and their flux operationalization |
 | Table 2 (+2b) | bounds on the tolerable per-codon error rate, and derived statistics |
 | Table 3 | permutation tests: both axes, both nulls, both mu statistics |
 | Table 4 | **removed result** — metal sites under both backgrounds |
+| Table 5 | supraadditivity: interaction vs remaining margin |
 | Table S1 | per-codon (mu, nu) coordinates, all 59 analysed codons |
 | Table S2 | per-amino-acid operational spread |
 | Table S3 | validation of the nu axis, both candidate vectors |
 | Table S4 | **removed result** — cross-species conservation of Delta |
+| Table S5 | supraadditivity effect-size grid at the observed rate |
+| Table S6 | the two capacity knobs are not equivalent |
 
 Tables 4 and S4 report analyses this paper *excludes*; both are labelled as such
 in `tables/TABLES.md`, and a test enforces that labelling.

@@ -108,3 +108,39 @@ recomputation.
   labelled as signals, and Tables 4/S4 stay marked "excluded from the paper".
   Mutation-tested: table drift, relabelling a null, making a within-gene p
   significant, and dropping the "excluded" marking each fail.
+
+**Q:** What next?
+
+**A:** Recommended and ran the supraadditivity test — the paper's one
+distinguishing prediction, previously asserted only verbally. 2x2 factorial on the
+vendored two-pool ODE (error rate up vs rescue throughput down), readout
+log10(min(P_dagger/P*, A_max/A*)).
+
+Result: the interaction is supraadditive everywhere it is defined, never
+subadditive — so the framework is coherent on its own terms. But at wild-type
+margin it is **+0.2% of additive** (undetectable). It grows to +4.2% at margin
+1.50, and at margin 1.19 (x16 headroom) 3-fold perturbations that are each
+survivable become **jointly lethal** (338 of 676 grid combinations). This merges
+predictions 1 and 2: the experiment must compress the margin first, and then looks
+for synthetic lethality, not a small additivity deviation. Predictions rewritten
+accordingly; the paper now says the prediction is harder to test than earlier
+drafts implied.
+
+Two self-corrections during the analysis:
+- My first capacity knob was `C_tot`, which turned out nearly inert — the folding
+  arm is 97.9% saturated at the operating point (47.5 uM free chaperone vs
+  0.052 uM misfolded protein), so a 3-fold pool cut leaves v_fold at 96%.
+  Switched to `k_obs_max` (throughput) and reported both. The saturation is now a
+  named Limitation: it contradicts the capacity evidence cited in Result 1
+  (refs 4, 21), so the model likely understates how tightly C_buffer binds.
+- My first collapse handling substituted D_both = baseline margin as a "lower
+  bound", which produced spurious NEGATIVE interactions (-17%) for cases that are
+  in fact the strongest supraadditivity. Collapsed cells now carry no numeric
+  interaction at all, and a test enforces that.
+
+Added: Result 5, Fig 4, Table 5, Tables S5/S6, `scripts/09`, `scripts/10`,
+`scripts/vendor/two_pool_ode.py` (verbatim upstream, with a test asserting it has
+not drifted), and `scripts/run_all.py` extended. Tests 41 -> 50; mutation-tested
+(overstating the wild-type effect, dropping the model-only caveat, removing the
+saturation limitation, numbering a collapsed cell, or introducing subadditivity
+each fail). Verified by deleting every generated artifact and rebuilding from raw.

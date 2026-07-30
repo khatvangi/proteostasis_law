@@ -320,6 +320,50 @@ It does not establish that the code was selected to produce that organization,
 and we do not claim it was. The contrast with the supply axis is the more robust
 observation: whatever produces the μ structure does not operate on ν.
 
+### Result 5 — The distinguishing prediction holds in the model, but only once the margin closes
+
+The framework's distinguishing claim is that perturbations at different burden
+stages interact supraadditively: independent terms would combine additively,
+coupled ones need not. That claim is untested experimentally. It is, however,
+testable *in the model* — and if the model came out additive, the framework would
+be wrong on its own terms. We ran a 2×2 factorial on the two-pool system,
+raising the per-codon error rate (`B_error` up) against knocking down rescue
+throughput (`C_buffer` down), with the viability margin
+log₁₀(min(P†/P*, A_max/A*)) as the readout and the interaction defined as
+observed joint damage minus the additive expectation (Table 5, Fig. 4).
+
+The interaction is positive everywhere it is defined — never subadditive — so the
+prediction is directionally confirmed. But its magnitude at the wild-type
+operating point is **+0.2% of the additive expectation** (+0.0018 log₁₀ units).
+That is not a detectable effect. Even a 5-fold error increase combined with a
+20-fold rescue knockdown reaches only +13% (Table S5).
+
+The interaction grows as the starting margin is compressed: +0.2% at the observed
+rate (margin 2.20 log₁₀, ×158 headroom), +0.6% at 1.90, +4.2% at 1.50. At a
+starting margin of 1.19 log₁₀ (×16 headroom) the character of the result changes
+qualitatively — a 3-fold error increase and a 3-fold rescue knockdown are each
+individually survivable, but together the system has no stable state at all
+(Fig. 4a). Across the perturbation grid, 338 of 676 combinations are
+single-viable but jointly lethal.
+
+This merges the framework's first two predictions into one experimental design.
+Supraadditivity is not detectable at wild-type buffering, because there the
+system is far enough from the fold to be effectively linear; an experiment must
+first compress the margin, and then the effect appears not as a few-percent
+deviation from additivity but as outright synthetic lethality. We state plainly
+that this makes the prediction harder to test than the framing in earlier drafts
+of this work implied.
+
+Two caveats bound the result. It tests whether the *model* predicts
+supraadditivity, not whether cells do; it cannot validate the framework. And the
+two capacity knobs available in the model are not equivalent (Table S6): at the
+observed operating point the folding arm is 97.9% saturated — 47.5 µM free
+chaperone against 0.052 µM misfolded protein — so shrinking the chaperone pool
+barely changes the rescue rate (margin loss 0.017 log₁₀ for a 3-fold cut) while
+cutting throughput acts proportionally (0.453). The results above use the
+throughput knob. That saturation is itself a limitation, discussed below.
+
+
 ---
 
 ## Discussion
@@ -408,22 +452,38 @@ derived from tRNA gene copy number, not a measured ribosome transit time
 weighted, with no archaea and no mammalian systems, so generality rests on
 structural convergence rather than molecular homology. The reduced ODE is not fit
 to data and establishes only threshold *existence*; the two-pool bound is
-order-of-magnitude. Most importantly, the framework's distinguishing prediction —
+order-of-magnitude. The two-pool model's chaperone parameterization
+(`C_tot` = 50 µM, `K_d` = 1 µM) leaves the folding arm 97.9% saturated at the
+observed operating point, a ~900-fold excess of free chaperone over misfolded
+protein (Result 5, Table S6). That sits awkwardly against the capacity evidence
+we cite in Result 1 — Hsp70 buffering of production costs [4] and metastable-protein
+interference [21] both indicate a network running near capacity, not in vast
+excess — so the model likely understates how tightly `C_buffer` binds. Re-anchoring
+`C_tot`/`K_d` so that free chaperone is comparable to `K_d` is the obvious next
+refinement, and would be expected to raise the interaction magnitudes in Result 5. Most importantly, the framework's distinguishing prediction —
 supraadditivity across burden stages — remains untested. Until it is tested this
 is a motivated framework, not an established constraint.
 
 ### Predictions
 
-1. **Supraadditivity (distinguishing, untested).** Combining a synonymous change
-   that raises folding burden with a reduction in chaperone capacity should
-   produce fitness defects worse than the sum of each alone. Independent terms
-   would combine additively; coupled terms need not.
-2. **Margin compression is where the envelope binds.** Because extant
-   translation sits ~2 orders of magnitude inside the bound (Result 3), the
-   envelope should become detectable only under interventions that compress the
-   margin — chaperone knockdown, heat stress, ageing, or forced overexpression —
-   and effects of burden-raising perturbations should scale with how far the
-   margin has been closed rather than with the perturbation size.
+1. **Synthetic lethality under compressed buffering (distinguishing, untested
+   experimentally; confirmed in the model).** Combining a burden-raising
+   perturbation with a reduction in rescue throughput should produce fitness
+   defects worse than the sum of each alone. Result 5 shows the model predicts
+   this, and quantifies the design constraint: at wild-type buffering the excess
+   over additivity is ~0.2%, far too small to measure, so the experiment must
+   first compress the viability margin. Once the margin is reduced to roughly
+   ×16 headroom, 3-fold perturbations that are each individually survivable
+   become jointly lethal. The prediction to test is therefore synthetic
+   lethality in a sensitized background, not a small deviation from additivity
+   in wild type.
+2. **Effects should scale with margin closed, not perturbation size.** Because
+   extant translation sits ~2 orders of magnitude inside the bound (Result 3) and
+   the system is effectively linear there (Result 5), the envelope should become
+   detectable only under interventions that compress the margin — chaperone
+   knockdown, heat stress, ageing, or forced overexpression — and burden-raising
+   perturbations should scale with how far the margin has been closed rather than
+   with their own magnitude.
 3. **State-dependence of synonymous effects.** Because the same codon-level
    perturbation should be mild in a buffered state and costly in a stressed one,
    synonymous-edit fitness effects should be strongly condition-dependent. This
@@ -509,6 +569,23 @@ absorption) are drawn once per sample and both bounds computed from that draw
 (5,000 draws, seed 17). Bound-comparison statistics derived from separately
 parameterized marginal runs are not valid and are not used.
 
+### Supraadditivity test
+
+The 2×2 factorial uses the upstream two-pool model, vendored unmodified at
+`scripts/vendor/two_pool_ode.py`. For each cell the collapse threshold P† is
+recomputed via the operational saddle-node (both the operating point *and* the
+threshold move under a capacity knockdown, which is the coupling under test), the
+stable-branch steady state (P*, A*) is solved for the perturbed inflow, and the
+margin is log₁₀(min(P†/P*, A_max/A*)) using whichever pool binds. Damage is
+margin lost relative to the unperturbed cell; the interaction is observed joint
+damage minus the sum of the single-perturbation damages. Where the combination
+has no stable state the margin loss is unbounded and **no numeric interaction is
+computed** — substituting the baseline margin as a lower bound produces spurious
+negative interactions whenever the two single damages already exceed it. Those
+cells are recorded as qualitative synthetic lethality instead. Capacity is
+perturbed through `k_obs_max` (rescue throughput); `C_tot` is reported alongside
+because the folding arm is saturated in this parameterization (Table S6).
+
 ### Data and code availability
 
 Raw inputs, analysis scripts, computed outputs, figures, tables (`tables/`, as
@@ -559,6 +636,24 @@ observed rate (f = 10⁻⁴): the two-pool system rests ×158 below the collapse
 threshold in the misfolded-monomer pool and ×1.1 × 10⁴ below it in the aggregated
 pool. Order-of-magnitude arguments on literature-anchored parameters, not
 organism-fitted models.
+
+**Fig. 4. The distinguishing prediction, tested in the model.**
+`figures/Fig4_supraadditivity.png`
+
+(a) Margin lost under both perturbations (error ×3, rescue throughput ÷3, blue
+squares) against the additive expectation (grey circles), as the starting margin
+is compressed from left to right. The two nearly coincide at wild-type margin and
+separate as the margin closes. In the shaded region each single perturbation is
+still survivable but the combination has no stable state, so the margin loss is
+unbounded; those points are marked with crosses at the top of the axis rather
+than assigned a value. (b) Interaction as a percentage of the additive
+expectation across the perturbation grid at the observed rate; grey cells marked
+"coll." are joint collapse, where the interaction is unbounded rather than large.
+(c) The two capacity knobs are not equivalent: shrinking the chaperone pool
+`C_tot` is nearly inert because the folding arm is 97.9% saturated, while cutting
+throughput `k_obs_max` acts proportionally. Dashed line, the error-×3 damage for
+scale. Parameters are the upstream literature-anchored baseline; nothing is
+fitted.
 
 ---
 

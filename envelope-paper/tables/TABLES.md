@@ -76,6 +76,21 @@ All two-bound comparisons use the **paired** Monte Carlo, in which the parameter
 
 ---
 
+## Table 5. The distinguishing prediction, tested in the model
+
+2x2 factorial on the two-pool ODE: error rate x3 (raising `B_error`) against rescue throughput /3 (lowering `C_buffer`). The readout is the viability margin, log10(min(P_dagger/P*, A_max/A*)). Damage is margin lost; the interaction is observed joint damage minus the additive expectation, so positive means supraadditive. Where the combination has no stable state the margin loss is unbounded and no numeric interaction is defined -- those rows are marked, not assigned a value.
+
+| Baseline f (/codon) | Starting margin (log₁₀) | D error ×3 | D capacity ÷3 | Additive | **Observed, both** | Interaction | % above additive | Joint collapse |
+|---|---|---|---|---|---|---|---|---|
+| 1.00 × 10⁻⁴ | 2.20 | 0.4780 | 0.4528 | 0.9308 | 0.9326 | +0.0018 | +0.2% |  |
+| 2.00 × 10⁻⁴ | 1.90 | 0.4789 | 0.4536 | 0.9325 | 0.9381 | +0.0056 | +0.6% |  |
+| 5.00 × 10⁻⁴ | 1.50 | 0.4822 | 0.4574 | 0.9396 | 0.9793 | +0.0397 | +4.2% |  |
+| 1.00 × 10⁻³ | 1.19 | 0.4915 | 0.4709 | 0.9624 | unbounded | — | — | yes |
+| 2.00 × 10⁻³ | 0.89 | 0.5305 | 0.5405 | 1.0710 | unbounded | — | — | yes |
+| 5.00 × 10⁻³ | 0.46 | nan | nan | nan | unbounded | — | — | yes |
+
+---
+
 # Supplementary tables
 
 ## Table S1. Per-codon operational coordinates
@@ -185,4 +200,66 @@ Translational selection predicts that highly expressed genes shift synonymous us
 | ecoli vs scerevisiae | 0.922 | 0.791 | 9.3e-05 | 0.582 | 0.0112 |
 | ecoli vs bsubtilis | 0.719 | 0.67 | 0.00233 | 0.459 | 0.0554 |
 | bsubtilis vs scerevisiae | 0.633 | 0.555 | 0.0169 | 0.733 | 0.000544 |
+
+## Table S5. Supraadditivity effect-size grid at the observed rate
+
+All 36 perturbation combinations at f = 1e-4. Blank interaction means the combination collapses, where the loss is unbounded.
+
+| Error × | Capacity ÷ | D error | D capacity | Observed, both | % above additive | Joint collapse |
+|---|---|---|---|---|---|---|
+| 1.5 | 1.5 | 0.1763 | 0.1699 | 0.3463 | +0.03% |  |
+| 1.5 | 2 | 0.1763 | 0.2887 | 0.4652 | +0.04% |  |
+| 1.5 | 3 | 0.1763 | 0.4528 | 0.6295 | +0.06% |  |
+| 1.5 | 5 | 0.1763 | 0.6516 | 0.8288 | +0.10% |  |
+| 1.5 | 10 | 0.1763 | 0.9001 | 1.0791 | +0.25% |  |
+| 1.5 | 20 | 0.1763 | 1.1136 | 1.2980 | +0.63% |  |
+| 2 | 1.5 | 0.3015 | 0.1699 | 0.4716 | +0.04% |  |
+| 2 | 2 | 0.3015 | 0.2887 | 0.5906 | +0.07% |  |
+| 2 | 3 | 0.3015 | 0.4528 | 0.7551 | +0.11% |  |
+| 2 | 5 | 0.3015 | 0.6516 | 0.9550 | +0.20% |  |
+| 2 | 10 | 0.3015 | 0.9001 | 1.2080 | +0.53% |  |
+| 2 | 20 | 0.3015 | 1.1136 | 1.4354 | +1.44% |  |
+| 3 | 1.5 | 0.4780 | 0.1699 | 0.6483 | +0.06% |  |
+| 3 | 2 | 0.4780 | 0.2887 | 0.7675 | +0.11% |  |
+| 3 | 3 | 0.4780 | 0.4528 | 0.9326 | +0.20% |  |
+| 3 | 5 | 0.4780 | 0.6516 | 1.1342 | +0.41% |  |
+| 3 | 10 | 0.4780 | 0.9001 | 1.3959 | +1.29% |  |
+| 3 | 20 | 0.4780 | 1.1136 | 1.6508 | +3.72% |  |
+| 5 | 1.5 | 0.7007 | 0.1699 | 0.8715 | +0.10% |  |
+| 5 | 2 | 0.7007 | 0.2887 | 0.9913 | +0.19% |  |
+| 5 | 3 | 0.7007 | 0.4528 | 1.1581 | +0.40% |  |
+| 5 | 5 | 0.7007 | 0.6516 | 1.3660 | +1.01% |  |
+| 5 | 10 | 0.7007 | 0.9001 | 1.6606 | +3.73% |  |
+| 5 | 20 | 0.7007 | 1.1136 | 2.0503 | +13.01% |  |
+| 10 | 1.5 | 1.0041 | 0.1699 | 1.1767 | +0.23% |  |
+| 10 | 2 | 1.0041 | 0.2887 | 1.2991 | +0.49% |  |
+| 10 | 3 | 1.0041 | 0.4528 | 1.4750 | +1.24% |  |
+| 10 | 5 | 1.0041 | 0.6516 | 1.7207 | +3.93% |  |
+| 10 | 10 | 1.0041 | 0.9001 | unbounded | — | yes |
+| 10 | 20 | 1.0041 | 1.1136 | unbounded | — | yes |
+| 20 | 1.5 | 1.3111 | 0.1699 | 1.4909 | +0.66% |  |
+| 20 | 2 | 1.3111 | 0.2887 | 1.6261 | +1.64% |  |
+| 20 | 3 | 1.3111 | 0.4528 | 1.8517 | +4.97% |  |
+| 20 | 5 | 1.3111 | 0.6516 | unbounded | — | yes |
+| 20 | 10 | 1.3111 | 0.9001 | unbounded | — | yes |
+| 20 | 20 | 1.3111 | 1.1136 | unbounded | — | yes |
+
+## Table S6. The two capacity knobs are not equivalent
+
+At the observed operating point the folding arm is 97.9% saturated (47.5 µM free chaperone against 0.052 µM misfolded protein), so shrinking the chaperone pool `C_tot` barely changes the rescue rate while cutting throughput `k_obs_max` acts proportionally. This is a property of the model's parameterization, not of the framework — see Limitations.
+
+| Capacity knob | Baseline f | Starting margin | D capacity ÷3 | D error ×3 | % above additive | Joint collapse |
+|---|---|---|---|---|---|---|
+| k_obs_max | 1.00 × 10⁻⁴ | 2.20 | 0.4528 | 0.4780 | +0.2% |  |
+| k_obs_max | 2.00 × 10⁻⁴ | 1.90 | 0.4536 | 0.4789 | +0.6% |  |
+| k_obs_max | 5.00 × 10⁻⁴ | 1.50 | 0.4574 | 0.4822 | +4.2% |  |
+| k_obs_max | 1.00 × 10⁻³ | 1.19 | 0.4709 | 0.4915 | — | yes |
+| k_obs_max | 2.00 × 10⁻³ | 0.89 | 0.5405 | 0.5305 | — | yes |
+| k_obs_max | 5.00 × 10⁻³ | 0.46 | nan | nan | — | yes |
+| C_tot | 1.00 × 10⁻⁴ | 2.20 | 0.0171 | 0.4780 | +0.3% |  |
+| C_tot | 2.00 × 10⁻⁴ | 1.90 | 0.0179 | 0.4789 | +0.7% |  |
+| C_tot | 5.00 × 10⁻⁴ | 1.50 | 0.0205 | 0.4822 | +1.8% |  |
+| C_tot | 1.00 × 10⁻³ | 1.19 | 0.0250 | 0.4915 | +4.1% |  |
+| C_tot | 2.00 × 10⁻³ | 0.89 | 0.0347 | 0.5305 | +14.7% |  |
+| C_tot | 5.00 × 10⁻³ | 0.46 | nan | nan | — | yes |
 

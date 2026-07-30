@@ -13,8 +13,8 @@ design
 ------
 a 2x2 factorial on the two-pool ODE:
 
-    E  raise the per-codon error rate      f_codon *= error_factor      (B_error up)
-    C  knock down chaperone capacity       C_tot_uM /= capacity_factor  (C_buffer down)
+    E  raise the per-codon error rate      f_codon   *= error_factor     (B_error up)
+    C  knock down rescue throughput        k_obs_max /= capacity_factor  (C_buffer down)
 
 the readout is the viability margin: how far the operating point sits below the
 collapse threshold, in log10 units,
@@ -22,9 +22,17 @@ collapse threshold, in log10 units,
     margin = log10( min( P_dagger / P*,  A_max / A* ) )
 
 taking whichever pool binds. NOTE that both the operating point and the threshold
-move under a capacity knockdown -- lowering C_tot reduces v_fold, which lowers
+move under a capacity knockdown -- lowering rescue reduces v_fold, which lowers
 the J-curve and so lowers P_dagger as well. that shared dependence is precisely
 the coupling the prediction is about.
+
+on the choice of capacity knob: the first version of this analysis used C_tot_uM
+and found the capacity arm almost inert. that turned out to be an artifact. at the
+observed operating point the folding arm is 97.9% saturated (free chaperone
+47.5 uM against 0.052 uM misfolded protein), so a 3-fold C_tot knockdown leaves
+v_fold at 96%. k_obs_max is the throughput knob and acts proportionally. both are
+reported below, because the discrepancy between them is itself a finding about the
+model's parameterization.
 
 damage is margin lost, D = margin_baseline - margin_perturbed, and the
 interaction is
@@ -42,6 +50,7 @@ three sweeps
 2. an effect-size grid over (error_factor, capacity_factor) at the observed rate,
    so an experiment can be sized
 3. the collapse frontier: which single-viable combinations are jointly lethal
+4. knob comparison: k_obs_max vs C_tot, exposing the saturation artifact
 
 parameters are the upstream literature-anchored baseline; nothing is fitted.
 """
@@ -66,15 +75,36 @@ def J_from_f(f, p):
     return f * p.N_prot * (1.0 - p.S_avg) * p.p_baseline / p.T_gen_s
 
 
-def state(f_codon, error_factor=1.0, capacity_factor=1.0):
+def state(f_codon, error_factor=1.0, capacity_factor=1.0,
+          capacity_knob="k_obs_max"):
     """
     operating point, threshold, and viability margin under a perturbation.
 
     error_factor    > 1 raises the per-codon error rate  (more B_error)
     capacity_factor > 1 knocks down chaperone capacity   (less C_buffer)
+
+    WHICH CAPACITY KNOB MATTERS. the rescue term is
+    v_fold = k_obs_max · c_free/(c_free + K_d), with
+    c_free = C_tot/(1 + M/K_d) and M the misfolded pool. at the observed
+    operating point M = 0.052 uM against C_tot = 50 uM and K_d = 1 uM, so
+    c_free = 47.5 uM and v_fold sits at 97.9% of k_obs_max -- the folding arm is
+    almost fully saturated. lowering C_tot therefore does almost nothing (a
+    3-fold knockdown leaves v_fold at 96%), while lowering k_obs_max acts
+    proportionally (3-fold -> 33%).
+
+    so `k_obs_max` is the default: it represents a loss of rescue THROUGHPUT,
+    which is what a chaperone mutant or an inhibitor does. `C_tot` is retained as
+    a comparison because it shows how much of the capacity arm's apparent
+    insensitivity is an artifact of the titration term being saturated in this
+    parameterization.
     """
     p = m.Params()
-    p.C_tot_uM = p.C_tot_uM / capacity_factor
+    if capacity_knob == "k_obs_max":
+        p.k_obs_max = p.k_obs_max / capacity_factor
+    elif capacity_knob == "C_tot":
+        p.C_tot_uM = p.C_tot_uM / capacity_factor
+    else:
+        raise ValueError(f"unknown capacity_knob {capacity_knob!r}")
 
     f = f_codon * error_factor
     J = J_from_f(f, p)
@@ -85,7 +115,8 @@ def state(f_codon, error_factor=1.0, capacity_factor=1.0):
     collapsed = (not np.isfinite(P_star)) or (J >= J_crit)
     if collapsed:
         return {"f_codon": f, "error_factor": error_factor,
-                "capacity_factor": capacity_factor, "J": J, "J_crit": J_crit,
+                "capacity_factor": capacity_factor, "capacity_knob": capacity_knob,
+                "J": J, "J_crit": J_crit,
                 "P_star": np.nan, "A_star": np.nan, "P_dagger": P_dag,
                 "margin_P": np.nan, "margin_A": np.nan, "margin": np.nan,
                 "binding_pool": "none", "mechanism": mech, "collapsed": True}
@@ -93,7 +124,8 @@ def state(f_codon, error_factor=1.0, capacity_factor=1.0):
     margin_P = np.log10(P_dag / P_star)
     margin_A = np.log10(p.A_max / A_star)
     return {"f_codon": f, "error_factor": error_factor,
-            "capacity_factor": capacity_factor, "J": J, "J_crit": J_crit,
+            "capacity_factor": capacity_factor, "capacity_knob": capacity_knob,
+            "J": J, "J_crit": J_crit,
             "P_star": P_star, "A_star": A_star, "P_dagger": P_dag,
             "margin_P": margin_P, "margin_A": margin_A,
             "margin": min(margin_P, margin_A),
@@ -101,15 +133,16 @@ def state(f_codon, error_factor=1.0, capacity_factor=1.0):
             "mechanism": mech, "collapsed": False}
 
 
-def factorial(f_base, e, c):
+def factorial(f_base, e, c, knob="k_obs_max"):
     """the 2x2 and its interaction term."""
-    base = state(f_base, 1.0, 1.0)
-    only_e = state(f_base, e, 1.0)
-    only_c = state(f_base, 1.0, c)
-    both = state(f_base, e, c)
+    base = state(f_base, 1.0, 1.0, knob)
+    only_e = state(f_base, e, 1.0, knob)
+    only_c = state(f_base, 1.0, c, knob)
+    both = state(f_base, e, c, knob)
 
     row = {
         "f_base": f_base, "error_factor": e, "capacity_factor": c,
+        "capacity_knob": knob,
         "margin_baseline": base["margin"],
         "margin_error_only": only_e["margin"],
         "margin_capacity_only": only_c["margin"],
@@ -133,14 +166,19 @@ def factorial(f_base, e, c):
     D_e = base["margin"] - only_e["margin"]
     D_c = base["margin"] - only_c["margin"]
     if both["collapsed"]:
-        # the combination has no stable state; the margin loss is at least the
-        # whole baseline margin. record the lower bound, flagged above.
-        D_b = base["margin"]
-        row.update({"D_error": D_e, "D_capacity": D_c, "D_both": D_b,
-                    "interaction": D_b - (D_e + D_c),
-                    "interaction_pct_of_additive":
-                        100.0 * (D_b - (D_e + D_c)) / (D_e + D_c)
-                        if (D_e + D_c) else np.nan})
+        # the combination has no stable state, so the margin loss is unbounded --
+        # the system does not merely lose margin, it loses the branch.
+        #
+        # DO NOT compute a numeric interaction here. an earlier version of this
+        # script substituted D_both = margin_baseline as a "lower bound", which
+        # made the interaction come out NEGATIVE whenever D_e + D_c already
+        # exceeded the baseline margin -- reporting apparent subadditivity for
+        # cases that are in fact the strongest possible supraadditivity. the
+        # honest record is the qualitative flag plus the two single-perturbation
+        # damages.
+        row.update({"D_error": D_e, "D_capacity": D_c, "D_both": np.inf,
+                    "interaction": np.nan,
+                    "interaction_pct_of_additive": np.nan})
         return row
 
     D_b = base["margin"] - both["margin"]
@@ -153,10 +191,10 @@ def factorial(f_base, e, c):
 
 
 # --------------------------------------------------------------------------
-def sweep_margin(e=3.0, c=3.0):
+def sweep_margin(e=3.0, c=3.0, knob="k_obs_max"):
     """sweep 1 -- interaction as a function of how much margin is left."""
     fs = [1e-4, 2e-4, 5e-4, 1e-3, 2e-3, 5e-3]
-    rows = [factorial(f, e, c) for f in fs]
+    rows = [factorial(f, e, c, knob) for f in fs]
     return pd.DataFrame(rows)
 
 
@@ -197,6 +235,17 @@ def main():
     print(f"  binding pool: {base['binding_pool']}   "
           f"closure mechanism: {base['mechanism']}")
 
+    # saturation diagnostic: how much room each capacity knob actually has
+    p0 = m.Params()
+    cf = m.c_free(base["P_star"], p0)
+    sat = m.v_fold(base["P_star"], p0) / p0.k_obs_max
+    print(f"\n  chaperone titration at this operating point:")
+    print(f"    misfolded protein M = {base['P_star'] * p0.Prot_tot_uM:.4f} uM  vs  "
+          f"free chaperone = {cf:.2f} uM  (C_tot = {p0.C_tot_uM:.0f}, "
+          f"K_d = {p0.K_d_uM:.1f})")
+    print(f"    v_fold / k_obs_max = {sat:.3f}  -- the folding arm is "
+          f"{100*sat:.1f}% saturated, so C_tot is a nearly inert knob")
+
     s1 = sweep_margin()
     s1.to_csv(COMP / "supraadditivity_margin_sweep.tsv", sep="\t", index=False)
     print("\n" + "=" * 78)
@@ -205,11 +254,19 @@ def main():
     print(f"  {'f_base':>8} {'margin':>7} {'D_err':>7} {'D_cap':>7} "
           f"{'D_both':>7} {'additive':>9} {'interaction':>12} {'% of add.':>10}")
     for _, r in s1.iterrows():
+        if not np.isfinite(r.D_error):
+            print(f"  {r.f_base:8.0e} {r.margin_baseline:7.2f} "
+                  f"{'a single perturbation already collapses it':>52}")
+            continue
         add = r.D_error + r.D_capacity
-        flag = "  <- both collapse" if r.collapsed_both else ""
+        if r.collapsed_both:
+            print(f"  {r.f_base:8.0e} {r.margin_baseline:7.2f} {r.D_error:7.3f} "
+                  f"{r.D_capacity:7.3f} {'COLLAPSE':>7} {add:9.3f} "
+                  f"{'unbounded':>12} {'-- singles both survive':>10}")
+            continue
         print(f"  {r.f_base:8.0e} {r.margin_baseline:7.2f} {r.D_error:7.3f} "
               f"{r.D_capacity:7.3f} {r.D_both:7.3f} {add:9.3f} "
-              f"{r.interaction:+12.3f} {r.interaction_pct_of_additive:+9.1f}%{flag}")
+              f"{r.interaction:+12.3f} {r.interaction_pct_of_additive:+9.1f}%")
 
     s2 = sweep_effect_sizes()
     s2.to_csv(COMP / "supraadditivity_effect_grid.tsv", sep="\t", index=False)
@@ -237,7 +294,46 @@ def main():
         print(f"  mildest such combination: error x{q.error_factor.min():.1f} "
               f"with capacity /{q[q.error_factor == q.error_factor.min()].capacity_factor.min():.1f}")
 
+    # sweep 4 -- knob comparison
+    s4 = pd.concat([sweep_margin(knob="k_obs_max").assign(knob="k_obs_max"),
+                    sweep_margin(knob="C_tot").assign(knob="C_tot")],
+                   ignore_index=True)
+    s4.to_csv(COMP / "supraadditivity_knob_comparison.tsv", sep="\t", index=False)
+    print("\n" + "=" * 78)
+    print("sweep 4 -- capacity knob comparison (error x3, capacity /3)")
+    print("=" * 78)
+    print(f"  {'knob':<11}{'f_base':>9}{'D_cap':>8}{'D_err':>8}"
+          f"{'interaction':>13}{'% of additive':>15}")
+    for _, r in s4.iterrows():
+        if not np.isfinite(r.interaction):
+            if r.collapsed_both and np.isfinite(r.D_error):
+                print(f"  {r.knob:<11}{r.f_base:9.0e}{r.D_capacity:8.3f}"
+                      f"{r.D_error:8.3f}{'COLLAPSE':>13}{'unbounded':>15}")
+            continue
+        print(f"  {r.knob:<11}{r.f_base:9.0e}{r.D_capacity:8.3f}{r.D_error:8.3f}"
+              f"{r.interaction:+13.3f}{r.interaction_pct_of_additive:+14.1f}%")
+
+    # the experimentally actionable case: modest, individually survivable
+    # perturbations that are jointly lethal once the margin is compressed
+    actionable = s1[s1.qualitative_supraadditive]
+    if len(actionable):
+        a = actionable.iloc[0]
+        print(f"\n  first margin at which error x{a.error_factor:.0f} and "
+              f"capacity /{a.capacity_factor:.0f} are individually survivable "
+              f"but jointly lethal:")
+        print(f"    f_base = {a.f_base:.0e}, starting margin "
+              f"{a.margin_baseline:.2f} log10 (x{10**a.margin_baseline:.0f})")
+
     summary = {
+        "capacity_knob": "k_obs_max (rescue throughput)",
+        "qualitative_supraadditivity_first_seen_at_f":
+            float(actionable.iloc[0].f_base) if len(actionable) else None,
+        "qualitative_supraadditivity_first_seen_at_margin_log10":
+            float(actionable.iloc[0].margin_baseline) if len(actionable) else None,
+        "folding_arm_saturation_at_observed_rate": float(sat),
+        "free_chaperone_uM_at_observed_rate": float(cf),
+        "misfolded_protein_uM_at_observed_rate":
+            float(base["P_star"] * p0.Prot_tot_uM),
         "baseline_margin_log10": base["margin"],
         "baseline_margin_fold": 10 ** base["margin"],
         "binding_pool": base["binding_pool"],

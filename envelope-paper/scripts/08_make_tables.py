@@ -160,6 +160,29 @@ def table4():
     return df.sort_values("amino_acid_name").reset_index(drop=True)
 
 
+def table5():
+    """the supraadditivity test: interaction vs remaining margin."""
+    df = pd.read_csv(COMP / "supraadditivity_margin_sweep.tsv", sep="\t")
+    df["additive_expectation"] = df.D_error + df.D_capacity
+    return df[["f_base", "margin_baseline", "error_factor", "capacity_factor",
+               "D_error", "D_capacity", "additive_expectation", "D_both",
+               "interaction", "interaction_pct_of_additive",
+               "collapsed_both", "qualitative_supraadditive"]]
+
+
+def table_s5():
+    return pd.read_csv(COMP / "supraadditivity_effect_grid.tsv", sep="\t")[
+        ["error_factor", "capacity_factor", "margin_baseline", "D_error",
+         "D_capacity", "D_both", "interaction", "interaction_pct_of_additive",
+         "collapsed_both", "qualitative_supraadditive"]]
+
+
+def table_s6():
+    return pd.read_csv(COMP / "supraadditivity_knob_comparison.tsv", sep="\t")[
+        ["knob", "f_base", "margin_baseline", "D_capacity", "D_error",
+         "interaction", "interaction_pct_of_additive", "collapsed_both"]]
+
+
 def table_s1():
     df = pd.read_csv(COMP / "codon_axes.tsv", sep="\t")
     return df[["codon", "aa", "degeneracy", "mu", "log_mu", "mu_z",
@@ -228,6 +251,7 @@ def main():
 
     t1 = table1()
     t2, t2s = table2()
+    t5, s5, s6 = table5(), table_s5(), table_s6()
     t3 = table3()
     t4 = table4()
     s1, s2, s3, s4 = table_s1(), table_s2(), table_s3(), table_s4()
@@ -241,7 +265,10 @@ def main():
                      ("TableS1_codon_coordinates", s1),
                      ("TableS2_delta_per_aa", s2),
                      ("TableS3_tai_validation", s3),
-                     ("TableS4_crossspecies", s4)):
+                     ("TableS4_crossspecies", s4),
+                     ("Table5_supraadditivity", t5),
+                     ("TableS5_supraadditivity_grid", s5),
+                     ("TableS6_capacity_knob_comparison", s6)):
         p = TAB / f"{name}.tsv"
         df.to_csv(p, sep="\t", index=False)
         written[name] = len(df)
@@ -355,6 +382,39 @@ def main():
         "",
         "---",
         "",
+        "## Table 5. The distinguishing prediction, tested in the model",
+        "",
+        "2x2 factorial on the two-pool ODE: error rate x3 (raising `B_error`) "
+        "against rescue throughput /3 (lowering `C_buffer`). The readout is the "
+        "viability margin, log10(min(P_dagger/P*, A_max/A*)). Damage is margin "
+        "lost; the interaction is observed joint damage minus the additive "
+        "expectation, so positive means supraadditive. Where the combination has "
+        "no stable state the margin loss is unbounded and no numeric interaction "
+        "is defined -- those rows are marked, not assigned a value.",
+        "",
+        md_table(t5, ["f_base", "margin_baseline", "D_error", "D_capacity",
+                      "additive_expectation", "D_both", "interaction",
+                      "interaction_pct_of_additive", "collapsed_both"],
+                 fmt={"f_base": lambda v: sci(v),
+                      "margin_baseline": lambda v: f"{v:.2f}",
+                      "D_error": d4, "D_capacity": d4,
+                      "additive_expectation": d4,
+                      "D_both": lambda v: ("unbounded" if not np.isfinite(v)
+                                           else f"{v:.4f}"),
+                      "interaction": lambda v: ("—" if not np.isfinite(v)
+                                                else f"{v:+.4f}"),
+                      "interaction_pct_of_additive":
+                          lambda v: ("—" if not np.isfinite(v) else f"{v:+.1f}%"),
+                      "collapsed_both": lambda v: "yes" if v else ""}).replace(
+            "| f_base | margin_baseline | D_error | D_capacity | "
+            "additive_expectation | D_both | interaction | "
+            "interaction_pct_of_additive | collapsed_both |",
+            "| Baseline f (/codon) | Starting margin (log₁₀) | D error ×3 | "
+            "D capacity ÷3 | Additive | **Observed, both** | Interaction | "
+            "% above additive | Joint collapse |"),
+        "",
+        "---",
+        "",
         "# Supplementary tables",
         "",
         "## Table S1. Per-codon operational coordinates",
@@ -415,6 +475,45 @@ def main():
             "rho_nu_only_independent_tai | p_nu_only_independent_tai |",
             "| Comparison | ρ published (2D, shared μ) | ρ (ν only, vectors as "
             "used) | p | ρ (ν only, independent tAI) | p |"),
+        "",
+        "## Table S5. Supraadditivity effect-size grid at the observed rate",
+        "",
+        f"All {len(s5)} perturbation combinations at f = 1e-4. Blank interaction "
+        "means the combination collapses, where the loss is unbounded.",
+        "",
+        md_table(s5, ["error_factor", "capacity_factor", "D_error", "D_capacity",
+                      "D_both", "interaction_pct_of_additive", "collapsed_both"],
+                 fmt={"D_error": d4, "D_capacity": d4,
+                      "D_both": lambda v: ("unbounded" if not np.isfinite(v)
+                                           else f"{v:.4f}"),
+                      "interaction_pct_of_additive":
+                          lambda v: ("—" if not np.isfinite(v) else f"{v:+.2f}%"),
+                      "collapsed_both": lambda v: "yes" if v else ""}).replace(
+            "| error_factor | capacity_factor | D_error | D_capacity | D_both | "
+            "interaction_pct_of_additive | collapsed_both |",
+            "| Error × | Capacity ÷ | D error | D capacity | Observed, both | "
+            "% above additive | Joint collapse |"),
+        "",
+        "## Table S6. The two capacity knobs are not equivalent",
+        "",
+        "At the observed operating point the folding arm is 97.9% saturated "
+        "(47.5 µM free chaperone against 0.052 µM misfolded protein), so shrinking "
+        "the chaperone pool `C_tot` barely changes the rescue rate while cutting "
+        "throughput `k_obs_max` acts proportionally. This is a property of the "
+        "model's parameterization, not of the framework — see Limitations.",
+        "",
+        md_table(s6, ["knob", "f_base", "margin_baseline", "D_capacity",
+                      "D_error", "interaction_pct_of_additive", "collapsed_both"],
+                 fmt={"f_base": lambda v: sci(v),
+                      "margin_baseline": lambda v: f"{v:.2f}",
+                      "D_capacity": d4, "D_error": d4,
+                      "interaction_pct_of_additive":
+                          lambda v: ("—" if not np.isfinite(v) else f"{v:+.1f}%"),
+                      "collapsed_both": lambda v: "yes" if v else ""}).replace(
+            "| knob | f_base | margin_baseline | D_capacity | D_error | "
+            "interaction_pct_of_additive | collapsed_both |",
+            "| Capacity knob | Baseline f | Starting margin | D capacity ÷3 | "
+            "D error ×3 | % above additive | Joint collapse |"),
         "",
     ]
     (TAB / "TABLES.md").write_text("\n".join(parts) + "\n")
