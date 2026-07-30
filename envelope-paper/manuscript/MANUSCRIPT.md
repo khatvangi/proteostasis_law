@@ -129,7 +129,7 @@ drive aggregation, and aggregation consumes clearance capacity.
 **Operationalization.** For the inequality to be testable rather than a verbal
 device, each term must map to an observable, and the mapping must avoid
 double-counting. We treat the terms as *fluxes through stages* rather than as
-disjoint pools:
+disjoint pools (Table 1):
 
 | Term | Flux definition |
 |---|---|
@@ -237,7 +237,7 @@ These two share parameters (protein length, misfolding probability, synonymous
 absorption), so comparing them requires a **paired** Monte Carlo in which both
 bounds are computed from the same draw. Marginal runs that sampled the shared
 parameters from different distributions cannot be compared, and we do not do so.
-Over 5,000 paired draws (Fig. 3a,b):
+Over 5,000 paired draws (Table 2, Fig. 3a,b):
 
 | Quantity | Value |
 |---|---|
@@ -286,7 +286,9 @@ rate μ (E. coli mass spectrometry [1]) and translational supply ν (tRNA
 adaptation index [23,24]). For each of the 18 multi-codon amino acids we computed
 the **operational spread** Δ_A, the mean pairwise distance among its synonyms in
 standardized coordinates, and compared the mean over amino acids against 10,000
-permutation nulls (Methods).
+permutation nulls (Methods). Per-codon coordinates are in Table S1, per-amino-acid
+spreads in Table S2, and the full test grid — both axes, both null models, both
+μ summary statistics — in Table 3.
 
 On the **error axis**, synonymous codons cluster far more tightly than either null
 (Fig. 2a): z = −3.56, p = 0.0010 against a within-degeneracy permutation, and
@@ -349,7 +351,8 @@ metal-site codon counts against a **genome-wide** background. Metalloproteins ar
 enriched for abundant enzymes, and abundant genes have stronger codon bias toward
 preferred codons, so the comparison confounds site-level selection with
 gene-level expression. Recomputing against codons at **non-metal positions of the
-same genes** — the expression-matched control — removes the effect entirely:
+same genes** — the expression-matched control — removes the effect entirely
+(Table 4):
 
 | Amino acid | Genome-wide background | Within-gene background |
 |---|---|---|
@@ -376,7 +379,7 @@ E. coli values were bit-identical to the yeast values (against 1 of 60 for
 E. coli versus B. subtilis), and the E. coli vector assigned CTG — the dominant
 Leu codon — a near-floor supply weight. Recomputing on the
 supply axis alone with independently derived weights leaves ρ = 0.46–0.73 with
-one of three comparisons non-significant, in a different rank order. The claim is
+one of three comparisons non-significant, in a different rank order (Table S4). The claim is
 not supportable from the data available and would need genuinely
 species-specific tRNA gene counts to test.
 
@@ -461,7 +464,7 @@ E. coli high-expression set) and all genes must be positively related to tAI. Th
 accepted vector passes: the higher-tAI synonym gains usage in ribosomal genes in
 15 of 18 amino acids (sign test p = 0.0038). The previously used vector fails the
 same test (12 of 18, p = 0.12) and is retained in `data/raw/` under an explicit
-name so the test suite can assert that it still fails.
+name so the test suite can assert that it still fails (Table S3).
 
 ### Operational spread and null models
 
@@ -508,8 +511,9 @@ parameterized marginal runs are not valid and are not used.
 
 ### Data and code availability
 
-Raw inputs, analysis scripts, computed outputs, figures, and the numeric test
-suite are in this repository. `TODO before submission`: assign a public
+Raw inputs, analysis scripts, computed outputs, figures, tables (`tables/`, as
+both TSV and formatted markdown), and the numeric test suite are in this
+repository. `scripts/run_all.py` regenerates all of it and then runs the tests. `TODO before submission`: assign a public
 deposition DOI and record it here.
 
 ---

@@ -30,6 +30,7 @@ COMP = ROOT / "data" / "computed"
 MS = ROOT / "manuscript" / "MANUSCRIPT.md"
 FIGS = ROOT / "figures"
 SCRIPTS = ROOT / "scripts"
+TAB = ROOT / "tables"
 
 
 def manuscript():
@@ -346,6 +347,120 @@ class ArtifactsExist(unittest.TestCase):
         self.assertTrue(
             "no code-origin claim" in text or "no claim about the origin" in text,
             "the manuscript must explicitly disclaim a code-origin reading")
+
+
+class TablesAgreeWithData(unittest.TestCase):
+    """
+    the generated tables must match data/computed/, and the manuscript must
+    match the generated tables. drift between a table and the prose that
+    describes it is the failure mode that sank the previous draft.
+    """
+
+    EXPECTED = [
+        "Table1_burden_terms", "Table2_bounds", "Table2_bounds_statistics",
+        "Table3_axis_tests", "Table4_metal_site_backgrounds",
+        "TableS1_codon_coordinates", "TableS2_delta_per_aa",
+        "TableS3_tai_validation", "TableS4_crossspecies",
+    ]
+
+    def test_all_tables_written(self):
+        for name in self.EXPECTED:
+            self.assertTrue((TAB / f"{name}.tsv").exists(),
+                            f"missing tables/{name}.tsv")
+        self.assertTrue((TAB / "TABLES.md").exists(), "missing tables/TABLES.md")
+
+    def test_table2_matches_bounds_summary(self):
+        b = load_json(COMP / "bounds_summary.json")
+        t = pd.read_csv(TAB / "Table2_bounds.tsv", sep="\t")
+        got = dict(zip(t.quantity, t.value_per_codon))
+        self.assertAlmostEqual(
+            got["Arithmetic bound, paired MC median"],
+            b["arithmetic_paired_median"], places=12)
+        self.assertAlmostEqual(
+            got["Two-pool ODE bound, paired MC median"],
+            b["ode_paired_median"], places=12)
+
+        s = pd.read_csv(TAB / "Table2_bounds_statistics.tsv", sep="\t")
+        stats = dict(zip(s.statistic, s.value))
+        self.assertAlmostEqual(stats["P(arithmetic is the tighter bound)"],
+                               b["paired_P_arith_tighter"], places=12)
+
+    def test_table3_matches_axis_tests(self):
+        t = pd.read_csv(TAB / "Table3_axis_tests.tsv", sep="\t")
+        src = pd.read_csv(COMP / "axis_tests.tsv", sep="\t")
+        for _, r in src.iterrows():
+            m = t[(t.axis == r.axis) & (t.null == r.null)
+                  & (t.mu_stat.isin(["mean", "both"]))]
+            self.assertEqual(len(m), 1,
+                             f"Table 3 has {len(m)} rows for {r.axis}/{r.null}")
+            self.assertAlmostEqual(float(m.iloc[0].z), float(r.z), places=10)
+
+    def test_table3_does_not_duplicate_the_nu_rows(self):
+        """
+        nu does not depend on the mu summary statistic, so listing it twice would
+        present one test as two.
+        """
+        t = pd.read_csv(TAB / "Table3_axis_tests.tsv", sep="\t")
+        nu = t[t.axis == "nu"]
+        self.assertEqual(len(nu), 2, "nu should appear once per null model")
+        self.assertTrue((nu.mu_stat == "both").all(),
+                        "nu rows must not be attributed to a mu statistic")
+
+    def test_table3_labels_null_results_as_null(self):
+        t = pd.read_csv(TAB / "Table3_axis_tests.tsv", sep="\t")
+        ns = t[t.p_one_sided > 0.05]
+        self.assertGreater(len(ns), 0, "expected at least one null row")
+        self.assertTrue((ns.direction == "no signal").all(),
+                        "non-significant rows must not be labelled "
+                        "clustered/spread on the strength of their sign")
+
+    def test_table4_matches_removed_metal_site_test(self):
+        t = pd.read_csv(TAB / "Table4_metal_site_backgrounds.tsv", sep="\t")
+        src = pd.read_csv(COMP / "removed_metal_site_test.tsv", sep="\t")
+        self.assertEqual(len(t), len(src))
+        for aa in src.amino_acid:
+            a = t[t.amino_acid == aa].iloc[0]
+            b = src[src.amino_acid == aa].iloc[0]
+            self.assertAlmostEqual(a.within_gene_or, b.within_gene_or, places=10)
+            self.assertAlmostEqual(a.within_gene_p, b.within_gene_p, places=10)
+
+    def test_supplementary_table_sizes(self):
+        s1 = pd.read_csv(TAB / "TableS1_codon_coordinates.tsv", sep="\t")
+        s2 = pd.read_csv(TAB / "TableS2_delta_per_aa.tsv", sep="\t")
+        v = load_json(COMP / "mu_variance_decomposition.json")
+        self.assertEqual(len(s1), v["n_codons"], "S1 must list every analysed codon")
+        self.assertEqual(len(s2), v["n_amino_acids"],
+                         "S2 must list every multi-codon amino acid")
+
+    def test_manuscript_matches_generated_tables(self):
+        """
+        the values the manuscript states in prose must be the ones the table
+        files contain, formatted identically.
+        """
+        text = manuscript()
+        md = (TAB / "TABLES.md").read_text()
+        for needle in ("8.35 × 10⁻³", "2.59 × 10⁻²", "1.19 × 10⁻³",
+                       "1.00 × 10⁻²", "z = −3.56", "0.768"):
+            bare = needle.replace("z = ", "")
+            self.assertIn(bare, md,
+                          f"{bare!r} is in the manuscript but not in TABLES.md")
+            self.assertIn(needle, text,
+                          f"{needle!r} is in TABLES.md but not in the manuscript")
+
+    def test_manuscript_cites_the_tables(self):
+        text = manuscript()
+        for label in ("Table 1", "Table 2", "Table 3", "Table 4",
+                      "Table S1", "Table S2", "Table S3", "Table S4"):
+            self.assertIn(label, text, f"manuscript never refers to {label}")
+
+    def test_removed_result_tables_are_marked_as_removed(self):
+        """a reader must not mistake Table 4 or S4 for a finding of this paper."""
+        md = (TAB / "TABLES.md").read_text()
+        for heading in ("## Table 4.", "## Table S4."):
+            i = md.index(heading)
+            block = md[i:i + 700]
+            self.assertIn("excluded from the paper", block,
+                          f"{heading} does not say the result is excluded")
 
 
 if __name__ == "__main__":
