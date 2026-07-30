@@ -25,9 +25,16 @@ Extant translation operates inside a finite proteostasis envelope. Decoding
 fidelity, folding success, aggregation burden, and quality-control demand are
 coupled, and viability requires that combined burden stay within finite buffering
 and clearance capacity (`B_total <= C_buffer`). Two bounding arguments place
-E. coli roughly two orders of magnitude *inside* that envelope. Separately, the
-genetic code is strongly organized on the error axis (mu) and shows no structure
-on the supply axis (nu).
+E. coli roughly ONE order of magnitude *inside* that envelope — x25 at the
+usage-weighted evaluation point, x1.9 to x25 across chaperone availability theta.
+"Two orders" holds only at the bottom of the observed error window, which is the
+evaluation point the paper rejects. At the x25 margin the distinguishing
+prediction is a synthetic lethality reachable in wild type (+7.4% above additive
+for 3x error against 3x rescue knockdown; 12 of 36 pairs survivable alone and
+lethal together). Separately, measured per-codon mistranslation is organized at
+the amino-acid level (mu), and the supply axis (nu) shows no comparable structure
+within a stated power bound. The mu structure cannot be separated from
+mass-spectrometry detectability and the paper says so.
 
 This is NOT a code-origin claim. It does not explain why codons are triplets
 or the evolutionary origin of redundancy. Those claims are explicitly rejected.
@@ -52,17 +59,25 @@ statistic while reporting "17/20 pass". Never verify against a serialized summar
 
 ## commands
 
-### reproduce all analyses and figures (from `envelope-paper/`)
+### reproduce everything (from `envelope-paper/`)
 ```
-python scripts/01_validate_tai.py                     # aborts if the nu axis fails validation
-python scripts/02_axis_structure.py                   # ~2 min
-python scripts/02_axis_structure.py --mu-stat median   # ~2 min
-python scripts/06_translation_burden.py
-python scripts/07_removed_results.py
-cd scripts && python 03_fig1_envelope.py && python 04_fig2_axis.py && python 05_fig3_bounds.py
+python scripts/run_all.py            # 16 steps, assembles the paper, then the tests
+python scripts/run_all.py --fast     # skip the 10,000-permutation runs
 ```
+Individual steps are listed in `envelope-paper/README.md`. Two gates fail closed:
+`01_validate_tai.py` (invalid supply axis) and `15_build_paper.py` (unresolved
+table placeholder or missing figure).
 
-### run the numeric test suite (31 tests, asserts the manuscript against data/computed/)
+### the paper is assembled, not hand-maintained
+`manuscript/MANUSCRIPT.md` holds the prose, the figure embeds, and one
+`<!-- TABLE:Table N -->` placeholder per main table. `scripts/15_build_paper.py`
+fills those from `tables/TABLES.md` and emits `manuscript/PAPER.{md,html,pdf,docx}`.
+Never paste a table body into the manuscript — a test fails if a markdown table
+row appears in the prose. Table numbering changed in the v2 restructuring: the
+two excluded analyses are no longer Tables 4/S4, and the retired anchoring grid is
+no longer Table 6/S9.
+
+### run the numeric test suite (89 tests, asserts the manuscript against data/computed/)
 ```
 cd envelope-paper && python -m unittest discover -s tests -v
 ```

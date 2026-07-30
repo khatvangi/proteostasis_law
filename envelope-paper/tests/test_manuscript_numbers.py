@@ -863,6 +863,11 @@ class AxisPowerAndRobustness(unittest.TestCase):
         # the blanket claim must not be asserted anywhere
         self.assertNotIn("no structure on the supply axis at all", self.flat.lower())
         self.assertIn("narrower than a blanket absence", self.flat)
+        # a figure title is a claim too, and it is the one place a blanket
+        # absence can slip past prose review
+        fig = (SCRIPTS / "04_fig2_axis.py").read_text()
+        self.assertNotIn('"No structure on supply"', fig,
+                         "Fig 2b asserts a blanket absence the paper disclaims")
 
     def test_nu_p_values_are_labelled_descriptive(self):
         self.assertIn("descriptive rather than evidential", self.flat)

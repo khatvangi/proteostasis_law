@@ -272,3 +272,54 @@ construction; nu p-values labelled descriptive with the ~0.68 hypothesised-direc
 value stated; "median factor of 3.1" distinguished from the median ratio 3.00.
 
 Tests 60 -> 73. Verified by wiping every artifact and rebuilding (15 steps).
+
+## 2026-07-30
+
+**Q:** Save the pasted v2 restructuring as `manuscript_v2_draft.md`, then add
+figures and make a complete manuscript with figures, tables, and references.
+
+**A:** Saved the draft verbatim at `envelope-paper/manuscript/manuscript_v2_draft.md`
+and rebuilt the paper around it.
+
+**Table renumbering.** The v2 inventory drops the two excluded analyses as paper
+tables and retires the anchoring grid, so: Table 3 = chaperone availability (was 7),
+Table 4 = supraadditivity (was 5), Table 5 = axis tests (was 3), S4-S7 shift down
+one. `08_make_tables.py` was rewritten with CONTENT-named functions (a number now
+appears once, in the output map) so a renumbering cannot leave a `table7()`
+emitting Table 3; it also deletes the ten files from the old numbering on every
+run, since a stale `Table7_*.tsv` in `tables/` is indistinguishable from a live one.
+The two excluded analyses are now `Excluded_*.tsv`.
+
+**Two stale captions found and fixed.** `TABLES.md` still described the knob table
+with the retracted window-bottom triple (97.9% saturated, 47.5 uM, 0.052 uM) and
+the effect grid as "f = 1e-4" — both corrected in the manuscript a commit earlier.
+Every caption number is now interpolated from `data/computed/`, and a test asserts
+the retracted strings never come back. Same failure mode as the blocking defect:
+correcting a premise and leaving a consumer stale.
+
+**Assembly instead of hand-maintenance.** `MANUSCRIPT.md` carries the prose,
+embedded figures and one `<!-- TABLE:Table N -->` placeholder per main table;
+`15_build_paper.py` fills them from `TABLES.md` and emits `PAPER.md`, `PAPER.html`
+(figures base64-embedded), `PAPER.pdf` (17 pp, printed by headless Chrome — no
+unicode-capable TeX engine is installed) and `PAPER.docx`. A test fails if a
+markdown table row ever appears in the prose.
+
+**Restored what v2 had dropped.** The v2 rewrite lost the excluded-analyses
+disclosure, the Limitations section, and with them the only citations of refs 25
+and 26 (which would have shipped uncited). Both sections are back: *Two analyses
+excluded during verification* (the within-gene ORs, ~60% site concordance, 44 of 60
+identical tAI values) and *Limitations* (E. coli-only mu, tAI as a proxy, the
+theta range, the detectability confound).
+
+**Also fixed two more stale claims** in prose I had not swept: `envelope-paper/README.md`
+said "two orders of magnitude inside" and, under Known gaps, still carried the
+retracted "only ~0.2% above additive ... the experiment must first compress the
+viability margin". Root `CLAUDE.md` said "two orders" as well.
+
+Tests 73 -> 89, and mutation-tested: reverting the interaction to the window-bottom
+value, dropping a figure, hand-typing a table row, citing a nonexistent table,
+uncrediting refs 25/26, reinstating the saturation triple, dropping the theta
+concession, stating the headroom as a point in the abstract, and reverting a
+caption to a typed value all fail. One escape found and closed (a bracket-style
+citation slipping past the new parenthetical parser). Verified by deleting every
+generated artifact and rebuilding all 16 steps.

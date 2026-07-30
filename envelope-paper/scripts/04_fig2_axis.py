@@ -41,7 +41,10 @@ def main():
         ("mu", "a", r"operational spread $\Delta$" "\n" r"$\mu$ (mistranslation)",
          "Synonyms cluster in error rate", "right"),
         ("nu", "b", r"operational spread $\Delta$" "\n" r"$\nu$ (supply, tAI)",
-         "No structure on supply", "left"),
+         # "detected" is load-bearing: the paper claims no structure DETECTABLE at
+         # mu's magnitude applied uniformly, and does not exclude a subset effect.
+         # a blanket absence in this title would overstate the result
+         "No structure detected on supply", "left"),
     ]
     for (axis, letter, xlab, title, box_side), ax in zip(spec, axs):
         null = pd.read_csv(COMP / f"null_{axis}.tsv", sep="\t")

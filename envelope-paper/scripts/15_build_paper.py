@@ -149,9 +149,12 @@ def main():
     css = MSDIR / ".paper.css"
     css.write_text(CSS)
     html = MSDIR / "PAPER.html"
+    # pagetitle, not title: `title` metadata makes pandoc emit a title block on
+    # top of the markdown's own H1, so the paper's title appears twice
     ok_html = run(["pandoc", str(md), "-o", str(html), "--standalone",
                    "--embed-resources", "--css", str(css),
-                   "--metadata", "title=A finite proteostasis envelope for translation",
+                   "--metadata",
+                   "pagetitle=A finite proteostasis envelope for translation",
                    f"--resource-path={MSDIR}"], "PAPER.html")
     if ok_html:
         print(f"wrote {html.relative_to(ROOT)}  "

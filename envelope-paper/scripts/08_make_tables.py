@@ -422,7 +422,9 @@ def main():
         "Terms are fluxes through stages, not disjoint pools, so a single "
         "misfolded protein is not counted three times.",
         "",
-        md_table(t1, ["term", "meaning", "flux_operationalization"]),
+        md_table(t1, ["term", "meaning", "flux_operationalization"]).replace(
+            "| term | meaning | flux_operationalization |",
+            "| Term | Meaning | Flux definition |"),
         "",
         "---",
         "",

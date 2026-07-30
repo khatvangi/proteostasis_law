@@ -62,12 +62,12 @@ def main():
     # ---------------- panel a: the two bounds vs observed ----------------
     ax = axs[0]
     long = pd.concat([
-        pd.DataFrame({"bound": "arithmetic", "log10_f": np.log10(f_arith)}),
+        pd.DataFrame({"bound": "combinatorial", "log10_f": np.log10(f_arith)}),
         pd.DataFrame({"bound": "two-pool ODE", "log10_f": np.log10(f_ode)}),
     ])
     sns.violinplot(data=long, x="bound", y="log10_f", ax=ax, hue="bound",
                    legend=False, cut=0, inner="quartile", linewidth=0.8,
-                   palette={"arithmetic": fs.C["burden"],
+                   palette={"combinatorial": fs.C["burden"],
                             "two-pool ODE": fs.C["ode"]}, alpha=0.75)
 
     ax.axhspan(np.log10(OBS_LO), np.log10(OBS_HI),
@@ -103,7 +103,7 @@ def main():
                       edgecolor=fs.C["muted"], alpha=0.9))
     ax.set_xlabel(r"$\log_{10}\,r$,   $r = f_{\rm arith}/f_{\rm ODE}$")
     ax.set_ylabel("paired MC draws (5,000)")
-    ax.set_title("Paired: arithmetic is the\ntighter bound more often")
+    ax.set_title("Paired: the combinatorial bound\nis tighter more often")
     ax.set_yticks([])
     fs.panel_label(ax, "b")
 
