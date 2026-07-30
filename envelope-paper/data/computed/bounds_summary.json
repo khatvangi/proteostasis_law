@@ -19,8 +19,8 @@
   "paired_median_ratio_arith_over_ode": 0.3337158827204835,
   "paired_P_arith_tighter": 0.7684,
   "ode_over_arith_at_median": 3.101074883267744,
-  "headroom_P": 158.05573178050503,
-  "headroom_A": 11091.0320262876,
+  "headroom_P_at_window_bottom": 158.05573178050503,
+  "headroom_A_at_window_bottom": 11091.0320262876,
   "mechanism_frac_aggregation_death": 0.9994,
   "retracted_statistic_not_used": {
     "value": 0.654,

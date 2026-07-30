@@ -1,0 +1,25 @@
+{
+  "previously_reported_headroom_P": 158.05573178050503,
+  "previously_reported_evaluation_point": "f = 1e-4 (window bottom)",
+  "why_that_was_wrong": "evaluated at the bottom of the observed window while deriving 6.33e-4 from the same data, and with the folding arm 98% saturated",
+  "internally_consistent_headroom_P": 24.817281807890474,
+  "internally_consistent_headroom_A": 274.6521619913062,
+  "internally_consistent_margin_log10": 1.394754212276315,
+  "internally_consistent_evaluation_point_f": 0.0006334247974475959,
+  "usage_weighted_mu_range_across_anchorings": [
+    4.639614278172809,
+    24.817281807890474
+  ],
+  "full_grid_range_headroom_P": [
+    1.433617479100774,
+    158.05573178050503
+  ],
+  "full_grid_range_orders_of_magnitude": [
+    0.15643328740087523,
+    2.198810249846641
+  ],
+  "supraadditivity_onset_margin_log10": 1.1946809249440333,
+  "distance_from_onset_log10": 0.2000732873322817,
+  "n_collapsed_cells": 0,
+  "n_cells": 24
+}

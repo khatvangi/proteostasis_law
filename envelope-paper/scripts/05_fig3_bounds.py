@@ -107,27 +107,58 @@ def main():
     ax.set_yticks([])
     fs.panel_label(ax, "b")
 
-    # ---------------- panel c: headroom at the observed rate ----------------
+    # ---------------- panel c: how far inside, and how robustly ----------------
     ax = axs[2]
-    head = pd.DataFrame({
-        "pool": ["misfolded\nmonomer $P$", "aggregated\npool $A$"],
-        "headroom": [cross["P_headroom_ratio"], cross["A_headroom_ratio"]],
-    })
-    head["log10"] = np.log10(head.headroom)
-    sns.barplot(data=head, x="pool", y="log10", ax=ax, hue="pool", legend=False,
-                palette=[fs.C["burden"], fs.C["capacity"]], alpha=0.9,
-                edgecolor="white", linewidth=0.8)
-    for i, row in head.iterrows():
-        ax.text(i, row["log10"] + 0.08, f"$\\times${row.headroom:,.0f}",
-                ha="center", va="bottom", fontsize=7)
-    ax.axhline(0, color=fs.C["alert"], linewidth=1.0)
-    ax.text(0.02, 0.02, "collapse threshold", transform=ax.transAxes,
-            fontsize=6.2, color=fs.C["alert"], va="bottom")
-    ax.set_ylim(0, head["log10"].max() * 1.22)
-    ax.set_ylabel(r"$\log_{10}$ headroom to threshold")
-    ax.set_xlabel("")
-    ax.set_title(r"At $f = 10^{-4}$ the system rests" "\n" "deep on the stable branch")
-    fs.panel_label(ax, "c")
+    hs = pd.read_csv(COMP / "headroom_sensitivity.tsv", sep="\t")
+    hsum = json.loads((COMP / "headroom_sensitivity_summary.json").read_text())
+    ok = hs[~hs.collapsed].copy()
+    ok["log10_headroom"] = np.log10(ok.headroom_P)
+
+    order = ["window_bottom", "usage_weighted_mu", "unweighted_mean_mu", "window_top"]
+    labels = {"window_bottom": "window\nbottom\n$10^{-4}$",
+              "usage_weighted_mu": "usage-wtd\n$\\bar\\mu$\n$6.3{\\times}10^{-4}$",
+              "unweighted_mean_mu": "unwtd\nmean\n$1.1{\\times}10^{-3}$",
+              "window_top": "window\ntop\n$10^{-3}$"}
+    ok["x"] = ok.evaluation_point.map({k: i for i, k in enumerate(order)})
+
+    # band = spread across the six chaperone anchorings
+    band = ok.groupby("x").log10_headroom.agg(["min", "max"]).sort_index()
+    ax.fill_between(band.index, band["min"], band["max"],
+                    color=fs.C["burden"], alpha=0.18, lw=0,
+                    label="chaperone anchoring range")
+    pub = ok[ok.anchoring == "as_published"].sort_values("x")
+    sns.lineplot(x=pub.x, y=pub.log10_headroom, ax=ax, marker="o", ms=5,
+                 color=fs.C["burden"], linewidth=1.6, label="as-published anchoring")
+
+    # the internally consistent estimate, and the value earlier drafts quoted
+    c_x = order.index("usage_weighted_mu")
+    ax.scatter([c_x], [np.log10(hsum["internally_consistent_headroom_P"])],
+               marker="D", s=46, color=fs.C["capacity"], zorder=9,
+               edgecolor="white", linewidth=0.7, label="this paper's estimate")
+    ax.annotate(f"×{hsum['internally_consistent_headroom_P']:.0f}",
+                xy=(c_x, np.log10(hsum["internally_consistent_headroom_P"])),
+                xytext=(7, 4), textcoords="offset points", fontsize=6.6,
+                color=fs.C["capacity"], fontweight="bold")
+    ax.annotate(f"×{hsum['previously_reported_headroom_P']:.0f}\nquoted\npreviously",
+                xy=(0, np.log10(hsum["previously_reported_headroom_P"])),
+                xytext=(6, -16), textcoords="offset points", fontsize=5.8,
+                color=fs.C["muted"], va="top")
+
+    # the margin at which 3-fold perturbations become jointly lethal
+    onset = hsum["supraadditivity_onset_margin_log10"]
+    ax.axhline(onset, color=fs.C["alert"], linestyle="--", linewidth=1.1)
+    ax.text(len(order) - 1.02, onset - 0.06,
+            "3-fold perturbations\njointly lethal below here",
+            ha="right", va="top", fontsize=5.8, color=fs.C["alert"])
+
+    ax.set_xticks(range(len(order)))
+    ax.set_xticklabels([labels[k] for k in order], fontsize=5.6)
+    ax.set_xlim(-0.35, len(order) - 0.65)
+    ax.set_xlabel("error rate the model is evaluated at")
+    ax.set_ylabel(r"$\log_{10}$ headroom to collapse")
+    ax.set_title("How far inside depends on where\nyou evaluate it")
+    ax.legend(loc="lower left", fontsize=5.2)
+    fs.panel_label(ax, "c", dx=-0.20)
 
     sns.despine(fig=fig)
     fig.tight_layout(w_pad=1.9)
@@ -149,8 +180,8 @@ def main():
         "paired_median_ratio_arith_over_ode": float(np.median(r)),
         "paired_P_arith_tighter": p_arith_tighter,
         "ode_over_arith_at_median": float(np.median(f_ode) / np.median(f_arith)),
-        "headroom_P": cross["P_headroom_ratio"],
-        "headroom_A": cross["A_headroom_ratio"],
+        "headroom_P_at_window_bottom": cross["P_headroom_ratio"],
+        "headroom_A_at_window_bottom": cross["A_headroom_ratio"],
         "mechanism_frac_aggregation_death":
             twopool["D_monte_carlo"]["mechanism"]["frac_aggregation_death"],
         "retracted_statistic_not_used": {
