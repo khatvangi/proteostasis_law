@@ -24,7 +24,7 @@ One command rebuilds every number, figure, and table, then runs the tests.
 Nothing needs network access; all inputs are in `data/raw/`.
 
 ```bash
-python scripts/run_all.py            # ~3 min end to end, then 50 tests
+python scripts/run_all.py            # ~3 min end to end, then 53 tests
 python scripts/run_all.py --fast     # skip the two 10,000-permutation runs
 python scripts/run_all.py --no-tests # rebuild only
 ```
@@ -44,7 +44,8 @@ cd scripts && python 03_fig1_envelope.py && python 04_fig2_axis.py && python 05_
 python scripts/09_supraadditivity.py                  # ~28 s   the distinguishing prediction
 cd scripts && python 10_fig4_supraadditivity.py       # Fig 4
 python scripts/08_make_tables.py                      # ~1 s    tables
-python -m unittest discover -s tests -v               # 50 tests
+python scripts/11_headroom_sensitivity.py             # ~1 s    headroom across two axes
+python -m unittest discover -s tests -v               # 53 tests
 ```
 
 Requires Python 3 with numpy, pandas, scipy, seaborn, openpyxl. No build step.
@@ -64,13 +65,14 @@ scripts/                   every number and figure is generated here
   08_make_tables.py        Tables 1-5 and S1-S6
   09_supraadditivity.py    2x2 factorial: the distinguishing prediction
   10_fig4_supraadditivity.py  Fig 4  supraadditivity
+  11_headroom_sensitivity.py  headroom vs evaluation point x chaperone anchoring
   vendor/two_pool_ode.py   upstream model, verbatim (do not edit)
   run_all.py               rebuild everything, then run the tests
   figstyle.py              shared seaborn style
 data/raw/                  staged inputs, self-contained
 data/computed/             script outputs; the manuscript's only source of numbers
 figures/                   Fig 1-4, PNG + PDF
-tables/                    Tables 1-5 and S1-S6 as TSV, plus TABLES.md
+tables/                    Tables 1-6 and S1-S6 as TSV, plus TABLES.md
 tests/                     asserts the manuscript against data/computed/ and tables/
 ```
 
@@ -88,8 +90,12 @@ reported "17/20 pass". `tests/test_manuscript_numbers.py` closes that gap, and
 the suite has been mutation-tested: altering a manuscript number, dropping a
 citation, softening a negative result, reinstating the retracted statistic,
 substituting the corrupt tAI vector, drifting a generated table away from the
-computed data, relabelling a null result as a signal, or removing the "excluded"
-marking from a dropped result each make it fail.
+computed data, relabelling a null result as a signal, removing the "excluded"
+marking from a dropped result, or reinstating the inflated ×158 headroom in the
+abstract each make it fail. Headline claims are asserted against the *section*
+that makes them, because a value that appears somewhere in a manuscript can still
+be contradicted three sections later — which is how the earlier draft carried a
+retracted statistic and its replacement at the same time.
 
 ## What was removed, and why
 
@@ -111,7 +117,11 @@ corrected analyses reported in the Discussion and reproduced by
   the manuscript says so plainly rather than implying it is easy to test.
 - The two-pool model leaves the folding arm 97.9% saturated at the observed
   operating point, which sits against the capacity evidence cited in Result 1.
-  Re-anchoring `C_tot`/`K_d` is the obvious next refinement.
+  Result 3 now reports headroom across six chaperone anchorings rather than
+  assuming the published one, but a properly re-anchored model is still the right
+  next refinement.
+- Headroom is a range (×4.6–×25), not a point. Any single figure quoted from it
+  should say which evaluation point and anchoring it came from.
 - ν is validated for E. coli only. No validated B. subtilis or S. cerevisiae
   supply vector exists; see `../../codon-deployment/data/computed/README_TAI_IS_CORRUPT.md`.
 
@@ -128,6 +138,7 @@ corrected analyses reported in the Discussion and reproduced by
 | Table 3 | permutation tests: both axes, both nulls, both mu statistics |
 | Table 4 | **removed result** — metal sites under both backgrounds |
 | Table 5 | supraadditivity: interaction vs remaining margin |
+| Table 6 | headroom across evaluation point and chaperone anchoring |
 | Table S1 | per-codon (mu, nu) coordinates, all 59 analysed codons |
 | Table S2 | per-amino-acid operational spread |
 | Table S3 | validation of the nu axis, both candidate vectors |

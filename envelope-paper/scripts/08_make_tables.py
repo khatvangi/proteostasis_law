@@ -75,6 +75,7 @@ def table1():
 def table2():
     """bounds on the maximum tolerable per-codon mistranslation rate."""
     b = load_json("bounds_summary.json")
+    h = load_json("headroom_sensitivity_summary.json")
     lo, hi = b["observed_window_per_codon"]
     rows = [
         {"quantity": "Observed E. coli mistranslation rate",
@@ -110,10 +111,14 @@ def table2():
          "value": b["paired_P_arith_tighter"], "unit": "probability"},
         {"statistic": "Draws closed by aggregation-death, not monomer runaway",
          "value": b["mechanism_frac_aggregation_death"], "unit": "fraction"},
-        {"statistic": "Headroom at f = 10\u207b\u2074, misfolded-monomer pool P",
-         "value": b["headroom_P"], "unit": "fold"},
-        {"statistic": "Headroom at f = 10\u207b\u2074, aggregated pool A",
-         "value": b["headroom_A"], "unit": "fold"},
+        {"statistic": "Headroom, misfolded-monomer pool, at the usage-weighted "
+                      "mean error rate (this paper's estimate)",
+         "value": h["internally_consistent_headroom_P"], "unit": "fold"},
+        {"statistic": "Headroom, aggregated pool, at the same rate",
+         "value": h["internally_consistent_headroom_A"], "unit": "fold"},
+        {"statistic": "Headroom at f = 10\u207b\u2074 (window bottom; quoted in "
+                      "earlier drafts, not used here)",
+         "value": b["headroom_P_at_window_bottom"], "unit": "fold"},
     ])
     return df, stats
 
@@ -181,6 +186,14 @@ def table_s6():
     return pd.read_csv(COMP / "supraadditivity_knob_comparison.tsv", sep="\t")[
         ["knob", "f_base", "margin_baseline", "D_capacity", "D_error",
          "interaction", "interaction_pct_of_additive", "collapsed_both"]]
+
+
+def table6():
+    """headroom across evaluation point and chaperone anchoring."""
+    df = pd.read_csv(COMP / "headroom_sensitivity.tsv", sep="\t")
+    return df[["evaluation_point", "f_codon", "anchoring", "C_tot_uM", "K_d_uM",
+               "c_free_uM", "folding_arm_saturation", "P_star", "P_dagger",
+               "headroom_P", "headroom_A", "margin_log10", "collapsed"]]
 
 
 def table_s1():
@@ -252,6 +265,7 @@ def main():
     t1 = table1()
     t2, t2s = table2()
     t5, s5, s6 = table5(), table_s5(), table_s6()
+    t6 = table6()
     t3 = table3()
     t4 = table4()
     s1, s2, s3, s4 = table_s1(), table_s2(), table_s3(), table_s4()
@@ -268,7 +282,8 @@ def main():
                      ("TableS4_crossspecies", s4),
                      ("Table5_supraadditivity", t5),
                      ("TableS5_supraadditivity_grid", s5),
-                     ("TableS6_capacity_knob_comparison", s6)):
+                     ("TableS6_capacity_knob_comparison", s6),
+                     ("Table6_headroom_sensitivity", t6)):
         p = TAB / f"{name}.tsv"
         df.to_csv(p, sep="\t", index=False)
         written[name] = len(df)
@@ -412,6 +427,36 @@ def main():
             "| Baseline f (/codon) | Starting margin (log₁₀) | D error ×3 | "
             "D capacity ÷3 | Additive | **Observed, both** | Interaction | "
             "% above additive | Joint collapse |"),
+        "",
+        "---",
+        "",
+        "## Table 6. How far inside the envelope, across two explicit choices",
+        "",
+        "Headroom to collapse depends on where in the observed window the model is "
+        "evaluated and on how the chaperone arm is anchored. The internally "
+        "consistent cell is **usage_weighted_mu x as_published** (x25); the x158 "
+        "quoted in earlier drafts is **window_bottom x as_published**, the most "
+        "favourable corner. `folding_arm_saturation` shows why the anchoring "
+        "matters: at the published values the rescue arm is 97.9% saturated.",
+        "",
+        md_table(t6, ["evaluation_point", "f_codon", "anchoring",
+                      "C_tot_uM", "K_d_uM", "folding_arm_saturation",
+                      "headroom_P", "headroom_A", "margin_log10"],
+                 fmt={"f_codon": lambda v: sci(v),
+                      "C_tot_uM": lambda v: f"{v:g}", "K_d_uM": lambda v: f"{v:g}",
+                      "folding_arm_saturation":
+                          lambda v: "—" if not np.isfinite(v) else f"{v:.3f}",
+                      "headroom_P":
+                          lambda v: "collapsed" if not np.isfinite(v) else f"×{v:.1f}",
+                      "headroom_A":
+                          lambda v: "—" if not np.isfinite(v) else f"×{v:.0f}",
+                      "margin_log10":
+                          lambda v: "—" if not np.isfinite(v) else f"{v:.2f}"}).replace(
+            "| evaluation_point | f_codon | anchoring | C_tot_uM | K_d_uM | "
+            "folding_arm_saturation | headroom_P | headroom_A | margin_log10 |",
+            "| Evaluated at | f (/codon) | Chaperone anchoring | C_tot (µM) | "
+            "K_d (µM) | Folding arm saturation | **Headroom, P pool** | "
+            "Headroom, A pool | Margin (log₁₀) |"),
         "",
         "---",
         "",

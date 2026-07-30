@@ -144,3 +144,44 @@ not drifted), and `scripts/run_all.py` extended. Tests 41 -> 50; mutation-tested
 (overstating the wild-type effect, dropping the model-only caveat, removing the
 saturation limitation, numbering a collapsed cell, or introducing subadditivity
 each fail). Verified by deleting every generated artifact and rebuilding from raw.
+
+**Q:** Commit, and do things to strengthen the work.
+
+**A:** Committed as `be5fa1d` on master (a cron auto-syncs every 30 min, so
+branching would have fought the automation; left the unrelated proteostasis-paper
+submodule change alone).
+
+Strengthening found a real problem with the paper's headline number. The ×158
+headroom was obtained by evaluating the two-pool model at f = 1e-4 — the BOTTOM
+of the quoted observed window — while the paper derives a usage-weighted mean of
+6.33e-4 from its own mu data. Same class of error as quoting the arithmetic bound
+at its deterministic point rather than its MC median.
+
+Corrected (`scripts/11_headroom_sensitivity.py`, Table 6, rebuilt Fig 3c):
+
+| evaluated at | as published | across six chaperone anchorings |
+|---|---|---|
+| 1e-4 (window bottom) | ×158 | ×40–×158 |
+| **6.33e-4 (usage-weighted mu)** | **×25** | **×4.6–×25** |
+| 1.1e-3 (unweighted mean) | ×14 | ×1.4–×14 |
+| 1e-3 (window top) | ×16 | ×2.1–×16 |
+
+So "roughly two orders of magnitude inside" holds only at the most favourable
+corner. The defensible claim is roughly ONE order — ×25 at the internally
+consistent evaluation point.
+
+This weakens the margin claim but substantially strengthens the paper: at margin
+1.39 log10, E. coli sits only +0.20 above the 1.19 margin at which 3-fold error
+and 3-fold rescue perturbations become jointly lethal (Result 5). The
+distinguishing prediction is reachable with a modest sensitization, not remote.
+Abstract, significance statement, Result 3, Result 5, prediction 2, Fig 3c legend
+and Methods all rewritten.
+
+Also strengthened the test suite after mutation testing showed two escapes:
+asserting a value appears SOMEWHERE passes even when the abstract and results
+disagree. Added `section()` scoping so headline claims are checked against the
+section that makes them, plus a test that Result 3's inline table matches
+`headroom_sensitivity.tsv` cell by cell. That last test caught a bug in itself —
+"10⁻⁴" is a substring of "6.3 × 10⁻⁴", so it had been matching the wrong row.
+
+Tests 50 -> 53. Verified by deleting every generated artifact and rebuilding.

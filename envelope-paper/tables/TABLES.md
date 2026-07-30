@@ -39,8 +39,9 @@ All two-bound comparisons use the **paired** Monte Carlo, in which the parameter
 | Median paired ratio r = f_arith / f_ODE | 0.334 |
 | P(arithmetic is the tighter bound) | 0.7684 |
 | Draws closed by aggregation-death, not monomer runaway | 0.9994 |
-| Headroom at f = 10⁻⁴, misfolded-monomer pool P | ×158 |
-| Headroom at f = 10⁻⁴, aggregated pool A | ×11,091 |
+| Headroom, misfolded-monomer pool, at the usage-weighted mean error rate (this paper's estimate) | ×25 |
+| Headroom, aggregated pool, at the same rate | ×275 |
+| Headroom at f = 10⁻⁴ (window bottom; quoted in earlier drafts, not used here) | ×158 |
 
 ---
 
@@ -88,6 +89,39 @@ All two-bound comparisons use the **paired** Monte Carlo, in which the parameter
 | 1.00 × 10⁻³ | 1.19 | 0.4915 | 0.4709 | 0.9624 | unbounded | — | — | yes |
 | 2.00 × 10⁻³ | 0.89 | 0.5305 | 0.5405 | 1.0710 | unbounded | — | — | yes |
 | 5.00 × 10⁻³ | 0.46 | nan | nan | nan | unbounded | — | — | yes |
+
+---
+
+## Table 6. How far inside the envelope, across two explicit choices
+
+Headroom to collapse depends on where in the observed window the model is evaluated and on how the chaperone arm is anchored. The internally consistent cell is **usage_weighted_mu x as_published** (x25); the x158 quoted in earlier drafts is **window_bottom x as_published**, the most favourable corner. `folding_arm_saturation` shows why the anchoring matters: at the published values the rescue arm is 97.9% saturated.
+
+| Evaluated at | f (/codon) | Chaperone anchoring | C_tot (µM) | K_d (µM) | Folding arm saturation | **Headroom, P pool** | Headroom, A pool | Margin (log₁₀) |
+|---|---|---|---|---|---|---|---|---|
+| window_bottom | 1.00 × 10⁻⁴ | as_published | 50 | 1 | 0.979 | ×158.1 | ×11091 | 2.20 |
+| window_bottom | 1.00 × 10⁻⁴ | weaker_binding | 50 | 10 | 0.832 | ×135.1 | ×8098 | 2.13 |
+| window_bottom | 1.00 × 10⁻⁴ | smaller_pool | 5 | 1 | 0.825 | ×104.7 | ×7956 | 2.02 |
+| window_bottom | 1.00 × 10⁻⁴ | near_capacity | 2 | 1 | 0.650 | ×61.5 | ×5033 | 1.79 |
+| window_bottom | 1.00 × 10⁻⁴ | c_free_at_Kd | 1 | 1 | 0.475 | ×39.7 | ×2780 | 1.60 |
+| window_bottom | 1.00 × 10⁻⁴ | Kd_at_C_tot | 50 | 50 | 0.500 | ×82.9 | ×3053 | 1.92 |
+| usage_weighted_mu | 6.33 × 10⁻⁴ | as_published | 50 | 1 | 0.974 | ×24.8 | ×275 | 1.39 |
+| usage_weighted_mu | 6.33 × 10⁻⁴ | weaker_binding | 50 | 10 | 0.828 | ×21.2 | ×201 | 1.33 |
+| usage_weighted_mu | 6.33 × 10⁻⁴ | smaller_pool | 5 | 1 | 0.780 | ×15.7 | ×179 | 1.19 |
+| usage_weighted_mu | 6.33 × 10⁻⁴ | near_capacity | 2 | 1 | 0.561 | ×8.4 | ×96 | 0.93 |
+| usage_weighted_mu | 6.33 × 10⁻⁴ | c_free_at_Kd | 1 | 1 | 0.346 | ×4.6 | ×39 | 0.67 |
+| usage_weighted_mu | 6.33 × 10⁻⁴ | Kd_at_C_tot | 50 | 50 | 0.497 | ×13.0 | ×76 | 1.11 |
+| unweighted_mean_mu | 1.14 × 10⁻³ | as_published | 50 | 1 | 0.969 | ×13.7 | ×85 | 1.14 |
+| unweighted_mean_mu | 1.14 × 10⁻³ | weaker_binding | 50 | 10 | 0.824 | ×11.7 | ×62 | 1.07 |
+| unweighted_mean_mu | 1.14 × 10⁻³ | smaller_pool | 5 | 1 | 0.738 | ×8.2 | ×51 | 0.92 |
+| unweighted_mean_mu | 1.14 × 10⁻³ | near_capacity | 2 | 1 | 0.478 | ×4.0 | ×22 | 0.60 |
+| unweighted_mean_mu | 1.14 × 10⁻³ | c_free_at_Kd | 1 | 1 | 0.205 | ×1.4 | ×5 | 0.16 |
+| unweighted_mean_mu | 1.14 × 10⁻³ | Kd_at_C_tot | 50 | 50 | 0.494 | ×7.2 | ×24 | 0.85 |
+| window_top | 1.00 × 10⁻³ | as_published | 50 | 1 | 0.970 | ×15.7 | ×110 | 1.19 |
+| window_top | 1.00 × 10⁻³ | weaker_binding | 50 | 10 | 0.825 | ×13.4 | ×81 | 1.13 |
+| window_top | 1.00 × 10⁻³ | smaller_pool | 5 | 1 | 0.749 | ×9.5 | ×67 | 0.98 |
+| window_top | 1.00 × 10⁻³ | near_capacity | 2 | 1 | 0.501 | ×4.8 | ×31 | 0.68 |
+| window_top | 1.00 × 10⁻³ | c_free_at_Kd | 1 | 1 | 0.253 | ×2.1 | ×9 | 0.32 |
+| window_top | 1.00 × 10⁻³ | Kd_at_C_tot | 50 | 50 | 0.495 | ×8.2 | ×31 | 0.91 |
 
 ---
 

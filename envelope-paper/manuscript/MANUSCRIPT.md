@@ -40,16 +40,20 @@ mistranslation rate — a combinatorial bound integrated over the E. coli proteo
 and a two-pool dynamical bound whose closure mechanism is aggregation-death — and
 in a paired Monte Carlo they agree to within a median factor of 3.1, with the
 arithmetic bound tighter in 76.8% of draws. Both sit one to two orders of
-magnitude above the observed E. coli rate of ~10⁻⁴–10⁻³ per codon; at the
-observed rate the two-pool system rests on its low-burden branch with ×158
-headroom in the misfolded-monomer pool and ×1.1 × 10⁴ in the aggregated pool.
+magnitude above the observed E. coli rate of ~10⁻⁴–10⁻³ per codon. Evaluated at
+the usage-weighted mean error rate implied by our own μ data (6.3 × 10⁻⁴ per
+codon), the two-pool system rests on its low-burden branch with ×25 headroom to
+collapse — ×4.6–×25 across defensible chaperone parameterizations, rather than the
+×158 previously quoted by evaluating at the bottom of the observed window.
 Within that margin, we find that the genetic code is strongly organized on the
 error axis — synonymous codons cluster in mistranslation rate far more tightly
 than permutation nulls (z = −3.56, p = 0.0010), with 56% of the variance in
 log μ sitting between rather than within amino acids — while showing no
-detectable structure on translational supply (z = −0.06, p = 0.45). The framework
-is falsifiable, and its distinguishing prediction — supraadditive interaction
-between perturbations at different burden stages — remains untested. We make no
+detectable structure on translational supply (z = −0.06, p = 0.45). That places E. coli within 0.2
+log₁₀ of the margin at which a 3-fold rise in error rate and a 3-fold reduction in
+rescue throughput, each individually survivable, become jointly lethal in the
+model — so the framework's distinguishing prediction, supraadditive interaction
+between burden stages, is experimentally reachable although still untested. We make no
 claim about the origin of the triplet code.
 
 ## Significance statement
@@ -61,8 +65,9 @@ finite chaperone and degradation capacity. We treat these as coupled terms of on
 budget and show that any system combining saturable rescue with
 concentration-driven aggregation must have a collapse threshold rather than a
 graceful decline. Placing E. coli on that axis using two independent bounding
-arguments, we find it operates roughly two orders of magnitude inside its own
-envelope — a large but finite margin. We also find that the genetic code is
+arguments, we find it operates roughly one order of magnitude inside its own
+envelope — a real but modest margin, close enough to the edge that burden and
+capacity perturbations should begin to compound. We also find that the genetic code is
 tightly organized on mistranslation rate but not on translational supply. The
 framework makes testable predictions about when that margin should matter.
 
@@ -254,29 +259,55 @@ aggregation dynamics — agreement at this resolution is the substantive claim; 
 point estimates are order-of-magnitude statements on literature-anchored
 parameters, not organism-fitted values.
 
-### Result 3 — Extant translation sits roughly two orders of magnitude inside the envelope
+### Result 3 — Extant translation sits roughly one order of magnitude inside the envelope
 
-Both bounds lie well above the observed E. coli mistranslation rate of
-~10⁻⁴–10⁻³ per codon [1,2]. Evaluated at the low end of the observed window
-(f = 10⁻⁴), the two-pool system rests on its low-burden stable branch with
-**×158** headroom to the collapse threshold in the misfolded-monomer pool
-(P* = 1.7 × 10⁻⁴ against P† = 2.7 × 10⁻²) and **×1.1 × 10⁴** in the aggregated
-pool (Fig. 3c).
+Both bounds lie above the observed E. coli mistranslation rate of ~10⁻⁴–10⁻³ per
+codon [1,2]. How far above depends on two choices that must be made explicitly,
+because the answer moves by more than an order of magnitude across them (Table 6,
+Fig. 3c).
 
-So the envelope is finite, and extant translation operates well inside it rather
-than at its edge. This is the paper's central quantitative result, and it cuts
-against a natural reading of the framework: if translation were tuned to the
-threshold, error rates would sit near the bound. They do not. The margin is
-large — roughly two orders of magnitude — which reframes the question the
-envelope poses. The interesting regime is not steady-state operation but
-conditions that compress the margin: reduced chaperone capacity, stress, ageing
-[11], or the supersaturated subproteomes implicated in aggregation disease [22].
+The first is **where in the observed window to evaluate the model**. Weighting the
+per-codon rates by E. coli codon usage gives 6.3 × 10⁻⁴ per codon (Result 1), so
+that is the internally consistent evaluation point. Evaluating instead at the
+bottom of the window (10⁻⁴) inflates the headroom sixfold; we note that earlier
+drafts of this work did exactly that, and that it is the same error as quoting the
+arithmetic bound at its deterministic reference point rather than its Monte Carlo
+median.
+
+The second is **how the chaperone arm is anchored**. At the operating point the
+model's folding arm is 97.9% saturated — 47.5 µM free chaperone against 0.052 µM
+misfolded protein (Result 5). The capacity evidence in Result 1 describes a
+network running near capacity, not in ~900-fold excess, so the published anchoring
+is not the only defensible one.
+
+Crossing the two axes:
+
+| Evaluated at | As published | Range over six chaperone anchorings |
+|---|---|---|
+| 10⁻⁴ (window bottom) | ×158 | ×40 – ×158 |
+| **6.3 × 10⁻⁴ (usage-weighted μ)** | **×25** | **×4.6 – ×25** |
+| 1.1 × 10⁻³ (unweighted mean) | ×14 | ×1.4 – ×14 |
+| 10⁻³ (window top) | ×16 | ×2.1 – ×16 |
+
+The defensible statement is therefore that extant translation operates **roughly
+one order of magnitude inside the envelope** — about 1.4 orders (×25) at the
+internally consistent evaluation point, and as little as ×4.6 if the chaperone
+network is anchored at capacity. "Roughly two orders" holds only at the most
+favourable corner of the grid.
+
+This matters for more than accuracy. A margin of ×25 rather than the ×158 quoted
+previously places E. coli close to, rather than far from, the regime in which
+burden-stage
+perturbations begin to interact (Result 5): the margin at which 3-fold
+perturbations become jointly lethal in this model is 1.19 log₁₀, and the
+internally consistent margin is 1.39 log₁₀ — a gap of 0.20. Extant translation
+sits inside its envelope with real but modest headroom, near the edge of the
+synergy regime rather than deep in the linear interior.
 
 We emphasize what this does not establish. Both bounds are order-of-magnitude
-arguments on literature-anchored parameters. They establish that the envelope is
-finite and roughly where the observed rate sits within it; they do not deliver a
-precise threshold, and the ×158 figure inherits the parameter uncertainty of the
-two-pool model.
+arguments on literature-anchored parameters, and the headroom inherits the
+parameter uncertainty of the two-pool model, which is why it is reported as a
+range rather than a point.
 
 ### Result 4 — The code is organized on the error axis but not on the supply axis
 
@@ -338,8 +369,10 @@ operating point is **+0.2% of the additive expectation** (+0.0018 log₁₀ unit
 That is not a detectable effect. Even a 5-fold error increase combined with a
 20-fold rescue knockdown reaches only +13% (Table S5).
 
-The interaction grows as the starting margin is compressed: +0.2% at the observed
-rate (margin 2.20 log₁₀, ×158 headroom), +0.6% at 1.90, +4.2% at 1.50. At a
+The interaction grows as the starting margin is compressed: +0.2% at margin
+2.20 log₁₀, +0.6% at 1.90, +4.2% at 1.50. (These margins are reported on the
+model's own scale; Result 3 places E. coli itself at 1.39 log₁₀, near the lower
+end of this ladder rather than at the top of it.) At a
 starting margin of 1.19 log₁₀ (×16 headroom) the character of the result changes
 qualitatively — a 3-fold error increase and a 3-fold rescue knockdown are each
 individually survivable, but together the system has no stable state at all
@@ -347,12 +380,13 @@ individually survivable, but together the system has no stable state at all
 single-viable but jointly lethal.
 
 This merges the framework's first two predictions into one experimental design.
-Supraadditivity is not detectable at wild-type buffering, because there the
-system is far enough from the fold to be effectively linear; an experiment must
-first compress the margin, and then the effect appears not as a few-percent
-deviation from additivity but as outright synthetic lethality. We state plainly
-that this makes the prediction harder to test than the framing in earlier drafts
-of this work implied.
+Supraadditivity is not detectable far from the fold, where the system is
+effectively linear; the effect appears not as a few-percent deviation from
+additivity but as outright synthetic lethality once the margin is closed. Taken
+with Result 3 — which places E. coli at margin 1.39 log₁₀, only 0.20 above the
+onset — the required sensitization is modest rather than extreme. Earlier drafts of this work implied the
+prediction was straightforwardly testable in wild type; it is not, but on the
+corrected margin it is reachable with a modest sensitization.
 
 Two caveats bound the result. It tests whether the *model* predicts
 supraadditivity, not whether cells do; it cannot validate the framework. And the
@@ -376,10 +410,11 @@ Its cost is that the prediction is untested. We state both plainly rather than
 presenting the framework as established.
 
 The quantitative payoff is Result 3. Two arguments with different logic converge
-on a bound one to two orders of magnitude above where E. coli actually operates.
-That margin is the framework's most useful output, because it says the envelope
-is not normally the binding constraint — and therefore tells you where to look
-for cases in which it is.
+on a bound roughly one order of magnitude above where E. coli actually operates
+(Result 3). That margin is the framework's most useful output — not because it is
+large, but because it is small enough to matter: at ×25, and as little as ×4.6 if
+the chaperone network is anchored at capacity, E. coli sits near the margin at
+which burden-stage perturbations stop combining additively (Result 5).
 
 ### Two results removed from this paper
 
@@ -478,12 +513,13 @@ is a motivated framework, not an established constraint.
    lethality in a sensitized background, not a small deviation from additivity
    in wild type.
 2. **Effects should scale with margin closed, not perturbation size.** Because
-   extant translation sits ~2 orders of magnitude inside the bound (Result 3) and
-   the system is effectively linear there (Result 5), the envelope should become
-   detectable only under interventions that compress the margin — chaperone
-   knockdown, heat stress, ageing, or forced overexpression — and burden-raising
-   perturbations should scale with how far the margin has been closed rather than
-   with their own magnitude.
+   extant translation sits roughly one order of magnitude inside the bound
+   (Result 3), and the interaction strengthens sharply as that margin closes
+   (Result 5), burden-raising perturbations should scale with how far the margin
+   has been closed rather than with their own magnitude. Interventions that
+   compress it — chaperone knockdown, heat stress, ageing [11], forced
+   overexpression, or the supersaturated subproteomes implicated in aggregation
+   disease [22] — should therefore produce disproportionate effects.
 3. **State-dependence of synonymous effects.** Because the same codon-level
    perturbation should be mild in a buffered state and costly in a stressed one,
    synonymous-edit fitness effects should be strongly condition-dependent. This
@@ -569,6 +605,16 @@ absorption) are drawn once per sample and both bounds computed from that draw
 (5,000 draws, seed 17). Bound-comparison statistics derived from separately
 parameterized marginal runs are not valid and are not used.
 
+### Headroom sensitivity
+
+Headroom is reported across two explicit axes rather than at a single point: the
+error rate at which the model is evaluated (window bottom, usage-weighted mean,
+unweighted mean, window top) and the chaperone anchoring (six combinations of
+`C_tot` and `K_d` spanning the published ~98%-saturated arm through to free
+chaperone comparable to `K_d`). For each cell the collapse threshold is recomputed
+and the margin is log₁₀(min(P†/P*, A_max/A*)). The internally consistent estimate
+uses the usage-weighted mean error rate derived from this paper's own μ data.
+
 ### Supraadditivity test
 
 The 2×2 factorial uses the upstream two-pool model, vendored unmodified at
@@ -631,11 +677,14 @@ per-codon error rate from the arithmetic and two-pool ODE bounds; diamonds mark
 the deterministic reference points (1.19 × 10⁻³ and 1.00 × 10⁻²), internal lines
 mark quartiles, and the shaded band is the observed E. coli rate. (b) The paired
 ratio `r = f_arith/f_ODE`; the arithmetic bound is tighter in 76.8% of draws
-(median r = 0.33). Solid line, r = 1; dashed line, median. (c) Headroom at the
-observed rate (f = 10⁻⁴): the two-pool system rests ×158 below the collapse
-threshold in the misfolded-monomer pool and ×1.1 × 10⁴ below it in the aggregated
-pool. Order-of-magnitude arguments on literature-anchored parameters, not
-organism-fitted models.
+(median r = 0.33). Solid line, r = 1; dashed line, median. (c) Headroom to collapse as a function of where in the observed
+window the model is evaluated. Line, the as-published chaperone anchoring; shaded
+band, the spread across six defensible anchorings; diamond, this paper's estimate
+at the usage-weighted mean error rate (×25). The value quoted in earlier drafts
+(×158) is the leftmost point, at the bottom of the window. Dashed line, the margin
+below which a 3-fold error increase and a 3-fold rescue knockdown become jointly
+lethal in the model (Result 5). Order-of-magnitude arguments on
+literature-anchored parameters, not organism-fitted models.
 
 **Fig. 4. The distinguishing prediction, tested in the model.**
 `figures/Fig4_supraadditivity.png`

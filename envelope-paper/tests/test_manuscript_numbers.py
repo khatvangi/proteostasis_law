@@ -37,6 +37,31 @@ def manuscript():
     return MS.read_text()
 
 
+def section(heading, text=None):
+    """
+    the text of one section, from its heading to the next heading of the same or
+    higher level.
+
+    scoping matters. an assertion that a value appears SOMEWHERE in the
+    manuscript passes even when the abstract and the results disagree -- which is
+    precisely how the previous draft carried a retracted statistic in one section
+    and the corrected one in another. headline claims are asserted against the
+    section that makes them.
+    """
+    t = manuscript() if text is None else text
+    i = t.index(heading)
+    level = len(heading) - len(heading.lstrip("#"))
+    rest = t[i + len(heading):]
+    # a marker like "\n## " matches only level-2 headings, since a level-3
+    # heading reads "\n### " and fails on the space
+    end = len(rest)
+    for lv in range(1, level + 1):
+        j = rest.find("\n" + "#" * lv + " ")
+        if j != -1:
+            end = min(end, j)
+    return heading + rest[:end]
+
+
 def flat(text=None):
     """
     manuscript text with runs of whitespace collapsed.
@@ -137,12 +162,91 @@ class ManuscriptContainsClaim(unittest.TestCase):
         ):
             self.assertNotIn(bad, self.text, f"manuscript contains {bad!r}: {why}")
 
-    def test_headroom(self):
-        s = load_json(COMP / "bounds_summary.json")
-        self.assertAlmostEqual(s["headroom_P"], 158.06, delta=0.1)
-        self.assertAlmostEqual(s["headroom_A"], 11091, delta=1)
-        self.assertStated("×158", "misfolded-monomer headroom")
-        self.assertStated("×1.1 × 10⁴", "aggregated-pool headroom")
+    def test_headroom_is_reported_at_the_consistent_evaluation_point(self):
+        """
+        the headline headroom must come from the usage-weighted mean error rate
+        this paper derives, NOT from the bottom of the observed window. earlier
+        drafts quoted x158 by evaluating at 1e-4 while deriving 6.3e-4 from the
+        same data -- an inconsistency in the favourable direction.
+        """
+        h = load_json(COMP / "headroom_sensitivity_summary.json")
+        self.assertAlmostEqual(h["internally_consistent_headroom_P"], 24.8, delta=0.2)
+        self.assertAlmostEqual(h["previously_reported_headroom_P"], 158.06, delta=0.1)
+        self.assertStated("×25", "headroom at the usage-weighted mean rate")
+        # scoped: the ABSTRACT must carry the corrected figure, not the old one
+        abstract = flat(section("## Abstract"))
+        self.assertIn("×25 headroom", abstract,
+                      "the abstract does not state the corrected headroom")
+        self.assertNotIn("×158 headroom", abstract,
+                         "the abstract states the superseded headroom as fact")
+        # the inflated figure may appear only as the value being corrected
+        for para in self.text.split("\n\n"):
+            if "×158" in para:
+                self.assertTrue(
+                    any(w in para.lower() for w in
+                        ("earlier draft", "window bottom", "quoted", "favourable",
+                         "as published", "previously")),
+                    "×158 appears without being marked as the superseded figure:\n"
+                    + para[:200])
+
+    def test_headroom_range_is_reported_not_a_point(self):
+        h = load_json(COMP / "headroom_sensitivity_summary.json")
+        lo, hi = h["usage_weighted_mu_range_across_anchorings"]
+        self.assertAlmostEqual(lo, 4.6, delta=0.2)
+        self.assertAlmostEqual(hi, 24.8, delta=0.2)
+        self.assertStated("×4.6", "low end of the chaperone-anchoring range")
+        # scoped: both the abstract and Result 3 must carry the range, not a point
+        for name, heading in (("abstract", "## Abstract"),
+                              ("Result 3", "### Result 3")):
+            sec = flat(section(heading))
+            self.assertIn("×4.6", sec,
+                          f"{name} reports a point headroom, not the range")
+        self.assertIn("roughly one order of magnitude inside", flat())
+        self.assertNotIn("roughly two orders of magnitude inside", flat(),
+                         "the superseded claim is back")
+
+    def test_result3_inline_table_matches_computed_headroom(self):
+        """
+        Result 3 quotes a headroom grid inline. every cell must match
+        data/computed/headroom_sensitivity.tsv -- an inline table is just as able
+        to go stale as a prose number.
+        """
+        hs = pd.read_csv(COMP / "headroom_sensitivity.tsv", sep="\t")
+        ok = hs[~hs.collapsed]
+        sec = section("### Result 3")
+        rows = [ln for ln in sec.splitlines()
+                if ln.startswith("| ") and "×" in ln and "Evaluated at" not in ln]
+        self.assertEqual(len(rows), 4,
+                         f"expected 4 headroom rows in Result 3, found {len(rows)}")
+
+        # match on the parenthetical, not the exponent: "10⁻⁴" is a substring of
+        # "6.3 × 10⁻⁴" and silently matched the wrong row
+        key = {"window bottom": "window_bottom",
+               "usage-weighted": "usage_weighted_mu",
+               "unweighted mean": "unweighted_mean_mu",
+               "window top": "window_top"}
+        for line in rows:
+            cells = [c.strip().replace("*", "") for c in line.strip("|").split("|")]
+            label, published, rng = cells[0], cells[1], cells[2]
+            ep = next(v for k, v in key.items() if k in label)
+            g = ok[ok.evaluation_point == ep]
+            pub = g[g.anchoring == "as_published"].iloc[0].headroom_P
+            self.assertAlmostEqual(
+                float(published.lstrip("×")), pub, delta=0.6,
+                msg=f"{ep}: manuscript says {published}, computed ×{pub:.1f}")
+            lo_s, hi_s = [x.strip().lstrip("×") for x in rng.split("–")]
+            self.assertAlmostEqual(float(lo_s), g.headroom_P.min(), delta=0.6,
+                                   msg=f"{ep}: range low disagrees")
+            self.assertAlmostEqual(float(hi_s), g.headroom_P.max(), delta=0.6,
+                                   msg=f"{ep}: range high disagrees")
+
+    def test_margin_is_near_the_supraadditivity_onset(self):
+        h = load_json(COMP / "headroom_sensitivity_summary.json")
+        self.assertAlmostEqual(h["internally_consistent_margin_log10"], 1.39,
+                               delta=0.02)
+        self.assertAlmostEqual(h["distance_from_onset_log10"], 0.20, delta=0.02)
+        self.assertIn("1.39 log₁₀", flat())
+        self.assertIn("0.20", flat())
 
     def test_aggregation_death_dominates(self):
         s = load_json(COMP / "bounds_summary.json")
