@@ -223,3 +223,52 @@ the phrase I had just retracted -- and was updated to check the corrected framin
 Mutation-tested (reverting to the parameter criticism, presenting theta as
 measured, dropping the range from Limitations, or dropping the pinning measurement
 each fail). Verified by wiping all artifacts and rebuilding.
+
+**Q:** Review: one blocking defect (Result 5 evaluated at the point Result 3
+rejects), three consistency errors, two unaddressed objections.
+
+**A:** All confirmed and fixed. The blocking defect was mine and the review's
+numbers reproduced exactly.
+
+**Blocking.** `scripts/09` hardcoded `OBSERVED_F = 1e-4` — the window bottom, the
+evaluation point Result 3 spends a page rejecting. So Result 5 was anchored at
+margin 2.20 while the paper's own margin is 1.39. Re-anchored (the point is now
+READ from translation_burden.json; 1e-4 kept as a labelled comparison row):
+
+- interaction, 3x error / /3 rescue: +0.196% -> **+7.44%** (a 38x understatement)
+- max non-collapsed: +13.0% at 5x/20x -> **+9.59% at 2x/5x**
+- single-viable, jointly lethal: 5/36 -> **12/36**, mildest 1.5x error with /10
+- saturation triple: 97.9%/47.5/0.052 uM -> **97.4%/37.6/0.331 uM** (6 places),
+  now matching Table 7's theta=0 row; "~900-fold excess" -> ~113-fold
+
+This inverted the experimental conclusion in the paper's favour. Prediction 1 no
+longer requires a sensitized background: synthetic lethality is present at
+wild-type margin. Worst part: the test suite was ENFORCING the inconsistency by
+asserting the strings "+0.2% of the additive expectation" and "97.9% saturated".
+Replaced with a test that the evaluation point matches Result 3's, plus one that
+the anchor is not hardcoded again.
+
+**Objection 1 (nu power).** Correct that nu is coarse: 21/59 distinct values,
+largest tied group 13, vs 59/59 for log mu. But the test still has the power:
+nu rejects at >=35% tightening (19.6% below null), and mu's observed clustering
+sits 37.4% below its null — a 17.8 pp margin. So the contrast is not a resolution
+artifact. Boundary conceded: under a subset model (effect in half the amino acids)
+power reaches only 0.75 and never 0.80, so the claim is narrowed to "does not
+operate on nu uniformly across amino acids at comparable magnitude".
+
+**Objection 2 (mu leverage / detectability).** Leverage fails: leave-one-codon-out
+jackknife is significant in 59/59 deletions, and dropping CCC gives z = -3.67
+(marginally stronger); span reported both ways, 613-fold and 286-fold without CCC.
+Detectability is real and damaging: sampling depth carries **eta^2 = 0.560**
+between amino acids against 0.556 for log mu, and Spearman(depth, log mu) = -0.37
+(p = 0.004). Survives dropping the thinnest quartile (z = -2.85) but cannot be
+separated from the biology with these data. Now stated in Result 4 and Limitations.
+
+**Consistency.** Abstract x4.6-x25 -> x1.9-x25 (the theta grid); Table 6 retired to
+S9 (its anchoring axis duplicated theta and reached its low end at C_tot = 1-2 uM,
+outside the documented 30-80; verified the two cells are identical to 8e-8);
+README "two orders" fixed; Table 3's 2D rows declared uninterpreted by
+construction; nu p-values labelled descriptive with the ~0.68 hypothesised-direction
+value stated; "median factor of 3.1" distinguished from the median ratio 3.00.
+
+Tests 60 -> 73. Verified by wiping every artifact and rebuilding (15 steps).
