@@ -20,22 +20,29 @@ triplets or why degeneracy exists.
 
 ## Reproducing everything
 
-Run the scripts in numeric order from this directory. Nothing depends on
-network access; all inputs are in `data/raw/`.
+One command rebuilds every number, figure, and table, then runs the tests.
+Nothing needs network access; all inputs are in `data/raw/`.
 
 ```bash
-python scripts/01_validate_tai.py                      # ~10 s   validates the nu axis, aborts if it fails
-python scripts/02_axis_structure.py                    # ~2 min  permutation tests (10,000 x 3 axes x 2 nulls)
-python scripts/02_axis_structure.py --mu-stat median    # ~2 min  sensitivity to the mu summary statistic
-python scripts/06_translation_burden.py                # ~5 s    burden magnitude from mu + codon usage
-python scripts/07_removed_results.py                   # ~30 s   diagnostics for the two dropped results
-cd scripts && python 03_fig1_envelope.py && python 04_fig2_axis.py && python 05_fig3_bounds.py
+python scripts/run_all.py            # ~2.5 min end to end, then 41 tests
+python scripts/run_all.py --fast     # skip the two 10,000-permutation runs
+python scripts/run_all.py --no-tests # rebuild only
 ```
 
-Then verify:
+The pipeline fails closed: if `01_validate_tai.py` rejects the supply axis it
+exits non-zero and nothing downstream runs.
+
+Individual steps, if you want them:
 
 ```bash
-python -m unittest discover -s tests -v     # 31 tests
+python scripts/01_validate_tai.py                     # ~3 s    validates nu, aborts if it fails
+python scripts/02_axis_structure.py                   # ~65 s   permutation tests
+python scripts/02_axis_structure.py --mu-stat median  # ~65 s   mu summary-statistic sensitivity
+python scripts/06_translation_burden.py               # ~1 s    burden magnitude
+python scripts/07_removed_results.py                  # ~4 s    the two dropped results
+cd scripts && python 03_fig1_envelope.py && python 04_fig2_axis.py && python 05_fig3_bounds.py
+python scripts/08_make_tables.py                      # ~1 s    tables
+python -m unittest discover -s tests -v               # 41 tests
 ```
 
 Requires Python 3 with numpy, pandas, scipy, seaborn, openpyxl. No build step.
@@ -52,11 +59,14 @@ scripts/                   every number and figure is generated here
   05_fig3_bounds.py        Fig 3  paired bounds and headroom
   06_translation_burden.py burden magnitude implied by the mu data
   07_removed_results.py    reproduces the two results this paper drops
+  08_make_tables.py        Tables 1-4 and S1-S4
+  run_all.py               rebuild everything, then run the tests
   figstyle.py              shared seaborn style
 data/raw/                  staged inputs, self-contained
 data/computed/             script outputs; the manuscript's only source of numbers
-figures/                   PNG + PDF
-tests/                     asserts the manuscript against data/computed/
+figures/                   Fig 1-3, PNG + PDF
+tables/                    Tables 1-4 and S1-S4 as TSV, plus TABLES.md
+tests/                     asserts the manuscript against data/computed/ and tables/
 ```
 
 ## The rule this project now enforces
@@ -71,8 +81,10 @@ generating code — so it certified a corrupt supply axis, a superseded Monte Ca
 run, and a statistic the upstream project had explicitly retracted, and still
 reported "17/20 pass". `tests/test_manuscript_numbers.py` closes that gap, and
 the suite has been mutation-tested: altering a manuscript number, dropping a
-citation, softening a negative result, reinstating the retracted statistic, or
-substituting the corrupt tAI vector each make it fail.
+citation, softening a negative result, reinstating the retracted statistic,
+substituting the corrupt tAI vector, drifting a generated table away from the
+computed data, relabelling a null result as a signal, or removing the "excluded"
+marking from a dropped result each make it fail.
 
 ## What was removed, and why
 
@@ -92,3 +104,22 @@ corrected analyses reported in the Discussion and reproduced by
   is stated in the manuscript, not hidden.
 - ν is validated for E. coli only. No validated B. subtilis or S. cerevisiae
   supply vector exists; see `../../codon-deployment/data/computed/README_TAI_IS_CORRUPT.md`.
+
+## Figures and tables
+
+| Artifact | Content |
+|---|---|
+| Fig 1 | envelope regimes and the saddle-node threshold |
+| Fig 2 | mu clustering, nu null, between/within-amino-acid variance |
+| Fig 3 | paired bounds, the paired ratio, and headroom |
+| Table 1 | burden terms and their flux operationalization |
+| Table 2 (+2b) | bounds on the tolerable per-codon error rate, and derived statistics |
+| Table 3 | permutation tests: both axes, both nulls, both mu statistics |
+| Table 4 | **removed result** — metal sites under both backgrounds |
+| Table S1 | per-codon (mu, nu) coordinates, all 59 analysed codons |
+| Table S2 | per-amino-acid operational spread |
+| Table S3 | validation of the nu axis, both candidate vectors |
+| Table S4 | **removed result** — cross-species conservation of Delta |
+
+Tables 4 and S4 report analyses this paper *excludes*; both are labelled as such
+in `tables/TABLES.md`, and a test enforces that labelling.

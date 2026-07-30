@@ -89,3 +89,22 @@ Housekeeping: `envelope-paper/` named canonical in CLAUDE.md and README;
 `README_TAI_IS_CORRUPT.md` written in codon-deployment and a warning appended to
 `structural-criticality/CLAUDE.md`, whose `in_disulfide` tAI result needs
 recomputation.
+
+**Q:** Generate the figures, tables etc.
+
+**A:** Figures already existed (Fig 1-3, PNG+PDF). Added the table set and a driver:
+- `scripts/08_make_tables.py` → `tables/`: Tables 1-4 and S1-S4 as full-precision
+  TSV plus `TABLES.md` with typeset values formatted identically to the
+  manuscript, so drift between table and prose is detectable.
+- Table 3 fixes two presentation errors found while building it: the ν rows were
+  duplicated across the mean/median μ blocks (ν doesn't depend on the μ statistic,
+  so one test was displaying as two), and non-significant rows were labelled
+  "clustered"/"spread" on the strength of their sign alone — now "no signal".
+- `scripts/run_all.py` — one-command rebuild of everything, fails closed if the ν
+  axis validation rejects (nothing downstream runs).
+- Manuscript now cites Table 1-4 and S1-S4 at the right places.
+- Test suite 31 → 41. New tests assert tables match `data/computed/`, the
+  manuscript matches the tables, ν rows aren't duplicated, null results aren't
+  labelled as signals, and Tables 4/S4 stay marked "excluded from the paper".
+  Mutation-tested: table drift, relabelling a null, making a within-gene p
+  significant, and dropping the "excluded" marking each fail.
