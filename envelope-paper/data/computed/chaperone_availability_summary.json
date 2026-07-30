@@ -1,0 +1,24 @@
+{
+  "evaluation_point_f_codon": 0.0006334247974475959,
+  "parameter_provenance": {
+    "C_tot_uM": "30-80, baseline 50 (Lorimer 1996 GroEL ~30 uM; DnaK 30-50 uM) -- proteostasis-P1/LITERATURE_ANCHORS.md",
+    "K_d_uM": "0.06-2, baseline 1 (Pierpaoli et al. 1997 EMBO J)",
+    "theta": "NOT measured; introduced here to expose the model's implicit assumption that 100% of the chaperone pool is available to the damaged-protein pool"
+  },
+  "correction_to_earlier_claim": "scripts/09 attributed the 98%-saturated folding arm to a parameterization inconsistent with the paper's own capacity evidence. That was wrong: C_tot and K_d are properly sourced and used in range. The saturation is structural -- the model omits the nascent-chain folding load, so it hands the entire chaperone pool to the damaged pool.",
+  "at_theta_zero": {
+    "folding_arm_saturation": 0.9740655164678572,
+    "headroom_P": 24.817281807890474,
+    "margin_log10": 1.394754212276315
+  },
+  "theta_at_which_arm_unsaturates": 0.98,
+  "theta_at_which_margin_reaches_supraadditivity_onset": 0.9,
+  "supraadditivity_onset_margin_log10": 1.1946809249440333,
+  "headroom_range_over_documented_grid": [
+    1.85065071652766,
+    25.340387232377047
+  ],
+  "n_collapsed": 4,
+  "n_cells": 63,
+  "what_would_pin_this_down": "a measurement of chaperone occupancy by nascent-chain folding in exponentially growing E. coli would fix theta and collapse the headroom range to a point"
+}

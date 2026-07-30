@@ -24,7 +24,7 @@ One command rebuilds every number, figure, and table, then runs the tests.
 Nothing needs network access; all inputs are in `data/raw/`.
 
 ```bash
-python scripts/run_all.py            # ~3 min end to end, then 53 tests
+python scripts/run_all.py            # ~3 min end to end, then 60 tests
 python scripts/run_all.py --fast     # skip the two 10,000-permutation runs
 python scripts/run_all.py --no-tests # rebuild only
 ```
@@ -45,7 +45,8 @@ python scripts/09_supraadditivity.py                  # ~28 s   the distinguishi
 cd scripts && python 10_fig4_supraadditivity.py       # Fig 4
 python scripts/08_make_tables.py                      # ~1 s    tables
 python scripts/11_headroom_sensitivity.py             # ~1 s    headroom across two axes
-python -m unittest discover -s tests -v               # 53 tests
+python scripts/12_chaperone_availability.py           # ~1 s    chaperone availability (theta)
+python -m unittest discover -s tests -v               # 60 tests
 ```
 
 Requires Python 3 with numpy, pandas, scipy, seaborn, openpyxl. No build step.
@@ -66,13 +67,14 @@ scripts/                   every number and figure is generated here
   09_supraadditivity.py    2x2 factorial: the distinguishing prediction
   10_fig4_supraadditivity.py  Fig 4  supraadditivity
   11_headroom_sensitivity.py  headroom vs evaluation point x chaperone anchoring
+  12_chaperone_availability.py  headroom vs chaperone availability theta
   vendor/two_pool_ode.py   upstream model, verbatim (do not edit)
   run_all.py               rebuild everything, then run the tests
   figstyle.py              shared seaborn style
 data/raw/                  staged inputs, self-contained
 data/computed/             script outputs; the manuscript's only source of numbers
 figures/                   Fig 1-4, PNG + PDF
-tables/                    Tables 1-6 and S1-S6 as TSV, plus TABLES.md
+tables/                    Tables 1-7 and S1-S6 as TSV, plus TABLES.md
 tests/                     asserts the manuscript against data/computed/ and tables/
 ```
 
@@ -115,13 +117,16 @@ corrected analyses reported in the Discussion and reproduced by
   Result 5 confirms it holds in the model but is only ~0.2% above additive at
   wild-type margin, so the experiment must first compress the viability margin;
   the manuscript says so plainly rather than implying it is easy to test.
-- The two-pool model leaves the folding arm 97.9% saturated at the observed
-  operating point, which sits against the capacity evidence cited in Result 1.
-  Result 3 now reports headroom across six chaperone anchorings rather than
-  assuming the published one, but a properly re-anchored model is still the right
-  next refinement.
-- Headroom is a range (×4.6–×25), not a point. Any single figure quoted from it
-  should say which evaluation point and anchoring it came from.
+- Headroom is a range, not a point: ×1.9–×25 across the documented `C_tot`/`K_d`
+  ranges crossed with chaperone availability θ. Any single figure quoted from it
+  must say which evaluation point and which θ it came from.
+- **θ is unmeasured.** The model omits nascent-chain folding, so it hands the whole
+  chaperone pool to the damaged-protein pool. Table 7 exposes that as θ and gives
+  the decision threshold: at θ ≥ 0.90 E. coli already sits in the regime where
+  burden and capacity perturbations compound. One measurement — chaperone occupancy
+  by nascent-chain folding in exponentially growing E. coli — collapses the range
+  to a point. A model that represents nascent-chain folding explicitly, rather
+  than absorbing it into θ, is the right next refinement.
 - ν is validated for E. coli only. No validated B. subtilis or S. cerevisiae
   supply vector exists; see `../../codon-deployment/data/computed/README_TAI_IS_CORRUPT.md`.
 
@@ -139,6 +144,7 @@ corrected analyses reported in the Discussion and reproduced by
 | Table 4 | **removed result** — metal sites under both backgrounds |
 | Table 5 | supraadditivity: interaction vs remaining margin |
 | Table 6 | headroom across evaluation point and chaperone anchoring |
+| Table 7 | headroom vs chaperone availability θ, over documented C_tot/K_d |
 | Table S1 | per-codon (mu, nu) coordinates, all 59 analysed codons |
 | Table S2 | per-amino-acid operational spread |
 | Table S3 | validation of the nu axis, both candidate vectors |

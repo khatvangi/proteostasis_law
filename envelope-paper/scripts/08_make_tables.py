@@ -196,6 +196,13 @@ def table6():
                "headroom_P", "headroom_A", "margin_log10", "collapsed"]]
 
 
+def table7():
+    """headroom vs chaperone availability theta, over documented C_tot / K_d."""
+    return pd.read_csv(COMP / "chaperone_availability.tsv", sep="\t")[
+        ["C_tot_uM", "K_d_uM", "theta", "C_avail_uM", "c_free_uM",
+         "folding_arm_saturation", "headroom_P", "margin_log10", "collapsed"]]
+
+
 def table_s1():
     df = pd.read_csv(COMP / "codon_axes.tsv", sep="\t")
     return df[["codon", "aa", "degeneracy", "mu", "log_mu", "mu_z",
@@ -265,7 +272,7 @@ def main():
     t1 = table1()
     t2, t2s = table2()
     t5, s5, s6 = table5(), table_s5(), table_s6()
-    t6 = table6()
+    t6, t7 = table6(), table7()
     t3 = table3()
     t4 = table4()
     s1, s2, s3, s4 = table_s1(), table_s2(), table_s3(), table_s4()
@@ -283,7 +290,8 @@ def main():
                      ("Table5_supraadditivity", t5),
                      ("TableS5_supraadditivity_grid", s5),
                      ("TableS6_capacity_knob_comparison", s6),
-                     ("Table6_headroom_sensitivity", t6)):
+                     ("Table6_headroom_sensitivity", t6),
+                     ("Table7_chaperone_availability", t7)):
         p = TAB / f"{name}.tsv"
         df.to_csv(p, sep="\t", index=False)
         written[name] = len(df)
@@ -457,6 +465,37 @@ def main():
             "| Evaluated at | f (/codon) | Chaperone anchoring | C_tot (µM) | "
             "K_d (µM) | Folding arm saturation | **Headroom, P pool** | "
             "Headroom, A pool | Margin (log₁₀) |"),
+        "",
+        "---",
+        "",
+        "## Table 7. Headroom against chaperone availability",
+        "",
+        "The model gives the whole chaperone pool to the damaged-protein pool "
+        "because it does not represent nascent-chain folding. `theta` makes that "
+        "assumption explicit: `C_avail = C_tot(1 - theta)`. `C_tot` (30-80 µM) and "
+        "`K_d` (0.06-2 µM) are swept over their **documented** ranges; **theta is "
+        "not measured** and is not estimated here. Shown at K_d = 1 µM; the full "
+        "grid is in the TSV. theta = 0 is the assumption earlier drafts made "
+        "implicitly.",
+        "",
+        md_table(t7[(t7.K_d_uM == 1.0)],
+                 ["C_tot_uM", "theta", "C_avail_uM", "c_free_uM",
+                  "folding_arm_saturation", "headroom_P", "margin_log10"],
+                 fmt={"C_tot_uM": lambda v: f"{v:g}",
+                      "theta": lambda v: f"{v:g}",
+                      "C_avail_uM": lambda v: f"{v:.2f}",
+                      "c_free_uM":
+                          lambda v: "—" if not np.isfinite(v) else f"{v:.2f}",
+                      "folding_arm_saturation":
+                          lambda v: "—" if not np.isfinite(v) else f"{v:.3f}",
+                      "headroom_P":
+                          lambda v: "collapsed" if not np.isfinite(v) else f"×{v:.1f}",
+                      "margin_log10":
+                          lambda v: "—" if not np.isfinite(v) else f"{v:.2f}"}).replace(
+            "| C_tot_uM | theta | C_avail_uM | c_free_uM | "
+            "folding_arm_saturation | headroom_P | margin_log10 |",
+            "| C_tot (µM) | θ | C_avail (µM) | Free chaperone (µM) | "
+            "Folding arm saturation | **Headroom** | Margin (log₁₀) |"),
         "",
         "---",
         "",

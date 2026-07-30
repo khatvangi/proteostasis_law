@@ -274,13 +274,33 @@ drafts of this work did exactly that, and that it is the same error as quoting t
 arithmetic bound at its deterministic reference point rather than its Monte Carlo
 median.
 
-The second is **how the chaperone arm is anchored**. At the operating point the
-model's folding arm is 97.9% saturated — 47.5 µM free chaperone against 0.052 µM
-misfolded protein (Result 5). The capacity evidence in Result 1 describes a
-network running near capacity, not in ~900-fold excess, so the published anchoring
-is not the only defensible one.
+The second is **how much of the chaperone pool the damaged proteins actually
+get**. At the operating point the model's folding arm is 97.9% saturated — 47.5 µM
+free chaperone against 0.052 µM misfolded protein (Result 5). That is not a
+mis-set parameter: `C_tot` = 50 µM and `K_d` = 1 µM are both used within their
+sourced ranges (30–80 µM from GroEL and DnaK abundance; 0.06–2 µM from
+DnaK–substrate dissociation constants; Methods). It is structural. The rescue term
+gives the *entire* chaperone pool to the damaged-protein pool, because the model
+does not represent the ordinary nascent-chain folding load that occupies most
+chaperone capacity in a growing cell. `C_tot` in this model is therefore chaperone
+*available to the damaged pool*, and using the total silently assumes availability
+is 100%.
 
-Crossing the two axes:
+We make that assumption explicit as a parameter, `C_avail = C_tot(1 − θ)`, with θ
+the fraction of the pool committed elsewhere, and sweep θ together with `C_tot`
+and `K_d` over their documented ranges (Table 7). **θ is not measured here** and
+nothing below estimates it. What the sweep gives is a decision threshold: the
+folding arm stops being saturated only at θ ≳ 0.98, and the margin falls to the
+supraadditivity onset (1.19 log₁₀, Result 5) at θ ≳ 0.90. Across the whole
+documented grid the headroom spans ×1.9 to ×25.
+
+So a single measurement — chaperone occupancy by nascent-chain folding in
+exponentially growing E. coli — would collapse this range to a point, and would
+decide whether E. coli already sits inside the regime where burden and capacity
+perturbations compound. If θ ≥ 0.90, it does.
+
+Crossing the evaluation point against six coarse chaperone anchorings (Table 6;
+Table 7 replaces these with the principled θ axis):
 
 | Evaluated at | As published | Range over six chaperone anchorings |
 |---|---|---|
@@ -487,15 +507,19 @@ derived from tRNA gene copy number, not a measured ribosome transit time
 weighted, with no archaea and no mammalian systems, so generality rests on
 structural convergence rather than molecular homology. The reduced ODE is not fit
 to data and establishes only threshold *existence*; the two-pool bound is
-order-of-magnitude. The two-pool model's chaperone parameterization
-(`C_tot` = 50 µM, `K_d` = 1 µM) leaves the folding arm 97.9% saturated at the
-observed operating point, a ~900-fold excess of free chaperone over misfolded
-protein (Result 5, Table S6). That sits awkwardly against the capacity evidence
-we cite in Result 1 — Hsp70 buffering of production costs [4] and metastable-protein
-interference [21] both indicate a network running near capacity, not in vast
-excess — so the model likely understates how tightly `C_buffer` binds. Re-anchoring
-`C_tot`/`K_d` so that free chaperone is comparable to `K_d` is the obvious next
-refinement, and would be expected to raise the interaction magnitudes in Result 5. Most importantly, the framework's distinguishing prediction —
+order-of-magnitude. The two-pool model leaves the folding arm 97.9% saturated at
+the observed operating point, a ~900-fold excess of free chaperone over misfolded
+protein (Result 5, Table S6). Its parameters are not at fault — `C_tot` and `K_d`
+are used within their sourced ranges — but the model omits the nascent-chain
+folding load entirely, so it treats the whole chaperone pool as available to
+damaged protein. Result 3 exposes that as the availability parameter θ and reports
+headroom across it rather than assuming θ = 0, but θ is unmeasured, and until it
+is constrained the headroom is a range (×1.9–×25) rather than a value. A model
+that represented nascent-chain folding explicitly, rather than absorbing it into a
+free parameter, is the right next refinement; on the evidence in Result 1 —
+Hsp70 buffering of production costs [4] and metastable-protein interference [21],
+both indicating limited spare capacity — we would expect it to place θ high, and
+therefore the margin low. Most importantly, the framework's distinguishing prediction —
 supraadditivity across burden stages — remains untested. Until it is tested this
 is a motivated framework, not an established constraint.
 
@@ -605,6 +629,18 @@ absorption) are drawn once per sample and both bounds computed from that draw
 (5,000 draws, seed 17). Bound-comparison statistics derived from separately
 parameterized marginal runs are not valid and are not used.
 
+### Chaperone parameters and their provenance
+
+The two-pool model's rescue parameters are taken from the upstream literature
+anchors: `C_tot` 30–80 µM with baseline 50 µM (GroEL ≈ 30 µM in exponentially
+growing E. coli, DnaK 30–50 µM), `K_d` 0.06–2 µM with baseline 1 µM
+(DnaK–substrate peptide dissociation constants), and `k_obs_max` 3 × 10⁻³–8.4 × 10⁻²
+s⁻¹ with baseline 10⁻² s⁻¹ (DnaK R-state release). Because the model represents
+only the damaged-protein pool and not nascent-chain folding, `C_tot` is
+reinterpreted as chaperone available to that pool and scaled by an explicit
+availability factor, `C_avail = C_tot(1 − θ)`. θ is swept, not fitted, and is not
+estimated by this work.
+
 ### Headroom sensitivity
 
 Headroom is reported across two explicit axes rather than at a single point: the
@@ -679,7 +715,8 @@ mark quartiles, and the shaded band is the observed E. coli rate. (b) The paired
 ratio `r = f_arith/f_ODE`; the arithmetic bound is tighter in 76.8% of draws
 (median r = 0.33). Solid line, r = 1; dashed line, median. (c) Headroom to collapse as a function of where in the observed
 window the model is evaluated. Line, the as-published chaperone anchoring; shaded
-band, the spread across six defensible anchorings; diamond, this paper's estimate
+band, the spread across six coarse chaperone anchorings (superseded by the θ
+sweep of Table 7); diamond, this paper's estimate
 at the usage-weighted mean error rate (×25). The value quoted in earlier drafts
 (×158) is the leftmost point, at the bottom of the window. Dashed line, the margin
 below which a 3-fold error increase and a 3-fold rescue knockdown become jointly

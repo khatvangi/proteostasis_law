@@ -125,6 +125,36 @@ Headroom to collapse depends on where in the observed window the model is evalua
 
 ---
 
+## Table 7. Headroom against chaperone availability
+
+The model gives the whole chaperone pool to the damaged-protein pool because it does not represent nascent-chain folding. `theta` makes that assumption explicit: `C_avail = C_tot(1 - theta)`. `C_tot` (30-80 µM) and `K_d` (0.06-2 µM) are swept over their **documented** ranges; **theta is not measured** and is not estimated here. Shown at K_d = 1 µM; the full grid is in the TSV. theta = 0 is the assumption earlier drafts made implicitly.
+
+| C_tot (µM) | θ | C_avail (µM) | Free chaperone (µM) | Folding arm saturation | **Headroom** | Margin (log₁₀) |
+|---|---|---|---|---|---|---|
+| 30 | 0 | 30.00 | 22.44 | 0.957 | ×24.4 | 1.39 |
+| 30 | 0.5 | 15.00 | 11.10 | 0.917 | ×23.4 | 1.37 |
+| 30 | 0.8 | 6.00 | 4.30 | 0.811 | ×17.5 | 1.24 |
+| 30 | 0.9 | 3.00 | 2.03 | 0.670 | ×11.3 | 1.05 |
+| 30 | 0.95 | 1.50 | 0.90 | 0.475 | ×6.7 | 0.83 |
+| 30 | 0.98 | 0.60 | 0.23 | 0.189 | ×2.5 | 0.41 |
+| 30 | 0.99 | 0.30 | — | — | collapsed | — |
+| 50 | 0 | 50.00 | 37.56 | 0.974 | ×24.8 | 1.39 |
+| 50 | 0.5 | 25.00 | 18.66 | 0.949 | ×24.2 | 1.38 |
+| 50 | 0.8 | 10.00 | 7.32 | 0.880 | ×22.5 | 1.35 |
+| 50 | 0.9 | 5.00 | 3.54 | 0.780 | ×15.7 | 1.19 |
+| 50 | 0.95 | 2.50 | 1.66 | 0.624 | ×9.9 | 1.00 |
+| 50 | 0.98 | 1.00 | 0.53 | 0.346 | ×4.6 | 0.67 |
+| 50 | 0.99 | 0.50 | 0.16 | 0.135 | ×1.9 | 0.27 |
+| 80 | 0 | 80.00 | 60.24 | 0.984 | ×25.1 | 1.40 |
+| 80 | 0.5 | 40.00 | 30.00 | 0.968 | ×24.7 | 1.39 |
+| 80 | 0.8 | 16.00 | 11.86 | 0.922 | ×23.5 | 1.37 |
+| 80 | 0.9 | 8.00 | 5.81 | 0.853 | ×20.6 | 1.31 |
+| 80 | 0.95 | 4.00 | 2.79 | 0.736 | ×13.6 | 1.13 |
+| 80 | 0.98 | 1.60 | 0.98 | 0.495 | ×7.1 | 0.85 |
+| 80 | 0.99 | 0.80 | 0.38 | 0.276 | ×3.7 | 0.56 |
+
+---
+
 # Supplementary tables
 
 ## Table S1. Per-codon operational coordinates

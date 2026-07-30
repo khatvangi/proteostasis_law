@@ -31,9 +31,10 @@ STEPS = [
 
     ("09_supraadditivity.py", [], "supraadditivity test (2x2 on the two-pool ODE)", False),
     ("11_headroom_sensitivity.py", [], "headroom sensitivity (evaluation point x anchoring)", False),
+    ("12_chaperone_availability.py", [], "chaperone availability sweep (theta)", False),
     ("05_fig3_bounds.py", [], "Fig 3  bounds and headroom sensitivity", False),
     ("10_fig4_supraadditivity.py", [], "Fig 4  supraadditivity", False),
-    ("08_make_tables.py", [], "Tables 1-6 and S1-S6", False),
+    ("08_make_tables.py", [], "Tables 1-7 and S1-S6", False),
 ]
 
 

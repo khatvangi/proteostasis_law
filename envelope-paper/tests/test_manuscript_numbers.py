@@ -461,7 +461,11 @@ class ArtifactsExist(unittest.TestCase):
                      "supraadditivity_margin_sweep.tsv",
                      "supraadditivity_effect_grid.tsv",
                      "supraadditivity_collapse_frontier.tsv",
-                     "supraadditivity_knob_comparison.tsv"):
+                     "supraadditivity_knob_comparison.tsv",
+                     "headroom_sensitivity.tsv",
+                     "headroom_sensitivity_summary.json",
+                     "chaperone_availability.tsv",
+                     "chaperone_availability_summary.json"):
             self.assertTrue((COMP / name).exists(), f"missing artifact {name}")
 
     def test_no_triplet_origin_claim(self):
@@ -534,10 +538,14 @@ class Supraadditivity(unittest.TestCase):
         self.assertAlmostEqual(sat, 0.979, delta=0.002)
         self.assertIn("97.9% saturated", self.flat)
         self.assertIn("47.5 µM free", self.flat)
-        # and it must be named as a limitation, not just a methods note
-        lim = flat(self.text[self.text.index("### Limitations"):])
-        self.assertIn("understates how tightly", lim,
-                      "the saturation problem must appear in Limitations")
+        # it must be named as a limitation, not just a methods note -- but as the
+        # STRUCTURAL omission it is, not as the parameter criticism an earlier
+        # pass wrongly made (see ChaperoneAvailability)
+        lim = flat(section("### Limitations"))
+        self.assertIn("omits the nascent-chain folding load", lim,
+                      "the saturation problem must appear in Limitations, framed "
+                      "as the structural omission it is")
+        self.assertIn("parameters are not at fault", lim)
 
     def test_model_only_caveat_is_stated(self):
         self.assertIn("not whether cells do", self.flat)
@@ -556,6 +564,75 @@ class Supraadditivity(unittest.TestCase):
         if b.exists():
             self.assertEqual(a, b.read_bytes(),
                              "the vendored model has drifted from upstream")
+
+
+class ChaperoneAvailability(unittest.TestCase):
+    """
+    the folding arm's saturation is a structural assumption, not a bad parameter.
+    these tests keep that distinction -- and keep theta labelled as unmeasured.
+    """
+
+    def setUp(self):
+        self.text = manuscript()
+        self.flat = flat()
+        self.s = load_json(COMP / "chaperone_availability_summary.json")
+
+    def test_parameters_are_stated_to_be_in_sourced_ranges(self):
+        prov = self.s["parameter_provenance"]
+        self.assertIn("Lorimer", prov["C_tot_uM"])
+        self.assertIn("Pierpaoli", prov["K_d_uM"])
+        # and the manuscript must say the parameters are not at fault
+        self.assertIn("used within their sourced ranges", self.flat)
+        self.assertIn("30–80 µM", self.flat)
+        self.assertIn("0.06–2 µM", self.flat)
+
+    def test_the_earlier_overstatement_is_gone(self):
+        """
+        an earlier pass claimed the parameterization contradicted the paper's own
+        capacity evidence. it does not -- the omission of nascent-chain folding
+        does. that correction must not silently revert.
+        """
+        for bad in ("understates how tightly", "sits awkwardly against"):
+            self.assertNotIn(bad, self.flat,
+                             f"the superseded overstatement {bad!r} is back")
+        self.assertIn("It is structural.", self.text)
+        self.assertIn("does not represent the ordinary nascent-chain folding load",
+                      self.flat)
+
+    def test_theta_is_labelled_unmeasured(self):
+        self.assertIn("NOT measured", self.s["parameter_provenance"]["theta"])
+        self.assertIn("θ is not measured here", self.flat)
+        self.assertIn("θ is unmeasured", self.flat)
+
+    def test_theta_thresholds(self):
+        self.assertAlmostEqual(self.s["theta_at_which_arm_unsaturates"], 0.98,
+                               delta=1e-6)
+        self.assertAlmostEqual(
+            self.s["theta_at_which_margin_reaches_supraadditivity_onset"], 0.90,
+            delta=1e-6)
+        self.assertIn("θ ≳ 0.98", self.flat)
+        self.assertIn("θ ≳ 0.90", self.flat)
+        self.assertIn("If θ ≥ 0.90, it does.", self.flat)
+
+    def test_theta_zero_reproduces_the_published_cell(self):
+        h = load_json(COMP / "headroom_sensitivity_summary.json")
+        z = self.s["at_theta_zero"]
+        self.assertAlmostEqual(z["headroom_P"],
+                               h["internally_consistent_headroom_P"], delta=0.1)
+        self.assertAlmostEqual(z["folding_arm_saturation"], 0.974, delta=0.002)
+
+    def test_headroom_range_over_documented_grid(self):
+        lo, hi = self.s["headroom_range_over_documented_grid"]
+        self.assertAlmostEqual(lo, 1.9, delta=0.15)
+        self.assertAlmostEqual(hi, 25.3, delta=0.2)
+        self.assertIn("×1.9 to ×25", self.flat)
+        # Limitations must carry the range, not a point
+        lim = flat(section("### Limitations"))
+        self.assertIn("×1.9–×25", lim)
+
+    def test_the_pinning_measurement_is_named(self):
+        self.assertIn("occupancy", self.s["what_would_pin_this_down"])
+        self.assertIn("chaperone occupancy by nascent-chain folding", self.flat)
 
 
 class TablesAgreeWithData(unittest.TestCase):
@@ -660,7 +737,7 @@ class TablesAgreeWithData(unittest.TestCase):
 
     def test_manuscript_cites_the_tables(self):
         text = manuscript()
-        for label in ("Table 1", "Table 2", "Table 3", "Table 4", "Table 5",
+        for label in ("Table 1", "Table 2", "Table 3", "Table 4", "Table 5", "Table 6", "Table 7",
                       "Table S1", "Table S2", "Table S3", "Table S4",
                       "Table S5", "Table S6"):
             self.assertIn(label, text, f"manuscript never refers to {label}")

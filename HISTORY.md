@@ -185,3 +185,41 @@ section that makes them, plus a test that Result 3's inline table matches
 "10⁻⁴" is a substring of "6.3 × 10⁻⁴", so it had been matching the wrong row.
 
 Tests 50 -> 53. Verified by deleting every generated artifact and rebuilding.
+
+**Q:** Go (re-anchor the chaperone parameters).
+
+**A:** Read `proteostasis-P1/LITERATURE_ANCHORS.md` first, and it overturned my own
+diagnosis. C_tot (30-80 uM, baseline 50; Lorimer 1996 GroEL, DnaK levels), K_d
+(0.06-2 uM, baseline 1; Pierpaoli 1997 EMBO J) and k_obs_max are all properly
+sourced and used in range. So the 97.9%-saturated folding arm is NOT a parameter
+error, and my earlier claim that the parameterization "contradicts the paper's own
+capacity evidence" was wrong. Retracted it in the manuscript.
+
+The real diagnosis is structural: the rescue term hands the ENTIRE chaperone pool
+to the damaged-protein pool because the model does not represent nascent-chain
+folding at all. So C_tot in this model is chaperone *available to the damaged
+pool*, and using the total silently assumes availability is 100%.
+
+Made that assumption an explicit parameter instead of re-anchoring by invention:
+C_avail = C_tot(1 - theta), swept with C_tot and K_d over their documented ranges
+(`scripts/12`, Table 7). At the usage-weighted mu:
+
+- theta = 0 (the implicit assumption): saturation 0.974, headroom x24.8, margin 1.39
+- theta >= 0.90: margin reaches the supraadditivity onset (1.19), headroom x15.7
+- theta >= 0.98: folding arm unsaturates (c_free 0.53 uM < K_d), headroom x4.6
+- full documented grid: x1.9 to x25.3
+
+theta is NOT measured and is not estimated. What this buys is a falsifiable
+threshold: measure chaperone occupancy by nascent-chain folding in exponentially
+growing E. coli, and if theta >= 0.90 then E. coli already operates in the regime
+where burden and capacity perturbations compound. That collapses the headroom range
+to a point.
+
+Result 3, Limitations, Fig 3 legend and Methods rewritten; Methods now carries the
+parameter provenance explicitly. Tests 53 -> 60, including one asserting the
+retracted overstatement does not return. One of my own earlier tests failed
+correctly during this pass -- it asserted the Limitations section still contained
+the phrase I had just retracted -- and was updated to check the corrected framing.
+Mutation-tested (reverting to the parameter criticism, presenting theta as
+measured, dropping the range from Limitations, or dropping the pinning measurement
+each fail). Verified by wiping all artifacts and rebuilding.
