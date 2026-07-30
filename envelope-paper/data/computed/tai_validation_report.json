@@ -1,0 +1,22 @@
+[
+  {
+    "vector": "reference (R tAI package, E. coli K-12)",
+    "rho_tai_vs_delta_usage": 0.3118,
+    "p_delta": 0.0153,
+    "rho_tai_vs_usage_all_genes": 0.4918,
+    "rho_tai_vs_usage_ribosomal": 0.5674,
+    "n_aa_where_high_tai_synonym_gains": "15/18",
+    "p_sign_test": 0.00377,
+    "verdict": "PASS"
+  },
+  {
+    "vector": "CORRUPT (codon-deployment/data/computed)",
+    "rho_tai_vs_delta_usage": 0.3167,
+    "p_delta": 0.0137,
+    "rho_tai_vs_usage_all_genes": 0.2887,
+    "rho_tai_vs_usage_ribosomal": 0.4511,
+    "n_aa_where_high_tai_synonym_gains": "12/18",
+    "p_sign_test": 0.119,
+    "verdict": "FAIL"
+  }
+]

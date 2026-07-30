@@ -2,29 +2,89 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## (!) CANONICAL LOCATION — read this first
+
+**All active work lives in `envelope-paper/`** (canonical since 2026-07-29).
+
+- manuscript: `envelope-paper/manuscript/MANUSCRIPT.md`
+- how to reproduce: `envelope-paper/README.md`
+
+Two earlier directories are superseded and must not be cited or submitted:
+
+| Directory | Status |
+|---|---|
+| `envelope-paper/` | **ACTIVE** |
+| `combined-paper/` | superseded — see `combined-paper/SUPERSEDED.md` |
+| `proteostasis-paper/` | superseded — earlier evidence-ledger scaffold |
+| `legacy_root_triplet_attempt/` | archive only |
+| `manscuript-final.md` (root) | stale; its N=17,166 and several odds ratios are not reproducible |
+
 ## active claim
 
-Proteostasis law is an operational constraint on extant translation systems.
-Translation output, decoding fidelity, folding success, aggregation burden, and
-quality-control demand are coupled. Viability requires that combined burden stay
-within finite buffering and clearance capacity (`B_total <= C_buffer`).
+Extant translation operates inside a finite proteostasis envelope. Decoding
+fidelity, folding success, aggregation burden, and quality-control demand are
+coupled, and viability requires that combined burden stay within finite buffering
+and clearance capacity (`B_total <= C_buffer`). Two bounding arguments place
+E. coli roughly two orders of magnitude *inside* that envelope. Separately, the
+genetic code is strongly organized on the error axis (mu) and shows no structure
+on the supply axis (nu).
 
 This is NOT a code-origin claim. It does not explain why codons are triplets
 or the evolutionary origin of redundancy. Those claims are explicitly rejected.
 
+Two claims from the earlier combined draft are **rejected on the evidence** and
+must not be reintroduced without new data:
+
+- metal-binding-site codon deployment — a gene-level expression confound; dies
+  against a within-gene background (0 of 4 significant, His OR 1.07)
+- cross-species conservation of operational geometry — artifact of sharing
+  E. coli mu across all three species plus non-independent tAI vectors
+
+## (!) the rule
+
+**A number may appear in the manuscript only if a script in
+`envelope-paper/scripts/` can recompute it from `envelope-paper/data/raw/`.**
+
+The previous draft's numbers traced to markdown summaries rather than to code.
+Its verification pass checked draft-against-TSV but never TSV-against-code, and
+so certified a corrupt supply axis, a superseded Monte Carlo run, and a retracted
+statistic while reporting "17/20 pass". Never verify against a serialized summary.
+
 ## commands
 
-### run all tests (15 consistency checks)
+### reproduce all analyses and figures (from `envelope-paper/`)
+```
+python scripts/01_validate_tai.py                     # aborts if the nu axis fails validation
+python scripts/02_axis_structure.py                   # ~2 min
+python scripts/02_axis_structure.py --mu-stat median   # ~2 min
+python scripts/06_translation_burden.py
+python scripts/07_removed_results.py
+cd scripts && python 03_fig1_envelope.py && python 04_fig2_axis.py && python 05_fig3_bounds.py
+```
+
+### run the numeric test suite (31 tests, asserts the manuscript against data/computed/)
+```
+cd envelope-paper && python -m unittest discover -s tests -v
+```
+
+### legacy suite for the superseded scaffold (15 structural checks, no numbers)
 ```
 cd proteostasis-paper && python -m unittest discover -s tests -p 'test_*.py'
 ```
 
-### run a single test
-```
-cd proteostasis-paper && python -m unittest tests.test_active_project.ActiveProjectConsistencyTests.test_name
-```
+Dependencies: numpy, pandas, scipy, seaborn, openpyxl. No build step or linter.
 
-No build step, linter, or dependencies beyond Python stdlib (csv, re, unittest, pathlib).
+## (!) corrupt upstream data
+
+`codon-deployment/data/computed/{ecoli,bsubtilis,scerevisiae}_tai_ws.tsv` are
+corrupt — 44/60 E. coli values are bit-identical to yeast, and CTG is assigned a
+near-floor weight. Do not use them as nu. See
+`codon-deployment/data/computed/README_TAI_IS_CORRUPT.md`.
+`structural-criticality/` symlinks all three and hardcodes them in `config.py`,
+so every tAI-axis result there needs recomputation.
+
+Validated E. coli nu: `envelope-paper/data/computed/nu_tai_ecoli_validated.tsv`.
+No validated B. subtilis or S. cerevisiae vector exists yet.
 
 ## repo layout
 

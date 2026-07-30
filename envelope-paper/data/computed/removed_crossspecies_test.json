@@ -1,0 +1,46 @@
+{
+  "published_delta_A_reproduced_using_ecoli_mu_for_all_species": {
+    "max_abs_difference": 8.881784197001252e-16,
+    "exact": true,
+    "meaning": "Delta_A is the 2D (mu, nu) distance and mu is E. coli's for all three species, so the correlated vectors share an identical coordinate by construction"
+  },
+  "tai_vector_independence": {
+    "ecoli_vs_scerevisiae_bit_identical": 44,
+    "ecoli_vs_bsubtilis_bit_identical": 1,
+    "n_compared": 60
+  },
+  "published_rho_2D": {
+    "ecoli_vs_scerevisiae": 0.922,
+    "ecoli_vs_bsubtilis": 0.719,
+    "bsubtilis_vs_scerevisiae": 0.633
+  },
+  "rho_nu_only_vectors_as_used": {
+    "ecoli_vs_scerevisiae": {
+      "rho": 0.791,
+      "p": 9.3e-05
+    },
+    "ecoli_vs_bsubtilis": {
+      "rho": 0.67,
+      "p": 0.00233
+    },
+    "bsubtilis_vs_scerevisiae": {
+      "rho": 0.555,
+      "p": 0.0169
+    }
+  },
+  "rho_nu_only_independent_canonical_tai": {
+    "ecoli_vs_scerevisiae": {
+      "rho": 0.582,
+      "p": 0.0112
+    },
+    "ecoli_vs_bsubtilis": {
+      "rho": 0.459,
+      "p": 0.0554
+    },
+    "bsubtilis_vs_scerevisiae": {
+      "rho": 0.733,
+      "p": 0.000544
+    }
+  },
+  "caveat": "the canonical recomputation uses the prior script's own hardcoded tGCN vectors, which are unverified (its E. coli vector sums to 116 genes where K-12 has ~86). indicative only; the shared-mu artifact and the identity counts are exact."
+}

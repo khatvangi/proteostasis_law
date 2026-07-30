@@ -1,0 +1,9 @@
+{
+  "unique_metal_residues_in_annotation": 2396,
+  "resolvable_against_cds": 1880,
+  "cds_codon_encodes_annotated_residue": 1127,
+  "position_concordance_frac": 0.5994680851063829,
+  "annotation_codon_matches_cds_codon_frac": 0.9829787234042553,
+  "cds_verified_sites_used": 1127,
+  "metalloprotein_genes": 277
+}

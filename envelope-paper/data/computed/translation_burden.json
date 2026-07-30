@@ -1,0 +1,16 @@
+{
+  "n_codons_with_both_mu_and_usage": 61,
+  "usage_weighted_mean_mu_per_codon": 0.0006334247974475959,
+  "unweighted_mean_mu_per_codon": 0.001136921554262295,
+  "mu_min": 3.315149e-05,
+  "mu_max": 0.02033071,
+  "mu_fold_span": 613.2668546722937,
+  "proteome_source": "UniProt UP000000625 (E. coli K-12 MG1655)",
+  "proteome_n": 4403,
+  "median_length_aa": 271.0,
+  "mean_length_aa": 307.6179877356348,
+  "expected_errors_per_protein_at_median_length": 0.17165812010829848,
+  "frac_proteins_with_ge1_error_at_median_length": 0.15773292187130827,
+  "expected_errors_per_protein_at_mean_length": 0.1948528615726815,
+  "frac_proteins_with_ge1_error_at_mean_length": 0.17704426243894655
+}

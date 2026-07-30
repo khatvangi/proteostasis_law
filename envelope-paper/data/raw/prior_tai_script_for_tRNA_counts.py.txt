@@ -1,0 +1,267 @@
+#!/usr/bin/env python3
+"""
+compute species-specific tAI (tRNA Adaptation Index) weights.
+
+implements the dos Reis et al. 2004 (NAR) formula:
+  W_i = sum_j (1 - s_ij) * tGCN_j
+  w_i = W_i / max(W)
+
+tRNA gene copy numbers from GtRNAdb.
+wobble interaction weights from the R tAI package (github.com/mariodosreis/tai).
+
+produces one TSV per species with columns: codon, w_tai
+"""
+
+import numpy as np
+import pandas as pd
+from pathlib import Path
+
+# --- wobble penalties (optimized s-values from dos Reis et al. 2004) ---
+# index mapping:
+#   0: I:U (inosine:uracil)   — WC-like
+#   1: G:C                    — Watson-Crick
+#   2: U:A                    — Watson-Crick
+#   3: C:G                    — Watson-Crick
+#   4: G:U                    — wobble
+#   5: I:C                    — wobble
+#   6: I:A                    — near-forbidden wobble
+#   7: U:G                    — wobble
+#   8: L:A (lysidine:adenine) — prokaryote-only (ATA codon)
+S = [0.0, 0.0, 0.0, 0.0, 0.41, 0.28, 0.9999, 0.68, 0.89]
+
+# --- 64 codons in TCAG order (matches R tAI package convention) ---
+BASES = ['T', 'C', 'A', 'G']
+CODONS_64 = [b1 + b2 + b3 for b1 in BASES for b2 in BASES for b3 in BASES]
+
+# stop codon indices (0-based): TAA=10, TAG=11, TGA=14
+STOP_IDX = [10, 11, 14]
+# Met index (0-based): ATG=35
+MET_IDX = 35
+
+# --- tRNA gene copy numbers per anticodon ---
+# 64-element vectors in TCAG codon order (NOT anticodon order).
+# each position gives the tGCN of the tRNA whose anticodon is the
+# Watson-Crick complement of that codon position.
+
+# E. coli K-12 MG1655 (from GtRNAdb / R tAI package ecolik12$trna)
+ecoli_trna = [
+    0, 3, 4, 1,   # TTT,TTC,TTA,TTG
+    0, 1, 2, 0,   # TCT,TCC,TCA,TCG
+    0, 8, 0, 0,   # TAT,TAC,TAA,TAG
+    0, 1, 0, 3,   # TGT,TGC,TGA,TGG
+    0, 1, 0, 4,   # CTT,CTC,CTA,CTG
+    0, 0, 6, 1,   # CCT,CCC,CCA,CCG
+    0, 2, 2, 0,   # CAT,CAC,CAA,CAG
+    6, 0, 0, 1,   # CGT,CGC,CGA,CGG
+    0, 7, 0, 5,   # ATT,ATC,ATA,ATG
+    0, 3, 4, 0,   # ACT,ACC,ACA,ACG
+    0, 4, 7, 0,   # AAT,AAC,AAA,AAG
+    0, 1, 2, 1,   # AGT,AGC,AGA,AGG
+    0, 3, 10, 0,  # GTT,GTC,GTA,GTG
+    0, 3, 4, 0,   # GCT,GCC,GCA,GCG
+    0, 4, 4, 0,   # GAT,GAC,GAA,GAG
+    0, 5, 3, 0,   # GGT,GGC,GGA,GGG
+]
+
+# B. subtilis 168 (from GtRNAdb)
+bsub_trna = [
+    0, 3, 3, 1,   # TTT,TTC,TTA,TTG
+    0, 1, 2, 0,   # TCT,TCC,TCA,TCG
+    0, 2, 0, 0,   # TAT,TAC,TAA,TAG
+    0, 1, 0, 1,   # TGT,TGC,TGA,TGG
+    0, 1, 2, 1,   # CTT,CTC,CTA,CTG
+    0, 0, 3, 0,   # CCT,CCC,CCA,CCG
+    0, 2, 4, 0,   # CAT,CAC,CAA,CAG
+    4, 0, 0, 1,   # CGT,CGC,CGA,CGG
+    0, 3, 0, 5,   # ATT,ATC,ATA,ATG
+    0, 1, 4, 0,   # ACT,ACC,ACA,ACG
+    0, 4, 4, 0,   # AAT,AAC,AAA,AAG
+    0, 2, 1, 1,   # AGT,AGC,AGA,AGG
+    0, 1, 4, 0,   # GTT,GTC,GTA,GTG
+    0, 1, 5, 0,   # GCT,GCC,GCA,GCG
+    0, 4, 6, 0,   # GAT,GAC,GAA,GAG
+    0, 4, 3, 0,   # GGT,GGC,GGA,GGG
+]
+
+# S. cerevisiae S288C (from GtRNAdb, 275 total genes)
+scer_trna = [
+     0, 10,  7, 10,  # TTT,TTC,TTA,TTG
+    11,  0,  3,  1,  # TCT,TCC,TCA,TCG
+     0,  8,  0,  0,  # TAT,TAC,TAA,TAG
+     0,  4,  0,  6,  # TGT,TGC,TGA,TGG
+     0,  1,  3,  0,  # CTT,CTC,CTA,CTG
+     2,  0, 10,  0,  # CCT,CCC,CCA,CCG
+     0,  7,  9,  1,  # CAT,CAC,CAA,CAG
+     6,  0,  0,  1,  # CGT,CGC,CGA,CGG
+    13,  0,  2, 10,  # ATT,ATC,ATA,ATG
+    11,  0,  4,  1,  # ACT,ACC,ACA,ACG
+     0, 10,  7, 14,  # AAT,AAC,AAA,AAG
+     0,  4, 11,  1,  # AGT,AGC,AGA,AGG
+    14,  0,  2,  2,  # GTT,GTC,GTA,GTG
+    11,  0,  5,  0,  # GCT,GCC,GCA,GCG
+     0, 16, 14,  2,  # GAT,GAC,GAA,GAG
+     0, 16,  3,  2,  # GGT,GGC,GGA,GGG
+]
+
+
+def compute_tai_weights(trna_vec, sking=1):
+    """
+    compute tAI weights following dos Reis et al. 2004.
+
+    trna_vec: 64-element list of tRNA gene copy numbers in TCAG codon order.
+    sking: 1 for bacteria (enables lysidine ATA special case), 0 for eukaryotes.
+
+    returns: dict mapping codon -> w_tai for 61 sense codons (excluding stops).
+    """
+    W = np.zeros(64)
+
+    for i in range(64):
+        if i in STOP_IDX:
+            continue
+
+        # determine which wobble position this is (3rd base of codon)
+        third_base = i % 4  # 0=T, 1=C, 2=A, 3=G
+
+        # the codon-anticodon recognition rules:
+        # each codon is recognized by:
+        #   1. the Watson-Crick matching anticodon
+        #   2. wobble-paired anticodons (inosine at wobble position, G:U wobble, etc.)
+
+        # in the tRNA vector, position j corresponds to the anticodon that is
+        # the WC complement of codon j. so tRNA[j] with matching first two bases
+        # but different 3rd base can wobble-pair.
+
+        # the four positions in the same 4-codon box (same first two bases)
+        box_start = (i // 4) * 4
+
+        # NNT codon (third_base=0): recognized by
+        #   - anticodon NNA (WC): position box+2, via inosine I:U -> s[0]
+        #   - anticodon NNC (wobble G:U): position box+1, -> s[4]
+        # NNC codon (third_base=1): recognized by
+        #   - anticodon NNG (WC): position box+3, -> s[1]
+        #   - anticodon NNA (wobble I:C): position box+2, -> s[5]
+        # NNA codon (third_base=2): recognized by
+        #   - anticodon NNT (WC U:A): position box+0, -> s[2]
+        #   - anticodon NNA (wobble I:A): position box+2, -> s[6]
+        # NNG codon (third_base=3): recognized by
+        #   - anticodon NNC (WC C:G): position box+1, -> s[3]
+        #   - anticodon NNT (wobble U:G): position box+0, -> s[7]
+
+        if third_base == 0:  # NNT
+            W[i] = (1 - S[0]) * trna_vec[box_start + 2] + \
+                   (1 - S[4]) * trna_vec[box_start + 1]
+        elif third_base == 1:  # NNC
+            W[i] = (1 - S[1]) * trna_vec[box_start + 3] + \
+                   (1 - S[5]) * trna_vec[box_start + 2]
+        elif third_base == 2:  # NNA
+            W[i] = (1 - S[2]) * trna_vec[box_start + 0] + \
+                   (1 - S[6]) * trna_vec[box_start + 2]
+        elif third_base == 3:  # NNG
+            W[i] = (1 - S[3]) * trna_vec[box_start + 1] + \
+                   (1 - S[7]) * trna_vec[box_start + 0]
+
+    # special case: ATA in bacteria (lysidine modification)
+    if sking == 1:
+        W[34] = 1 - S[8]  # ATA is index 34 (A=2, T=0, A=2 -> 2*16+0*4+2=34)
+
+    # remove stops and Met
+    remove_idx = set(STOP_IDX + [MET_IDX])
+    sense_idx = [i for i in range(64) if i not in remove_idx]
+    sense_codons = [CODONS_64[i] for i in sense_idx]
+    W_sense = np.array([W[i] for i in sense_idx])
+
+    # normalize
+    w_max = W_sense.max()
+    if w_max == 0:
+        raise ValueError("all W values are zero — check tRNA vector")
+    w = W_sense / w_max
+
+    # replace zeros with geometric mean of non-zero values
+    nonzero = w[w > 0]
+    if len(nonzero) < len(w):
+        geo_mean = np.exp(np.mean(np.log(nonzero)))
+        w[w == 0] = geo_mean
+
+    return dict(zip(sense_codons, w))
+
+
+def main():
+    out_dir = Path(__file__).resolve().parent.parent / "data" / "computed"
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    species = [
+        ("ecoli",       ecoli_trna, 1, "E. coli K-12"),
+        ("bsubtilis",   bsub_trna,  1, "B. subtilis 168"),
+        ("scerevisiae", scer_trna,  0, "S. cerevisiae S288C"),
+    ]
+
+    for name, trna, sking, label in species:
+        print(f"\n{'='*60}")
+        print(f"{label} (sking={sking}, sum(tGCN)={sum(trna)})")
+        print(f"{'='*60}")
+
+        weights = compute_tai_weights(trna, sking=sking)
+
+        df = pd.DataFrame([
+            {"codon": c, "w_tai": w}
+            for c, w in sorted(weights.items())
+        ])
+
+        out_path = out_dir / f"{name}_tai_ws.tsv"
+        df.to_csv(out_path, sep="\t", index=False)
+        print(f"wrote {len(df)} codons to {out_path}")
+
+        # print a few reference values for sanity checking
+        print(f"\n  top-5 by tAI:")
+        top = df.nlargest(5, "w_tai")
+        for _, r in top.iterrows():
+            print(f"    {r['codon']}  w={r['w_tai']:.4f}")
+
+        print(f"  bottom-5 by tAI:")
+        bot = df.nsmallest(5, "w_tai")
+        for _, r in bot.iterrows():
+            print(f"    {r['codon']}  w={r['w_tai']:.4f}")
+
+        # leucine codons specifically (for cross-species comparison)
+        leu = df[df["codon"].isin(["TTA", "TTG", "CTT", "CTC", "CTA", "CTG"])]
+        print(f"\n  leucine codons:")
+        for _, r in leu.sort_values("w_tai", ascending=False).iterrows():
+            print(f"    {r['codon']}  w={r['w_tai']:.4f}")
+
+    # validate E. coli against known values
+    print(f"\n{'='*60}")
+    print("VALIDATION: E. coli computed vs reference file")
+    print(f"{'='*60}")
+
+    ref = pd.read_csv(
+        Path(__file__).resolve().parent.parent / "data" / "raw" / "ecoli_tai_ws.tsv",
+        sep="\t"
+    )
+    computed = pd.read_csv(out_dir / "ecoli_tai_ws.tsv", sep="\t")
+
+    merged = ref.merge(computed, on="codon", suffixes=("_ref", "_computed"))
+    merged["diff"] = abs(merged["w_tai_ref"] - merged["w_tai_computed"])
+
+    max_diff = merged["diff"].max()
+    mean_diff = merged["diff"].mean()
+
+    # correlation
+    from scipy import stats
+    r, p = stats.pearsonr(merged["w_tai_ref"], merged["w_tai_computed"])
+
+    print(f"  codons matched: {len(merged)}")
+    print(f"  max absolute difference: {max_diff:.6f}")
+    print(f"  mean absolute difference: {mean_diff:.6f}")
+    print(f"  Pearson r: {r:.6f} (p={p:.2e})")
+
+    if max_diff > 0.01:
+        print("\n  *** WARNING: differences > 0.01 detected ***")
+        big = merged[merged["diff"] > 0.01]
+        for _, row in big.iterrows():
+            print(f"    {row['codon']}: ref={row['w_tai_ref']:.4f} computed={row['w_tai_computed']:.4f}")
+    else:
+        print("  PASS: all values within 0.01 of reference")
+
+
+if __name__ == "__main__":
+    main()

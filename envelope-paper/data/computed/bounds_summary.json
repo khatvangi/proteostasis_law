@@ -1,0 +1,30 @@
+{
+  "source": "paired_mc_results.json (valid paired MC), arithmetic_results.json, two_pool_results.json",
+  "observed_window_per_codon": [
+    0.0001,
+    0.001
+  ],
+  "arithmetic_deterministic": 0.0011882099986079142,
+  "arithmetic_paired_median": 0.008348346937521657,
+  "arithmetic_paired_ci95": [
+    0.0013849951259280722,
+    0.08791114460225828
+  ],
+  "ode_deterministic": 0.01000320880691999,
+  "ode_paired_median": 0.0258888490047536,
+  "ode_paired_ci95": [
+    0.001248203122084804,
+    0.5868114485318731
+  ],
+  "paired_median_ratio_arith_over_ode": 0.3337158827204835,
+  "paired_P_arith_tighter": 0.7684,
+  "ode_over_arith_at_median": 3.101074883267744,
+  "headroom_P": 158.05573178050503,
+  "headroom_A": 11091.0320262876,
+  "mechanism_frac_aggregation_death": 0.9994,
+  "retracted_statistic_not_used": {
+    "value": 0.654,
+    "why": "PAIRED_MC_TASK.md: shared parameters were drawn from different distributions in the two marginal runs, so it is not a valid paired statistic",
+    "replacement": 0.7684
+  }
+}
