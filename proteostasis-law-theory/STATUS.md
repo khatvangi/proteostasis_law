@@ -4,21 +4,25 @@
 
 On 2026-07-31 the two invalid numerical tests were repaired without changing
 the theory, experiment configurations, or manuscript.  The full canonical
-suite passes: `69 passed, 19 warnings in 60.62s` under Python 3.12.11.  The
+suite passes: `69 passed, 19 warnings in 66.36s` under Python 3.12.11.  The
 warnings are the existing Python multiprocessing/fork deprecation warning.
 
-Experiments A-D were launched separately with the unchanged Phase 1 configs
-after the passing suite.  Slurm was unavailable (`sinfo` and `squeue` could not
-create the controller stream socket), so the fallback is supervised
-`nohup setsid`.  Current canonical PIDs are A=743, B=744, C=745, and D=746;
-all four were alive after 15 seconds with empty stderr.  Exact commands,
-resources, config hashes, logs, and output locations are in `JOBS.md`.
+Phase 1 experiments A-D are running.  One instance of each was launched on
+2026-07-31 at 16:29:46 -0500 on `boron` with the unchanged Phase 1 configs,
+as `systemd-run --user` transient units, writing to the clean run root
+`results/phase1/run_20260731T162946-0500/`.  Two earlier duplicate launch
+attempts left no live host processes; their empty output directories were
+moved to `results/phase1/quarantine_preclean_20260731T162755-0500/` rather
+than deleted.  Exact commands, unit names, PIDs, resources, config hashes,
+logs, and output locations are in `JOBS.md`.
 
-The scientific changes could not be committed in this execution environment:
-`.git` is mounted read-only, and `git commit` failed while creating
-`.git/index.lock`.  The unchanged repository HEAD is
-`73e1c0ab341530f7b2d369c459008674897f6287`; it is not a commit containing
-these repairs.  Nothing was pushed.
+**No result has been produced, inspected, or validated.**  The jobs are
+running; nothing in this file asserts that any Phase 1 prediction has been
+tested, confirmed, or falsified.  Read `JOBS.md` for the operational record
+and wait for the runs to complete before drawing any scientific conclusion.
+
+The repaired scripts, tests, and configs are committed on branch `master`.
+The repository has no remote configured, so nothing was pushed.
 
 ## Phase 0: theory reconstruction completed
 
