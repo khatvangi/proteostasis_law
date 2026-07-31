@@ -427,3 +427,48 @@ Flagged for a decision -- untracking those removes the empty-commit class but no
 the risk of publishing a half-edited state.
 
 Tests 96 -> 103.
+
+## 2026-07-31
+
+**Q:** External review says not ready, plus Kiran's triage. Read all and plan.
+
+**A:** Verified the checkable claims before planning; plan in
+`envelope-paper/PLAN_P1_REPAIR.md`.
+
+**Item 8 confirmed, and worse than stated.** `bounds_summary.json` — every number
+in Result 2 and Fig 3a,b — is written by `05_fig3_bounds.py`, a FIGURE script,
+from three staged JSONs in `data/raw/`. No pipeline step computes a bound. Beyond
+the review: `06_translation_burden.py:32` also reads `arithmetic_results.json` for
+the proteome length distribution, so Result 1 (6.3e-4, 613-fold, 16-18%) rests on
+staged output too. The clean-rebuild verification proved assembly, not derivation.
+Good news: the generators exist upstream and are importable — `paired_mc.py`
+(`run_mc(n=5000, seed=17)`), `arithmetic_stress_test.py` (`part_D`), and
+`ecoli_proteome_lengths.tsv` (206 KB, vendorable, fixing the absolute path too).
+
+**The July 2026 citation resolves — correction to the triage.** 10.1093/nar/gkag674
+is Stikeleather, Ali, Ho, Licknack & Lynch, *Translation accuracy in E. coli*, NAR
+54(13), online 6 July 2026 (= bioRxiv 2025.04.18.649569 = PMC12258882 =
+PubMed 40661473, so ONE study, not two). "Xac" IS an E. coli strain, so the
+incoherence objection does not hold. Wild-type rate 1.82e-3/codon (SE 5.92e-5)
+confirmed. The same paper contradicts Sun & Zhang 2022 (sciadv.abl9812) on whether
+preferred codons are translated more accurately; both must be cited.
+
+**New, and it changes step 5.** The 1.82e-3 figure is STATIONARY phase. The
+two-pool model is calibrated for exponential growth (GroEL ~30 uM exponential,
+dilution in the clearance term). Substituting the error rate while holding capacity
+and dilution fixed would manufacture part of the collapse. Step 5 must vary
+condition as a triple — error rate, chaperone pool, dilution — or the reductio is
+an artifact of mixing conditions.
+
+**Collision to handle deliberately:** fixing the binding equation edits
+`vendor/two_pool_ode.py:127-129`, and a test asserts the vendored copy is
+byte-identical to upstream. Fix upstream and re-vendor rather than deleting the
+test.
+
+**Blockers measured:** `nan` in Table 4 (2 rows), TableS4 (12), rendered at
+PAPER.md:206 — root cause is the `d4` formatter lacking the finite guard its
+neighbour has. Figure order 1,3,4,2. Eight draft-history phrases at lines 120-160.
+
+**Parked (per the no-new-analyses rule):** Landerer's growth condition unconfirmed;
+scalar f_codon coarseness is an extension not a repair; `structural-criticality/`
+still rests on the corrupt tAI vector.
