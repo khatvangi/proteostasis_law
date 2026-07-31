@@ -179,6 +179,27 @@ Reproduce with `python scripts/07_removed_results.py`. Outputs:
 they cannot be mistaken for tables of the paper, and asserted by the test suite
 to stay that way.
 
+## Auto-commits are gated on the test suite
+
+`/storage/kiran-stuff/git-auto-sync.sh` runs every 30 minutes from cron and does
+`git add -A`, commit, push. For a submission provenance repo that is a hazard
+independent of how clean the tree looks at any instant: it can publish a
+half-edited state in which the manuscript and the computed data disagree, which is
+the exact failure this project exists to prevent. It has done so — one auto-commit
+in this repo's history contains nothing but two nondeterministic renderer
+timestamps, and another captured a mid-session working state.
+
+The script now runs `python -m unittest discover -s tests` in `envelope-paper/`
+before staging anything, and skips the repo for that tick if the suite fails,
+logging the failure. The suite asserts files already on disk and takes under a
+second, so gating costs nothing. It also refuses to log "Synced" when `git add -A`
+stages nothing, which it previously did every half hour because of a dirty
+submodule. If verification cannot run at all — no interpreter, broken environment
+— it skips and says so rather than committing unverified work.
+
+Tag the tree at submission for a frozen provenance point; do not rely on the
+auto-sync history to mark one.
+
 ## Where the caveats live
 
 The paper has **no Limitations section, by design.** Every caveat is stated at the
