@@ -472,3 +472,22 @@ neighbour has. Figure order 1,3,4,2. Eight draft-history phrases at lines 120-16
 **Parked (per the no-new-analyses rule):** Landerer's growth condition unconfirmed;
 scalar f_codon coarseness is an extension not a repair; `structural-criticality/`
 still rests on the corrupt tAI vector.
+
+**Correction, same day.** A background search finished after I had answered and
+found `/storage/kiran-stuff/PORTFOLIO_PLAN.md`, which assigns **P1 to "MBE or
+J Mol Biol"** and rules PNAS out ("no NAS sponsor"). I had reported that no venue
+was on record and recommended PLOS Comp Biol; I had searched only inside
+`proteostasis_law/` and the portfolio plan sits one directory above. The
+recommendation stands on its argument but "nowhere is decided" was wrong.
+
+The same search resolved P2's home from the record rather than my inference:
+`/storage/kiran-stuff/codon-deployment/`, draft `JME/MANUSCRIPT.md` (2026-04-16),
+single-author, target MBE or GBE. P2 has been at "STOP — Issues 1 and 2 require
+resolution" since April 2026, and the migrating codon section fixes both: Issue 1
+wanted exactly the Landerer Data_S2 μ replacement this repo has, and Issue 2's
+metal-enrichment problem is settled by 07_removed_results.py, whose ~40%
+site-mispositioning diagnostic independently corroborates the audit's ~45%
+codon-mapping bug. Two of P2's three headline results in the portfolio plan
+(metal-site OR, cross-species rho) are refuted here, so the archived-analyses
+material must migrate with the codon section or someone will rebuild P2 on them.
+Authorship needs settling: P1 has three authors, P2's draft has one.

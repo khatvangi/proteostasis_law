@@ -223,17 +223,74 @@ the model survives or fails on its own calibration.
 
 ---
 
+## P2 already exists, and the migration unblocks it
+
+Decision resolved by the record, not by my inference. `/storage/kiran-stuff/PORTFOLIO_PLAN.md`
+and `/storage/kiran-stuff/dashboard/papers/P2_error_matched.md` define P2 as
+**"Synonymous codons are error-matched and supply-diverse"**, workspace
+`/storage/kiran-stuff/codon-deployment/`, draft at `codon-deployment/JME/MANUSCRIPT.md`
+(2026-04-16), single-author, target MBE or GBE. **That is where the codon section
+goes.** Not `codon_project/`, and not a new sibling.
+
+P2 has been halted since April 2026: `codon-deployment/DATA_AUDIT.md` reads
+**"STOP — Issues 1 and 2 require resolution before figures"**. Both are things the
+migrating material already fixes:
+
+| P2's blocking issue | What arrives with the codon section |
+|---|---|
+| **Issue 1** — μ values wrong by 2–4 orders of magnitude; two of four within-pair orderings reversed. Audit says they "need replacement from Landerer 2024 Data_S2". | Exactly that: `data/raw/codon_error_rates_ecoli.tsv` and `data/computed/codon_axes.tsv`, extracted from Data_S2 and asserted by tests, plus the median-statistic sensitivity. |
+| **Issue 2** — metal-enrichment p-values not significant; `metal_sites_ecoli_with_codons.csv` has a "codon mapping bug (~45% wrong codons)". | `07_removed_results.py` settles it: 0 of 4 survive an expression-matched within-gene background, His 1.33 → 1.07. And its independent diagnostic found ~40% of annotated sites mispositioned — corroborating the audit's ~45% from a different direction. |
+| **Issue 3** — cross-species tAI files fake (resolved by recomputing from GtRNAdb). | The validation gate itself (`01_validate_tai.py`), which any future species vector must pass, plus the regression guard on the corrupt vector. |
+
+**Two of P2's three headline results in the portfolio plan are dead.**
+`PORTFOLIO_PLAN.md:13` lists "μ-clustering z = −3.59; metal-site OR 1.28–1.40;
+cross-species ρ 0.63–0.92". The second and third were refuted in this repository —
+the metal-site effect is an expression confound and the cross-species correlation
+was a shared-μ artifact with 44 of 60 supply values bit-identical between species.
+Anyone resuming P2 from the dashboard would rebuild a paper on two refuted results.
+The archived-analyses material must therefore migrate **with** the codon section:
+those are P2's negative results, not P1's, and P2 is where they carry weight.
+
+Only the μ-clustering result survives, and it is now much stronger than z = −3.59:
+the depth residualization, the non-uniform ν benchmark and the 400-replicate power
+curve all arrive with it. The three questions that were blocking P1 become P2's
+principal robustness section.
+
+**Authorship consequence to settle before the move.** P1 is Rebbeck, Paudyal &
+Boggavarapu; P2's draft is single-author. Moving analysis out of a three-author
+paper into a single-author one is an authorship decision, not a filing decision.
+
 ## Decisions needed
 
-1. **P2's home.** Candidates: `/storage/kiran-stuff/codon_project/` (its CLAUDE.md
-   already says it builds on the (μ, tAI) framework) or a new sibling
-   `proteostasis_law/mu-nu-paper/`. I lean to the sibling: the migration carries
-   scripts, data, tests and the corrupt-tAI regression guard, and keeping it in
-   this repository preserves the audit machinery that took three rounds to build.
-2. **Upstream ODE:** fix `proteostasis-P1/two_pool_ode.py` and re-vendor, or fork
+1. **Upstream ODE:** fix `proteostasis-P1/two_pool_ode.py` and re-vendor, or fork
    with a documented single deviation?
-3. Licence for the deposition, and reserve the Zenodo DOI (blocks submission, not
+2. **P1's venue** — see the correction below.
+3. **P2 authorship**, given that material moves between papers.
+4. Licence for the deposition, and reserve the Zenodo DOI (blocks submission, not
    the repair).
+
+## Correction: P1's venue was already decided, and I said it was not
+
+`PORTFOLIO_PLAN.md:12` assigns **P1 to "MBE or J Mol Biol"**, and line 33 sequences
+it as "P1 to MBE or J Mol Biol (independent timeline)". Line 23 rules PNAS out
+explicitly: "no NAS sponsor is available". I reported that no venue was on record
+and recommended PLOS Computational Biology, having searched only inside
+`proteostasis_law/`; the portfolio plan is one directory above, in
+`/storage/kiran-stuff/`.
+
+The substantive point survives the correction, and the migration sharpens it. MBE
+is *Molecular Biology and Evolution*, and it was a reasonable assignment while P1
+still contained the μ/ν code-organization material. After step 1 there is no
+evolutionary argument left in P1 — it becomes a dynamical-systems constraint paper
+about extant translation, with an explicit disclaimer that it makes no code-origin
+claim. J Mol Biol fits that; PLOS Computational Biology fits it better still,
+because the distinguishing prediction is untested and that journal takes
+model-plus-reanalysis as complete. MBE now fits **P2**, which is where the
+evolutionary content is going, and which the portfolio also aims at MBE — two
+submissions to the same journal from the same program is worth avoiding on
+reviewer-pool grounds, by the plan's own reasoning at line 23.
+
+Recommendation: P1 → J Mol Biol or PLOS Comp Biol, P2 → MBE. Kiran's call.
 
 ---
 
