@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "submitted_at": "2026-07-31T15:49:23.251105068-05:00",
+  "resubmitted_at": "2026-07-31T15:59:22.638732441-05:00",
+  "host": "boron",
+  "launch_mode": "nohup+setsid (retained execution session)",
+  "scheduler": {
+    "detected": "slurm",
+    "executable": "/usr/bin/sbatch",
+    "submission_succeeded": false,
+    "job_id": null,
+    "error": "Slurm controller socket unavailable: Error creating slurm stream socket: Operation not permitted"
+  },
+  "pid": 749,
+  "execution_session_id": 67815,
+  "command": "nohup setsid /home/kiran/miniforge3/bin/python3 sweep.py --config config/phase1.json --output results/phase1 </dev/null >logs/background.out 2>logs/background.err &",
+  "verification": {
+    "checked_at": "2026-07-31T15:59:22.638732441-05:00",
+    "state": "alive",
+    "detail": "PID 749 remained active in retained execution session 67815 for more than 60 seconds after launch"
+  },
+  "resolved_sweep_command": "python3 sweep.py --config config/phase1.json --output results/phase1",
+  "working_directory": "/storage/kiran-stuff/proteostasis_law/proteostasis-law-theory-codex-check",
+  "config_path": "/storage/kiran-stuff/proteostasis_law/proteostasis-law-theory-codex-check/config/phase1.json",
+  "config_sha256": "5b675631e75e17885a0f865b1a3a3c65503dfe2884c7ef6d2ee241f28caacfb5",
+  "config": {
+    "samples": 256,
+    "seed": 20260731,
+    "thresholds": {"U": 2.0, "A": 2.0},
+    "search_max": 200.0,
+    "root_grid": 7,
+    "t_final": 500.0,
+    "escape": 200.0,
+    "initial_conditions": [[0.0, 0.0], [0.5, 0.5], [2.0, 2.0]],
+    "ranges": {
+      "J": {"bounds": [0.03, 3.0], "scale": "log"},
+      "N": {"bounds": [0.0, 4.0]},
+      "Ctot": {"bounds": [0.3, 3.0], "scale": "log"},
+      "Dtot": {"bounds": [0.2, 3.0], "scale": "log"},
+      "kn": {"bounds": [0.003, 0.3], "scale": "log"},
+      "kg": {"bounds": [0.003, 0.2], "scale": "log"},
+      "kdis": {"bounds": [0.1, 2.0], "scale": "log"},
+      "kA": {"bounds": [0.15, 2.0], "scale": "log"}
+    }
+  },
+  "environment": {
+    "python_executable": "/home/kiran/miniforge3/bin/python3",
+    "python_version": "3.12.11",
+    "numpy_version": "2.2.6",
+    "scipy_version": "1.14.0",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  },
+  "stdout_log": "/storage/kiran-stuff/proteostasis_law/proteostasis-law-theory-codex-check/logs/background.out",
+  "stderr_log": "/storage/kiran-stuff/proteostasis_law/proteostasis-law-theory-codex-check/logs/background.err",
+  "pid_file": "/storage/kiran-stuff/proteostasis_law/proteostasis-law-theory-codex-check/logs/background.pid",
+  "output_path": "/storage/kiran-stuff/proteostasis_law/proteostasis-law-theory-codex-check/results/phase1",
+  "canonical_theory_path": "/storage/kiran-stuff/proteostasis_law/proteostasis-law-theory",
+  "canonical_source_commit": "73e1c0ab341530f7b2d369c459008674897f6287"
+}

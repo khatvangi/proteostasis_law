@@ -1,0 +1,44 @@
+{
+  "experiment": "A",
+  "title": "baseline sanity and invariant-domain tests",
+  "description": "internal-consistency falsification harness for the nondimensional two-state conserved-resource model: units, nondimensionalization, free-pool uniqueness, mass balance, jacobian, positivity, analytic removal ceiling, equilibrium cross-validation, determinism",
+  "seed": 20260731,
+  "outdir": "results/phase1/experiment_a",
+  "n_param_sets": 24,
+  "t_end": 20000.0,
+  "base_params": {
+    "j": 0.02,
+    "nu": 0.5,
+    "c_tot": 0.6,
+    "d_tot": 0.4,
+    "rho_U": 1.0,
+    "rho_A": 0.5,
+    "alpha_n": 0.5,
+    "alpha_g": 1.0,
+    "alpha_d": 0.3,
+    "m": 2.0,
+    "kappa_ref": 0.5,
+    "kappa_u": 0.5,
+    "kappa_a": 0.5,
+    "kappa_dis": 0.5,
+    "kappa_cu": 0.3,
+    "kappa_ca": 0.3,
+    "kappa_du": 0.5,
+    "kappa_da": 0.5
+  },
+  "state_grid": [
+    [0.0, 0.0], [0.0, 0.1], [0.1, 0.0], [1e-6, 1e-6], [0.01, 0.001],
+    [0.1, 0.01], [0.5, 0.2], [1.0, 1.0], [3.0, 0.5], [0.5, 3.0],
+    [10.0, 10.0], [100.0, 100.0]
+  ],
+  "crossvalidation_j": [
+    0.001, 0.005, 0.01, 0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.15, 0.16, 0.2, 0.3
+  ],
+  "resources": {
+    "scheduler": "slurm",
+    "partition": "compute",
+    "cpus": 4,
+    "mem_gb": 8,
+    "note": "resource request, not a completion-time promise"
+  }
+}

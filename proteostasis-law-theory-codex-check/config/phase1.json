@@ -1,0 +1,21 @@
+{
+  "samples": 256,
+  "seed": 20260731,
+  "thresholds": {"U": 2.0, "A": 2.0},
+  "search_max": 200.0,
+  "root_grid": 7,
+  "t_final": 500.0,
+  "escape": 200.0,
+  "initial_conditions": [[0.0, 0.0], [0.5, 0.5], [2.0, 2.0]],
+  "ranges": {
+    "J": {"bounds": [0.03, 3.0], "scale": "log"},
+    "N": {"bounds": [0.0, 4.0]},
+    "Ctot": {"bounds": [0.3, 3.0], "scale": "log"},
+    "Dtot": {"bounds": [0.2, 3.0], "scale": "log"},
+    "kn": {"bounds": [0.003, 0.3], "scale": "log"},
+    "kg": {"bounds": [0.003, 0.2], "scale": "log"},
+    "kdis": {"bounds": [0.1, 2.0], "scale": "log"},
+    "kA": {"bounds": [0.15, 2.0], "scale": "log"}
+  }
+}
+
