@@ -601,6 +601,37 @@ class ArtifactsExist(unittest.TestCase):
         for n in (1, 2, 3, 4):
             self.assertIn(f"**Fig. {n}.", text, f"Fig. {n} has no legend")
 
+    def test_figures_are_byte_reproducible(self):
+        """
+        a rebuild must reproduce the figures exactly, or "rebuild and diff" cannot
+        verify anything: real changes hide among a dozen spurious ones.
+
+        two causes were found by doing exactly that. matplotlib writes a build
+        timestamp into svg/pdf and derives svg element ids from object addresses,
+        and -- the substantive one -- seaborn's stripplot draws jitter from the
+        numpy global RNG, so Fig 2c's points moved on every run. Same data, a
+        different panel each build.
+        """
+        src = (SCRIPTS / "figstyle.py").read_text()
+        self.assertIn("np.random.seed(JITTER_SEED)", src,
+                      "the jitter RNG is unseeded again; Fig 2c will not reproduce")
+        self.assertIn('"svg.hashsalt"', src,
+                      "without a fixed hashsalt every rebuild rewrites every "
+                      "svg element id")
+        self.assertIn('{"CreationDate": None}', src)
+        self.assertIn('{"Date": None}', src)
+        for stem in self.STEMS:
+            svg = (FIGS / f"{stem}.svg").read_text()
+            self.assertNotIn("<dc:date>", svg,
+                             f"{stem}.svg carries a build timestamp")
+
+    def test_vector_figures_exist_for_the_typeset_output(self):
+        for stem in self.STEMS:
+            self.assertTrue((FIGS / f"{stem}.svg").exists(),
+                            f"missing {stem}.svg; the pdf would re-raster a png")
+        src = (SCRIPTS / "15_build_paper.py").read_text()
+        self.assertIn(".svg", src, "the build no longer substitutes vector figures")
+
     def test_computed_outputs_present(self):
         for name in ("nu_tai_ecoli_validated.tsv", "tai_validation_report.json",
                      "axis_tests.tsv", "axis_tests_median.tsv",

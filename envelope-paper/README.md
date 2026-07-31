@@ -39,6 +39,18 @@ The pipeline fails closed twice: `01_validate_tai.py` exits non-zero if the
 supply axis is invalid, and `15_build_paper.py` exits non-zero on an unresolved
 table placeholder or a missing figure.
 
+**A rebuild is byte-reproducible, with two exceptions.** Every computed output,
+figure (PNG/PDF/SVG), table, `PAPER.md` and `PAPER.html` reproduces exactly, so
+`git status` after a verification rebuild is empty and any diff is a real change.
+This took fixing two things a rebuild-and-diff pass exposed: matplotlib writes a
+build timestamp and address-derived SVG element ids (now `svg.hashsalt` plus
+`metadata={"Date": None}`), and seaborn's stripplot drew Fig 2c's jitter from the
+unseeded global RNG, so the same data gave a visibly different panel every build
+(now `figstyle.JITTER_SEED`). The exceptions are `PAPER.pdf` and `PAPER.docx`:
+Chrome and pandoc each stamp a creation date into the container, so those two
+files differ on every build even when their content is identical. Expect them in
+`git status`; ignore them.
+
 Individual steps, if you want them:
 
 ```bash

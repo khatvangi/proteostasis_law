@@ -360,3 +360,19 @@ section may return, no trace of the withdrawn work in the paper) and a test that
 every inline caveat survived the deletion — so removing a caveat inline cannot
 pass just because the section that duplicated it is gone. Seven mutations
 confirmed failing, including moving 25/26 back to a Methods caveat.
+
+**Verification rebuild (same day).** The final 16-step rebuild from `data/raw/`
+passed — all steps ok, 94 tests ok — but `git status` afterwards showed twelve
+modified artifacts, which is exactly the noise that hides a real change. Two
+causes, one substantive:
+
+- matplotlib writes `<dc:date>` into svg/pdf and derives svg element ids from
+  object addresses, so every rebuild rewrote every figure. Fixed with
+  `svg.hashsalt` and `metadata={"Date": None}` / `{"CreationDate": None}`.
+- **Fig 2c's stripplot jitter was unseeded.** seaborn draws jitter from the numpy
+  global RNG, so the same data produced a visibly different panel on every build.
+  Fixed with `figstyle.JITTER_SEED = 42`.
+
+Everything except `PAPER.pdf` and `PAPER.docx` now reproduces byte-for-byte
+(Chrome and pandoc stamp a creation date into the container). Verified by building
+twice and diffing md5s. Tests 94 -> 96.
