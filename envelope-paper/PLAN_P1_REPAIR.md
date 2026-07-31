@@ -100,6 +100,42 @@ earned rather than assumed.
 | Deposition DOI | Still `TODO`, `MANUSCRIPT.md:246`. |
 | Licence | Still none anywhere. |
 
+### Decisions taken 2026-07-31
+
+1. **Upstream ODE: fix upstream, re-vendor once, pin the hash.** No fork. A
+   documented deviation would mean maintaining two binding equations where one is
+   physically impossible, and leaving the impossible one where the rest of the
+   portfolio picks it up. Fix `proteostasis-P1/two_pool_ode.py`, re-vendor, record
+   the upstream commit hash in the vendored header, and replace the byte-identity
+   test with a hash-pin test. Frozen-snapshot property kept, defect gone from both
+   copies.
+2. **Venue: P1 → J Mol Biol, immediate resubmission PLOS Comput Biol.** P2 → MBE.
+   Drop the Significance Statement and Classification header (PNAS residue) either
+   way. JMB's readers can run the synthetic-lethality cross, which matters for a
+   paper whose product is a prediction; the counter is that some will ask why it
+   has not been run here, and PLOS CB will not. Do not spend a revision cycle
+   arguing venue.
+3. **Authorship: open, and to be asked rather than inferred.** Recorded in
+   `dashboard/papers/P2_error_matched.md`. The test is contribution to the
+   migrating analyses specifically, not to P1 as a container.
+
+### Blast radius of the binding fix — short, so same pass
+
+Asked for before re-vendoring. Every consumer of the two-pool ODE across the
+portfolio:
+
+| Consumer | Action |
+|---|---|
+| `envelope-paper/scripts/{09,11,12}` + vendored copy | recomputed by step 3 anyway |
+| `proteostasis-P1/paired_mc.py`, `arithmetic_stress_test.py` | **these are the step-2 imports** — they re-run in-repo after the fix, so the recompute is free |
+| `proteostasis-P1/figures/fig3_ode.py` | upstream figure, not used by P1; regenerate opportunistically |
+| `proteostasis-P1/two_pool_ode.backup_uniformN.py` | superseded; carries the bug AND the retracted 1.7 × 10⁻² median. Leave frozen, do not import. Logged in the portfolio's refuted-artifacts list. |
+
+So the list collapses into steps 2 and 3: because step 2 brings the generators
+in-repo, fixing the equation and re-running them is one motion. Nothing else in
+flight depends on the old numbers, and the error direction is favourable
+everywhere.
+
 ### A collision to handle deliberately
 
 Fixing the binding equation means editing `two_pool_ode.py:127–129`, and
