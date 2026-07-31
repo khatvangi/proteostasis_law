@@ -1,0 +1,10 @@
+# Generated analyses and local environments
+results/
+figures/generated/
+data/raw/
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+*.swp
+
