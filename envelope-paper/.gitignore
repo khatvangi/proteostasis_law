@@ -11,3 +11,4 @@ __pycache__/
 # for a frozen copy, tag the tree at submission.
 manuscript/PAPER.pdf
 manuscript/PAPER.docx
+dist/

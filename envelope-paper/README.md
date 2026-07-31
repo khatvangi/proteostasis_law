@@ -179,6 +179,28 @@ Reproduce with `python scripts/07_removed_results.py`. Outputs:
 they cannot be mistaken for tables of the paper, and asserted by the test suite
 to stay that way.
 
+## Building the Zenodo deposition
+
+```bash
+python scripts/16_make_deposit.py          # build + verify (~2 min)
+python scripts/16_make_deposit.py --full   # verify with the full rebuild (~14 min)
+```
+
+Writes `dist/proteostasis-envelope-v1.0.0.tar.gz`, its `.sha256`, and a contents
+listing. The archive carries `SHA256SUMS`, `COMMIT` (including whether the tree was
+clean at build time) and `BUILT`.
+
+Building is the easy half. The script then **extracts the archive to a scratch
+directory and runs the pipeline and the test suite there**, so "self-contained" is
+a finding rather than an assumption; it exits non-zero if the archive does not
+reproduce on its own.
+
+Order of operations for the DOI, which matters because the manuscript has to cite
+it: reserve the DOI in Zenodo first (Zenodo issues one before publication), write
+it into the `Data and code availability` paragraph of `manuscript/MANUSCRIPT.md`,
+rebuild the paper and the archive, then upload. A licence must be chosen at upload;
+none is asserted anywhere in the repository — see the last section of `DEPOSIT.md`.
+
 ## Auto-commits are gated on the test suite
 
 `/storage/kiran-stuff/git-auto-sync.sh` runs every 30 minutes from cron and does
