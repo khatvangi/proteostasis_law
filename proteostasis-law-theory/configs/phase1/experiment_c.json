@@ -9,31 +9,131 @@
   "rescue_total": 1.0,
   "j_lo": 0.0002,
   "j_hi": 5.0,
-  "fold_full": {"n_march": 24, "tol_rel": 1e-6, "blind_grid": 7},
-  "fold_cheap": {"n_march": 14, "tol_rel": 1e-3, "blind_grid": 5},
+  "fold_full": {
+    "n_march": 24,
+    "tol_rel": 1e-06,
+    "blind_grid": 7
+  },
+  "fold_cheap": {
+    "n_march": 14,
+    "tol_rel": 0.001,
+    "blind_grid": 5
+  },
   "nascent_multiplier": 4.0,
-  "attractor_fractions": [0.5, 0.95],
+  "attractor_fractions": [
+    0.5,
+    0.95
+  ],
   "attractor_grid": 11,
   "attractor_hi": 100000.0,
-  "slowdown_fractions": [0.5, 0.95],
-  "chi_scan": [0.1, 0.3, 0.5, 0.7, 0.9],
+  "slowdown_fractions": [
+    0.5,
+    0.95
+  ],
+  "chi_scan": [
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    0.9
+  ],
   "param_ranges": [
-    {"name": "nu",        "lo": 0.01,   "hi": 10.0,  "scale": "log"},
-    {"name": "chi",       "lo": 0.05,   "hi": 0.95,  "scale": "linear"},
-    {"name": "rho_U",     "lo": 0.1,    "hi": 10.0,  "scale": "log"},
-    {"name": "rho_A",     "lo": 0.01,   "hi": 10.0,  "scale": "log"},
-    {"name": "alpha_n",   "lo": 0.001,  "hi": 10.0,  "scale": "log"},
-    {"name": "alpha_g",   "lo": 0.01,   "hi": 100.0, "scale": "log"},
-    {"name": "alpha_d",   "lo": 0.01,   "hi": 10.0,  "scale": "log"},
-    {"name": "m",         "lo": 1.5,    "hi": 4.0,   "scale": "linear"},
-    {"name": "kappa_ref", "lo": 0.01,   "hi": 10.0,  "scale": "log"},
-    {"name": "kappa_u",   "lo": 0.01,   "hi": 10.0,  "scale": "log"},
-    {"name": "kappa_a",   "lo": 0.01,   "hi": 10.0,  "scale": "log"},
-    {"name": "kappa_dis", "lo": 0.01,   "hi": 10.0,  "scale": "log"},
-    {"name": "kappa_cu",  "lo": 0.01,   "hi": 10.0,  "scale": "log"},
-    {"name": "kappa_ca",  "lo": 0.01,   "hi": 10.0,  "scale": "log"},
-    {"name": "kappa_du",  "lo": 0.01,   "hi": 10.0,  "scale": "log"},
-    {"name": "kappa_da",  "lo": 0.01,   "hi": 10.0,  "scale": "log"}
+    {
+      "name": "nu",
+      "lo": 0.01,
+      "hi": 10.0,
+      "scale": "log"
+    },
+    {
+      "name": "chi",
+      "lo": 0.05,
+      "hi": 0.95,
+      "scale": "linear"
+    },
+    {
+      "name": "rho_U",
+      "lo": 0.1,
+      "hi": 10.0,
+      "scale": "log"
+    },
+    {
+      "name": "rho_A",
+      "lo": 0.01,
+      "hi": 10.0,
+      "scale": "log"
+    },
+    {
+      "name": "alpha_n",
+      "lo": 0.001,
+      "hi": 10.0,
+      "scale": "log"
+    },
+    {
+      "name": "alpha_g",
+      "lo": 0.01,
+      "hi": 100.0,
+      "scale": "log"
+    },
+    {
+      "name": "alpha_d",
+      "lo": 0.01,
+      "hi": 10.0,
+      "scale": "log"
+    },
+    {
+      "name": "m",
+      "lo": 1.5,
+      "hi": 4.0,
+      "scale": "linear"
+    },
+    {
+      "name": "kappa_ref",
+      "lo": 0.01,
+      "hi": 10.0,
+      "scale": "log"
+    },
+    {
+      "name": "kappa_u",
+      "lo": 0.01,
+      "hi": 10.0,
+      "scale": "log"
+    },
+    {
+      "name": "kappa_a",
+      "lo": 0.01,
+      "hi": 10.0,
+      "scale": "log"
+    },
+    {
+      "name": "kappa_dis",
+      "lo": 0.01,
+      "hi": 10.0,
+      "scale": "log"
+    },
+    {
+      "name": "kappa_cu",
+      "lo": 0.01,
+      "hi": 10.0,
+      "scale": "log"
+    },
+    {
+      "name": "kappa_ca",
+      "lo": 0.01,
+      "hi": 10.0,
+      "scale": "log"
+    },
+    {
+      "name": "kappa_du",
+      "lo": 0.01,
+      "hi": 10.0,
+      "scale": "log"
+    },
+    {
+      "name": "kappa_da",
+      "lo": 0.01,
+      "hi": 10.0,
+      "scale": "log"
+    }
   ],
   "base_params": {
     "j": 0.02,
@@ -61,5 +161,8 @@
     "cpus": 16,
     "mem_gb": 16,
     "note": "resource request, not a completion-time promise"
-  }
+  },
+  "attractor_kick": 0.1,
+  "attractor_rel_tol": 0.05,
+  "attractor_t_end": 50000.0
 }

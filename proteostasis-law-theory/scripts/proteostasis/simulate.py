@@ -155,13 +155,49 @@ def recoveryTime(p: Params, eq_u: float, eq_a: float, kick: float = 0.05,
     from the trajectory rather than from the eigenvalue, so the two can be
     compared instead of assumed equal.
     """
+    if kick <= 0.0 or t_end <= 0.0:
+        raise ValueError("kick and t_end must be positive")
+
+    equilibrium = np.array([eq_u, eq_a], dtype=float)
+    if not np.all(np.isfinite(equilibrium)) or np.any(equilibrium <= 0.0):
+        return None
+
+    # Excite the critical mode itself.  A coordinate-axis kick can be dominated
+    # by the fast mode and therefore need not reveal slowing near a fold.
+    eigvals, eigvecs = np.linalg.eig(jacobian(eq_u, eq_a, p))
+    slow = int(np.argmax(eigvals.real))
+    if eigvals[slow].real >= 0.0 or abs(eigvals[slow].imag) > 1e-10:
+        return None
+    direction = np.asarray(eigvecs[:, slow].real, dtype=float)
+    direction /= np.linalg.norm(direction)
+    # Fix the eigenvector's arbitrary sign toward increasing total burden.
+    if np.sum(direction) < 0.0:
+        direction = -direction
     d0 = kick * max(eq_u + eq_a, 1e-12)
-    tr = simulate(p, eq_u + d0, eq_a, t_end=t_end, n_out=2000)
-    if tr.status not in ("converged", "timeout"):
+    y0 = equilibrium + d0 * direction
+    if np.any(y0 < 0.0):
+        y0 = equilibrium - d0 * direction
+    if np.any(y0 < 0.0):
         return None
-    dist = np.hypot(tr.u - eq_u, tr.a - eq_a)
-    if dist[0] <= 0.0:
+
+    target = d0 / np.e
+
+    def f(_t, y):
+        return rhsVector(y, p)
+
+    def jac(_t, y):
+        return jacobian(y[0], y[1], p)
+
+    def recovered(_t, y):
+        return float(np.linalg.norm(y - equilibrium) - target)
+    recovered.terminal = True
+    recovered.direction = -1.0
+
+    try:
+        sol = solve_ivp(f, (0.0, t_end), y0, method="Radau", jac=jac,
+                        events=recovered, rtol=1e-10, atol=1e-13)
+    except (ModelError, ValueError, FloatingPointError):
         return None
-    target = dist[0] / np.e
-    below = np.flatnonzero(dist <= target)
-    return float(tr.t[below[0]]) if len(below) else None
+    if not sol.success or not len(sol.t_events[0]):
+        return None
+    return float(sol.t_events[0][0])

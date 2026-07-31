@@ -97,15 +97,23 @@ def _sampleTask(item: tuple):
             row["C3_shrink_ratio"] = fold_nu.fold_value / jf
 
         # --- C4 second stable attractor -----------------------------------
-        n_stable_max, n_eq_max = 0, 0
+        # a root finder reporting Re(lambda) < 0 is weaker evidence than a
+        # trajectory actually converging, and a spurious root would look
+        # identical. any candidate is therefore re-tested dynamically.
+        n_stable_max, n_eq_max, confirmed = 0, 0, False
         for frac in cfg["attractor_fractions"]:
             eqs = findEquilibria(p.with_(j=frac * jf), n_grid=cfg["attractor_grid"],
                                  lo=1e-8, hi=cfg["attractor_hi"])
             n_stable_max = max(n_stable_max, sum(e.stable for e in eqs))
             n_eq_max = max(n_eq_max, len(eqs))
+            stable = sorted((e for e in eqs if e.stable), key=lambda e: e.burden)
+            if len(stable) >= 2 and _confirmsAttractor(p.with_(j=frac * jf),
+                                                       stable[-1], cfg):
+                confirmed = True
         row["max_stable_equilibria"] = int(n_stable_max)
         row["max_equilibria"] = int(n_eq_max)
         row["C4_second_stable_attractor"] = bool(n_stable_max >= 2)
+        row["C4_second_attractor_confirmed"] = bool(confirmed)
 
         # --- C5 critical slowing down -------------------------------------
         eig = {}
@@ -144,6 +152,27 @@ def _sampleTask(item: tuple):
     except Exception as exc:                                  # noqa: BLE001
         row["error"] = f"UNEXPECTED {type(exc).__name__}: {exc}\n{traceback.format_exc()[:400]}"
     return row
+
+
+def _confirmsAttractor(p: Params, eq, cfg: dict) -> bool:
+    """dynamic confirmation that a candidate high-burden equilibrium attracts.
+
+    displace off it in both directions and integrate. it counts only if BOTH
+    trajectories return to it -- not to the low branch, and not to escape.
+    """
+    from proteostasis import simulate
+    kick = cfg.get("attractor_kick", 0.1)
+    tol = cfg.get("attractor_rel_tol", 0.05)
+    for s in (1.0 + kick, 1.0 - kick):
+        tr = simulate(p, eq.u * s, eq.a * s, t_end=cfg.get("attractor_t_end", 5.0e4),
+                      n_out=200, blowup=cfg["attractor_hi"] * 10.0)
+        if tr.status not in ("converged", "timeout"):
+            return False
+        back = (abs(tr.final_u - eq.u) <= tol * max(eq.u, 1e-12)
+                and abs(tr.final_a - eq.a) <= tol * max(eq.a, 1e-12))
+        if not back:
+            return False
+    return True
 
 
 def _fraction(df: pd.DataFrame, col: str) -> dict | None:
@@ -202,6 +231,7 @@ def main() -> int:
             "C2_collapse_below_ceiling": _fraction(df, "C2_collapse_below_ceiling"),
             "C3_nascent_shrinks_window": _fraction(df, "C3_nascent_shrinks_window"),
             "C4_second_stable_attractor": _fraction(df, "C4_second_stable_attractor"),
+            "C4_second_attractor_confirmed": _fraction(df, "C4_second_attractor_confirmed"),
             "C5_slowing_down": _fraction(df, "C5_slowing_down"),
             "C6_interior_optimum": _fraction(df, "C6_interior_optimum"),
         },

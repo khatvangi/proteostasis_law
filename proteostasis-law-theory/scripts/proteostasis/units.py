@@ -141,9 +141,13 @@ class DimensionalParams:
     N_free: float = 5.0e-1     # free ordinary nascent-chain concentration, conc
     K_N: float = 1.0           # nascent-chain / chaperone dissociation constant, conc
 
-    # conserved rescue pools, conc
-    C_tot: float = 6.0e-1
-    D_tot: float = 4.0e-1
+    # conserved rescue pools, conc.
+    # NB: these are deliberately chosen so that the derived concentration scale
+    # phi = C_tot + D_tot is NOT 1. with phi == 1 every power of phi collapses
+    # to 1 and the nondimensionalization tests become blind to concentration
+    # scaling errors -- phi**(m-1) and phi**m would be indistinguishable.
+    C_tot: float = 1.5
+    D_tot: float = 1.0
 
     # kinetics
     k_ref: float = 1.0e-2      # per-chaperone refolding turnover, time^-1
