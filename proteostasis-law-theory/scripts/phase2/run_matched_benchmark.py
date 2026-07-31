@@ -70,6 +70,14 @@ ROW_FIELDS = [
     "continuation_evals", "seconds",
 ]
 
+#: columns that are wall-clock measurements rather than results.  they are kept
+#: in the row (per-sample cost is a real diagnostic) but excluded from
+#: `payload_sha256`, because the cross-host comparison this benchmark exists to
+#: make -- boron's free arm against nitrogen's free arm -- is a comparison of
+#: SCIENTIFIC content, and a timing column makes byte equality unreachable even
+#: when every computed value is identical.
+NONDETERMINISTIC_FIELDS: Tuple[str, ...] = ("seconds",)
+
 # globals for the worker processes; set once by `_initWorker`
 _G: Dict = {}
 
@@ -85,6 +93,21 @@ def _admissibility(u: float, a: float, uf: float, af: float, h: float = THRESHOL
         "adm_burden_free": bool(uf + af < h),
         "adm_comp_free": bool(uf < h and af < h),
     }
+
+
+def payloadHash(rows: Sequence[Dict]) -> str:
+    """sha256 over the result columns only, in `ROW_FIELDS` order.
+
+    this is the hash that may be compared across hosts and across reruns.
+    `tsv_sha256` is a byte record of the file as written and is deliberately NOT
+    reproducible, because the file carries per-row timings.
+    """
+    h = hashlib.sha256()
+    fields = [f for f in ROW_FIELDS if f not in NONDETERMINISTIC_FIELDS]
+    h.update(("\t".join(fields) + "\n").encode())
+    for row in rows:
+        h.update(("\t".join(str(row[f]) for f in fields) + "\n").encode())
+    return h.hexdigest()
 
 
 def _initWorker(matrix, model_form, epsilon, protocol, t_end):
@@ -186,6 +209,8 @@ def runCell(matrix: np.ndarray, model_form: str, epsilon: float, protocol: str,
         "wall_seconds": time.time() - t0,
         "tsv": path.name,
         "tsv_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+        "payload_sha256": payloadHash(rows),
+        "payload_excludes": list(NONDETERMINISTIC_FIELDS),
     }
 
 

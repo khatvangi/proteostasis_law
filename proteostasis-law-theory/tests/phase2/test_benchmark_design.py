@@ -158,6 +158,74 @@ class TestCellOneEqualsCellTwo(unittest.TestCase):
             self.assertEqual(ab, af, f"sample {i}")
 
 
+class TestCellOutputIsReproducible(unittest.TestCase):
+    """the cell summary must carry a hash that can actually be compared.
+
+    the boron host runs the free arm and the nitrogen host runs the free arm;
+    the point of the exercise is to check they agree.  `tsv_sha256` cannot serve
+    that purpose because every row carries a wall-clock `seconds`, so it differs
+    on every rerun of identical work.  `payload_sha256` is the comparable hash,
+    and these tests pin both halves of that statement.
+    """
+
+    def _cell(self, tmp, workers):
+        M = sampleMatrix(6, DEFAULT_SEED)
+        return bench.runCell(M, "free", 1e-6, "nitrogen", tmp, workers,
+                             protocols.BORON_T_END)
+
+    def testSecondsIsTheOnlyNondeterministicColumn(self):
+        """asserted, not assumed: if a future change makes another column
+        wall-clock dependent, the excluded set must be updated deliberately."""
+        import csv
+        import tempfile
+        from pathlib import Path
+
+        tables = []
+        with tempfile.TemporaryDirectory() as td:
+            for k, workers in enumerate((1, 2)):
+                d = Path(td) / f"r{k}"
+                d.mkdir()
+                self._cell(d, workers)
+                with (d / "free_eps1e-06_nitrogen.tsv").open() as fh:
+                    tables.append(list(csv.DictReader(fh, delimiter="\t")))
+
+        moved = {f for row_a, row_b in zip(*tables)
+                 for f in row_a if row_a[f] != row_b[f]}
+        self.assertEqual(moved, set(bench.NONDETERMINISTIC_FIELDS))
+
+    def testPayloadHashIsStableAcrossRerunsAndWorkerCounts(self):
+        import tempfile
+        from pathlib import Path
+
+        hashes, byte_hashes = set(), set()
+        with tempfile.TemporaryDirectory() as td:
+            for k, workers in enumerate((1, 2)):
+                d = Path(td) / f"r{k}"
+                d.mkdir()
+                s = self._cell(d, workers)
+                hashes.add(s["payload_sha256"])
+                byte_hashes.add(s["tsv_sha256"])
+        self.assertEqual(len(hashes), 1, "payload hash must be reproducible")
+        # documents WHY the payload hash exists; not a requirement on the file
+        self.assertEqual(len(byte_hashes), 2, "tsv_sha256 is a byte record only")
+
+    def testPayloadHashExcludesExactlyTheTimingColumns(self):
+        self.assertEqual(bench.NONDETERMINISTIC_FIELDS, ("seconds",))
+        for f in bench.NONDETERMINISTIC_FIELDS:
+            self.assertIn(f, bench.ROW_FIELDS)
+
+    def testPayloadHashSeesEveryResultColumn(self):
+        """a hash that silently skipped a column would certify nothing."""
+        rows = [{f: 0 for f in bench.ROW_FIELDS}]
+        base = bench.payloadHash(rows)
+        for f in bench.ROW_FIELDS:
+            moved = [dict(rows[0], **{f: 1})]
+            if f in bench.NONDETERMINISTIC_FIELDS:
+                self.assertEqual(bench.payloadHash(moved), base, f)
+            else:
+                self.assertNotEqual(bench.payloadHash(moved), base, f)
+
+
 class TestFreeArmNeedsNoBoronCode(unittest.TestCase):
     """the nitrogen host runs the free arm only and must not need `proteostasis`.
 
