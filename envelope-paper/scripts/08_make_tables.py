@@ -405,6 +405,9 @@ def main():
     hr_lo, hr_hi = ca["headroom_range_over_documented_grid"]
     pw = load_json("nu_power_summary.json")["minimum_detectable_effect"]
     jk = load_json("mu_jackknife_summary.json")
+    res = jk["detectability"]["residualized"]
+    pwr = load_json("nu_power_summary.json")
+    npat = pwr["nu_under_mu_observed_pattern"]
     mu_max = load_json("translation_burden.json")["mu_max"]
 
     parts = [
@@ -630,8 +633,15 @@ def main():
         f"{pw['nu']['mde_delta_reduction_pct']:.0f}% "
         f"({pw['nu']['mde_pct_below_null']:.1f}% below null); μ's own clustering "
         f"sits {pw['mu']['observed_pct_below_null']:.1f}% below its null, so an "
-        "effect of μ's size would have been seen on ν. See also "
-        "`nu_power_curve.tsv` for the subset-model power curve.",
+        "effect of μ's size would have been seen on ν. A uniform shrinkage is the "
+        "weaker benchmark, though: imposing μ's OWN per-amino-acid pattern on ν "
+        f"(s_A from {npat['mu_pattern_s_min']:.2f} to "
+        f"{npat['mu_pattern_s_max']:.2f}, median "
+        f"{npat['mu_pattern_s_median']:.2f}) gives z = "
+        f"{npat['nu_with_mu_pattern']['z']:+.2f}, p = "
+        f"{npat['nu_with_mu_pattern']['p']:.4f} — detected. See also "
+        "`nu_power_curve.tsv` for the subset-model power curve, "
+        f"{pwr['n_power_reps']} replicates per point with Wilson intervals.",
         "",
         md_table(s6[lambda d: d.s >= 0.5],
                  ["axis", "s", "delta", "null_mean", "z", "p", "reject",
@@ -655,7 +665,15 @@ def main():
         f"{sci(mu_max, 2)} maximum that sets the "   # 2 sig figs, as the prose has it
         f"{jk['mu_span_fold_with_CCC']:.0f}-fold span on its own, without which "
         f"the span falls to {jk['mu_span_fold_without_CCC']:.0f}-fold. Ordered "
-        "from strongest to weakest z.",
+        "from strongest to weakest z. Detectability is handled separately and "
+        "substantively: regressing log μ on log sampling depth (slope "
+        f"{res['regression']['slope']:+.2f}, R² = "
+        f"{res['regression']['r_squared']:.3f}) and re-running the whole test on "
+        f"the residuals gives z = {res['residual_axis_test']['z']:+.2f}, p = "
+        f"{res['residual_axis_test']['p']:.4f}, retaining "
+        f"{100 * res['variance_partition_after_residualizing']['fraction_of_log_mu_eta2_retained']:.0f}% "
+        "of the between-amino-acid variance. Full detail in "
+        "`data/computed/mu_jackknife_summary.json`.",
         "",
         md_table(s7, ["dropped_codon", "aa", "mu", "z", "p", "n_codons"],
                  fmt={"mu": lambda v: sci(v), "z": lambda v: f"{v:+.2f}",

@@ -15,10 +15,26 @@ two objections this addresses
    whether the mass shift is resolvable, and peptide abundance. That manufactures
    amino-acid-level structure with no biological content, and it is a harder
    confound than the near-cognate-chemistry argument the paper already gives,
-   because it predicts exactly the pattern we observe. We cannot remove it, but we
-   can quantify the exposure: report the per-codon number of distinct detected
-   substitutions, test whether mu is related to it, and check whether the
-   clustering survives dropping the codons with the thinnest sampling.
+   because it predicts exactly the pattern we observe. Quantify the exposure:
+   report the per-codon number of distinct detected substitutions, test whether mu
+   is related to it, and check whether the clustering survives dropping the codons
+   with the thinnest sampling.
+
+   AND THEN ACTUALLY TEST IT. Dropping thin codons and reporting eta^2 for depth
+   is exposure accounting, not a test: it cannot say whether the clustering
+   survives removal of the depth-related component of mu. Regressing log mu on log
+   depth and re-running the whole test on the residuals can. That is a reanalysis,
+   not a new experiment, so conceding the point without running it concedes too
+   early.
+
+   the mediator objection to residualizing -- that a higher TRUE error rate
+   generates more detected substitutions, so depth is a consequence of mu and
+   residualizing on it would remove real signal -- is settled by the sign of the
+   correlation. Spearman(depth, log mu) is NEGATIVE. Under error-driven detection
+   it would be positive. A negative slope is the signature of thin-sampling
+   inflation: a codon seen in few substitutions has its mean pulled up by whichever
+   few were seen. Residualizing removes that, and takes no real signal with it
+   unless the true relationship is negative, which no mechanism predicts.
 """
 import importlib.util
 import json
@@ -61,6 +77,79 @@ def test_mu(df, n_perm=N_PERM, seed=SEED):
     return {"n_codons": int(len(d)), "n_aa": int(d.aa.nunique()),
             "observed": float(obs), "null_mean": float(vals.mean()),
             "z": float(z), "p": float(p)}
+
+
+def variance_partition(df, col):
+    """eta^2 between amino acids, one-way, computed exactly as scripts/02 does."""
+    groups = [g[col].to_numpy(float) for _, g in df.groupby("aa") if len(g) >= 2]
+    allv = np.concatenate(groups)
+    ss_b = sum(len(g) * (g.mean() - allv.mean()) ** 2 for g in groups)
+    eta2 = float(ss_b / ((allv - allv.mean()) ** 2).sum())
+    F, p = stats.f_oneway(*groups)
+    return eta2, float(F), float(p)
+
+
+def residualize_on_depth(df, n_perm=10_000, seed=SEED):
+    """
+    the test the exposure accounting could not do.
+
+    regress log mu on log sampling depth, then re-run the whole analysis -- Delta,
+    the within-degeneracy permutation test, and the variance partition -- on the
+    residuals. if the amino-acid-level clustering survives, the detectability
+    confound is not sufficient to explain it and the mu result stands on its own.
+    if it collapses, the mu result is a property of the instrument and the paper
+    has to say so.
+    """
+    d = df.dropna(subset=["n_subs"]).copy()
+    x = np.log(d.n_subs.to_numpy(float))
+    y = d.log_mu.to_numpy(float)
+    fit = stats.linregress(x, y)
+    d["resid"] = y - (fit.intercept + fit.slope * x)
+
+    # the residual axis, standardized and tested exactly like log mu itself
+    r = d.resid.to_numpy(float)
+    d["_c"] = (r - r.mean()) / r.std(ddof=0)
+    d["degeneracy"] = d.groupby("aa").codon.transform("size")
+    d = d[d.degeneracy >= 2]
+    xy = d[["_c"]].to_numpy()
+    obs = axis_mod.mean_delta(d, xy)
+    rng = np.random.default_rng(seed)
+    vals = np.empty(n_perm)
+    for k in range(n_perm):
+        vals[k] = axis_mod.mean_delta(
+            d, xy[axis_mod.permute(d, rng, "within_degeneracy")])
+    z = float((obs - vals.mean()) / vals.std(ddof=0))
+    p = (int((vals <= obs).sum()) + 1) / (n_perm + 1)
+
+    eta2_resid, F_resid, p_resid = variance_partition(d, "resid")
+    eta2_depth, _, _ = variance_partition(d, "n_subs")
+    eta2_logmu, _, _ = variance_partition(d, "log_mu")
+    return {
+        "regression": {
+            "model": "log mu ~ log(n_detected_substitutions)",
+            "slope": float(fit.slope), "intercept": float(fit.intercept),
+            "r": float(fit.rvalue), "r_squared": float(fit.rvalue ** 2),
+            "p": float(fit.pvalue), "stderr": float(fit.stderr),
+            "frac_log_mu_variance_explained_by_depth": float(fit.rvalue ** 2),
+            "slope_sign_defuses_mediator_objection": bool(fit.slope < 0),
+        },
+        "residual_axis_test": {
+            "n_codons": int(len(d)), "n_aa": int(d.aa.nunique()),
+            "observed": float(obs), "null_mean": float(vals.mean()),
+            "null_sd": float(vals.std(ddof=0)), "z": z, "p": float(p),
+            "n_perm": int(n_perm),
+            "significant_at_0.05": bool(p < 0.05),
+            "pct_below_null": float(100.0 * (vals.mean() - obs) / vals.mean()),
+        },
+        "variance_partition_after_residualizing": {
+            "eta2_between_aa_residual": eta2_resid,
+            "F": F_resid, "p": p_resid,
+            "eta2_between_aa_log_mu_same_subset": eta2_logmu,
+            "eta2_between_aa_sampling_depth_same_subset": eta2_depth,
+            "fraction_of_log_mu_eta2_retained": (eta2_resid / eta2_logmu
+                                                 if eta2_logmu else None),
+        },
+    }
 
 
 def main():
@@ -139,6 +228,28 @@ def main():
     pd.DataFrame(thin).to_csv(COMP / "mu_depth_sensitivity.tsv",
                               sep="\t", index=False)
 
+    # ---- 3. the residualized test ----
+    print("\n3. depth-residualized test (the one that decides it)")
+    res = residualize_on_depth(df)
+    rg, rt, vp = (res["regression"], res["residual_axis_test"],
+                  res["variance_partition_after_residualizing"])
+    print(f"   log mu ~ log depth: slope {rg['slope']:+.3f} "
+          f"(p = {rg['p']:.3g}), R^2 = {rg['r_squared']:.3f}")
+    print(f"   slope is {'negative -- thin-sampling inflation, not error-driven '
+                        'detection' if rg['slope'] < 0 else 'POSITIVE -- mediator '
+                        'objection applies, do not residualize'}")
+    print(f"   residual axis: Delta = {rt['observed']:.4f} vs null "
+          f"{rt['null_mean']:.4f}, z = {rt['z']:+.2f}, p = {rt['p']:.4f} "
+          f"({rt['n_perm']:,} perms)")
+    print(f"   eta^2 between amino acids: residual {vp['eta2_between_aa_residual']:.3f} "
+          f"vs log mu {vp['eta2_between_aa_log_mu_same_subset']:.3f} "
+          f"({100 * vp['fraction_of_log_mu_eta2_retained']:.0f}% retained)")
+    print("   VERDICT: " + ("clustering SURVIVES residualization -- the confound "
+                            "is not sufficient to explain it"
+                            if rt["significant_at_0.05"] else
+                            "clustering COLLAPSES -- the mu result is a property "
+                            "of the instrument"))
+
     summary = {
         "full_set": full,
         "jackknife": {
@@ -162,9 +273,17 @@ def main():
             "F_depth": float(F_d), "p_depth": float(p_d),
             "eta2_between_aa_log_mu": vd["eta_squared_log_mu_between_aa"],
             "depth_sensitivity": thin,
+            "residualized": res,
         },
-        "caveat": "detectability cannot be removed from these data. this "
-                  "quantifies exposure to it; it does not eliminate it.",
+        "caveat": (
+            "the depth-residualized test is the substantive check: it removes the "
+            "depth-related component of log mu and re-runs everything on the "
+            "residuals. exposure accounting (eta^2 for depth, dropping thin "
+            "codons) cannot settle the question and must not be quoted as if it "
+            "had." if res["residual_axis_test"]["significant_at_0.05"] else
+            "the clustering does not survive residualizing log mu on sampling "
+            "depth. it must be reported as a property of the measured error "
+            "landscape, not of decoding."),
     }
     (COMP / "mu_jackknife_summary.json").write_text(json.dumps(summary, indent=2))
     print(f"\nwrote mu_jackknife.tsv, mu_depth_sensitivity.tsv and "

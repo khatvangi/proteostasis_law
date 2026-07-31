@@ -69,7 +69,40 @@
         "z": -2.8522880975451805,
         "p": 0.0069982504373906525
       }
-    ]
+    ],
+    "residualized": {
+      "regression": {
+        "model": "log mu ~ log(n_detected_substitutions)",
+        "slope": -0.9267855920206538,
+        "intercept": -5.7772494659869285,
+        "r": -0.4335159718062382,
+        "r_squared": 0.1879360978111071,
+        "p": 0.0006038008998129931,
+        "stderr": 0.25517131161615697,
+        "frac_log_mu_variance_explained_by_depth": 0.1879360978111071,
+        "slope_sign_defuses_mediator_objection": true
+      },
+      "residual_axis_test": {
+        "n_codons": 59,
+        "n_aa": 18,
+        "observed": 0.7774670409543514,
+        "null_mean": 1.129927831726317,
+        "null_sd": 0.11872771761694814,
+        "z": -2.968647910078688,
+        "p": 0.0025997400259974,
+        "n_perm": 10000,
+        "significant_at_0.05": true,
+        "pct_below_null": 31.193212599557967
+      },
+      "variance_partition_after_residualizing": {
+        "eta2_between_aa_residual": 0.4455674184631958,
+        "F": 1.9382045892072357,
+        "p": 0.04216824247243984,
+        "eta2_between_aa_log_mu_same_subset": 0.555978873346019,
+        "eta2_between_aa_sampling_depth_same_subset": 0.5595148190839593,
+        "fraction_of_log_mu_eta2_retained": 0.8014107007010183
+      }
+    }
   },
-  "caveat": "detectability cannot be removed from these data. this quantifies exposure to it; it does not eliminate it."
+  "caveat": "the depth-residualized test is the substantive check: it removes the depth-related component of log mu and re-runs everything on the residuals. exposure accounting (eta^2 for depth, dropping thin codons) cannot settle the question and must not be quoted as if it had."
 }

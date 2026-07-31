@@ -33,8 +33,14 @@ prediction is a synthetic lethality reachable in wild type (+7.4% above additive
 for 3x error against 3x rescue knockdown; 12 of 36 pairs survivable alone and
 lethal together). Separately, measured per-codon mistranslation is organized at
 the amino-acid level (mu), and the supply axis (nu) shows no comparable structure
-within a stated power bound. The mu structure cannot be separated from
-mass-spectrometry detectability and the paper says so.
+-- including when mu's OWN per-amino-acid pattern is imposed on nu as the
+benchmark (z = -2.75, p = 0.0034). The detectability confound was tested, not
+conceded: regressing log mu on log sampling depth removes the 18.8% of variance
+depth explains and the clustering persists on the residuals (z = -2.97,
+p = 0.0026, 80% of the between-aa eta^2 retained). Residualizing is licensed by
+the NEGATIVE depth-mu correlation, which is thin-sampling inflation rather than
+error-driven detection. Do not reinstate "cannot be separated from
+detectability" -- that claim was retracted on evidence.
 
 This is NOT a code-origin claim. It does not explain why codons are triplets
 or the evolutionary origin of redundancy. Those claims are explicitly rejected.
@@ -77,7 +83,7 @@ row appears in the prose. Table numbering changed in the v2 restructuring: the
 two excluded analyses are no longer Tables 4/S4, and the retired anchoring grid is
 no longer Table 6/S9.
 
-### run the numeric test suite (89 tests, asserts the manuscript against data/computed/)
+### run the numeric test suite (103 tests, asserts the manuscript against data/computed/)
 ```
 cd envelope-paper && python -m unittest discover -s tests -v
 ```

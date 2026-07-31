@@ -47,26 +47,87 @@
     {
       "s": 0.8,
       "delta_reduction_pct_if_all_aa": 19.999999999999993,
-      "power": 0.0
+      "power": 0.0,
+      "ci95_low": 0.0,
+      "ci95_high": 0.009512640599680667,
+      "n_reps": 400,
+      "ci_excludes_0.80": true
     },
     {
       "s": 0.6,
       "delta_reduction_pct_if_all_aa": 39.999999999999986,
-      "power": 0.05
+      "power": 0.03,
+      "ci95_low": 0.017242849034032177,
+      "ci95_high": 0.05169903312966765,
+      "n_reps": 400,
+      "ci_excludes_0.80": true
     },
     {
       "s": 0.4,
       "delta_reduction_pct_if_all_aa": 59.99999999999999,
-      "power": 0.525
+      "power": 0.5125,
+      "ci95_low": 0.463629805456242,
+      "ci95_high": 0.5611323785287659,
+      "n_reps": 400,
+      "ci_excludes_0.80": true
     },
     {
       "s": 0.2,
       "delta_reduction_pct_if_all_aa": 79.99999999999999,
-      "power": 0.75
+      "power": 0.825,
+      "ci95_low": 0.7847204162241496,
+      "ci95_high": 0.859096367386058,
+      "n_reps": 400,
+      "ci_excludes_0.80": false
     }
   ],
-  "s_at_80_percent_power": null,
-  "delta_reduction_at_80_percent_power": null,
+  "n_power_reps": 400,
+  "n_perm_per_power_rep": 800,
+  "power_ci_method": "Wilson 95%",
+  "nu_under_mu_observed_pattern": {
+    "what_this_answers": "the minimum-detectable-effect sweep transfers a UNIFORM shrinkage, but mu's effect is strongly non-uniform across amino acids. this imposes mu's observed per-amino-acid pattern on nu instead.",
+    "mu_pattern_s_by_aa": {
+      "A": 0.14580965259380307,
+      "C": 0.2994100065807335,
+      "D": 0.4309013720003045,
+      "E": 0.5903985909696118,
+      "F": 0.36744225120399737,
+      "G": 0.3509364978991805,
+      "H": 0.05583151951243493,
+      "I": 0.6528972503033271,
+      "K": 0.6007842877375049,
+      "L": 0.4772099650204162,
+      "N": 0.2785639141756197,
+      "P": 2.0272591550702947,
+      "Q": 0.8397790702282175,
+      "R": 1.0117894084004122,
+      "S": 0.7422413281463953,
+      "T": 0.18339153189832674,
+      "V": 0.5690215028367823,
+      "Y": 0.7695546310479352
+    },
+    "mu_pattern_s_min": 0.05583151951243493,
+    "mu_pattern_s_median": 0.5231157339285992,
+    "mu_pattern_s_max": 2.0272591550702947,
+    "n_aa_wider_than_chance": 2,
+    "n_aa": 18,
+    "nu_with_mu_pattern": {
+      "delta": 0.6306106949564085,
+      "null_mean": 0.8836956832005021,
+      "z": -2.7516575186662813,
+      "p": 0.0033996600339966003,
+      "n_perm": 10000,
+      "detected": true
+    },
+    "calibration_on_structureless_axis": {
+      "mean_z": -3.3886162692917052,
+      "sd_z": 0.6272429888547972,
+      "n": 20,
+      "mu_own_z_for_comparison": -3.5415170689187496
+    }
+  },
+  "s_at_80_percent_power": 0.2,
+  "delta_reduction_at_80_percent_power": 79.99999999999999,
   "alpha": 0.05,
   "n_perm_sweep": 2000,
   "n_perm_confirm": 10000,

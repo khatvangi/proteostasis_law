@@ -1,2 +1,13 @@
 __pycache__/
 *.pyc
+
+# derived artifacts whose renderers are irreducibly nondeterministic: Chrome and
+# pandoc each stamp a creation date into the container, so these differ on every
+# build even when their content is identical. tracking them would install a
+# standing "ignore these two" exception into rebuild-and-diff -- the one check
+# whose value is that it needs no judgment -- and a third file would eventually
+# join the list unnoticed. the build emits them from tracked inputs
+# (MANUSCRIPT.md + tables/ + figures/), which DO reproduce byte-for-byte.
+# for a frozen copy, tag the tree at submission.
+manuscript/PAPER.pdf
+manuscript/PAPER.docx

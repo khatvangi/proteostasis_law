@@ -376,3 +376,54 @@ causes, one substantive:
 Everything except `PAPER.pdf` and `PAPER.docx` now reproduces byte-for-byte
 (Chrome and pandoc stamp a creation date into the container). Verified by building
 twice and diffing md5s. Tests 94 -> 96.
+
+**Q (review round 3):** Untrack the two nondeterministic renderer outputs rather
+than documenting an exception. Then the three open items that can still move a
+claim: run the depth-residualized permutation test instead of conceding the
+detectability confound; impose mu's observed per-amino-acid pattern on nu rather
+than a uniform shrinkage; raise the 40-replicate power estimate. Also: does the
+three-z-values discrepancy carry a caption note, and is the parent repo still
+auto-committing?
+
+**A:** All three analyses run; all three moved claims.
+
+**Detectability — the concession was not earned, and is now withdrawn.**
+Regressing log mu on log sampling depth (slope -0.93, p = 6.0e-4) removes the
+18.8% of variance depth explains; on the residuals the clustering persists,
+Delta = 0.777 vs null 1.130, z = -2.97, p = 0.0026, with 80% of the
+between-amino-acid eta^2 retained (0.446 vs 0.556). Residualizing is licensed by
+the sign of the correlation, exactly as argued: negative means thin-sampling
+inflation, not error-driven detection, so depth is a nuisance regressor rather
+than a mediator. "Cannot be separated from detectability" is retracted; the
+remaining caveat is one sentence about a detectability component depth does not
+track.
+
+**nu power benchmark.** mu's per-amino-acid tightness runs 0.06 to 2.03
+(median 0.52) with 2 of 18 amino acids wider than chance -- strongly non-uniform.
+Imposing that exact pattern on nu: z = -2.75, p = 0.0034, DETECTED. Calibration
+(same pattern on a structureless axis) gives z = -3.39 +- 0.63 against mu's own
+-3.54, so the transfer is faithful and nu's coarse resolution attenuates without
+erasing. The claim strengthens from "a uniform effect of mu's magnitude would have
+been seen" to "mu's effect in the form it actually takes would have been seen".
+
+**Power at 400 replicates (parallel, Wilson intervals).** 0.51 [0.46, 0.56] at a
+60% tightening and 0.83 [0.79, 0.86] at 80%. The old wording -- "does not reach
+0.80 anywhere on our grid" -- was not merely imprecise at 40 reps, it was WRONG:
+the point estimate at the extreme grid point exceeds 0.80. Rewritten.
+
+**Three z values.** -3.56 / -3.55 / -3.54 are the same statistic at 10,000 /
+4,000 / 2,000 permutations. Now stated in Methods, with the identity that makes it
+checkable: the two analyses that use 10,000 agree to -3.5643673490070. A test
+asserts that agreement across scripts.
+
+**PAPER.pdf/docx untracked and gitignored.** Documenting an exception installs a
+standing carve-out into the one check whose value is that it needs no judgment.
+Rebuild-and-diff is now exception-free.
+
+**Auto-commit cron: still live.** `*/30 * * * * /storage/kiran-stuff/git-auto-sync.sh`,
+which runs `git add -A`, commits and pushes. It fired twice during this session;
+the 22:30 commit's entire content was the two nondeterministic renderer outputs.
+Flagged for a decision -- untracking those removes the empty-commit class but not
+the risk of publishing a half-edited state.
+
+Tests 96 -> 103.

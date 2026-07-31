@@ -297,6 +297,34 @@ class ManuscriptContainsClaim(unittest.TestCase):
                         "the mu result must survive the median sensitivity")
         self.assertStated("z = −2.59", "mu z under median summarization")
 
+    def test_the_three_z_precisions_are_explained_and_consistent(self):
+        """
+        the same mu test is reported at three permutation counts, so it appears as
+        -3.56, -3.55 and -3.54 in different places. that is Monte Carlo precision,
+        not disagreement -- but a reader cannot know that unless the paper says so,
+        and it is only true if the two analyses that DO use the same count agree.
+        this asserts both: the note, and the identity it claims.
+        """
+        headline = pd.read_csv(COMP / "axis_tests.tsv", sep="\t")
+        headline = headline[(headline.axis == "mu")
+                            & (headline.null == "within_degeneracy")].iloc[0].z
+        confirm = load_json(COMP / "nu_power_summary.json")[
+            "minimum_detectable_effect"]["mu"]["mde_z_confirmed"]
+        jack = load_json(COMP / "mu_jackknife_summary.json")["full_set"]["z"]
+        calib = load_json(COMP / "nu_power_summary.json")[
+            "nu_under_mu_observed_pattern"]["calibration_on_structureless_axis"][
+            "mu_own_z_for_comparison"]
+        # same permutation count -> the identical statistic, to floating point
+        self.assertAlmostEqual(headline, confirm, places=10,
+                               msg="two scripts compute the same 10,000-permutation "
+                                   "test and disagree; one of them is wrong")
+        # different counts -> same value to the first decimal, no further
+        for other in (jack, calib):
+            self.assertAlmostEqual(headline, other, delta=0.03)
+        self.assertIn("These are the same statistic computed at different Monte "
+                      "Carlo precision, not three results", self.flat)
+        self.assertIn("−3.5643673490070", self.text)
+
     def test_variance_decomposition(self):
         v = load_json(COMP / "mu_variance_decomposition.json")
         self.assertAlmostEqual(v["eta_squared_log_mu_between_aa"], 0.556, delta=0.002)
@@ -427,8 +455,10 @@ class NoStandaloneCaveats(unittest.TestCase):
         """
         checks = [
             (H_AXES, "established in *E. coli* alone", "single-species scope"),
-            (H_AXES, "cannot be separated from", "detectability confound"),
-            (H_AXES, "is not excluded", "the nu subset-effect concession"),
+            (H_AXES, "a component of detectability that sampling depth does not "
+                     "track", "the narrowed detectability caveat"),
+            (H_AXES, "substantially weaker than μ's, or confined to fewer amino "
+                     "acids", "the nu subset-effect concession"),
             (H_HEADROOM, "θ is not measured here", "theta is unmeasured"),
             (H_HEADROOM, "×1.9 to ×25", "headroom is a range"),
             (H_BURDEN, "no archaeal or mammalian system",
@@ -982,17 +1012,75 @@ class AxisPowerAndRobustness(unittest.TestCase):
         self.assertIn("19.6% below its", self.flat)
         self.assertIn("17.8 percentage points", self.flat)
 
-    def test_the_subset_power_limit_is_conceded(self):
-        """the floor assumes a uniform effect; the paper must say so."""
-        self.assertIsNone(self.pw["s_at_80_percent_power"],
-                          "80% power was reached; update the concession")
-        self.assertIn("uniformly across amino acids", self.flat)
-        self.assertIn("is not excluded", self.flat)
-        # the blanket claim must not be asserted anywhere
+    def test_the_subset_power_estimate_is_stated_with_its_interval(self):
+        """
+        at 40 replicates the interval on a power estimate was about +-0.14, so
+        "does not reach 0.80" covered 0.80 and claimed more than the data supported.
+        At 400 replicates the point estimate at the extreme grid point is ABOVE
+        0.80, so the old concession was not merely imprecise, it was wrong.
+        """
+        pw = {r["s"]: r for r in self.pw["power_curve"]}
+        self.assertEqual(self.pw["n_power_reps"], 400)
+        self.assertAlmostEqual(pw[0.4]["power"], 0.51, delta=0.03)
+        self.assertAlmostEqual(pw[0.2]["power"], 0.83, delta=0.03)
+        # the interval must be reported, and must be the Wilson one on 400 reps
+        for r in self.pw["power_curve"]:
+            self.assertLess(r["ci95_high"] - r["ci95_low"], 0.12,
+                            "the power interval is too wide to support a claim")
+            self.assertLessEqual(r["ci95_low"], r["power"] + 1e-9)
+            self.assertGreaterEqual(r["ci95_high"], r["power"] - 1e-9)
+        self.assertIn("power over 400 replicates is 0.51 (95% CI 0.46 to 0.56) at "
+                      "a 60% tightening and 0.83 (0.79 to 0.86) at 80%", self.flat)
+        # the superseded wording asserted something the data now contradict
+        for bad in ("does not reach 0.80 anywhere on our grid",
+                    "never attains 0.80", "power reaches 0.53"):
+            self.assertNotIn(bad, self.flat,
+                             f"the superseded power claim is back: {bad!r}")
+
+    def test_mu_pattern_transferred_to_nu_is_detected(self):
+        """
+        the reviewer's version of the benchmark: mu's effect is non-uniform, so
+        transferring a uniform shrinkage understates what a concentrated effect
+        would look like. imposing mu's own per-amino-acid pattern on nu is the
+        test, and it must be reported whichever way it comes out.
+        """
+        r = self.pw["nu_under_mu_observed_pattern"]
+        self.assertTrue(r["nu_with_mu_pattern"]["detected"],
+                        "mu's own pattern is NOT detectable on nu -- the axis "
+                        "contrast is then a resolution artifact and the claim must "
+                        "be withdrawn, not restated")
+        self.assertAlmostEqual(r["nu_with_mu_pattern"]["z"], -2.75, delta=0.05)
+        self.assertLess(r["nu_with_mu_pattern"]["p"], 0.01)
+        self.assertEqual(r["nu_with_mu_pattern"]["n_perm"], 10_000)
+        # the pattern must actually be non-uniform, or the test adds nothing
+        self.assertLess(r["mu_pattern_s_min"], 0.1)
+        self.assertGreater(r["mu_pattern_s_max"], 2.0)
+        self.assertEqual(r["n_aa"], 18)
+        for s in ("0.06 to 2.03", "median 0.52",
+                  "two of the eighteen amino acids are more spread than chance",
+                  "z = −2.75, p = 0.0034"):
+            self.assertIn(s, self.flat, f"the pattern transfer omits {s!r}")
+
+    def test_the_pattern_transfer_is_calibrated(self):
+        """
+        a transfer that produced a weak effect on ANY axis would prove nothing, so
+        the same factors on a structureless axis must recover mu's own z.
+        """
+        c = self.pw["nu_under_mu_observed_pattern"][
+            "calibration_on_structureless_axis"]
+        self.assertAlmostEqual(c["mean_z"], c["mu_own_z_for_comparison"], delta=0.5,
+                               msg="the pattern transfer does not reproduce mu's "
+                                   "own z on a structureless axis, so it is not a "
+                                   "faithful transfer of mu's effect")
+        self.assertIn("z = −3.39 ± 0.63", self.flat)
+        self.assertIn("against μ's own −3.54", self.flat)
+        # the attenuation is the honest reading: coarse nu weakens it, not erases
+        self.assertIn("from −3.39 to −2.75, without erasing it", self.flat)
+
+    def test_what_remains_unexcluded_is_stated_precisely(self):
+        self.assertIn("substantially weaker than μ's, or confined to fewer amino "
+                      "acids", self.flat)
         self.assertNotIn("no structure on the supply axis at all", self.flat.lower())
-        self.assertIn("narrower than a blanket absence", self.flat)
-        # a figure title is a claim too, and it is the one place a blanket
-        # absence can slip past prose review
         fig = (SCRIPTS / "04_fig2_axis.py").read_text()
         self.assertNotIn('"No structure on supply"', fig,
                          "Fig 2b asserts a blanket absence the paper disclaims")
@@ -1021,7 +1109,7 @@ class AxisPowerAndRobustness(unittest.TestCase):
         self.assertAlmostEqual(self.jk["mu_span_fold_without_CCC"], 286, delta=2)
         self.assertIn("286-fold", self.flat)
 
-    def test_detectability_confound_is_disclosed_with_numbers(self):
+    def test_detectability_exposure_is_reported(self):
         d = self.jk["detectability"]
         self.assertAlmostEqual(d["spearman_depth_vs_log_mu"], -0.366, delta=0.01)
         self.assertAlmostEqual(d["eta2_between_aa_sampling_depth"], 0.560,
@@ -1031,12 +1119,63 @@ class AxisPowerAndRobustness(unittest.TestCase):
                                d["eta2_between_aa_log_mu"], delta=0.02)
         self.assertIn("η² = 0.560 between amino acids for depth against 0.556",
                       self.flat)
-        self.assertIn("cannot be separated from amino-acid-level structure in "
-                      "detectability", self.flat)
         self.assertIn("1 to 16 detected substitutions (median 10)", self.flat)
         self.assertIn("Spearman ρ = −0.37, p = 0.004", self.flat)
-        # and it must be conceded in Limitations, not only in Results
-        self.assertIn("detectability", flat(section(H_AXES)))
+
+    def test_the_clustering_survives_depth_residualization(self):
+        """
+        the substantive detectability check, and the reason the paper no longer
+        says the confound cannot be separated. exposure accounting -- eta^2 for
+        depth, dropping thin codons -- cannot answer the question; regressing it
+        out and re-running can.
+        """
+        r = self.jk["detectability"]["residualized"]
+        reg, ax, vp = (r["regression"], r["residual_axis_test"],
+                       r["variance_partition_after_residualizing"])
+        self.assertTrue(ax["significant_at_0.05"],
+                        "the clustering does NOT survive residualization -- the mu "
+                        "half of this result must be demoted to a limitation, and "
+                        "this test rewritten to assert that instead")
+        self.assertAlmostEqual(ax["z"], -2.97, delta=0.05)
+        self.assertLess(ax["p"], 0.005)
+        self.assertEqual(ax["n_perm"], 10_000)
+        self.assertAlmostEqual(reg["r_squared"], 0.188, delta=0.005)
+        self.assertAlmostEqual(vp["eta2_between_aa_residual"], 0.446, delta=0.005)
+        self.assertAlmostEqual(vp["fraction_of_log_mu_eta2_retained"], 0.80,
+                               delta=0.02)
+        for s in ("slope −0.93, p = 6.0 × 10⁻⁴",
+                  "18.8% of the variance in log μ",
+                  "z = −2.97, p = 0.0026",
+                  "η² = 0.446 against 0.556"):
+            self.assertIn(s, self.flat, f"the residualized result omits {s!r}")
+        # and the retracted concession must not come back
+        for bad in ("cannot be separated from amino-acid-level structure in "
+                    "detectability",
+                    "whose biological and instrumental components these data "
+                    "cannot separate"):
+            self.assertNotIn(bad, self.flat,
+                             f"the superseded concession is back: {bad!r}")
+
+    def test_residualizing_is_justified_by_the_sign_not_assumed(self):
+        """
+        residualizing on a mediator would remove real signal. the negative slope is
+        what licenses it, so the paper has to state the reasoning, not just the
+        result.
+        """
+        reg = self.jk["detectability"]["residualized"]["regression"]
+        self.assertLess(reg["slope"], 0)
+        self.assertTrue(reg["slope_sign_defuses_mediator_objection"])
+        self.assertIn("Error-driven detection", self.flat)
+        self.assertIn("predicts a positive correlation", self.flat)
+        self.assertIn("thin-sampling inflation", self.flat)
+        self.assertIn("nuisance regressor rather than a mediator", self.flat)
+
+    def test_the_narrowed_detectability_caveat_is_still_stated(self):
+        """what residualizing does NOT rule out must stay on the page."""
+        self.assertIn("a component of detectability that sampling depth does not "
+                      "track", self.flat)
+        self.assertIn("detection probability does not vary with amino acid identity",
+                      self.flat)
 
     def test_clustering_survives_dropping_thin_codons(self):
         thin = {r["drop_below_percentile"]: r

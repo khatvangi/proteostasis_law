@@ -1,8 +1,9 @@
 # A finite proteostasis envelope for translation
 
 Active manuscript: [`manuscript/MANUSCRIPT.md`](manuscript/MANUSCRIPT.md)
-Assembled paper (tables inlined, figures embedded): `manuscript/PAPER.md`,
-`PAPER.html`, `PAPER.pdf`, `PAPER.docx` — all generated, do not edit.
+Assembled paper (tables inlined, figures embedded): `manuscript/PAPER.md` and
+`PAPER.html` (tracked), plus `PAPER.pdf` / `PAPER.docx` (generated, gitignored).
+All are build outputs — edit `MANUSCRIPT.md`, never these.
 
 This is the canonical home of the proteostasis-law project as of 2026-07-29. It
 supersedes `../combined-paper/` and `../proteostasis-paper/`.
@@ -18,8 +19,9 @@ order of magnitude inside its envelope (×25 at the usage-weighted evaluation
 point, ×1.9 to ×25 across chaperone availability θ). At that margin the
 framework's distinguishing prediction is a synthetic lethality reachable in wild
 type. Separately, measured per-codon mistranslation is organized at the
-amino-acid level, while translational supply shows no comparable structure within
-a stated power bound.
+amino-acid level and survives regressing out mass-spectrometry sampling depth,
+while translational supply shows no comparable structure — including when μ's own
+per-amino-acid pattern is imposed on ν as the benchmark.
 
 This is **not** a code-origin claim. It says nothing about why codons are
 triplets or why degeneracy exists.
@@ -30,7 +32,7 @@ One command rebuilds every number, figure, and table, assembles the paper, and
 runs the tests. Nothing needs network access; all inputs are in `data/raw/`.
 
 ```bash
-python scripts/run_all.py            # ~10 min end to end, then 89 tests
+python scripts/run_all.py            # ~12 min end to end, then 103 tests
 python scripts/run_all.py --fast     # skip the 10,000-permutation runs
 python scripts/run_all.py --no-tests # rebuild only
 ```
@@ -39,17 +41,21 @@ The pipeline fails closed twice: `01_validate_tai.py` exits non-zero if the
 supply axis is invalid, and `15_build_paper.py` exits non-zero on an unresolved
 table placeholder or a missing figure.
 
-**A rebuild is byte-reproducible, with two exceptions.** Every computed output,
-figure (PNG/PDF/SVG), table, `PAPER.md` and `PAPER.html` reproduces exactly, so
-`git status` after a verification rebuild is empty and any diff is a real change.
+**A rebuild is byte-reproducible, with no exceptions.** Every *tracked* artifact
+— computed outputs, figures (PNG/PDF/SVG), tables, `PAPER.md`, `PAPER.html` —
+reproduces exactly, so `git status` after a verification rebuild is empty and any
+diff is a real change, with no carve-out to remember.
 This took fixing two things a rebuild-and-diff pass exposed: matplotlib writes a
 build timestamp and address-derived SVG element ids (now `svg.hashsalt` plus
 `metadata={"Date": None}`), and seaborn's stripplot drew Fig 2c's jitter from the
 unseeded global RNG, so the same data gave a visibly different panel every build
-(now `figstyle.JITTER_SEED`). The exceptions are `PAPER.pdf` and `PAPER.docx`:
-Chrome and pandoc each stamp a creation date into the container, so those two
-files differ on every build even when their content is identical. Expect them in
-`git status`; ignore them.
+(now `figstyle.JITTER_SEED`). `PAPER.pdf` and `PAPER.docx` are **untracked and
+gitignored**: Chrome and pandoc each stamp a creation date into the container, so
+they differ on every build regardless of content. Tracking them would install a
+standing "ignore these two" exception into the one check whose value is that it
+needs no judgment, and a third file would eventually join the list unnoticed. The
+build emits them from tracked inputs; tag the tree at submission if you want a
+frozen copy.
 
 Individual steps, if you want them:
 
@@ -64,11 +70,11 @@ python scripts/09_supraadditivity.py                  # ~28 s   the distinguishi
 cd scripts && python 10_fig4_supraadditivity.py       # Fig 4
 python scripts/11_headroom_sensitivity.py             # ~1 s    headroom across two axes
 python scripts/12_chaperone_availability.py           # ~1 s    chaperone availability (theta)
-python scripts/13_nu_power.py                         # ~3 min  axis power / minimum detectable effect
-python scripts/14_mu_jackknife.py                     # ~1 min  mu jackknife + detectability
+python scripts/13_nu_power.py                         # ~4 min  axis power, MDE, mu-pattern transfer
+python scripts/14_mu_jackknife.py                     # ~2 min  mu jackknife + depth residualization
 python scripts/08_make_tables.py                      # ~1 s    tables
 python scripts/15_build_paper.py                      # ~5 s    assemble PAPER.md/.html/.pdf/.docx
-python -m unittest discover -s tests -v               # 89 tests
+python -m unittest discover -s tests -v               # 103 tests
 ```
 
 Requires Python 3 with numpy, pandas, scipy, seaborn, openpyxl. `PAPER.html` and
@@ -97,15 +103,15 @@ scripts/                   every number and figure is generated here
   10_fig4_supraadditivity.py  Fig 4  supraadditivity
   11_headroom_sensitivity.py  headroom vs evaluation point x chaperone anchoring
   12_chaperone_availability.py  headroom vs chaperone availability theta
-  13_nu_power.py           minimum detectable effect and power on each axis
-  14_mu_jackknife.py       leave-one-codon-out jackknife + detectability exposure
+  13_nu_power.py           MDE and power per axis; mu's own pattern imposed on nu
+  14_mu_jackknife.py       jackknife; depth-residualized test of detectability
   15_build_paper.py        inline the tables, embed the figures, render the paper
   vendor/two_pool_ode.py   upstream model, verbatim (do not edit)
   run_all.py               rebuild everything, then run the tests
   figstyle.py              shared seaborn style
 data/raw/                  staged inputs, self-contained
 data/computed/             script outputs; the manuscript's only source of numbers
-figures/                   Fig 1-4, PNG + PDF
+figures/                   Fig 1-4, PNG + PDF + SVG (svg feeds the typeset output)
 tables/                    Tables 1-5, S1-S7 as TSV, plus TABLES.md
 tests/                     asserts the manuscript against data/computed/ and tables/
 ```
@@ -205,11 +211,17 @@ that carries it, so deleting one inline does not silently pass.
   by nascent-chain folding in exponentially growing E. coli — collapses the range
   to a point. A model that represents nascent-chain folding explicitly, rather
   than absorbing it into θ, is the right next refinement.
-- **The μ axis result cannot be attributed to decoding.** Mass-spectrometry
-  sampling depth carries as much amino-acid-level structure as μ itself
-  (η² = 0.560 against 0.556). The paper says so inside the codon result itself.
-  Separating them needs per-codon rates from a method whose detection probability
-  does not vary with amino acid identity.
+- **The μ axis result survives the detectability confound, but not every version
+  of it.** Sampling depth carries as much amino-acid-level structure as μ itself
+  (η² = 0.560 against 0.556), so the confound had to be tested rather than noted.
+  Regressing log μ on log depth removes the 18.8% of variance depth explains, and
+  the clustering persists on the residuals (z = −2.97, p = 0.0026, 80% of the
+  between-amino-acid η² retained). Residualizing is licensed by the sign: the
+  depth–μ correlation is negative, which is thin-sampling inflation, not
+  error-driven detection. What is still open is a detectability component depth
+  does not track — an amino-acid-specific bias in the measured rate rather than in
+  the number of substitutions seen — which needs per-codon rates from a method
+  whose detection probability does not vary with amino acid identity.
 - ν is validated for E. coli only. No validated B. subtilis or S. cerevisiae
   supply vector exists; see `../codon-deployment/data/computed/README_TAI_IS_CORRUPT.md`.
 

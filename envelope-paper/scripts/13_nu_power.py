@@ -33,6 +33,8 @@ what this script reports
 """
 import importlib.util
 import json
+import os
+from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
 import numpy as np
@@ -48,7 +50,11 @@ _spec.loader.exec_module(axis_mod)
 
 N_PERM_SWEEP = 2000      # for the sweeps; the chosen point is confirmed at 10,000
 N_PERM_CONFIRM = 10_000
-N_POWER_REPS = 40
+# 40 replicates put a 95% interval of roughly +-0.14 on a power estimate, wide
+# enough that "does not reach 0.80" covered 0.80. 400 replicates halve that twice
+# over; the reps are independent, so they run on the 64 cores available
+N_POWER_REPS = 400
+N_PERM_POWER = 800
 ALPHA = 0.05
 SEED = 42
 
@@ -119,15 +125,75 @@ def minimum_detectable(df, col, label):
     return sweep, obs_delta, mde, obs_pct_below_null
 
 
+def _power_rep(args):
+    """
+    one power replicate. seeded from (SEED, s, r) rather than from a shared
+    generator advanced in a loop, so the result does not depend on execution order
+    and the replicates can run in parallel.
+    """
+    df, col, s, r = args
+    rng = np.random.default_rng([SEED, int(s * 1000), r])
+    coord = shrink(df, col, s, rng=rng, subset_prob=0.5)
+    _, _, p, _, _ = test_once(df, coord, N_PERM_POWER, SEED + 1 + r)
+    return int(p < ALPHA)
+
+
+def wilson(k, n, z=1.96):
+    """95% CI on a proportion. at 40 reps the interval was +-0.14; report it."""
+    if n == 0:
+        return (0.0, 1.0)
+    p = k / n
+    d = 1 + z * z / n
+    centre = (p + z * z / (2 * n)) / d
+    half = z * np.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d
+    return (max(0.0, centre - half), min(1.0, centre + half))
+
+
 def power_at(df, col, s, reps=N_POWER_REPS):
     """rejection rate when the shrinkage hits a random half of the amino acids."""
-    rng = np.random.default_rng(SEED)
-    n_rej = 0
-    for r in range(reps):
-        coord = shrink(df, col, s, rng=rng, subset_prob=0.5)
-        _, _, p, _, _ = test_once(df, coord, 800, SEED + 1 + r)
-        n_rej += int(p < ALPHA)
-    return n_rej / reps
+    with ProcessPoolExecutor(max_workers=min(32, (os.cpu_count() or 4) - 2)) as ex:
+        hits = list(ex.map(_power_rep,
+                           [(df, col, s, r) for r in range(reps)],
+                           chunksize=4))
+    k = int(sum(hits))
+    lo, hi = wilson(k, reps)
+    return k / reps, lo, hi, reps
+
+
+def mu_shrinkage_pattern(df, col="mu_z"):
+    """
+    mu's observed per-amino-acid tightness, as a shrinkage factor per amino acid.
+
+    for amino acid A, s_A is the observed root-mean-square within-A deviation
+    divided by the deviation expected if values were assigned at random,
+    sd * sqrt(1 - 1/n_A). so s_A = 1 means A's synonyms are exactly as spread as
+    chance predicts, and s_A < 1 means they are tighter. this is the quantity a
+    uniform shrinkage sweep averages away: mu's structure is strongly non-uniform
+    across amino acids, and transferring the average understates what a
+    concentrated effect would look like on nu.
+    """
+    v = df[col].to_numpy(float)
+    sd = v.std(ddof=0)
+    out = {}
+    for aa, idx in df.groupby("aa").indices.items():
+        x = v[idx]
+        n = len(x)
+        if n < 2:
+            continue
+        obs = np.sqrt(((x - x.mean()) ** 2).mean())
+        expected = sd * np.sqrt(1 - 1 / n)
+        out[aa] = float(obs / expected) if expected > 0 else 1.0
+    return out
+
+
+def apply_pattern(df, col, pattern):
+    """shrink (or expand) each amino acid's deviations by its own factor."""
+    out = df[col].to_numpy(float).copy()
+    for aa, idx in df.groupby("aa").indices.items():
+        s = pattern.get(aa, 1.0)
+        m = out[idx].mean()
+        out[idx] = m + s * (out[idx] - m)
+    return out
 
 
 def main():
@@ -204,13 +270,16 @@ def main():
     print("=" * 74)
     pw = []
     for s in (0.8, 0.6, 0.4, 0.2):
-        power = power_at(df, "nu_tai", s)
+        power, lo, hi, reps = power_at(df, "nu_tai", s)
         coord = shrink(df, "nu_tai", s)
         d, _, _, _, _ = test_once(df, coord, 200, SEED)
         red = 100.0 * (out["nu"]["observed_delta"] - d) / out["nu"]["observed_delta"]
-        pw.append({"s": s, "delta_reduction_pct_if_all_aa": red, "power": power})
+        pw.append({"s": s, "delta_reduction_pct_if_all_aa": red, "power": power,
+                   "ci95_low": lo, "ci95_high": hi, "n_reps": reps,
+                   "ci_excludes_0.80": bool(hi < 0.80 or lo > 0.80)})
         print(f"  s = {s:.1f}  (~{red:4.1f}% reduction in Delta)   "
-              f"power = {power:.2f}")
+              f"power = {power:.3f}  95% CI [{lo:.3f}, {hi:.3f}]"
+              f"{'' if (hi < 0.80 or lo > 0.80) else '   <-- interval covers 0.80'}")
     pwdf = pd.DataFrame(pw)
     pwdf.to_csv(COMP / "nu_power_curve.tsv", sep="\t", index=False)
     at80 = pwdf[pwdf.power >= 0.8]
@@ -222,11 +291,79 @@ def main():
               f"~{red80:.0f}% reduction in Delta")
     else:
         print("\n  80% power not reached anywhere on the grid")
+    covered = [r for r in pw if not r["ci95_excludes_0.80"]] if False else [
+        r for r in pw if not r["ci_excludes_0.80"]]
+    if covered:
+        print(f"  NOTE: {len(covered)} grid point(s) have an interval covering "
+              "0.80; the wording must not claim more than that")
+    else:
+        print("  every grid point's 95% interval excludes 0.80, so the claim is "
+              "exact at this grid")
+
+    # ---- 4. mu's own non-uniform pattern, transferred to nu ----
+    print("\n" + "=" * 74)
+    print("4. mu's observed per-amino-acid pattern imposed on nu")
+    print("=" * 74)
+    pattern = mu_shrinkage_pattern(df, "mu_z")
+    s_vals = np.array(sorted(pattern.values()))
+    print(f"  mu's per-amino-acid tightness s_A: min {s_vals.min():.2f}, "
+          f"median {np.median(s_vals):.2f}, max {s_vals.max():.2f}; "
+          f"{int((s_vals > 1).sum())}/{len(s_vals)} amino acids above 1 "
+          "(spread wider than chance)")
+
+    nu_patterned = apply_pattern(df, "nu_z", pattern)
+    d_np, z_np, p_np, nm_np, _ = test_once(df, nu_patterned, N_PERM_CONFIRM, SEED)
+    print(f"  nu with mu's pattern: Delta = {d_np:.4f} vs null {nm_np:.4f}, "
+          f"z = {z_np:+.2f}, p = {p_np:.4f}  ->  "
+          f"{'DETECTED' if p_np < ALPHA else 'NOT detected'}")
+
+    # calibration: the same transfer onto a structureless axis must reproduce
+    # something close to mu's own z, or the transfer is not faithful
+    rng_cal = np.random.default_rng(SEED)
+    cal = []
+    for k in range(20):
+        shuffled = df.mu_z.to_numpy(float)[rng_cal.permutation(len(df))]
+        d2 = df.copy(); d2["_sh"] = shuffled
+        _, z_cal, _, _, _ = test_once(d2, apply_pattern(d2, "_sh", pattern),
+                                      N_PERM_SWEEP, SEED + k)
+        cal.append(z_cal)
+    _, z_mu_own, _, _, _ = test_once(df, df.mu_z.to_numpy(float),
+                                     N_PERM_SWEEP, SEED)
+    print(f"  calibration -- same pattern on a structureless axis: "
+          f"z = {np.mean(cal):+.2f} +- {np.std(cal):.2f} "
+          f"(mu's own z is {z_mu_own:+.2f}); the transfer is faithful if these "
+          "are comparable")
+
+    nu_pattern_result = {
+        "what_this_answers": "the minimum-detectable-effect sweep transfers a "
+                             "UNIFORM shrinkage, but mu's effect is strongly "
+                             "non-uniform across amino acids. this imposes mu's "
+                             "observed per-amino-acid pattern on nu instead.",
+        "mu_pattern_s_by_aa": pattern,
+        "mu_pattern_s_min": float(s_vals.min()),
+        "mu_pattern_s_median": float(np.median(s_vals)),
+        "mu_pattern_s_max": float(s_vals.max()),
+        "n_aa_wider_than_chance": int((s_vals > 1).sum()),
+        "n_aa": int(len(s_vals)),
+        "nu_with_mu_pattern": {"delta": float(d_np), "null_mean": float(nm_np),
+                               "z": float(z_np), "p": float(p_np),
+                               "n_perm": N_PERM_CONFIRM,
+                               "detected": bool(p_np < ALPHA)},
+        "calibration_on_structureless_axis": {"mean_z": float(np.mean(cal)),
+                                              "sd_z": float(np.std(cal)),
+                                              "n": len(cal),
+                                              "mu_own_z_for_comparison":
+                                                  float(z_mu_own)},
+    }
 
     summary = {
         "tie_structure": ties,
         "minimum_detectable_effect": out,
         "power_curve": pw,
+        "n_power_reps": N_POWER_REPS,
+        "n_perm_per_power_rep": N_PERM_POWER,
+        "power_ci_method": "Wilson 95%",
+        "nu_under_mu_observed_pattern": nu_pattern_result,
         "s_at_80_percent_power": s80,
         "delta_reduction_at_80_percent_power": red80,
         "alpha": ALPHA,

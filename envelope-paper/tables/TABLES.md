@@ -273,7 +273,7 @@ At the operating point the folding arm is 97.4% saturated (37.6 µM free chapero
 
 ## Table S6. What the axis tests could have detected
 
-Within-amino-acid deviations are shrunk by a factor `s` (s = 1 the observed code, s = 0 all synonyms identical) and the permutation test re-run. `pct_below_null` makes the two axes comparable. The ν axis rejects only once spread is tightened by 35% (19.6% below null); μ's own clustering sits 37.4% below its null, so an effect of μ's size would have been seen on ν. See also `nu_power_curve.tsv` for the subset-model power curve.
+Within-amino-acid deviations are shrunk by a factor `s` (s = 1 the observed code, s = 0 all synonyms identical) and the permutation test re-run. `pct_below_null` makes the two axes comparable. The ν axis rejects only once spread is tightened by 35% (19.6% below null); μ's own clustering sits 37.4% below its null, so an effect of μ's size would have been seen on ν. A uniform shrinkage is the weaker benchmark, though: imposing μ's OWN per-amino-acid pattern on ν (s_A from 0.06 to 2.03, median 0.52) gives z = -2.75, p = 0.0034 — detected. See also `nu_power_curve.tsv` for the subset-model power curve, 400 replicates per point with Wilson intervals.
 
 | Axis | s | Δ | Null mean | z | p | Rejects | Δ reduction | % below null |
 |---|---|---|---|---|---|---|---|---|
@@ -302,7 +302,7 @@ Within-amino-acid deviations are shrunk by a factor `s` (s = 1 the observed code
 
 ## Table S7. Leave-one-codon-out jackknife on the μ axis
 
-Each row drops one codon and re-runs the within-degeneracy permutation test (each subset restandardized). The clustering survives all 59 single deletions, including CCC — the 2.0 × 10⁻² maximum that sets the 613-fold span on its own, without which the span falls to 286-fold. Ordered from strongest to weakest z.
+Each row drops one codon and re-runs the within-degeneracy permutation test (each subset restandardized). The clustering survives all 59 single deletions, including CCC — the 2.0 × 10⁻² maximum that sets the 613-fold span on its own, without which the span falls to 286-fold. Ordered from strongest to weakest z. Detectability is handled separately and substantively: regressing log μ on log sampling depth (slope -0.93, R² = 0.188) and re-running the whole test on the residuals gives z = -2.97, p = 0.0026, retaining 80% of the between-amino-acid variance. Full detail in `data/computed/mu_jackknife_summary.json`.
 
 | Codon dropped | AA | its μ | z | p | n codons |
 |---|---|---|---|---|---|
