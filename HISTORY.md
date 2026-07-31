@@ -323,3 +323,40 @@ concession, stating the headroom as a point in the abstract, and reverting a
 caption to a typed value all fail. One escape found and closed (a bracket-style
 citation slipping past the new parenthetical parser). Verified by deleting every
 generated artifact and rebuilding all 16 steps.
+
+**Q (same day, on review):** The reference argument was backwards — an uncited
+reference is repointed or deleted, never propped up by restoring the text it sat
+in. Cut both restored sections. Check first whether Limitations duplicates the
+inline treatments. Put the excluded-analyses disclosure in the repository README,
+not the paper. And confirm the Chrome-printed PDF is print resolution and that no
+metal-site table came back.
+
+**A:** Audited the restored Limitations section item by item: seven of its nine
+items duplicated an inline treatment word for word (detectability in the codon
+result, theta and the headroom range in the margin result, the nu power narrowing
+in the supply paragraph, the unfitted ODE in Theory, the order-of-magnitude bound
+in the bounds result, the untested prediction in two places). Two carried
+something the inline text did not — the single-species scope of the codon result
+and the absence of archaeal/mammalian evidence — and those moved to the claims
+they bound. Then deleted the section. Deleted the excluded-analyses section too
+and rewrote the disclosure as *Archived analyses* in `envelope-paper/README.md`,
+where a reader who finds `scripts/07_removed_results.py` will be, with the
+recomputed ORs, the ~60% concordance and the 44-of-60 tAI identity.
+
+Refs 25 and 26 repointed to the folding-burden paragraph beside Walsh and Buhr,
+carrying the claim that B_fold is a burden component output does not predict —
+a stronger placement than the generic tAI caveat they had before.
+
+Build checks. No collision: the excluded work has no numbered table, only
+`Excluded_*.tsv`. Chrome had embedded the full 300 dpi rasters (2132x783 for a
+7.09 in panel, ~285 dpi at printed width), so resolution was adequate — but
+figstyle now also writes SVG and 15_build_paper.py substitutes it for the typeset
+output, so the figures are vector. One 26x536 raster remains, the Fig 4 colorbar
+ramp, which carries no text. PDF 1.1 MB -> 0.61 MB, 16 pp.
+
+Tests 89 -> 94. The Limitations-scoped assertions were retargeted to the sections
+that now carry each claim rather than deleted, plus NoStandaloneCaveats (neither
+section may return, no trace of the withdrawn work in the paper) and a test that
+every inline caveat survived the deletion — so removing a caveat inline cannot
+pass just because the section that duplicated it is gone. Seven mutations
+confirmed failing, including moving 25/26 back to a Methods caveat.

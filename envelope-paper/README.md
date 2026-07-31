@@ -136,20 +136,42 @@ Table captions interpolate their numbers from `data/computed/` for the same
 reason — two captions went stale for a full commit after the manuscript had
 corrected them.
 
-## What was excluded, and why
+## Archived analyses: what `scripts/07_removed_results.py` is
 
-Two empirical results from the earlier combined draft are **excluded**, with the
-corrected analyses reported in the Discussion under *Two analyses excluded during
-verification* and reproduced by `scripts/07_removed_results.py`:
+**Read this if you came to the code and found analyses the manuscript does not
+discuss.** Two empirical results from the earlier combined draft failed
+verification and were removed from the paper. The scripts and tables stay here
+because the negatives are informative and because deleting them would hide a
+correction, but they are **not results of this paper** and nothing in the
+manuscript rests on them. The paper does not mention them: a reviewer should not
+have to read about analyses that were withdrawn before submission.
 
-| Excluded result | Why |
+| Archived analysis | Recomputed verdict |
 |---|---|
-| Metal-binding-site codon enrichment (OR 1.28–1.40, p < 0.03) | Gene-level expression confound. Against non-metal positions of the *same* genes, 0 of 4 tests remain significant and His falls from OR 1.33 to 1.07. Separately, ~40% of annotated sites are mispositioned in sequence space. |
-| Cross-species conservation of operational geometry (ρ = 0.63–0.92) | Two artifacts. Δ_A used E. coli μ for all three species (reproduced exactly), and 44 of 60 E. coli tAI values were bit-identical to the yeast ones. |
+| **Metal-binding-site codon enrichment.** Claimed all four two-codon liganding amino acids prefer the higher-supply synonym (OR 1.28–1.40, all p < 0.03). | Gene-level expression confound. Metalloproteins are enriched for abundant enzymes and abundant genes have stronger codon bias, so a genome-wide background confounds site-level selection with expression. Against non-metal positions of the *same* genes: Asp OR 1.19 (p = 0.17), Cys 1.22 (0.14), Glu 1.26 (0.14), His — the strongest published effect — 1.07 (0.62). 0 of 4 survive. A separate study extending the test to nine other definitions of structural criticality found all nine null. The annotation is also unreliable: only ~60% of annotated metal-binding residues sit at a position whose codon encodes the annotated amino acid, so roughly 40% are mispositioned in sequence space. |
+| **Cross-species conservation of operational geometry.** Claimed per-amino-acid Δ_A is conserved across E. coli, B. subtilis, and S. cerevisiae (ρ = 0.63–0.92). | Two artifacts. Δ_A was computed in combined (μ, ν) space using **E. coli μ for all three species**, so the correlated vectors shared an identical coordinate by construction — reproduced exactly, to 8.9e-16. And the supposedly species-specific supply vectors were not independent: 44 of 60 E. coli tAI values are bit-identical to the yeast values. Recomputing on the supply axis alone with independently derived weights gives ρ = 0.46–0.73, one of three comparisons non-significant, in a different rank order. Testing the claim needs genuinely species-specific tRNA gene counts. |
 
-Their tables are `tables/Excluded_metal_site_backgrounds.tsv` and
-`tables/Excluded_crossspecies.tsv` — named so they cannot be mistaken for
-numbered tables of the paper.
+Both failures were denominator failures rather than measurement failures: in the
+metal-site case the site data and the test statistic were identical in the
+surviving and the collapsing version, and only the comparison set differed.
+
+Reproduce with `python scripts/07_removed_results.py`. Outputs:
+`tables/Excluded_metal_site_backgrounds.tsv`,
+`tables/Excluded_crossspecies.tsv` — named `Excluded_*` rather than `Table*` so
+they cannot be mistaken for tables of the paper, and asserted by the test suite
+to stay that way.
+
+## Where the caveats live
+
+The paper has **no Limitations section, by design.** Every caveat is stated at the
+claim it bounds: mass-spectrometry detectability inside the codon result, θ inside
+the margin result, the ν power narrowing inside the supply paragraph, the
+shared-parameter concession inside the bounds result, the single-species scope
+where the coordinates are defined, and the absence of archaeal and mammalian
+evidence where capacity is established. A standalone section on top of that would
+state each concession twice and hand a reviewer two slightly different phrasings
+of the same admission to compare. A test asserts each caveat against the section
+that carries it, so deleting one inline does not silently pass.
 
 ## Known gaps before submission
 
@@ -173,7 +195,7 @@ numbered tables of the paper.
   than absorbing it into θ, is the right next refinement.
 - **The μ axis result cannot be attributed to decoding.** Mass-spectrometry
   sampling depth carries as much amino-acid-level structure as μ itself
-  (η² = 0.560 against 0.556). The paper says so in Results and Limitations.
+  (η² = 0.560 against 0.556). The paper says so inside the codon result itself.
   Separating them needs per-codon rates from a method whose detection probability
   does not vary with amino acid identity.
 - ν is validated for E. coli only. No validated B. subtilis or S. cerevisiae

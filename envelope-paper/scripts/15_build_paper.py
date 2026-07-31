@@ -146,12 +146,25 @@ def main():
     print(f"wrote {md.relative_to(ROOT)}  "
           f"({len(paper.splitlines())} lines, {n_tab} table rows)")
 
+    # vector figures for the html, and therefore for the pdf Chrome prints from
+    # it. the markdown keeps the png so it renders anywhere; only the typeset
+    # output swaps in the svg. without this the pdf carries 300 dpi rasters --
+    # print-adequate, but there is no reason to raster a line plot at all
+    for_html = re.sub(r"\(\.\./figures/([^)]+)\.png\)",
+                      lambda m: (f"(../figures/{m.group(1)}.svg)"
+                                 if (FIGS / f"{m.group(1)}.svg").exists()
+                                 else m.group(0)), paper)
+    html_src = MSDIR / ".paper_vector.md"
+    html_src.write_text(for_html)
+    n_vec, n_fig = for_html.count(".svg)"), paper.count("![](")
+    print(f"  {n_vec} of {n_fig} figures vectorized for the typeset output")
+
     css = MSDIR / ".paper.css"
     css.write_text(CSS)
     html = MSDIR / "PAPER.html"
     # pagetitle, not title: `title` metadata makes pandoc emit a title block on
     # top of the markdown's own H1, so the paper's title appears twice
-    ok_html = run(["pandoc", str(md), "-o", str(html), "--standalone",
+    ok_html = run(["pandoc", str(html_src), "-o", str(html), "--standalone",
                    "--embed-resources", "--css", str(css),
                    "--metadata",
                    "pagetitle=A finite proteostasis envelope for translation",
@@ -176,6 +189,7 @@ def main():
             print(f"wrote {pdf.relative_to(ROOT)}  "
                   f"({pdf.stat().st_size / 1e6:.1f} MB)")
     css.unlink(missing_ok=True)
+    html_src.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

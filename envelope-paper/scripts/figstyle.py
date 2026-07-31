@@ -42,7 +42,11 @@ def panel_label(ax, letter, dx=-0.16, dy=1.06):
 
 
 def save(fig, path_noext):
-    for ext in ("png", "pdf"):
+    # svg as well as png/pdf: 15_build_paper.py substitutes the svg when it builds
+    # the html, so headless Chrome prints the figures as vector rather than
+    # re-rastering a 300 dpi png. the markdown keeps the png, which every reader
+    # and forge renders
+    for ext in ("png", "pdf", "svg"):
         fig.savefig(f"{path_noext}.{ext}")
     plt.close(fig)
-    print(f"  wrote {path_noext}.png / .pdf")
+    print(f"  wrote {path_noext}.png / .pdf / .svg")

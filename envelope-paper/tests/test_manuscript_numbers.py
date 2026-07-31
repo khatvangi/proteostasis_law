@@ -49,8 +49,10 @@ H_SUPRA = ("### Burden and capacity perturbations interact supraadditively "
            "where *E. coli* sits")
 H_AXES = ("### The measured error axis is organized at the amino-acid level; "
           "the supply axis is not")
-H_EXCLUDED = "### Two analyses excluded during verification"
-H_LIMITS = "### Limitations"
+# there is deliberately no "### Limitations" and no excluded-analyses section:
+# every caveat is stated at the claim it bounds, and the withdrawn analyses are
+# documented in README.md where a reader of the code will be. NoStandaloneCaveats
+# asserts both stay absent.
 H_PREDICTIONS = "### Predictions"
 
 
@@ -323,19 +325,21 @@ class ManuscriptContainsClaim(unittest.TestCase):
             "the manuscript must state that Fig 1 parameters are not fitted")
 
 
-class ExcludedAnalysesAreDocumented(unittest.TestCase):
+class ArchivedAnalysesAreDocumentedInTheRepository(unittest.TestCase):
     """
-    the two dropped analyses must stay reported, with reproducible numbers. the
-    v2 restructuring removed this section; it is restored because a reader of the
-    repository can see scripts/07 and the Excluded_* tables and is entitled to
-    know why they are not results.
+    the two withdrawn analyses are documented in README.md, not in the paper.
+
+    the asymmetry that has to be closed is a reader who fetches the code and finds
+    scripts/07_removed_results.py computing results the manuscript never mentions.
+    the fix belongs where that reader is -- the repository -- not in a section a
+    reviewer reads. so these assertions target README.md, and the last one keeps
+    the section from creeping back into the manuscript.
     """
 
     def setUp(self):
-        self.text = manuscript()
-        self.sec = flat(section(H_EXCLUDED))
+        self.readme = " ".join((ROOT / "README.md").read_text().split())
 
-    def test_metal_site_collapses_under_within_gene_background(self):
+    def test_metal_site_collapse_is_documented_with_recomputed_numbers(self):
         df = pd.read_csv(COMP / "removed_metal_site_test.tsv", sep="\t")
         self.assertEqual(len(df), 4)
         # every genome-wide test significant, no within-gene test significant
@@ -346,18 +350,19 @@ class ExcludedAnalysesAreDocumented(unittest.TestCase):
         his = df[df.amino_acid == "H"].iloc[0]
         self.assertLess(his.within_gene_or, 1.15)
         self.assertGreater(his.within_gene_p, 0.5)
-        for s in ("OR 1.19, p = 0.17", "OR 1.22, p = 0.14",
-                  "OR 1.26, p = 0.14", "OR 1.07, p = 0.62"):
-            self.assertIn(s, self.sec, f"within-gene result {s!r} not stated")
+        for s in ("Asp OR 1.19 (p = 0.17)", "Cys 1.22 (0.14)",
+                  "Glu 1.26 (0.14)", "1.07 (0.62)"):
+            self.assertIn(s, self.readme,
+                          f"README does not carry the recomputed value {s!r}")
 
-    def test_site_position_concordance_is_reported(self):
+    def test_site_position_concordance_is_documented(self):
         d = load_json(COMP / "removed_metal_site_diagnostics.json")
         self.assertAlmostEqual(d["position_concordance_frac"], 0.599, delta=0.01)
         # the codon lookup itself is fine; the position mapping is the bug
         self.assertGreater(d["annotation_codon_matches_cds_codon_frac"], 0.95)
-        self.assertIn("~60%", self.sec)
+        self.assertIn("~60%", self.readme)
 
-    def test_crossspecies_artifacts_are_reported(self):
+    def test_crossspecies_artifacts_are_documented(self):
         s = load_json(COMP / "removed_crossspecies_test.json")
         shared = s["published_delta_A_reproduced_using_ecoli_mu_for_all_species"]
         self.assertTrue(shared["exact"],
@@ -365,14 +370,77 @@ class ExcludedAnalysesAreDocumented(unittest.TestCase):
         ind = s["tai_vector_independence"]
         self.assertEqual(ind["ecoli_vs_scerevisiae_bit_identical"], 44)
         self.assertEqual(ind["n_compared"], 60)
-        self.assertIn("44 of the 60", self.sec)
-        self.assertIn("E. coli μ for all three species", self.sec)
+        self.assertIn("44 of 60 E. coli tAI values are bit-identical", self.readme)
+        self.assertIn("E. coli \u03bc for all three species", self.readme)
 
-    def test_they_are_not_presented_as_results_of_this_paper(self):
-        self.assertIn("failed verification and are excluded", self.sec)
-        # and they must not be cited as numbered tables of the paper
-        self.assertNotIn("Table 4)", self.sec)
-        self.assertNotIn("Table S4)", self.sec)
+    def test_the_reader_of_the_code_is_pointed_at_the_explanation(self):
+        """the disclosure is useless if it does not name what triggered the search."""
+        self.assertIn("scripts/07_removed_results.py", self.readme)
+        self.assertIn("Excluded_metal_site_backgrounds.tsv", self.readme)
+        self.assertIn("Excluded_crossspecies.tsv", self.readme)
+        self.assertIn("not results of this paper", self.readme)
+
+
+class NoStandaloneCaveats(unittest.TestCase):
+    """
+    two sections were restored into the v2 manuscript and then removed again on
+    review. they must not come back.
+
+    a Limitations section duplicates the inline treatments, which states every
+    concession twice and gives a reviewer two phrasings of the same admission to
+    compare. an excluded-analyses section puts withdrawn work in front of a
+    reviewer who has no reason to read it. the caveats themselves are asserted
+    elsewhere in this suite, each against the section that carries it -- so this
+    class only checks that no standalone section exists.
+    """
+
+    def setUp(self):
+        self.text = manuscript()
+
+    def test_no_standalone_limitations_section(self):
+        for bad in ("### Limitations", "## Limitations"):
+            self.assertNotIn(bad, self.text,
+                             "a standalone Limitations section is back; caveats "
+                             "belong at the claim each one bounds")
+
+    def test_no_excluded_analyses_section(self):
+        for bad in ("Two analyses excluded during verification",
+                    "Two results removed from this paper"):
+            self.assertNotIn(bad, self.text,
+                             f"{bad!r} is back in the manuscript; the withdrawn "
+                             "analyses are documented in README.md")
+
+    def test_the_withdrawn_work_is_not_discussed_at_all(self):
+        """no trace in the paper -- not the numbers, not the framing."""
+        flat_ms = flat()
+        for bad in ("metal-binding-site", "metal site", "cross-species conservation",
+                    "OR 1.07", "44 of the 60", "denominator failures"):
+            self.assertNotIn(bad, flat_ms,
+                             f"the withdrawn analyses leak into the paper via "
+                             f"{bad!r}")
+
+    def test_the_caveats_survived_the_deletion(self):
+        """
+        the point of deleting the section was that the inline text already carried
+        every caveat. if an inline caveat is missing, the deletion lost content
+        rather than removing duplication.
+        """
+        checks = [
+            (H_AXES, "established in *E. coli* alone", "single-species scope"),
+            (H_AXES, "cannot be separated from", "detectability confound"),
+            (H_AXES, "is not excluded", "the nu subset-effect concession"),
+            (H_HEADROOM, "θ is not measured here", "theta is unmeasured"),
+            (H_HEADROOM, "×1.9 to ×25", "headroom is a range"),
+            (H_BURDEN, "no archaeal or mammalian system",
+             "the evidence base's taxonomic limit"),
+            (H_BOUNDS, "imposed by construction",
+             "the shared-parameter concession"),
+            (H_SUPRA, "cannot validate the framework", "model-only caveat"),
+        ]
+        for heading, needle, why in checks:
+            self.assertIn(needle, flat(section(heading)),
+                          f"inline caveat lost: {why} is no longer stated in "
+                          f"{heading!r}")
 
 
 class TaiAxisIsValidated(unittest.TestCase):
@@ -409,9 +477,14 @@ class TaiAxisIsValidated(unittest.TestCase):
                         "this file is supposed to be the corrupt one")
 
     def test_the_supply_proxy_is_labelled_a_proxy(self):
-        """tAI is gene copy number, not a measured elongation rate."""
-        self.assertIn("supply proxy derived from tRNA gene copy number",
-                      flat(section(H_LIMITS)))
+        """
+        tAI is gene copy number, not a measured elongation rate. the caveat belongs
+        where the coordinate is defined, not in a section of its own.
+        """
+        meth = flat(section("### Codon operational coordinates"))
+        self.assertIn("gene-copy-number proxy for supply", meth)
+        self.assertIn("not a measured elongation rate or ribosome transit time",
+                      meth)
 
 
 class CitationIntegrity(unittest.TestCase):
@@ -477,6 +550,25 @@ class CitationIntegrity(unittest.TestCase):
                    if re.match(r"^\d+\.\s", line.strip())
                    and not re.search(r"PMID|PMC|doi", line, re.I)]
         self.assertEqual(missing, [], f"references without PMID/PMC/DOI: {missing}")
+
+    def test_elongation_timing_citations_sit_at_the_claim_they_support(self):
+        """
+        25 (Zhang) and 26 (Pechmann) were briefly propped up by a Limitations
+        section that happened to cite them as generic tAI caveats. They belong in
+        the folding-burden paragraph, where they carry the claim that B_fold is a
+        burden component protein output does not predict. A citation supports one
+        specific factual claim; being merely present in the document is not that.
+        """
+        sec = flat(section(H_BURDEN))
+        self.assertIn("transient ribosomal attenuation coordinates synthesis with "
+                      "cotranslational folding (25)", sec)
+        self.assertIn("codon-optimality signatures for cotranslational folding are "
+                      "conserved across yeasts (26)", sec)
+        self.assertIn("`B_fold` is therefore a burden component", sec)
+        # and they must not drift back to a generic supply-proxy caveat
+        self.assertNotIn("(25, 26)",
+                         flat(section("### Codon operational coordinates")),
+                         "25/26 are back as a generic tAI caveat in Methods")
 
     def test_no_unresolved_placeholders(self):
         for bad in ("VERIFY", "in prep", "preprint, 2025", "[repository URL]"):
@@ -709,11 +801,14 @@ class Supraadditivity(unittest.TestCase):
         # it must be named as a limitation, not just a methods note -- but as the
         # STRUCTURAL omission it is, not as the parameter criticism an earlier
         # pass wrongly made (see ChaperoneAvailability)
-        lim = flat(section(H_LIMITS))
-        self.assertIn("omits the nascent-chain folding load", lim,
-                      "the saturation problem must appear in Limitations, framed "
-                      "as the structural omission it is")
-        self.assertIn("parameters are not at fault", lim)
+        # the caveat must sit in the section that makes the claim, framed as the
+        # STRUCTURAL omission it is -- not as the parameter criticism an earlier
+        # pass wrongly made (see ChaperoneAvailability)
+        sec = flat(section(H_HEADROOM))
+        self.assertIn("does not represent the ordinary nascent-chain folding load",
+                      sec, "the saturation problem must be disclosed where the "
+                           "margin is claimed, as a structural omission")
+        self.assertIn("That is not a mis-set parameter", sec)
 
     def test_the_two_knobs_are_distinguished_with_their_computed_costs(self):
         k = pd.read_csv(COMP / "supraadditivity_knob_comparison.tsv", sep="\t")
@@ -785,7 +880,8 @@ class ChaperoneAvailability(unittest.TestCase):
     def test_theta_is_labelled_unmeasured(self):
         self.assertIn("NOT measured", self.s["parameter_provenance"]["theta"])
         self.assertIn("θ is not measured here", self.flat)
-        self.assertIn("θ is unmeasured", flat(section(H_LIMITS)))
+        sec = flat(section(H_HEADROOM))
+        self.assertIn("θ is not measured here and nothing below estimates it", sec)
 
     def test_theta_thresholds(self):
         self.assertAlmostEqual(self.s["theta_at_which_arm_unsaturates"], 0.98,
@@ -809,7 +905,8 @@ class ChaperoneAvailability(unittest.TestCase):
         self.assertAlmostEqual(hi, 25.3, delta=0.2)
         self.assertIn("×1.9 to ×25", self.flat)
         # Limitations must carry the range, not a point
-        self.assertIn("×1.9–×25", flat(section(H_LIMITS)))
+        self.assertIn("×1.9 to ×25", flat(section(H_HEADROOM)),
+                      "the section claiming the margin must carry the range")
 
     def test_the_pinning_measurement_is_named(self):
         self.assertIn("occupancy", self.s["what_would_pin_this_down"])
@@ -908,7 +1005,7 @@ class AxisPowerAndRobustness(unittest.TestCase):
         self.assertIn("1 to 16 detected substitutions (median 10)", self.flat)
         self.assertIn("Spearman ρ = −0.37, p = 0.004", self.flat)
         # and it must be conceded in Limitations, not only in Results
-        self.assertIn("detectability", flat(section(H_LIMITS)))
+        self.assertIn("detectability", flat(section(H_AXES)))
 
     def test_clustering_survives_dropping_thin_codons(self):
         thin = {r["drop_below_percentile"]: r
