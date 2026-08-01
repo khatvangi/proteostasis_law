@@ -1,0 +1,34 @@
+{
+  "_note": "identity of the phase 1 experiment D checkpointed recovery run that EXPERIMENT_D_FINAL.md reports. the source hashes pin tracked files and are asserted on every test run. the artifact hashes pin gitignored results and are asserted only when that run root is present on disk, so a clean checkout skips rather than fails.",
+  "run_root": "results/phase1/D_checkpointed_20260731T223225-0500",
+  "config_path": "configs/phase1/experiment_d.json",
+  "config_hash": "18280a039eea9d1cac54a18f09e865b56da69feadd510b80ef15cb0555ab29a5",
+  "sample_matrix_hash": "73b6a58d07462256e08c0e77cdd30fe5e59f450792ffac2ca4d96362fd1b7975",
+  "source_hash": "809b3cd7a312e1bfd1e63f5760eccce021cbcf8010a185548c2619daf3b205a9",
+  "source_files": {
+    "scripts/proteostasis/__init__.py": "2ddbe26173697aec44b7188ddc7588713a17401c67ce635e462596e3fc8b074a",
+    "scripts/proteostasis/equilibria.py": "c00bb65eee6ac126c09a2e4d38354819a5876f447ff96a77c8c731ec11c3ebd3",
+    "scripts/proteostasis/model.py": "bf3b642f147315f51454ce6304d6e6152c51b483a8eaee5d971b2f75c650ff0c",
+    "scripts/proteostasis/simulate.py": "d4d0cdeed0b5d4adc6589940dbc80978cf338d37d74a16bcbadf2160bd5f4883",
+    "scripts/proteostasis/sweeps.py": "d3cd0649e39905d20a49af2ad1ec0544c8861e3635b861ef9acf1d43d72631d3",
+    "scripts/run_experiment_d.py": "9ff94b8f6e676587e6153087cb247ac3174918d556feaa077ca8c7347f938c67"
+  },
+  "artifact_sha256": {
+    "interactions.tsv": "8067afaa0e8d5ccdd4f8add8b89f02589f3e6fd22b794856255da0e0c21a1d00",
+    "backgrounds.tsv": "bc96c94cf5083eccccd186bf8133d88a54f6cb9951333bb50efc2856885f3518",
+    "summary.json": "761b02692c1969fda35f4c933e863f46b72205e7cbcd5783bad4ca8fecb03d8b"
+  },
+  "counts": {
+    "n_backgrounds_requested": 60,
+    "n_backgrounds_completed": 58,
+    "n_usable_backgrounds": 46,
+    "n_unusable_backgrounds": 12,
+    "n_unresolved_timeout": 2,
+    "unresolved_timeout_backgrounds": [19, 37],
+    "n_failed_process": 0,
+    "n_errors": 0,
+    "n_cells": 4968,
+    "n_double_cells": 3450,
+    "unusable_reason": "no viable state at j_lo"
+  }
+}

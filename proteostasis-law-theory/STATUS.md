@@ -1,5 +1,67 @@
 # Status
 
+## Phase 1 experiment D closed; Phase 2 synthesis final
+
+On 2026-08-01 experiment D was closed scientifically and integrated into the
+Phase 2 synthesis.  The two documents are `EXPERIMENT_D_FINAL.md` and
+`PHASE2_CLOSURE_FINAL.md`; the latter supersedes the working note
+`PHASE2_CLOSURE_PENDING_D.md` under the gitignored closure directory and
+carries every one of its negative results forward unchanged.
+
+The run analysed is the checkpointed recovery run
+`results/phase1/D_checkpointed_20260731T223225-0500/`.  **60 backgrounds
+requested, 58 completed, 46 usable, 12 model-unusable (`no viable state at
+j_lo`), 2 unresolved timeouts (backgrounds 19 and 37), zero numerical errors,
+zero process failures.**  An unresolved background exceeded the 3600 s wall
+limit and was not evaluated within the budget.  It is **not a failure**, is not
+counted in `n_errors`, contributes no rows, and must never be reported as one.
+
+Validation passes **36/36**: live source, config and Latin-hypercube hashes match
+what the run recorded; all 58 checkpoints pass the runner's own identity gate
+with zero rejections; re-merging them reproduces `interactions.tsv` and
+`backgrounds.tsv` **byte for byte**; all three nulls and all four excess columns
+recompute exactly; and `_pairSummary` recomputed from the shipped TSV reproduces
+every field of `summary.json`.  `46 usable x 3 pairs x 36 = 4968` cells, of which
+`46 x 3 x 25 = 3450` are genuinely double.
+
+**The raw summary's headline fractions were cell-level descriptives and are not
+inference.**  Their 3450 cells are 46 parameter draws x 3 pairs x 25 correlated
+cells.  Every estimate in the closure is formed with the background as the unit,
+with 95 % CIs from 10,000 replicates resampling whole backgrounds (seed
+20260801); the only p-value anywhere is an exact binomial sign test over
+backgrounds.
+
+Supported at the background level, on all three nulls: `influx x total_capacity`
+and `nascent x total_capacity`.  **Not** supported on the primary set under the
+additive or Bliss null: `influx x chaperone_only` — and its multiplicative pass
+is not corroboration, because the multiplicative null is the weaker test wherever
+a single perturbation is protective, which it is in 32.6 % of that pair's cells.
+The most robust result is categorical and null-free: **synthetic collapse in
+43 of 46 backgrounds** (95 % CI [0.848, 1.000]), at least 71.7 % of all sixty
+requested draws under the most conservative denominator.
+
+Two audit findings travel with those numbers.  `multiplicative_median_excess` in
+`summary.json` is a **log-scale** median under a name that states no scale — a
+labelling defect, not a sign error.  And the Bliss result is **not** internally
+inconsistent: worse means *negative* excess on the survival scale, so a negative
+median and a majority above 0.5 are the same statement.
+
+One new negative result: **chaperone-only knockdown is not universally a
+burden.**  In 15 of 46 usable backgrounds it *lowers* total burden in all 25
+double cells, which follows from the model's own form (chaperone binding
+sequesters substrate away from the protease).  Rescue capacity is therefore not a
+scalar, and the law is restated accordingly.
+
+**No empirical claim was made.**  No organism data entered Phase 1 or Phase 2.
+The six falsifiable predictions the computational work now justifies are listed
+in `PHASE2_CLOSURE_FINAL.md` §7 and are labelled empirical hypotheses, untested.
+
+Analysis code is tracked (`scripts/phase2/d_final.py`), the run identity is
+pinned (`scripts/phase2/D_RUN_HASHES.json`), and both are asserted by
+`tests/phase2/test_d_final.py`.  Full suite: **244 passed** under Python 3.12.11.
+Detailed outputs are gitignored under
+`results/phase2/closure_20260731T220024-0500/D_final/`.
+
 ## Phase 2A matched equivalence benchmark submitted
 
 On 2026-07-31 the Phase 2A matched benchmark was gated and launched on both
@@ -84,6 +146,11 @@ The repository has no remote configured, so nothing was pushed.
 The canonical law, Pareto geometry, site-resolved damage influx, conserved-resource dynamics, scope, falsifiable predictions, empirical program, and a substantive first-pass manuscript are now defined consistently. Discredited components are quarantined in the rejection ledger.
 
 ## Next scientific tasks, in priority order
+
+**Superseded by `PHASE2_CLOSURE_FINAL.md` §8.**  The list below is the Phase 0
+ordering and is kept as a record of what was planned before Phase 1 and Phase 2
+ran; items 1 and 3 are done, and the current open list is §8 of the closure.
+
 
 1. Prove or numerically delimit existence and local stability regions for the two-state conserved-resource model.
 2. Specify operational damage thresholds and viability readouts for an initial organism and condition.
