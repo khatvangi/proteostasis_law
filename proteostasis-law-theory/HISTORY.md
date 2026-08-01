@@ -166,3 +166,67 @@ not be reported as a numerical failure.
 because the `-c` string of the scanning bash contains the pattern being searched for.
 This is the exact pitfall documented in `results/phase1/ops/scan_live_experiments.sh`.
 The check was redone as an argv-element test rather than a substring match.
+
+## 2026-08-01
+
+**Q:** Finish only the tracked documentation, tests and commit for the already-computed
+experiment D closure. Do not recompute the 10,000-bootstrap analysis unless a validation
+file fails, and do not alter raw Phase 1 results. Write `EXPERIMENT_D_FINAL.md` and
+`PHASE2_CLOSURE_FINAL.md`, add a compact tracked validator, update STATUS.md, run the
+suites, and commit as `Close Phase 2 interaction analysis`.
+
+**A:** The bootstrap was not recomputed — `validation.json` reports 36/36 with
+`all_passed: true`, so the existing output stood. Committed on `master` as
+`Close Phase 2 interaction analysis`; full suite **249 passed**,
+`scripts/phase2/check_d_closure.py` **177/177**.
+
+A previous timed-out pass had already drafted both documents. Rather than trust them,
+every descriptive claim was re-derived from the float64 checkpoint payloads, and that
+found three real defects.
+
+The largest was in the sensitivity section of *both* documents: "the chaperone-only
+additive claim fails to reach a majority of backgrounds under every column" is false.
+`conditional` is 0.6087 and the `usable` bounds are [0.5833, 0.6250] — both above one
+half. Only the `requested` column fails to reach a majority (≤ 0.5000). The claim
+actually fails because the grouped bootstrap CI for the majority fraction, [0.457,
+0.739], straddles one half, and the three sensitivity columns are arithmetic
+reweightings of the same 28 backgrounds rather than a second test. Conflating the two
+would have implied the sensitivity analysis was doing inferential work it cannot do.
+
+Second, `9.5e-10` as the "worst absolute discrepancy" of the `%.12g` TSV round-trip does
+not reproduce from any column. The actual figures are 4.9e-12 *relative* (which is what
+the validation check asserts) and, because burdens run to the censor at 1000, 4.8e-09
+absolute in `excess_multiplicative` and 5.0e-10 in `excess_additive`.
+
+Third, the draft overstated the influx-vs-nascent contrast. `nascent × total_capacity`
+*is* supported on all three nulls, so "the synergy requires damage influx" and "the
+interaction is driven by damage influx, not folding-machinery occupancy" were too strong.
+The contrast that survives is the categorical one — synthetic collapse 13/46 against
+43/46 — plus an order-of-magnitude smaller graded excess on the escape-free subset
+(0.0028 against 0.0348). Scoped accordingly in the refined law, in §5.5, and in P4.
+
+Everything else in the drafts verified exactly: the 470 lethal-single cells with Bliss
+excess never negative, `mult_pred ≥ add_pred` in 100 % of both-singles-damaging cells,
+`censored_12` identical to the blowup set, 40 of the 80 anti-additive cells carrying a
+censored single, the 31/15 protective split with 25 and 3 additive majorities, and
+Spearman −0.60. A numeric diff over the carried-forward §1–§3 confirmed zero drift from
+the pending note, so every negative result survived intact; two caveats the draft had
+trimmed (the weak markers' CIs touching 0.5, and the c05 design note) were restored.
+
+The new tracked validator `scripts/phase2/check_d_closure.py` exists because the
+evidence is gitignored while the prose is not, so nothing would otherwise notice the two
+drifting apart. It re-checks the pinned source and artifact hashes, the counts, the nine
+majority counts and verdicts, the collapse rates, the arithmetic of all 13 sensitivity
+bounds, and that both documents still state those numbers. It carries no copy of the
+estimator. Three negative controls were run to prove it is not vacuous, and the
+absent-results branch returns `None` and exits 0 with an explicit `SKIP` rather than
+reporting a success it did not verify — that branch is itself tested.
+
+One test-gate defect was fixed: `TestDFinalOutputsAgreeWithRecomputation` skipped on
+`D_final/d_final_results.json` but its `setUpClass` globs checkpoints out of the Phase 1
+run root, so it would have errored rather than skipped had `results/phase1/` been cleaned
+independently.
+
+**Note:** no claim ledger exists in this repository (only `theory/SCOPE_AND_NONCLAIMS.md`),
+so none was created. `OPS_SUBMISSION.md` was left uncommitted — it is an untracked
+artefact of an earlier session and outside this task's scope.

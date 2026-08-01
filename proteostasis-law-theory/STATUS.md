@@ -58,9 +58,14 @@ in `PHASE2_CLOSURE_FINAL.md` §7 and are labelled empirical hypotheses, untested
 
 Analysis code is tracked (`scripts/phase2/d_final.py`), the run identity is
 pinned (`scripts/phase2/D_RUN_HASHES.json`), and both are asserted by
-`tests/phase2/test_d_final.py`.  Full suite: **244 passed** under Python 3.12.11.
-Detailed outputs are gitignored under
-`results/phase2/closure_20260731T220024-0500/D_final/`.
+`tests/phase2/test_d_final.py`.  Detailed outputs are gitignored under
+`results/phase2/closure_20260731T220024-0500/D_final/`, so
+`scripts/phase2/check_d_closure.py` is the tracked bridge across that boundary:
+**177 checks** over the pinned hashes, the counts, the nine majority counts and
+verdicts, the collapse rates and every sensitivity bound, plus the requirement
+that both closure documents still state them.  Without the run root it prints an
+explicit `SKIP` and exits 0 rather than passing silently.  Full suite:
+**249 passed** under Python 3.12.11.
 
 ## Phase 2A matched equivalence benchmark submitted
 

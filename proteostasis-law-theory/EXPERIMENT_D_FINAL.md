@@ -88,10 +88,15 @@ The load-bearing ones:
 
 One precision fact matters downstream. The excess columns are differences of
 nearly equal burdens — catastrophic cancellation — so the `%.12g` TSV cannot
-round-trip them (worst absolute discrepancy 9.5e-10). All inference here is
-therefore computed from the float64 checkpoint payloads. This changes no sign:
-zero cells flip direction between the TSV and the checkpoints under any of the
-three nulls.
+round-trip them. The discrepancy is at the twelfth significant digit by
+construction (worst *relative* deviation over the four excess columns 4.9e-12,
+which is what the `tsv_reproduces_checkpoint_values_to_12_significant_digits`
+check asserts), but because the burdens themselves
+run up to the censor at 1000, the worst *absolute* deviation is 4.8e-09 in
+`excess_multiplicative` and 5.0e-10 in `excess_additive`. All inference here is
+therefore computed from the float64 checkpoint payloads rather than the TSV. This
+changes no sign: zero cells flip direction between the TSV and the checkpoints
+under any of the three nulls.
 
 ## 4. The nulls, re-audited from source
 
@@ -354,8 +359,16 @@ Two asymmetries must travel with these bounds.
 
 Under every column, one conclusion is unchanged: synthetic collapse in
 `influx × total_capacity` reaches at least **71.7 %** of *all sixty requested
-draws* even in the worst case, and the chaperone-only additive claim fails to
-reach a majority of backgrounds under every column.
+draws* even in the worst case.
+
+No column rescues the chaperone-only additive claim either, but the reason has to
+be stated precisely. Its `conditional` and `usable` values *are* above one half
+(0.6087 and [0.5833, 0.6250]); only the most conservative `requested` column
+fails to reach a majority at all (≤ **0.5000**). What actually fails is the
+grouped bootstrap CI for that majority fraction on the primary set,
+[0.457, 0.739], which straddles one half. **These three columns are arithmetic
+reweightings of the same 28 backgrounds, not a second test**, and none of them
+can repair a CI that straddles the decision boundary.
 
 ---
 
@@ -433,3 +446,17 @@ Read-only with respect to the experiment D run root. The statistics are in
 tracked `scripts/phase2/d_final.py`; the run identity is in tracked
 `scripts/phase2/D_RUN_HASHES.json`; both are asserted by
 `python -m pytest tests/phase2/test_d_final.py`.
+
+Because the outputs above are gitignored, the bridge between them and this
+document is itself tracked:
+
+```
+python scripts/phase2/check_d_closure.py   # 177 checks; hashes, counts, headlines
+```
+
+It re-checks the pinned source and artifact hashes, the counts in §1, the
+majority counts and verdicts in §5.1, the collapse rates in §6, the arithmetic of
+every sensitivity bound in §8, and that this document and
+`PHASE2_CLOSURE_FINAL.md` still state those numbers. On a checkout without the
+run root it prints an explicit `SKIP` line and exits 0 rather than passing
+silently.

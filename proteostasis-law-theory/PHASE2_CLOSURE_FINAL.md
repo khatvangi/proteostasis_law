@@ -267,7 +267,9 @@ Cross-validated permutation importance agrees on the ordering: `log10_kappa_da`
 **The finding**: confirmed multistability is enriched primarily by the
 **aggregate-degradation binding and clearance parameters** — `kappa_da`
 (aggregate–protease binding) dominant, with `kappa_du`, `rho_A` and `rho_U` next,
-and nucleation-related terms (`alpha_n`, `m`) contributing a weaker signal.
+and nucleation-related terms (`alpha_n`, `m`) contributing a weaker signal. High
+`kappa_da` and high `rho_A`, low `rho_U`, low `kappa_du`, low `alpha_n` mark the
+multistable corner of the box.
 
 **This is descriptive, and the four reasons must travel with it:**
 
@@ -275,13 +277,17 @@ and nucleation-related terms (`alpha_n`, `m`) contributing a weaker signal.
    The Latin hypercube varies all 16 parameters *independently*. That is exactly
    the design that licenses "multistability sits here" and exactly the design
    that forbids "this parameter causes multistability".
+   `c05_parameters.py`'s own design note says the same thing.
 2. **The predictive signal is weak in absolute terms.** Logistic-L2 ROC AUC
    0.786 ± 0.014, average precision **0.097** against a base rate of **0.020** —
    a ~4.8× lift, but the great majority of high-`kappa_da` draws are *not*
    multistable. `hist_gbdt` is no better (ROC AUC 0.755 ± 0.008, AP 0.089).
-3. **The positive class is 58 draws.**
+3. **The positive class is 58 draws.** Every CI above is built on that, and the
+   weaker markers' intervals nearly touch 0.5 (`kappa_ref` and `kappa_cu` do not
+   exclude it at all).
 4. **It inherits §2.1's asymmetry.** The audit's control arm implies 3.4–99.1
-   further multistable draws sitting unlabelled in the single-attractor pool.
+   further multistable draws sitting unlabelled in the single-attractor pool. If
+   those are not distributed like the 57, the markers shift.
 
 A causal claim would require re-running the model along `kappa_da` with the other
 fifteen parameters held fixed. That was not done and is the obvious follow-up.
@@ -409,9 +415,11 @@ singles are viable and the double escapes is a collapse under any reading.
 Only 3 of 46 backgrounds show none. The gradient across pairs is itself the
 finding: collapse is common when a genuine damage influx meets a reduced
 conserved rescue pool, less common under chaperone-only knockdown, and **rare
-when the added load carries no damage influx at all** (nascent). The interaction
-is driven by damage influx meeting reduced clearance, not by occupancy of the
-folding machinery.
+when the added load carries no damage influx at all** (nascent). The
+*categorical* collapse is driven by damage influx meeting reduced clearance
+rather than by occupancy of the folding machinery; the graded interaction is
+still supported for the nascent pair on all three nulls (§5.4), just far
+smaller.
 
 ### 5.6 Sensitivity to the 14 backgrounds with no interaction rows
 
@@ -439,9 +447,16 @@ unusable draws have no baseline steady state at all; "no interaction
 demonstrated" there is a statement about viability geometry, not about
 interaction.
 
-Under every column: synthetic collapse in `influx × total_capacity` reaches at
-least **71.7 % of all sixty requested draws**, and the chaperone-only additive
-claim fails to reach a majority of backgrounds under every column.
+Under every column, synthetic collapse in `influx × total_capacity` reaches at
+least **71.7 % of all sixty requested draws**.
+
+No column rescues the chaperone-only additive claim, and the reason must be
+stated precisely rather than as "it fails everywhere". Its `conditional` and
+`usable` values *are* above one half (0.6087 and [0.5833, 0.6250]); only the
+most conservative `requested` column fails to reach a majority at all
+(≤ 0.5000). What fails is the grouped bootstrap CI for that majority fraction on
+the primary set, [0.457, 0.739], which straddles one half. **These columns are
+arithmetic reweightings of the same 28 backgrounds, not a second test.**
 
 ### 5.7 A new negative result: chaperone-only knockdown is not universally a burden — Computational
 
@@ -492,10 +507,13 @@ tightening four things and dropping one.
 > Damage influx and **conserved rescue capacity** are **not separable**: raising
 > influx while reducing the conserved rescue pool drives the system past that
 > collapse **supra-additively**, and does so at combinations where each
-> perturbation alone is survivable. The coupling is a property of the *damage
-> influx* meeting reduced clearance, not of load on the folding machinery as
-> such; and rescue capacity is **not a scalar** — chaperone and degradation
-> capacity are not interchangeable.
+> perturbation alone is survivable. The coupling is **much stronger when the added
+> load carries a damage influx**: a nascent-load increase with no misfolding
+> influx does still interact supra-additively with capacity reduction, but it
+> produces synthetic collapse in only 13 of 46 backgrounds against 43 of 46, and
+> a median per-background excess an order of magnitude smaller on the escape-free
+> subset (0.0028 against 0.0348). And rescue capacity is **not a scalar** —
+> chaperone and degradation capacity are not interchangeable.
 
 What changed and why:
 
@@ -567,10 +585,12 @@ lethal. *Model support*: synthetic collapse in 43/46 backgrounds; 39.7 % of
 every unusable and unresolved draw against it. *Falsified by*: a broad dose grid
 in which no such combination exists.
 
-**P4 — The synergy requires damage influx, not folding-machinery occupancy.**
-Increasing nascent-chain load that carries no misfolding influx produces a much
-weaker interaction with capacity reduction than a genuine misfolding insult of
-comparable burden. *Model support*: synthetic collapse 4.2 % of cells and 13/46
+**P4 — Synthetic lethality is driven by damage influx, not by folding-machinery
+occupancy.** Increasing nascent-chain load that carries no misfolding influx
+produces a much weaker interaction with capacity reduction than a genuine
+misfolding insult at the same nominal load multipliers — weaker, but not absent:
+the graded interaction is still supported on all three nulls. *Model support*:
+synthetic collapse 4.2 % of cells and 13/46
 backgrounds for `nascent × total_capacity`, against 39.7 % and 43/46 for
 `influx × total_capacity`; the median background shows none. *Falsified by*:
 equal synthetic lethality from a non-misfolding translational load.
@@ -630,10 +650,19 @@ python closure_audit.py
 python validate_outputs.py
 
 # the tracked assertions
-python -m pytest tests -q           # 244 tests
+python scripts/phase2/check_d_closure.py   # 177 checks: hashes, counts, headlines
+python -m pytest tests -q                  # 249 tests
 ```
 
 All read-only with respect to every Phase 1 and Phase 2 raw result. `results/` is
 gitignored, so none of those directories is in the repository; the statistics,
 the run identity and the assertions are tracked in `scripts/phase2/d_final.py`,
-`scripts/phase2/D_RUN_HASHES.json` and `tests/phase2/test_d_final.py`.
+`scripts/phase2/D_RUN_HASHES.json`, `scripts/phase2/check_d_closure.py` and
+`tests/phase2/test_d_final.py`.
+
+`check_d_closure.py` is what keeps §5 honest across the gitignore boundary: it
+holds the counts, the nine majority counts and verdicts, the collapse rates and
+every sensitivity bound in this document to the shipped `D_final/` output, and it
+fails if either closure document stops stating them. Absent the run root it
+prints an explicit `SKIP` and exits 0, so a clean checkout neither fails nor
+reports a success it did not verify.

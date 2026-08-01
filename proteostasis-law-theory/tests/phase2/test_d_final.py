@@ -26,6 +26,7 @@ import pandas as pd
 
 import _context  # noqa: F401
 from _context import REPO_ROOT
+import check_d_closure as closure
 import d_final as D
 import run_experiment_d as original
 from proteostasis.provenance import hashFile, hashObject, loadConfig
@@ -555,8 +556,8 @@ class TestBackgroundLevelReproducesFromCheckpoints(unittest.TestCase):
         self.assertEqual(ci, again)
 
 
-@unittest.skipUnless((D_FINAL / "d_final_results.json").exists(),
-                     "D_final outputs absent")
+@unittest.skipUnless(RUN_ROOT.is_dir() and (D_FINAL / "d_final_results.json").exists(),
+                     f"D run root or D_final outputs absent: {RUN_ROOT}, {D_FINAL}")
 class TestDFinalOutputsAgreeWithRecomputation(unittest.TestCase):
 
     @classmethod
@@ -623,6 +624,78 @@ class TestDFinalOutputsAgreeWithRecomputation(unittest.TestCase):
         for r in self.res["estimates"]:
             self.assertLessEqual(r["sign_test_n_worse"] + r["sign_test_n_better"]
                                  + r["sign_test_n_tied"], 46)
+
+
+# --------------------------------------------------------------------------
+# the tracked bridge from the two closure documents to the gitignored run
+# --------------------------------------------------------------------------
+
+class TestClosureCheckSkipsRatherThanFails(unittest.TestCase):
+    """model-free: this half must behave correctly on a clean checkout.
+
+    `check_d_closure` is the only tracked thing that can notice the closure prose
+    drifting from the run that produced it.  a validator that silently reported
+    success when the evidence was missing would be worse than none at all, so the
+    absent-results branch is tested explicitly rather than assumed.
+    """
+
+    def testAbsentRunRootYieldsNoneNotAnEmptyPass(self):
+        original_root = closure.RUN_ROOT
+        try:
+            closure.RUN_ROOT = Path("/nonexistent/experiment/d/run/root")
+            self.assertIsNone(closure.runChecks())
+            self.assertFalse(closure.resultsPresent())
+        finally:
+            closure.RUN_ROOT = original_root
+
+    def testTheHeadlineExpectationsAreTheOnesTheDocumentsClaim(self):
+        """pinned here so a headline cannot be relaxed by editing the checker."""
+        m = closure.HEADLINE_MAJORITY
+        self.assertEqual(m[("influx_x_total_capacity", "additive")], (46, True))
+        self.assertEqual(m[("influx_x_total_capacity", "multiplicative")], (44, True))
+        self.assertEqual(m[("influx_x_total_capacity", "bliss")], (41, True))
+        self.assertEqual(m[("nascent_x_total_capacity", "additive")], (37, True))
+        self.assertEqual(m[("nascent_x_total_capacity", "multiplicative")], (38, True))
+        self.assertEqual(m[("nascent_x_total_capacity", "bliss")], (37, True))
+        # chaperone-only: multiplicative is headline, additive and bliss are not
+        self.assertEqual(m[("influx_x_chaperone_only", "multiplicative")], (35, True))
+        self.assertEqual(m[("influx_x_chaperone_only", "additive")], (28, False))
+        self.assertEqual(m[("influx_x_chaperone_only", "bliss")], (28, False))
+        self.assertEqual(closure.HEADLINE_COLLAPSE["overall"][0], 43)
+        self.assertEqual(closure.HEADLINE_COLLAPSE["nascent_x_total_capacity"][0], 13)
+
+
+@unittest.skipUnless(closure.resultsPresent(),
+                     "experiment D closure output absent; the tracked documents "
+                     "were not checked against a run")
+class TestTrackedDocumentsMatchTheShippedOutput(unittest.TestCase):
+
+    def testEveryClosureCheckPasses(self):
+        checks = closure.runChecks()
+        bad = [f"{n} [{d}]" for n, ok, d in checks if not ok]
+        self.assertEqual(bad, [], f"{len(bad)} of {len(checks)} closure checks fail")
+
+    def testTheCheckIsNotVacuous(self):
+        """a validator asserting nothing would pass against anything at all."""
+        self.assertGreater(len(closure.runChecks()), 150)
+
+    def testAWrongHeadlineNumberWouldBeCaught(self):
+        """negative control on the validator itself, not on the data.
+
+        this is the test that makes the class above meaningful: it proves the
+        headline comparison is live, so a silent drift between the documents and
+        `D_final/` cannot pass as 177 green checks.
+        """
+        key = ("influx_x_chaperone_only", "additive")
+        original_value = closure.HEADLINE_MAJORITY[key]
+        try:
+            closure.HEADLINE_MAJORITY[key] = (35, True)   # the multiplicative count
+            bad = [n for n, ok, _ in closure.runChecks() if not ok]
+            self.assertIn("majority influx_x_chaperone_only/additive", bad)
+            self.assertIn("primary_supported influx_x_chaperone_only/additive", bad)
+        finally:
+            closure.HEADLINE_MAJORITY[key] = original_value
+        self.assertEqual([n for n, ok, _ in closure.runChecks() if not ok], [])
 
 
 if __name__ == "__main__":
