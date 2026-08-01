@@ -116,3 +116,53 @@ processes (1 parent + 24 workers), 67 (draw, evaluation point) pairs in flight, 
 stderr, exactly one such unit. `git status` byte-identical to session start; nothing
 tracked was touched, no commit, no signal sent to any process, Phase 1 D and the
 matched-benchmark run untouched.
+
+**Q:** Recover Phase 1 experiment D without disturbing the live run: add a checkpointed,
+timeout-bounded runner that is scientifically equivalent to `run_experiment_d.py`, prove
+the equivalence with tests, smoke it, commit source/tests/docs only, then launch the full
+60-background recovery as a persistent systemd unit with 16 concurrent subprocesses, one
+BLAS thread each, and a 3600 s per-background wall limit.
+
+**A:** The diagnosis held up under measurement. `Pool.map` returns only when every task
+returns and writes nothing before that, so the live run had spent 5 h 40 min wall and
+9 h 26 min CPU with a completely empty output directory. Timing every background
+individually showed the median finishes in ~25 s and only four draws — 14, 19, 37, 44 —
+exceed 45 s. Four pathological backgrounds out of sixty were blocking the other fifty-six.
+
+The equivalence was made structural rather than asserted: the new runner imports
+`run_experiment_d` and calls that module's own `_backgroundTask`, `_pairSummary` and
+`PAIRS`, so there is no second copy of the model to drift. A test greps the runner's
+source and fails if any of those is ever redefined there. Checkpoint rows are stored as
+JSON, not TSV, because `writeTable`'s `%.12g` truncates float64 — formatting happens once
+at merge, so the merged `interactions.tsv` is byte-identical to a direct write.
+
+One real defect was found and fixed while writing the tests: the controller did not
+forward `--n-backgrounds` to its children, so a reduced-size run would have handed each
+child a different LHS matrix. The sample-hash gate would have caught it as a rejected
+checkpoint rather than producing wrong numbers, but the flag was silently broken.
+
+38 new tests, 187 total (149 pre-existing, none modified, none regressed). The strongest
+are byte-for-byte equality of the merged table against a direct `writeTable`, and
+float-for-float equality of the checkpointed path against a direct `_backgroundTask` call
+on four measured-fast backgrounds. Timeout is tested through the real kill path, not a
+mock. Smoke on backgrounds 5/48/56 reproduced identical artifact hashes across two
+independent runs and resumed in 0.1 s versus 18.1 s with every checkpoint file untouched.
+
+Committed as `ee64a3f` (source + tests) and a follow-up docs commit for
+`PHASE1_D_CHECKPOINTED.md`. Launched as
+`proteostasis-phase1-D-checkpointed-20260731T223225-0500.service`, MainPID 1622784, into
+`results/phase1/D_checkpointed_20260731T223225-0500/`. At +40 s: active, exactly one unit,
+1 controller + 16 workers all inside the unit's cgroup, 19 backgrounds already
+checkpointed, stderr empty everywhere. The original unit
+`proteostasis-phase1-20260731T162946-0500-D.service` (MainPID 1269455) was never
+signalled and is still running with its output directory still empty.
+
+**Note on timeout semantics:** a background that exceeds the wall limit is recorded as
+`unresolved_timeout` — it contributes no rows, enters no interaction summary, and is not
+counted in `n_errors`. It is a statement about the budget, not about the model, and must
+not be reported as a numerical failure.
+
+**Note on the duplicate-launch check:** the first pre-launch scan matched its own shell,
+because the `-c` string of the scanning bash contains the pattern being searched for.
+This is the exact pitfall documented in `results/phase1/ops/scan_live_experiments.sh`.
+The check was redone as an argv-element test rather than a substring match.
