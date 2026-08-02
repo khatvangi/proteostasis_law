@@ -98,3 +98,57 @@ branch. `lowerNullclineA` is a bracketing heuristic only and must not be
 described as identifying the fold's branch. Whether the critical point is a
 maximum over the whole curve is open. No number changes, because every result
 solves `det J = 0` directly.
+
+## D012 — Uniqueness holds without division and fails with it
+
+Enumerating the whole aggregate nullcline, rather than the branch a bracketing
+heuristic happens to reach, settles the question D007 left open. Without dilution
+the curve closes (152 lower, 152 upper points) and carries exactly one sign
+change of `det J`: the constrained critical point is unique.
+
+With dilution it is not. At `mu = 0.04` a second, distinct critical point exists
+at `u = 0.1585, a = 1.9835` with `|G| = 2.8e-17`, `|det J| = 1.6e-17` and
+eigenvalues `(-1.083, 0)`, and its critical influx (0.1585) is BELOW the first
+(0.1950). Any claim of a unique collapse boundary must therefore be qualified by
+whether division is included.
+
+## D013 — Under division, loss of viability is a transition, not a divergence
+
+D010 said constant dilution "destroys the fold" and an earlier phrasing said
+there is then "no collapse boundary at all". Both overstate it.
+
+With dilution, `G -> -infinity` at large aggregate whenever `alpha_g.u_f < mu`,
+so the high-burden state is BOUNDED. The two critical points of D012 are the two
+folds of an S-shaped curve. Sweeping influx up from zero burden and back down at
+`mu = 0.04`: the low branch survives to `j = 0.194` and jumps at 0.196 to a
+bounded state (`u = 0.079, a = 3.94`); the high branch survives back down to
+`j = 0.160` and drops at 0.158. The bistable window [0.160, 0.194] lies inside
+the two computed critical points 0.158496 and 0.195047.
+
+So losing the low-burden branch is a transition to a persistent, bounded,
+aggregate-laden state, and recovery requires lowering influx BELOW the level that
+triggered the transition. Above the dilution threshold what disappears is the
+discontinuity, not viability.
+
+This does not reinstate `notes/REJECTED_COMPONENTS.md` item 7, which rejects
+bistability attributed to the old one-variable ODE, nor does it overturn Phase 2
+§2.1, which demoted bistability in the NON-dividing model. Bistability here comes
+from a model feature neither analysis contained. It was found at the base
+parameters and has NOT been surveyed across the box.
+
+## D014 — The margin is reported as (phi_enz, delta) once division is included
+
+`phi = j_crit / removalCeiling` divides by a quantity that stops bounding
+`j_crit` under division. The replacement is exact algebra:
+
+    j_crit = C_enz . phi_enz / (1 - delta)
+
+with `phi_enz` the enzymatic capacity in use at collapse and `delta` the share of
+disposal done by division; both dimensionless and in [0,1). The identity holds to
+1.6e-16. `phi_enz` is nearly invariant to dilution (0.125-0.134 across
+`mu = 0` to 0.08) while `delta` carries the variation, so division multiplies the
+tolerable influx by `1/(1 - delta)` without changing the enzymatic condition.
+Every `phi` reported before this decision is `phi_enz` at `delta = 0`.
+
+Across 25 draws with a boundary at `mu = 0`, 23 lose it under constant dilution;
+the threshold spans 3.3 decades and `delta` at the threshold has median 0.35.

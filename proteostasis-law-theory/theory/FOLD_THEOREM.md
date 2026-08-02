@@ -206,10 +206,16 @@ solve seeded from the previous and every accepted point satisfying
 | `j_crit` | 0.1542 | 0.1738 | 0.1950 | 0.2186 | 0.2456 | **none** |
 | `a*` | 0.265 | 0.318 | 0.389 | 0.496 | **0.750** | — |
 
-`a*` diverges as the threshold is approached: the fold point runs off to infinite
-aggregate burden and escapes. Past it there is no collapse boundary at all,
-because a cell dividing at a burden-independent rate can always dilute its way
-out.
+`a*` diverges as the threshold is approached: the fold point runs off to large
+aggregate burden and escapes. Past it the low-burden branch no longer terminates,
+so there is no discontinuous transition — burden rises smoothly with influx
+instead. A cell dividing at a burden-independent rate can dilute its way out.
+
+**Correction to an earlier phrasing.** This was first written as "there is no
+collapse boundary at all". That overstates it in two ways, both established in
+Consequence 7: below the threshold, losing the low-burden branch is a *jump to a
+bounded high-aggregate state*, not divergence; and above it, what disappears is
+the discontinuity, not viability.
 
 **Growth feedback restores it.** With `mu(u,a) = mu0/(1 + (u+a)/k_mu)` and
 `k_mu = 0.5`, a fold exists at every rate tested up to `mu0 = 0.3`, with `j_crit`
@@ -228,23 +234,101 @@ Claim labels: the identity, the `mu -> 0` reduction and the `J - mu.I` form are
 **Mathematical**; every threshold and `j_crit` above is **Computational**, at the
 base parameters only — the `mu` threshold was not mapped across the parameter box.
 
+## Consequence 6 — a margin that survives division
+
+The margin in Consequence 2 divides by the enzymatic capacity bound, which
+Consequence 5 shows is not an upper bound once cells divide. Splitting the
+critical influx into its enzymatic and dilution parts repairs this exactly:
+
+```
+j_crit = C_enz . phi_enz / (1 - delta)
+
+    phi_enz = R_enzymatic(u*,a*) / C_enz     enzymatic capacity in use at collapse
+    delta   = R_dilution(u*,a*) / j_crit     share of disposal done by division
+```
+
+Both are dimensionless and lie in [0,1). The identity is algebra and holds to
+**0 – 1.6e-16**. At the base parameters:
+
+| `mu` | 0 | 0.02 | 0.04 | 0.06 | 0.08 |
+|---|---|---|---|---|---|
+| `j_crit` | 0.1542 | 0.1738 | 0.1950 | 0.2186 | 0.2456 |
+| `phi_enz` | 0.1285 | 0.1321 | 0.1341 | 0.1335 | 0.1245 |
+| `delta` | 0 | 0.0876 | 0.1751 | 0.2671 | 0.3915 |
+
+**`phi_enz` is nearly invariant to dilution** (0.125–0.134, a ±4 % band) while
+`delta` carries essentially all the variation. So division does not change the
+enzymatic condition for collapse; it multiplies the tolerable influx by
+`1/(1 - delta)`. The escape in Consequence 5 is `delta` approaching 1, which
+makes it quantitative rather than merely observed.
+
+Across 25 parameter draws that have a boundary at `mu = 0`, **23 lose it** under
+constant dilution. The threshold spans **3.3 decades** (p10/p50/p90 = 0.0033 /
+0.086 / 0.328), and `delta` at the threshold has median **0.35** (p10 0.195,
+p90 0.847) — the boundary is typically lost once division is doing roughly a
+third of the disposal work.
+
+## Consequence 7 — division makes the system bistable, and uniqueness fails
+
+Enumerating the whole nullcline rather than one branch settles the uniqueness
+question left open above, with a split verdict.
+
+**Without dilution the critical point is unique**: the curve closes (152 lower
+and 152 upper points) and carries exactly one sign change of `det J`.
+
+**With dilution it is not.** At `mu = 0.04` a second, distinct constrained
+critical point exists at `u = 0.1585, a = 1.9835`, satisfying `|G| = 2.8e-17` and
+`|det J| = 1.6e-17` with eigenvalues `(-1.083, 0)` — a genuine saddle-node — and
+its critical influx is **0.1585, below** the 0.1950 of the first.
+
+The two are the folds of an S-shaped curve, and the reason is structural: with
+dilution, `G -> -infinity` at large aggregate whenever `alpha_g.u_f < mu`, so the
+high-burden state is *bounded* rather than divergent. Sweeping influx up from
+zero burden and back down:
+
+| | |
+|---|---|
+| up-sweep: low branch survives to | `j = 0.194`, jumps at 0.196 |
+| attained state after the jump | `u = 0.079, a = 3.94` — **bounded** |
+| down-sweep: high branch survives to | `j = 0.160`, drops back at 0.158 |
+| bistable window | **[0.160, 0.194]** |
+| computed critical points | 0.158496 and 0.195047 — the window lies inside |
+
+So under division, losing viability is **not** divergence. It is a transition to a
+persistent, bounded, aggregate-laden state, and recovery requires lowering the
+damage influx **below** the level that triggered the transition — hysteresis.
+
+This does not reinstate anything from `notes/REJECTED_COMPONENTS.md`. Item 7 there
+rejects bistability attributed to the old one-variable ODE, and Phase 2 §2.1
+demoted it in the *non-dividing* model on the evidence that it appeared in 1.14 %
+of draws. Bistability here arises from a model feature those analyses did not
+contain, and it appears at the base parameters rather than in a rare corner.
+Whether it is generic across the box has **not** been established.
+
 ## Limits
 
 - **One model.** Two states, no regulation, no compartmentation. Growth dilution
-  was the most serious of these and is now addressed in Consequence 5 — the
-  theorem survives it, the removal ceiling does not — but the dilution law there
-  is a one-parameter guess, not a measured growth-burden relation, and the `mu`
-  threshold was mapped only at the base parameters, not across the box.
-- **`phi` itself is now ill-defined under dilution.** Its denominator was the
-  enzymatic removal ceiling, which Consequence 5 shows is no longer an upper
-  bound on `j_crit`. Every `phi` in Consequences 2 and 3 is therefore a
-  zero-dilution quantity. A dividing-cell analogue needs a new denominator, and
-  none is proposed here.
-- **The critical point is verified, not proved unique.** If `R` has several
-  constrained critical points on `{G = 0}`, "the" fold is branch-dependent. The
-  theorem identifies critical points; ordering them, and establishing whether the
-  relevant one is a maximum over the whole curve, is open — see the precision
-  note above.
+  was the most serious of these and is addressed in Consequences 5–7; the `mu`
+  threshold is now mapped across 25 draws rather than one point.
+- **No growth-burden relation has been measured.** Two functional *forms* are
+  used — hyperbolic (`dilution.Growth`) and the linear shape implied by proteome
+  partitioning (`boundary_structure.LinearGrowth`) — and the qualitative
+  conclusions agree under both. Neither is fitted to data, and `k_mu` remains
+  free. Quantities that depend on the form, notably `j_crit` at a given `mu0`,
+  differ between them (0.269 vs 0.327 at `mu0 = 0.3`) and should not be quoted
+  without stating which law produced them.
+- **The old margin is a zero-dilution quantity**, since its denominator stops
+  bounding `j_crit` once cells divide. Consequence 6 replaces it with
+  `(phi_enz, delta)`, which is exact and dimensionless under division; every
+  `phi` in Consequences 2 and 3 should be read as `phi_enz` at `delta = 0`.
+- **Bistability was found at one parameter point, not surveyed.** Consequence 7
+  does not establish how often division makes the system bistable across the
+  box, and that is the obvious next question.
+- **Uniqueness holds without division and fails with it** (Consequence 7).
+  Ordering is settled at the base parameters by the hysteresis sweep — the upper
+  fold bounds the healthy branch, the lower fold bounds recovery — but not in
+  general, and not across the parameter box. Whether the relevant critical point
+  is a maximum over the whole curve remains open (precision note above).
 - **The kappa ranges were chosen adversarially wide.** Saturation dominates
   `phi`, and the kappas set saturation, so the 8.86x between-network spread is
   partly a property of the sampling box rather than of biology.
@@ -255,9 +339,10 @@ base parameters only — the `mu` threshold was not mapped across the parameter 
 ## Reproduction
 
 ```
-python scripts/phase3/fold_theorem.py    # the theorem, phi, the nested design
-python scripts/phase3/dilution.py        # growth dilution and fold survival
-python -m pytest tests/phase3 -q         # 29 checks asserting both
+python scripts/phase3/fold_theorem.py      # the theorem, the margin, the nested design
+python scripts/phase3/dilution.py          # growth dilution and boundary survival
+python scripts/phase3/boundary_structure.py  # uniqueness, bistability, thresholds
+python -m pytest tests/phase3 -q           # 42 checks asserting all three
 ```
 
 `results/` is gitignored; without the Phase 1 run root `fold_theorem.py` prints

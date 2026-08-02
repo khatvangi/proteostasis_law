@@ -69,9 +69,43 @@ point*, not *maximum*. `R` rises monotonically along the first-root branch and
 the solved fold has `dG/da > 0`, so the critical point sits past the nullcline's
 turning point. No number changes — everything solves `det J = 0` directly.
 
-Reproduce with `python scripts/phase3/fold_theorem.py` and
-`python scripts/phase3/dilution.py`; asserted by `tests/phase3/` (29 checks, of
-which 22 are model-level and run on a clean checkout).
+**Division makes the system bistable, and uniqueness fails (D012, D013).**
+Enumerating the whole nullcline rather than one branch settles the uniqueness
+question with a split verdict. Without dilution the curve closes (152 lower, 152
+upper) and carries exactly **one** critical point. With dilution at `mu = 0.04`
+there is a **second** genuine saddle-node at `u = 0.1585, a = 1.9835`
+(`|G| = 2.8e-17`, `|det J| = 1.6e-17`, eigenvalues `-1.083, 0`) whose critical
+influx **0.1585 lies below** the first at 0.1950.
+
+They are the two folds of an S-curve, because dilution makes the high-burden
+state bounded rather than divergent. Sweeping influx up from zero burden and back
+down: the healthy branch survives to `j = 0.194` and jumps at 0.196 to a bounded
+state (`u = 0.079, a = 3.94`); the damaged branch survives back to `j = 0.160`
+and recovers at 0.158. The bistable window **[0.160, 0.194]** lies inside the two
+computed critical points. **Losing proteostasis under division is a transition to
+a persistent aggregate-laden state, not a divergence, and recovery requires
+lowering influx below the level that triggered it.** This does not reinstate
+`notes/REJECTED_COMPONENTS.md` item 7 — it comes from a model feature neither
+that claim nor Phase 2 §2.1 contained — and it was found at one parameter point,
+not surveyed.
+
+**A margin that survives division (D014).** `j_crit = C_enz . phi_enz / (1-delta)`
+exactly (identity to 1.6e-16), with `phi_enz` the enzymatic capacity in use at
+collapse and `delta` the share of disposal done by division. `phi_enz` is nearly
+invariant to dilution (0.125–0.134) while `delta` carries the variation, so
+division multiplies tolerable influx by `1/(1-delta)` without changing the
+enzymatic condition. Across 25 draws, 23 lose their boundary under constant
+dilution; thresholds span 3.3 decades and `delta` at the threshold has median
+0.35. Conclusions hold under both the hyperbolic and the linear
+(proteome-partitioning) growth-burden form, though form-dependent values differ.
+
+A working manuscript for the whole phase 3 result is
+`manuscript/COLLAPSE_BOUNDARY.md`.
+
+Reproduce with `python scripts/phase3/fold_theorem.py`,
+`python scripts/phase3/dilution.py` and
+`python scripts/phase3/boundary_structure.py`; asserted by `tests/phase3/`
+(42 checks, of which 35 are model-level and run on a clean checkout).
 
 ## Phase 1 experiment D closed; Phase 2 synthesis final
 

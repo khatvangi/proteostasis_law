@@ -8,7 +8,7 @@ Translation strategies occupy a Pareto trade-off surface involving productive th
 
 ## Directory map
 
-- `manuscript/`: the integrated first-pass paper.
+- `manuscript/`: `MANUSCRIPT.md` is the integrated first-pass framework paper; `COLLAPSE_BOUNDARY.md` is the phase 3 working draft on where the collapse boundary is, why it sits far below capacity, and what cell division does to it.
 - `theory/`: law statement, mathematics, Pareto geometry, dynamics, predictions, scope, and nonclaims. `FOLD_THEOREM.md` derives where collapse occurs — the fold is the constrained maximum of total removal on the aggregate nullcline — and decomposes the fold-to-ceiling ratio into its saturation and sequestration deficits.
 - `empirical/`: experimental program and measurement-to-symbol map.
 - `notes/`: historical recovery and rejection ledger; provenance stays here.
