@@ -31,8 +31,14 @@ three consequences follow immediately:
   * hence  `j_crit = R(u*, a*)` at the first such point reached from the
     low-burden end, and
 
-        THE FOLD IS THE CONSTRAINED MAXIMUM OF TOTAL REMOVAL
-        ON THE AGGREGATE NULLCLINE.
+        THE COLLAPSE BOUNDARY IS WHERE TOTAL REMOVAL STOPS RESPONDING
+        TO BURDEN ALONG THE AGGREGATE NULLCLINE.
+
+the proven statement is CRITICAL POINT, not maximum.  an earlier version of this
+docstring claimed "constrained maximum"; that is withdrawn.  R rises
+monotonically along the first-root branch, and the solved fold has dG/da > 0, so
+the critical point lies past the nullcline's turning point.  see the precision
+note in `theory/FOLD_THEOREM.md`.
 
 this is theorem-level: it is an identity, not a property of a sample.  it also
 turns fold location into a 2x2 root solve in `(u, a)` with no continuation
@@ -147,8 +153,13 @@ def lowerNullclineA(u: float, p: M.Params, a_hi: float = 1e5) -> Optional[float]
 
     G > 0 at a = 0 (nucleation is the only term) and G > 0 for large a (growth
     outruns saturating removal), so a root exists only where the middle dips
-    negative. the FIRST crossing has dG/da < 0 and is the reachable branch.
+    negative. the FIRST crossing has dG/da < 0.
     returns 0.0 if G <= 0 already at a = 0, or None if no crossing is found.
+
+    THIS IS A BRACKETING HEURISTIC ONLY. it does NOT identify the branch the fold
+    lives on: the solved fold state has dG/da > 0 and lies past the turning point
+    of the nullcline, so it is not a first-root point. `foldSolve` uses this only
+    to seed the root solve, and the solve itself is on {G = 0, det J = 0}.
     """
     if aggregateG(u, 0.0, p) <= 0.0:
         return 0.0

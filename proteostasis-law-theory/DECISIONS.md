@@ -64,3 +64,37 @@ sweep together, overlapping the 8.86x between-network spread.
 coordinate fixed does give ~1.6-1.8x, which is what makes the empirical contrast
 in `theory/FOLD_THEOREM.md` testable — but only under fixed growth rate, since
 growth rate sets `nu`.
+
+## D010 — Growth dilution is part of disposal, and the ceiling does not survive it
+
+Cell division dilutes every species, and for most proteins dilution outpaces
+proteolysis. `scripts/phase3/dilution.py` adds `-mu(u,a).u` and `-mu(u,a).a`
+without modifying the frozen upstream model, since binding is unaffected.
+
+D007's theorem survives for ANY dilution law: `j` still enters `du/dt` only and
+the internal transfer still cancels, so `du/dt + da/dt = j - R_tot` with
+`R_tot = R + mu.(u+a)`, and `det J = -(grad R_tot x grad G_dil)` again. For
+constant `mu` the diluted Jacobian is exactly `J - mu.I`, so the saddle-node
+condition states that `mu` is an eigenvalue of the undiluted Jacobian.
+
+The removal ceiling does NOT survive. `R_tot` is unbounded in burden, so A8 is
+false once cells divide, and under *constant* dilution the fold is destroyed
+above a threshold (at base parameters, present at `mu = 0.08` with `a*` diverging
+to 0.750, absent by `mu = 0.10`). A fold reappears at every rate tested once
+growth slows with burden.
+
+**The collapse boundary of a dividing cell exists because burden slows growth.**
+Consequence for experimental design: a perturbation that lets growth rate float
+is not holding disposal capacity fixed, because growth rate is part of disposal.
+
+## D011 — The "constrained maximum" gloss is withdrawn
+
+D007 proves that the saddle-node is a constrained CRITICAL POINT of total removal
+on the aggregate nullcline. An earlier informal gloss called it the constrained
+maximum. That is withdrawn: `R` rises monotonically along the branch reached by
+taking the first root in `a`, and the solved fold state has `dG/da > 0`, so the
+critical point lies past the nullcline's turning point rather than on that
+branch. `lowerNullclineA` is a bracketing heuristic only and must not be
+described as identifying the fold's branch. Whether the critical point is a
+maximum over the whole curve is open. No number changes, because every result
+solves `det J = 0` directly.

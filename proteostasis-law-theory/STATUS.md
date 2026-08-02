@@ -44,9 +44,34 @@ prediction — collapse at `s_a` far below saturation, against the
 capacity-exhaustion alternative — is an untested empirical hypothesis, and it
 requires growth rate to be held fixed because growth rate sets `nu`.
 
-Reproduce with `python scripts/phase3/fold_theorem.py`; asserted by
-`tests/phase3/test_fold_theorem.py` (16 checks, of which 9 are model-level and
-run on a clean checkout).
+**Growth dilution, and the coupling the theory had not stated.** Cell division
+was absent from the model, and for most proteins dilution outpaces proteolysis.
+`scripts/phase3/dilution.py` adds it without touching the frozen upstream model.
+The theorem survives for any dilution law — `mu -> 0` reduces to the frozen model
+exactly (0.0), the identity holds at 1.2e-10 (constant `mu`) and 4.7e-10
+(burden-dependent), and for constant `mu` the diluted Jacobian is exactly
+`J - mu.I`, so the saddle-node condition says `mu` is an eigenvalue of the
+undiluted Jacobian.
+
+The **removal ceiling does not survive**: `R_tot = R + mu.(u+a)` is unbounded in
+burden, so A8 is false once cells divide. Under *constant* dilution the fold is
+destroyed above a threshold — continuation gives `j_crit` rising 0.1542 → 0.2456
+as `mu` goes 0 → 0.08 while `a*` diverges 0.265 → 0.750, and by `mu = 0.10` no
+fold exists. Growth feedback restores it at every rate tested.
+
+> **The collapse boundary of a dividing cell exists because burden slows growth.**
+
+An experiment that lets growth rate float is therefore not holding disposal
+capacity fixed, because growth rate is part of disposal.
+
+**One gloss withdrawn (D011).** The proven statement is constrained *critical
+point*, not *maximum*. `R` rises monotonically along the first-root branch and
+the solved fold has `dG/da > 0`, so the critical point sits past the nullcline's
+turning point. No number changes — everything solves `det J = 0` directly.
+
+Reproduce with `python scripts/phase3/fold_theorem.py` and
+`python scripts/phase3/dilution.py`; asserted by `tests/phase3/` (29 checks, of
+which 22 are model-level and run on a clean checkout).
 
 ## Phase 1 experiment D closed; Phase 2 synthesis final
 

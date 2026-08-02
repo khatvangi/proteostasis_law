@@ -26,8 +26,20 @@ R = v_ref + v_degU + v_degA .
         phi    = j_crit / removalCeiling
 ```
 
-Informally: **the fold is the constrained maximum of total removal on the
-aggregate nullcline.**
+Informally: **the collapse boundary is where total removal stops responding to
+burden along the aggregate nullcline.**
+
+**Precision note, added after the dilution work below.** The proven statement is
+*critical point*, not *maximum*; an earlier version of this line said
+"constrained maximum" and that gloss is **withdrawn**. Scanning `R` along the
+branch reached by taking the first root in `a` shows it rising monotonically to
+the end of that branch in every case tested, and the solved fold state has
+`dG/da > 0` (9.1e-03 to 3.9e-02, i.e. not at the nullcline's turning point). The
+critical point therefore lies *past the turn*, not on the first-root branch.
+`lowerNullclineA` in the phase 3 module is a bracketing heuristic only and does
+not identify which branch the fold lives on. That the critical point is a
+maximum over the whole curve is **not established**; the theorem and every
+number below are unaffected, since all of them use `det J = 0` directly.
 
 ## Proof
 
@@ -160,15 +172,79 @@ spread and cannot discriminate.
 Claim label: **Empirical hypothesis, untested.** No organism data was used
 anywhere in Phase 1, 2 or 3.
 
+## Consequence 5 — growth dilution, and why the boundary needs feedback
+
+The model has no cell division, and in growing cells dilution outpaces
+proteolysis for most proteins. `scripts/phase3/dilution.py` adds it without
+touching the frozen upstream model: binding is unaffected by dilution, so the
+diluted field is `du/dt - mu.u`, `da/dt - mu.a`.
+
+**The theorem survives, for any dilution law.** `j` still enters `du/dt` only, and
+the internal transfer still cancels, giving `du/dt + da/dt = j - R_tot` with
+
+```
+R_tot = R + mu(u,a).(u + a)          total removal, now including dilution
+```
+
+so `det J = -( grad R_tot x grad G_dil )` again. Verified at median relative
+error **1.2e-10** (constant `mu`) and **4.7e-10** (burden-dependent `mu`), with
+the analytic diluted Jacobian matching central differences to **6.7e-11** and the
+`mu -> 0` reduction to the frozen model exact at **0.0**.
+
+For constant `mu` the diluted Jacobian is `J - mu.I`, so the saddle-node
+condition says exactly that **`mu` is an eigenvalue of the undiluted Jacobian**.
+
+**The removal ceiling does not survive.** `R_tot` contains `mu.(u+a)`, which is
+unbounded in burden, so the analytic bound A8 is false once cells divide. The
+consequence is not cosmetic — with *constant* dilution the fold is destroyed
+outright above a threshold. Continuation in `mu` at the base parameters, each
+solve seeded from the previous and every accepted point satisfying
+`|G| < 1e-17` and `|det J| < 1e-17`:
+
+| `mu` | 0 | 0.02 | 0.04 | 0.06 | 0.08 | 0.10 |
+|---|---|---|---|---|---|---|
+| `j_crit` | 0.1542 | 0.1738 | 0.1950 | 0.2186 | 0.2456 | **none** |
+| `a*` | 0.265 | 0.318 | 0.389 | 0.496 | **0.750** | — |
+
+`a*` diverges as the threshold is approached: the fold point runs off to infinite
+aggregate burden and escapes. Past it there is no collapse boundary at all,
+because a cell dividing at a burden-independent rate can always dilute its way
+out.
+
+**Growth feedback restores it.** With `mu(u,a) = mu0/(1 + (u+a)/k_mu)` and
+`k_mu = 0.5`, a fold exists at every rate tested up to `mu0 = 0.3`, with `j_crit`
+rising from 0.1542 to 0.2689.
+
+> **The collapse boundary of a dividing cell exists because burden slows growth.**
+> Dilution alone is an unbounded disposal channel; only its throttling by the
+> burden it disposes of makes viability finite.
+
+This is the first place the theory requires a coupling it had not previously
+stated, and it changes what must be measured: a perturbation experiment that lets
+growth rate float is not holding the disposal capacity fixed, because growth rate
+*is* part of disposal.
+
+Claim labels: the identity, the `mu -> 0` reduction and the `J - mu.I` form are
+**Mathematical**; every threshold and `j_crit` above is **Computational**, at the
+base parameters only — the `mu` threshold was not mapped across the parameter box.
+
 ## Limits
 
-- **One model.** Two states, no regulation, no compartmentation, and — most
-  seriously — **no growth dilution**. In dividing cells, dilution outpaces
-  proteolysis for most proteins, so `d_tot` may be the wrong object for
-  "disposal". This would move `phi` and is not a caveat that can be waved away.
-- **The maximum is verified, not proved unique.** If `R` has several constrained
-  critical points on the branch, "the" fold is branch-dependent. The theorem
-  identifies critical points; ordering them is open.
+- **One model.** Two states, no regulation, no compartmentation. Growth dilution
+  was the most serious of these and is now addressed in Consequence 5 — the
+  theorem survives it, the removal ceiling does not — but the dilution law there
+  is a one-parameter guess, not a measured growth-burden relation, and the `mu`
+  threshold was mapped only at the base parameters, not across the box.
+- **`phi` itself is now ill-defined under dilution.** Its denominator was the
+  enzymatic removal ceiling, which Consequence 5 shows is no longer an upper
+  bound on `j_crit`. Every `phi` in Consequences 2 and 3 is therefore a
+  zero-dilution quantity. A dividing-cell analogue needs a new denominator, and
+  none is proposed here.
+- **The critical point is verified, not proved unique.** If `R` has several
+  constrained critical points on `{G = 0}`, "the" fold is branch-dependent. The
+  theorem identifies critical points; ordering them, and establishing whether the
+  relevant one is a maximum over the whole curve, is open — see the precision
+  note above.
 - **The kappa ranges were chosen adversarially wide.** Saturation dominates
   `phi`, and the kappas set saturation, so the 8.86x between-network spread is
   partly a property of the sampling box rather than of biology.
@@ -179,10 +255,12 @@ anywhere in Phase 1, 2 or 3.
 ## Reproduction
 
 ```
-python scripts/phase3/fold_theorem.py          # prints every number above
-python -m pytest tests/phase3 -q               # asserts them
+python scripts/phase3/fold_theorem.py    # the theorem, phi, the nested design
+python scripts/phase3/dilution.py        # growth dilution and fold survival
+python -m pytest tests/phase3 -q         # 29 checks asserting both
 ```
 
-`results/` is gitignored; without the Phase 1 run root the module prints an
-explicit `SKIP` and exits 0, and the artefact tests skip. The model-level tests
-run on a clean checkout and are the ones that pin the theorem itself.
+`results/` is gitignored; without the Phase 1 run root `fold_theorem.py` prints
+an explicit `SKIP` and exits 0, and its artefact tests skip. The 22 model-level
+tests — including every dilution test, which needs no artefacts — run on a clean
+checkout and are the ones that pin the mathematics.
