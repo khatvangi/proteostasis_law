@@ -2,6 +2,14 @@
 
 These are empirical hypotheses, not theorem-level claims.
 
+> **Phase 3 note.** `FOLD_THEOREM.md` sharpens prediction 1 into a contrast
+> against the standard capacity-exhaustion alternative: collapse should occur
+> while clearance runs at a small fraction of V_max (`s_a` of order 0.05-0.4),
+> not at saturation. The observable is a ratio, so it does not require absolute
+> capacity calibration. That file also imposes a design constraint absent below —
+> growth rate must be held fixed, because growth rate sets the nascent-chain
+> occupancy `nu`, whose drift compounds with the allocation knob.
+
 1. **Burden-capacity synthetic interactions.** A translation perturbation that modestly increases site-weighted damage will have a disproportionately large effect when chaperone or degradation capacity is reduced. Interaction contrasts should exceed an additive null on a prespecified burden scale.
 2. **Condition-dependent codon effects.** The same synonymous change will differ across nutrient, stress, and growth conditions because `E_p`, `Pr(r|c,u,e)`, nascent occupancy, and rescue allocation change. A context-invariant codon ranking would count against the model's condition-dependent form.
 3. **Substitution-identity dependence.** At matched mean error frequency, perturbations producing different substituted residues or targeting sites of different criticality will yield different folding and aggregation burdens. A frequency-only model should lose predictive accuracy.

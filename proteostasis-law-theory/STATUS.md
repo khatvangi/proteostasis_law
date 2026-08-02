@@ -1,5 +1,53 @@
 # Status
 
+## Phase 3: the fold is derived, not sampled
+
+On 2026-08-02 the collapse boundary was characterised analytically. Because `j`
+enters `du/dt` and nowhere else, the aggregate nullcline is a fixed curve, and
+mass balance plus one determinant-preserving row operation gives the identity
+`det J = -(grad R x grad G)` for total removal `R`. A saddle-node is therefore
+exactly a constrained critical point of `R` on the nullcline, so
+
+```
+j_crit = R(u*, a*)          exact, no continuation sweep
+```
+
+**The fold is the constrained maximum of total removal on the aggregate
+nullcline.** Statement, proof, verification and limits are in
+`theory/FOLD_THEOREM.md`; decisions D007-D009 record what changed.
+
+Verified against the Phase 1 run root: the identity holds to a median relative
+error of **1.436e-07** (the central-difference floor), the parallelism residual
+correlates with the recorded leading eigenvalue at **+0.9987** — showing the
+residual is bracket tolerance and not a failure of the identity — and the 2x2
+solver reproduces the continuation-derived folds to **6.652e-07**. `phi` rebuilds
+from first principles at all **2884** folds, median absolute error **1.3e-13**.
+
+**What sets phi.** At collapse the machinery runs at `s_ref` **0.175**, `s_u`
+**0.155**, `s_a` **0.056** — roughly 6-18 % of V_max. Collapse is *not* capacity
+exhaustion; superlinear nucleation overtakes sublinear saturating removal long
+before removal saturates. Counterfactually the saturation deficit accounts for
+**35.8 %** of the shortfall against **12.6 %** for sequestration. This supplies
+the mechanism behind P2 and shows `removalCeiling`, while a correct bound, is
+about 13x too loose to predict anything alone.
+
+**One earlier reading withdrawn (D009).** A within-draw comparison over the
+allocation `chi` alone gave a between/within variance ratio of 9.6, read as `phi`
+being a load-invariant network constant. The properly nested design — kinetic
+draws crossed with a `(nu, chi)` grid, 446 folds solved — gives **5.9**, with
+per-network spreads up to **13.6x** when both load coordinates sweep, overlapping
+the **8.86x** between-network spread. `phi` is network-characteristic but not
+load-invariant. Holding one load coordinate gives 1.59-1.80x.
+
+**No empirical claim.** No organism data entered Phase 3 either. The sharpened
+prediction — collapse at `s_a` far below saturation, against the
+capacity-exhaustion alternative — is an untested empirical hypothesis, and it
+requires growth rate to be held fixed because growth rate sets `nu`.
+
+Reproduce with `python scripts/phase3/fold_theorem.py`; asserted by
+`tests/phase3/test_fold_theorem.py` (16 checks, of which 9 are model-level and
+run on a clean checkout).
+
 ## Phase 1 experiment D closed; Phase 2 synthesis final
 
 On 2026-08-01 experiment D was closed scientifically and integrated into the

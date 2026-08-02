@@ -9,7 +9,7 @@ Translation strategies occupy a Pareto trade-off surface involving productive th
 ## Directory map
 
 - `manuscript/`: the integrated first-pass paper.
-- `theory/`: law statement, mathematics, Pareto geometry, dynamics, predictions, scope, and nonclaims.
+- `theory/`: law statement, mathematics, Pareto geometry, dynamics, predictions, scope, and nonclaims. `FOLD_THEOREM.md` derives where collapse occurs — the fold is the constrained maximum of total removal on the aggregate nullcline — and decomposes the fold-to-ceiling ratio into its saturation and sequestration deficits.
 - `empirical/`: experimental program and measurement-to-symbol map.
 - `notes/`: historical recovery and rejection ledger; provenance stays here.
 - `scripts/`: future reproducible analysis code and conventions.
