@@ -545,3 +545,101 @@ state-independent and that mass balance count all outflow -- rather than as
 independence of influx and capacity, which the theorem does not need. Whether
 capacity is a function of the error rate is immaterial to the identity, and
 material to where the boundary sits.
+
+## D028 — PREREGISTRATION: spatial sequestration, written before the run
+
+This entry is committed BEFORE `scripts/phase3/sequestration.py` is run, per
+`notes/POSTDICTION_PROTOCOL.md` rule 2. The reason is specific rather than
+ceremonial: the first Lindner pass produced exactly the tidy quantitative match
+it was hoping for, under a regime later rejected. That is a
+researcher-degrees-of-freedom hazard, and the fix is procedural.
+
+### The observation
+
+Lindner AB, Madden R, Demarez A, Stewart EJ, Taddei F (2008) PNAS
+105(8):3076-3081, doi:10.1073/pnas.0708931105, PMID 18287048, retrieved via
+PubMed. Verbatim from the abstract:
+
+  "This accretion is associated with >30% of the loss of reproductive ability
+  (aging) in these cells relative to the new-pole progeny, devoid of parental
+  inclusion bodies, that exhibit rejuvenation."
+
+Condition: E. coli, NON-STRESSED growth, time-lapse lineage tracking with
+IbpA-tagged inclusion bodies.
+
+### The corresponding model quantity
+
+`1 - mu_high / mu_low`, the growth rate of the aggregate-laden attractor against
+the growth rate of the low-aggregate attractor. This is a ratio BETWEEN TWO
+LINEAGES, matching the paper's "relative to the new-pole progeny". D026 already
+computed this quantity correctly and it is carried over unchanged.
+
+Bistability is a PRECONDITION, not the prediction. Rejuvenation is only a
+coherent category if two attractors and a separatrix exist; in a monostable
+system a daughter with less aggregate relaxes straight back.
+
+### The band, both edges
+
+    MATCH  if  0.30 <= (1 - mu_high/mu_low) <= 0.60
+
+Lower edge: the paper's reported bound, taken as stated.
+
+Upper edge 0.60: a judgment, declared here because rule 2 requires the upper edge
+in advance. Reasoning — an author observing a loss near or above 60% would
+conventionally write ">50%" or "halved" rather than ">30%". This is a convention
+about reporting, not a measurement, and it is the weakest element of this
+preregistration.
+
+**Declared conflict of interest with a past verdict.** Under this band, D026's
+hyperbolic-feedback result (48-95%, median 0.508) would score its MAGNITUDE as
+inside the band. D026 called it "more severe than reported" using an upper edge
+it never declared, which rule 2 now forbids. That characterisation is corrected
+in `notes/POSTDICTION_PROTOCOL.md` §5. D026's verdict of FAILURE stands on the
+ground that survives — the physiological law was MONOSTABLE in four of six
+settings, so there was no second attractor at all. Declaring the band now, with
+this consequence stated, is preferable to choosing it after seeing the
+sequestration numbers.
+
+### The required regime
+
+The claim counts ONLY under a physiological growth law: calibrated hyperbolic
+(D015) or linear arrest. **A match that appears only under constant dilution
+(`k_mu = inf`) is a FAILURE and will be reported as one**, per rule 4, because
+that regime predicts zero reproductive loss by construction and so contradicts
+the very number being explained.
+
+### The model form, fixed in advance
+
+Three states `(u, a_r, a_s)`. Aggregate splits into REACTIVE `a_r` and
+SEQUESTERED `a_s`:
+
+    da_s/dt = k_seq . a_r^q  -  k_rel . a_s        ( - mu.a_s under dilution )
+
+with `q = 1` tested first and `q > 1` second. `a_s` does NOT appear in the
+chaperone or protease resource denominators and does NOT nucleate. That is the
+entire mechanism: sequestration changes KINETICS, not bookkeeping. `k_seq = 0`
+must reduce to the two-state model exactly.
+
+D024 (the n-state generalisation) applies directly, so the boundary condition
+needs no re-derivation — but it must be VERIFIED that it applies, by checking
+`det J = -det[grad R; grad G; grad C]` on the extended system, BEFORE any number
+from this model is interpreted.
+
+### What would falsify
+
+- **Monostable under the physiological law** -> sequestration does not supply
+  the precondition; the mechanism is wrong or insufficient. Third failed
+  post-diction.
+- **Bistable under the physiological law but the loss falls OUTSIDE
+  [0.30, 0.60]** -> a SECOND FAILED POST-DICTION, stated here in advance as a
+  failure rather than as a partial success. It would name the next missing
+  mechanism, and the direction of the miss identifies which: a loss below 0.30
+  says the model under-couples burden to growth; above 0.60 says the sequestered
+  state is too costly and something is protecting the cell that the model lacks.
+- **Bistable and in band ONLY under constant dilution** -> failure, per rule 4.
+
+### What is NOT claimed either way
+
+Nothing here bears on the fold theorem, which is D007/D024 and holds independent
+of how many aggregate states there are. A failure of this post-diction is a
+failure of a MECHANISM, not of the identity.
