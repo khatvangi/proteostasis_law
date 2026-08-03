@@ -402,3 +402,45 @@ position is that this is a STRUCTURAL theory: it says exactly where the boundary
 is given the parameters, and that this holds for any model in the class. It does
 not predict a number without measured parameters, and claims must be pitched
 accordingly.
+
+
+## D026 — The aging/rejuvenation post-diction FAILS, and points at spatial sequestration
+
+The first post-diction attempted was Lindner et al. (2008) PNAS 105:3076-3081,
+doi:10.1073/pnas.0708931105, PMID 18287048: E. coli under NON-STRESSED growth
+accumulate aggregates in old-pole cells, losing ">30% of reproductive ability",
+while new-pole progeny "exhibit rejuvenation".
+
+**The logical point stands and is worth keeping.** Rejuvenation is only a
+coherent category in a BISTABLE system; in a monostable one a daughter with less
+aggregate simply relaxes back to the single attractor, so there is nothing to be
+rejuvenated into. Two attractors and a separatrix are what make inheritance of a
+low-burden state possible at all.
+
+**The model does not supply that bistability.**
+
+- CONSTANT dilution is bistable, with a 12.6-32.3 fold aggregate ratio and a
+  35-82% shed fraction needed to escape. But `k_mu = inf` means growth cannot
+  respond to burden, so it predicts ZERO reproductive loss -- contradicting the
+  >30% that is the actual measurement.
+- HYPERBOLIC FEEDBACK, the physiologically appropriate law, is MONOSTABLE in four
+  of six settings tested. Where bistability appears the predicted reproductive
+  loss is 48-95% (median 51%), more severe than reported.
+- LINEAR arrest gives no bounded high state, so no bistability and no
+  rejuvenation.
+
+Reporting this as a success would have required quoting the constant-dilution
+regime, which is precisely the regime that gets the measured quantity wrong. The
+tests pin the negative so it cannot drift into a positive.
+
+**What the failure points at.** The observation is not merely that a high-burden
+state exists; it is that aggregates are SPATIALLY SEQUESTERED at a pole and
+segregated asymmetrically. This model is well-mixed. Sequestration into an
+inclusion body removes aggregate from the reactive pool -- changing the kinetics,
+not the bookkeeping -- and is a candidate mechanism for a stable high-burden state
+that does not require the growth law to do the work.
+
+Spatial sequestration is therefore the next mechanism to add, identified by a
+failed post-diction rather than a confirmed one. It is also the first candidate
+in this project that arrived from an observation rather than from inspecting the
+model.

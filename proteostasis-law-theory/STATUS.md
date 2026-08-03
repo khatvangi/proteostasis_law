@@ -245,6 +245,28 @@ naive capacity bound is wrong by ~an order of magnitude and the boundary is a
 computable constrained critical point — not that collapse occurs at any
 particular fraction of V_max.
 
+**First post-diction attempted, and it FAILED (D026).** Lindner et al. 2008
+(doi:10.1073/pnas.0708931105) report that unstressed E. coli accumulate
+aggregates in old-pole cells, losing >30% of reproductive ability, while new-pole
+progeny rejuvenate. The logical point stands — **rejuvenation is only coherent in
+a bistable system**, since in a monostable one a daughter with less aggregate
+relaxes straight back. But the model does not supply that bistability where it
+matters: constant dilution is bistable yet predicts **zero** reproductive loss by
+construction; hyperbolic feedback is monostable in four of six settings and where
+bistable predicts 48-95% loss, more severe than observed; linear arrest gives no
+bounded high state at all.
+
+Reporting a success would have meant quoting the constant-dilution regime — the
+one that gets the measured quantity wrong. The negative is pinned by test.
+
+**The failure names the next mechanism: spatial sequestration.** The observation
+is about aggregates being localised at a pole and segregated asymmetrically; this
+model is well-mixed. Sequestration removes aggregate from the reactive pool,
+changing kinetics rather than bookkeeping, and could produce a stable high-burden
+state without making the growth law do the work. It is the first candidate
+mechanism in this project to arrive from an observation rather than from
+inspecting the model.
+
 A working manuscript for the whole phase 3 result is
 `manuscript/COLLAPSE_BOUNDARY.md`.
 

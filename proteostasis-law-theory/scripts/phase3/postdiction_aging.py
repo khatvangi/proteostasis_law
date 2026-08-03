@@ -18,26 +18,48 @@ the same continuous branch, and it relaxes straight back to the one attractor --
 there is nothing to be rejuvenated INTO. Two attractors separated by a separatrix
 are what make inheritance of a low-burden state possible at all.
 
-The model produces exactly that structure (D013), and -- this is the point --
-only under ONE of the two candidate growth-arrest laws:
+The model produces that structure under SOME dilution laws (D013), so the
+expectation going in was that the aging literature would bear on D015's open
+question -- whether growth arrest is asymptotic or complete -- from a direction
+no proteostasis experiment could reach.
 
-  hyperbolic arrest (growth approaches zero asymptotically) -> dilution never
-      switches off -> the high-burden state is BOUNDED -> bistable.
-  linear arrest (growth reaches exactly zero at finite burden) -> dilution
-      switches off -> the high-burden state RUNS AWAY -> not bistable.
+It does bear on it, but not the way expected. See the findings below: the
+expectation was wrong, and the regime that supplies bistability is the one that
+gets the measured quantity wrong.
 
-D015 identified that shape as the single most valuable unmeasured quantity and
-noted the measurement cannot settle it, since the data constrain the slope three
-decades below the arrest burden. The aging literature bears on it from a
-completely different direction: an observed, heritable, viable high-aggregate
-state is evidence for boundedness, hence for the hyperbolic branch.
+WHAT THIS MODULE FOUND -- A NEGATIVE, AND A POINTER
+---------------------------------------------------
+The logical point above stands on its own: rejuvenation is only a coherent
+category in a bistable system. But the model does NOT robustly supply that
+bistability once growth responds to burden.
 
-WHAT THIS MODULE COMPUTES
--------------------------
-The quantitative version. From the high-burden attractor, what fraction of
-aggregate must a daughter shed to land in the low-burden basin? That is the
-model's rejuvenation threshold, and it is directly comparable to a measured
-segregation asymmetry.
+  * under CONSTANT dilution (`k_mu = inf`) the system is bistable and a daughter
+    must shed 35-82% of its aggregate to escape the high state. but constant
+    dilution means growth does not respond to burden at all, so it predicts ZERO
+    reproductive loss -- flatly contradicting the >30% that is the observation.
+  * under HYPERBOLIC FEEDBACK, which is the physiologically appropriate law, four
+    of six settings tested are MONOSTABLE. where bistability does appear it
+    carries a predicted reproductive loss of 48-95% (median 51%), more severe
+    than the reported figure.
+  * under LINEAR arrest there is no bounded high state at all, so no bistability
+    and no rejuvenation.
+
+So the model does not post-dict aging and rejuvenation. Reporting it as a success
+would have required quoting the constant-dilution regime, which is exactly the
+regime that predicts the wrong answer for the quantity actually measured.
+
+WHAT THE FAILURE POINTS AT
+--------------------------
+The Lindner observation is not merely that a high-burden state exists; it is that
+aggregates are SPATIALLY SEQUESTERED at a pole and segregated asymmetrically at
+division. This model is well-mixed. Sequestration into an inclusion body removes
+aggregate from the reactive pool -- it changes the kinetics, not just the
+bookkeeping -- and that is a mechanism capable of producing a stable high-burden
+state without requiring the growth law to do the work.
+
+The honest reading is therefore that the aging literature identifies a MISSING
+MECHANISM rather than confirming the present one, and that spatial sequestration
+is the specific candidate.
 
 CLAIM LABELS
   Computational : every number here.
@@ -140,9 +162,45 @@ def scanInfluxes(p: Optional[M.Params] = None, g: Optional[D.Growth] = None,
     return pd.DataFrame(rows)
 
 
+def feedbackScan(p: Optional[M.Params] = None) -> pd.DataFrame:
+    """is the system bistable once growth actually responds to burden?
+
+    constant dilution is not a physiological law: it says growth is unaffected by
+    damage, which contradicts the very observation being explained. this scans
+    hyperbolic FEEDBACK laws instead and records the predicted reproductive loss
+    of the high state, which is the quantity Lindner et al. measured.
+    """
+    p = (p or M.Params()).validate()
+    rows: List[Dict[str, float]] = []
+    for mu0, k_mu in ((0.05, 0.5), (0.1, 0.5), (0.2, 0.5),
+                      (0.1, 1.0), (0.3, 1.0), (0.2, 2.0)):
+        g = D.Growth(mu0, k_mu)
+        out = D.foldSolveDil(p, g)
+        if out is None:
+            continue
+        j_crit = out[0]
+        for frac in (0.90, 0.95, 0.98, 0.995):
+            j = frac * j_crit
+            low = B.settle(j, (0.0, 0.0), p, g)
+            high = B.settle(j, (low[0], max(50 * max(low[1], 1e-6), 5.0)), p, g)
+            if not all(np.isfinite(v) for v in low + high):
+                continue
+            pj = p.with_(j=j).validate()
+            if any(max(map(abs, D.rhsDil(s[0], s[1], pj, g)))
+                   > 1e-7 * max(1.0, s[0] + s[1]) for s in (low, high)):
+                continue
+            bistable = high[1] > 1.5 * max(low[1], 1e-12)
+            m_lo, m_hi = g.rate(*low) / mu0, g.rate(*high) / mu0
+            rows.append({"mu0": mu0, "k_mu": k_mu, "j_over_jcrit": frac,
+                         "bistable": bistable,
+                         "a_low": low[1], "a_high": high[1],
+                         "reproductive_loss": 1.0 - m_hi / m_lo if bistable else 0.0})
+    return pd.DataFrame(rows)
+
+
 def main() -> int:
     p = M.Params().validate()
-    print("POST-DICTION: aging and rejuvenation by asymmetric segregation")
+    print("POST-DICTION ATTEMPT: aging and rejuvenation by asymmetric segregation")
     print("   observation: Lindner et al. 2008 PNAS, doi:%s (PMID %s), via PubMed"
           % (LINDNER2008["doi"], LINDNER2008["pmid"]))
     print("   aggregates accumulate in old-pole cells under %s, costing >%d%% of"
@@ -150,41 +208,61 @@ def main() -> int:
              100 * LINDNER2008["reproductive_loss_old_pole"]))
     print("   reproductive ability; new-pole progeny 'exhibit rejuvenation'.")
     print()
-    print("   rejuvenation is only a meaningful category if the system is BISTABLE:")
-    print("   in a monostable system a daughter with less aggregate simply relaxes")
-    print("   back to the single attractor. so the observation bears on which")
-    print("   growth-arrest law holds -- the question D015 left open.")
+    print("   THE LOGICAL POINT, which stands independently: rejuvenation is only a")
+    print("   coherent category in a BISTABLE system. in a monostable one a daughter")
+    print("   with less aggregate simply relaxes back to the single attractor.")
     print()
 
-    print("A. HYPERBOLIC arrest (dilution never switches off) -> bounded high state")
+    print("A. CONSTANT dilution -- bistable, but growth cannot respond to burden")
     df = scanInfluxes(p, D.Growth(0.04))
-    if df.empty:
-        print("   no bistable window found")
-    else:
-        show = df[["j", "a_low", "a_high", "aggregate_ratio",
-                   "shed_fraction_needed"]]
-        print(show.to_string(index=False, float_format=lambda v: f"{v:.5g}"))
-        print()
-        print("   aggregate ratio high/low : %.1f - %.1f fold"
+    if not df.empty:
+        print("   aggregate ratio high/low    : %.1f - %.1f fold"
               % (df["aggregate_ratio"].min(), df["aggregate_ratio"].max()))
         print("   shed fraction to rejuvenate : %.3f - %.3f (median %.3f)"
-              % (df["shed_fraction_needed"].min(),
-                 df["shed_fraction_needed"].max(),
+              % (df["shed_fraction_needed"].min(), df["shed_fraction_needed"].max(),
                  df["shed_fraction_needed"].median()))
+    print("   predicted reproductive loss : 0.000  <- k_mu = inf means growth is")
+    print("                                 unaffected by burden BY CONSTRUCTION,")
+    print("                                 contradicting the >30%% that was measured.")
     print()
 
-    print("B. LINEAR arrest (dilution switches off) -> no bounded high state")
+    print("B. HYPERBOLIC FEEDBACK -- the physiologically appropriate law")
+    fb = feedbackScan(p)
+    if fb.empty:
+        print("   no settings converged")
+        return 0
+    n_bi = int(fb["bistable"].sum())
+    laws = fb.groupby(["mu0", "k_mu"])["bistable"].any()
+    print("   settings tested          : %d  (bistable at some influx in %d)"
+          % (len(laws), int(laws.sum())))
+    print("   influx points evaluated  : %d  (bistable in %d)" % (len(fb), n_bi))
+    if n_bi:
+        bi = fb[fb["bistable"]]
+        print("   predicted reproductive loss of the high state : %.3f - %.3f (median %.3f)"
+              % (bi["reproductive_loss"].min(), bi["reproductive_loss"].max(),
+                 bi["reproductive_loss"].median()))
+        print("   observed (Lindner)                            : > %.2f"
+              % LINDNER2008["reproductive_loss_old_pole"])
+    print()
+
+    print("C. LINEAR arrest -- no bounded high state at all")
     import boundary_structure as BS
     dfl = scanInfluxes(p, BS.LinearGrowth(0.3, 1.5625))
     print("   bistable influxes found : %d" % len(dfl))
-    print("   -> %s" % ("no bistability, so no rejuvenation is possible under this law"
-                        if dfl.empty else "unexpected: see table above"))
     print()
-    print("   CONCLUSION. an observed heritable low-burden state after asymmetric")
-    print("   segregation is evidence for a BOUNDED high-burden attractor, hence")
-    print("   for asymptotic rather than complete growth arrest. that is evidence")
-    print("   about the unmeasured quantity of D015, arriving from the aging")
-    print("   literature rather than from a proteostasis experiment.")
+
+    print("VERDICT: the model does NOT post-dict aging and rejuvenation.")
+    print("   bistability is generic only under constant dilution, which predicts")
+    print("   zero reproductive loss; under feedback it is rare and the loss is")
+    print("   more severe than observed; under linear arrest it does not occur.")
+    print()
+    print("   WHAT THE FAILURE POINTS AT: the observation is about aggregates being")
+    print("   SPATIALLY SEQUESTERED at a pole and segregated asymmetrically. this")
+    print("   model is well-mixed. sequestration removes aggregate from the reactive")
+    print("   pool, changing the kinetics rather than the bookkeeping, and is a")
+    print("   candidate mechanism for a stable high-burden state that does not make")
+    print("   the growth law do the work. that is a missing mechanism, identified")
+    print("   by a failed post-diction rather than by a confirmed one.")
     return 0
 
 
