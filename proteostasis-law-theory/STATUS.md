@@ -96,7 +96,9 @@ constant dilution (`k_mu = inf`), under which growth rate cannot respond to
 burden, so the same regime predicts **exactly zero** growth-rate loss at any
 aggregate load. That contradicts the one dosage-resolved measurement the project
 holds (D015: 3.2 % loss at <0.1 % misfolded) and the observation the first
-post-diction tried to explain (D026: >30 % reproductive loss). The regime that
+post-diction tried to explain (D026/D028: a 1.2–1.8 % aggregate-attributable
+growth deficit — not the ">30 %" an earlier reading of that abstract took it to
+be). The regime that
 produces the bistability is the regime that gets the measured quantity wrong.
 Under the physiological laws it does not survive as stated — linear arrest gives
 no bounded high-burden state, hyperbolic feedback is monostable in four of six
@@ -278,10 +280,50 @@ state without making the growth law do the work. It is the first candidate
 mechanism in this project to arrive from an observation rather than from
 inspecting the model.
 
-**Running count of collisions with existing observation: two.** Regulation
-(D025) and sequestration (D026). Neither confirmed the theory; both named
-something the model lacks. That is the correct count and it is not to be
+**Running count of collisions with existing observation: three.** Regulation
+(D025), sequestration-as-reservoir (D026 named it, D029 tested it), and the
+magnitude of the aggregate-laden state (D029). None confirmed the theory; each
+named something the model lacks. That is the correct count and it is not to be
 inflated by upgrading a qualitative match to a confirmation.
+
+**(!) The Lindner number was misread, and the correction is a factor of thirty
+(D028).** ">30% **of** the loss of reproductive ability" is a SHARE of the aging
+effect, not the effect. The full text (PMC2268587, via PubMed) gives
+`[Delta(GR_old - GR_new)]mean/GR_mean = -3.95 +/- 0.5%` and the
+aggregate-attributable share as `Agg/(Agg + Pole) ~ 30-40%`, so the measured
+quantity is **1.2-1.8%**. The misreading survived two full analysis cycles and
+was written into a protocol as a worked example before the full text stopped it.
+An abstract is not a source for a number.
+
+**The sequestration post-diction FAILED, and it is the sharpest failure yet
+(D029).** D024 was verified on the extended three-state system first (median
+1.5e-12, max 4.7e-11; `k_seq = 0` reduces to the two-state field at 0.00e+00), so
+nothing downstream is void. Across 384 qualified cells in each of two regimes:
+**0 in band**. Every bistable cell predicts a reproductive loss of 0.482, 0.508,
+0.954 or 1.000 against a measured [0.0104, 0.0178] — **27x to 92x too severe**,
+uniformly, with no marginal case.
+
+Sequestration is not inert: with sequestered aggregate exempt from the growth
+cost, bistable cells with the mechanism ON outnumber the control 12 to 3. It was
+the right kind of idea. The high state it creates is simply always complete
+arrest.
+
+**Inverting the growth law gives the size of the miss.** The burden that would
+produce a measured-size loss is 7.5x to 254x below where the model puts its
+second attractor. A real old-pole E. coli carries a visible inclusion body and
+still divides at 96-99% of normal; every high state this model can reach is a
+cell that has essentially stopped. The next candidate — from the observation, not
+from the equations — is a **size-limited deposit**, saturating sequestration into
+a finite number of foci rather than an unbounded sink, so that the high state's
+burden is set by deposit capacity rather than by where the removal curve bends.
+Not yet run.
+
+**One process defect, recorded rather than patched.** Under the original band the
+literal criterion would have PASSED, carried entirely by `k_seq = 0` control
+cells. D028 fixed the band, the growth law and the falsifier but never required
+the mechanism under test to be switched on. That is now protocol rule 6, and
+`verdict()` reports `mechanism_passes` beside the literal `passes` instead of
+replacing it.
 
 **Antecedent check A1 — the machinery damages itself, and the theorem survives
 (D027).** The derivation assumes influx and clearance capacity are independent.

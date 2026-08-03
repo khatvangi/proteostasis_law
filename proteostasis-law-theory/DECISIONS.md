@@ -121,8 +121,9 @@ to burden, so the regime predicts EXACTLY ZERO growth-rate loss at any aggregate
 load. That is not a small idealisation: it contradicts the only dosage-resolved
 measurement the project holds (D015 — Geiler-Samerotte 2011, 3.2% growth-rate
 reduction at under 0.1% of protein misfolded) and it contradicts the observation
-the first post-diction tried to explain (D026 — Lindner 2008, over 30%
-reproductive loss). **The regime that produces the bistability is the same regime
+the first post-diction tried to explain (D026 — Lindner 2008, a 1.2-1.8%
+aggregate-attributable growth deficit; see D028 for why this is not the "over
+30%" an earlier reading of that abstract reported). **The regime that produces the bistability is the same regime
 that gets the measured quantity wrong.** Under the physiological growth laws the
 result does not survive as stated: linear arrest gives no bounded high-burden
 state at all, and hyperbolic feedback is monostable in four of six settings
@@ -426,8 +427,15 @@ accordingly.
 
 The first post-diction attempted was Lindner et al. (2008) PNAS 105:3076-3081,
 doi:10.1073/pnas.0708931105, PMID 18287048: E. coli under NON-STRESSED growth
-accumulate aggregates in old-pole cells, losing ">30% of reproductive ability",
-while new-pole progeny "exhibit rejuvenation".
+accumulate aggregates in old-pole cells, while new-pole progeny "exhibit
+rejuvenation".
+
+**(!) The number quoted in this entry was misread and is corrected in D028.** The
+abstract's ">30% of the loss of reproductive ability" is a SHARE of the aging
+effect, not the effect; the full text gives the effect as 3.95 +/- 0.5% and the
+aggregate share as ~30-40%, so the measured quantity is **1.2-1.8%**, not 30%.
+This entry's verdict is unaffected and in fact strengthened: the losses it called
+"more severe than reported" are too severe by 27x to 92x, not by a hair.
 
 **The logical point stands and is worth keeping.** Rejuvenation is only a
 coherent category in a BISTABLE system; in a monostable one a daughter with less
@@ -663,3 +671,101 @@ from this model is interpreted.
 Nothing here bears on the fold theorem, which is D007/D024 and holds independent
 of how many aggregate states there are. A failure of this post-diction is a
 failure of a MECHANISM, not of the identity.
+
+## D029 — The sequestration post-diction FAILS. The model overpredicts the cost of an aggregate-laden cell by 27x to 92x
+
+Run of `scripts/phase3/sequestration.py` against the preregistered criterion in
+D028. Reported failure-first, per `notes/POSTDICTION_PROTOCOL.md`.
+
+### Gate first: D024 holds on the extended system
+
+Checked before any other number was looked at, as D028 required. Over 144
+combinations of sequestration setting, growth law, state and growth-cost
+convention: `det J = -det[grad R; grad G; grad C]` with median relative error
+1.5e-12 and maximum 4.7e-11, none above 1e-6. `k_seq = 0` reproduces the
+two-state field to 0.00e+00 in every component, diluted and undiluted. The
+extension is legitimate and nothing downstream is void.
+
+### The verdict: FAIL, on both criteria, in both regimes
+
+|                          | `a_s` costs growth | `a_s` free |
+|---|---|---|
+| qualified cells          | 384 | 384 |
+| settled                  | 128 | 249 |
+| bistable                 | 4   | 15  |
+| bistable with `k_seq>0`  | 1   | 12  |
+| bistable in the control  | 3   | 3   |
+| **in band**              | **0** | **0** |
+
+Every bistable cell's predicted reproductive loss is 0.482, 0.508, 0.954 or
+1.000, against a measured band of [0.0104, 0.0178]. The miss is **27x to 92x**,
+in the direction of excess severity, and it is uniform — there is no marginal
+case.
+
+### Two things the run established that are not the verdict
+
+**1. Sequestration does supply the precondition, in one regime.** With `a_s`
+exempt from the growth cost, bistable cells with the mechanism ON outnumber the
+control 12 to 3. So the mechanism is not inert: draining aggregate into an inert
+compartment can create a second attractor under linear arrest. It was the right
+kind of idea. The resulting high state is simply always catastrophic — every one
+of those 12 cells sits at loss 1.000, complete arrest.
+
+**2. Under the ORIGINAL band, the literal criterion would have PASSED, carried
+entirely by the control arm.** Two cells scored in [0.30, 0.60] and both had
+`k_seq = 0` — the two-state model, mechanism switched off, reproducing D026's
+numbers exactly. D028 fixed the band, the growth law and the falsifier but never
+required the mechanism under test to be ON, so a control cell could have carried
+a "pass". That omission is now protocol rule 6, and `verdict()` reports
+`mechanism_passes` alongside D028's literal `passes` rather than quietly
+replacing it. The band correction made the point moot; the defect was real
+regardless.
+
+### What the failure names, quantitatively
+
+D028 stated in advance that a miss above the band means "the sequestered state is
+too costly and something is protecting the cell that the model lacks". That is the
+direction, and the size can be computed. Inverting the hyperbolic law for the
+burden that WOULD produce a measured-size loss:
+
+| `k_mu` | `B_high` actual | `B_high` needed | ratio |
+|---|---|---|---|
+| 1.0 | 35.55 | 0.140-0.149 | **239x-254x** |
+| 2.0 | 3.596 | 0.399-0.417 | 8.6x-9.0x |
+| 2.0 | 4.146 | 0.531-0.550 | 7.5x-7.8x |
+
+**The model's bistable high state is 7.5x to 254x more aggregate-laden than the
+cell Lindner actually measured.** A real old-pole E. coli carries a visible
+inclusion body at a cost of 1.2-1.8% of growth rate. Every high state this model
+can produce is a cell that has essentially stopped dividing.
+
+That is a sharper and more useful statement than "the post-diction failed": the
+coupling from aggregate burden to growth rate, or the burden at which the model
+places its second attractor, is wrong by one to two orders of magnitude.
+
+### The next mechanism, and its provenance
+
+The observation points at it, not the model. Lindner's cell holds a SMALL,
+STABLE, spatially localised deposit and keeps dividing at 96-99% of normal. This
+model's high attractor exists only where aggregate has run away far enough for
+saturating removal plus dilution to catch it, which is intrinsically a
+large-burden state. Sequestration as specified in D028 does not fix that, because
+`k_seq . a_r^q` is unbounded: it moves aggregate to a different compartment
+without limiting how much there is.
+
+The candidate is therefore a **size-limited deposit** — saturating sequestration
+into a finite number of foci, `k_seq . a_r/(K_seq + a_r)`, rather than an
+unbounded sink. A deposit that cannot exceed a fixed size gives a high state
+whose burden is set by the deposit capacity rather than by where the removal
+curve bends, which is the only way this model can place a second attractor at 1%
+growth cost instead of 100%.
+
+Stated as the next candidate, not as a result. It has not been run.
+
+### Count
+
+Three collisions with published observation so far, three informative failures:
+regulation (D025), sequestration-as-reservoir (D026 named it, D029 tested it),
+and now the magnitude of the high state. None has confirmed the theory. The fold
+theorem (D007, D024) is untouched by any of them — a mechanism failing is not the
+identity failing.

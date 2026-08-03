@@ -230,3 +230,51 @@ independently.
 **Note:** no claim ledger exists in this repository (only `theory/SCOPE_AND_NONCLAIMS.md`),
 so none was created. `OPS_SUBMISSION.md` was left uncommitted — it is an untracked
 artefact of an earlier session and outside this task's scope.
+
+## 2026-08-03
+
+**Q:** Repair D013's caveat, run antecedent check A1 (does mistranslation damage
+removal capacity, and does the identity survive), then preregister and run
+spatial sequestration.
+
+**A:** D013's bistability numbers were all computed under constant dilution — the
+regime that predicts zero growth loss by construction. Caveat moved to the head of
+the entry and pinned by test in both DECISIONS.md and STATUS.md.
+
+A1 (D027): the identity survives capacity self-damage at machine precision, in
+both a parametric mode (capacity falls with j) and a state-dependent one
+(capacity falls with burden), down to 1.8% of nominal capacity. There is no
+corrected form — the row operation needs only state-independent influx and exact
+mass balance, so how parameters depend on j is irrelevant. What dies is the
+SHORTCUT: {G=0} moves with the load, so fold-finding goes from two equations to
+three. j_crit falls to 0.32x/0.13x but the slowing exponent does not move
+(paired Wilcoxon p = 0.312) — collapse happens sooner, not steeper. Also recorded
+that the numerical check carries no truncation term and so cannot fail unless mass
+balance does (slope in h is -0.97, not +2).
+
+**Q:** Re-anchor the band to Lindner's data before running sequestration; drop
+the two-commit ordering rule.
+
+**A:** The band was wrong by a factor of thirty. ">30% OF the loss of reproductive
+ability" is a SHARE of the aging effect, not the effect. The full text gives the
+effect as -3.95 ± 0.5% and the aggregate share as ~30-40%, so the measured
+quantity is 1.2-1.8%. The misreading had survived two analysis cycles and been
+written into POSTDICTION_PROTOCOL as a worked example. Band is now derived by
+`aggregateAttributableLoss()`: [0.0104, 0.0178].
+
+**Q:** Run sequestration.
+
+**A:** FAILED, and it is the sharpest failure so far (D029). D024 verified on the
+extended system first. 0 of 384 qualified cells in band, in both growth-cost
+regimes; every bistable cell predicts 0.482-1.000, i.e. 27x-92x too severe.
+Sequestration is not inert — with a_s exempt from the growth cost it gives 12
+bistable cells against the control's 3 — but the high state it creates is always
+complete arrest. Inverting the growth law: the model's second attractor sits
+7.5x-254x more aggregate-laden than the cell that was measured. Next candidate,
+from the observation: a size-limited deposit. Collision count now three, all
+informative failures; the fold theorem is untouched by any of them.
+
+Also found and recorded a process defect: under the ORIGINAL band the literal
+criterion would have PASSED, carried entirely by k_seq=0 control cells, because
+D028 never required the mechanism under test to be switched on. Now protocol
+rule 6.

@@ -59,6 +59,18 @@ Not a partial success, not a promising direction. If the only setting that
 reproduces the observation is one the project has independently ruled out, the
 model does not explain the observation — it explains it away.
 
+## 6. The pass criterion must require the MECHANISM to be on
+
+Include the mechanism-off control in the grid, and require the in-band cell to
+have the mechanism switched on. A control cell cannot demonstrate a mechanism no
+matter which band it lands in.
+
+This is not pedantry. D028 fixed the band, the growth law and the falsifier, and
+still admitted a "pass" that was carried entirely by `k_seq = 0` cells — the
+two-state model, reproducing an earlier result, with sequestration doing nothing
+(D029). Report both criteria: the literal preregistered one as the audit trail,
+and the mechanism-on one as the scientific verdict.
+
 ## 5. Retro-applied to the Lindner entry (D026)
 
 Two corrections to the first pass, both recorded rather than quietly fixed:
@@ -97,8 +109,11 @@ reports. That part needs no correction.
 Before the run:
 
 - [ ] the paper's measured number, quoted verbatim, with DOI
+- [ ] **what that number is a percentage OF**, established from the full text
 - [ ] the quantity in the model that corresponds to it, and why it corresponds
-- [ ] the match band, **both edges**, with the reasoning for each
+- [ ] the match band, **both edges**, derived from data where the source permits
+- [ ] the mechanism-OFF control is in the grid, and the pass criterion requires
+      the mechanism ON
 - [ ] the parameter regime required, and which regimes are disqualified in advance
 - [ ] what result would falsify, stated as a specific outcome
 - [ ] committed
