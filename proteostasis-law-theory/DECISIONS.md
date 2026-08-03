@@ -769,3 +769,27 @@ regulation (D025), sequestration-as-reservoir (D026 named it, D029 tested it),
 and now the magnitude of the high state. None has confirmed the theory. The fold
 theorem (D007, D024) is untouched by any of them — a mechanism failing is not the
 identity failing.
+
+## D030 — PREREGISTRATION: the framing test
+
+Written before `scripts/phase3/asymmetric_division.py` was run.
+
+**A monostable two-state diluted model under the calibrated hyperbolic law
+(D015), with aggregate partitioned asymmetrically at division in ratio
+`(f, 1-f)` with `f > 0.5` and no second attractor anywhere, scores
+`Delta(GR_old - GR_new)/GR_mean` inside the FIXED band [0.0104, 0.0178] of D028,
+with the mechanism required ON — `f = 0.5` control cells cannot carry the pass
+(protocol rule 6).**
+
+The band is imported from `postdiction_aging.aggregateAttributableLoss()` and is
+not re-derived. Both outcomes are results and are reported as such:
+
+- **IN BAND** -> the bistability requirement was a category error. D026's
+  surviving claim, that rejuvenation is only coherent in a bistable system, is
+  WITHDRAWN: the old-pole cell is not sitting in a second basin, it inherits a
+  physical inclusion body at every division, which is a continuously renewed
+  perturbation and not an attractor. The three prior failures were then scoring a
+  quantity the observation never required.
+- **NOT IN BAND** -> no route tried produces a mildly-burdened stable state, and
+  that is a structural limitation of the model class, stated as a finding rather
+  than as a fourth failed post-diction.
