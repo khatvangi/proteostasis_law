@@ -114,6 +114,23 @@ whether division is included.
 
 ## D013 — Under division, loss of viability is a transition, not a divergence
 
+**(!) CAVEAT AT THE CLAIM, not in a footnote.** Every number in this entry was
+computed under CONSTANT dilution (`k_mu = inf`), a regime this project has since
+rejected on measured grounds. Constant dilution means growth rate cannot respond
+to burden, so the regime predicts EXACTLY ZERO growth-rate loss at any aggregate
+load. That is not a small idealisation: it contradicts the only dosage-resolved
+measurement the project holds (D015 — Geiler-Samerotte 2011, 3.2% growth-rate
+reduction at under 0.1% of protein misfolded) and it contradicts the observation
+the first post-diction tried to explain (D026 — Lindner 2008, over 30%
+reproductive loss). **The regime that produces the bistability is the same regime
+that gets the measured quantity wrong.** Under the physiological growth laws the
+result does not survive as stated: linear arrest gives no bounded high-burden
+state at all, and hyperbolic feedback is monostable in four of six settings
+tested (D026). D015 already withdrew the claim that bistability follows from cell
+division per se and made it form-dependent; this caveat records the sharper form
+— the numbers below are quoted from a regime that is unphysical in a specific,
+measured way, and they may not be quoted without it.
+
 D010 said constant dilution "destroys the fold" and an earlier phrasing said
 there is then "no collapse boundary at all". Both overstate it.
 
@@ -134,7 +151,8 @@ This does not reinstate `notes/REJECTED_COMPONENTS.md` item 7, which rejects
 bistability attributed to the old one-variable ODE, nor does it overturn Phase 2
 §2.1, which demoted bistability in the NON-dividing model. Bistability here comes
 from a model feature neither analysis contained. It was found at the base
-parameters and has NOT been surveyed across the box.
+parameters, has NOT been surveyed across the box, and those base parameters carry
+the constant-dilution defect stated at the head of this entry.
 
 ## D014 — The margin is reported as (phi_enz, delta) once division is included
 
@@ -444,3 +462,86 @@ Spatial sequestration is therefore the next mechanism to add, identified by a
 failed post-diction rather than a confirmed one. It is also the first candidate
 in this project that arrived from an observation rather than from inspecting the
 model.
+
+## D027 — Antecedent check A1: the machinery may damage itself; the identity survives, the shortcut does not
+
+The derivation rests on `j` entering `du/dt` and nowhere else. In a cell it does
+not: chaperones and proteases are themselves translated at the same per-codon
+error rate, so raising `j` degrades the machinery that clears the damage. If that
+coupling broke `det J = -(grad R x grad G)`, the theorem would hold for a model
+class that EXCLUDES cells. `scripts/phase3/capacity_self_damage.py` tests it with
+`C_enz(load) = C_0/(1 + eps.load)` applied to both pools, `eps = 1/j_ref` swept
+over four decades and NOT tuned to any biological value. `eps = 0` reproduces the
+frozen model exactly (asserted at 0.0).
+
+Two modes, and the second is the one that can actually break anything.
+INFLUX (`load = j`) is the stated worry, but `j` is a parameter, so it changes the
+equations without changing their dependence on the state. BURDEN
+(`load = u + a`) puts capacity inside `grad R` and `grad G` themselves.
+
+**1. The identity survives, in both modes, at machine precision.** Gradient-
+normalised residual: floor 2.2e-14 at `eps = 0`; worst median 6.4e-14 (influx)
+and 4.6e-13 (burden) at `eps = 100`, where capacity is down to 16.7% and 1.8% of
+nominal. Log-log slopes in `eps` are 0.12 and 0.31 on quantities that never leave
+the 1e-14 to 5e-13 band. Outcome 1 of the three: slope ~0 at the differencing
+floor.
+
+**There is no corrected algebraic form, and that is the finding.** The row
+operation needs only (a) `j` additive in `du/dt` and absent from `da/dt`, and
+(b) `du/dt + da/dt = j - R` exact. How the PARAMETERS depend on `j`, or on the
+state, is irrelevant to either. The gradients are taken at fixed `j`, so
+`det J = -(grad R x grad G)` is unchanged.
+
+**2. The numerical check is weaker than it looks, and the reason is worth
+recording.** `du/dt = j - R - G` holds pointwise, and the central-difference
+operator is linear, so it reproduces the row operation exactly at ANY step size:
+the identity carries no truncation term. Measured slope in `h` is -0.97
+(burden, `eps = 100`) and -0.94 (`eps = 10`) with NO V-shaped minimum over four
+decades -- pure roundoff, falling as `h` grows, exactly as predicted. Refining the
+step from 1e-6 to 1e-2 drops the residual 5.6e-9 to 4.6e-13. So the check
+certifies the IMPLEMENTATION preserves mass balance; the analytic argument
+carries the theorem. Reporting the ladder at the repo's habitual `h = 1e-6` would
+have shown a spurious rise and invited a false alarm.
+
+**3. What the coupling DOES destroy is the shortcut.** The second half of fact
+(i) was that `{G = 0}` is a fixed curve. Under self-damage it moves with the
+load, so `j_crit = R(u*,a*)` stops being an evaluation and becomes a
+self-consistency condition. Fold-finding grows from two equations in `(u,a)` to
+three in `(u,a,j)`: `G = 0`, `det J = 0`, `R = j`. A real loss -- of the
+algorithm, not the theorem.
+
+**4. Direction: self-damage lowers the boundary substantially, and does NOT
+steepen the approach.** Median `j_crit` ratio against the frozen fold falls
+0.999 / 0.990 / 0.925 / 0.640 / 0.322 across the influx ladder and
+0.995 / 0.949 / 0.740 / 0.324 / 0.131 across the burden ladder -- a 3x to 7.6x
+reduction in tolerable influx. The critical-slowing exponent does not move:
+paired over networks with both values, median damaged -0.4763 vs frozen -0.4813,
+Wilcoxon p = 0.312, n = 19. **No new prediction.** Collapse under self-damage is
+still a generic saddle-node; it just happens sooner.
+
+**5. One exact new result, and it is loose.** In influx mode every removal flux
+carries `1/(1 + eps.j)`, so the frozen model's necessary condition `j <= C_0`
+becomes `eps.j^2 + j - C_0 <= 0`, i.e.
+
+    j <= ( sqrt(1 + 4.eps.C_0) - 1 ) / (2.eps)   ->   sqrt(C_0/eps) for large eps
+
+A LINEAR capacity ceiling becomes a SQUARE-ROOT one: doubling the machinery buys
+only `sqrt(2)` in tolerable error rate once the machinery is itself error-prone.
+Exact, and never violated -- but never binding either, with `j_crit/j_max` median
+0.039-0.186 and max 0.623. Recorded as a necessary condition, not as the
+boundary.
+
+**6. Reported as a limitation: fold recovery is incomplete at large `eps`.**
+Continuation with intermediate rungs recovers folds that a direct solve loses
+(burden `eps = 100`: 0 of 7 direct, 2 of 7 continued), but recovery counts are
+NON-MONOTONE in `eps` -- influx 7/5/6/6/4, burden 6/7/7/4/2. A genuine loss of
+the boundary would be monotone, so this is continuation failure and is NOT
+reported as folds disappearing. Where a fold does solve it is a real saddle-node:
+`sin(grad R, grad G)` at the solved state is below 2.0e-9 throughout.
+
+**Consequence for the manuscript.** The antecedent "influx enters one equation"
+must be stated as what it actually requires -- that total influx be
+state-independent and that mass balance count all outflow -- rather than as
+independence of influx and capacity, which the theorem does not need. Whether
+capacity is a function of the error rate is immaterial to the identity, and
+material to where the boundary sits.

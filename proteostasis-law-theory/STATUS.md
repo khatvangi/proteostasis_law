@@ -91,6 +91,17 @@ lowering influx below the level that triggered it.** This does not reinstate
 that claim nor Phase 2 §2.1 contained — and it was found at one parameter point,
 not surveyed.
 
+**That parameter point is unphysical, in a specific and measured way.** It uses
+constant dilution (`k_mu = inf`), under which growth rate cannot respond to
+burden, so the same regime predicts **exactly zero** growth-rate loss at any
+aggregate load. That contradicts the one dosage-resolved measurement the project
+holds (D015: 3.2 % loss at <0.1 % misfolded) and the observation the first
+post-diction tried to explain (D026: >30 % reproductive loss). The regime that
+produces the bistability is the regime that gets the measured quantity wrong.
+Under the physiological laws it does not survive as stated — linear arrest gives
+no bounded high-burden state, hyperbolic feedback is monostable in four of six
+settings. Pinned by test so it cannot be edited away.
+
 **A margin that survives division (D014).** `j_crit = C_enz . phi_enz / (1-delta)`
 exactly (identity to 1.6e-16), with `phi_enz` the enzymatic capacity in use at
 collapse and `delta` the share of disposal done by division. `phi_enz` is nearly
@@ -266,6 +277,55 @@ changing kinetics rather than bookkeeping, and could produce a stable high-burde
 state without making the growth law do the work. It is the first candidate
 mechanism in this project to arrive from an observation rather than from
 inspecting the model.
+
+**Running count of collisions with existing observation: two.** Regulation
+(D025) and sequestration (D026). Neither confirmed the theory; both named
+something the model lacks. That is the correct count and it is not to be
+inflated by upgrading a qualitative match to a confirmation.
+
+**Antecedent check A1 — the machinery damages itself, and the theorem survives
+(D027).** The derivation assumes influx and clearance capacity are independent.
+In a cell they are not: chaperones and proteases are themselves translated at the
+per-codon error rate that produces the damage. Making capacity error-dependent as
+`C_enz = C_0/(1 + eps.load)` over four decades of `eps` — in both a parametric
+mode (`load = j`) and a state-dependent mode (`load = u + a`, the one that puts
+capacity inside both gradients) — leaves `det J = -(grad R x grad G)` at machine
+precision: floor 2.2e-14, worst median 4.6e-13 where capacity is down to **1.8 %**
+of nominal.
+
+**There is no corrected form, and that is the result.** The row operation needs
+only that `j` be additive in `du/dt` and absent from `da/dt`, and that
+`du/dt + da/dt = j - R` be exact. How the parameters depend on `j`, or on the
+state, is irrelevant to both. The antecedent must therefore be stated as what it
+requires — state-independent total influx, and mass balance counting all outflow
+— not as independence of influx and capacity, which the theorem never needed.
+
+The check is also weaker than it looks, and that is recorded rather than glossed:
+since `du/dt = j - R - G` holds pointwise and differencing is linear, the identity
+carries **no truncation term**, so the residual can only be roundoff. Measured
+slope in the step size is **-0.97**, with no V-shaped minimum over four decades —
+that prediction confirmed. Run at the repo's habitual `h = 1e-6` the ladder shows
+a spurious rise; the analytic argument, not the ladder, carries the theorem.
+
+**What the coupling does destroy is the shortcut.** `{G = 0}` stops being a fixed
+curve, so `j_crit = R(u*,a*)` becomes a self-consistency condition and fold-finding
+grows from two equations in `(u,a)` to three in `(u,a,j)`.
+
+**Direction, reported independently: the boundary moves a long way, the exponent
+does not move at all.** Median `j_crit` falls to **0.32x** (influx) and **0.13x**
+(burden) of the frozen value at the top of the ladder. The critical-slowing
+exponent is unchanged — paired median -0.4763 damaged against -0.4813 frozen,
+Wilcoxon p = 0.312, n = 19. So self-damage makes collapse happen **sooner, not
+steeper**: it is still a generic saddle-node. **No new prediction.**
+
+One exact new necessary condition falls out: in influx mode `j <= C_0` becomes
+`j <= (sqrt(1 + 4.eps.C_0) - 1)/(2.eps)`, tending to `sqrt(C_0/eps)`. A linear
+capacity ceiling becomes a **square-root** one — doubling the machinery buys only
+`sqrt(2)` in tolerable error rate once the machinery is itself error-prone. It is
+never violated and never binding (`j_crit/j_max` median 0.039–0.186, max 0.623),
+so it is recorded as a bound, not as the boundary. Fold recovery at large `eps` is
+incomplete and **non-monotone** in `eps`, which identifies it as continuation
+failure; folds are not reported as disappearing.
 
 A working manuscript for the whole phase 3 result is
 `manuscript/COLLAPSE_BOUNDARY.md`.
