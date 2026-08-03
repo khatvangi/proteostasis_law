@@ -317,20 +317,42 @@ def hysteresisSweep(p: M.Params, g: D.Growth, js) -> Dict[str, object]:
     branch is a jump to that attractor rather than divergence, and the up and
     down sweeps disagree over an interval. that interval is the bistable window
     and should be bracketed by the two constrained critical points.
+
+    a bistable window is only meaningful if BOTH branches are genuine equilibria.
+    a state that is merely large after a finite integration may still be
+    diverging, so each endpoint is checked against the vector field and the
+    result carries `settled_*` flags. a sweep whose upper branch never settles is
+    reporting a runaway, not bistability.
     """
     js = list(js)
-    x, up = (0.0, 0.0), {}
+
+    def check(j, x):
+        pj = p.with_(j=float(j)).validate()
+        try:
+            du, da = D.rhsDil(x[0], x[1], pj, g)
+        except M.ModelError:
+            return False
+        scale = max(1.0, abs(x[0]) + abs(x[1]))
+        return bool(np.isfinite(x[0]) and np.isfinite(x[1])
+                    and max(abs(du), abs(da)) / scale < 1e-9)
+
+    x, up, up_ok = (0.0, 0.0), {}, {}
     for j in js:
         x = settle(j, x, p, g)
-        up[j] = x
-    x, down = up[js[-1]], {}
+        up[j], up_ok[j] = x, check(j, x)
+    x, down, down_ok = up[js[-1]], {}, {}
     for j in reversed(js):
         x = settle(j, x, p, g)
-        down[j] = x
+        down[j], down_ok[j] = x, check(j, x)
+
+    # only j where BOTH branches settled can testify to bistability
     hyst = [j for j in js
-            if abs(up[j][1] - down[j][1]) / max(down[j][1], 1e-12) > 0.01]
-    return {"up": up, "down": down, "hysteretic_j": hyst,
-            "window": (min(hyst), max(hyst)) if hyst else None}
+            if up_ok[j] and down_ok[j]
+            and abs(up[j][1] - down[j][1]) / max(down[j][1], 1e-12) > 0.01]
+    return {"up": up, "down": down, "settled_up": up_ok, "settled_down": down_ok,
+            "hysteretic_j": hyst,
+            "window": (min(hyst), max(hyst)) if hyst else None,
+            "all_settled": all(up_ok.values()) and all(down_ok.values())}
 
 
 def main() -> int:

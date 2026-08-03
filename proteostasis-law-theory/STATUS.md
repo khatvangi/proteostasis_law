@@ -12,9 +12,11 @@ exactly a constrained critical point of `R` on the nullcline, so
 j_crit = R(u*, a*)          exact, no continuation sweep
 ```
 
-**The fold is the constrained maximum of total removal on the aggregate
-nullcline.** Statement, proof, verification and limits are in
-`theory/FOLD_THEOREM.md`; decisions D007-D009 record what changed.
+**The collapse boundary is where total removal stops responding to burden along
+the aggregate nullcline.** (The proven statement is constrained *critical point*;
+an earlier "constrained maximum" gloss is withdrawn — see D011 below.) Statement,
+proof, verification and limits are in `theory/FOLD_THEOREM.md`; decisions
+D007-D016 record what changed.
 
 Verified against the Phase 1 run root: the identity holds to a median relative
 error of **1.436e-07** (the central-difference floor), the parallelism residual
@@ -96,16 +98,45 @@ invariant to dilution (0.125–0.134) while `delta` carries the variation, so
 division multiplies tolerable influx by `1/(1-delta)` without changing the
 enzymatic condition. Across 25 draws, 23 lose their boundary under constant
 dilution; thresholds span 3.3 decades and `delta` at the threshold has median
-0.35. Conclusions hold under both the hyperbolic and the linear
-(proteome-partitioning) growth-burden form, though form-dependent values differ.
+0.35. The `(phi_enz, delta)` decomposition holds under both the hyperbolic and the
+linear growth-burden form; the bistability above does NOT — see D015 immediately
+below, which is a retraction, not a confirmation.
+
+**Calibrated against a measured growth-burden relation (D015).** The dilution
+laws above were guesses. A real dosage-resolved measurement is now the anchor:
+Geiler-Samerotte et al. 2011 PNAS, doi:10.1073/pnas.1017570108 (PMID 21187411),
+via PubMed — 3.2 % growth-rate reduction at <0.1 % of total cellular protein
+misfolded, in **yeast**. Slope 32 per unit proteome fraction (a lower bound),
+linear arrest at 0.03125 (an upper bound). The two conversions needed to use it —
+the quality-control proteome share and the refolding turnover — were **not**
+obtained and are swept, not assumed.
+
+Three results. (1) The prior guesses were in the right regime: calibrated `k_mu`
+runs 0.31–6.25 and the guessed 0.5 and 2.0 both lie inside. (2) **A boundary
+survives in 30 of 30 calibrated cells**, `phi_enz` confined to 0.072–0.147 — so
+the "constant dilution destroys the boundary" behaviour is an artifact of
+omitting the measured coupling, not a prediction. (3) **The bistability above
+does NOT survive and is form-dependent**: under the linear (measured-shape) law
+the down-branch fails to settle at 0/8 influx values — a runaway at `a ~ 10^4`,
+not an attractor — while the hyperbolic form settles on both branches with window
+(0.17, 0.19). Linear arrest sets `mu = 0` exactly beyond `k_mu`, switching
+dilution off; the hyperbolic form only approaches zero.
+
+**The measurement cannot adjudicate**, constraining only the slope three decades
+below the arrest burden. So whether collapse in a dividing cell is a reversible
+switch or an irreversible runaway turns on an unmeasured property — is growth
+arrest under misfolding burden complete or asymptotic? That is now the
+highest-value measurement the theory asks for, and the bistability claim is
+quoted with its growth law attached rather than as a consequence of division.
 
 A working manuscript for the whole phase 3 result is
 `manuscript/COLLAPSE_BOUNDARY.md`.
 
 Reproduce with `python scripts/phase3/fold_theorem.py`,
 `python scripts/phase3/dilution.py` and
-`python scripts/phase3/boundary_structure.py`; asserted by `tests/phase3/`
-(42 checks, of which 35 are model-level and run on a clean checkout).
+`python scripts/phase3/boundary_structure.py` and
+`python scripts/phase3/calibration.py`; asserted by `tests/phase3/`
+(52 checks, of which 45 are model-level and run on a clean checkout).
 
 ## Phase 1 experiment D closed; Phase 2 synthesis final
 

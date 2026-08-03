@@ -152,3 +152,60 @@ Every `phi` reported before this decision is `phi_enz` at `delta = 0`.
 
 Across 25 draws with a boundary at `mu = 0`, 23 lose it under constant dilution;
 the threshold spans 3.3 decades and `delta` at the threshold has median 0.35.
+
+## D015 — The growth-burden relation is calibrated to a measurement, and it retracts D013's generality
+
+`dilution.py` and `boundary_structure.py` used guessed functional forms. A real
+dosage-resolved measurement was located and is now the anchor:
+
+  Geiler-Samerotte KA et al. (2011) PNAS 108(2):680-685,
+  doi:10.1073/pnas.1017570108, PMID 21187411, retrieved via PubMed:
+  "a 3.2% growth rate reduction when misfolded YFP represents less than 0.1% of
+  total cellular protein."
+
+That gives a slope of 32 per unit misfolded proteome fraction — a LOWER bound,
+since the abundance figure is an upper bound — and linear arrest at a misfolded
+fraction of 0.03125, an UPPER bound. It is YEAST; no equivalent dosage-resolved
+bacterial measurement was found.
+
+Two conversions are needed to use it and NEITHER was obtained: the chaperone plus
+protease share of the proteome, and the refolding turnover that sets model time.
+They are therefore SWEPT, not assumed, and no result is quoted at a single
+calibrated point.
+
+Three outcomes:
+
+1. **The prior guesses were in the right regime.** Calibrated `k_mu` runs 0.31 to
+   6.25 over proteome shares of 0.10 down to 0.005; the guessed 0.5 and 2.0 both
+   lie inside it.
+2. **A collapse boundary survives in 30 of 30 calibrated cells.** The
+   "constant dilution destroys the boundary" pathology of D010 does not occur at
+   any calibrated setting — it is an artifact of omitting the measured coupling.
+   `phi_enz` stays in 0.072-0.147 throughout.
+3. **D013's bistability does NOT survive, and is form-dependent.** Under the
+   linear (measured-shape) law the down-sweep fails to settle at every influx
+   tested — a runaway, not a second attractor — while the hyperbolic form settles
+   on both branches with a window of (0.17, 0.19). The reason is mechanical:
+   linear arrest sets `mu = 0` exactly beyond `k_mu`, switching dilution off and
+   removing the bound on the high-burden state; the hyperbolic form only
+   approaches zero, so dilution keeps bounding it.
+
+**The measurement cannot adjudicate**, because it constrains only the slope at
+below 0.1% misfolded — roughly three decades below the arrest burden where the
+two forms diverge. Whether proteostasis collapse in a dividing cell is a
+reversible switch or an irreversible runaway therefore turns on an unmeasured
+property: whether growth arrest under misfolding burden is complete or merely
+asymptotic. D013 must be quoted with its growth law attached, and the claim that
+bistability is a consequence of cell division per se is withdrawn.
+
+This also identifies the highest-value measurement the theory currently asks for.
+
+## D016 — Sweeps must verify that reported states are equilibria
+
+`hysteresisSweep` originally returned whatever the integrator reached at
+`t_end`. Under the linear law that produced apparent high-burden "branches" at
+`a` of order 10^4 that were still growing between sweep steps, which would have
+been reported as bistability. It now checks each endpoint against the vector
+field and exposes `settled_up`, `settled_down` and `all_settled`, and only influx
+values where BOTH branches settled can enter a bistable window. A large state is
+not an attractor.

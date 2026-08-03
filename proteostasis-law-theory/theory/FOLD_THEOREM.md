@@ -305,6 +305,57 @@ of draws. Bistability here arises from a model feature those analyses did not
 contain, and it appears at the base parameters rather than in a rare corner.
 Whether it is generic across the box has **not** been established.
 
+## Consequence 8 — calibration to a measured growth-burden relation
+
+Consequences 5–7 used guessed dilution laws. A real dosage-resolved measurement
+was located and is now the anchor:
+
+> Geiler-Samerotte KA, Dion MF, Budnik BA, Wang SM, Hartl DL, Drummond DA (2011),
+> *PNAS* 108(2):680–685, [doi:10.1073/pnas.1017570108](https://doi.org/10.1073/pnas.1017570108),
+> PMID 21187411, retrieved via PubMed — "a 3.2 % growth rate reduction when
+> misfolded YFP represents less than 0.1 % of total cellular protein."
+
+Slope **32 per unit misfolded proteome fraction** (a lower bound, since the
+abundance is an upper bound), hence linear arrest at a misfolded fraction of
+**0.03125** (an upper bound). It is **yeast**; no equivalent dosage-resolved
+bacterial measurement was found.
+
+Two conversions are required and **neither was obtained**: the chaperone plus
+protease share of the proteome, and the refolding turnover setting model time.
+They are **swept**, not assumed, so nothing below is quoted at a single point.
+
+**1. The prior guesses were in the right regime.** Calibrated `k_mu` runs
+0.31–6.25 across proteome shares 0.10 down to 0.005; the guessed 0.5 and 2.0
+both fall inside.
+
+**2. A boundary survives in 30 of 30 calibrated cells**, with `phi_enz` confined
+to 0.072–0.147 and `delta` reaching 0.84. The "constant dilution destroys the
+boundary" behaviour of Consequence 5 does **not** occur at any calibrated
+setting — it is an artifact of omitting the measured coupling, not a prediction.
+
+**3. The bistability of Consequence 7 does not survive, and is form-dependent.**
+
+| growth law | down-branch settles? | window |
+|---|---|---|
+| hyperbolic (`dilution.Growth`, `mu = 0.04`) | yes, all endpoints | (0.17, 0.19) |
+| linear / measured shape (`k_mu = 1.5625`) | **0 of 8 influx values** | none |
+
+Linear arrest sets `mu = 0` exactly beyond `k_mu`, switching dilution off and
+removing the bound on the high-burden state; the hyperbolic form only approaches
+zero, so dilution keeps bounding it. The apparent "branch" under the linear law
+sits at `a ~ 10^4` and is still growing between sweep steps — a runaway, not an
+attractor.
+
+**The measurement cannot adjudicate.** It constrains the slope only below 0.1 %
+misfolded, roughly three decades under the arrest burden where the two forms
+diverge. So whether collapse in a dividing cell is a reversible switch or an
+irreversible runaway turns on an unmeasured property: **is growth arrest under
+misfolding burden complete, or merely asymptotic?** Consequence 7 must be quoted
+with its growth law attached, and the claim that bistability follows from cell
+division as such is **withdrawn** (D015).
+
+This is the highest-value measurement the theory currently asks for.
+
 ## Limits
 
 - **One model.** Two states, no regulation, no compartmentation. Growth dilution
@@ -342,7 +393,8 @@ Whether it is generic across the box has **not** been established.
 python scripts/phase3/fold_theorem.py      # the theorem, the margin, the nested design
 python scripts/phase3/dilution.py          # growth dilution and boundary survival
 python scripts/phase3/boundary_structure.py  # uniqueness, bistability, thresholds
-python -m pytest tests/phase3 -q           # 42 checks asserting all three
+python scripts/phase3/calibration.py         # the measured growth-burden anchor
+python -m pytest tests/phase3 -q           # 52 checks asserting all four
 ```
 
 `results/` is gitignored; without the Phase 1 run root `fold_theorem.py` prints

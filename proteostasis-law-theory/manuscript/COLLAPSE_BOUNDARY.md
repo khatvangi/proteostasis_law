@@ -291,6 +291,47 @@ the boundary is typically lost once division does about a third of the disposal.
 
 ---
 
+### 6. Calibrating the growth-burden coupling, and what it retracts
+
+Results 3–5 used a guessed coupling between burden and growth. According to
+PubMed, a real dosage-resolved measurement exists: Geiler-Samerotte et al.
+(2011), [doi:10.1073/pnas.1017570108](https://doi.org/10.1073/pnas.1017570108),
+report a 3.2 % growth-rate reduction when misfolded protein is under 0.1 % of
+total cellular protein, in yeast. That fixes a slope of 32 per unit misfolded
+proteome fraction and implies linear arrest at about 3 %.
+
+Using it inside the model needs two conversions we did not obtain — the
+quality-control share of the proteome and the refolding turnover that sets the
+time scale — so both are swept rather than assumed, and nothing is quoted at a
+single calibrated point.
+
+Two of the three outcomes support what came before. The coupling strength guessed
+before consulting any data lands inside the calibrated range, and **a collapse
+boundary exists at every one of 30 calibrated settings**, with the enzymatic
+condition confined to a narrow band. The apparent destruction of the boundary in
+Result 3 is therefore an artifact of omitting the measured coupling, not a
+prediction of the theory.
+
+The third outcome is a retraction. **The bistability of Result 4 does not survive
+calibration.** Under the linear law implied by the measurement, the high-burden
+"branch" fails to settle at every influx tested — it sits at aggregate burden of
+order 10⁴ and is still growing — so it is a runaway, not a second attractor. The
+mechanism is transparent: linear arrest sets growth exactly to zero beyond a
+finite burden, switching dilution off and removing the very thing that bounded
+the high state; the hyperbolic form only approaches zero and so keeps bounding it.
+
+Critically, **the measurement cannot settle which is right.** It constrains the
+coupling only below 0.1 % misfolded, roughly three decades under the burden where
+the two functional forms diverge. So whether losing proteostasis in a dividing
+cell is a reversible switch or an irreversible runaway depends on a property
+nobody has measured: whether growth arrest under misfolding burden is *complete*
+or merely *asymptotic*. Result 4 must be read with its growth law attached, and
+the claim that bistability follows from cell division as such is withdrawn.
+
+That question is the single most valuable measurement this theory currently asks
+for, and it is experimentally accessible: it requires following growth rate to
+high misfolding burden rather than only in the near-linear regime.
+
 ## Discussion
 
 ### What would distinguish this from the intuitive picture experimentally
@@ -369,10 +410,11 @@ Analysis code is tracked:
 python scripts/phase3/fold_theorem.py        # theorem, margin, nested design
 python scripts/phase3/dilution.py            # growth dilution, boundary survival
 python scripts/phase3/boundary_structure.py  # uniqueness, bistability, thresholds
-python -m pytest tests/phase3 -q             # 42 checks
+python scripts/phase3/calibration.py         # the measured growth-burden anchor
+python -m pytest tests/phase3 -q             # 52 checks
 ```
 
 Raw result directories are gitignored; the modules print an explicit skip and the
 artefact-dependent tests skip when they are absent, while the model-level tests —
 including all dilution tests — run on a clean checkout and are the ones that pin
-the mathematics. Decisions D007–D014 record what changed and what was withdrawn.
+the mathematics. Decisions D007–D016 record what changed and what was withdrawn.
