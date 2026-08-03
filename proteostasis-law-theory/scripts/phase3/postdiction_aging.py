@@ -85,12 +85,39 @@ from proteostasis import model as M  # noqa: E402
 import dilution as D  # noqa: E402
 import boundary_structure as B  # noqa: E402
 
+# (!) the abstract's ">30%" is a SHARE OF the aging effect, not the aging effect.
+# reading it as ">30% loss" was wrong by a factor of about thirty and survived two
+# analysis cycles. the full text (PMC2268587, via PubMed) gives both parts, so the
+# measured quantity is DERIVED here rather than quoted. see D028 and
+# notes/POSTDICTION_PROTOCOL.md corollary B.
 LINDNER2008 = {
     "doi": "10.1073/pnas.0708931105",
     "pmid": "18287048",
-    "reproductive_loss_old_pole": 0.30,   # ">30%" as reported
+    "pmcid": "PMC2268587",
     "condition": "non-stressed growth",
+    # "[Delta(GR_old - GR_new)]mean/GR_mean = -3.95 +/- 0.5%"
+    "aging_effect": 0.0395,
+    "aging_effect_se": 0.0050,
+    # "the fraction of the growth rate decrease (aging) associated with the
+    #  presence of the aggregate, Agg/(Agg + Pole) is ~30-40%"
+    "aggregate_share": (0.30, 0.40),
+    # table 1, population 1 (332 cell pairs), 1e-2 min^-1 -- an independent check
+    # on the headline: (3.69 - 3.54)/3.69 = 4.07%
+    "gr_old_pop1": 3.54e-2,
+    "gr_new_pop1": 3.69e-2,
 }
+
+
+def aggregateAttributableLoss(src=None):
+    """the band edges, recomputed from the source numbers rather than quoted.
+
+    the repo rule is that a number may appear only if a script can recompute it
+    from the source. this is that script for the Lindner band.
+    """
+    s = src or LINDNER2008
+    lo_share, hi_share = s["aggregate_share"]
+    return (lo_share * (s["aging_effect"] - s["aging_effect_se"]),
+            hi_share * (s["aging_effect"] + s["aging_effect_se"]))
 
 
 def basinOf(u0: float, a0: float, j: float, p: M.Params, g: D.Growth,
@@ -203,10 +230,16 @@ def main() -> int:
     print("POST-DICTION ATTEMPT: aging and rejuvenation by asymmetric segregation")
     print("   observation: Lindner et al. 2008 PNAS, doi:%s (PMID %s), via PubMed"
           % (LINDNER2008["doi"], LINDNER2008["pmid"]))
-    print("   aggregates accumulate in old-pole cells under %s, costing >%d%% of"
-          % (LINDNER2008["condition"],
-             100 * LINDNER2008["reproductive_loss_old_pole"]))
-    print("   reproductive ability; new-pole progeny 'exhibit rejuvenation'.")
+    lo, hi = aggregateAttributableLoss()
+    print("   aggregates accumulate in old-pole cells under %s; new-pole progeny"
+          % LINDNER2008["condition"])
+    print("   'exhibit rejuvenation'. the measured aggregate-attributable growth")
+    print("   deficit is %.4f - %.4f (%.1f%% +/- %.1f%% aging effect x %d-%d%% share),"
+          % (lo, hi, 100 * LINDNER2008["aging_effect"],
+             100 * LINDNER2008["aging_effect_se"],
+             100 * LINDNER2008["aggregate_share"][0],
+             100 * LINDNER2008["aggregate_share"][1]))
+    print("   NOT the 0.30 an earlier reading of the abstract took it to be.")
     print()
     print("   THE LOGICAL POINT, which stands independently: rejuvenation is only a")
     print("   coherent category in a BISTABLE system. in a monostable one a daughter")
@@ -241,8 +274,9 @@ def main() -> int:
         print("   predicted reproductive loss of the high state : %.3f - %.3f (median %.3f)"
               % (bi["reproductive_loss"].min(), bi["reproductive_loss"].max(),
                  bi["reproductive_loss"].median()))
-        print("   observed (Lindner)                            : > %.2f"
-              % LINDNER2008["reproductive_loss_old_pole"])
+        lo, hi = aggregateAttributableLoss()
+        print("   observed (Lindner, aggregate-attributable)    : %.4f - %.4f"
+              % (lo, hi))
     print()
 
     print("C. LINEAR arrest -- no bounded high state at all")

@@ -25,7 +25,18 @@ class TestObservationProvenance(unittest.TestCase):
     def testCitationIsRecordedWithTheNumber(self):
         self.assertEqual(PA.LINDNER2008["doi"], "10.1073/pnas.0708931105")
         self.assertEqual(PA.LINDNER2008["pmid"], "18287048")
-        self.assertAlmostEqual(PA.LINDNER2008["reproductive_loss_old_pole"], 0.30)
+        self.assertEqual(PA.LINDNER2008["pmcid"], "PMC2268587")
+        # the measured quantity is DERIVED from two source numbers, not quoted
+        self.assertAlmostEqual(PA.LINDNER2008["aging_effect"], 0.0395)
+        self.assertEqual(PA.LINDNER2008["aggregate_share"], (0.30, 0.40))
+        lo, hi = PA.aggregateAttributableLoss()
+        self.assertAlmostEqual(lo, 0.01035, places=6)
+        self.assertAlmostEqual(hi, 0.01780, places=6)
+
+    def testTheAbstractsThirtyPercentIsAShareNotTheEffect(self):
+        """reading '>30% OF the loss' as '>30% loss' was wrong by ~30x."""
+        _, hi = PA.aggregateAttributableLoss()
+        self.assertLess(hi, 0.02)
 
 
 class TestConstantDilutionIsBistableButPredictsNoGrowthCost(unittest.TestCase):
@@ -65,8 +76,8 @@ class TestUnderFeedbackTheModelFails(unittest.TestCase):
         if bi.empty:
             self.skipTest("no bistable feedback setting converged")
         self.assertGreater(bi["reproductive_loss"].median(),
-                           PA.LINDNER2008["reproductive_loss_old_pole"],
-                           "predicted loss should exceed the reported figure")
+                           PA.aggregateAttributableLoss()[1],
+                           "predicted loss should exceed the measured band")
 
 
 class TestLinearArrestGivesNoRejuvenationAtAll(unittest.TestCase):

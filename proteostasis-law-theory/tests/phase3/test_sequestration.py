@@ -104,24 +104,35 @@ class TestD024AppliesAndIsVerifiedNotAssumed(unittest.TestCase):
 class TestThePreregisteredBandIsTheOneDeclared(unittest.TestCase):
     """the criterion must not be reachable by editing it after the run."""
 
-    def testEdgesMatchD028(self):
-        self.assertEqual((S.BAND_LO, S.BAND_HI), (0.30, 0.60))
+    def testEdgesAreDerivedFromTheSourceNotQuoted(self):
+        """the repo rule: a number appears only if a script recomputes it."""
+        import postdiction_aging as PA
+        self.assertEqual((S.BAND_LO, S.BAND_HI), PA.aggregateAttributableLoss())
+        self.assertAlmostEqual(S.BAND_LO, 0.30 * (0.0395 - 0.0050), places=9)
+        self.assertAlmostEqual(S.BAND_HI, 0.40 * (0.0395 + 0.0050), places=9)
 
-    def testDecisionEntryStatesBothEdgesAndTheConflict(self):
+    def testTheBandIsAboutOnePercentNotThirty(self):
+        """the misreading that cost the most: '>30% OF the loss', not '>30% loss'."""
+        self.assertLess(S.BAND_HI, 0.02)
+        self.assertGreater(S.BAND_LO, 0.005)
+
+    def testDecisionEntryRecordsTheDerivationAndTheDisclosure(self):
         doc = (_REPO_ROOT / "DECISIONS.md").read_text()
         i = doc.index("## D028 —")
         entry = doc[i: doc.find("\n## ", i + 5) if doc.find("\n## ", i + 5) > 0
                     else len(doc)]
-        self.assertIn("0.30 <= (1 - mu_high/mu_low) <= 0.60", entry)
-        self.assertIn("Upper edge 0.60", entry)
-        self.assertIn("Declared conflict of interest with a past verdict", entry)
+        self.assertIn("0.0104 <= (1 - mu_high/mu_low) <= 0.0178", entry)
+        self.assertIn("Agg/(Agg + Pole) is ~30-40%", entry)
+        self.assertIn("-3.95 +/- 0.5%", entry)
+        # the disclosure that the amendment followed a first scan, and its direction
+        self.assertIn("strictly MORE stringent", entry)
 
     def testBandIsClosedOnBothSides(self):
-        self.assertFalse(S.inBand(0.29))
-        self.assertTrue(S.inBand(0.30))
-        self.assertTrue(S.inBand(0.60))
-        self.assertFalse(S.inBand(0.61))
-        self.assertFalse(S.inBand(0.95))
+        self.assertFalse(S.inBand(0.0103))
+        self.assertTrue(S.inBand(0.0104))
+        self.assertTrue(S.inBand(0.0178))
+        self.assertFalse(S.inBand(0.0179))
+        self.assertFalse(S.inBand(0.50))
 
     def testConstantDilutionIsDisqualifiedInAdvance(self):
         """protocol rule 4: a match under a rejected regime is a failure."""

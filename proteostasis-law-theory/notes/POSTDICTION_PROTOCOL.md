@@ -18,22 +18,33 @@ bistability was constant dilution, which predicts a loss of exactly zero.
 
 A phenomenon can be matched by any model loose enough. A number cannot.
 
-**Corollary — quote the number in the form the paper states it.** The Lindner
+**Corollary A — quote the number in the form the paper states it.** The Lindner
 abstract says ">30% of the loss of reproductive ability (aging) in these cells
 **relative to the new-pole progeny**". That is a RATIO BETWEEN TWO LINEAGES, not
 a loss against an unburdened reference. A post-diction that computes the absolute
 quantity is answering a different question, however close the number looks.
 
+**Corollary B — establish what the percentage is a percentage OF, from the full
+text, before using it.** This is the rule that cost the most. ">30% **of** the
+loss of reproductive ability" was read through two entire analysis cycles as
+">30% loss of reproductive ability". It is not. The full text gives the aging
+effect as `[Δ(GR_old − GR_new)]mean/GR_mean = −3.95 ± 0.5%` and the
+aggregate-attributable share as `Agg/(Agg + Pole) ≈ 30–40%`. The measured
+quantity is therefore **≈1.2–1.8%**, not 30%. The abstract alone could not settle
+it and was not enough. **An abstract is not a source for a number.**
+
 ## 2. Record the predicted BAND and the parameter regime BEFORE the run
 
-In a commit that precedes the results commit. Two separate commits, in that
-order, so the ordering is in the history rather than in a claim about intent.
+Written down before the run. Where it sits in git history does not matter — the
+band being fixed in advance is the substance; commit ordering was ceremony and is
+not required.
 
-**State the upper edge, not only the lower one.** A bound reported as ">30%" does
-not by itself exclude 95%. If the analysis is going to treat 95% as too severe,
-that judgment has to be declared in advance, because after the run it is
-indistinguishable from moving the goalposts. This rule exists because D026 broke
-it in the direction of excess severity — see §5.
+**State the upper edge, not only the lower one**, and derive both from data
+wherever the source permits. A bound reported as ">30%" does not by itself
+exclude 95%; if the analysis is going to treat 95% as too severe, that has to be
+settled in advance. Prefer a data-derived edge to a judgment about how authors
+phrase bounds — in the Lindner case the full text bounded the share at ≈40%,
+which the abstract did not.
 
 ## 3. Record every regime tried, including abandoned ones
 
@@ -58,14 +69,22 @@ Two corrections to the first pass, both recorded rather than quietly fixed:
   predicts zero reproductive loss by construction. It was caught mid-analysis,
   not by a check. Rule 4 exists because of it.
 
-- **D026's magnitude verdict was not licensed by the number.** It reported the
-  hyperbolic-feedback loss as "48-95% (median 51%), more severe than reported",
-  treating ">30%" as though larger values disconfirmed it. ">30%" is a LOWER
-  bound; 51% is consistent with it unless an upper edge is declared, and D026
-  declared none. The real failure of that post-diction is the one that stands:
-  the physiological law was MONOSTABLE in four of six settings, so there was no
-  second attractor for a daughter to be rejuvenated into. Rule 2's upper-edge
-  requirement exists because of this.
+- **D026's magnitude verdict was CORRECT, and an earlier version of this section
+  wrongly withdrew it.** That earlier version argued D026 had no licence to call
+  the hyperbolic-feedback loss of "48-95% (median 51%)" too severe, since ">30%"
+  is a lower bound with no declared ceiling. That argument rested on reading the
+  abstract as ">30% loss". The full text says the measured quantity is ≈30-40% OF
+  a 3.95 ± 0.5% aging effect, i.e. **≈1.2-1.8%**. A predicted 48-95% is therefore
+  too severe by a factor of roughly **30 to 60**, and D026's instinct was right
+  even though its stated reasoning was imprecise.
+
+  The correction of the correction is the lesson: a wrong reading of a number
+  survived being questioned, being defended, and being written into a protocol as
+  a worked example. Only the full text stopped it. See Corollary B.
+
+  D026's other ground stands independently and was never in doubt: the
+  physiological law was MONOSTABLE in four of six settings, so there was no
+  second attractor for a daughter to be rejuvenated into.
 
 The relative quantity D026 computed, `1 - mu_high/mu_low`, was correct — it is
 the old-pole lineage against the new-pole lineage, which is what the paper

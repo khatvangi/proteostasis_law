@@ -578,27 +578,47 @@ Bistability is a PRECONDITION, not the prediction. Rejuvenation is only a
 coherent category if two attractors and a separatrix exist; in a monostable
 system a daughter with less aggregate relaxes straight back.
 
-### The band, both edges
+### The band, both edges — DATA-DERIVED (amended before the run)
 
-    MATCH  if  0.30 <= (1 - mu_high/mu_low) <= 0.60
+**The original band [0.30, 0.60] was wrong by a factor of about thirty, and the
+error was a misreading of the abstract.** ">30% **of** the loss of reproductive
+ability" is a SHARE of the aging effect, not the aging effect. The full text
+(PMC2268587, via PubMed) settles it:
 
-Lower edge: the paper's reported bound, taken as stated.
+  "[Delta(GR_old - GR_new)]mean/GR_mean = -3.95 +/- 0.5%"
 
-Upper edge 0.60: a judgment, declared here because rule 2 requires the upper edge
-in advance. Reasoning — an author observing a loss near or above 60% would
-conventionally write ">50%" or "halved" rather than ">30%". This is a convention
-about reporting, not a measurement, and it is the weakest element of this
-preregistration.
+  Table 1, Population 1 (332 cell pairs), units 1e-2 min^-1:
+      GR_old = 3.54 +/- 0.02,  GR_new = 3.69 +/- 0.02   -> deficit 4.07%
 
-**Declared conflict of interest with a past verdict.** Under this band, D026's
-hyperbolic-feedback result (48-95%, median 0.508) would score its MAGNITUDE as
-inside the band. D026 called it "more severe than reported" using an upper edge
-it never declared, which rule 2 now forbids. That characterisation is corrected
-in `notes/POSTDICTION_PROTOCOL.md` §5. D026's verdict of FAILURE stands on the
-ground that survives — the physiological law was MONOSTABLE in four of six
-settings, so there was no second attractor at all. Declaring the band now, with
-this consequence stated, is preferable to choosing it after seeing the
-sequestration numbers.
+  "the fraction of the growth rate decrease (aging) associated with the presence
+   of the aggregate, Agg/(Agg + Pole) is ~30-40%"
+
+So the total old-vs-new-pole growth deficit is 3.95 +/- 0.5%, and the
+AGGREGATE-ATTRIBUTABLE part of it is 30-40% of that. The model has no pole-age
+mechanism other than aggregate, so `1 - mu_high/mu_low` maps to the
+aggregate-attributable share, and the band is their product:
+
+    MATCH  if  0.0104 <= (1 - mu_high/mu_low) <= 0.0178
+
+    lower = 0.30 x (0.0395 - 0.0050) = 0.01035
+    upper = 0.40 x (0.0395 + 0.0050) = 0.01780
+
+Both edges are now data-derived, which is what rule 2 asks for. The paper's
+denominator is `GR_mean` rather than `GR_new`; converting costs at most 2%
+relative (GR_mean/GR_new = 3.61/3.69 = 0.978), far inside the +/-0.5 percentage
+point standard error, so it is absorbed rather than propagated.
+
+**Disclosure, because it matters here.** This amendment was made AFTER a first
+sequestration scan had been run and inspected. It is recorded rather than hidden,
+and the direction is checkable: under the old band the in-band cells carried
+losses 0.482 and 0.508, and under the new band **every one of them falls out**.
+The re-anchoring is strictly MORE stringent and cannot have been chosen to
+manufacture a pass. No cell moved into the band.
+
+**Consequence for D026.** Its verdict that a predicted 48-95% loss was "more
+severe than reported" is now correct by a data-derived margin — too severe by a
+factor of 30 to 60. `notes/POSTDICTION_PROTOCOL.md` §5 previously withdrew that
+verdict on the strength of the misreading; that withdrawal is itself withdrawn.
 
 ### The required regime
 

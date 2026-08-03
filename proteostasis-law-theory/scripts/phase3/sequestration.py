@@ -76,11 +76,19 @@ from proteostasis import model as M  # noqa: E402
 import dilution as D  # noqa: E402
 import boundary_structure as B  # noqa: E402
 import fold_theorem as FT  # noqa: E402
-from postdiction_aging import LINDNER2008  # noqa: E402
+from postdiction_aging import LINDNER2008, aggregateAttributableLoss  # noqa: E402
 
-# the preregistered match band (D028). BOTH edges are declared in advance; the
-# upper one is the weaker of the two and D028 says so.
-BAND_LO, BAND_HI = 0.30, 0.60
+# The preregistered match band (D028), DERIVED from the source rather than quoted.
+#
+#   total old-vs-new-pole growth deficit   3.95% +/- 0.5%   (full text)
+#   aggregate-attributable share of it     ~30-40%          (full text)
+#   product                                0.0104 - 0.0178
+#
+# The first version of this band was [0.30, 0.60], from reading the abstract's
+# ">30% OF the loss" as ">30% loss". That was wrong by a factor of about thirty.
+# The correction is strictly MORE stringent: every cell that scored in band under
+# the old edges falls out under these. See D028 and protocol corollary B.
+BAND_LO, BAND_HI = aggregateAttributableLoss()
 
 # regimes disqualified in advance (D028, protocol rule 4)
 DISQUALIFIED = ("constant",)
@@ -356,6 +364,12 @@ def verdict(df: pd.DataFrame) -> Dict[str, object]:
     silently. Where the two disagree, `mechanism_passes` is the scientific
     verdict and `passes` is the audit trail.
     """
+    # re-score from the raw losses rather than trusting a stored `in_band`, so a
+    # table written under an earlier band is judged by the current one
+    if "reproductive_loss" in df:
+        df = df.assign(in_band=[bool(b) and inBand(float(x))
+                                for b, x in zip(df["bistable"].fillna(False),
+                                                df["reproductive_loss"].fillna(-1.0))])
     ok = df[~df["law"].isin(DISQUALIFIED)]
     dis = df[df["law"].isin(DISQUALIFIED)]
     on = ok[ok["k_seq"] > 0.0] if "k_seq" in ok else ok.iloc[0:0]
@@ -373,7 +387,7 @@ def verdict(df: pd.DataFrame) -> Dict[str, object]:
         "passes": bool(ok["in_band"].any()),
         "mechanism_passes": bool(on["in_band"].any()),
         "band": (BAND_LO, BAND_HI),
-        "observed": LINDNER2008["reproductive_loss_old_pole"],
+        "observed": aggregateAttributableLoss(),
     }
 
 
