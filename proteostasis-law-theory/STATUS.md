@@ -173,6 +173,51 @@ H1 is restated as H1' against `s_u` with K1 reset. `s_u` is the **less extreme**
 arm, so the executable test is weaker than the headline figure. The chaperone arm
 has no comparable handle and stays untestable.
 
+**Preregistering Gate 4 killed its own design, then produced a better one
+(D020, D021).** Deriving K1's threshold from the model rather than choosing it
+showed the saturation test is underpowered: predicted `s_u` at the boundary in
+dividing cells has median 0.119 but **p99 0.897**, only 0.103 from H0's
+`s_u -> 1`, with 17.8 % of draws above 0.5. The "6-18 % of V_max" headline is a
+**median** over a distribution covering nearly the whole interval, and the limit
+is the theory's own parameter uncertainty, not the assay. `s_u` is demoted to a
+reported descriptive quantity.
+
+The replacement primary outcome is a **parameter-free exponent**:
+`tau ~ (j_crit - j)^(-1/2)`, since one eigenvalue passes through zero at a
+saddle-node. Fitted by continuation outward from the exactly-known fold state,
+the slope is **0.5077** median with **r2 = 1.0000**, unchanged by dilution
+(0.5134 undiluted; 0.5080 and 0.5054 at calibrated `mu0` 0.05 and 0.10), and
+86.4 % of networks fall within 0.05 of 0.5. Against `s_u`'s [0,1] spread over the
+same box, this spans 0.497-0.513. Restated for execution as **`tau^-2` linear in
+dose**, whose x-intercept locates the boundary without needing `j_crit` in
+advance.
+
+Limits carried: 22 of 42 ladders converged, so the sample is small and selected;
+and the 1/2 exponent is generic to saddle-nodes, so it supports "the boundary is
+a saddle-node" rather than selecting this model. What remains unspecified before
+any hash-freeze is listed in `empirical/GATE4_PROPOSAL.md` §11.
+
+**The exponent is a ruler, not a test — and the test now exists (D022, D023).**
+D021's exponent is robust *because* it is generic to saddle-nodes, so confirming
+it selects this model over no alternative; D020's saturation fraction
+discriminates but cannot be measured. The resolution: `tau^-2` regressed on dose
+locates `j_crit` as an x-intercept with a CI — an instrument — and the test is
+whether that boundary **moves**.
+
+**H3:** raising the load of *perfectly-folding* protein lowers the tolerable
+mistranslation dose, though it causes no damage. This follows from rescue
+capacity being shared — `nu` enters only the denominator of the free-chaperone
+balance. An independent-handling model predicts no shift. Over a 100x
+nascent-load ladder: direction correct in **67 of 68 (98.5 %)**, monotone in
+98.5 %, median shift **1.22x**, p90 3.51. Ladder chosen by sweep; wider ladders
+buy effect at the cost of direction consistency.
+
+**And it is invalid in batch culture.** Gratuitous expression raises `nu` and
+lowers `mu`, and `mu` is disposal — so a batch experiment would show a shift
+under *both* competing models. H3 requires externally fixed growth rate
+(chemostat/turbidostat). K6 voids the gate on between-arm growth differences.
+Pinned by test so it cannot be edited away.
+
 A working manuscript for the whole phase 3 result is
 `manuscript/COLLAPSE_BOUNDARY.md`.
 

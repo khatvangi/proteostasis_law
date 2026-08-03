@@ -274,3 +274,89 @@ executable test is weaker than the headline number suggests.
 saturation-reachable handle for DnaK/GroEL flux was located, so the folding side
 of the theory remains without an instrument. That limitation belongs in the
 manuscript.
+
+
+## D020 — The saturation-fraction test is underpowered by the theory's own spread
+
+Deriving Gate 4's K1 threshold from the model, instead of choosing it, killed the
+design. `scripts/phase3/gate4_prediction.py` computes the predicted `s_u` at the
+collapse boundary in the regime an experiment sits in (dividing cells, calibrated
+growth law): median 0.119 but p95 0.835 and **p99 0.897**, with 17.8 % of draws
+above 0.5. Against H0's `s_u -> 1` that leaves a separation of 0.103.
+
+The "6-18 % of V_max" figure in `theory/FOLD_THEOREM.md` is a MEDIAN, and the
+distribution behind it covers nearly the whole interval. A single measurement of
+the saturation fraction cannot discriminate H1' from H0, and the limit is the
+theory's own parameter uncertainty -- the Michaelis constants were never measured
+-- not the assay. `s_u` is demoted to a reported descriptive quantity; no claim
+of support may rest on it.
+
+## D021 — Gate 4's primary outcome is the critical-slowing exponent
+
+The robust prediction is a parameter-free exponent, not a magnitude. At a
+saddle-node one eigenvalue passes through zero, so
+`tau = 1/|lambda| ~ (j_crit - j)^(-1/2)`, and the 1/2 follows from the
+bifurcation type rather than any rate constant.
+
+`scripts/phase3/gate4_slowing.py` discharges the §10.4 prerequisite by
+continuation outward from the exactly-known fold state: slope median **0.5077**,
+r2 median **1.0000**, and 86.4 % of networks within 0.05 of 0.5. It is unchanged
+by dilution (0.5134 undiluted, 0.5080 and 0.5054 at calibrated `mu0` of 0.05 and
+0.10). Compare D020: `s_u` spans nearly [0,1] over the same box while this spans
+0.497-0.513.
+
+Restated for execution as `tau^-2` linear in dose, whose x-intercept locates the
+boundary -- this needs no advance knowledge of `j_crit`, which is not measurable
+beforehand.
+
+Two limits travel with it. Only 22 of 42 attempted ladders converged, so the
+sample is small and selected for convergence. And the 1/2 exponent is GENERIC to
+saddle-nodes: confirming it supports "the boundary is a saddle-node" but does not
+select the two-state model over any other model with a fold. What it genuinely
+discriminates against is a smooth decline with no bifurcation.
+
+
+## D022 — The exponent is the instrument; the discriminating test is the nascent-load shift
+
+D021 left an honest gap. The 1/2 exponent is robust BECAUSE it is generic to
+saddle-nodes, which is exactly why confirming it selects this model over no
+alternative. D020 left the mirror gap: the saturation fraction discriminates but
+cannot be measured against a prediction spanning [0,1].
+
+The resolution is to stop treating the exponent as the hypothesis. `tau^-2`
+regressed on dose yields `j_crit` as an x-intercept with a CI, needing no advance
+knowledge of `j_crit` -- that is a RULER. The test is whether the boundary MOVES
+under a perturbation the competing models treat differently.
+
+**H3.** Raising the load of perfectly-folding protein lowers the tolerable
+mistranslation dose, though that protein causes no damage. This follows from
+rescue capacity being conserved and shared: `nu` enters only the denominator of
+the free-chaperone balance, consuming capacity while contributing no influx. An
+independent-handling model predicts no shift.
+
+`scripts/phase3/gate4_discriminating.py` measures the effect size, which Phase 1
+recorded only as yes/no (C3, 97.11 %). Over a 100x nascent-load ladder: direction
+correct in **67 of 68 (98.5 %)**, monotone in 98.5 %, median shift **1.22x**,
+p90 3.51, and 25 % of networks above 1.5x. The ladder was chosen by sweep -- 30x
+gives 1.12x, 100x gives 1.24x with direction correct in 100 % of converged
+networks, and 400x/5000x buy effect at the cost of direction consistency
+(95 %, 94 %).
+
+Direction is near-universal; magnitude is modest. A ~22 % shift is resolvable by
+a regression intercept and not by eye, so power depends on the intercept CI.
+
+## D023 — H3 is invalid in batch culture, and that is not a tradeable detail
+
+Gratuitous protein expression is the standard way to raise `nu`. It is also the
+standard way to lower growth rate -- Scott et al. (2010) used it precisely for
+that. Growth rate is part of disposal (D010).
+
+So in batch culture the perturbation moves both the variable and the readout, and
+the result is uninterpretable in either direction: a shift would appear under
+BOTH the shared-capacity and the independent-handling model. H3 is testable only
+at externally fixed growth rate, in a chemostat or turbidostat where dilution
+rate is set by the operator.
+
+K6 voids the gate if measured growth rate differs between arms beyond tolerance.
+This is recorded as a hard design requirement rather than a preference, and is
+pinned by test so it cannot be edited away.
