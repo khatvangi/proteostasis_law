@@ -341,16 +341,37 @@ def scan(p: Optional[M.Params] = None, s_costs_growth: bool = True,
 
 
 def verdict(df: pd.DataFrame) -> Dict[str, object]:
-    """the preregistered verdict. a pass requires a QUALIFIED growth law."""
+    """the preregistered verdict, plus the check D028 SHOULD have contained.
+
+    `passes` is D028's literal criterion: some qualified-law cell lands in band.
+    It is reported unchanged, because rewriting a preregistered criterion after
+    seeing the numbers is the thing preregistration exists to prevent.
+
+    `mechanism_passes` adds the requirement D028 omitted -- that the in-band cell
+    have `k_seq > 0`, i.e. that the mechanism under test be switched ON. The
+    control arm (`k_seq = 0`) is the two-state model, and a control cell cannot
+    demonstrate a mechanism no matter which band it lands in. D028 fixed the
+    band, the growth law and the falsifier but never said this; the omission was
+    found by the run and is recorded as protocol rule 6 rather than patched
+    silently. Where the two disagree, `mechanism_passes` is the scientific
+    verdict and `passes` is the audit trail.
+    """
     ok = df[~df["law"].isin(DISQUALIFIED)]
     dis = df[df["law"].isin(DISQUALIFIED)]
+    on = ok[ok["k_seq"] > 0.0] if "k_seq" in ok else ok.iloc[0:0]
+    ctrl = ok[ok["k_seq"] == 0.0] if "k_seq" in ok else ok.iloc[0:0]
     return {
         "n_cells": int(len(df)),
         "n_qualified": int(len(ok)),
         "qualified_bistable": int(ok["bistable"].sum()),
         "qualified_in_band": int(ok["in_band"].sum()),
         "disqualified_in_band": int(dis["in_band"].sum()),
+        "in_band_mechanism_on": int(on["in_band"].sum()),
+        "in_band_control_only": int(ctrl["in_band"].sum()),
+        "bistable_mechanism_on": int(on["bistable"].sum()),
+        "bistable_control": int(ctrl["bistable"].sum()),
         "passes": bool(ok["in_band"].any()),
+        "mechanism_passes": bool(on["in_band"].any()),
         "band": (BAND_LO, BAND_HI),
         "observed": LINDNER2008["reproductive_loss_old_pole"],
     }
@@ -382,11 +403,19 @@ def main() -> int:
               "| disqualified-law in band %d"
               % (v["n_cells"], v["n_qualified"], v["qualified_bistable"],
                  v["qualified_in_band"], v["disqualified_in_band"]))
+        print("  bistable: %d with the mechanism ON, %d in the k_seq = 0 control"
+              % (v["bistable_mechanism_on"], v["bistable_control"]))
+        print("  in band : %d with the mechanism ON, %d in the control"
+              % (v["in_band_mechanism_on"], v["in_band_control_only"]))
         s = df[df["settled"] & df["bistable"]]
         if not s.empty:
             print(s.groupby(["law", "q"])["reproductive_loss"]
                    .agg(["count", "min", "median", "max"]).to_string())
-        print("  VERDICT:", "PASS" if v["passes"] else "FAIL")
+        print("  D028 literal criterion :", "PASS" if v["passes"] else "FAIL")
+        print("  MECHANISM verdict      :",
+              "PASS" if v["mechanism_passes"] else "FAIL",
+              "" if v["mechanism_passes"] == v["passes"]
+              else "  <- the literal criterion is carried by the CONTROL arm")
     return 0
 
 
