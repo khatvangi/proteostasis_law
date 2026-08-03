@@ -398,6 +398,82 @@ layer does not contain. The layer cannot adjudicate, and does not claim to.
 Claim labels: the boundary-binding argument is **Mathematical** given strictly
 decreasing objectives; every number is **Computational**; nothing is empirical.
 
+## Consequence 10 — the theorem is not about two states
+
+The standing objection to this result is that it is exact about a *toy*: it was
+proved for a two-state model, so its exactness might be a property of the
+reduction rather than of proteostasis. It is not.
+
+Let the state be `x = (u, a, c, ...)` with `du/dt` the only equation containing
+the influx, and let mass balance still give `du/dt + da/dt = j - R(x)`. Writing
+the remaining equations as `G` (aggregate) and `C` (controller), the same
+determinant-preserving row operation replaces the first row by `-grad R`, so
+
+```
+det J = - det [ grad R ; grad G ; grad C ]
+```
+
+which vanishes exactly when `grad R` lies in the span of the others — the
+Lagrange condition for a constrained critical point of `R` on the intersection of
+the **non-influx nullclines** `{G = 0} n {C = 0}`.
+
+`scripts/phase3/regulation.py` verifies this on a three-state system in which the
+chaperone pool is a dynamical variable under sigma-32-style control (synthesis
+rises as *free* chaperone falls, which is the actual titration mechanism):
+
+| | median relative error |
+|---|---|
+| unregulated | **0.000e+00** |
+| regulated, `sigma0 = 0.6` | 2.452e-11 |
+| regulated, `sigma0 = 1.5` | 2.897e-11 |
+
+with `sigma0 -> 0` reproducing the frozen two-state model **exactly** (0.0).
+
+**So the theorem holds for any number of states, provided the influx enters one
+equation and the removal terms are identifiable.** That is a structural property
+of this class of model, not a modelling convenience, and it is what licenses
+extending the model without re-deriving the boundary.
+
+## Consequence 11 — regulation does NOT rescue the predictions
+
+The natural hypothesis after Consequence 8 and D020 was that the predictions are
+weak because the model lacks regulation: a real cell does not sit where its raw
+kinetics put it, it sits where its controller puts it, so adding control should
+collapse the parameter spread that made `s_u` untestable.
+
+**Tested, and false.** Across the parameter box, the p5–p95 width of `s_u` at the
+collapse point goes
+
+```
+unregulated  0.8904   ->   regulated  0.9677
+```
+
+It widens. The saturation test is not rescued by regulation, and the hypothesis
+is recorded as refuted rather than quietly dropped.
+
+One observation does survive, and it points the other way from the paper's
+headline. The regulated **median** `s_u` is **0.323** against **0.169**
+unregulated: control pushes the collapse point *closer* to saturation, partially
+toward the capacity-exhaustion picture the theory argues against. Only 14 of 30
+regulated networks converged against 24 unregulated, so this is tentative and
+should not be quoted as a result without a larger sample.
+
+### What this implies about the theory's standing
+
+Two attempts to make the quantitative predictions sharp have now failed — first
+calibration (Consequence 8), then regulation. Meanwhile the structural core has
+survived every extension: dilution, and now an added state under feedback
+control.
+
+The honest reading is that **this is a structural theory, not a predictive one.**
+It says exactly where the boundary is *given* the parameters, and that this holds
+for any model in the class; it does not predict a number without measured
+parameters, and no amount of added mechanism has changed that. Claims should be
+pitched accordingly — the defensible one is that the naive capacity bound is
+wrong by roughly an order of magnitude and that the boundary is a computable
+constrained critical point, not that collapse occurs at any particular fraction
+of V_max.
+
 ## Limits
 
 - **One model.** Two states, no regulation, no compartmentation. Growth dilution

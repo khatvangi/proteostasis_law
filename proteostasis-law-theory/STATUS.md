@@ -218,6 +218,33 @@ under *both* competing models. H3 requires externally fixed growth rate
 (chemostat/turbidostat). K6 voids the gate on between-arm growth differences.
 Pinned by test so it cannot be edited away.
 
+**The theorem generalises to n states (D024).** The "exact about a toy"
+objection is answered: with state `(u,a,c,...)`, influx in one equation and mass
+balance intact, `det J = -det[grad R; grad G; grad C]`, so a saddle-node is a
+constrained critical point of R on the intersection of the non-influx nullclines.
+Verified on a three-state system under sigma-32-style chaperone control —
+relative error **0.000e+00** unregulated, ~2.5e-11 regulated, and `sigma0 -> 0`
+reproduces the frozen model exactly. Extending the model no longer requires
+re-deriving the boundary.
+
+**Regulation does NOT rescue the predictions (D025).** The hypothesis was that a
+controlled cell sits where its controller puts it, collapsing the spread that
+made `s_u` untestable. **Refuted** — p5-p95 width goes 0.8904 -> **0.9677**, it
+widens. One tentative observation survives and cuts against the headline: the
+regulated median `s_u` is 0.323 vs 0.169, so control pushes collapse CLOSER to
+saturation, partway toward the capacity-exhaustion picture. 14 of 30 converged;
+not quotable yet.
+
+**Standing of the theory.** Two attempts to sharpen the quantitative predictions
+have failed (calibration D015, regulation D025) while the structural core has
+survived every extension (dilution, an added controlled state). This is a
+**structural theory, not a predictive one**: it says exactly where the boundary is
+given the parameters and that this holds for the whole model class; it does not
+predict a number without measured parameters. The defensible claim is that the
+naive capacity bound is wrong by ~an order of magnitude and the boundary is a
+computable constrained critical point — not that collapse occurs at any
+particular fraction of V_max.
+
 A working manuscript for the whole phase 3 result is
 `manuscript/COLLAPSE_BOUNDARY.md`.
 

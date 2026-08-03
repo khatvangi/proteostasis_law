@@ -332,6 +332,54 @@ That question is the single most valuable measurement this theory currently asks
 for, and it is experimentally accessible: it requires following growth rate to
 high misfolding burden rather than only in the near-linear regime.
 
+### 7. The theorem holds beyond two states, and regulation does not sharpen it
+
+Two objections deserve testing rather than answering: that the result is exact
+about a *toy*, and that an organism-free model must be missing something.
+
+**The first is answered.** With state `(u, a, c, …)`, influx entering only the
+soluble equation, and mass balance still holding, the same row operation gives
+`det J = −det[∇R; ∇G; ∇C]`, which vanishes exactly when `∇R` lies in the span of
+the others — Lagrange with two constraints. Verified on a three-state system in
+which the chaperone pool is dynamical under σ32-style control (synthesis rises as
+*free* chaperone falls, the actual titration mechanism): relative error 0.000e+00
+unregulated, ~2.5 × 10⁻¹¹ regulated, with the regulator switched off reproducing
+the two-state model exactly. **The theorem is a structural property of the model
+class**, not of the reduction.
+
+**The second was tested and the obvious repair failed.** The natural hypothesis
+was that predictions are weak because the model lacks regulation — a controlled
+cell sits where its controller puts it, not where its raw kinetics do, so control
+should collapse the parameter spread. It does not: the p5–p95 width of the
+saturation fraction at collapse goes from 0.890 unregulated to **0.968**
+regulated. It widens.
+
+One tentative observation survives and cuts *against* this paper's headline: the
+regulated median saturation is 0.323 against 0.169, so control pushes the
+collapse point closer to saturation, partway toward the capacity-exhaustion
+picture. Only 14 of 30 regulated networks converged, so this is not quotable as a
+result.
+
+### What kind of theory this is
+
+Two attempts to sharpen the quantitative predictions have now failed —
+calibration against a measured growth-burden slope, and the addition of feedback
+control. Meanwhile the structural core has survived every extension: cell
+division, and an added state under regulation.
+
+The honest reading is that **this is a structural theory rather than a predictive
+one.** It states exactly where the viability boundary lies *given* the
+parameters, and shows that this holds for any model in the class. It does not
+predict a number without measured parameters, and no added mechanism has changed
+that.
+
+The claim we are prepared to defend is therefore not "collapse occurs at 6–18 %
+of capacity" — the spread behind that median is too wide to support it — but:
+**the naive capacity bound is wrong by roughly an order of magnitude, and the
+true boundary is a computable constrained critical point of total removal on the
+non-influx nullclines.** That is a smaller claim than the one this work started
+with, and it is the one the evidence carries.
+
 ## Discussion
 
 ### What would distinguish this from the intuitive picture experimentally

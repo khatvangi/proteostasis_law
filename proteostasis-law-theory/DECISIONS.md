@@ -360,3 +360,45 @@ rate is set by the operator.
 K6 voids the gate if measured growth rate differs between arms beyond tolerance.
 This is recorded as a hard design requirement rather than a preference, and is
 pinned by test so it cannot be edited away.
+
+
+## D024 — The fold theorem generalises to n states
+
+The objection that the theorem is "exact about a toy" is answered. With state
+`x = (u, a, c, ...)`, influx entering only `du/dt`, and mass balance still giving
+`du/dt + da/dt = j - R(x)`, the same row operation yields
+
+    det J = -det[ grad R ; grad G ; grad C ]
+
+so a saddle-node is a constrained critical point of R on the intersection of the
+non-influx nullclines. Verified on a three-state system with sigma-32-style
+chaperone control: relative error 0.000e+00 unregulated, 2.5e-11 and 2.9e-11
+regulated, and `sigma0 -> 0` reproduces the frozen two-state model exactly.
+
+The theorem is therefore a structural property of the model class, not of the
+two-state reduction, and extending the model does not require re-deriving the
+boundary.
+
+## D025 — Regulation does not rescue the predictions; the theory is structural, not predictive
+
+The hypothesis was that the quantitative predictions are weak because the model
+lacks regulation, and that a controlled cell sits where its controller puts it
+rather than where its kinetics do, collapsing the spread that made `s_u`
+untestable (D020).
+
+**Refuted.** The p5-p95 width of `s_u` at collapse goes from 0.8904 unregulated
+to 0.9677 regulated. It widens.
+
+One tentative observation survives and cuts against the paper's headline: the
+regulated median `s_u` is 0.323 against 0.169, so control pushes the collapse
+point CLOSER to saturation, partially toward the capacity-exhaustion picture the
+theory argues against. Only 14 of 30 regulated networks converged against 24
+unregulated; not to be quoted without a larger sample.
+
+Two attempts to sharpen the quantitative predictions have now failed --
+calibration (D015) and regulation -- while the structural core has survived every
+extension, including dilution and an added controlled state (D024). The honest
+position is that this is a STRUCTURAL theory: it says exactly where the boundary
+is given the parameters, and that this holds for any model in the class. It does
+not predict a number without measured parameters, and claims must be pitched
+accordingly.
