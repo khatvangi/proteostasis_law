@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "A variational characterization of the collapse boundary in finite-resource clearance networks: analysis code"
+authors:
+  - family-names: Kiran
+    given-names: B.
+license: MIT
+repository-code: "https://github.com/khatvangi/proteostasis-law-theory"
+abstract: >-
+  Derivation, verification and numerical study of the collapse boundary of a
+  finite-resource proteostasis clearance network. The saddle-node of the
+  two-state conserved-resource model is shown to be exactly a constrained
+  critical point of total removal flux on the aggregate nullcline, giving the
+  identity det J = -(grad R x grad G), with an n-state generalisation and
+  corollaries for growth dilution and for self-damaging clearance machinery.
+keywords:
+  - proteostasis
+  - saddle-node bifurcation
+  - conserved resource
+  - protein aggregation
+  - mathematical biology

@@ -280,6 +280,42 @@ state without making the growth law do the work. It is the first candidate
 mechanism in this project to arrive from an observation rather than from
 inspecting the model.
 
+**(!) THE FRAMING TEST PASSES: bistability was never required (D031).** Before
+adding a fourth mechanism, the requirement itself was tested. Lindner's old-pole
+cell is not sitting in a second basin. It inherits a physical inclusion body at
+every division, which is a **continuously renewed perturbation, not an
+attractor**, and a monostable system under a renewed perturbation has a
+stationary offset with no separatrix anywhere.
+
+A MONOSTABLE two-state diluted model under the calibrated hyperbolic law, with no
+sequestration, no second attractor and no extra state variable, reproduces the
+measured lineage difference. The only addition is asymmetric partitioning of
+aggregate at division. Across 728 cells: **43 in band with the mechanism on, 0 in
+the control**, `f` from 0.60 to 0.99. The control is exact rather than close — all
+66 `f = 0.5` cells give an aging effect of **0.0 with standard deviation 0.0**,
+because symmetric partitioning in half the volume leaves concentration unchanged,
+which is what the dilution term already encodes. The effect is monotone in `f` in
+every setting.
+
+**D026's surviving claim is WITHDRAWN.** "Rejuvenation is only a coherent
+category in a bistable system" assumed the old-pole cell occupies a second basin.
+It does not. The three prior failures were scoring a quantity the observation
+never required: they searched for an attractor whose burden would have to be 7.5x
+to 254x above what the measurement permits, and the measurement never called for
+one.
+
+This does not rescue the model class on D029's point; it relocates it. What the
+model cannot do is place a stable ATTRACTOR at a 1% growth cost. It was never
+asked to.
+
+**Audit flag settled.** Twelve bistable sequestration cells gave four distinct
+loss values. The draws are independent (12 distinct parameter tuples for 12
+cells). The identical `1.000` is the linear-arrest law saturating —
+`mu = mu0.max(0, 1 - (u+a)/k_mu)` returns exactly zero and every one of those
+states sits 3.4x to 43x past arrest. So `1.000` is a **clamp, not a measurement**,
+and D029's "27x to 92x too severe" understates the miss rather than overstating
+it.
+
 **Running count of collisions with existing observation: three.** Regulation
 (D025), sequestration-as-reservoir (D026 named it, D029 tested it), and the
 magnitude of the aggregate-laden state (D029). None confirmed the theory; each

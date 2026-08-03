@@ -1,0 +1,16 @@
+{
+  "title": "A variational characterization of the collapse boundary in finite-resource clearance networks: analysis code",
+  "upload_type": "software",
+  "license": "MIT",
+  "creators": [
+    { "name": "Kiran, B." }
+  ],
+  "keywords": [
+    "proteostasis",
+    "saddle-node bifurcation",
+    "conserved resource",
+    "protein aggregation",
+    "mathematical biology"
+  ],
+  "description": "Derivation, verification and numerical study of the collapse boundary of a finite-resource proteostasis clearance network. Accompanies the manuscript of the same name. Every reported number is recomputable from the tracked scripts; see DECISIONS.md for the decision log and notes/POSTDICTION_PROTOCOL.md for the empirical-contact protocol."
+}

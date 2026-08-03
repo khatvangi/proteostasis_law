@@ -793,3 +793,75 @@ not re-derived. Both outcomes are results and are reported as such:
 - **NOT IN BAND** -> no route tried produces a mildly-burdened stable state, and
   that is a structural limitation of the model class, stated as a finding rather
   than as a fourth failed post-diction.
+
+## D031 — The framing test PASSES. Bistability was never required, and D026's surviving claim is withdrawn
+
+Run of `scripts/phase3/asymmetric_division.py` against D030, which was committed
+before the run.
+
+### Result: IN BAND
+
+| | |
+|---|---|
+| cells | 728 |
+| settled | 709 |
+| **in band, mechanism ON (`f > 0.5`)** | **43** |
+| in band, control (`f = 0.5`) | **0** |
+| `f` values scoring in band | 0.60 to 0.99 |
+
+The control is exact rather than approximate: across all 66 `f = 0.5` cells the
+aging effect is **0.0** with standard deviation **0.0**. Symmetric partitioning
+in half the volume leaves concentration unchanged, which is precisely what the
+`-mu.x` dilution term already encodes, so the control is the plain diluted model
+and returns identically zero. Rule 6 is satisfied by construction and not by a
+margin.
+
+The effect is **monotone in `f`** in every setting, rising smoothly from zero. It
+is a continuous one-parameter family crossing a narrow band, not a sliver: the
+band spans a factor of 1.7, so a monotone curve crosses it in one or two rungs of
+an eleven-point ladder, which is geometry rather than fragility. At `mu0 = 0.1`,
+**8 of 18** `(p_qc, j)` settings contain an in-band `f`; in the rest the whole
+ladder either under- or over-shoots.
+
+### What this means
+
+**The bistability requirement was a category error, and D026's surviving claim is
+WITHDRAWN.** That claim was: "rejuvenation is only a coherent category in a
+bistable system, since in a monostable one a daughter with less aggregate relaxes
+straight back to the single attractor." It assumed the old-pole cell is SITTING in
+a second basin. It is not. It inherits a physical inclusion body at every
+division. That is a **continuously renewed perturbation, not an attractor**, and a
+monostable system under a renewed perturbation has a stationary offset with no
+separatrix anywhere.
+
+A MONOSTABLE two-state diluted model, with no sequestration, no second attractor
+and no additional state variable, reproduces the measured lineage difference. The
+only addition is that division partitions aggregate asymmetrically.
+
+**Three prior failures were scoring a quantity the observation never required.**
+D026, and D029's two regimes, all searched for a second attractor whose burden
+would have to be 7.5x to 254x higher than the measurement permits. The
+measurement never called for one. The old-pole cell is mildly burdened because it
+keeps receiving a little more than its share, not because it has fallen into a
+basin.
+
+This does not rescue the model class on the point D029 established. It relocates
+it: what the model cannot do is place a STABLE ATTRACTOR at a 1% growth cost. It
+was never asked to.
+
+### The audit flag: settled
+
+Twelve bistable sequestration cells produced four distinct loss values. The draws
+are **independent** — 12 distinct `(mu0, k_mu, k_seq, q, j)` tuples for 12 cells,
+nothing coarse-grained in the sampling. The identical `1.000` is the LINEAR-ARREST
+LAW SATURATING: `mu = mu0.max(0, 1 - (u+a)/k_mu)` returns exactly `0.0` whenever
+burden exceeds `k_mu`, and every one of those high states sits **3.4x to 43x past
+arrest** (burden 1.71 to 21.51 against `k_mu = 0.5`). So `loss = 1 - 0/mu_low` is
+identically 1.000 in floating point.
+
+The consequence corrects D029 in the conservative direction: for those twelve
+cells `1.000` is a **clamp, not a measurement**, and the true severity is
+unbounded. D029's "27x to 92x too severe" therefore UNDERSTATES the miss for the
+mechanism-on cells rather than overstating it. The four distinct values decompose
+cleanly as three hyperbolic control cells plus one saturated value shared by all
+twelve.
