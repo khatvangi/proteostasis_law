@@ -209,3 +209,68 @@ been reported as bistability. It now checks each endpoint against the vector
 field and exposes `settled_up`, `settled_down` and `all_settled`, and only influx
 values where BOTH branches settled can enter a bistable window. A large state is
 not an attractor.
+
+
+## D017 — The Pareto surface is computed, and the optimum binds the constraint
+
+`theory/PARETO_GEOMETRY.md` asserted a trade-off surface cut by the proteostasis
+condition; no script ever computed one. `scripts/phase3/pareto.py` supplies the
+minimal version: strategy `(alpha, R)` for accuracy and quality-control
+investment, both paid out of one proteome, cut by the derived constraint
+`j(alpha,R) < j_crit(R)`. Cost forms are stipulated, not fitted.
+
+The throughput optimum lies exactly on the feasibility boundary,
+`j/j_crit = 1.000000`, which follows from throughput being strictly decreasing in
+both coordinates. A grid gave 0.8975 and that was discretisation error, not an
+interior optimum — grid optima must not be reported as interior without tracing
+the boundary.
+
+Along the non-dominated front `j/j_crit` runs 0.227 to 0.965, so the framework's
+"strategies sit near the boundary" implication holds only at the
+throughput-maximising end. A deterministic maximiser has zero margin, so any
+observed margin requires a mechanism outside this layer.
+
+## D018 — Empirical contact is specified as a gate, never as a look
+
+`empirical/GATE4_PROPOSAL.md` specifies what a test of the fold theorem requires,
+without reading any outcome value. The sibling empirical repository operates a
+preregistered outcome firewall; an ad-hoc analysis would destroy it, and a theory
+that arrived after the data and then went looking is exactly what this project
+exists to avoid.
+
+The proposal records one conclusion that matters more than the design: **the
+staged data cannot test the central prediction.** H1 concerns quality-control flux
+relative to its own maximum, and nothing in those data sets measures a saturation
+state — aggregation level and chaperone enrichment are burden proxies. Tier A
+(directional predictor comparisons) is executable and is NOT a test of the
+theorem; Tier B requires a clearance-flux readout with an internally determinable
+maximum, which does not currently exist in any staged data.
+
+
+## D019 — The Gate 4 instrument exists, and it forces an arm substitution
+
+D018 recorded that the staged data cannot test H1 because nothing measures a
+saturation state, and identified the blocker: a clearance-flux readout whose
+maximum is determinable in the same cells. That question was tested against the
+literature and resolves POSITIVELY.
+
+Proteolytic queueing at ClpXP is a routine, engineered phenomenon. Jadhav et al.
+(2025) ACS Synth Biol 14:1062-1071, doi:10.1021/acssynbio.4c00612, overexpressed
+each component of the ClpXP-SspB complex in turn and localised the queueing
+bottleneck to ClpX rather than ClpP or SspB. Ogle & Mather (2016) Phys Biol
+13:025002, doi:10.1088/1478-3975/13/2/025002, show that inter-substrate
+correlations peak near the queueing point of balance, which is an internal
+saturation-state signature. Together these give a titratable substrate, reachable
+saturation, and a maximum determinable in the same cells.
+
+**The substitution this forces must be stated, not glossed.** The accessible arm
+is ClpXP degradation of soluble substrate, which is `s_u` (median 0.155), not the
+aggregate-clearance arm `s_a` (median 0.056). H1 is therefore restated as H1'
+against `s_u`, with K1's threshold reset. Quoting the `s_a` figure while measuring
+`s_u` would be a bait-and-switch, and `s_u` is the LESS extreme arm, so the
+executable test is weaker than the headline number suggests.
+
+**The chaperone arm stays untestable.** No comparable titratable,
+saturation-reachable handle for DnaK/GroEL flux was located, so the folding side
+of the theory remains without an instrument. That limitation belongs in the
+manuscript.

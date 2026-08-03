@@ -129,14 +129,59 @@ arrest under misfolding burden complete or asymptotic? That is now the
 highest-value measurement the theory asks for, and the bistability claim is
 quoted with its growth law attached rather than as a consequence of division.
 
+**The Pareto layer now exists (D017).** `theory/PARETO_GEOMETRY.md` asserted a
+trade-off surface cut by the proteostasis condition, and no script had ever
+computed one. `scripts/phase3/pareto.py` supplies the minimal version: strategy
+`(alpha, R)` for accuracy and quality-control investment, both paid out of one
+proteome, cut by the derived constraint. **The throughput optimum sits exactly on
+the feasibility boundary** (`j/j_crit = 1.000000`) — a grid gave 0.8975 and that
+was discretisation. But along the non-dominated front `j/j_crit` runs
+**0.227–0.965**, so "strategies sit near the boundary" holds only at the
+throughput-maximising end. A deterministic maximiser has zero margin, so any
+observed margin needs a mechanism outside this layer — worth noting against the
+superseded envelope-paper's order-of-magnitude margin claim.
+
+**Empirical contact is specified, not attempted (D018).**
+`empirical/GATE4_PROPOSAL.md` states what a test of the theorem requires, with no
+outcome value read. Its load-bearing conclusion: **the staged data cannot test the
+central prediction**, because H1 concerns quality-control flux relative to its own
+maximum and nothing staged measures a saturation state. Directional predictor
+comparisons remain executable but are not a test of the theorem.
+
+**Arrest-shape literature search returned no usable measurement.** The question
+D015 identified as highest-value — is growth arrest under misfolding burden
+complete or asymptotic — was searched for via PubMed. Samhita et al. 2025
+(doi:10.1093/molbev/msaf312) establish that 10–50x wild-type mistranslation
+remains viable in E. coli but measure costs only in the weak regime; Melnikov
+et al. 2020 (doi:10.1073/pnas.2003132117) report norvaline intolerance
+qualitatively. No dose-resolved growth-versus-quantified-burden curve into the
+arrest regime was found, and two relevant full texts were not retrievable through
+that route, so a targeted PDF read could still settle it.
+
+**The Gate 4 instrument was tested for and exists (D019).** The blocker D018
+identified — a clearance-flux readout with an internally determinable maximum —
+resolves positively. Proteolytic queueing at ClpXP is routine and engineered:
+Jadhav et al. 2025 (doi:10.1021/acssynbio.4c00612) localise the queueing
+bottleneck to **ClpX** by overexpressing each component in turn, and Ogle & Mather
+2016 (doi:10.1088/1478-3975/13/2/025002) show inter-substrate correlations peak
+at the queueing balance point — an internal saturation-state signature. Titratable
+substrate, reachable saturation, and a maximum determinable in the same cells.
+
+**But it forces an arm substitution.** The accessible arm is ClpXP degradation of
+soluble substrate, `s_u` (median 0.155), not aggregate clearance `s_a` (0.056).
+H1 is restated as H1' against `s_u` with K1 reset. `s_u` is the **less extreme**
+arm, so the executable test is weaker than the headline figure. The chaperone arm
+has no comparable handle and stays untestable.
+
 A working manuscript for the whole phase 3 result is
 `manuscript/COLLAPSE_BOUNDARY.md`.
 
 Reproduce with `python scripts/phase3/fold_theorem.py`,
 `python scripts/phase3/dilution.py` and
 `python scripts/phase3/boundary_structure.py` and
-`python scripts/phase3/calibration.py`; asserted by `tests/phase3/`
-(52 checks, of which 45 are model-level and run on a clean checkout).
+`python scripts/phase3/calibration.py` and `python scripts/phase3/pareto.py`;
+asserted by `tests/phase3/` (63 checks, of which 56 are model-level and run on a
+clean checkout).
 
 ## Phase 1 experiment D closed; Phase 2 synthesis final
 

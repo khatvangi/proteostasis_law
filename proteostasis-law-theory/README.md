@@ -9,8 +9,8 @@ Translation strategies occupy a Pareto trade-off surface involving productive th
 ## Directory map
 
 - `manuscript/`: `MANUSCRIPT.md` is the integrated first-pass framework paper; `COLLAPSE_BOUNDARY.md` is the phase 3 working draft on where the collapse boundary is, why it sits far below capacity, and what cell division does to it.
-- `theory/`: law statement, mathematics, Pareto geometry, dynamics, predictions, scope, and nonclaims. `FOLD_THEOREM.md` derives where collapse occurs — the fold is the constrained maximum of total removal on the aggregate nullcline — and decomposes the fold-to-ceiling ratio into its saturation and sequestration deficits.
-- `empirical/`: experimental program and measurement-to-symbol map.
+- `theory/`: law statement, mathematics, Pareto geometry, dynamics, predictions, scope, and nonclaims. `FOLD_THEOREM.md` derives where collapse occurs — the saddle-node is a constrained critical point of total removal on the aggregate nullcline (*critical point*, not maximum; see D011) — decomposes the margin into its saturation and sequestration deficits, extends the result to dividing cells, calibrates the growth-burden coupling to a measurement, and computes the Pareto surface the framework had only asserted.
+- `empirical/`: experimental program, measurement-to-symbol map, and `GATE4_PROPOSAL.md` — what a first empirical test of the fold theorem would require, specified without reading any outcome.
 - `notes/`: historical recovery and rejection ledger; provenance stays here.
 - `scripts/`: future reproducible analysis code and conventions.
 - `tests/`: future mathematical, numerical, and data-validation checks.

@@ -356,6 +356,48 @@ division as such is **withdrawn** (D015).
 
 This is the highest-value measurement the theory currently asks for.
 
+## Consequence 9 — the Pareto layer, and where the optimum sits
+
+`theory/PARETO_GEOMETRY.md` asserts a trade-off surface that the proteostasis
+condition cuts, but nothing in the repository ever computed one — `pareto`
+appeared in no script, and experiments A–D sweep `j` and `nu`, which are already
+downstream of a strategy. `scripts/phase3/pareto.py` builds the smallest object
+that makes the claim checkable.
+
+Two strategy coordinates, both paid out of the same proteome: accuracy investment
+`alpha` (lowers the error rate, hence the influx) and quality-control investment
+`R` (raises `j_crit`). Both reduce the ribosomal share and therefore throughput.
+The constraint is the derived one, `j(alpha,R) < j_crit(R)`, with no free
+parameters of its own; the cost forms (`eps0, g, c_pf, y, phi_fixed`) are
+**stipulated, not fitted**.
+
+**The throughput optimum sits exactly on the feasibility boundary**, at
+`j/j_crit = 1.000000`. That is not a numerical coincidence: throughput is
+strictly decreasing in both coordinates, so any interior point can be improved by
+lowering `alpha` until the constraint binds. A 26x22 grid put the optimum at
+`j/j_crit = 0.8975`; tracing the boundary exactly gives 1.0 and a 0.89 % higher
+throughput, so the grid figure was discretisation, not an interior optimum.
+
+**But the front is not uniformly at the boundary.** Along the non-dominated set
+in (throughput, accuracy), `j/j_crit` runs **0.227 to 0.965** — accuracy-favouring
+strategies sit far inside the envelope, and only the throughput-favouring end
+presses against it.
+
+This gives the framework's "speculative implication" — that evolution concentrates
+strategies near feasibility boundaries — a precise and partly deflationary form:
+it holds for throughput maximisers and fails for the rest of the front.
+
+**A tension worth recording.** A deterministic throughput maximiser has *zero*
+safety margin. Any observed margin must then come from something outside this
+model — noise, environmental fluctuation, or robustness against parameter
+uncertainty. The superseded `envelope-paper` reported E. coli sitting roughly an
+order of magnitude inside its envelope. If that survives scrutiny, then either
+cells are not throughput maximisers, or margin is set by a mechanism this Pareto
+layer does not contain. The layer cannot adjudicate, and does not claim to.
+
+Claim labels: the boundary-binding argument is **Mathematical** given strictly
+decreasing objectives; every number is **Computational**; nothing is empirical.
+
 ## Limits
 
 - **One model.** Two states, no regulation, no compartmentation. Growth dilution
@@ -394,7 +436,8 @@ python scripts/phase3/fold_theorem.py      # the theorem, the margin, the nested
 python scripts/phase3/dilution.py          # growth dilution and boundary survival
 python scripts/phase3/boundary_structure.py  # uniqueness, bistability, thresholds
 python scripts/phase3/calibration.py         # the measured growth-burden anchor
-python -m pytest tests/phase3 -q           # 52 checks asserting all four
+python scripts/phase3/pareto.py              # the trade-off surface and its optimum
+python -m pytest tests/phase3 -q           # 63 checks
 ```
 
 `results/` is gitignored; without the Phase 1 run root `fold_theorem.py` prints
