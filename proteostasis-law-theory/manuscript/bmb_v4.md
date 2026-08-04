@@ -338,6 +338,10 @@ What it does not do is predict a number without measured parameters. Two attempt
 
 The negative results are the more transferable half. Three mechanisms were added to satisfy a structural requirement that nobody had checked, and the check ran in an afternoon against three cycles of mechanism-building. The requirement dissolved. Before adding a mechanism to reproduce an observation, it is worth asking whether the observation imposes the structure the mechanism is meant to supply.
 
+The nearest prior model is Santra, Dill and de Graff (2019), which drives proteostasis collapse by chaperone titration under cumulative damage and locates a tipping point beyond which replenishment no longer keeps pace with loss. The qualitative claim is the same one made here, and the difference is worth stating precisely rather than as a claim of novelty. That model reaches its tipping point by simulation and fits lifespan data, which this paper does not attempt; against that, the threshold here is a condition on two gradients, so it is located without sweeping, holds at any state dimension, and survives dilution and self-damaging capacity without re-derivation.
+
+The substantive disagreement is about mechanism. Titration accounts place collapse at the point where chaperone capacity is exhausted. Section 6 finds the opposite: at the boundary the machinery runs at 6 to 18 percent of its maximum rate, the saturation deficit accounts for 35.8 percent of the shortfall against 12.6 percent for sequestration, and the capacity bound is about thirteen times too loose to locate anything on its own. Collapse in this model class occurs because superlinear nucleation overtakes sublinear saturating removal well before removal saturates. If that is right, interventions that add capacity buy less than a titration picture predicts, and the two accounts are separable by measuring how far from saturation the clearance machinery runs when a cell loses proteostasis.
+
 Two limitations bound everything above. Deterministic well-mixed dynamics is false in the system we scored against — aggregates are spatially segregated and molecule numbers are small — and both effects place a measured boundary below the deterministic fold and smear it across a population. And the parameter box was chosen adversarially wide in the saturation constants, which set `φ`, so the 8.86× between-network spread is partly a property of the sampling rather than of biology.
 
 The prediction that follows from Section 8.4 is the one a reader can act on. If the aggregate burden of an aging *E. coli* old-pole cell falls outside the interval that Section 8.4 requires at the measured focal share, the account given here of the aging asymmetry is wrong. Two measurements decide it, and neither has been attempted as far as we can determine: the wild-type aggregate fraction under unstressed growth, and the share of that aggregate held in the polar focus.
@@ -346,7 +350,7 @@ The prediction that follows from Section 8.4 is the one a reader can act on. If 
 
 ## Data and code availability
 
-All analysis code, the parameter configurations, and the test suite that asserts every numerical quantity reported here are at https://github.com/khatvangi/proteostasis-law-theory under the MIT licence. Archived version and DOI: [Zenodo DOI — to be minted at release]. Detailed run outputs are regenerable from the tracked scripts; without the run root, artefact-dependent scripts print an explicit SKIP and exit 0 rather than passing silently.
+All analysis code, the parameter configurations, and the test suite that asserts every numerical quantity reported here are at https://github.com/khatvangi/proteostasis-law-theory under the MIT licence. Archived version and DOI: https://doi.org/10.5281/zenodo.21794565 (concept DOI, resolving to the latest version; v1.0.0 is https://doi.org/10.5281/zenodo.21794566). Detailed run outputs are regenerable from the tracked scripts; without the run root, artefact-dependent scripts print an explicit SKIP and exit 0 rather than passing silently.
 
 ## References
 
@@ -355,6 +359,8 @@ Antoneli F, Golubitsky M, Jin J, Stewart I (2025) Homeostasis in input-output ne
 Araujo RP, Liotta LA (2018) The topological requirements for robust perfect adaptation in networks of any size. *Nat Commun* 9:1757.
 
 Brualdi RA, Ryser HJ (1991) *Combinatorial matrix theory*. Cambridge University Press, Cambridge.
+
+Dear AJ, Meisl G, Michaels TCT, Zimmermann MR, Linse S, Knowles TPJ (2020) The catalytic nature of protein aggregation. *J Chem Phys* 152(4):045101. doi:10.1063/1.5133635
 
 Cohen SIA, Vendruscolo M, Welland ME, Dobson CM, Terentjev EM, Knowles TPJ (2011) Nucleated polymerization with secondary pathways. I. Time evolution of the principal moments. *J Chem Phys* 135:065105.
 
@@ -366,6 +372,8 @@ Ferrell JE (2016) Perfect and near-perfect adaptation in cell signaling. *Cell S
 
 Ferrone F (1999) Analysis of protein aggregation kinetics. *Methods Enzymol* 309:256–274.
 
+Frere S, Slutsky I (2018) Alzheimer's disease: from firing instability to homeostasis network collapse. *Neuron* 97(1):32–58. doi:10.1016/j.neuron.2017.11.028
+
 Geiler-Samerotte KA, Dion MF, Budnik BA, Wang SM, Hartl DL, Drummond DA (2011) Misfolded proteins impose a dosage-dependent fitness cost and trigger a cytosolic unfolded protein response in yeast. *Proc Natl Acad Sci USA* 108(2):680–685. doi:10.1073/pnas.1017570108
 
 Golubitsky M, Stewart I (2006) Nonlinear dynamics of networks: the groupoid formalism. *Bull Amer Math Soc* 43(3):305–364.
@@ -375,6 +383,8 @@ Golubitsky M, Stewart I (2017) Homeostasis, singularities and networks. *J Math 
 Golubitsky M, Wang Y (2020) Infinitesimal homeostasis in three-node input-output networks. *J Math Biol* 80:1163–1185. doi:10.1007/s00285-019-01457-x
 
 Huang Z, Golubitsky M (2022) Classification of infinitesimal homeostasis in four-node input-output networks. *J Math Biol* 84:25. doi:10.1007/s00285-022-01727-1
+
+Hipp MS, Kasturi P, Hartl FU (2019) The proteostasis network and its decline in ageing. *Nat Rev Mol Cell Biol* 20(7):421–435. doi:10.1038/s41580-019-0101-y
 
 Khammash M (2021) Perfect adaptation in biology. *Cell Syst* 12:509–521. doi:10.1016/j.cels.2021.05.020
 
@@ -396,13 +406,19 @@ Reed M, Best J, Golubitsky M, Stewart I, Nijhout HF (2017) Analysis of homeostat
 
 Reed MC, Duncan W, Nijhout HF, Best J, Golubitsky M (2018) Homeostasis despite instability. *Math Biosci* 300:130–137. doi:10.1016/j.mbs.2018.03.025
 
+Santra M, Dill KA, de Graff AMR (2019) Proteostasis collapse is a driver of cell aging and death. *Proc Natl Acad Sci USA* 116(44):22173–22178. doi:10.1073/pnas.1906592116
+
+Schmidt A, Kochanowski K, Vedelaar S, Ahrné E, Volkmer B, Callipo L, Knoops K, Bauer M, Aebersold R, Heinemann M (2016) The quantitative and condition-dependent *Escherichia coli* proteome. *Nat Biotechnol* 34(1):104–110. doi:10.1038/nbt.3418
+
 Scott M, Gunderson CW, Mateescu EM, Zhang Z, Hwa T (2010) Interdependence of cell growth and gene expression: origins and consequences. *Science* 330:1099–1102.
 
 Scott M, Klumpp S, Mateescu EM, Hwa T (2014) Emergence of robust growth laws from optimal regulation of ribosome synthesis. *Mol Syst Biol* 10:747.
 
-Scott M, Hwa T (2023) Shaping bacterial gene expression by physiological and proteome allocation constraints. *Nat Rev Microbiol* 21:327–342.
+Scott M, Hwa T (2023) Shaping bacterial gene expression by physiological and proteome allocation constraints. *Nat Rev Microbiol* 21(5):327–342. doi:10.1038/s41579-022-00818-6
 
 Shachrai I, Zaslaver A, Alon U, Dekel E (2010) Cost of unneeded proteins in *E. coli* is reduced after several generations in exponential growth. *Mol Cell* 38:758–767.
+
+Stewart EJ, Madden R, Paul G, Taddei F (2005) Aging and death in an organism that reproduces by morphologically symmetric division. *PLoS Biol* 3(2):e45. doi:10.1371/journal.pbio.0030045
 
 Tomoyasu T, Mogk A, Langen H, Goloubinoff P, Bukau B (2001) Genetic dissection of the roles of chaperones and proteases in protein folding and degradation in the *Escherichia coli* cytosol. *Mol Microbiol* 40(2):397–413. doi:10.1046/j.1365-2958.2001.02383.x
 
@@ -412,13 +428,27 @@ Winkler J, Seybert A, König L, Pruggnaller S, Haselmann U, Sourjik V, Weiss M, 
 
 ---
 
-### Still to add and verify before submission
+### Reference verification
 
-Thirty references above. Volume, page, and article details were taken from publisher records or from the primary sources read in full; the following four items were seen only in secondary reference lists and must be confirmed against the article itself.
+All thirty-five references above were checked against PubMed records, not against
+secondary reference lists. Four corrections resulted.
 
-- Michaels TCT et al. (2020) The catalytic nature of protein aggregation. *J Chem Phys* 152(4). Article number unconfirmed. Directly relevant: it treats saturation in nucleation, which bears on the rate laws of Section 2.1.
-- Coquel A-S et al. (2013) *PLoS Comput Biol*, on nucleoid crowding and aggregate localisation in *E. coli*. Cite only if §8.4 needs the mechanism of focus formation.
-- Frere S, Slutsky I (2018) Alzheimer's disease: from firing instability to homeostasis network collapse. *Neuron* 97. End page unconfirmed. Worth one sentence in the Discussion: same shape of claim in a different system.
-- Stewart EJ et al. (2005) *PLoS Biol*, on aging by asymmetric division in *E. coli*, if cited alongside Lindner et al.
+- *The catalytic nature of protein aggregation* is **Dear AJ** et al., not
+  Michaels et al.; Michaels is the third author. Article number 045101, confirmed.
+- Frere & Slutsky (2018) runs **97(1):32–58**; the end page was previously unknown.
+- Stewart et al. (2005) is *PLoS Biol* **3(2):e45**, disambiguated from another
+  2005 *PLoS Biol* paper with a Stewart among its authors.
+- Scott & Hwa carries **doi:10.1038/s41579-022-00818-6** and appeared online in
+  November 2022; it is cited by its 2023 issue.
 
-Two gaps remain that no source above fills. A proteostasis-network review supporting the finite-shared-resource premise of Section 2.1, and a measured value for the chaperone and protease share of the *E. coli* proteome, which currently enters only as a swept quantity in Section 4.2.
+Coquel et al. (2013) was verified but is **not cited**: it reports aggregate
+diffusion constants and the nucleoid-crowding mechanism, and does not report the
+focal mass share that §8.4 would need it for.
+
+Two gaps identified earlier are now closed. Hipp, Kasturi & Hartl (2019) supports
+the finite-shared-resource premise of §2.1, and Schmidt et al. (2016) supplies the
+quantitative *E. coli* proteome from which the chaperone and protease share used in
+§4.2 can be obtained rather than swept. Santra, Dill & de Graff (2019) is added as
+the closest prior model of proteostasis collapse: it drives collapse by chaperone
+titration under cumulative damage and reaches a tipping point, which is the same
+qualitative claim this paper makes exactly rather than numerically.

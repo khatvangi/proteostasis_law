@@ -1,9 +1,13 @@
 {
-  "title": "A variational characterization of the collapse boundary in finite-resource clearance networks: analysis code",
+  "title": "An Exact Collapse Threshold for Conserved-Resource Models of Protein Quality Control: analysis code",
   "upload_type": "software",
   "license": "MIT",
   "creators": [
-    { "name": "Kiran, B." }
+    {
+      "name": "Boggavarapu, Kiran",
+      "affiliation": "McNeese State University",
+      "orcid": "0000-0003-0751-6459"
+    }
   ],
   "keywords": [
     "proteostasis",
@@ -12,5 +16,6 @@
     "protein aggregation",
     "mathematical biology"
   ],
-  "description": "Derivation, verification and numerical study of the collapse boundary of a finite-resource proteostasis clearance network. Accompanies the manuscript of the same name. Every reported number is recomputable from the tracked scripts; see DECISIONS.md for the decision log and notes/POSTDICTION_PROTOCOL.md for the empirical-contact protocol."
+  "description": "Derivation, verification and numerical study of the collapse boundary of a finite-resource proteostasis clearance network. Accompanies the manuscript of the same name. Every reported number is recomputable from the tracked scripts; see DECISIONS.md for the decision log and notes/POSTDICTION_PROTOCOL.md for the empirical-contact protocol.",
+  "version": "1.0.0"
 }
