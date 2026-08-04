@@ -239,7 +239,10 @@ class TestBetaTwoCompartmentPartition(unittest.TestCase):
         self.assertIn("beta`-indexed interval", entry)
         # the weak bound must carry both caveats
         self.assertIn("our arithmetic, not their", entry)
-        self.assertIn("wrong condition", entry)
+        self.assertRegex(entry, r"the wrong\s+condition")
+        # and the 0.145 floor is withdrawn: the two-foci assumption is heat-stress
+        self.assertIn("No defensible lower bound on `beta` exists", entry)
+        self.assertIn("ILLUSTRATIVE", entry)
 
     def testTheSectionTextDoesNotClaimParameterFreeness(self):
         p = _REPO_ROOT / "manuscript" / "SECTION_8_4_LINEAGE_PREDICTION.md"

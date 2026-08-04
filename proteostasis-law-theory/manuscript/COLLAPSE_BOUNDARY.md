@@ -1,3 +1,5 @@
+> **SUPERSEDED.** The canonical manuscript is [`bmb_v4.md`](bmb_v4.md). This file is kept for provenance and is not the version any published DOI refers to.
+
 # Protein quality control fails long before it is saturated, and in dividing cells it fails only because damage slows growth
 
 **Status: working draft. No organism data was used anywhere in this work.**

@@ -1027,11 +1027,19 @@ bounds `beta` for the unstressed condition Lindner studied.**
   17500-33000 molecules, aggregate on heat stress"; "individual aggregates are
   composed of approximately 2400-16500 protein molecules"; "62% of all
   heat-treated cells (n=200) exhibited two fluorescent foci at both poles".
-  Combining these gives `beta` in **0.145 to 1.0**, which excludes very small
-  `beta` and nothing else. **That combination is our arithmetic, not their
-  measurement, and it is the wrong condition** — heat stress, not the unstressed
-  growth Lindner used. It is reported as a weak lower bound with both caveats
-  attached.
+  Combining these gives `beta` in **0.145 to 1.0** IF two foci are assumed.
+  **That combination is our arithmetic, not their measurement, and it is the wrong
+  condition** — heat stress, not the unstressed growth Lindner used.
+
+  **(!) And the assumption does not transfer.** The 62% two-foci figure is from
+  heat-treated cells. In the unstressed cells Lindner measured, 46.5% carry ONE
+  focus and only 1.2% carry two, so the one-focus arithmetic applies and gives
+  `beta` in **0.073 to 0.94** — a floor half as large and nearly the whole unit
+  interval. The 0.145 row of the table above is therefore an ILLUSTRATIVE
+  pessimistic case, not a bound. **No defensible lower bound on `beta` exists**,
+  and the requirement is quoted as a family spanning roughly 0.047% to 0.5% of the
+  proteome over the plausible range, with the direction stated rather than an
+  endpoint claimed.
 - **Lindner et al. 2008** quantifies focus fluorescence and focus counts (46.5% of
   cells carry one focus) but not the focus share of total aggregate.
 - **Coquel A-S et al. (2013) PLoS Comput Biol 9(4):e1003038,
@@ -1042,16 +1050,17 @@ bounds `beta` for the unstressed condition Lindner studied.**
 ### Verdict
 
 **The prediction is not parameter-free, and D032's paragraph overstated it.** It
-is a `beta`-indexed interval. With `beta` unbounded below except by our own
-weak arithmetic, the requirement spans
+is a `beta`-indexed interval, and `beta` has NO defensible lower bound. The
+requirement spans roughly
 
     0.047%  (beta = 1, the D031 assumption)
-    0.55%   (beta = 0.145, the weakest defensible focus share)
+    ~0.5%   (beta ~ 0.15, an illustrative pessimistic case, NOT a bound)
 
-The direction is the useful part: **every departure from `beta = 1` moves the
-requirement toward detectability**, narrowing the gap to the only measured
-aggregate load from 62x-214x down to 9x-31x. So the correction improves the
-prediction's experimental reach rather than damaging it.
+and rises without limit as `beta` falls further. The direction is the useful
+part: **every departure from `beta = 1` moves the requirement toward
+detectability**, narrowing the gap to the only measured aggregate load from
+62x-214x down to roughly 10x. So the correction improves the prediction's
+experimental reach rather than damaging it. No endpoint is claimed.
 
 **The measurement that closes this** is the focus share of total aggregate in
 unstressed E. coli — quantitative fluorescence of the focus against total

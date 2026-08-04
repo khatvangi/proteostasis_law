@@ -1,3 +1,5 @@
+> **SUPERSEDED.** The canonical manuscript is [`bmb_v4.md`](bmb_v4.md). This file is kept for provenance and is not the version any published DOI refers to.
+
 # The Proteostasis Law: A Stability Boundary on the Pareto Surface of Translation
 
 ## Abstract

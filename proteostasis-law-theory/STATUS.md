@@ -316,8 +316,11 @@ aggregate while the indivisible focus is one object inside it, so
 `f_eff = 0.5 + 0.5.beta` for focus share `beta`, and D031/D032 silently assumed
 `beta = 1`. The requirement runs **0.047% of the proteome at `beta = 1` to 0.55%
 at `beta = 0.145`**, scaling as `1/beta`. No source bounds `beta` under unstressed
-growth; the 0.145 floor is our own arithmetic on Winkler et al. 2010's
-heat-stress numbers, which is the wrong condition. **The direction is the useful
+growth. The 0.145 figure is our own arithmetic on Winkler et al. 2010's
+heat-stress numbers and assumes two foci per cell; Lindner's unstressed cells
+carry one focus in 46.5% of cases and two in 1.2%, so that assumption does not
+transfer and **no defensible lower bound on `beta` exists**. It is an
+illustrative pessimistic case, not a bound. **The direction is the useful
 part**: every departure from a wholly focal aggregate moves the requirement toward
 detectability, narrowing the gap to the only measured aggregate load from
 62x-214x down to 9x-32x. The nearest measurement (Tomoyasu et

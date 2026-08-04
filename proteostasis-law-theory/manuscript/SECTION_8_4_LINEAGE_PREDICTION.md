@@ -1,3 +1,5 @@
+> **SUPERSEDED.** The canonical manuscript is [`bmb_v4.md`](bmb_v4.md). This file is kept for provenance and is not the version any published DOI refers to.
+
 # §8.4 — The lineage prediction, and what would close it
 
 *Drop-in text. §8.4 does not yet exist in a draft; this is the paragraph for it.
