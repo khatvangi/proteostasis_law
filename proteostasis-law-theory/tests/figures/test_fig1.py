@@ -105,10 +105,23 @@ class TestPanelBIsHonest(unittest.TestCase):
         self.assertIn("2.027e-03", cap)
 
     def testSectionFiveUsesTheNonDegradingResidual(self):
-        """the max-normalised metric worsens as the bracket tightens (D027)."""
-        self.assertNotIn("1.436", _MS)
-        self.assertIn("2.34", _MS)
-        self.assertIn("median residual over 325 folds", _MS)
+        """the max-normalised metric worsens as the bracket tightens (D027).
+
+        The superseded values are NOT required to be absent -- §5 states them
+        explicitly as corrections, which is the honest presentation. What must
+        hold is that they never appear as a CURRENT claim, i.e. only inside the
+        sentence that supersedes them, and never in the results table.
+        """
+        s = _MS[_MS.index("## 5. Numerical verification"):_MS.index("## 6.")]
+        table = s[s.index("| quantity |"):s.index("\n\n", s.index("| quantity |"))]
+        for old in ("1.436", "+0.9987", "8.2×10⁻¹⁰"):
+            self.assertNotIn(old, table, f"{old} still in the results table")
+        correction = s[s.index("previously reported"):]
+        correction = correction[:correction.index("\n\n")]
+        for old in ("1.436×10⁻⁷", "+0.9987", "8.2×10⁻¹⁰"):
+            self.assertIn(old, correction, f"{old} quoted outside the correction")
+        self.assertIn("2.34×10⁻¹⁰", table)
+        self.assertIn("load grid, 325", table)
 
     def testSectionThreeOneUsesTheirVocabulary(self):
         s = _MS[_MS.index("### 3.1"):_MS.index("## 4.")]
@@ -128,8 +141,17 @@ class TestFigureHygiene(unittest.TestCase):
         self.assertAlmostEqual(F.H_MAX / F.MM, 234.0, places=6)
 
     def testNoFigureScriptReadsFromResults(self):
-        """the run root is gitignored; a clean checkout must still reproduce."""
+        """the run root is gitignored; a clean checkout must still reproduce.
+
+        `build_figure_data.py` is the single exception and the reason the rule
+        holds for everything else: it reads the run root WHEN PRESENT and writes
+        the reduced arrays into data/figures/, which is tracked. Figures read
+        those. If it ever stops being the only exception, this test fails.
+        """
+        allowed = {"build_figure_data.py"}
         for f in sorted((_REPO_ROOT / "scripts" / "figures").glob("*.py")):
+            if f.name in allowed:
+                continue
             src = f.read_text()
             self.assertNotIn('"results"', src, f"{f.name} reads results/")
             self.assertNotIn("'results'", src, f"{f.name} reads results/")

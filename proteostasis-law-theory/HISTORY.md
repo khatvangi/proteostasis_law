@@ -278,3 +278,57 @@ Also found and recorded a process defect: under the ORIGINAL band the literal
 criterion would have PASSED, carried entirely by k_seq=0 control cells, because
 D028 never required the mechanism under test to be switched on. Now protocol
 rule 6.
+
+## 2026-08-04 (continued)
+
+**Q:** Zenodo, then figures for bmb_v4.md.
+
+**A:** Deposit minted — concept DOI 10.5281/zenodo.21794565, v1.0.0
+10.5281/zenodo.21794566, uploaded file MD5-verified. Byline corrected to Kiran
+Boggavarapu from ORCID 0000-0003-0751-6459 (given Kiran, family Boggavarapu); the
+repo metadata and deposit were already right and the manuscript was the outlier.
+
+**Q:** Figure 1, and is panel (b)'s horizontal tangent computable?
+
+**A:** Initially no — `G_u > 0` structurally (all four terms of `G` push the same
+way), so the aggregate coordinate has no horizontal tangent, confirmed across 40
+draws. But that stopped one derivative short: Cramer on the other column gives
+`du*/dj = -G_a/det J`, so the SOLUBLE coordinate turns where `G_a = 0`. That point
+exists, is unique, and is generic (`det J = R_a.G_u = 2.027e-03`), and it is the
+same locus where root-finding loses the nullcline. Panel (b) plots both
+coordinates, all computed, with a x182 zoom inset. NOT a prediction:
+`j_turn/j_crit = 0.9990`, and on the stable branch in only 6 of 30 draws.
+Section 3.1 rewritten as three cases in Wang et al.'s vocabulary (Haldane type,
+excluded by sign structure; output = u outside their framework; det J = 0 the
+fold).
+
+**Q:** Check whether section 5's headline used the degrading metric.
+
+**A:** It did, and worse. TWO distinct defects (D035, D036): the metric divides by
+`max(|det J|, |cross|)`, both of which vanish at a saddle-node (corr with |eig| =
+-0.262, it degrades as the bracket tightens); AND three headline numbers came from
+an undeclared 20-of-325 subsample, all three optimistic. Forensics: the draw was
+uniform and seeded, so nothing selected them — two deviations are coin flips
+(P = 0.501, 0.438) and the third, a maximum, understated with probability 0.939 =
+1 - 20/325, deterministically. Rule: never subsample an extremum.
+
+**Q:** Sweep every extremum; the rule is under-applied.
+
+**A:** D037/D038. Found a fifth affected number (solver max, 6.652e-07 -> 7.56e-07)
+and then a sixth (`s_u` width 0.890 is the regulation experiment's, not the kinetic
+box's 0.876). Section 5 now reports median/p99/max per row with populations named,
+since a maximum grows with population size and is not comparable across
+denominators. FOLD_THEOREM.md decided LIVE and corrected in place rather than
+bannered.
+
+**Q:** Figures.
+
+**A:** Fig 1 (theorem, two panels), Fig 2 (saturation), Fig 4 (the beta-indexed
+prediction) built; data/figures/ builder extracts reduced arrays with provenance
+per file. D039: Figure 2's specified `s_a` screen is NOT defensible — the
+distribution has no gap and the median slides continuously with any floor
+(0.090 to 0.355), and the first build's screen created a 5x figure-text
+divergence. No screen, no exclusion; the complete 2884 reproduce section 6 exactly.
+
+**Remaining:** Figures 3, S1, 5; then Zenodo v1.1.0 so the archive captures the
+corrected state in one version.

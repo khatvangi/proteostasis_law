@@ -1139,32 +1139,207 @@ Recorded so the omissions are choices rather than oversights:
   A plot would overstate it.
 
 
-## D035 — Section 5's verification statistic was the one that degrades, and is restated
+## D035 — Section 5, defect one: the verification statistic degraded toward the thing it verified
 
 `determinantIdentity`'s `rel_err` divides by `max(|det J|, |cross|)`, and BOTH
-vanish at a saddle-node. §5's headline of 1.436e-07 came from that metric. It is
-the wrong statistic for this paper, and the defect is measurable rather than
-theoretical.
+vanish at a saddle-node. Over the whole load grid of 325 folds:
 
-Over all **325** found fold states:
+| metric | median | p90 | max | corr with \|eig\| |
+|---|---|---|---|---|
+| max-normalised (what §5 reported) | 2.00e-07 | 7.81e-07 | **1.55e-02** | **-0.262** |
+| gradient-normalised (D027) | **2.34e-10** | 6.16e-10 | **1.29e-09** | +0.060 |
 
-| metric | median | p90 | max |
+The negative correlation is the defect stated as a measurement: the error GROWS as
+the bracket tightens on the true fold. Splitting at the median eigenvalue, the
+tighter half has median 2.79e-07 against 1.38e-07 for the looser half, twice as
+bad when closer to the object being verified. The `1.55e-02` tail is what a
+referee would find in a paper whose selling point is exactness.
+
+**Correction: change the statistic.** §5 now reports the gradient-normalised
+residual and Fig. S1 carries the contrast rather than asserting it.
+
+Found by the caption audit for Figure 1, where the metric returns exactly 1.0 at
+an exact fold, which is the one place a caption would quote it.
+
+## D036 — Section 5, defect two: three headline numbers came from a 6% subsample, and all three were optimistic
+
+Separate from D035 and with a different correction. `verifyAgainstRun` takes
+`n_identity = 20` states from the load grid's 325, and §5 quoted those values
+without saying they were a subsample. Recomputed over ALL 325:
+
+| quantity | 20-state subsample | all 325 | direction |
 |---|---|---|---|
-| max-normalised (what §5 reported) | 2.00e-07 | 7.81e-07 | **1.55e-02** |
-| gradient-normalised (D027) | **2.34e-10** | 6.16e-10 | **1.29e-09** |
+| identity residual, median | 1.436e-07 | 2.00e-07 | worse |
+| corr(log sin angle, log \|eig\|) | +0.9987 | **+0.9960** | worse |
+| \|G\| at fold states, maximum | 8.2e-10 | **1.63e-09** | **2x worse** |
 
-And it degrades toward the thing being verified:
+**Every one moved in the flattering direction.** That is what a subsample does
+when it is not declared, and it is a separate failure from the normalisation
+choice: this one is not fixed by changing the metric, only by not subsampling.
 
-- `corr(|eig|, max-normalised error)` = **-0.262**: the error GROWS as the bracket
-  tightens on the true fold.
-- `corr(|eig|, gradient-normalised error)` = **+0.060**: no such dependence.
-- Splitting at the median eigenvalue, the tighter half has median 2.79e-07
-  against 1.38e-07 for the looser half -- twice as bad when closer to the fold.
+**Correction: use the whole population, and name it.** §5 previously described its
+box as "2884 fold states" while the identity rows were computed on experiment B,
+a different population entirely. The two are now distinguished at every row:
 
-The `1.55e-02` tail is what a referee would find in a paper whose selling point is
-exactness. §5 now reports the gradient-normalised residual, median **2.34e-10**,
-maximum **1.29e-09**, over all 325 folds. The quoted 1.436e-07 also came from a
-20-state subsample; the full-set value of that same metric is 2.00e-07.
+- **load grid** — 325 folds, nascent occupancy against rescue allocation at fixed
+  kinetics. The identity, parallelism, `|G|` and solver rows.
+- **kinetic box** — 5000 Latin-hypercube draws, 2884 admitting a fold. The `phi`
+  rebuild and the saturation-fraction distributions.
 
-Found by the caption audit for Figure 1: the metric returns exactly 1.0 at an
-exact fold, which is where a caption would quote it.
+A referee comparing "2884 folds" in the header to a table computed over 325 would
+have assumed the worse thing.
+
+### Forensics: nothing selected those 20, and only one of the three was biased
+
+"Three independent quantities, all flattering" looks like a selection process. It
+is not. The draw is `b.sample(n=20, random_state=1)` -- uniform, seeded, with no
+filter on bracket quality or convergence. Over 4000 redraws of 20 from the 325:
+
+| statistic | P(subsample flatters) | reading |
+|---|---|---|
+| median residual | 0.501 | coin flip |
+| correlation | 0.438 | near chance |
+| **maximum** | **0.939** | **deterministic** |
+
+`1 - 20/325 = 0.938`. A maximum over a subset can never exceed the maximum over
+the set, so the `|G|` bound was guaranteed to understate; the other two are
+ordinary sampling noise, and both landing flattering has probability about 0.22.
+
+So the bias IS bounded and IS explained: one structural underestimate plus two
+coin flips, not an unknown selection. The general rule this yields is sharper
+than "do not subsample": **never subsample an extremum.** Medians and
+correlations on a subsample are noisy but unbiased; maxima and minima are biased
+by construction.
+
+**Neither defect was reachable by the test suite.** A test asserting that
+1.436e-07 is reproduced passes whether or not the metric degrades and whether or
+not the sample is complete. See `notes/VERIFICATION_RULE.md`.
+
+### Every other site carrying these values is corrected or marked
+
+Grepping the three numbers across tracked text found them in `STATUS.md`,
+`theory/FOLD_THEOREM.md`, `manuscript/COLLAPSE_BOUNDARY.md` and in this log.
+`STATUS.md` is corrected in place. `theory/FOLD_THEOREM.md` carries a superseded
+banner above the affected table rather than a rewrite, since the numbers there
+were correct for what was computed at the time. `COLLAPSE_BOUNDARY.md` already
+carries a whole-document superseded banner. Entries in this log are left as the
+historical record they are. A corrected value in one document and the original in
+another is a lineage split inside one repository, which is the failure this
+project has already paid for once.
+
+
+## D037 — The extremum rule is an audit criterion, and applying it found a fifth affected number
+
+D036's rule was recorded and then under-applied. "Never subsample an extremum" is
+not a note about one table row: the paper reports maxima and worst-cases in at
+least eight places, each of which needs its population named and its completeness
+checked.
+
+Auditing them found that `direct solver against continuation sweep, maximum
+relative error` was ALSO a 20-state draw (`random_state=3`). Full load grid:
+**7.56e-07**, against the 6.652e-07 previously reported. Same mechanism, same
+direction, and it survived four earlier corrections because the rule had been
+written down but not swept.
+
+### Every §5 extremum, with its population and a p99
+
+| quantity | population | median | p99 | max |
+|---|---|---|---|---|
+| identity residual | load grid, 325, complete | 2.34e-10 | 9.67e-10 | 1.29e-09 |
+| `\|G\|` at fold states | load grid, 325, complete | 4.95e-14 | 9.40e-10 | 1.63e-09 |
+| solver vs continuation | load grid, 325, complete | 3.03e-07 | 7.20e-07 | 7.56e-07 |
+| `phi` rebuild | kinetic box, 2884, complete | 1.3e-13 | 2.98e-09 | 7.25e-09 |
+
+### Why the p99 and not only the max
+
+**A maximum grows with the size of the population it is drawn from.** The `phi`
+maximum of 7.25e-09 over 2884 draws and the identity maximum of 1.29e-09 over 325
+are not comparable as stated, and neither is comparable to whatever a reader gets
+on a rerun of a different size. A maximum is therefore a weak verification
+statistic even when computed correctly. A p99 is stable under resampling and
+carries the same bounding claim, so every extremum doing bounding work is now
+reported beside one.
+
+### theory/FOLD_THEOREM.md is LIVE, and is corrected in place
+
+The README describes `theory/` as where the theorem is stated, so that document is
+current rather than historical. A banner above a live table is exactly how a future
+session reads the table and not the banner, which is the mechanism behind the P3
+caption divergence. The table is therefore corrected in place, with a note
+recording what the earlier values were and why they moved.
+
+### Pin the property, never the token
+
+Two tests asserting `1.436e-07` was ABSENT from the manuscript failed once §5
+began stating its own corrections explicitly. A string-absence test penalises the
+correction discipline the project runs on. They now assert the value never appears
+as a CURRENT claim -- absent from the results table, present only inside the
+superseding sentence. Recorded in `notes/VERIFICATION_RULE.md`.
+
+
+## D038 — The extremum sweep is exhaustive, not partial
+
+D037 swept §5. Five further extrema sit outside it and are now checked against the
+same criterion, so the sweep can be described as exhaustive rather than partial.
+
+| quantity | population | complete? | action |
+|---|---|---|---|
+| n-state identity max 4.7e-11 | 144-point grid | yes, full enumeration | population named |
+| D027 worst medians 6.4e-14 / 4.6e-13 | 20 networks from the kinetic box | subsample | named; a MEDIAN is unbiased under subsampling |
+| `j_crit/j_max` max 0.623 | 8 drawn networks | subsample | relabelled a **lower bound** |
+| `sin(grad R, grad G)` "below 2.0e-9 throughout" | folds solved in that sweep | yes | "throughout" replaced by an explicit completeness statement |
+| per-network spread 13.6x | 10 draws | subsample | relabelled largest-observed |
+
+Two were genuine repeats of D036: a maximum over 8 draws and one over 10, both
+reported as maxima. Neither changes a conclusion, and each now says so where it
+appears -- the square-root ceiling is not binding at any value below 1, and a
+larger sample can only widen an overlap. The medians at `eps = 100` needed only
+their population named, since subsampling makes a median noisy but not biased.
+
+"below X throughout" is a maximum wearing a completeness claim, and is the form
+most likely to survive an audit unnoticed. It is now phrased as what it is.
+
+### Section 5's apparatus stops here
+
+§5 now carries a four-row table with median, p99 and max per row, prose on why
+maxima are incomparable across populations, and one paragraph recording that
+corrections were made. Every element earns its place: the p99 is a methodological
+improvement, the populations prevent a specific misreading, and the corrections
+paragraph buys credibility that §8 will spend. **No further defensive apparatus is
+to be added to §5 unless a new defect forces it**, and the corrections paragraph
+does not grow with each find. A sixth affected number is corrected in place and
+covered by the existing paragraph. Past a point, self-correction reads as anxiety
+rather than rigour, and §5 is close to that point.
+
+
+## D039 — The saturation screen is not applied, because the data does not support one
+
+Figure 2 was specified to screen draws collapsing at `s_a` near 0.003, per a
+standing limitation. Building it showed the screen is not defensible.
+
+A screen requires the low-`s_a` draws to form a distinct cluster. On a log axis the
+distribution runs smoothly from 1e-5 to 1 with no gap, and the median of the
+survivors slides continuously with the floor:
+
+| floor | 1e-4 | 5e-4 | 1e-3 | 2e-3 | 3e-3 | 5e-3 | 1e-2 | 2e-2 |
+|---|---|---|---|---|---|---|---|---|
+| median `s_a` | 0.090 | 0.124 | 0.162 | 0.194 | 0.227 | 0.267 | 0.309 | 0.355 |
+
+Any floor is a free parameter moving a load-bearing number by a factor of four.
+The first version of the figure used 5e-3 and reported a median `s_a` of 0.267
+against the 0.056 in §6 -- a 5x divergence between figure and text, created by the
+screen alone.
+
+**No screen, and no exclusion at all.** Dropping even the 47 numerically-zero
+draws moves the medians to 0.1858 / 0.1602 / 0.0603 against 0.175 / 0.155 / 0.056
+in the text. Introducing a second population to fix a cosmetic issue is how the
+325-against-2884 confusion arose. The complete population reproduces §6 exactly,
+and the figure carries an inset showing the sensitivity so the decision is visible
+rather than asserted.
+
+### A sixth affected number, corrected in place
+
+Per D038, corrected without extending §5's list. `s_u` p5-p95 width 0.890 was
+quoted in §9 as a general property; it is the REGULATION experiment's value over
+its own 30 networks. The kinetic box's 2884 give **0.876**. Both sites now name
+their population. Nothing material changes.

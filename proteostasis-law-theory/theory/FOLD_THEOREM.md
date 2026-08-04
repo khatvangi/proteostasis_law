@@ -77,18 +77,20 @@ subject to `G = 0`. With (1), the critical value is `j_crit = R(u*,a*)`. ∎
 
 Against the Phase 1 run root, at the recorded fold states:
 
+**Corrected against D035/D036.** The values below are full-population and gradient-normalised. Earlier revisions of this table reported a 20-state random subsample of the 325-fold load grid under the `max(|det J|, |cross|)` normalisation, which is `0/0` at an exact fold: median 1.436e-07, correlation +0.9987, `|G|` max 8.2e-10. Each moved when the full population was used. This document is LIVE, so the table is corrected in place rather than bannered.
 | quantity | value |
 |---|---|
-| `det J` vs `-(grad R x grad G)`, median relative error | **1.436e-07** |
-| correlation of `log sin(angle)` with `log \|eigenvalue\|` | **+0.9987** |
-| `\|G\|` at recorded fold states, max | 8.2e-10 |
+| `det J` vs `-(grad R x grad G)`, median residual (325) | **2.34e-10** |
+| the same, p99 / max | 9.67e-10 / 1.29e-09 |
+| correlation of `log sin(angle)` with `log \|eigenvalue\|` (325) | **+0.9960** |
+| `\|G\|` at recorded fold states (325), p99 / max | 9.40e-10 / 1.63e-09 |
 | solver `{G=0, det J=0}` vs the continuation sweep, max relative error | **6.652e-07** |
 | `phi` rebuilt from first principles, 2884 folds, median / max error | **1.3e-13 / 7.3e-09** |
 
 The identity residual is at the central-difference floor. The parallelism
 residual is *not* zero at the recorded states, and should not be: those states
 are bracketed approximations whose leading eigenvalue is about −2e-4, not 0. The
-+0.9987 correlation between the parallelism error and the recorded eigenvalue
++0.9960 correlation between the parallelism error and the recorded eigenvalue
 shows the residual is bracket tolerance rather than a failure of the identity —
 the one state bracketed to `eig = -4.2e-9` has `sin(angle) = 3.8e-8`.
 

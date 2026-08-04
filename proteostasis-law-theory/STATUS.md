@@ -19,8 +19,10 @@ proof, verification and limits are in `theory/FOLD_THEOREM.md`; decisions
 D007-D016 record what changed.
 
 Verified against the Phase 1 run root: the identity holds to a median relative
-error of **1.436e-07** (the central-difference floor), the parallelism residual
-correlates with the recorded leading eigenvalue at **+0.9987** — showing the
+error of **2.34e-10** (the differencing floor; the **1.436e-07** previously
+reported here came from a 20-state subsample under a normalisation that is `0/0`
+at an exact fold — see D035/D036), the parallelism residual
+correlates with the recorded leading eigenvalue at **+0.9960** — showing the
 residual is bracket tolerance and not a failure of the identity — and the 2x2
 solver reproduces the continuation-derived folds to **6.652e-07**. `phi` rebuilds
 from first principles at all **2884** folds, median absolute error **1.3e-13**.

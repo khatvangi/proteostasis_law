@@ -178,7 +178,7 @@ det J = −det [ ∇R ; ∇G ; ∇C ]
 
 The proof is the same row operation applied to the first row of an *n* × *n* Jacobian. The practical consequence is that a model in this class can be extended without re-deriving its boundary condition.
 
-We verified Corollary 2 on a three-state system in which the chaperone pool is dynamical under σ32-style control, with synthesis rising as free chaperone falls, which is the actual titration mechanism rather than a phenomenological feedback. Median relative error of the identity is 0.000×10⁰ unregulated and 2.5×10⁻¹¹ to 2.9×10⁻¹¹ regulated, with the `σ₀ → 0` limit reproducing the two-state field exactly. A separate three-state extension splitting aggregate into reactive and sequestered compartments (Section 8.3) gives median 1.5×10⁻¹² and maximum 4.7×10⁻¹¹.
+We verified Corollary 2 on a three-state system in which the chaperone pool is dynamical under σ32-style control, with synthesis rising as free chaperone falls, which is the actual titration mechanism rather than a phenomenological feedback. Median relative error of the identity is 0.000×10⁰ unregulated and 2.5×10⁻¹¹ to 2.9×10⁻¹¹ regulated, with the `σ₀ → 0` limit reproducing the two-state field exactly. A separate three-state extension splitting aggregate into reactive and sequestered compartments (Section 8.3) gives median 1.5×10⁻¹² and maximum 4.7×10⁻¹¹ over the complete 144-point grid of sequestration settings, growth laws, states and growth-cost conventions.
 
 ### 4.2 Growth dilution, and why the capacity bound fails
 
@@ -222,7 +222,7 @@ In a cell, chaperones and proteases are themselves translated by the error-prone
 
 We modelled it as `C_enz(load) = C_0/(1 + ε·load)` applied to both pools, with `ε` swept over four decades and not tuned to any biological value, in two modes: `load = j` (influx mode) and `load = u + a` (burden mode). The second is the one that can break anything, since it places capacity inside `∇R` and `∇G` themselves.
 
-**The identity survives in both modes at machine precision.** The gradient-normalised residual has floor 2.2×10⁻¹⁴ at `ε = 0`, and worst median 6.4×10⁻¹⁴ (influx) and 4.6×10⁻¹³ (burden) at `ε = 100`, where capacity has fallen to 16.7% and 1.8% of nominal.
+**The identity survives in both modes at machine precision.** The gradient-normalised residual has floor 2.2×10⁻¹⁴ at `ε = 0`, and worst median 6.4×10⁻¹⁴ (influx) and 4.6×10⁻¹³ (burden) at `ε = 100`, where capacity has fallen to 16.7% and 1.8% of nominal. These are medians over 20 networks drawn from the kinetic box; a median is unbiased under subsampling, unlike a maximum.
 
 There is no corrected algebraic form, and that absence is the finding. The row operation requires only that `j` be additive in `du/dt` and absent from `da/dt`, and that `du/dt + da/dt = j − R` be exact. How the parameters depend on `j` or on the state is irrelevant to either, because the gradients are taken at fixed `j`. Remark 1 is the general statement; this is its verification.
 
@@ -236,26 +236,31 @@ Self-damage lowers the boundary substantially without steepening the approach. M
 j ≤ ( √(1 + 4εC_0) − 1 )/(2ε)   →   √(C_0/ε)   for large ε.
 ```
 
-A linear capacity ceiling becomes a square-root one: doubling the machinery buys only √2 in tolerable error rate once the machinery is itself error-prone. The bound is exact and never violated. It is also never binding in the range tested, with `j_crit/j_max` of median 0.039–0.186 and maximum 0.623, so it is recorded as a necessary condition and not as the boundary.
+A linear capacity ceiling becomes a square-root one: doubling the machinery buys only √2 in tolerable error rate once the machinery is itself error-prone. The bound is exact and never violated. It is also never binding in the range tested, with `j_crit/j_max` of median 0.039–0.186 and a largest observed value of 0.623 over 8 drawn networks. That figure is a lower bound on the population maximum rather than the maximum itself, since an extremum over a subsample understates by construction; the conclusion does not depend on it, because the bound is not binding at any value below 1. It is recorded as a necessary condition and not as the boundary.
 
-Two limitations attach. Fold recovery is incomplete at large `ε`: continuation with intermediate rungs recovers folds that a direct solve loses, but recovery counts are non-monotone in `ε` (influx 7/5/6/6/4, burden 6/7/7/4/2). A genuine loss of the boundary would be monotone, so this is continuation failure rather than folds disappearing, and where a fold does solve it is a real saddle-node with `sin(∇R, ∇G)` below 2.0×10⁻⁹. The consequence is that Corollary 4 is least numerically checkable in exactly the regime where it would bind.
+Two limitations attach. Fold recovery is incomplete at large `ε`: continuation with intermediate rungs recovers folds that a direct solve loses, but recovery counts are non-monotone in `ε` (influx 7/5/6/6/4, burden 6/7/7/4/2). A genuine loss of the boundary would be monotone, so this is continuation failure rather than folds disappearing, and where a fold does solve it is a real saddle-node: `sin(∇R, ∇G)` is below 2.0×10⁻⁹ at every one of the folds solved in this sweep, which is a complete enumeration of that sweep rather than a sample from it. The consequence is that Corollary 4 is least numerically checkable in exactly the regime where it would bind.
 
 ## 5. Numerical verification
 
-Every quantity below is recomputed from a fixed parameter box of 2884 fold states located by continuation, and asserted by the test suite accompanying the code.
+Every quantity below is recomputed by the accompanying code and asserted by its test suite. Two distinct populations are involved and each row names its own, because they differ in what they vary and are therefore not interchangeable. The **load grid** holds kinetics fixed and sweeps the two load coordinates, nascent-chain occupancy against rescue allocation, giving 325 fold states; it answers how the boundary moves with load in one network. The **kinetic box** instead varies the kinetic parameters, 5000 Latin-hypercube draws of which 2884 admit a fold, and answers how the boundary varies across networks. Both are populations of folds, which is why a reader meeting 325 in one row and 2884 in another needs to be told which question each answers. Every entry uses the whole of its population; none is a subsample.
 
-| quantity | value |
-|---|---|
-| `det J` against `−(∇R × ∇G)`, median residual over 325 folds | 2.34×10⁻¹⁰ |
-| the same residual, maximum | 1.29×10⁻⁹ |
-| correlation of log sin(angle) with log \|eigenvalue\| | +0.9987 |
-| \|G\| at recorded fold states, maximum | 8.2×10⁻¹⁰ |
-| direct solver against continuation sweep, maximum relative error | 6.652×10⁻⁷ |
-| `φ` rebuilt from first principles, 2884 folds, median / maximum | 1.3×10⁻¹³ / 7.3×10⁻⁹ |
-| *n*-state identity, regulated three-state | 2.5×10⁻¹¹ |
-| dilution identity, burden-dependent `μ` | 4.7×10⁻¹⁰ |
+Three of these values were previously reported from a 20-state random subsample of the load grid, under a normalisation discussed below, and all three moved when the full population was used: the median residual from 1.436×10⁻⁷ to 2.00×10⁻⁷ under the old normalisation, the correlation from +0.9987 to +0.9960, and the `|G|` maximum from 8.2×10⁻¹⁰ to 1.63×10⁻⁹, and the solver maximum from 6.652×10⁻⁷ to 7.56×10⁻⁷. **None of these changes weakens any claim made here.** The identity still sits at the differencing floor, the correlation is still decisive, and `|G|` at 1.63×10⁻⁹ remains four orders below anything that would affect a conclusion. We report the corrections explicitly rather than silently, because a section whose subject is exactness should survive arithmetic done by a reader.
 
-The identity residual sits at the central-difference floor. The parallelism residual is not zero at the recorded states and should not be: those states are bracketed approximations whose leading eigenvalue is about −2×10⁻⁴ rather than 0. The +0.9987 correlation between parallelism error and recorded eigenvalue shows the residual is bracket tolerance rather than failure of the identity, and the single state bracketed to eigenvalue −4.2×10⁻⁹ has sin(angle) = 3.8×10⁻⁸.
+| quantity | population | median | p99 | max |
+|---|---|---|---|---|
+| `det J` against `−(∇R × ∇G)`, residual | load grid, 325 | 2.34×10⁻¹⁰ | 9.67×10⁻¹⁰ | 1.29×10⁻⁹ |
+| \|G\| at recorded fold states | load grid, 325 | 4.95×10⁻¹⁴ | 9.40×10⁻¹⁰ | 1.63×10⁻⁹ |
+| direct solver against continuation sweep, relative | load grid, 325 | 3.03×10⁻⁷ | 7.20×10⁻⁷ | 7.56×10⁻⁷ |
+| `φ` rebuilt from first principles | kinetic box, 2884 | 1.3×10⁻¹³ | 2.98×10⁻⁹ | 7.25×10⁻⁹ |
+| correlation of log sin(angle) with log \|eigenvalue\| | load grid, 325 | +0.9960 | — | — |
+| *n*-state identity, regulated three-state | base point | 2.5×10⁻¹¹ | — | — |
+| dilution identity, burden-dependent `μ` | base point | 4.7×10⁻¹⁰ | — | — |
+
+Each maximum is reported beside a p99 deliberately. A maximum grows with the size of the population it is drawn from, so the `φ` maximum of 7.25×10⁻⁹ over 2884 draws and the identity maximum of 1.29×10⁻⁹ over 325 are not comparable as stated, and neither is comparable to whatever a reader obtains on a rerun of a different size. The p99 is stable under resampling and carries the same bounding claim. Where a number below is doing bounding work, the p99 is the one to read.
+
+The identity residual sits at the differencing floor. The parallelism residual is not zero at the recorded states and should not be: those states are bracketed approximations whose leading eigenvalue is about −2×10⁻⁴ rather than 0. The +0.9960 correlation between parallelism error and recorded eigenvalue shows the residual is bracket tolerance rather than failure of the identity, and the single state bracketed to eigenvalue −4.2×10⁻⁹ has sin(angle) = 3.8×10⁻⁸.
+
+The residual is normalised by `|∇R||∇G|` rather than by `max(|det J|, |cross|)`. The distinction matters, and not only for presentation: both `det J` and the cross product vanish at a saddle-node, so the second normalisation is `0/0` at an exact fold and returns 1 regardless of how well the identity holds. Measured on the same 325 states, its residual correlates with the recorded eigenvalue at −0.262, meaning it degrades as the bracket tightens on the true fold, and its maximum reaches 1.5×10⁻². The gradient normalisation correlates at +0.060 and its maximum is 1.29×10⁻⁹. A verification statistic that worsens as it approaches the object being verified is the wrong statistic, and Fig. S1 reports the contrast.
 
 One caution on the self-damage check of Section 4.3. Because `du/dt = j − R − G` holds pointwise and the central-difference operator is linear, the check reproduces the row operation exactly at any step size and carries no truncation term. Measured slopes in the step size `h` are −0.97 and −0.94 with no V-shaped minimum over four decades, which is pure roundoff falling as `h` grows. The check therefore certifies that the implementation preserves mass balance; the analytic argument carries the theorem. Reporting the ladder at the customary `h = 10⁻⁶` would have shown a spurious rise and invited a false alarm.
 
@@ -276,7 +281,22 @@ The theorem locates the fold. It does not by itself say how far below the capaci
 
 Two questions must not be merged here. Saturation dominates the *magnitude* of `φ`; the *existence* of a turning point requires the aggregation runaway that drives the free pools down at high burden. The counterfactuals above answer the first only.
 
-The dispersion of these quantities is large enough to matter, and two attempts to reduce it failed. A properly nested design crossing 10 kinetic draws with a 7×7 load grid gives a between-to-within variance ratio for `φ` of 5.9, with per-network spread up to 13.6× when both load coordinates sweep, overlapping the 8.86× between-network spread. `φ` is therefore network-characteristic but not load-invariant, and an earlier reading of it as a load-invariant material constant is withdrawn. Adding σ32-style regulation, on the hypothesis that a controlled cell sits where its controller puts it rather than where its raw kinetics do, *widens* the p5–p95 width of `s_u` from 0.890 to 0.968 rather than narrowing it. The regulated median `s_u` of 0.323 against 0.169 unregulated points toward the capacity-exhaustion picture rather than away from it, though only 14 of 30 regulated networks converged against 24 unregulated, so it should not be quoted as a result without a larger sample.
+![Figure 2](../figures/fig2.pdf)
+
+**Fig. 2** Saturation of the clearance machinery at the collapse boundary, over
+all 2884 folds of the kinetic box. Shaded strips are the full distributions, bars
+the p5–p95 span, open circles the medians: `s_ref` 0.175, `s_u` 0.155, `s_a`
+0.056, against the dashed line at `s = 1` that capacity exhaustion would predict.
+The spread is drawn as prominently as the centre because both halves of the claim
+matter: collapse occurs far below saturation, and the p5–p95 widths of 0.881,
+0.876 and 0.863 are wide enough that a single measurement discriminates weakly.
+No screen is applied. The inset shows why: the median `s_a` slides continuously
+with any floor imposed on it, from 0.090 at 10⁻⁴ to 0.355 at 2×10⁻², with no
+natural break, so a screen would be a free parameter moving a load-bearing number
+by a factor of four. The 47 draws at `s_a` below 10⁻⁹ are retained for the same
+reason.
+
+The dispersion of these quantities is large enough to matter, and two attempts to reduce it failed. A properly nested design crossing 10 kinetic draws with a 7×7 load grid gives a between-to-within variance ratio for `φ` of 5.9, with per-network spread reaching 13.6× when both load coordinates sweep, overlapping the 8.86× between-network spread. Both figures are largest-observed values over the 10 draws of that design and so understate their populations; the overlap they establish is unaffected, since a larger sample can only widen it. `φ` is therefore network-characteristic but not load-invariant, and an earlier reading of it as a load-invariant material constant is withdrawn. Adding σ32-style regulation, on the hypothesis that a controlled cell sits where its controller puts it rather than where its raw kinetics do, *widens* the p5–p95 width of `s_u` from 0.890 to 0.968 rather than narrowing it, both measured on that experiment's own 30 networks rather than on the kinetic box. The regulated median `s_u` of 0.323 against 0.169 unregulated points toward the capacity-exhaustion picture rather than away from it, though only 14 of 30 regulated networks converged against 24 unregulated, so it should not be quoted as a result without a larger sample.
 
 The defensible claim from this section is that the naive capacity bound is wrong by roughly an order of magnitude and that the boundary is a computable constrained critical point. Not that collapse occurs at any particular fraction of V_max.
 
@@ -345,6 +365,22 @@ The nearest available measurement does not reach any row of it. Tomoyasu et al. 
 
 No source we could find bounds `β` under unstressed growth. Winkler et al. (2010) report the ingredients separately and under heat stress, which is not the condition at issue, and combining them requires assumptions about focus number that conflict with the distribution Lindner et al. measured in unstressed cells. We therefore quote the requirement as a `β`-indexed family rather than a number, spanning 0.047% to roughly 0.5% of the proteome over the plausible range, and note the direction: the less of the aggregate that sits in the focus, the more aggregate the account requires, and the closer the prediction moves to the only load anyone has measured.
 
+![Figure 4](../figures/fig4.pdf)
+
+**Fig. 4** What the account requires of an old-pole cell. The band is the
+aggregate load implied by the measured lineage difference, as a fraction of total
+protein, against the share `β` of that aggregate held in the visible inclusion
+body. It scales as `1/β`, a straight line on these axes, because only the focal
+share segregates asymmetrically. Vertical bars mark `β = 1, 0.5, 0.25`, giving
+0.05–0.08 %, 0.09–0.16 % and 0.18–0.32 %. The shaded region is the only aggregate
+load measured in *E. coli*, 5–10 % of total protein in Δ*rpoH* cells at 30 °C;
+wild-type aggregation at the same temperature is reported as undetected, which is
+a bound and not a value, so the requirement is consistent with everything measured
+and constrained by none of it. No lower limit on `β` is drawn, because none is
+defensible: combining Winkler et al.'s heat-stress counts to obtain one requires
+assuming two foci per cell, and Lindner et al. report one focus in 46.5 % of
+unstressed cells and two in 1.2 %.
+
 One measurement closes it. Quantitative fluorescence of the polar focus against total aggregated protein by sedimentation, in the same unstressed cells, fixes `β` and collapses the table to a single interval.
 
 ## 9. Predictions and falsification
@@ -353,7 +389,7 @@ Four statements are worth separating by what would refute them.
 
 **Mathematical, and refutable only by error.** The identity `det J = −(∇R × ∇G)`, its *n*-state form, the `μ → 0` and `σ₀ → 0` reductions, the `J − μI` form under constant dilution, the `(φ_enz, δ)` decomposition, and the square-root ceiling of Corollary 4. These follow from H1–H3 and no observation bears on them.
 
-**Structural and untested.** Collapse occurs at a saturation fraction far below 1, against the capacity-exhaustion alternative in which collapse occurs as `s → 1`. The observable is a ratio, so testing it does not require absolute copies-per-cell calibration. Two cautions apply, both from our own results: the dispersion in `s_u` is wide enough (p5–p95 width 0.890) that a single measurement discriminates weakly, and regulation widens rather than narrows it.
+**Structural and untested.** Collapse occurs at a saturation fraction far below 1, against the capacity-exhaustion alternative in which collapse occurs as `s → 1`. The observable is a ratio, so testing it does not require absolute copies-per-cell calibration. Two cautions apply, both from our own results: the dispersion in `s_u` is wide enough (p5–p95 width 0.876 over the kinetic box's 2884 folds) that a single measurement discriminates weakly, and regulation widens rather than narrows it.
 
 **The sharper version of the same test.** Since growth rate sets the load coordinate `ν`, and `ν` drift alone contributes ~1.6× against the ~1.8× contrast expected from shifting the chaperone/protease split, an experiment that does not hold growth rate fixed cannot discriminate. Chemostat or turbidostat, not batch culture. Under fixed growth rate, raising the load of *perfectly folding* protein should lower the tolerable damage influx, because nascent chains consume chaperone capacity without contributing influx; a model in which the two loads are handled independently predicts no shift. Direction was correct in 67 of 68 settings over a 100-fold ladder, with median shift 1.22×.
 
