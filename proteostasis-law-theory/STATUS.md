@@ -310,8 +310,17 @@ one", new-pole progeny "devoid of parental inclusion bodies"). The continuous-`f
 model is a mean-field stand-in for an all-or-nothing partition, and that is a
 stated mismatch.
 
-What remains is one falsifiable number: the model requires the old-pole aggregate
-to be **0.037% to 0.063% of the proteome**. The nearest measurement (Tomoyasu et
+What remains is a falsifiable requirement on the old-pole aggregate load — but an
+INTERVAL, not a number (D033). `f` is not pinned at 1: the model's `a` is total
+aggregate while the indivisible focus is one object inside it, so
+`f_eff = 0.5 + 0.5.beta` for focus share `beta`, and D031/D032 silently assumed
+`beta = 1`. The requirement runs **0.047% of the proteome at `beta = 1` to 0.55%
+at `beta = 0.145`**, scaling as `1/beta`. No source bounds `beta` under unstressed
+growth; the 0.145 floor is our own arithmetic on Winkler et al. 2010's
+heat-stress numbers, which is the wrong condition. **The direction is the useful
+part**: every departure from a wholly focal aggregate moves the requirement toward
+detectability, narrowing the gap to the only measured aggregate load from
+62x-214x down to 9x-32x. The nearest measurement (Tomoyasu et
 al. 2001 Mol Microbiol, doi:10.1046/j.1365-2958.2001.02383.x, via PubMed) reports
 5-10% in `rpoH`-null cells at 30 C and wild-type aggregation as **undetected** —
 a bound, not a value, sitting 79x to 271x above the requirement. So the test is

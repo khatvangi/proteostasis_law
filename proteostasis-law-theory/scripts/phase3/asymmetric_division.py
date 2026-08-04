@@ -295,14 +295,62 @@ TOMOYASU2001 = {
     "wild_type_30C": None,          # undetected: a bound, not a measurement
 }
 
-# Lindner et al. 2008, full text: the inclusion body is a SINGLE INDIVISIBLE
-# object -- "52.3% have no inclusion body, 46.5% ... only one ... 1.2% ... two"
-# -- and the new-pole daughter is "devoid of parental inclusion bodies". So the
-# partition is all-or-nothing and f is pinned at 1, not fitted.
+# (!) SUPERSEDED BY D033. `MEASURED_F = 1.0` treats the visible inclusion body as
+# the WHOLE of `a`. It is not: `a` is TOTAL aggregate, and the IbpA-marked focus is
+# one object inside that pool. Diffuse and small oligomeric species are not in the
+# focus and partition roughly evenly. Kept only so the D031 numbers remain
+# reproducible; use `fEffFromBeta` instead.
 MEASURED_F = 1.0
+
+# beta = (aggregate mass in the visible inclusion body) / (total aggregate a).
+# D031 assumed beta = 1 without saying so.
+BETA_LADDER = (1.0, 0.75, 0.5, 0.25)
+
+
+def partitionMultipliers(beta: float) -> Tuple[float, float]:
+    """(old-pole, new-pole) concentration multipliers at division.
+
+    A fraction `beta` of the aggregate sits in the indivisible focus and goes
+    entirely to the old-pole daughter; the remaining `1 - beta` is well mixed and
+    splits evenly. Each daughter has half the volume, so
+
+        old : 2.[beta.a + 0.5(1-beta).a] = (1 + beta).a
+        new : 2.[        0.5(1-beta).a ] = (1 - beta).a
+    """
+    b = float(beta)
+    return 1.0 + b, 1.0 - b
+
+
+def fEffFromBeta(beta: float) -> float:
+    """the two-compartment rule IS the scalar rule, reparameterised.
+
+    `2.f_eff = 1 + beta`, so `f_eff = 0.5 + 0.5.beta`. This is not a new model and
+    adds no dynamics -- which is the point. `f` was never a free knob to be pinned
+    at 1; it is DETERMINED by beta, and beta is a physical quantity that has to be
+    measured. beta = 1 recovers D031's f = 1; beta = 0 recovers the f = 0.5
+    control, at which the aging effect is exactly zero.
+    """
+    return 0.5 + 0.5 * float(beta)
 
 # D015's measured slope: growth-rate loss per unit misfolded proteome fraction.
 SLOPE_PER_PROTEOME_FRACTION = 32.0
+
+
+def requiredAggregateFractionBeta(beta: float, damping: float,
+                                  band=(BAND_LO, BAND_HI)):
+    """the inverted requirement at focus share `beta`.
+
+    `B_old - B_new = (1+beta).a - (1-beta).a = 2.beta.a`, so in the linear regime
+    `aging = 64.beta.a_fraction`, damped by the measured exact/linear ratio. The
+    requirement is therefore proportional to `1/beta` and rises without bound as
+    the focus share falls -- LOWER beta needs MORE aggregate to make the same
+    lineage difference.
+    """
+    lo, hi = band
+    lead = 2.0 * float(beta) * SLOPE_PER_PROTEOME_FRACTION * float(damping)
+    if lead <= 0.0:
+        return (float("inf"), float("inf"))
+    return (lo / lead, hi / lead)
 
 
 def requiredAggregateFraction(band=(BAND_LO, BAND_HI), f: float = MEASURED_F,
@@ -344,3 +392,52 @@ def dampingFactor(df: pd.DataFrame) -> float:
     k = np.array([C.kMuFromProteomeShare(p) for p in s["p_qc"]])
     lin = (s["a_old_start"].to_numpy() - s["a_new_start"].to_numpy()) / k
     return float(np.median(s["aging_effect"].to_numpy() / lin))
+
+
+def dampingForBeta(beta: float, p: Optional[M.Params] = None,
+                   pqc_ladder=PQC_LADDER, mu0_ladder=(0.05, 0.1),
+                   j_fracs=(0.5, 0.8)) -> float:
+    """exact/linear ratio, measured AT this beta rather than carried over.
+
+    D032 quoted a single damping of 0.4386 measured under `f = 1`. Under
+    two-compartment partitioning the new-pole daughter is no longer
+    aggregate-free, so its relaxation over its own generation differs and the
+    damping is beta-dependent. It is recomputed here per beta.
+    """
+    p = (p or M.Params()).validate()
+    f = fEffFromBeta(beta)
+    ratios = []
+    for p_qc in pqc_ladder:
+        g = calibratedHyperbolic(mu0_ladder[0], p_qc)
+        for mu0 in mu0_ladder:
+            g = calibratedHyperbolic(mu0, p_qc)
+            fold = D.foldSolveDil(p, g)
+            if fold is None:
+                continue
+            for jf in j_fracs:
+                pj = p.with_(j=jf * fold[0]).validate()
+                try:
+                    r = lineageContrast(pj, g, f)
+                except (M.ModelError, ValueError, OverflowError):
+                    continue
+                if r is None:
+                    continue
+                lin = (r["a_old_start"] - r["a_new_start"]) / g.k_mu
+                if lin > 0.0:
+                    ratios.append(r["aging_effect"] / lin)
+    return float(np.median(ratios)) if ratios else float("nan")
+
+
+def betaTable(betas=BETA_LADDER, p: Optional[M.Params] = None) -> pd.DataFrame:
+    """the beta-indexed requirement, with damping recomputed at each beta."""
+    rows = []
+    for b in betas:
+        dmp = dampingForBeta(b, p)
+        lo, hi = requiredAggregateFractionBeta(b, dmp)
+        rpo_lo, rpo_hi = TOMOYASU2001["rpoH_null_30C"]
+        rows.append({"beta": b, "f_eff": fEffFromBeta(b), "damping": dmp,
+                     "required_lo": lo, "required_hi": hi,
+                     "required_lo_pct": 100 * lo, "required_hi_pct": 100 * hi,
+                     "ratio_to_rpoH_null_lo": rpo_lo / hi if hi > 0 else np.nan,
+                     "ratio_to_rpoH_null_hi": rpo_hi / lo if lo > 0 else np.nan})
+    return pd.DataFrame(rows)

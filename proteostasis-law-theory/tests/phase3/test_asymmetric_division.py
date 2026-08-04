@@ -183,3 +183,67 @@ class TestTheParameterFreeForm(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestBetaTwoCompartmentPartition(unittest.TestCase):
+    """D033: the focus is not the whole of `a`, so f is determined, not pinned."""
+
+    def testBetaOneReducesToD031ExactlyAtZero(self):
+        self.assertEqual(A.fEffFromBeta(1.0), A.MEASURED_F)
+        self.assertEqual(A.partitionMultipliers(1.0), (2.0, 0.0))
+
+    def testBetaZeroReducesToTheControlExactlyAtZero(self):
+        self.assertEqual(A.fEffFromBeta(0.0), A.CONTROL_F)
+        self.assertEqual(A.partitionMultipliers(0.0), (1.0, 1.0))
+
+    def testTheTwoCompartmentRuleIsTheScalarRuleReparameterised(self):
+        for b in (0.0, 0.145, 0.25, 0.5, 0.75, 1.0):
+            old, new = A.partitionMultipliers(b)
+            f = A.fEffFromBeta(b)
+            self.assertAlmostEqual(old, 2.0 * f, places=12)
+            self.assertAlmostEqual(new, 2.0 * (1.0 - f), places=12)
+
+    def testTheControlStillGivesExactlyZeroUnderTheBetaForm(self):
+        p0 = M.Params().validate()
+        g = A.calibratedHyperbolic(0.1, 0.02)
+        fold = D.foldSolveDil(p0, g)
+        p = p0.with_(j=0.5 * fold[0]).validate()
+        r = A.lineageContrast(p, g, A.fEffFromBeta(0.0))
+        self.assertEqual(r["aging_effect"], 0.0)
+
+    def testRequirementIsMonotoneDecreasingInBeta(self):
+        """lower focus share needs MORE aggregate. this is the reportable direction."""
+        prev = None
+        for b in (1.0, 0.75, 0.5, 0.25, 0.145):
+            lo, hi = A.requiredAggregateFractionBeta(b, 0.35)
+            if prev is not None:
+                self.assertGreater(lo, prev[0])
+                self.assertGreater(hi, prev[1])
+            prev = (lo, hi)
+
+    def testRequirementScalesAsInverseBeta(self):
+        a = A.requiredAggregateFractionBeta(1.0, 0.35)
+        b = A.requiredAggregateFractionBeta(0.5, 0.35)
+        self.assertAlmostEqual(b[0] / a[0], 2.0, places=9)
+        self.assertAlmostEqual(b[1] / a[1], 2.0, places=9)
+
+    def testZeroBetaGivesAnUnboundedRequirement(self):
+        lo, hi = A.requiredAggregateFractionBeta(0.0, 0.35)
+        self.assertEqual(lo, float("inf"))
+        self.assertEqual(hi, float("inf"))
+
+    def testDecisionEntryRefusesTheParameterFreeClaim(self):
+        doc = (_REPO_ROOT / "DECISIONS.md").read_text()
+        entry = doc[doc.index("## D033 —"):]
+        self.assertIn("not parameter-free", entry)
+        self.assertIn("beta`-indexed interval", entry)
+        # the weak bound must carry both caveats
+        self.assertIn("our arithmetic, not their", entry)
+        self.assertIn("wrong condition", entry)
+
+    def testTheSectionTextDoesNotClaimParameterFreeness(self):
+        p = _REPO_ROOT / "manuscript" / "SECTION_8_4_LINEAGE_PREDICTION.md"
+        txt = p.read_text()
+        self.assertIn("We do not claim this", txt)
+        self.assertIn("parameter-free", txt)
+        self.assertIn("closes this", txt)

@@ -906,6 +906,12 @@ the same reason. The prediction collapses onto ONE measurable number.
 
 ### The fourth is pinned by data, and not where a guess would have put it
 
+**(!) SUPERSEDED BY D033.** The argument below sets `f = 1` by treating the
+visible focus as the whole of `a`. It is not: `a` is TOTAL aggregate and the focus
+is one object inside it. The correct statement is `f_eff = 0.5 + 0.5.beta` for
+focus share `beta`, and the requirement below is the `beta = 1` corner of a
+`beta`-indexed interval. The prediction is NOT parameter-free.
+
 Lindner's full text, via PubMed: "52.3% have no inclusion body, 46.5% of the cells
 contain only one inclusion body, and only 1.2% carry two inclusion bodies
 immediately after cell division", and the new-pole progeny are "devoid of parental
@@ -958,3 +964,100 @@ undetectable. Measuring it to a precision of about 0.01% decides the question.
 
 That is the correct place for it — a stated experimental target, not a claimed
 success.
+
+## D033 — beta: the focus is not the whole of `a`, so the requirement is an interval, not a number
+
+D031 and D032 set `f = 1` on the grounds that the inclusion body is indivisible.
+The premise is right and the inference was not. The model's `a` is TOTAL
+aggregate; the IbpA-marked focus Lindner tracks is one object inside that pool,
+and the diffuse and small oligomeric species outside it partition roughly evenly.
+**D031 assumed the focus was all of `a`, and never said so.**
+
+### The correction is a reparameterisation, not a new mechanism
+
+Let `beta` = (aggregate mass in the visible focus)/(total aggregate). A fraction
+`beta` goes entirely to the old-pole daughter; `1 - beta` splits evenly. Each
+daughter has half the volume, so the concentration multipliers are
+
+    old : 2.[beta.a + 0.5(1-beta).a] = (1 + beta).a
+    new : 2.[         0.5(1-beta).a] = (1 - beta).a
+
+which is exactly the scalar rule with `2.f_eff = 1 + beta`, i.e.
+
+    f_eff = 0.5 + 0.5.beta
+
+**No new dynamics, and that is the point.** `f` was never a free knob to be
+pinned; it is DETERMINED by `beta`, a physical quantity nobody measured. Both
+reductions are exact and asserted at 0.0: `beta = 1` gives `f_eff = 1` and
+reproduces D031; `beta = 0` gives `f_eff = 0.5`, the control, at which the aging
+effect is identically zero.
+
+### Damping recomputed per beta
+
+D032 carried a single damping of 0.4386 measured under `f = 1`. Under
+two-compartment partitioning the new-pole daughter is no longer aggregate-free, so
+its own relaxation differs. Recomputed: **0.346 to 0.355** across
+`beta = 0.145` to `1.0` — the beta dependence is weak, under 3%, but the value is
+25% below 0.4386 because that figure came from a wider `(mu0, j)` grid. The
+requirement inherits that as a systematic and is quoted with it.
+
+### The beta-indexed requirement
+
+`B_old - B_new = (1+beta).a - (1-beta).a = 2.beta.a`, so the requirement is
+proportional to `1/beta` and rises without bound as the focus share falls. LOWER
+`beta` needs MORE aggregate for the same lineage difference.
+
+| beta | f_eff | damping | required old-pole aggregate (% of proteome) | ratio to rpoH-null 5-10% |
+|---|---|---|---|---|
+| 1.00 | 1.000 | 0.346 | 0.0467 - 0.0803 | 62x - 214x |
+| 0.75 | 0.875 | 0.355 | 0.0607 - 0.1044 | 48x - 165x |
+| 0.50 | 0.750 | 0.355 | 0.0911 - 0.1567 | 32x - 110x |
+| 0.25 | 0.625 | 0.355 | 0.1824 - 0.3137 | 16x - 55x |
+| 0.145 | 0.573 | 0.355 | 0.3146 - 0.5411 | **9.2x - 31.8x** |
+
+### What the literature bounds, which is very little
+
+Searched via PubMed and checked against full text, not abstracts. **No source
+bounds `beta` for the unstressed condition Lindner studied.**
+
+- **Winkler J et al. (2010) EMBO J 29(5):910-923,
+  doi:10.1038/emboj.2009.412, PMID 20094032** is the right paper and does NOT
+  report the share. It reports the two ingredients separately, under HEAT STRESS:
+  "1.5-3% of total cytosolic E. coli proteins, corresponding to approximately
+  17500-33000 molecules, aggregate on heat stress"; "individual aggregates are
+  composed of approximately 2400-16500 protein molecules"; "62% of all
+  heat-treated cells (n=200) exhibited two fluorescent foci at both poles".
+  Combining these gives `beta` in **0.145 to 1.0**, which excludes very small
+  `beta` and nothing else. **That combination is our arithmetic, not their
+  measurement, and it is the wrong condition** — heat stress, not the unstressed
+  growth Lindner used. It is reported as a weak lower bound with both caveats
+  attached.
+- **Lindner et al. 2008** quantifies focus fluorescence and focus counts (46.5% of
+  cells carry one focus) but not the focus share of total aggregate.
+- **Coquel A-S et al. (2013) PLoS Comput Biol 9(4):e1003038,
+  doi:10.1371/journal.pcbi.1003038, PMID 23633942** measures aggregate diffusion
+  constants and sizes and the nucleoid-crowding mechanism. It does not report a
+  mass share, and is therefore NOT cited for one.
+
+### Verdict
+
+**The prediction is not parameter-free, and D032's paragraph overstated it.** It
+is a `beta`-indexed interval. With `beta` unbounded below except by our own
+weak arithmetic, the requirement spans
+
+    0.047%  (beta = 1, the D031 assumption)
+    0.55%   (beta = 0.145, the weakest defensible focus share)
+
+The direction is the useful part: **every departure from `beta = 1` moves the
+requirement toward detectability**, narrowing the gap to the only measured
+aggregate load from 62x-214x down to 9x-31x. So the correction improves the
+prediction's experimental reach rather than damaging it.
+
+**The measurement that closes this** is the focus share of total aggregate in
+unstressed E. coli — quantitative fluorescence of the focus against total
+aggregated protein from a sedimentation assay in the same cells. With `beta`
+pinned, the requirement becomes a single interval and the prediction becomes a
+test.
+
+The structural conclusion of D031 is untouched: it depends on the control being
+exactly zero, which holds at `beta = 0` for the same algebraic reason.
