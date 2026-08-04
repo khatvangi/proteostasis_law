@@ -1070,3 +1070,101 @@ test.
 
 The structural conclusion of D031 is untouched: it depends on the control being
 exactly zero, which holds at `beta = 0` for the same algebraic reason.
+
+## D034 — Figure 1, and a structural finding it forced: this model class has no infinitesimal-homeostasis point
+
+Panel (b) of Figure 1 was specified to mark a VERTICAL tangent (the saddle-node)
+and a HORIZONTAL tangent (infinitesimal homeostasis). Differentiating the
+equilibrium condition gives
+
+    da*/dj = G_u / det J
+
+so the vertical tangent is `det J = 0`, which is the theorem, and the horizontal
+tangent is `G_u = 0`. **The horizontal tangent does not exist**, and the reason is
+structural rather than a property of the base parameters.
+
+`G = v_nuc + v_grow - v_dis - v_degA`. Nucleation and aggregate growth rise with
+`u` directly. Raising `u` also sequesters chaperone and protease, which LOWERS
+disaggregation and aggregate clearance — and both enter `G` with a minus sign, so
+those contributions are positive too. All four terms push the same way, so
+`G_u > 0` and `da*/dj` never vanishes.
+
+Measured: `G_u > 0` at all 305 points of the traced nullcline at the base point
+(minimum 2.08e-03), and across 40 draws from the Phase 1 box **0 draws** contain
+any point with `G_u < 0` (smallest value seen anywhere 6.67e-12). This is a
+statement about the model class, not about one parameter point, and §3.1 should
+say so rather than positioning the result as "homeostasis sits elsewhere on the
+branch".
+
+**(!) AMENDED: panel (b) needs no schematic.** The reasoning above stopped one
+derivative short. Cramer on the OTHER column gives `du*/dj = -G_a/det J`, so the
+SOLUBLE coordinate has a horizontal tangent where `G_a = 0`. That point exists, is
+unique, and is generic: `det J = R_a.G_u = 2.027e-03` there, not zero. It is the
+nullcline's own turning point, and it is the same locus at which root-finding in
+`a` at fixed `u` loses the curve -- the numerical difficulty and the horizontal
+tangent are one thing. Panel (b) therefore plots `u*(j)` and `a*(j)` together,
+with the turn at `j_turn = 0.15409` and the fold at `j_crit = 0.15424`, all
+computed, and the inset is a x182 ZOOM rather than a drawing.
+
+**It is not a second prediction, and is not offered as one.** `j_turn/j_crit` is
+0.9990 at the base point. Across 30 draws the locator placed the turn on the
+stable branch in only 6 cases, with median ratio 0.9963, min 0.3513 and max 1.4032
+(above `j_crit`, hence off the accessible branch). It is branch geometry, not
+something an experiment could separate from the boundary.
+
+### Two things the figure work corrected
+
+**Root-finding loses the curve at its turn.** Tracing `{G = 0}` by finding roots
+in `a` at each fixed `u` returns two disconnected pieces with the fold sitting in
+the GAP between them, because the two roots merge at the turning point. The figure
+traces the nullcline as a contour instead, which follows it through the turn. The
+first rendering of Figure 1 showed the fold floating off its own nullcline.
+
+**`rel_err` must not appear in a caption.** `determinantIdentity`'s `rel_err`
+divides by `max(|det J|, |cross|)`, and BOTH vanish at a saddle-node, so at the
+plotted fold it is 0/0 and returns exactly 1.0 no matter how well the identity
+holds. The caption quotes `sin(grad R, grad G) = 3.5e-10` instead, which is
+scale-stable there. A test asserts the caption does not contain the phrase
+"relative error".
+
+### What is deliberately not figured
+
+Recorded so the omissions are choices rather than oversights:
+
+- **The §8.2 empirical failures.** The 7.5x-254x miss is a table. Four failed
+  post-dictions rendered as a figure would give them visual weight the argument
+  does not want.
+- **The square-root capacity ceiling (D027 §5).** Exact, but never binding in the
+  tested range, and least numerically checkable in the regime where it would bind.
+  A plot would overstate it.
+
+
+## D035 — Section 5's verification statistic was the one that degrades, and is restated
+
+`determinantIdentity`'s `rel_err` divides by `max(|det J|, |cross|)`, and BOTH
+vanish at a saddle-node. §5's headline of 1.436e-07 came from that metric. It is
+the wrong statistic for this paper, and the defect is measurable rather than
+theoretical.
+
+Over all **325** found fold states:
+
+| metric | median | p90 | max |
+|---|---|---|---|
+| max-normalised (what §5 reported) | 2.00e-07 | 7.81e-07 | **1.55e-02** |
+| gradient-normalised (D027) | **2.34e-10** | 6.16e-10 | **1.29e-09** |
+
+And it degrades toward the thing being verified:
+
+- `corr(|eig|, max-normalised error)` = **-0.262**: the error GROWS as the bracket
+  tightens on the true fold.
+- `corr(|eig|, gradient-normalised error)` = **+0.060**: no such dependence.
+- Splitting at the median eigenvalue, the tighter half has median 2.79e-07
+  against 1.38e-07 for the looser half -- twice as bad when closer to the fold.
+
+The `1.55e-02` tail is what a referee would find in a paper whose selling point is
+exactness. §5 now reports the gradient-normalised residual, median **2.34e-10**,
+maximum **1.29e-09**, over all 325 folds. The quoted 1.436e-07 also came from a
+20-state subsample; the full-set value of that same metric is 2.00e-07.
+
+Found by the caption audit for Figure 1: the metric returns exactly 1.0 at an
+exact fold, which is where a caption would quote it.

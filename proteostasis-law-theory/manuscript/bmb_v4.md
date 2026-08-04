@@ -1,6 +1,6 @@
 # An Exact Collapse Threshold for Conserved-Resource Models of Protein Quality Control
 
-**B. Kiran**
+**Kiran Boggavarapu**
 
 Department of Chemistry and Physics, McNeese State University, Lake Charles, LA 70609, USA
 kiran@mcneese.edu
@@ -118,13 +118,43 @@ Informally: **the collapse boundary is where total removal stops responding to b
 
 **Corollary 1 (fold location is a root solve).** Neither `G = 0` nor `det J = 0` contains `j`. Locating the fold is therefore a two-dimensional root solve rather than a continuation sweep in the influx, which reduces the cost of surveying a parameter box by the length of the sweep.
 
+![Figure 1](../figures/fig1.pdf)
+
+**Fig. 1** The collapse threshold as a constrained critical point. **(a)** Phase
+plane at the base parameter point. The aggregate nullcline `{G = 0}` (dark) is a
+fixed curve; grey contours are total removal `R`. At the solved fold
+`(u*, a*) = (0.4166, 0.2650)` the gradients `∇R` and `∇G` point the same way,
+which is the Lagrange condition of Theorem 1; they are drawn from offset origins
+because, being parallel, a common origin hides one behind the other. The sine of
+the angle between them is `3.5e-10`. The critical influx is the removal flux
+evaluated there, `j_crit = R(u*, a*) = 0.1542`. **(b)** Both equilibrium
+coordinates against influx, traced along the same curve. Cramer's rule on the two
+columns gives `du*/dj = −G_a/det J` and `da*/dj = G_u/det J`, so the branch
+carries two distinct, ordered singularities. At `j_turn = 0.15409` the soluble
+pool has a HORIZONTAL tangent, where `G_a = 0`; this is a regular point of the
+branch, since `det J = R_a·G_u = 2.027e-03` there rather than zero, and it lies on
+the stable branch at `j_turn/j_crit = 0.9990`. At `j_crit` both coordinates have a
+VERTICAL tangent, which is `det J = 0`. The inset is a ×182 zoom on the same
+computed data, not a schematic. The aggregate coordinate has no horizontal
+tangent anywhere: `G_u > 0` at all 305 traced points (minimum 2.08e-03), and in 40
+draws from the parameter box no point with `G_u < 0` was found, for the reason
+given in Section 3.1.
+
 ### 3.1 Relation to infinitesimal homeostasis
 
 Theorem 1 sits close to an existing body of work, and the relation needs stating precisely because the hypotheses nearly coincide.
 
 Wang et al. (2021) study input-output networks in which a parameter enters exactly one node's equation, which is our H1, and ask when the input-output function `x_o(I)` has vanishing derivative. That question has a long history in the adaptation literature, where the stronger condition of perfect adaptation requires the derivative to vanish identically over an interval, and where the network topologies capable of achieving it have been characterised numerically and then structurally (Ma et al. 2009; Ferrell 2016; Araujo and Liotta 2018; Khammash 2021). Cramer's rule applied to the implicitly differentiated equilibrium condition gives `x'_o = ±f_{ι,I} det(H)/det(J)`, where the homeostasis matrix `H` is obtained from the Jacobian by deleting its first row and last column. Infinitesimal homeostasis is therefore `det(H) = 0`, and the programme built on that identity factors the determinant combinatorially, associating each irreducible factor with a subnetwork motif of structural or appendage type (Golubitsky and Stewart 2017; Reed et al. 2017; Golubitsky and Wang 2020; Huang and Golubitsky 2022; Madeira and Antoneli 2024; Antoneli et al. 2025; Lin et al. 2026).
 
-The two conditions are complementary degeneracies of the same expression. Theirs is the vanishing of the numerator; ours is the vanishing of the denominator. Their derivation presupposes `det J ≠ 0`, since the equilibrium is assumed hyperbolic, so the case Theorem 1 characterises is excluded by hypothesis from their setting. Geometrically, infinitesimal homeostasis is a horizontal tangent of the equilibrium branch in the input-output plane, where the output stops responding to the input; a saddle-node is a vertical tangent, where the branch turns and the implicit function theorem fails. Neither condition implies the other.
+The two conditions are complementary degeneracies of the same expression: theirs is the vanishing of the numerator, ours of the denominator. For the two-state system the account can be made completely explicit, and it separates into three cases, because Cramer's rule applied to the two columns gives both
+
+`du*/dj = −G_a / det J`  and  `da*/dj = G_u / det J`.
+
+**Output the aggregate.** Taking `ι = u` and `o = a` is literally the Wang et al. setup: two nodes, one arrow, no regulatory node, so `H` is 1×1 and `det H = G_u`. In their classification this is the degree-one structural type, Haldane homeostasis, which occurs only when the single coupling along the input-output path vanishes. It does not vanish here, and the reason is a sign structure rather than a parameter value. Nucleation and aggregate growth both rise with `u`. Raising `u` also titrates chaperone and protease away from disaggregation and aggregate clearance, and those two fluxes enter `G` with a minus sign, so their contributions to `G_u` are positive as well. All four terms have the same sign. Numerically, `G_u > 0` at all 305 traced points of the nullcline at the base parameter point, minimum 2.08×10⁻³, and across 40 draws from the parameter box no point with `G_u < 0` was found, the smallest value encountered anywhere being 6.7×10⁻¹². **The only homeostasis type available to this network is Haldane, and the sign structure of `G` excludes it.**
+
+**Output the soluble monomer.** Taking `o = u` places the output at the input node, which their framework excludes by requiring the two to be distinct, so what follows is an analogue rather than an instance and we do not call it infinitesimal homeostasis. The derivative condition is nonetheless the natural one, and `du*/dj` vanishes where `G_a = 0`. That point exists, is unique on the branch, and is generic rather than degenerate: at it `det J = R_a·G_u`, which is `2.027×10⁻³` at the base parameter point rather than zero. It is the turning point of the nullcline itself, where `{G = 0}` runs vertical in the burden plane, and it lies before the fold at `j_turn/j_crit = 0.9990` (Fig. 1b). Physically the soluble pool stops responding to influx there because every further increment is routed into aggregate. We do not offer this as a testable prediction: across 30 draws the locator placed it on the stable branch in only six cases, with median `j_turn/j_crit = 0.9963`, so it is a feature of the branch geometry rather than something an experiment could separate from the boundary itself.
+
+**Neither numerator.** `det J = 0` is the fold, excluded from their setting by the hyperbolicity assumption their derivation requires. Geometrically, infinitesimal homeostasis is a horizontal tangent of the equilibrium branch and a saddle-node is a vertical tangent of both coordinates at once; neither condition implies the other, and on this branch the two occur at different, ordered values of the influx.
 
 What makes our determinant factor is H2, which has no counterpart in the input-output setting. Mass balance supplies the row operation that replaces the influx row by `−∇R`, so `det J` factors into gradients of identified physical fluxes rather than into combinatorial blocks. That is also why `j_crit = R(u*, a*)` is an evaluation rather than a classification: the theorem locates a threshold, where the homeostasis programme enumerates the mechanisms by which a different degeneracy arises.
 
@@ -216,7 +246,8 @@ Every quantity below is recomputed from a fixed parameter box of 2884 fold state
 
 | quantity | value |
 |---|---|
-| `det J` against `−(∇R × ∇G)`, median relative error | 1.436×10⁻⁷ |
+| `det J` against `−(∇R × ∇G)`, median residual over 325 folds | 2.34×10⁻¹⁰ |
+| the same residual, maximum | 1.29×10⁻⁹ |
 | correlation of log sin(angle) with log \|eigenvalue\| | +0.9987 |
 | \|G\| at recorded fold states, maximum | 8.2×10⁻¹⁰ |
 | direct solver against continuation sweep, maximum relative error | 6.652×10⁻⁷ |
