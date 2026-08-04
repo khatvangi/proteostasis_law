@@ -118,6 +118,8 @@ Informally: **the collapse boundary is where total removal stops responding to b
 
 **Corollary 1 (fold location is a root solve).** Neither `G = 0` nor `det J = 0` contains `j`. Locating the fold is therefore a two-dimensional root solve rather than a continuation sweep in the influx, which reduces the cost of surveying a parameter box by the length of the sweep.
 
+At the base parameter point the Lagrange condition is visible directly rather than inferred: the removal contours meet the aggregate nullcline tangentially at the solved fold, so `∇R` and `∇G` align there to within a sine of `3.5×10⁻¹⁰`, and the critical influx is simply the removal flux evaluated at that state (Fig. 1a).
+
 ![Figure 1](../figures/fig1.pdf)
 
 **Fig. 1** The collapse threshold as a constrained critical point. **(a)** Phase
@@ -152,7 +154,11 @@ The two conditions are complementary degeneracies of the same expression: theirs
 
 **Output the aggregate.** Taking `ι = u` and `o = a` is literally the Wang et al. setup: two nodes, one arrow, no regulatory node, so `H` is 1×1 and `det H = G_u`. In their classification this is the degree-one structural type, Haldane homeostasis, which occurs only when the single coupling along the input-output path vanishes. It does not vanish here, and the reason is a sign structure rather than a parameter value. Nucleation and aggregate growth both rise with `u`. Raising `u` also titrates chaperone and protease away from disaggregation and aggregate clearance, and those two fluxes enter `G` with a minus sign, so their contributions to `G_u` are positive as well. All four terms have the same sign. Numerically, `G_u > 0` at all 305 traced points of the nullcline at the base parameter point, minimum 2.08×10⁻³, and across 40 draws from the parameter box no point with `G_u < 0` was found, the smallest value encountered anywhere being 6.7×10⁻¹². **The only homeostasis type available to this network is Haldane, and the sign structure of `G` excludes it.**
 
-**Output the soluble monomer.** Taking `o = u` places the output at the input node, which their framework excludes by requiring the two to be distinct, so what follows is an analogue rather than an instance and we do not call it infinitesimal homeostasis. The derivative condition is nonetheless the natural one, and `du*/dj` vanishes where `G_a = 0`. That point exists, is unique on the branch, and is generic rather than degenerate: at it `det J = R_a·G_u`, which is `2.027×10⁻³` at the base parameter point rather than zero. It is the turning point of the nullcline itself, where `{G = 0}` runs vertical in the burden plane, and it lies before the fold at `j_turn/j_crit = 0.9990` (Fig. 1b). Physically the soluble pool stops responding to influx there because every further increment is routed into aggregate. We do not offer this as a testable prediction: across 30 draws the locator placed it on the stable branch in only six cases, with median `j_turn/j_crit = 0.9963`, so it is a feature of the branch geometry rather than something an experiment could separate from the boundary itself.
+**Output the soluble monomer.** Taking `o = u` places the output at the input node, which their framework excludes by requiring the two to be distinct, so what follows is an analogue rather than an instance and we do not call it infinitesimal homeostasis. The derivative condition is nonetheless the natural one, and `du*/dj` vanishes where `G_a = 0`. That point exists, is unique on the branch, and is generic rather than degenerate: at it `det J = R_a·G_u`, which is `2.027×10⁻³` at the base parameter point rather than zero. It is the turning point of the nullcline itself, where `{G = 0}` runs vertical in the burden plane. Physically the soluble pool stops responding to influx there because every further increment is routed into aggregate.
+
+The branch therefore carries **two distinct singularities in a fixed order**, and Fig. 1b traces both on the same computed curve: the horizontal tangent of `u*` at `j_turn = 0.154090`, then the vertical tangent of both coordinates at `j_crit = 0.154239`. The first is a regular point of the branch — `det J = R_a·G_u = 2.02749×10⁻³` there, not zero — so it is generic rather than a degeneracy that a perturbation would remove. The separation is `j_turn/j_crit = 0.9990` at the base parameters. We do not offer it as a testable prediction: across 30 draws the locator placed it on the stable branch in only six cases, with median ratio 0.9963, so it is a feature of the branch geometry rather than something an experiment could separate from the boundary itself.
+
+One numerical consequence is worth stating because it is structural rather than incidental. Tracing `{G = 0}` by solving for `a` at each fixed `u` fails exactly at this locus: the two roots in `a` merge where the nullcline runs vertical, so the traced curve returns as two disconnected pieces with the fold sitting in the gap between them. The root-finder's failure and the horizontal tangent of `u*(j)` are the same point, not two problems, and contour tracing follows the curve through it.
 
 **Neither numerator.** `det J = 0` is the fold, excluded from their setting by the hyperbolicity assumption their derivation requires. Geometrically, infinitesimal homeostasis is a horizontal tangent of the equilibrium branch and a saddle-node is a vertical tangent of both coordinates at once; neither condition implies the other, and on this branch the two occur at different, ordered values of the influx.
 
@@ -210,7 +216,19 @@ j_crit = C_enz · φ_enz /(1 − δ),     φ_enz = R_enz(u*,a*)/C_enz,     δ = 
 
 *with both factors dimensionless and in [0,1). The identity is algebraic and holds to 1.6×10⁻¹⁶.*
 
-At the base parameters `φ_enz` stays within 0.125–0.134 as `μ` runs 0 → 0.08, a ±4% band, while `δ` runs 0 → 0.39 and carries essentially all the variation. Division therefore does not change the enzymatic condition for collapse; it multiplies the tolerable influx by `1/(1 − δ)`. The escape above is `δ → 1`.
+The two factors behave completely differently under division, and that asymmetry is the content of the corollary. At the base parameters `φ_enz` stays within 0.1245–0.1343 as `μ` runs 0 → 0.08 — a total width of 7.5% of its own mean — while `δ` runs 0 → 0.39 over the same sweep and carries essentially all the variation (Fig. 2). Division therefore does not change the enzymatic condition for collapse; it multiplies the tolerable influx by `1/(1 − δ)`. The escape above is `δ → 1`.
+
+![Figure 2](../figures/fig2.pdf)
+
+**Fig. 2** The enzymatic condition for collapse is insensitive to division; the
+dilution share carries the variation. Both factors of Corollary 3 are plotted on
+one linear axis against the dilution rate, as a 33-point continuation at the base
+parameters under constant dilution — a complete enumeration of the sweep, not a
+sample. The shaded band spans the full range of `φ_enz`. Twin axes are avoided
+deliberately: rescaling the flat curve to fill the panel would make its variation
+look like structure, which would invert the reading. The flatness is not a
+flatness of the underlying state — `j_crit` and the fold state `a*` both move
+substantially over this same sweep, by the amounts given above.
 
 Across 25 parameter draws having a boundary at `μ = 0`, 23 lose it under constant dilution. The threshold spans 3.3 decades (p10/p50/p90 = 0.0033/0.086/0.328), and `δ` at the threshold has median 0.35: the boundary is typically lost once division does roughly a third of the disposal work.
 
@@ -281,20 +299,19 @@ The theorem locates the fold. It does not by itself say how far below the capaci
 
 Two questions must not be merged here. Saturation dominates the *magnitude* of `φ`; the *existence* of a turning point requires the aggregation runaway that drives the free pools down at high burden. The counterfactuals above answer the first only.
 
-![Figure 2](../figures/fig2.pdf)
+The medians above are computed over the whole kinetic box and no draw is excluded from them. This is worth stating because a subset invites exclusion: some draws collapse at `s_a` near 10⁻³, where aggregation is fast enough that the low-burden branch barely exists, and 47 sit below 10⁻⁹. Screening them would be defensible only if they formed a distinct group, and they do not — the distribution runs smoothly across five decades with no gap, and the median of the survivors slides continuously with whatever floor is imposed, from 0.090 at a floor of 10⁻⁴ to 0.355 at 2×10⁻² (Fig. 3, inset). Any floor is therefore a free parameter that moves a load-bearing number by a factor of four. A suspicion that some draws are marginal does not by itself license a threshold, and the complete 2884 reproduce the medians in the table exactly.
 
-**Fig. 2** Saturation of the clearance machinery at the collapse boundary, over
-all 2884 folds of the kinetic box. Shaded strips are the full distributions, bars
-the p5–p95 span, open circles the medians: `s_ref` 0.175, `s_u` 0.155, `s_a`
-0.056, against the dashed line at `s = 1` that capacity exhaustion would predict.
-The spread is drawn as prominently as the centre because both halves of the claim
-matter: collapse occurs far below saturation, and the p5–p95 widths of 0.881,
-0.876 and 0.863 are wide enough that a single measurement discriminates weakly.
-No screen is applied. The inset shows why: the median `s_a` slides continuously
-with any floor imposed on it, from 0.090 at 10⁻⁴ to 0.355 at 2×10⁻², with no
-natural break, so a screen would be a free parameter moving a load-bearing number
-by a factor of four. The 47 draws at `s_a` below 10⁻⁹ are retained for the same
-reason.
+![Figure 3](../figures/fig3.pdf)
+
+**Fig. 3** Saturation of the clearance machinery at the collapse boundary, over
+all 2884 folds of the kinetic box, with no screen and no exclusion. Shaded strips
+are the full distributions, bars the p5–p95 span, open circles the medians
+tabulated above, against the dashed line at `s = 1` that capacity exhaustion would
+predict. The spread is drawn as prominently as the centre because both halves of
+the claim matter: collapse occurs far below saturation, and the p5–p95 widths of
+0.881, 0.876 and 0.863 are wide enough that a single measurement discriminates
+weakly. The inset is the sensitivity that rules out a screen, plotting the median
+`s_a` of the survivors against the floor imposed on them.
 
 The dispersion of these quantities is large enough to matter, and two attempts to reduce it failed. A properly nested design crossing 10 kinetic draws with a 7×7 load grid gives a between-to-within variance ratio for `φ` of 5.9, with per-network spread reaching 13.6× when both load coordinates sweep, overlapping the 8.86× between-network spread. Both figures are largest-observed values over the 10 draws of that design and so understate their populations; the overlap they establish is unaffected, since a larger sample can only widen it. `φ` is therefore network-characteristic but not load-invariant, and an earlier reading of it as a load-invariant material constant is withdrawn. Adding σ32-style regulation, on the hypothesis that a controlled cell sits where its controller puts it rather than where its raw kinetics do, *widens* the p5–p95 width of `s_u` from 0.890 to 0.968 rather than narrowing it, both measured on that experiment's own 30 networks rather than on the kinetic box. The regulated median `s_u` of 0.323 against 0.169 unregulated points toward the capacity-exhaustion picture rather than away from it, though only 14 of 30 regulated networks converged against 24 unregulated, so it should not be quoted as a result without a larger sample.
 
@@ -306,13 +323,13 @@ The theorem supplies a constraint with no free parameters of its own, `j(α,R) <
 
 The throughput optimum sits exactly on the feasibility boundary, at `j/j_crit = 1.000000`. This is not numerical coincidence: throughput is strictly decreasing in both coordinates, so any interior point improves by lowering `α` until the constraint binds. A 26×22 grid placed the optimum at `j/j_crit = 0.8975`; tracing the boundary exactly gives 1.0 and 0.89% higher throughput, so the grid figure was discretisation rather than an interior optimum.
 
-The front is not uniformly at the boundary. Along the non-dominated set in (throughput, accuracy), `j/j_crit` runs 0.227 to 0.965. Accuracy-favouring strategies sit far inside the envelope; only the throughput-favouring end presses against it.
+The front is not uniformly at the boundary. Along the non-dominated set in (throughput, accuracy), `j/j_crit` runs 0.227 to 0.965, rising monotonically with throughput, so proximity to the boundary is not a property of being on the front but of *where* on it a strategy sits: accuracy-favouring strategies lie far inside the envelope and only the throughput-favouring end presses against it (Fig. 4).
 
 This gives a precise and partly deflationary form to the expectation that evolution concentrates strategies near feasibility boundaries: it holds for throughput maximisers and fails for the rest of the front. A deterministic throughput maximiser has zero safety margin, so any observed margin must come from outside this model — noise, environmental fluctuation, or robustness against parameter uncertainty. The layer cannot adjudicate which, and does not claim to.
 
-![Figure 3](../figures/fig3.pdf)
+![Figure 4](../figures/fig4.pdf)
 
-**Fig. 3** The strategy front, and where along it the feasibility constraint
+**Fig. 4** The strategy front, and where along it the feasibility constraint
 actually binds. Grey points are all 469 feasible strategies on a 26×22 grid of
 (`α`, `R`); coloured points are the 13 non-dominated ones, shaded by `j/j_crit`.
 The connecting line is grey rather than colour-mapped because nothing was solved
@@ -377,11 +394,11 @@ At each `β` the aging effect is `64 × a_end` as a proteome fraction times a da
 
 The nearest available measurement does not reach any row of it. Tomoyasu et al. (2001) report 5–10% of total protein aggregated in Δ*rpoH* mutants at 30 °C and no detectable aggregation in *rpoH*⁺ cells at the same temperature, so wild type is a bound rather than a value.
 
-No source we could find bounds `β` under unstressed growth. Winkler et al. (2010) report the ingredients separately and under heat stress, which is not the condition at issue, and combining them requires assumptions about focus number that conflict with the distribution Lindner et al. measured in unstressed cells. We therefore quote the requirement as a `β`-indexed family rather than a number, spanning 0.047% to roughly 0.5% of the proteome over the plausible range, and note the direction: the less of the aggregate that sits in the focus, the more aggregate the account requires, and the closer the prediction moves to the only load anyone has measured.
+No source we could find bounds `β` under unstressed growth. Winkler et al. (2010) report the ingredients separately and under heat stress, which is not the condition at issue, and combining them requires assumptions about focus number that conflict with the distribution Lindner et al. measured in unstressed cells. We therefore quote the requirement as a `β`-indexed family rather than a number, spanning 0.047% to roughly 0.5% of the proteome over the plausible range, and note the direction: the less of the aggregate that sits in the focus, the more aggregate the account requires, and the closer the prediction moves to the only load anyone has measured. Plotting the family against that measurement shows how far the two are from meeting: nowhere on the plotted range does the requirement come within a factor of fifteen of the sole reported aggregate load, so no value of `β` puts the account in contact with an existing number (Fig. 5).
 
-![Figure 4](../figures/fig4.pdf)
+![Figure 5](../figures/fig5.pdf)
 
-**Fig. 4** What the account requires of an old-pole cell. The band is the
+**Fig. 5** What the account requires of an old-pole cell. The band is the
 aggregate load implied by the measured lineage difference, as a fraction of total
 protein, against the share `β` of that aggregate held in the visible inclusion
 body. It scales as `1/β`, a straight line on these axes, because only the focal
@@ -403,7 +420,7 @@ Four statements are worth separating by what would refute them.
 
 **Mathematical, and refutable only by error.** The identity `det J = −(∇R × ∇G)`, its *n*-state form, the `μ → 0` and `σ₀ → 0` reductions, the `J − μI` form under constant dilution, the `(φ_enz, δ)` decomposition, and the square-root ceiling of Corollary 4. These follow from H1–H3 and no observation bears on them.
 
-**Structural and untested.** Collapse occurs at a saturation fraction far below 1, against the capacity-exhaustion alternative in which collapse occurs as `s → 1`. The observable is a ratio, so testing it does not require absolute copies-per-cell calibration. Two cautions apply, both from our own results: the dispersion in `s_u` is wide enough (p5–p95 width 0.876 over the kinetic box's 2884 folds) that a single measurement discriminates weakly, and regulation widens rather than narrows it.
+**Structural and untested.** Collapse occurs at a saturation fraction far below 1, against the capacity-exhaustion alternative in which collapse occurs as `s → 1`. The observable is a ratio, so testing it does not require absolute copies-per-cell calibration. Two cautions apply, both from our own results: the predicted saturation fractions are dispersed widely enough across the kinetic box that a single measurement discriminates weakly, as the spans in Fig. 3 show, and regulation widens that dispersion rather than narrowing it.
 
 **The sharper version of the same test.** Since growth rate sets the load coordinate `ν`, and `ν` drift alone contributes ~1.6× against the ~1.8× contrast expected from shifting the chaperone/protease split, an experiment that does not hold growth rate fixed cannot discriminate. Chemostat or turbidostat, not batch culture. Under fixed growth rate, raising the load of *perfectly folding* protein should lower the tolerable damage influx, because nascent chains consume chaperone capacity without contributing influx; a model in which the two loads are handled independently predicts no shift. Direction was correct in 67 of 68 settings over a 100-fold ladder, with median shift 1.22×.
 

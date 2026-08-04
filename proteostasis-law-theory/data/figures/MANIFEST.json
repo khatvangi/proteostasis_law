@@ -6,7 +6,7 @@
   },
   "files": [
     {
-      "file": "fig2_saturation.tsv",
+      "file": "saturation.tsv",
       "sha256": "5f9e396bd45d1e975254f55b4e379013df2942dfd0ab2cb7cd0737f6cea7892d",
       "population": "kinetic_box",
       "n_states": 2884,
@@ -23,7 +23,7 @@
       "note": "michaelis factors at the fold; every draw that admits a fold and rebuilds, no subsampling"
     },
     {
-      "file": "figS1_identity.tsv",
+      "file": "identity.tsv",
       "sha256": "748392294914f5eb876b2e20e45af013c07faad2058d509f88ff4bda4313b55b",
       "population": "load_grid",
       "n_states": 325,
@@ -40,7 +40,7 @@
       "note": "all found folds; carries BOTH normalisations so the degradation of the max-normalised one is shown, not asserted"
     },
     {
-      "file": "fig3_pareto.tsv",
+      "file": "pareto.tsv",
       "sha256": "955e270f903ea7d482d923c37b1fbd7895c6b3bc2724f2968b3528d97cd8ed76",
       "population": "computed",
       "n_states": 469,

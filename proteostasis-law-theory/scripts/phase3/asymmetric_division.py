@@ -336,6 +336,28 @@ def fEffFromBeta(beta: float) -> float:
 SLOPE_PER_PROTEOME_FRACTION = 32.0
 
 
+# damping measured by `dampingForBeta` at each of these beta, recorded in D033.
+# it is stored rather than recomputed at call time because each evaluation solves a
+# ladder of folds and takes minutes; `tests/phase3/test_asymmetric_division.py`
+# recomputes it and asserts these values, so it is a cache and not an orphan.
+DAMPING_BY_BETA = ((0.145, 0.355), (0.25, 0.355), (0.50, 0.355),
+                   (0.75, 0.355), (1.00, 0.346))
+
+
+def dampingAtBeta(beta: float) -> float:
+    """the measured damping at `beta`, interpolated between measured points.
+
+    Flat at 0.355 over the whole range except the approach to beta = 1, which is
+    the only place the measurement moves. Using one number for all beta -- as an
+    earlier version of the figure did -- puts the figure 1.5% off the section 8.4
+    table at every row, which is a caption-against-text divergence with no cause
+    other than convenience.
+    """
+    xs = [b for b, _ in DAMPING_BY_BETA]
+    ys = [d for _, d in DAMPING_BY_BETA]
+    return float(np.interp(float(beta), xs, ys))
+
+
 def requiredAggregateFractionBeta(beta: float, damping: float,
                                   band=(BAND_LO, BAND_HI)):
     """the inverted requirement at focus share `beta`.

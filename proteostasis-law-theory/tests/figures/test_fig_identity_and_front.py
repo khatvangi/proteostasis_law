@@ -22,8 +22,8 @@ for _p in (_REPO_ROOT / "scripts", _REPO_ROOT / "scripts" / "figures",
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
-import fig3  # noqa: E402
-import figS1  # noqa: E402
+import fig_front  # noqa: E402
+import fig_identity  # noqa: E402
 
 _MANUSCRIPT = (_REPO_ROOT / "manuscript" / "bmb_v4.md").read_text()
 
@@ -38,8 +38,8 @@ def _section(doc: str, header: str) -> str:
 class TestFigureS1OwnsItsNumbers(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        df = pd.read_csv(_REPO_ROOT / "data/figures/figS1_identity.tsv", sep="\t")
-        cls.c = figS1.captionNumbers(df)
+        df = pd.read_csv(_REPO_ROOT / "data/figures/identity.tsv", sep="\t")
+        cls.c = fig_identity.captionNumbers(df)
         cls.sec = _section(_MANUSCRIPT, "\n## 5. Numerical verification")
 
     def testThePopulationIsCompleteAndNamed(self):
@@ -106,7 +106,7 @@ class TestFigureS1OwnsItsNumbers(unittest.TestCase):
 class TestFigure3ReconcilesWithSectionSeven(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.o = fig3.build()
+        cls.o = fig_front.build()
 
     def testTheFrontRangeMatchesTheText(self):
         self.assertAlmostEqual(self.o["front_lo"], 0.227, places=3)
@@ -126,7 +126,7 @@ class TestFigure3ReconcilesWithSectionSeven(unittest.TestCase):
 
 class TestFiguresAreDeterministic(unittest.TestCase):
     def testRebuildingGivesIdenticalBytes(self):
-        for mod in (fig3, figS1):
+        for mod in (fig_front, fig_identity):
             first = mod.build()["hashes"]
             second = mod.build()["hashes"]
             self.assertEqual(first, second, f"{mod.__name__} is not byte-stable")

@@ -7,7 +7,7 @@ the front coloured by `j/j_crit`, and the inset plots `j/j_crit` along it, where
 the 0.227-0.965 range is as legible as the optimum is.
 
 The optimum is COMPUTED, not annotated from the text. The 469 feasible strategies
-come from `data/figures/fig3_pareto.tsv`; the exact optimum comes from
+come from `data/figures/pareto.tsv`; the exact optimum comes from
 `pareto.optimumOnBoundary()`, which parametrises the boundary rather than a grid.
 Its `j/j_crit` of 1.000000 is not in the grid at all -- the best grid point reaches
 0.8975, and that gap is discretisation, which is exactly why the grid cannot be
@@ -24,6 +24,10 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+# manuscript figure number, by ORDER OF FIRST MENTION in bmb_v4.md.
+# filenames are deliberately semantic so a reorder touches this line only.
+FIGURE = "fig4"
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 for _p in (REPO_ROOT / "scripts", REPO_ROOT / "scripts" / "figures",
            REPO_ROOT / "scripts" / "phase3"):
@@ -34,7 +38,7 @@ import _figstyle as F  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402
 import pareto as P  # noqa: E402
 
-DATA = REPO_ROOT / "data" / "figures" / "fig3_pareto.tsv"
+DATA = REPO_ROOT / "data" / "figures" / "pareto.tsv"
 
 CMAP = "viridis"
 
@@ -114,7 +118,7 @@ def build():
 
     fig.tight_layout(pad=0.35)
     F.widthCheck(fig, F.W_DOUBLE)
-    hashes = F.save(fig, "fig3")
+    hashes = F.save(fig, FIGURE)
     plt.close(fig)
     return {"n_feasible": len(df), "n_front": len(front),
             "front_lo": lo, "front_hi": hi,
@@ -128,7 +132,7 @@ def build():
 
 if __name__ == "__main__":
     o = build()
-    print("Figure 3")
+    print(f"Figure {FIGURE[3:]}")
     print("  %d feasible strategies, %d non-dominated"
           % (o["n_feasible"], o["n_front"]))
     print("  j/j_crit along the front : %.4f - %.4f (median %.4f)"

@@ -80,7 +80,7 @@ def buildSaturation(run: Path) -> dict:
                      "phi": d["phi"], "cf_frac": d["cf_frac"],
                      "df_frac": d["df_frac"]})
     df = pd.DataFrame(rows)
-    return _write("fig2_saturation.tsv", df, KINETIC_BOX, run.name,
+    return _write("saturation.tsv", df, KINETIC_BOX, run.name,
                   complete=len(df) == len(c),
                   note="michaelis factors at the fold; every draw that admits a "
                        "fold and rebuilds, no subsampling")
@@ -113,7 +113,7 @@ def buildIdentity(run: Path) -> dict:
             "res_max_normalised": err / max(abs(detJ), abs(cross), 1e-300),
         })
     df = pd.DataFrame(rows)
-    return _write("figS1_identity.tsv", df, LOAD_GRID, run.name,
+    return _write("identity.tsv", df, LOAD_GRID, run.name,
                   complete=len(df) == len(b),
                   note="all found folds; carries BOTH normalisations so the "
                        "degradation of the max-normalised one is shown, not asserted")
@@ -132,7 +132,7 @@ def buildPareto() -> dict:
                       zip(df["alpha"].round(12), df["R"].round(12))]
     df = df[["alpha", "R", "throughput", "eps", "accuracy", "j", "j_crit",
              "j_over_jcrit", "on_front"]]
-    return _write("fig3_pareto.tsv", df, "computed", "scripts/phase3/pareto.py",
+    return _write("pareto.tsv", df, "computed", "scripts/phase3/pareto.py",
                   complete=True,
                   note="all feasible strategies with an on_front flag, so the "
                        "figure shows the cloud and the front; deterministic, "

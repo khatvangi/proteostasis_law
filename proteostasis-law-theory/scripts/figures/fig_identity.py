@@ -13,7 +13,7 @@ put the paper's own retracted metric at the same visual weight as the result.
 This script recomputes every number the caption uses and prints them, because the
 caption's contrast previously had no generator -- see D041.
 
-Reads `data/figures/figS1_identity.tsv`, never the run root.
+Reads `data/figures/identity.tsv`, never the run root.
 """
 
 from __future__ import annotations
@@ -23,6 +23,10 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+
+# manuscript figure number, by ORDER OF FIRST MENTION in bmb_v4.md.
+# filenames are deliberately semantic so a reorder touches this line only.
+FIGURE = "figS1"
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 for _p in (REPO_ROOT / "scripts", REPO_ROOT / "scripts" / "figures"):
@@ -67,7 +71,7 @@ def captionNumbers(df: pd.DataFrame) -> dict:
 
 def build():
     F.setStyle()
-    df = pd.read_csv(REPO_ROOT / "data" / "figures" / "figS1_identity.tsv", sep="\t")
+    df = pd.read_csv(REPO_ROOT / "data" / "figures" / "identity.tsv", sep="\t")
     c = captionNumbers(df)
 
     fig, ax = plt.subplots(figsize=(F.W_DOUBLE, 0.78 * F.W_DOUBLE))
@@ -105,14 +109,14 @@ def build():
     fig.tight_layout(pad=0.35)
     F.widthCheck(fig, F.W_DOUBLE)
     c["slope"] = float(sl)
-    c["hashes"] = F.save(fig, "figS1")
+    c["hashes"] = F.save(fig, FIGURE)
     plt.close(fig)
     return c
 
 
 if __name__ == "__main__":
     o = build()
-    print("Figure S1  (all %d folds of the load grid, no subsample)" % o["n"])
+    print(f"Figure {FIGURE[3:]}  (all %d folds of the load grid, no subsample)" % o["n"])
     print("  corr(log sin, log |eig|)      : %+.4f   slope %.3f"
           % (o["corr_parallelism"], o["slope"]))
     print("  tightest bracket              : |eig| %.2e -> sin %.2e"

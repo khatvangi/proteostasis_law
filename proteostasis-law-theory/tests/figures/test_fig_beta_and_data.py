@@ -13,7 +13,7 @@ for _p in (_REPO_ROOT / "scripts", _REPO_ROOT / "scripts" / "phase3",
         sys.path.insert(0, str(_p))
 
 import asymmetric_division as A  # noqa: E402
-import fig4  # noqa: E402
+import fig_beta  # noqa: E402
 
 _MS = (_REPO_ROOT / "manuscript" / "bmb_v4.md").read_text()
 _DATA = _REPO_ROOT / "data" / "figures"
@@ -24,13 +24,13 @@ class TestFigureFourCaption(unittest.TestCase):
     def testTheThreeQuotedIntervalsAreRecomputed(self):
         for beta, want in ((1.0, "0.05–0.08"), (0.5, "0.09–0.16"),
                            (0.25, "0.18–0.32")):
-            lo, hi = A.requiredAggregateFractionBeta(beta, fig4.DAMPING)
+            lo, hi = A.requiredAggregateFractionBeta(beta, fig_beta.DAMPING)
             self.assertEqual(f"{100*lo:.2f}–{100*hi:.2f}", want)
             self.assertIn(want, _MS)
 
     def testTheDampingIsInTheMeasuredRange(self):
-        self.assertGreaterEqual(fig4.DAMPING, 0.346)
-        self.assertLessEqual(fig4.DAMPING, 0.355)
+        self.assertGreaterEqual(fig_beta.DAMPING, 0.346)
+        self.assertLessEqual(fig_beta.DAMPING, 0.355)
 
     def testCaptionRefusesALowerBoundOnBeta(self):
         cap = _MS[_MS.index("**Fig. 4**"):]
@@ -69,10 +69,10 @@ class TestFigureDataProvenance(unittest.TestCase):
 
     def testThePopulationsAreDistinguishedAndSizedAsTheManuscriptStates(self):
         by = {e["file"]: e for e in self.m["files"]}
-        self.assertEqual(by["fig2_saturation.tsv"]["n_states"], 2884)
-        self.assertEqual(by["fig2_saturation.tsv"]["population"], "kinetic_box")
-        self.assertEqual(by["figS1_identity.tsv"]["n_states"], 325)
-        self.assertEqual(by["figS1_identity.tsv"]["population"], "load_grid")
+        self.assertEqual(by["saturation.tsv"]["n_states"], 2884)
+        self.assertEqual(by["saturation.tsv"]["population"], "kinetic_box")
+        self.assertEqual(by["identity.tsv"]["n_states"], 325)
+        self.assertEqual(by["identity.tsv"]["population"], "load_grid")
         self.assertIn("load grid", _MS)
         self.assertIn("kinetic box", _MS)
 
@@ -124,13 +124,13 @@ class TestFigureTwoMatchesSectionSix(unittest.TestCase):
     """the screen that would have split figure from text is not applied (D039)."""
 
     def testNoScreenAndNoExclusion(self):
-        import fig2
-        self.assertEqual(fig2.S_A_ZERO, 0.0)
+        import fig_saturation
+        self.assertEqual(fig_saturation.S_A_ZERO, 0.0)
 
     def testMediansReproduceTheTextExactly(self):
         import numpy as np
         import pandas as pd
-        d = pd.read_csv(_REPO_ROOT / "data" / "figures" / "fig2_saturation.tsv",
+        d = pd.read_csv(_REPO_ROOT / "data" / "figures" / "saturation.tsv",
                         sep="\t")
         for col, want in (("s_ref", 0.175), ("s_u", 0.155), ("s_a", 0.056)):
             self.assertAlmostEqual(float(np.median(d[col])), want, places=3)

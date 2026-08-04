@@ -75,19 +75,19 @@ class TestPanelBIsHonest(unittest.TestCase):
         self.assertGreater(v.min(), 0.0)
 
     def testTheScriptReportsNoHomeostasisPoint(self):
-        import fig1
+        import fig_theorem
         stats = np.array([[0.1, 0.1, 0.1, 0.5, 1.0], [0.2, 0.2, 0.2, 0.25, 1.0]])
-        self.assertFalse(fig1.homeostasisPointExists(stats)["exists"])
+        self.assertFalse(fig_theorem.homeostasisPointExists(stats)["exists"])
         stats[0, 3] = -1.0
-        self.assertTrue(fig1.homeostasisPointExists(stats)["exists"])
+        self.assertTrue(fig_theorem.homeostasisPointExists(stats)["exists"])
 
     def testTheTurnIsComputedAndGeneric(self):
         """du*/dj = -G_a/det J vanishes at the nullcline turn, where det J != 0."""
-        import fig1
+        import fig_theorem
         p = M.Params().validate()
-        UU, AA, GG, _ = fig1.fields(p, n=90)
-        stats = fig1.branchStats(p, fig1.nullclineSegments(UU, AA, GG))
-        turn = fig1.turningPoint(p, stats)
+        UU, AA, GG, _ = fig_theorem.fields(p, n=90)
+        stats = fig_theorem.branchStats(p, fig_theorem.nullclineSegments(UU, AA, GG))
+        turn = fig_theorem.turningPoint(p, stats)
         self.assertIsNotNone(turn)
         self.assertEqual(turn["n_sign_changes"], 1)
         self.assertLess(abs(turn["G_a"]), 1e-9)

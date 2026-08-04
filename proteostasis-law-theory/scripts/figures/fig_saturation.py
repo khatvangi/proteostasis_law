@@ -5,7 +5,7 @@ BELOW saturation, and the spread is wide enough that one measurement discriminat
 weakly. A bar chart of medians would show the first and hide the second, so the
 distributions are drawn in full with the p5-p95 span marked explicitly.
 
-Reads `data/figures/fig2_saturation.tsv`, never the run root.
+Reads `data/figures/saturation.tsv`, never the run root.
 """
 
 from __future__ import annotations
@@ -16,6 +16,10 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+# manuscript figure number, by ORDER OF FIRST MENTION in bmb_v4.md.
+# filenames are deliberately semantic so a reorder touches this line only.
+FIGURE = "fig3"
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 for _p in (REPO_ROOT / "scripts", REPO_ROOT / "scripts" / "figures"):
     if str(_p) not in sys.path:
@@ -24,7 +28,7 @@ for _p in (REPO_ROOT / "scripts", REPO_ROOT / "scripts" / "figures"):
 import _figstyle as F  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402
 
-DATA = REPO_ROOT / "data" / "figures" / "fig2_saturation.tsv"
+DATA = REPO_ROOT / "data" / "figures" / "saturation.tsv"
 
 # THE SCREEN THE STANDING LIMITATION ASKED FOR IS NOT APPLIED, AND THE DATA IS THE
 # REASON. A screen is only defensible if the low-`s_a` draws form a distinct
@@ -107,7 +111,7 @@ def build():
 
     fig.tight_layout(pad=0.35)
     F.widthCheck(fig, F.W_SINGLE)
-    hashes = F.save(fig, "fig2")
+    hashes = F.save(fig, FIGURE)
     plt.close(fig)
     return {"n_all": n_all, "n_kept": len(keep), "n_screened": n_screened,
             "stats": stats, "sensitivity": sens, "hashes": hashes}
@@ -115,7 +119,7 @@ def build():
 
 if __name__ == "__main__":
     o = build()
-    print("Figure 2")
+    print(f"Figure {FIGURE[3:]}")
     print("  %d folds, %d excluded as numerically zero, %d plotted"
           % (o["n_all"], o["n_screened"], o["n_kept"]))
     print("  median s_a against screen floor (why no screen is applied):")

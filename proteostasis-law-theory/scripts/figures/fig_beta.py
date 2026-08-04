@@ -25,6 +25,10 @@ from pathlib import Path
 
 import numpy as np
 
+# manuscript figure number, by ORDER OF FIRST MENTION in bmb_v4.md.
+# filenames are deliberately semantic so a reorder touches this line only.
+FIGURE = "fig5"
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 for _p in (REPO_ROOT / "scripts", REPO_ROOT / "scripts" / "phase3",
            REPO_ROOT / "scripts" / "figures"):
@@ -80,7 +84,7 @@ def build():
 
     fig.tight_layout(pad=0.35)
     F.widthCheck(fig, F.W_DOUBLE)
-    hashes = F.save(fig, "fig4")
+    hashes = F.save(fig, FIGURE)
     plt.close(fig)
     return {"damping": DAMPING,
             "at_beta_1": A.requiredAggregateFractionBeta(1.0, DAMPING),
@@ -90,7 +94,7 @@ def build():
 
 if __name__ == "__main__":
     o = build()
-    print("Figure 4")
+    print(f"Figure {FIGURE[3:]}")
     print("  beta=1.00 -> %.4f%% - %.4f%% of proteome"
           % (100 * o["at_beta_1"][0], 100 * o["at_beta_1"][1]))
     print("  beta=0.25 -> %.4f%% - %.4f%% of proteome"

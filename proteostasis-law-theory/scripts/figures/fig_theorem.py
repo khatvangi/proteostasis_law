@@ -25,6 +25,10 @@ from pathlib import Path
 import numpy as np
 from scipy.optimize import brentq
 
+# manuscript figure number, by ORDER OF FIRST MENTION in bmb_v4.md.
+# filenames are deliberately semantic so a reorder touches this line only.
+FIGURE = "fig1"
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 for _p in (REPO_ROOT / "scripts", REPO_ROOT / "scripts" / "phase3",
            REPO_ROOT / "scripts" / "figures"):
@@ -259,7 +263,7 @@ def build():
 
     fig.tight_layout(pad=0.35)
     F.widthCheck(fig, F.W_SINGLE)
-    hashes = F.save(fig, "fig1")
+    hashes = F.save(fig, FIGURE)
     plt.close(fig)
 
     return {"j_crit": jc, "u_star": us, "a_star": as_,
@@ -271,7 +275,7 @@ def build():
 
 if __name__ == "__main__":
     out = build()
-    print("Figure 1")
+    print(f"Figure {FIGURE[3:]}")
     print("  j_crit = %.6f at (u*, a*) = (%.6f, %.6f)"
           % (out["j_crit"], out["u_star"], out["a_star"]))
     print("  sin(grad R, grad G) at the plotted fold = %.3e" % out["sin_angle"])
