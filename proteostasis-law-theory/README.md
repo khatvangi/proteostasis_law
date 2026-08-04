@@ -16,8 +16,28 @@ Translation strategies occupy a Pareto trade-off surface involving productive th
 - `theory/`: law statement, mathematics, Pareto geometry, dynamics, predictions, scope, and nonclaims. `FOLD_THEOREM.md` derives where collapse occurs — the saddle-node is a constrained critical point of total removal on the aggregate nullcline (*critical point*, not maximum; see D011) — decomposes the margin into its saturation and sequestration deficits, extends the result to dividing cells, calibrates the growth-burden coupling to a measurement, and computes the Pareto surface the framework had only asserted.
 - `empirical/`: experimental program, measurement-to-symbol map, and `GATE4_PROPOSAL.md` — what a first empirical test of the fold theorem would require, specified without reading any outcome.
 - `notes/`: historical recovery and rejection ledger; provenance stays here.
-- `scripts/`: future reproducible analysis code and conventions.
-- `tests/`: future mathematical, numerical, and data-validation checks.
+- `scripts/`: the analysis code. `phase3/` derives and checks the theorem; `figures/` builds every figure in the manuscript.
+- `tests/`: the check suite, asserting the manuscript's numbers against the code that produces them rather than against stored values.
+- `data/figures/`: reduced arrays backing each figure, with per-file provenance (population, count, whether it is a subsample) and a sha256 manifest, so the figures rebuild on a clean checkout without the run root.
+
+## Reproducing the figures
+
+```
+python scripts/figures/build_figure_data.py   # only script permitted to read the run root
+python scripts/figures/fig1.py                # the theorem, two panels
+python scripts/figures/fig2.py                # saturation at the boundary
+python scripts/figures/fig3.py                # the strategy front
+python scripts/figures/fig4.py                # the beta-indexed prediction
+python scripts/figures/figS1.py               # parallelism is bracket tolerance
+```
+
+Each writes PDF, SVG and PNG to `figures/` with timestamps stripped, so an unchanged
+input gives byte-identical output and a rebuild produces a clean diff. No seaborn and
+no dependence on a local matplotlib configuration: every rcParam that affects the
+output is set explicitly, because a figure that renders differently on the
+typesetter's machine than on ours is a defect.
+
+Run the checks with `python -m pytest tests/ -q`.
 
 ## Project rules
 
