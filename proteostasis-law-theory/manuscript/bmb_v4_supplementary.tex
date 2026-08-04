@@ -1,0 +1,76 @@
+%% GENERATED FILE -- do not edit.
+%% Written by scripts/manuscript/to_latex.py from manuscript/bmb_v4.md.
+%% The markdown is the source; every number in it is recomputed by a script in
+%% scripts/ and asserted by tests/.
+%%
+%% TO SUBMIT TO BULLETIN OF MATHEMATICAL BIOLOGY: replace the \documentclass
+%% line below with Springer's, which is not installed on the build machine:
+%%     \documentclass[sn-mathphys-num]{sn-jnl}
+%% and drop the geometry line. Nothing else here is class-specific.
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=25mm]{geometry}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{calc}
+\usepackage{textcomp}
+\usepackage{newunicodechar}
+\usepackage[hidelinks]{hyperref}
+\usepackage[font=small,labelfont=bf]{caption}
+%% pandoc marks an uncaptioned longtable with \LTcaptype{none}; the caption
+%% package then tries to step a counter of that name. Declaring it makes the
+%% marker the no-op pandoc intends rather than a fatal error.
+\newcounter{none}
+\usepackage{parskip}
+
+\setlength{\emergencystretch}{3em}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+%% unicode that survives into prose, mapped from this document's own inventory
+\newunicodechar{²}{$^{2}$}
+\newunicodechar{×}{$\times$}
+\newunicodechar{–}{--}
+\newunicodechar{—}{---}
+\newunicodechar{⁹}{$^{9}$}
+\newunicodechar{⁻}{$^{-}$}
+\newunicodechar{−}{$-$}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\topfraction}{0.92}
+\renewcommand{\textfraction}{0.06}
+\renewcommand{\floatpagefraction}{0.85}
+
+\title{An Exact Collapse Threshold for Conserved-Resource Models
+       of Protein Quality Control}
+\author{Kiran Boggavarapu\\[2pt]
+{\small Department of Chemistry and Physics, McNeese State University, Lake Charles, LA 70609, USA}\\
+{\small \texttt{kiran@mcneese.edu}}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{center}\large\bfseries Supplementary Material\end{center}
+
+\noindent This document accompanies the paper above. Every number in the caption is recomputed by the script named in it and asserted by the accompanying test suite.
+
+\medskip
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[max width=\linewidth]{../figures/figS1.pdf}
+\caption{The parallelism residual is bracket tolerance, not failure of the identity. Over all 325 folds of the load grid, $\sin \theta$ between $\nabla R$ and $\nabla G$ tracks the leading eigenvalue recorded at the same state across five decades, with a log–log correlation of +0.9960 and a slope of 1.00 — the residual is \emph{proportional} to how loosely the state is bracketed, which is what bracket tolerance means and what a failing identity would not produce. The circled point is the tightest bracket in the population, $|\lambda | = 8.10\times 10^{-10}$ with $\sin \theta = 7.75\times 10^{-9}$. Normalisation, reported here rather than given a panel of its own: on these same 325 states the max-normalised residual correlates with $|\lambda |$ at −0.835 and reaches 1.54×10⁻², while the gradient-normalised residual used throughout correlates at +0.041 and reaches 1.29×10⁻⁹. The first degrades as the bracket tightens on the object it is meant to verify, because both $\det J$ and the cross product vanish at a saddle-node and their ratio is 0/0 there; the second does not. Every number in this caption is recomputed by \texttt{scripts/\allowbreak figures/\allowbreak fig\_identity.py:captionNumbers} and asserted by the test suite.}
+\label{fig:figS1}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\end{document}

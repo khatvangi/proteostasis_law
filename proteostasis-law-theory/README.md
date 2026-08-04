@@ -47,6 +47,22 @@ no dependence on a local matplotlib configuration: every rcParam that affects th
 output is set explicitly, because a figure that renders differently on the
 typesetter's machine than on ours is a defect.
 
+## Building the submission PDF
+
+```
+python scripts/manuscript/to_latex.py
+```
+
+Writes `manuscript/bmb_v4.{tex,pdf}` and `manuscript/bmb_v4_supplementary.{tex,pdf}`.
+The markdown is the single source; **the `.tex` files are build artefacts and must
+never be edited.** The converter treats every backtick span as mathematics unless
+it is declared in `CODE_SPANS`, so a new code-shaped span fails the build rather
+than silently rendering as math, and it maps unicode from the document's own
+inventory, so an unmapped character stops the build rather than vanishing.
+
+The generated preamble uses `article` because no Springer class is installed here;
+a banner at the top of the `.tex` gives the one-line change to `sn-jnl`.
+
 Run the checks with `python -m pytest tests/ -q`.
 
 ## Project rules

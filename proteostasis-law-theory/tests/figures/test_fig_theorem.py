@@ -102,7 +102,17 @@ class TestPanelBIsHonest(unittest.TestCase):
         cap = cap[:cap.index("\n\n")]
         self.assertIn("not a schematic", cap)
         self.assertIn("0.9990", cap)
-        self.assertIn("2.027e-03", cap)
+        self.assertIn("2.027×10⁻³", cap)
+
+    def testScientificNotationIsUniformAcrossTheManuscript(self):
+        """`3.5e-10` reads as "3.5e minus 10" once typeset (D043).
+
+        Pin the property, not the token: no e-notation anywhere, so the
+        manuscript and the PDF cannot disagree about how a number is written.
+        """
+        import re
+        stray = re.findall(r"\d+\.?\d*e-\d+", _MS)
+        self.assertEqual(stray, [], f"e-notation left in the manuscript: {stray}")
 
     def testSectionFiveUsesTheNonDegradingResidual(self):
         """the max-normalised metric worsens as the bracket tightens (D027).

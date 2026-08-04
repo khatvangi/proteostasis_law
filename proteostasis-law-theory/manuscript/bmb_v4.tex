@@ -20,10 +20,15 @@
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
+\usepackage{calc}
 \usepackage{textcomp}
 \usepackage{newunicodechar}
 \usepackage[hidelinks]{hyperref}
 \usepackage[font=small,labelfont=bf]{caption}
+%% pandoc marks an uncaptioned longtable with \LTcaptype{none}; the caption
+%% package then tries to step a counter of that name. Declaring it makes the
+%% marker the no-op pandoc intends rather than a fatal error.
+\newcounter{none}
 \usepackage{parskip}
 
 \setlength{\emergencystretch}{3em}
@@ -44,7 +49,6 @@
 \newunicodechar{β}{$\beta$}
 \newunicodechar{δ}{$\delta$}
 \newunicodechar{ε}{$\varepsilon$}
-\newunicodechar{λ}{$\lambda$}
 \newunicodechar{μ}{$\mu$}
 \newunicodechar{σ}{$\sigma$}
 \newunicodechar{φ}{$\varphi$}
@@ -75,25 +79,17 @@
 \begin{document}
 \maketitle
 
-
-\textbf{Kiran Boggavarapu}
-
-Department of Chemistry and Physics, McNeese State University, Lake Charles, LA 70609, USA
-kiran@mcneese.edu
-
-\textbf{MSC} 92C40 (primary); 37G10, 34C23, 92C42 (secondary)
-
-\textbf{Keywords} proteostasis; saddle-node bifurcation; conserved resource; collapse threshold; growth dilution; clearance network
-
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\subsection{Abstract}\label{abstract}
-
+\begin{abstract}
 A cell clearing misfolded protein with a finite pool of chaperones and proteases tolerates damage influx only up to a threshold, beyond which burden runs away. Where that threshold sits is normally found by numerical continuation, one parameter set at a time. We show it need not be. For any clearance network in which the damage influx is state-independent and mass balance accounts for all outflow, the Jacobian determinant factors as \(\det J = -(\nabla R \times \nabla G)\), where \(R\) is total removal flux and \(G\) the aggregate nullcline field. A saddle-node therefore occurs exactly at a constrained critical point of removal on the aggregate nullcline, and the critical influx is \(j_{crit} = R(u^{*}, a^{*})\) with no sweep required. The identity generalises to arbitrary state dimension, survives growth dilution, and survives the case in which the clearance machinery is itself damaged by the influx it clears. Three consequences follow. Collapse occurs while the machinery runs at roughly 6--18\% of maximum velocity, so the naive capacity ceiling overestimates the tolerable influx by about thirteenfold. Under cell division the ceiling fails outright, and the boundary of a dividing cell exists only because burden slows growth; the critical influx then decomposes exactly as \(j_{crit} = C_{enz}\cdot \varphi_{enz}/(1-\delta )\), with the enzymatic factor nearly invariant to division rate. When the machinery damages itself, a linear capacity ceiling becomes a square-root one. Against four published observations the underlying two-state model fails in a single direction: it cannot place a stable attractor at low burden. One of those failures resolves not by adding mechanism but by removing a requirement the data never imposed, which yields a falsifiable prediction: the aggregate load of an aging \emph{Escherichia coli} old-pole cell must lie between 0.047\% and roughly 0.5\% of total protein, depending on how much of that aggregate sits in the visible polar focus, and in every case below the current detection bound.
+\end{abstract}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\noindent\textbf{MSC} 92C40 (primary); 37G10, 34C23, 92C42 (secondary)
 
-\subsection{1. Introduction}\label{introduction}
+\noindent\textbf{Keywords} proteostasis; saddle-node bifurcation; conserved resource; collapse threshold; growth dilution; clearance network
+
+\medskip
+
+\section{Introduction}
 
 Protein quality control is a resource-limited clearance problem. Chaperones refold damaged monomers, proteases degrade them, and both draw on pools that are finite and shared. Damage arrives continuously from translation error, thermal stress, and oxidative modification. When influx exceeds what the machinery can dispose of, aggregate accumulates and the cell loses viability. That much is not controversial and is the shared premise of essentially every quantitative model of proteostasis.
 
@@ -107,9 +103,9 @@ The hypothesis this requires is weaker than it first appears, and identifying it
 
 Section 2 fixes the model class and states the hypotheses. Section 3 states and proves the theorem. Section 4 gives four corollaries: the \emph{n}-state generalisation, the decomposition under growth dilution, the behaviour under self-damaging capacity, and the square-root capacity ceiling that follows from it. Section 5 reports numerical verification. Sections 6 and 7 use the theorem to characterise the boundary and to cut a strategy space. Section 8 reports what happened when the model was put against published measurements, which is mostly failure, and Section 9 states what the theory predicts and what would falsify it.
 
-\subsection{2. The model class and its hypotheses}\label{the-model-class-and-its-hypotheses}
+\section{The model class and its hypotheses}
 
-\subsubsection{2.1 State equations}\label{state-equations}
+\subsection{State equations}
 
 Let \(u\) denote damaged or misfolded soluble monomer and \(a\) aggregate burden, in compatible concentration units. The baseline field is
 
@@ -147,7 +143,7 @@ R(u,a) = v_ref + v_degU + v_degA        G(u,a) = da/dt
 
 \(R\) is what leaves the damaged compartment; \(G\) is the non-influx equation. Both are used throughout with these meanings.
 
-\subsubsection{2.2 Hypotheses}\label{hypotheses}
+\subsection{Hypotheses}
 
 \textbf{H1 (state-independent influx).} The damage influx \(j\) is a parameter. It appears additively in \(du/dt\) and does not appear in \(da/dt\).
 
@@ -161,7 +157,7 @@ R(u,a) = v_ref + v_degU + v_degA        G(u,a) = da/dt
 
 \emph{Remark 2.} H4 is false in cells in two known respects. Aggregates in \emph{E. coli} are spatially segregated into polar inclusion bodies rather than well mixed, and molecule numbers per damaged species are small. Both push in the same direction: noise-induced escape precedes the deterministic fold, so a measured boundary should sit below \(j_{crit}\) and be smeared across a population rather than sharp. We return to this in Section 9.
 
-\subsection{3. The theorem}\label{the-theorem}
+\section{The theorem}
 
 \textbf{Theorem 1.} \emph{Under H1--H3, for the system of Section 2.1:}
 
@@ -205,12 +201,12 @@ At the base parameter point the Lagrange condition is visible directly rather th
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\linewidth,max width=\linewidth]{../figures/fig1.pdf}
-\caption{The collapse threshold as a constrained critical point. **(a)** Phase plane at the base parameter point. The aggregate nullcline $\{G = 0\}$ (dark) is a fixed curve; grey contours are total removal $R$. At the solved fold $(u^{*}, a^{*}) = (0.4166, 0.2650)$ the gradients $\nabla R$ and $\nabla G$ point the same way, which is the Lagrange condition of Theorem 1; they are drawn from offset origins because, being parallel, a common origin hides one behind the other. The sine of the angle between them is $3.5e-10$. The critical influx is the removal flux evaluated there, $j_{crit} = R(u^{*}, a^{*}) = 0.1542$. **(b)** Both equilibrium coordinates against influx, traced along the same curve. Cramer's rule on the two columns gives $du^{*}/dj = -G_{a}/\det J$ and $da^{*}/dj = G_{u}/\det J$, so the branch carries two distinct, ordered singularities. At $j_{turn} = 0.15409$ the soluble pool has a HORIZONTAL tangent, where $G_{a} = 0$; this is a regular point of the branch, since $\det J = R_{a}\cdot G_{u} = 2.027e-03$ there rather than zero, and it lies on the stable branch at $j_{turn}/j_{crit} = 0.9990$. At $j_{crit}$ both coordinates have a VERTICAL tangent, which is $\det J = 0$. The inset is a ×182 zoom on the same computed data, not a schematic. The aggregate coordinate has no horizontal tangent anywhere: $G_{u} > 0$ at all 305 traced points (minimum 2.08e-03), and in 40 draws from the parameter box no point with $G_{u} < 0$ was found, for the reason given in Section 3.1.}
+\includegraphics[max width=\linewidth]{../figures/fig1.pdf}
+\caption{The collapse threshold as a constrained critical point. \textbf{(a)} Phase plane at the base parameter point. The aggregate nullcline $\{G = 0\}$ (dark) is a fixed curve; grey contours are total removal $R$. At the solved fold $(u\emph\{, a\}) = (0.4166, 0.2650)$ the gradients $\nabla R$ and $\nabla G$ point the same way, which is the Lagrange condition of Theorem 1; they are drawn from offset origins because, being parallel, a common origin hides one behind the other. The sine of the angle between them is $3.5\times 10^{-10}$. The critical influx is the removal flux evaluated there, $j_{crit} = R(u\emph\{, a\}) = 0.1542$. \textbf{(b)} Both equilibrium coordinates against influx, traced along the same curve. Cramer's rule on the two columns gives $du\emph\{/dj = -G_{a}/\det J$ and $da\}/dj = G_{u}/\det J$, so the branch carries two distinct, ordered singularities. At $j_{turn} = 0.15409$ the soluble pool has a HORIZONTAL tangent, where $G_{a} = 0$; this is a regular point of the branch, since $\det J = R_{a}\cdot G_{u} = 2.027\times 10^{-3}$ there rather than zero, and it lies on the stable branch at $j_{turn}/j_{crit} = 0.9990$. At $j_{crit}$ both coordinates have a VERTICAL tangent, which is $\det J = 0$. The inset is a ×182 zoom on the same computed data, not a schematic. The aggregate coordinate has no horizontal tangent anywhere: $G_{u} > 0$ at all 305 traced points (minimum $2.08\times 10^{-3}$), and in 40 draws from the parameter box no point with $G_{u} < 0$ was found, for the reason given in Section 3.1.}
 \label{fig:fig1}
 \end{figure}
 
-\subsubsection{3.1 Relation to infinitesimal homeostasis}\label{relation-to-infinitesimal-homeostasis}
+\subsection{Relation to infinitesimal homeostasis}
 
 Theorem 1 sits close to an existing body of work, and the relation needs stating precisely because the hypotheses nearly coincide.
 
@@ -236,9 +232,9 @@ Whether the combinatorial machinery transfers is open and worth having. A Froben
 
 The complementary question, when regulation fails rather than when it holds, was raised early in that literature and has been developed less. Nijhout et al.~(2014) ask what happens when a homeostatic mechanism is pushed past its range, and Reed et al.~(2018) treat homeostasis at equilibria that are not stable. Both predate the determinant machinery and neither is a singularity-theoretic account of the failure. Theorem 1 supplies one for the case in which the failure is a fold.
 
-\subsection{4. Extensions}\label{extensions}
+\section{Extensions}
 
-\subsubsection{4.1 Arbitrary state dimension}\label{arbitrary-state-dimension}
+\subsection{Arbitrary state dimension}
 
 The standing objection to Theorem 1 is that its exactness might be a property of a two-state reduction rather than of clearance networks. It is not.
 
@@ -254,7 +250,7 @@ The proof is the same row operation applied to the first row of an \emph{n} × \
 
 We verified Corollary 2 on a three-state system in which the chaperone pool is dynamical under σ32-style control, with synthesis rising as free chaperone falls, which is the actual titration mechanism rather than a phenomenological feedback. Median relative error of the identity is 0.000×10⁰ unregulated and 2.5×10⁻¹¹ to 2.9×10⁻¹¹ regulated, with the \(\sigma_{0} \to 0\) limit reproducing the two-state field exactly. A separate three-state extension splitting aggregate into reactive and sequestered compartments (Section 8.3) gives median 1.5×10⁻¹² and maximum 4.7×10⁻¹¹ over the complete 144-point grid of sequestration settings, growth laws, states and growth-cost conventions.
 
-\subsubsection{4.2 Growth dilution, and why the capacity bound fails}\label{growth-dilution-and-why-the-capacity-bound-fails}
+\subsection{Growth dilution, and why the capacity bound fails}
 
 The model as stated has no cell division, and for most bacterial proteins dilution outpaces proteolysis. Adding it leaves the theorem intact and destroys the naive bound.
 
@@ -290,7 +286,7 @@ The two factors behave completely differently under division, and that asymmetry
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\linewidth,max width=\linewidth]{../figures/fig2.pdf}
+\includegraphics[max width=\linewidth]{../figures/fig2.pdf}
 \caption{The enzymatic condition for collapse is insensitive to division; the dilution share carries the variation. Both factors of Corollary 3 are plotted on one linear axis against the dilution rate, as a 33-point continuation at the base parameters under constant dilution — a complete enumeration of the sweep, not a sample. The shaded band spans the full range of $\varphi_{enz}$. Twin axes are avoided deliberately: rescaling the flat curve to fill the panel would make its variation look like structure, which would invert the reading. The flatness is not a flatness of the underlying state — $j_{crit}$ and the fold state $a^{*}$ both move substantially over this same sweep, by the amounts given above.}
 \label{fig:fig2}
 \end{figure}
@@ -299,7 +295,7 @@ Across 25 parameter draws having a boundary at \(\mu = 0\), 23 lose it under con
 
 Calibrating the growth-burden coupling against a measured dosage-response --- a 3.2\% growth rate reduction when misfolded YFP represents less than 0.1\% of total cellular protein (Geiler-Samerotte et al.~2011) --- gives slope 32 per unit misfolded proteome fraction and linear arrest at fraction 0.03125, both bounds rather than point values. Under this calibration a boundary survives in 30 of 30 cells with \(\varphi_{enz}\) confined to 0.072--0.147. The destruction of the boundary under constant dilution is therefore an artifact of omitting the measured coupling, not a prediction.
 
-\subsubsection{4.3 Self-damaging machinery}\label{self-damaging-machinery}
+\subsection{Self-damaging machinery}
 
 In a cell, chaperones and proteases are themselves translated by the error-prone apparatus. Raising \(j\) degrades the machinery that clears the damage, so capacity is a decreasing function of the load. This is the case in which the strong reading of H1 fails.
 
@@ -323,31 +319,16 @@ A linear capacity ceiling becomes a square-root one: doubling the machinery buys
 
 Two limitations attach. Fold recovery is incomplete at large \(\varepsilon\): continuation with intermediate rungs recovers folds that a direct solve loses, but recovery counts are non-monotone in \(\varepsilon\) (influx 7/5/6/6/4, burden 6/7/7/4/2). A genuine loss of the boundary would be monotone, so this is continuation failure rather than folds disappearing, and where a fold does solve it is a real saddle-node: \(\sin (\nabla R, \nabla G)\) is below 2.0×10⁻⁹ at every one of the folds solved in this sweep, which is a complete enumeration of that sweep rather than a sample from it. The consequence is that Corollary 4 is least numerically checkable in exactly the regime where it would bind.
 
-\subsection{5. Numerical verification}\label{numerical-verification}
+\section{Numerical verification}
 
 Every quantity below is recomputed by the accompanying code and asserted by its test suite. Two distinct populations are involved and each row names its own, because they differ in what they vary and are therefore not interchangeable. The \textbf{load grid} holds kinetics fixed and sweeps the two load coordinates, nascent-chain occupancy against rescue allocation, giving 325 fold states; it answers how the boundary moves with load in one network. The \textbf{kinetic box} instead varies the kinetic parameters, 5000 Latin-hypercube draws of which 2884 admit a fold, and answers how the boundary varies across networks. Both are populations of folds, which is why a reader meeting 325 in one row and 2884 in another needs to be told which question each answers. Every entry uses the whole of its population; none is a subsample.
 
-Five of these values were previously reported from a 20-state random subsample of the load grid, under a normalisation discussed below, and all five moved when the full population was used: the median residual from 1.436×10⁻⁷ to 2.00×10⁻⁷ under the old normalisation, the correlation from +0.9987 to +0.9960, the \(|G|\) maximum from 8.2×10⁻¹⁰ to 1.63×10⁻⁹, the solver maximum from 6.652×10⁻⁷ to 7.56×10⁻⁷, and the tightest bracket in the population from \textbar λ\textbar{} = 4.2×10⁻⁹ to 8.10×10⁻¹⁰. \textbf{None of these changes weakens any claim made here.} The identity still sits at the differencing floor, the correlation is still decisive, and \(|G|\) at 1.63×10⁻⁹ remains four orders below anything that would affect a conclusion. We report the corrections explicitly rather than silently, because a section whose subject is exactness should survive arithmetic done by a reader.
+Five of these values were previously reported from a 20-state random subsample of the load grid, under a normalisation discussed below, and all five moved when the full population was used: the median residual from 1.436×10⁻⁷ to 2.00×10⁻⁷ under the old normalisation, the correlation from +0.9987 to +0.9960, the \(|G|\) maximum from 8.2×10⁻¹⁰ to 1.63×10⁻⁹, the solver maximum from 6.652×10⁻⁷ to 7.56×10⁻⁷, and the tightest bracket in the population from \(|\lambda | = 4.2\times 10^{-9}\) to \(8.10\times 10^{-10}\). \textbf{None of these changes weakens any claim made here.} The identity still sits at the differencing floor, the correlation is still decisive, and \(|G|\) at 1.63×10⁻⁹ remains four orders below anything that would affect a conclusion. We report the corrections explicitly rather than silently, because a section whose subject is exactness should survive arithmetic done by a reader.
 
 {\def\LTcaptype{none} % do not increment counter
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
+\begin{longtable}[]{@{}lllll@{}}
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-quantity
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-population
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-median
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-p99
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-max
-\end{minipage} \\
+quantity & population & median & p99 & max \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -364,13 +345,13 @@ dilution identity, burden-dependent \(\mu\) & base point & 4.7×10⁻¹⁰ & ---
 
 Each maximum is reported beside a p99 deliberately. A maximum grows with the size of the population it is drawn from, so the \(\varphi\) maximum of 7.25×10⁻⁹ over 2884 draws and the identity maximum of 1.29×10⁻⁹ over 325 are not comparable as stated, and neither is comparable to whatever a reader obtains on a rerun of a different size. The p99 is stable under resampling and carries the same bounding claim. Where a number below is doing bounding work, the p99 is the one to read.
 
-The identity residual sits at the differencing floor. The parallelism residual is not zero at the recorded states and should not be: those states are bracketed approximations whose leading eigenvalue is about −2×10⁻⁴ rather than 0. The +0.9960 correlation between parallelism error and recorded eigenvalue shows the residual is bracket tolerance rather than failure of the identity, and the log--log slope is 1.00, so sin(angle) is proportional to bracket looseness rather than merely increasing with it. The tightest-bracketed state in the population has \textbar λ\textbar{} = 8.10×10⁻¹⁰ and sin(angle) = 7.75×10⁻⁹.
+The identity residual sits at the differencing floor. The parallelism residual is not zero at the recorded states and should not be: those states are bracketed approximations whose leading eigenvalue is about −2×10⁻⁴ rather than 0. The +0.9960 correlation between parallelism error and recorded eigenvalue shows the residual is bracket tolerance rather than failure of the identity, and the log--log slope is 1.00, so sin(angle) is proportional to bracket looseness rather than merely increasing with it. The tightest-bracketed state in the population has \(|\lambda | = 8.10\times 10^{-10}\) and \(\sin (angle) = 7.75\times 10^{-9}\).
 
-The residual is normalised by \(|\nabla R||\nabla G|\) rather than by \(\max (|\det J|, |\operatorname{cross}|)\). The distinction matters, and not only for presentation: both \(\det J\) and the cross product vanish at a saddle-node, so the second normalisation is \(0/0\) at an exact fold and returns 1 regardless of how well the identity holds. Measured on the same 325 states, its residual correlates with the recorded eigenvalue at −0.835 in log--log, meaning it degrades as the bracket tightens on the true fold, and its maximum reaches 1.54×10⁻². The gradient normalisation correlates at +0.041 and its maximum is 1.29×10⁻⁹. Stated without a correlation, splitting the population at the median eigenvalue: the max-normalised residual has median 3.13×10⁻⁷ on the tighter-bracketed half against 1.46×10⁻⁷ on the looser, 2.15 times worse where it matters most. Correlations are reported in log--log throughout, matching the +0.9960 statistic above, and the raw Pearson values are −0.221 and +0.073, same signs and same conclusion. An earlier draft reported this pair as −0.262 and +0.060; those values were computed outside the repository and do not reproduce under any definition, and they understated the effect they were cited for. A verification statistic that worsens as it approaches the object being verified is the wrong statistic, and Fig. S1 reports the contrast.
+The residual is normalised by \(|\nabla R||\nabla G|\) rather than by \(\max (|\det J|, |\operatorname{cross}|)\). The distinction matters, and not only for presentation: both \(\det J\) and the cross product vanish at a saddle-node, so the second normalisation is \(0/0\) at an exact fold and returns 1 regardless of how well the identity holds. Measured on the same 325 states, its residual correlates with the recorded eigenvalue at −0.835 in log--log, meaning it degrades as the bracket tightens on the true fold, and its maximum reaches 1.54×10⁻². The gradient normalisation correlates at +0.041 and its maximum is 1.29×10⁻⁹. Stated without a correlation, splitting the population at the median eigenvalue: the max-normalised residual has median 3.13×10⁻⁷ on the tighter-bracketed half against 1.46×10⁻⁷ on the looser, 2.15 times worse where it matters most. Correlations are reported in log--log throughout, matching the +0.9960 statistic above, and the raw Pearson values are −0.221 and +0.073, same signs and same conclusion. An earlier draft reported this pair as −0.262 and +0.060; those values were computed outside the repository and do not reproduce under any definition, and they understated the effect they were cited for. A verification statistic that worsens as it approaches the object being verified is the wrong statistic, and Fig. S1 in the supplementary material reports the contrast.
 
 One caution on the self-damage check of Section 4.3. Because \(du/dt = j - R - G\) holds pointwise and the central-difference operator is linear, the check reproduces the row operation exactly at any step size and carries no truncation term. Measured slopes in the step size \(h\) are −0.97 and −0.94 with no V-shaped minimum over four decades, which is pure roundoff falling as \(h\) grows. The check therefore certifies that the implementation preserves mass balance; the analytic argument carries the theorem. Reporting the ladder at the customary \(h = 10^{-6}\) would have shown a spurious rise and invited a false alarm.
 
-\subsection{6. Where the boundary sits}\label{where-the-boundary-sits}
+\section{Where the boundary sits}
 
 The theorem locates the fold. It does not by itself say how far below the capacity ceiling that is. Writing \(R = c_{f} s_{ref} + \rho_{U} d_{f} s_{u} + \rho_{A} d_{f} s_{a}\) against \(\operatorname{ceiling} = c_{tot} + \rho_{U} d_{tot} + \rho_{A} d_{tot}\), and defining \(\varphi = j_{crit}/\operatorname{ceiling}\), the saturation fractions at the fold answer it.
 
@@ -391,7 +372,7 @@ shortfall recovered by removing sequestration & 12.6\% \\
 \end{longtable}
 }
 
-\textbf{Collapse occurs while the clearance machinery runs at roughly 6--18\% of V\_max.} It is not capacity exhaustion. Superlinear nucleation overtakes sublinear saturating removal long before removal maxes out, which makes the removal ceiling a correct bound that is about thirteenfold too loose to predict anything on its own.
+\textbf{Collapse occurs while the clearance machinery runs at roughly 6--18\% of \(V_{max}\).} It is not capacity exhaustion. Superlinear nucleation overtakes sublinear saturating removal long before removal maxes out, which makes the removal ceiling a correct bound that is about thirteenfold too loose to predict anything on its own.
 
 Two questions must not be merged here. Saturation dominates the \emph{magnitude} of \(\varphi\); the \emph{existence} of a turning point requires the aggregation runaway that drives the free pools down at high burden. The counterfactuals above answer the first only.
 
@@ -399,16 +380,16 @@ The medians above are computed over the whole kinetic box and no draw is exclude
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\linewidth,max width=\linewidth]{../figures/fig3.pdf}
+\includegraphics[max width=\linewidth]{../figures/fig3.pdf}
 \caption{Saturation of the clearance machinery at the collapse boundary, over all 2884 folds of the kinetic box, with no screen and no exclusion. Shaded strips are the full distributions, bars the p5–p95 span, open circles the medians tabulated above, against the dashed line at $s = 1$ that capacity exhaustion would predict. The spread is drawn as prominently as the centre because both halves of the claim matter: collapse occurs far below saturation, and the p5–p95 widths of 0.881, 0.876 and 0.863 are wide enough that a single measurement discriminates weakly. The inset is the sensitivity that rules out a screen, plotting the median $s_{a}$ of the survivors against the floor imposed on them.}
 \label{fig:fig3}
 \end{figure}
 
 The dispersion of these quantities is large enough to matter, and two attempts to reduce it failed. A properly nested design crossing 10 kinetic draws with a 7×7 load grid gives a between-to-within variance ratio for \(\varphi\) of 5.9, with per-network spread reaching 13.6× when both load coordinates sweep, overlapping the 8.86× between-network spread. Both figures are largest-observed values over the 10 draws of that design and so understate their populations; the overlap they establish is unaffected, since a larger sample can only widen it. \(\varphi\) is therefore network-characteristic but not load-invariant, and an earlier reading of it as a load-invariant material constant is withdrawn. Adding σ32-style regulation, on the hypothesis that a controlled cell sits where its controller puts it rather than where its raw kinetics do, \emph{widens} the p5--p95 width of \(s_{u}\) from 0.890 to 0.968 rather than narrowing it, both measured on that experiment's own 30 networks rather than on the kinetic box. The regulated median \(s_{u}\) of 0.323 against 0.169 unregulated points toward the capacity-exhaustion picture rather than away from it, though only 14 of 30 regulated networks converged against 24 unregulated, so it should not be quoted as a result without a larger sample.
 
-The defensible claim from this section is that the naive capacity bound is wrong by roughly an order of magnitude and that the boundary is a computable constrained critical point. Not that collapse occurs at any particular fraction of V\_max.
+The defensible claim from this section is that the naive capacity bound is wrong by roughly an order of magnitude and that the boundary is a computable constrained critical point. Not that collapse occurs at any particular fraction of \(V_{max}\).
 
-\subsection{7. The boundary as a constraint on strategy}\label{the-boundary-as-a-constraint-on-strategy}
+\section{The boundary as a constraint on strategy}
 
 The theorem supplies a constraint with no free parameters of its own, \(j(\alpha ,R) < j_{crit}(R)\), and that makes a trade-off surface computable. Take two strategy coordinates paid out of the same proteome: accuracy investment \(\alpha\), which lowers the error rate and hence the influx, and quality-control investment \(R\), which raises \(j_{crit}\). Both reduce the ribosomal share and therefore throughput. Cost forms are stipulated, not fitted.
 
@@ -420,16 +401,16 @@ This gives a precise and partly deflationary form to the expectation that evolut
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\linewidth,max width=\linewidth]{../figures/fig4.pdf}
+\includegraphics[max width=\linewidth]{../figures/fig4.pdf}
 \caption{The strategy front, and where along it the feasibility constraint actually binds. Grey points are all 469 feasible strategies on a 26×22 grid of ($\alpha$, $R$); coloured points are the 13 non-dominated ones, shaded by $j/j_{crit}$. The connecting line is grey rather than colour-mapped because nothing was solved between the 13 points and colour along a segment would assert values that were never computed. The star is the throughput optimum, obtained by tracing the feasibility boundary rather than from the grid, at $j/j_{crit} = 1.000000$; the best grid strategy reaches only 0.8975, and that gap is discretisation. The inset gives the deflationary half the same visual weight as the optimum: $j/j_{crit}$ along the front spans 0.227 to 0.965, so accuracy-favouring strategies sit far inside the envelope and only the throughput end presses on it.}
 \label{fig:fig4}
 \end{figure}
 
-\subsection{8. What the model class cannot do}\label{what-the-model-class-cannot-do}
+\section{What the model class cannot do}
 
 Sections 3 to 5 are mathematics. This section reports what happened when the model was put against published measurements, and the answer is that it failed three times in one direction before a fourth test showed that one of the failures was mis-specified. We report the sequence because the diagnosis is the useful part.
 
-\subsubsection{8.1 A measurement, misread}\label{a-measurement-misread}
+\subsection{A measurement, misread}
 
 The first target was the aging asymmetry in \emph{E. coli}: unstressed cells accumulate aggregates at the old pole and lose reproductive ability relative to new-pole progeny (Lindner et al.~2008). The abstract reports ``\textgreater30\% of the loss of reproductive ability,'' and the first two analysis cycles took 30\% as the measured growth-rate deficit.
 
@@ -437,7 +418,7 @@ That is a misreading, and by a factor of thirty. The full text gives both parts:
 
 An abstract is not a source for a number.
 
-\subsubsection{8.2 Three failures in one direction}\label{three-failures-in-one-direction}
+\subsection{Three failures in one direction}
 
 Three model variants were then scored against that band, each asking whether the model can produce a bistable system whose high-burden attractor carries a 1\% growth cost.
 
@@ -449,7 +430,7 @@ Adding a sequestered compartment --- aggregate drained into an inert pool that n
 
 A real old-pole \emph{E. coli} carries a visible inclusion body and still divides at 96--99\% of normal. Every high state this model can reach is a cell that has essentially stopped.
 
-\subsubsection{8.3 The requirement was never imposed}\label{the-requirement-was-never-imposed}
+\subsection{The requirement was never imposed}
 
 The three variants share an assumption that was never checked: that rejuvenation requires bistability. The reasoning was that a daughter inheriting less aggregate has nothing to be rejuvenated \emph{into} unless a second attractor exists.
 
@@ -461,7 +442,7 @@ Bistability is not required to explain the observation. The claim that rejuvenat
 
 This does not rescue the model class. It relocates the limitation. What the model cannot do is place a stable attractor at a 1\% growth cost, and nothing in Lindner et al.~asks it to.
 
-\subsubsection{8.4 The residual test, and why it is currently unmeasurable}\label{the-residual-test-and-why-it-is-currently-unmeasurable}
+\subsection{The residual test, and why it is currently unmeasurable}
 
 The partitioning model as first run had four free parameters against one target number, and a monotone one-parameter family crosses any band below its maximum. Two of them cancel analytically: with \(k_\mu = 0.03125/p_{qc}\) and a model burden of 1 corresponding to a proteome fraction of \(p_{qc}\), the scored quantity is \(32 \times (B_{old} - B_{new})\) as a proteome fraction exactly, so the quality-control proteome share and \(\mu_{0}\) enter only through the stationary load.
 
@@ -470,24 +451,9 @@ The partition rule is not a free coefficient, and it is not \(f = 1\) either. Li
 At each \(\beta\) the aging effect is \(64 \times a_{end}\) as a proteome fraction times a damping factor measuring the daughter's relaxation during its own generation. That factor is itself \(\beta\)-dependent, though weakly --- it is 0.355 over most of the range and falls to 0.346 as \(\beta\) approaches 1 --- and is measured at each \(\beta\) rather than carried over, because under two-compartment partitioning the new-pole daughter is no longer aggregate-free and so relaxes differently. Inverting the fixed band gives a requirement that scales as \(1/\beta\):
 
 {\def\LTcaptype{none} % do not increment counter
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
+\begin{longtable}[]{@{}lllll@{}}
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\(\beta\)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\(f_{eff}\)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-damping
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-required old-pole aggregate (\% of proteome)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-ratio to the Δ\emph{rpoH} load
-\end{minipage} \\
+\(\beta\) & \(f_{eff}\) & damping & required old-pole aggregate (\% of proteome) & ratio to the Δ\emph{rpoH} load \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -503,16 +469,16 @@ The nearest available measurement does not reach any row of it. Tomoyasu et al.~
 
 No source we could find bounds \(\beta\) under unstressed growth. Winkler et al.~(2010) report the ingredients separately and under heat stress, which is not the condition at issue, and combining them requires assumptions about focus number that conflict with the distribution Lindner et al.~measured in unstressed cells. We therefore quote the requirement as a \(\beta\)-indexed family rather than a number, spanning 0.047\% to roughly 0.5\% of the proteome over the plausible range, and note the direction: the less of the aggregate that sits in the focus, the more aggregate the account requires, and the closer the prediction moves to the only load anyone has measured. Plotting the family against that measurement shows both how far the two are from meeting and how fast the gap closes (Fig. 5). Over the plotted range the requirement stays between 3× and 214× below the sole reported aggregate load, reaching that closest approach only at \(\beta = 0.05\); at the three focal shares the measurement makes plausible it is at least fifteenfold below. No value of \(\beta\) in the plausible range puts the account in contact with an existing number.
 
-\textbackslash begin\{figure\}{[}htbp{]}
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=\linewidth,max width=\linewidth]{../figures/fig5.pdf}
-\textbackslash caption\{What the account requires of an old-pole cell. The band is the aggregate load implied by the measured lineage difference, as a fraction of total protein, against the share \(\beta\) of that aggregate held in the visible inclusion body. It scales as \(1/\beta\), a straight line on these axes, because only the focal share segregates asymmetrically. Vertical bars mark \(\beta = 1, 0.5, 0.25\), giving 0.05--0.08 \%, 0.09--0.16 \% and 0.18--0.31 \%. The shaded region is the only aggregate load measured in \emph{E. coli}, 5--10 \% of total protein in Δ\emph{rpoH} cells at 30 °C; wild-type aggregation at the same temperature is reported as undetected, which is a bound and not a value, so the requirement is consistent with everything measured and constrained by none of it. No lower limit on \(\beta\) is drawn, because none is defensible: combining Winkler et al.'s heat-stress counts to obtain one requires assuming two foci per cell, and Lindner et al.~report one focus in 46.5 \% of unstressed cells and two in 1.2 \%.\}
+\includegraphics[max width=\linewidth]{../figures/fig5.pdf}
+\caption{What the account requires of an old-pole cell. The band is the aggregate load implied by the measured lineage difference, as a fraction of total protein, against the share $\beta$ of that aggregate held in the visible inclusion body. It scales as $1/\beta$, a straight line on these axes, because only the focal share segregates asymmetrically. Vertical bars mark $\beta = 1, 0.5, 0.25$, giving 0.05–0.08 \%, 0.09–0.16 \% and 0.18–0.31 \%. The shaded region is the only aggregate load measured in \emph{E. coli}, 5–10 \% of total protein in Δ\emph{rpoH} cells at 30 °C; wild-type aggregation at the same temperature is reported as undetected, which is a bound and not a value, so the requirement is consistent with everything measured and constrained by none of it. No lower limit on $\beta$ is drawn, because none is defensible: combining Winkler et al.'s heat-stress counts to obtain one requires assuming two foci per cell, and Lindner et al. report one focus in 46.5 \% of unstressed cells and two in 1.2 \%.}
 \label{fig:fig5}
-\textbackslash end\{figure\}
+\end{figure}
 
 One measurement closes it. Quantitative fluorescence of the polar focus against total aggregated protein by sedimentation, in the same unstressed cells, fixes \(\beta\) and collapses the table to a single interval.
 
-\subsection{9. Predictions and falsification}\label{predictions-and-falsification}
+\section{Predictions and falsification}
 
 Four statements are worth separating by what would refute them.
 
@@ -526,7 +492,7 @@ Four statements are worth separating by what would refute them.
 
 \textbf{The measurement the theory most wants.} Whether growth arrest under misfolding burden is complete or merely asymptotic. Under the hyperbolic form, dilution keeps bounding the high-burden state and collapse is a reversible switch; under linear arrest, \(\mu\) reaches exactly zero and the high state is a runaway. The available dosage-response constrains the slope only below 0.1\% misfolded protein, roughly three decades below the arrest burden where the two forms diverge, so it cannot adjudicate. That single functional form decides whether losing proteostasis in a dividing cell is recoverable.
 
-\subsection{10. Discussion}\label{discussion}
+\section{Discussion}
 
 The threshold of a finite-resource clearance network is not something one has to find by sweeping. Given the removal flux and the aggregate nullcline, it is where their gradients become parallel, and the critical influx is the removal flux evaluated there. That statement requires no fitted parameter, holds for any number of states, survives growth dilution, and survives capacity that degrades with the load it carries.
 
@@ -544,22 +510,11 @@ The prediction that follows from Section 8.4 is the one a reader can act on. If 
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{Supplementary figure}\label{supplementary-figure}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\linewidth,max width=\linewidth]{../figures/figS1.pdf}
-\caption{The parallelism residual is bracket tolerance, not failure of the identity. Over all 325 folds of the load grid, $\sin \theta$ between $\nabla R$ and $\nabla G$ tracks the leading eigenvalue recorded at the same state across five decades, with a log–log correlation of +0.9960 and a slope of 1.00 — the residual is *proportional* to how loosely the state is bracketed, which is what bracket tolerance means and what a failing identity would not produce. The circled point is the tightest bracket in the population, $|\lambda | = 8.10\times 10^{-10}$ with $\sin \theta = 7.75\times 10^{-9}$. Normalisation, reported here rather than given a panel of its own: on these same 325 states the max-normalised residual correlates with $|\lambda |$ at −0.835 and reaches 1.54×10⁻², while the gradient-normalised residual used throughout correlates at +0.041 and reaches 1.29×10⁻⁹. The first degrades as the bracket tightens on the object it is meant to verify, because both $\det J$ and the cross product vanish at a saddle-node and their ratio is 0/0 there; the second does not. Every number in this caption is recomputed by \texttt{scripts/\allowbreak figures/\allowbreak fig\_identity.py:captionNumbers} and asserted by the test suite.}
-\label{fig:figS1}
-\end{figure}
-
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\subsection{Data and code availability}\label{data-and-code-availability}
+\section*{Data and code availability}
 
 All analysis code, the parameter configurations, and the test suite that asserts every numerical quantity reported here are at https://github.com/khatvangi/proteostasis-law-theory under the MIT licence. Archived version and DOI: https://doi.org/10.5281/zenodo.21794565 (concept DOI, resolving to the latest version). Every figure is regenerated by a script in \texttt{scripts/\allowbreak figures/\allowbreak }, each of which reads a reduced array carrying its own provenance --- population, count, and whether it is a subsample --- so the figures rebuild on a clean checkout without the run root. Detailed run outputs are regenerable from the tracked scripts; without the run root, artefact-dependent scripts print an explicit SKIP and exit 0 rather than passing silently.
 
-\subsection{References}\label{references}
+\section*{References}
 
 Antoneli F, Golubitsky M, Jin J, Stewart I (2025) Homeostasis in input-output networks: structure, classification and applications. \emph{Math Biosci}. arXiv:2405.03861
 
@@ -635,7 +590,7 @@ Winkler J, Seybert A, König L, Pruggnaller S, Haselmann U, Sourjik V, Weiss M, 
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsubsection{Reference verification}\label{reference-verification}
+\subsection*{Reference verification}
 
 All thirty-five references above were checked against PubMed records, not against
 secondary reference lists. Four corrections resulted.

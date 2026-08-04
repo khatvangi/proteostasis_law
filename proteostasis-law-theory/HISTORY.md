@@ -428,3 +428,36 @@ widths stay in prose because no figure carries that experiment.
 `tests/figures/test_figure_wiring.py` pins numbering-by-first-mention, prose
 citation before embed, caption-vs-text agreement against the generator, and the
 84/174 mm width and 234 mm height limits.
+
+**Q:** Prepare the LaTeX version and PDF; create the supplementary and finish it.
+
+**A:** D043. `scripts/manuscript/to_latex.py` generates `bmb_v4.{tex,pdf}` and
+`bmb_v4_supplementary.{tex,pdf}` from the markdown. The markdown stays the single
+source; the `.tex` files carry a do-not-edit banner. Supplementary is its own
+document with `\thefigure` = S1, S2, ... so the sequences cannot collide.
+
+276 backtick spans, exactly TWO of them literal code, so the rule is inverted:
+math by default, and a code-shaped span not in `CODE_SPANS` fails the build rather
+than rendering as math.
+
+**Four silent corruptions, every one found by rendering pages and reading them:**
+1. `j_crit` unbraced in math is `j_c` followed by "rit" — a different symbol, no
+   error, dozens of occurrences.
+2. An unescaped `%` in Figure 5's caption (the only one quoting percentages)
+   opened a LaTeX comment, swallowed the closing brace of `\caption{}`, made
+   pandoc escape the whole raw block, and the orphaned `\centering` **centred
+   every paragraph from section 10 to the end**. The build reported "figures 6".
+3. `width=\linewidth` scaled the 84 mm panels to the 160 mm text block, enlarging
+   their 7 pt labels by 1.9x and discarding the whole width discipline.
+4. pandoc refuses `$...$` with a space before the closing delimiter and escapes
+   both dollars; the Greek substitution left a trailing space.
+
+Plus double-numbered headings ("0.1 1. Introduction") and a byline printed twice.
+The heading fix asserts that LaTeX's counter reproduces the markdown's own numbers
+before stripping them, because the prose cross-references them.
+
+None of these raised an error. **Four of the last seven real defects in this
+project were found by looking at output, none by a passing test.**
+
+Main text 21 pages, supplementary 1. `tests/manuscript/test_to_latex.py`, 15
+checks.

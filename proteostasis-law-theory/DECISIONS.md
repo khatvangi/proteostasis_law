@@ -1585,3 +1585,64 @@ documents are corrected only if someone remembers. **The rule to carry forward: 
 correction is not applied until `grep` for the old value across the whole repository
 returns nothing outside a supersession note.** D038 said this and it was still not
 done, which is why it is now written as a step rather than an observation.
+
+
+## D043 — The submission PDF is generated from the markdown, not hand-ported
+
+`manuscript/bmb_v4.{tex,pdf}` and `manuscript/bmb_v4_supplementary.{tex,pdf}` are
+built by `scripts/manuscript/to_latex.py`. A hand-made `.tex` would be a second
+lineage for every number in the paper, which is the defect D041 found in the
+opposite direction; the markdown stays the single source and the `.tex` files
+carry a do-not-edit banner.
+
+**The supplementary is a separate document.** Journals take it as its own file, and
+a supplementary figure inside the main PDF is numbered as part of the paper.
+`\thefigure` is redefined to `S\arabic{figure}` there, so the two sequences cannot
+collide.
+
+### Every span is math unless declared code
+
+276 backtick spans; exactly TWO are literal code. A regex deciding which is which
+would silently mangle the paper, so the rule is inverted: math by default, and a
+span that LOOKS code-shaped but is not in `CODE_SPANS` raises. A new code span
+fails the build rather than rendering as mathematics.
+
+### Four silent corruptions, all found by rendering rather than by exit codes
+
+1. **`j_crit` in math is `j_c` followed by `rit`.** Multi-character subscripts must
+   be braced. Unbraced, it typesets as a different symbol and no error is raised.
+   This appears dozens of times in the paper.
+2. **An unescaped `%` in a caption centred the second half of the document.**
+   Figure 5's caption is the only one quoting percentages. `%` opens a LaTeX
+   comment, which swallowed the closing brace of `\caption{...}`; pandoc could not
+   find `\end{figure}`, escaped the entire raw block into `\textbackslash
+   begin\{figure\}`, and the orphaned `\centering` centred every paragraph from
+   section 10 to the end. The build reported "figures 6" throughout. The converter
+   now asserts that no raw block was escaped and that the `\includegraphics` count
+   matches the figures converted.
+3. **`width=\linewidth` threw away the entire width discipline.** The figures are
+   built at exactly 84 or 174 mm because that is what the journal specifies and
+   every font size in them was chosen for that width. Scaling an 84 mm panel to the
+   160 mm text block enlarged its 7 pt labels by 1.9x. Now `max width`, which
+   shrinks only what would overflow.
+4. **Pandoc will not parse `$...$` as math if a space precedes the closing
+   delimiter** — it escapes both dollars instead. The Greek substitution left a
+   trailing space, so `μ` rendered as a literal `$\mu$`.
+
+Two smaller ones: the markdown numbers its own headings and LaTeX numbers them
+again, giving "0.1 1. Introduction", so the manual number is stripped **after
+asserting that LaTeX's counter will produce the same number** — the prose
+cross-references those numbers, and a silent shift would break all of them. And
+the byline printed twice, because `\maketitle` and the markdown front matter both
+supply it.
+
+### What this cost, and the pattern
+
+Every one of these produced a valid PDF. Not one raised an error. They were found
+by rendering pages to PNG and reading them, which is the same method that found
+the fold sitting off its own nullcline (D034), the `0/0` caption metric (D035) and
+Figure 2's screen (D039). **Four of the last seven real defects in this project
+were found by looking at output, and none by a passing test.** The tests added
+here pin what rendering revealed; they could not have found it first.
+
+`tests/manuscript/test_to_latex.py`, 15 checks.
