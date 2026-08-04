@@ -385,3 +385,46 @@ statement of bracket tolerance than the correlation alone.
 
 **Remaining:** the optional sixth figure (spec not recoverable from the repo
 record), then Zenodo v1.1.0.
+
+**Q:** Build Figure 5 (phi_enz and delta against mu, supporting Corollary 3), then
+wire all the figures into the prose — callouts that read the panel, no duplication,
+four specific missing statements, caption/text cross-check, placement and size.
+Then cut v1.1.0.
+
+**A:** D042.
+
+**Numbering.** The dilution figure supports Corollary 3 in section 4.2, which
+precedes sections 6 and 7, so by order of first mention it is **Figure 2** and the
+saturation, front and beta figures shift to 3, 4, 5. It was specified as "Figure 5
+(optional sixth)" on BUILD order, which is not mention order — the same confusion
+that had the beta figure built before the two preceding it. Filenames are now
+semantic (`fig_dilution.py`, `saturation.tsv`) with the number in one `FIGURE`
+constant per script, so a reorder — including dropping this figure on page count —
+touches one line instead of renaming files. Manifest hashes unchanged by the
+rename, confirming only names moved.
+
+**Four missing statements added.** Section 3.1 now gives Fig. 1b's two ordered
+singularities with values and, in one sentence, that the root-finder's failure and
+the horizontal tangent are one locus. Section 6 states the no-screen decision and
+the sensitivity ladder in the prose. Section 5's contrast was already corrected.
+
+**Duplication resolved per case:** table keeps the medians, caption keeps the widths
+(section 9 now points at the panel instead of restating 0.876); the regulation
+widths stay in prose because no figure carries that experiment.
+
+**Two divergences found by wiring, neither by the test suite.**
+1. `fig_beta` used a single damping of 0.35 against a table built from the per-beta
+   measurement — every figure row ~1.5% off section 8.4. Damping is beta-dependent
+   (0.3462 at beta=1, ~0.355 below), now stored at full precision and interpolated.
+   Storing it at 3 decimals was tried first and lost agreement with D033 in the
+   fourth digit, which is how the precision requirement was found rather than
+   assumed. A slow test recomputes the cache so it is not an orphan.
+2. A Fig. 5 callout claimed the requirement never comes within fifteenfold of the
+   measured load. True at the three marked beta, **false at the left edge of the
+   figure's own x-axis**, where it closes to 3.19x. Corrected to "3x to 214x".
+   A smaller one at the same site: 15.94x had been promoted to a claim of "16x or
+   more" by borrowing the table's rounding.
+
+`tests/figures/test_figure_wiring.py` pins numbering-by-first-mention, prose
+citation before embed, caption-vs-text agreement against the generator, and the
+84/174 mm width and 234 mm height limits.

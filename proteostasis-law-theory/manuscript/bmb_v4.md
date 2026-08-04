@@ -383,18 +383,18 @@ The partitioning model as first run had four free parameters against one target 
 
 The partition rule is not a free coefficient, and it is not `f = 1` either. Lindner et al. report that 52.3% of cells have no inclusion body, 46.5% have one, and 1.2% have two, and that new-pole progeny are devoid of parental inclusion bodies. The focus is a single indivisible object and goes entirely to one daughter. But the model's `a` is total aggregate, of which the visible focus is only a share. Writing `β` for the fraction of aggregate held in the focus, the old-pole daughter receives `(1+β)a` and the new-pole daughter `(1−β)a` after division into half the volume, which is exactly the scalar rule at `f_eff = (1+β)/2`. An earlier version of this analysis set `β = 1` without stating it and reported the result as parameter-free. That claim is withdrawn.
 
-At each `β` the aging effect is `64 × a_end` as a proteome fraction times a damping factor measuring the daughter's relaxation during its own generation, computed as 0.346–0.355 with weak `β` dependence. Inverting the fixed band gives a requirement that scales as `1/β`:
+At each `β` the aging effect is `64 × a_end` as a proteome fraction times a damping factor measuring the daughter's relaxation during its own generation. That factor is itself `β`-dependent, though weakly — it is 0.355 over most of the range and falls to 0.346 as `β` approaches 1 — and is measured at each `β` rather than carried over, because under two-compartment partitioning the new-pole daughter is no longer aggregate-free and so relaxes differently. Inverting the fixed band gives a requirement that scales as `1/β`:
 
-| `β` | `f_eff` | required old-pole aggregate (% of proteome) | ratio to the Δ*rpoH* load |
-|---|---|---|---|
-| 1.00 | 1.000 | 0.047 – 0.080 | 62× – 214× |
-| 0.75 | 0.875 | 0.061 – 0.104 | 48× – 165× |
-| 0.50 | 0.750 | 0.091 – 0.157 | 32× – 110× |
-| 0.25 | 0.625 | 0.182 – 0.314 | 16× – 55× |
+| `β` | `f_eff` | damping | required old-pole aggregate (% of proteome) | ratio to the Δ*rpoH* load |
+|---|---|---|---|---|
+| 1.00 | 1.000 | 0.3462 | 0.0467 – 0.0803 | 62× – 214× |
+| 0.75 | 0.875 | 0.3552 | 0.0607 – 0.1044 | 48× – 165× |
+| 0.50 | 0.750 | 0.3549 | 0.0911 – 0.1567 | 32× – 110× |
+| 0.25 | 0.625 | 0.3546 | 0.1824 – 0.3137 | 16× – 55× |
 
 The nearest available measurement does not reach any row of it. Tomoyasu et al. (2001) report 5–10% of total protein aggregated in Δ*rpoH* mutants at 30 °C and no detectable aggregation in *rpoH*⁺ cells at the same temperature, so wild type is a bound rather than a value.
 
-No source we could find bounds `β` under unstressed growth. Winkler et al. (2010) report the ingredients separately and under heat stress, which is not the condition at issue, and combining them requires assumptions about focus number that conflict with the distribution Lindner et al. measured in unstressed cells. We therefore quote the requirement as a `β`-indexed family rather than a number, spanning 0.047% to roughly 0.5% of the proteome over the plausible range, and note the direction: the less of the aggregate that sits in the focus, the more aggregate the account requires, and the closer the prediction moves to the only load anyone has measured. Plotting the family against that measurement shows how far the two are from meeting: nowhere on the plotted range does the requirement come within a factor of fifteen of the sole reported aggregate load, so no value of `β` puts the account in contact with an existing number (Fig. 5).
+No source we could find bounds `β` under unstressed growth. Winkler et al. (2010) report the ingredients separately and under heat stress, which is not the condition at issue, and combining them requires assumptions about focus number that conflict with the distribution Lindner et al. measured in unstressed cells. We therefore quote the requirement as a `β`-indexed family rather than a number, spanning 0.047% to roughly 0.5% of the proteome over the plausible range, and note the direction: the less of the aggregate that sits in the focus, the more aggregate the account requires, and the closer the prediction moves to the only load anyone has measured. Plotting the family against that measurement shows both how far the two are from meeting and how fast the gap closes (Fig. 5). Over the plotted range the requirement stays between 3× and 214× below the sole reported aggregate load, reaching that closest approach only at `β = 0.05`; at the three focal shares the measurement makes plausible it is at least fifteenfold below. No value of `β` in the plausible range puts the account in contact with an existing number.
 
 ![Figure 5](../figures/fig5.pdf)
 
@@ -403,7 +403,7 @@ aggregate load implied by the measured lineage difference, as a fraction of tota
 protein, against the share `β` of that aggregate held in the visible inclusion
 body. It scales as `1/β`, a straight line on these axes, because only the focal
 share segregates asymmetrically. Vertical bars mark `β = 1, 0.5, 0.25`, giving
-0.05–0.08 %, 0.09–0.16 % and 0.18–0.32 %. The shaded region is the only aggregate
+0.05–0.08 %, 0.09–0.16 % and 0.18–0.31 %. The shaded region is the only aggregate
 load measured in *E. coli*, 5–10 % of total protein in Δ*rpoH* cells at 30 °C;
 wild-type aggregation at the same temperature is reported as undetected, which is
 a bound and not a value, so the requirement is consistent with everything measured
@@ -464,13 +464,13 @@ throughout correlates at +0.041 and reaches 1.29×10⁻⁹. The first degrades a
 bracket tightens on the object it is meant to verify, because both `det J` and the
 cross product vanish at a saddle-node and their ratio is 0/0 there; the second does
 not. Every number in this caption is recomputed by
-`scripts/figures/figS1.py:captionNumbers` and asserted by the test suite.
+`scripts/figures/fig_identity.py:captionNumbers` and asserted by the test suite.
 
 ---
 
 ## Data and code availability
 
-All analysis code, the parameter configurations, and the test suite that asserts every numerical quantity reported here are at https://github.com/khatvangi/proteostasis-law-theory under the MIT licence. Archived version and DOI: https://doi.org/10.5281/zenodo.21794565 (concept DOI, resolving to the latest version; v1.0.0 is https://doi.org/10.5281/zenodo.21794566). Detailed run outputs are regenerable from the tracked scripts; without the run root, artefact-dependent scripts print an explicit SKIP and exit 0 rather than passing silently.
+All analysis code, the parameter configurations, and the test suite that asserts every numerical quantity reported here are at https://github.com/khatvangi/proteostasis-law-theory under the MIT licence. Archived version and DOI: https://doi.org/10.5281/zenodo.21794565 (concept DOI, resolving to the latest version). Every figure is regenerated by a script in `scripts/figures/`, each of which reads a reduced array carrying its own provenance — population, count, and whether it is a subsample — so the figures rebuild on a clean checkout without the run root. Detailed run outputs are regenerable from the tracked scripts; without the run root, artefact-dependent scripts print an explicit SKIP and exit 0 rather than passing silently.
 
 ## References
 

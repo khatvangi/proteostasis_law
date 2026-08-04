@@ -1152,7 +1152,7 @@ vanish at a saddle-node. Over the whole load grid of 325 folds:
 **Four entries corrected by D041.** This table first read `1.55e-02`, `-0.262` and
 `+0.060`, and gave the median split below as 2.79e-07 against 1.38e-07. Those four
 were computed in-session and never by committed code; none reproduces. The values
-above come from `scripts/figures/figS1.py:captionNumbers`, over the same complete
+above come from `scripts/figures/fig_identity.py:captionNumbers`, over the same complete
 325. Every correction moves in the same direction, which is that the defect is
 LARGER than this entry claimed when it diagnosed it.
 
@@ -1442,7 +1442,7 @@ max-normalised statistic degrades toward the object it verifies. At -0.835 it
 degrades far more decisively than at -0.262. Every correction here moves against
 the earlier reporting, so nothing was flattered in the direction of the argument.
 
-**The correction is structural, not a retyped number.** `scripts/figures/figS1.py`
+**The correction is structural, not a retyped number.** `scripts/figures/fig_identity.py`
 now owns every quantity §5's normalisation paragraph and Fig. S1's caption use, in
 one function, `captionNumbers`, which prints them all; a test asserts the
 manuscript against that function rather than against a stored value. The
@@ -1494,3 +1494,94 @@ than being quietly deleted. No test depended on the old default.
 One run now reproduces §5 end to end: median 2.340e-10, max 1.292e-09,
 corr +0.9960, solver max 7.564e-07, phi over 2884. Previously no single script
 printed those five.
+
+
+## D042 — The figures are wired into the prose, and two divergences surfaced doing it
+
+Five main figures and one supplementary now exist. Attaching them to the text is
+where the remaining defects were, because a figure and a paragraph reporting the
+same quantity are two lineages for one number.
+
+### Numbering follows first mention, so the new figure is Figure 2
+
+The dilution decomposition supports Corollary 3 in §4.2, which precedes §6 and §7.
+By order of first mention it is therefore **Figure 2**, and the saturation, front
+and beta figures shift to 3, 4 and 5. It was specified as "Figure 5 (optional
+sixth)" on build order, and build order is not mention order — the same confusion
+that had the beta figure built before the two that precede it.
+
+**Filenames are now semantic, not positional.** `fig_dilution.py`, not `fig5.py`;
+`saturation.tsv`, not `fig2_saturation.tsv`. Each script declares its number in one
+`FIGURE` constant and writes `figures/figN.*` from it. A positional scheme would
+have to be renamed again if this figure drops on page count, which is a live
+possibility, and the data files carried stale numbers into the sha256 manifest. The
+manifest hashes are unchanged by the rename, which confirms only names moved.
+
+### The prose reads the figures rather than pointing at them
+
+Added where the text was silent: §3.1 now states Fig. 1b's two ordered
+singularities with values (`j_turn = 0.154090`, `j_crit = 0.154239`,
+`det J = R_a·G_u = 2.02749e-03` at the turn) and, in one sentence, that the
+root-finder's failure and the horizontal tangent are the same locus rather than two
+problems. §6 states the no-screen decision with the sensitivity ladder in the prose
+where a reader meets the medians, not only in the caption.
+
+**Duplication resolved per case, recorded here.** §6's table keeps the medians and
+the Fig. 3 caption no longer restates them; the caption keeps the p5-p95 widths,
+which the table lacks, and §9 now points at the panel instead of restating 0.876.
+The regulation widths stay in prose because they belong to an experiment no figure
+carries — the distinction the sixth affected number turned on. §5's table and the
+S1 caption both carry +0.9960 because the panel renders it; a test asserts both
+against `captionNumbers` rather than against each other.
+
+### Divergence one: the beta figure used a single damping, the table used four
+
+`fig_beta.DAMPING = 0.35` against a table built from the per-beta measurement. Every
+row of the figure sat ~1.5% off §8.4, with no cause but convenience. The damping is
+weakly beta-dependent (0.3462 at beta = 1, 0.3544-0.3552 below) and is now stored at
+full precision in `asymmetric_division.DAMPING_BY_BETA` with `dampingAtBeta`
+interpolating between measured points. Storing it at 3 decimals was tried first and
+lost the agreement with D033 in the fourth digit, which is how the precision
+requirement was discovered rather than assumed.
+
+The stored table is a cache — `dampingForBeta` takes about a minute per beta — and
+a cached number with no live check is the D041 defect. `tests/phase3/
+test_asymmetric_division.py` recomputes it at both ends and asserts the cache.
+
+### Divergence two: a claim quoted at the marked beta, not over the plotted range
+
+Writing the Fig. 5 callout, the draft said the requirement never comes within a
+factor of fifteen of the only measured aggregate load. That is true at the three
+marked beta and **false at the left edge of the figure's own x-axis**: the range
+plotted runs to beta = 0.05, where the gap closes to **3.19x**. Corrected to
+"between 3x and 214x below", both computed by the figure script and asserted.
+
+A smaller one at the same site: the closest marked ratio is 15.94x, which the table
+correctly rounds to 16x, but the prose had promoted the rounded figure to a claim
+of "16x or more". It now says "at least fifteenfold", and a test bounds the value on
+both sides so neither the rounding nor the claim can drift.
+
+### What the wiring test pins
+
+`tests/figures/test_figure_wiring.py`: numbering follows first mention; every main
+figure is cited in prose BEFORE its embed; embed paths match their labels; each
+caption number agrees with the text number for the same quantity and both come from
+the generator; and every figure is 84 or 174 mm wide and under 234 mm tall.
+
+### A second lineage split, same shape as D038's
+
+Found by sweeping for stale values after the rename. D037 corrected the solver
+maximum from the 20-state draw's **6.652e-07** to **7.564e-07** over all 325, and
+D041 corrected the tightest bracket. Both reached the manuscript. Neither reached
+`STATUS.md` or `theory/FOLD_THEOREM.md`, which still carried 6.652e-07 in two
+places — and `FOLD_THEOREM.md`'s table sits directly under a banner reading "the
+values below are full-population", so the document asserted its own correctness
+while one row contradicted it. The `phi_enz` band was stale in the same two files
+(0.125-0.134 against a computed 0.1245-0.1343).
+
+This is the second occurrence of the identical failure in three decisions. The
+manuscript is corrected first because it is what gets read; the supporting
+documents are corrected only if someone remembers. **The rule to carry forward: a
+correction is not applied until `grep` for the old value across the whole repository
+returns nothing outside a supersession note.** D038 said this and it was still not
+done, which is why it is now written as a step rather than an observation.

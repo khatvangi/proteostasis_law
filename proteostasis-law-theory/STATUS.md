@@ -24,7 +24,8 @@ reported here came from a 20-state subsample under a normalisation that is `0/0`
 at an exact fold — see D035/D036), the parallelism residual
 correlates with the recorded leading eigenvalue at **+0.9960** — showing the
 residual is bracket tolerance and not a failure of the identity — and the 2x2
-solver reproduces the continuation-derived folds to **6.652e-07**. `phi` rebuilds
+solver reproduces the continuation-derived folds to **7.564e-07** over all
+325 (the **6.652e-07** previously reported here was the same 20-state subsample). `phi` rebuilds
 from first principles at all **2884** folds, median absolute error **1.3e-13**.
 
 **What sets phi.** At collapse the machinery runs at `s_ref` **0.175**, `s_u`
@@ -113,7 +114,7 @@ settings. Pinned by test so it cannot be edited away.
 **A margin that survives division (D014).** `j_crit = C_enz . phi_enz / (1-delta)`
 exactly (identity to 1.6e-16), with `phi_enz` the enzymatic capacity in use at
 collapse and `delta` the share of disposal done by division. `phi_enz` is nearly
-invariant to dilution (0.125–0.134) while `delta` carries the variation, so
+invariant to dilution (0.1245–0.1343) while `delta` carries the variation, so
 division multiplies tolerable influx by `1/(1-delta)` without changing the
 enzymatic condition. Across 25 draws, 23 lose their boundary under constant
 dilution; thresholds span 3.3 decades and `delta` at the threshold has median
@@ -472,7 +473,7 @@ run root through `determinantIdentity` itself. The measured values are **-0.835*
 and **+0.041** in log-log (-0.221 / +0.073 raw Pearson). **The claim strengthens:**
 the max-normalised statistic degrades toward the object it verifies far more
 decisively than reported, and every correction here moves against the earlier
-reporting. `scripts/figures/figS1.py:captionNumbers` now owns every number in that
+reporting. `scripts/figures/fig_identity.py:captionNumbers` now owns every number in that
 paragraph, and the test asserts the manuscript against that function rather than
 against a stored value.
 
@@ -485,6 +486,25 @@ tighter, so the uniqueness claim was false too. D037 and D038 enumerated every
 Figures 3 and S1 are built and reconciled: the front spans 0.227-0.965 with the
 optimum solved on the boundary at `j/j_crit = 1.000000`, and S1's log-log slope of
 **1.00** is a sharper statement of bracket tolerance than the correlation alone.
+
+**(!) All six figures exist and are wired into the prose (D042).** Five main and one
+supplementary, each cited in the text at the point it earns its place and embedded
+after that citation. **Numbering follows order of first mention**, so the dilution
+decomposition supporting Corollary 3 in §4.2 is **Figure 2** and the saturation,
+front and beta figures are 3, 4 and 5 — build order is not mention order. Script and
+data filenames are now semantic (`fig_dilution.py`, `saturation.tsv`) with the number
+declared in one `FIGURE` constant per script, so a reorder touches one line rather
+than renaming files. The data manifest's sha256 hashes are unchanged by the rename,
+which confirms only names moved.
+
+Attaching the figures surfaced two divergences, both now closed. `fig_beta` used a
+single damping of 0.35 where §8.4's table used the per-beta measurement, putting
+every row of the figure ~1.5% off the table; damping is now stored at full precision
+and interpolated, and a slow test recomputes it so the cache is not an orphan. And a
+Fig. 5 callout claimed the requirement never comes within fifteenfold of the measured
+load — true at the three marked `beta`, **false at the left edge of its own x-axis**,
+where the gap closes to 3.19x. Corrected to "between 3x and 214x below", computed by
+the figure script.
 
 Reproduce with `python scripts/phase3/fold_theorem.py`,
 `python scripts/phase3/dilution.py` and

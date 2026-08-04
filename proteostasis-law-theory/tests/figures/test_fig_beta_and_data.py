@@ -20,27 +20,29 @@ _DATA = _REPO_ROOT / "data" / "figures"
 _MANIFEST = _DATA / "MANIFEST.json"
 
 
-class TestFigureFourCaption(unittest.TestCase):
+class TestBetaFigureCaption(unittest.TestCase):
     def testTheThreeQuotedIntervalsAreRecomputed(self):
+        """damping is per-beta; a single value put every row ~1.5% off (D042)."""
         for beta, want in ((1.0, "0.05–0.08"), (0.5, "0.09–0.16"),
-                           (0.25, "0.18–0.32")):
-            lo, hi = A.requiredAggregateFractionBeta(beta, fig_beta.DAMPING)
+                           (0.25, "0.18–0.31")):
+            lo, hi = A.requiredAggregateFractionBeta(beta, A.dampingAtBeta(beta))
             self.assertEqual(f"{100*lo:.2f}–{100*hi:.2f}", want)
             self.assertIn(want, _MS)
 
-    def testTheDampingIsInTheMeasuredRange(self):
-        self.assertGreaterEqual(fig_beta.DAMPING, 0.346)
-        self.assertLessEqual(fig_beta.DAMPING, 0.355)
+    def testEveryStoredDampingIsInTheMeasuredRange(self):
+        for beta, d in A.DAMPING_BY_BETA:
+            self.assertGreaterEqual(d, 0.346)
+            self.assertLessEqual(d, 0.356)
 
     def testCaptionRefusesALowerBoundOnBeta(self):
-        cap = _MS[_MS.index("**Fig. 4**"):]
+        cap = _MS[_MS.index("**Fig. 5**"):]
         cap = cap[:cap.index("\n\n")]
         self.assertIn("No lower limit on `β` is drawn", cap)
         self.assertIn("46.5", cap)
         self.assertNotIn("0.145", cap)
 
     def testCaptionCallsTheWildTypeFigureABound(self):
-        cap = _MS[_MS.index("**Fig. 4**"):]
+        cap = _MS[_MS.index("**Fig. 5**"):]
         cap = cap[:cap.index("\n\n")]
         self.assertIn("a bound and not a value", cap)
 
@@ -120,7 +122,7 @@ if __name__ == "__main__":
     unittest.main()
 
 
-class TestFigureTwoMatchesSectionSix(unittest.TestCase):
+class TestSaturationFigureMatchesSectionSix(unittest.TestCase):
     """the screen that would have split figure from text is not applied (D039)."""
 
     def testNoScreenAndNoExclusion(self):
@@ -137,5 +139,16 @@ class TestFigureTwoMatchesSectionSix(unittest.TestCase):
             self.assertIn(f"{want:.3f}", _MS)
 
     def testTheWidthsAreQuotedWithTheirPopulation(self):
-        self.assertIn("0.876 over the kinetic box's 2884 folds", _MS)
+        """the kinetic-box widths moved into the caption; the regulation ones did not.
+
+        Section 9 used to restate the 0.876 width that the panel shows better, so it
+        now points at the figure instead. The REGULATION widths stay in the prose,
+        because they belong to a different experiment that no figure carries -- and
+        that distinction is exactly what the sixth affected number turned on (D039).
+        """
+        cap = _MS[_MS.index("**Fig. 3**"):]
+        cap = cap[:cap.index("\n\n")]
+        self.assertIn("all 2884 folds of the kinetic box", cap)
+        self.assertIn("0.876", cap)
+        self.assertNotIn("0.876", _MS[_MS.index("## 9. Predictions"):])
         self.assertIn("that experiment's own 30 networks", _MS)

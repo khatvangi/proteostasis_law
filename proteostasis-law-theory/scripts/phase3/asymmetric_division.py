@@ -340,8 +340,8 @@ SLOPE_PER_PROTEOME_FRACTION = 32.0
 # it is stored rather than recomputed at call time because each evaluation solves a
 # ladder of folds and takes minutes; `tests/phase3/test_asymmetric_division.py`
 # recomputes it and asserts these values, so it is a cache and not an orphan.
-DAMPING_BY_BETA = ((0.145, 0.355), (0.25, 0.355), (0.50, 0.355),
-                   (0.75, 0.355), (1.00, 0.346))
+DAMPING_BY_BETA = ((0.05, 0.3544), (0.25, 0.3546), (0.50, 0.3549),
+                   (0.75, 0.3552), (1.00, 0.3462))
 
 
 def dampingAtBeta(beta: float) -> float:

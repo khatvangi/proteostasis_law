@@ -133,16 +133,25 @@ class TestCaptionsAgreeWithTextAndWithTheGenerator(unittest.TestCase):
         """caption rounds to 2 dp and the section 8.4 table to 3; both from one solve."""
         o = fig_beta.build()
         cap = _captionOf("fig5")
-        lo1, hi1 = o["at_beta_1"]
-        lo25, hi25 = o["at_beta_025"]
+        # the generator returns proteome FRACTIONS; both table and caption are in %
+        lo1, hi1 = (100 * v for v in o["at_beta_1"])
+        lo25, hi25 = (100 * v for v in o["at_beta_025"])
         self.assertIn(f"{lo1:.2f}–{hi1:.2f} %", cap)
         self.assertIn(f"{lo25:.2f}–{hi25:.2f} %", cap)
-        # the table carries the same solve at one more digit
-        self.assertIn(f"{lo1:.3f}", _DOC)
-        self.assertIn(f"{hi25:.3f}", _DOC)
-        # and the closest approach the prose claims must hold against the measurement
-        self.assertGreater(o["rpoH"][0] / hi25, 15.0,
-                           "the 'factor of fifteen' claim in section 8.4 is wrong")
+        # the table carries the same solve at two more digits
+        self.assertIn(f"{lo1:.4f}", _DOC)
+        self.assertIn(f"{hi25:.4f}", _DOC)
+        # the prose quotes a closest approach over the WHOLE plotted range, not at
+        # the marked beta -- an earlier draft quoted the marked value and was wrong
+        # by a factor of five at the left edge of its own figure.
+        self.assertAlmostEqual(o["closest_ratio"], 3.19, places=2)
+        self.assertAlmostEqual(o["widest_ratio"], 214.0, delta=1.0)
+        self.assertIn("between 3× and 214× below", _DOC)
+        # 15.94, which the table rounds to 16x -- the prose says "at least
+        # fifteenfold" rather than sixteen, because 15.94 is not 16
+        self.assertGreater(100 * o["rpoH"][0] / hi25, 15.0)
+        self.assertLess(100 * o["rpoH"][0] / hi25, 16.0)
+        self.assertIn("at least fifteenfold below", _DOC)
 
     def testIdentityCaptionMatchesSectionFive(self):
         import pandas as pd

@@ -77,14 +77,14 @@ subject to `G = 0`. With (1), the critical value is `j_crit = R(u*,a*)`. ∎
 
 Against the Phase 1 run root, at the recorded fold states:
 
-**Corrected against D035/D036.** The values below are full-population and gradient-normalised. Earlier revisions of this table reported a 20-state random subsample of the 325-fold load grid under the `max(|det J|, |cross|)` normalisation, which is `0/0` at an exact fold: median 1.436e-07, correlation +0.9987, `|G|` max 8.2e-10. Each moved when the full population was used. This document is LIVE, so the table is corrected in place rather than bannered.
+**Corrected against D035/D036.** The values below are full-population and gradient-normalised. Earlier revisions of this table reported a 20-state random subsample of the 325-fold load grid under the `max(|det J|, |cross|)` normalisation, which is `0/0` at an exact fold: median 1.436e-07, correlation +0.9987, `|G|` max 8.2e-10, solver max 6.652e-07. Each moved when the full population was used. This document is LIVE, so the table is corrected in place rather than bannered.
 | quantity | value |
 |---|---|
 | `det J` vs `-(grad R x grad G)`, median residual (325) | **2.34e-10** |
 | the same, p99 / max | 9.67e-10 / 1.29e-09 |
 | correlation of `log sin(angle)` with `log \|eigenvalue\|` (325) | **+0.9960** |
 | `\|G\|` at recorded fold states (325), p99 / max | 9.40e-10 / 1.63e-09 |
-| solver `{G=0, det J=0}` vs the continuation sweep, max relative error | **6.652e-07** |
+| solver `{G=0, det J=0}` vs the continuation sweep (325), p99 / max | 7.20e-07 / **7.564e-07** |
 | `phi` rebuilt from first principles, 2884 folds, median / max error | **1.3e-13 / 7.3e-09** |
 
 The identity residual is at the central-difference floor. The parallelism
@@ -107,7 +107,7 @@ both missed this one because of its grammar.
 
 Neither `G = 0` nor `det J = 0` contains `j`, so fold location needs no
 continuation sweep. `foldSolve` in the phase 3 module solves the pair directly
-and reproduces the Phase 1 sweep to 6.7e-07. This is what makes the nested
+and reproduces the Phase 1 sweep to 7.6e-07 over all 325. This is what makes the nested
 design below affordable.
 
 ## Consequence 2 — what actually sets phi
@@ -274,7 +274,7 @@ Both are dimensionless and lie in [0,1). The identity is algebra and holds to
 | `phi_enz` | 0.1285 | 0.1321 | 0.1341 | 0.1335 | 0.1245 |
 | `delta` | 0 | 0.0876 | 0.1751 | 0.2671 | 0.3915 |
 
-**`phi_enz` is nearly invariant to dilution** (0.125–0.134, a ±4 % band) while
+**`phi_enz` is nearly invariant to dilution** (0.1245–0.1343, 7.5 % of its own mean) while
 `delta` carries essentially all the variation. So division does not change the
 enzymatic condition for collapse; it multiplies the tolerable influx by
 `1/(1 - delta)`. The escape in Consequence 5 is `delta` approaching 1, which

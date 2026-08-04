@@ -6,7 +6,7 @@ authors:
     given-names: Kiran
     orcid: "https://orcid.org/0000-0003-0751-6459"
     affiliation: "McNeese State University"
-version: 1.0.0
+version: 1.1.0
 doi: 10.5281/zenodo.21794565
 license: MIT
 repository-code: "https://github.com/khatvangi/proteostasis-law-theory"
@@ -16,7 +16,11 @@ identifiers:
     description: "Concept DOI, resolves to the latest version"
   - type: doi
     value: 10.5281/zenodo.21794566
-    description: "Version DOI for v1.0.0"
+    description: >-
+      Version DOI for v1.0.0. Superseded: v1.0.0 predates decisions D035-D042
+      and carries the 20-state subsample values and an unreproducible
+      normalisation contrast. Cite the concept DOI above, or the v1.1.0 version
+      DOI once minted.
 abstract: >-
   Derivation, verification and numerical study of the collapse boundary of a
   finite-resource proteostasis clearance network. The saddle-node of the

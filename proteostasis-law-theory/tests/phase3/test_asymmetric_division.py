@@ -250,3 +250,26 @@ class TestBetaTwoCompartmentPartition(unittest.TestCase):
         self.assertIn("We do not claim this", txt)
         self.assertIn("parameter-free", txt)
         self.assertIn("closes this", txt)
+
+
+class TestStoredDampingIsNotAnOrphan(unittest.TestCase):
+    """DAMPING_BY_BETA is a cache; this is the generator that justifies it (D042).
+
+    `dampingForBeta` solves a ladder of folds and takes about a minute per beta, so
+    the figure reads stored values rather than recomputing. A stored number with no
+    live check is exactly the defect D041 found in section 5, so the cache is
+    recomputed here. Two beta are checked rather than five: beta = 1, which is the
+    only point where the damping differs materially, and beta = 0.25, the smallest
+    focal share the manuscript tabulates.
+    """
+
+    def testTheCachedDampingReproducesAtBothEnds(self):
+        for beta in (1.00, 0.25):
+            stored = dict(A.DAMPING_BY_BETA)[beta]
+            live = A.dampingForBeta(beta)
+            self.assertAlmostEqual(live, stored, places=4,
+                                   msg=f"beta={beta}: cache {stored}, live {live}")
+
+    def testInterpolationReturnsMeasuredValuesAtMeasuredPoints(self):
+        for beta, d in A.DAMPING_BY_BETA:
+            self.assertAlmostEqual(A.dampingAtBeta(beta), d, places=12)

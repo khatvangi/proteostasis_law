@@ -39,14 +39,19 @@ import _figstyle as F  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402
 import asymmetric_division as A  # noqa: E402
 
-DAMPING = 0.35          # measured 0.346-0.355 across beta (D033); weakly dependent
+# damping is BETA-DEPENDENT and measured per beta (D033). An earlier version of
+# this figure used a single 0.35, which put every marked value ~1.5% off the
+# section 8.4 table -- a caption-against-text divergence with no cause but
+# convenience. `A.dampingAtBeta` interpolates the measured points, so the three
+# marked beta reproduce the table exactly.
+damping = A.dampingAtBeta
 
 
 def build():
     F.setStyle()
     betas = np.geomspace(0.05, 1.0, 200)
-    lo = np.array([A.requiredAggregateFractionBeta(b, DAMPING)[0] for b in betas])
-    hi = np.array([A.requiredAggregateFractionBeta(b, DAMPING)[1] for b in betas])
+    lo = np.array([A.requiredAggregateFractionBeta(b, damping(b))[0] for b in betas])
+    hi = np.array([A.requiredAggregateFractionBeta(b, damping(b))[1] for b in betas])
 
     fig, ax = plt.subplots(figsize=(F.W_DOUBLE, 0.80 * F.W_DOUBLE))
 
@@ -63,7 +68,7 @@ def build():
     ax.plot(betas, hi, color="#b3341f", lw=0.9)
 
     for b in (1.0, 0.5, 0.25):
-        l, h = A.requiredAggregateFractionBeta(b, DAMPING)
+        l, h = A.requiredAggregateFractionBeta(b, damping(b))
         ax.plot([b, b], [l, h], color="#7a1f0f", lw=1.6, solid_capstyle="butt",
                 zorder=4)
         ax.annotate(f"{100*l:.2f}–{100*h:.2f} %", xy=(b, h),
@@ -86,9 +91,15 @@ def build():
     F.widthCheck(fig, F.W_DOUBLE)
     hashes = F.save(fig, FIGURE)
     plt.close(fig)
-    return {"damping": DAMPING,
-            "at_beta_1": A.requiredAggregateFractionBeta(1.0, DAMPING),
-            "at_beta_025": A.requiredAggregateFractionBeta(0.25, DAMPING),
+    # the closest and widest separations from the only measured load, over the
+    # WHOLE plotted range rather than at the marked beta -- the prose quotes these
+    return {"damping_by_beta": A.DAMPING_BY_BETA,
+            "closest_ratio": float((rpo_lo / hi).min()),
+            "widest_ratio": float((rpo_hi / lo).max()),
+            "closest_at_beta": float(betas[(rpo_lo / hi).argmin()]),
+            "at_beta_1": A.requiredAggregateFractionBeta(1.0, damping(1.0)),
+            "at_beta_05": A.requiredAggregateFractionBeta(0.5, damping(0.5)),
+            "at_beta_025": A.requiredAggregateFractionBeta(0.25, damping(0.25)),
             "rpoH": (rpo_lo, rpo_hi), "hashes": hashes}
 
 

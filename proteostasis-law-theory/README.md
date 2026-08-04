@@ -23,13 +23,23 @@ Translation strategies occupy a Pareto trade-off surface involving productive th
 ## Reproducing the figures
 
 ```
-python scripts/figures/build_figure_data.py   # only script permitted to read the run root
-python scripts/figures/fig1.py                # the theorem, two panels
-python scripts/figures/fig2.py                # saturation at the boundary
-python scripts/figures/fig3.py                # the strategy front
-python scripts/figures/fig4.py                # the beta-indexed prediction
-python scripts/figures/figS1.py               # parallelism is bracket tolerance
+python scripts/figures/build_figure_data.py     # only script permitted to read the run root
+python scripts/figures/fig_theorem.py           # Fig. 1  the theorem, two panels
+python scripts/figures/fig_dilution.py          # Fig. 2  phi_enz flat, delta carries division
+python scripts/figures/fig_saturation.py        # Fig. 3  saturation at the boundary
+python scripts/figures/fig_front.py             # Fig. 4  the strategy front
+python scripts/figures/fig_beta.py              # Fig. 5  the beta-indexed prediction
+python scripts/figures/fig_identity.py          # Fig. S1 parallelism is bracket tolerance
 ```
+
+Script names are deliberately **semantic rather than positional**. Manuscript figures
+are numbered by order of first mention, so inserting one renumbers those after it;
+each script declares its number in a single `FIGURE` constant and writes
+`figures/figN.*` from that, so a reorder touches one line per script instead of
+renaming files. `tests/figures/test_figure_wiring.py` asserts that the numbering
+still follows first mention, that every figure is cited in the prose before it is
+embedded, and that no caption number disagrees with the text number for the same
+quantity.
 
 Each writes PDF, SVG and PNG to `figures/` with timestamps stripped, so an unchanged
 input gives byte-identical output and a rebuild produces a clean diff. No seaborn and
