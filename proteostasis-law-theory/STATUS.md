@@ -38,10 +38,14 @@ about 13x too loose to predict anything alone.
 **One earlier reading withdrawn (D009).** A within-draw comparison over the
 allocation `chi` alone gave a between/within variance ratio of 9.6, read as `phi`
 being a load-invariant network constant. The properly nested design — kinetic
-draws crossed with a `(nu, chi)` grid, 446 folds solved — gives **5.9**, with
-per-network spreads up to **13.6x** when both load coordinates sweep, overlapping
-the **8.86x** between-network spread. `phi` is network-characteristic but not
-load-invariant. Holding one load coordinate gives 1.59-1.80x.
+draws crossed with a `(nu, chi)` grid, 446 folds solved — gives **5.9**, with the
+per-network spread reaching **13.6x** in the worst of the 10 draws when both load
+coordinates sweep, overlapping the **8.86x** between-network spread. `phi` is
+network-characteristic but not load-invariant. Holding one load coordinate gives
+1.59-1.80x. Both spreads are largest-observed values over those 10 draws and so
+understate their populations (D038); the design was not sized to bound the
+per-network spread, and the stated position is that we cannot bound it. The
+overlap is unaffected, since more sampling can only widen it.
 
 **No empirical claim.** No organism data entered Phase 3 either. The sharpened
 prediction — collapse at `s_a` far below saturation, against the
@@ -439,13 +443,48 @@ One exact new necessary condition falls out: in influx mode `j <= C_0` becomes
 `j <= (sqrt(1 + 4.eps.C_0) - 1)/(2.eps)`, tending to `sqrt(C_0/eps)`. A linear
 capacity ceiling becomes a **square-root** one — doubling the machinery buys only
 `sqrt(2)` in tolerable error rate once the machinery is itself error-prone. It is
-never violated and never binding (`j_crit/j_max` median 0.039–0.186, max 0.623),
-so it is recorded as a bound, not as the boundary. Fold recovery at large `eps` is
+never violated and never binding (`j_crit/j_max` median 0.039–0.186, largest
+observed 0.623 over 8 drawn networks — a lower bound on the population maximum,
+not the maximum, per D038), so it is recorded as a bound, not as the boundary.
+The direction is harmless here: the ceiling is not binding at any value below 1. Fold recovery at large `eps` is
 incomplete and **non-monotone** in `eps`, which identifies it as continuation
 failure; folds are not reported as disappearing.
 
 A working manuscript for the whole phase 3 result is
 `manuscript/COLLAPSE_BOUNDARY.md`.
+
+**(!) A limitation was acting as a pre-authorised free parameter (D040).** The
+Figure 2 screen removed in D039 was not a figure-authoring mistake — it came from
+a standing limitation in `theory/FOLD_THEOREM.md`, written months earlier, reading
+"these should be screened rather than averaged into a median." A suspicion about
+data quality does not license a threshold, and the two claims are now stated
+separately: the draws are marginal, *and* no screen is defensible. Every
+limitation in `theory/`, `notes/` and this file was swept and classified as an
+observation, a restriction or a direction; **one** was in the third form and it is
+the one already found. Recorded as an audit form in `notes/VERIFICATION_RULE.md`
+and pinned by `tests/phase3/test_limitation_forms.py`.
+
+**(!) Section 5's normalisation contrast had no generator and does not reproduce
+(D041).** Found by reconciling Figure S1's numbers against the text before writing
+its caption. The published pair -0.262 / +0.060 appears in none of 48 correlation
+definitions over the complete 325, nor on the 20-state draw, recomputed from the
+run root through `determinantIdentity` itself. The measured values are **-0.835**
+and **+0.041** in log-log (-0.221 / +0.073 raw Pearson). **The claim strengthens:**
+the max-normalised statistic degrades toward the object it verifies far more
+decisively than reported, and every correction here moves against the earlier
+reporting. `scripts/figures/figS1.py:captionNumbers` now owns every number in that
+paragraph, and the test asserts the manuscript against that function rather than
+against a stored value.
+
+A **seventh** affected number came with it, in a form two extremum sweeps could not
+see: "the single state bracketed to eigenvalue -4.2e-9" is a MINIMUM written as a
+definite description. The full 325 reach `|eig| = 8.10e-10`, and three states are
+tighter, so the uniqueness claim was false too. D037 and D038 enumerated every
+`max`, `min` and "throughout" and missed it on grammar alone.
+
+Figures 3 and S1 are built and reconciled: the front spans 0.227-0.965 with the
+optimum solved on the boundary at `j/j_crit = 1.000000`, and S1's log-log slope of
+**1.00** is a sharper statement of bracket tolerance than the correlation alone.
 
 Reproduce with `python scripts/phase3/fold_theorem.py`,
 `python scripts/phase3/dilution.py` and

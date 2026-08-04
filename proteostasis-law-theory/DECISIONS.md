@@ -1144,16 +1144,23 @@ Recorded so the omissions are choices rather than oversights:
 `determinantIdentity`'s `rel_err` divides by `max(|det J|, |cross|)`, and BOTH
 vanish at a saddle-node. Over the whole load grid of 325 folds:
 
-| metric | median | p90 | max | corr with \|eig\| |
-|---|---|---|---|---|
-| max-normalised (what §5 reported) | 2.00e-07 | 7.81e-07 | **1.55e-02** | **-0.262** |
-| gradient-normalised (D027) | **2.34e-10** | 6.16e-10 | **1.29e-09** | +0.060 |
+| metric | median | p90 | max | corr with \|eig\|, log-log | raw Pearson |
+|---|---|---|---|---|---|
+| max-normalised (what §5 reported) | 2.00e-07 | 7.81e-07 | **1.54e-02** | **-0.835** | -0.221 |
+| gradient-normalised (D027) | **2.34e-10** | 6.16e-10 | **1.29e-09** | +0.041 | +0.073 |
+
+**Four entries corrected by D041.** This table first read `1.55e-02`, `-0.262` and
+`+0.060`, and gave the median split below as 2.79e-07 against 1.38e-07. Those four
+were computed in-session and never by committed code; none reproduces. The values
+above come from `scripts/figures/figS1.py:captionNumbers`, over the same complete
+325. Every correction moves in the same direction, which is that the defect is
+LARGER than this entry claimed when it diagnosed it.
 
 The negative correlation is the defect stated as a measurement: the error GROWS as
 the bracket tightens on the true fold. Splitting at the median eigenvalue, the
-tighter half has median 2.79e-07 against 1.38e-07 for the looser half, twice as
-bad when closer to the object being verified. The `1.55e-02` tail is what a
-referee would find in a paper whose selling point is exactness.
+tighter half has median 3.13e-07 against 1.46e-07 for the looser half, 2.15x worse
+when closer to the object being verified. The `1.54e-02` tail is what a referee
+would find in a paper whose selling point is exactness.
 
 **Correction: change the statistic.** §5 now reports the gradient-normalised
 residual and Fig. S1 carries the contrast rather than asserting it.
@@ -1343,3 +1350,147 @@ Per D038, corrected without extending §5's list. `s_u` p5-p95 width 0.890 was
 quoted in §9 as a general property; it is the REGULATION experiment's value over
 its own 30 networks. The kinetic box's 2884 give **0.876**. Both sites now name
 their population. Nothing material changes.
+
+
+## D040 — A limitation is an observation; the screen was a pre-authorised free parameter
+
+D039 removed Figure 2's screen. The screen was not a figure-authoring mistake. It
+came from a standing limitation in `theory/FOLD_THEOREM.md`, written months
+earlier, which read "these should be screened rather than averaged into a median."
+The defect was latent in the repository, recorded as a limitation, and would have
+propagated into the paper the first time anyone acted on it — which is what
+happened.
+
+The observation and the instruction are separable, and only the first survives.
+Those draws are marginal; the exclusion does not follow. Both claims are now
+stated separately at the site, with the tested reason the screen fails.
+
+### Sweep for other limitations phrased as directions
+
+`theory/`, `notes/` and `STATUS.md`, all limitation, caveat and open-question
+text. Classification: observation (safe), restriction (safe — adds a requirement
+rather than removing data), direction (a free parameter with prior
+authorisation).
+
+| site | form | verdict |
+|---|---|---|
+| `FOLD_THEOREM` — "these should be screened rather than averaged" | direction | **rewritten** |
+| `FOLD_THEOREM` — "should not be quoted as a result without a larger sample" | restriction | kept |
+| `FOLD_THEOREM` — "should not be quoted without stating which law produced them" | restriction | kept |
+| `FOLD_THEOREM` — "every `phi` ... should be read as `phi_enz` at `delta = 0`" | direction in grammar | kept — an algebraic identity, changes no number |
+| `FOLD_THEOREM` — "claims should be pitched accordingly" | direction about rhetoric | kept — touches no data |
+| `PREDICTIONS.md` — six "should" statements | hypotheses about the world | kept |
+| `DYNAMICAL_SYSTEM` / `MATCHED_IMPLEMENTATION_PROTOCOL` "must" statements | restrictions | kept |
+
+One in the dangerous form, and it is the one already found. Recorded in
+`notes/VERIFICATION_RULE.md` as an audit form so the next such bullet is caught
+when written rather than when acted on.
+
+### D038's relabelling had reached the manuscript only
+
+Found by this sweep, and it is the lineage-split failure `VERIFICATION_RULE.md`
+warns about, occurring inside the correction that introduced the warning. D038
+relabelled `j_crit/j_max` max 0.623 as a lower bound and the 13.6x per-network
+spread as largest-observed. Both were corrected in `manuscript/bmb_v4.md`. Neither
+was corrected in `STATUS.md` or `theory/FOLD_THEOREM.md`, which still read "up to
+13.6x", "as much as 13.6x" and "max 0.623" — three sites carrying the superseded
+form against a corrected manuscript. Now corrected at all sites.
+
+The 13.6x position is stated rather than left to be reconstructed under review:
+**the design was not sized to bound the per-network spread, and we cannot bound
+it.** That is a weak claim and it is the correct one. The overlap with the 8.86x
+between-network spread survives regardless, because more sampling only widens an
+overlap.
+
+### The sixth number was a different failure from the other five
+
+Recorded because the checklist did not distinguish them. Five were incomplete
+populations. The sixth — `s_u` p5–p95 0.890 attributed to the kinetic box when it
+belongs to the regulation experiment's 30 networks — is a complete population
+under the wrong sentence. "Is the population complete?" cannot catch it, because
+it is. `VERIFICATION_RULE.md` now asks both questions separately.
+
+
+## D041 — Section 5's normalisation contrast had no generator, and does not reproduce
+
+Found while building Figure S1, by the ordinary discipline of reconciling a
+figure's numbers against the text before writing its caption. §5 and D035 report
+that the max-normalised residual correlates with the recorded eigenvalue at
+**-0.262** and the gradient-normalised one at **+0.060**. Neither reproduces.
+
+Checked exhaustively on the complete 325-state load grid: two residual forms x
+{raw, log10} x four proximity variables x {Pearson, Spearman, Kendall} — 48
+combinations — and separately on the 20-state draw that caused D036, recomputed
+from the run root through `fold_theorem.determinantIdentity` itself. The published
+pair appears in none of them.
+
+| statistic | published | log-log | raw Pearson |
+|---|---|---|---|
+| max-normalised vs \|eig\| | -0.262 | **-0.835** | -0.221 |
+| gradient-normalised vs \|eig\| | +0.060 | **+0.041** | +0.073 |
+
+The medians and p90s in D035's table DO reproduce exactly, which is what made this
+hard to see: a wrong population would have moved every entry, and only some moved.
+The correlations, the max (1.55e-02 against a true 1.5448e-02) and the median split
+(2.79e-07 / 1.38e-07 against 3.13e-07 / 1.46e-07) came from a session computation
+that was never committed. This is precisely the failure `CLAUDE.md` names — a
+number whose lineage runs to a summary rather than to code — occurring inside the
+entry that diagnosed the metric defect.
+
+**The claim survives and strengthens.** The point of the number is that the
+max-normalised statistic degrades toward the object it verifies. At -0.835 it
+degrades far more decisively than at -0.262. Every correction here moves against
+the earlier reporting, so nothing was flattered in the direction of the argument.
+
+**The correction is structural, not a retyped number.** `scripts/figures/figS1.py`
+now owns every quantity §5's normalisation paragraph and Fig. S1's caption use, in
+one function, `captionNumbers`, which prints them all; a test asserts the
+manuscript against that function rather than against a stored value. The
+convention is stated in the paper: log-log throughout, matching the +0.9960
+statistic, with the raw Pearson given beside it so a reader who correlates the
+columns directly meets their own number instead of a discrepancy.
+
+### A seventh affected number, and a form the extremum sweeps could not see
+
+§5 read "the single state bracketed to eigenvalue -4.2e-9 has sin(angle) =
+3.8e-8". That state is the **minimum of the same 20-state draw**. Over the full
+325 the tightest bracket is |eig| = 8.10e-10 with sin = 7.75e-09, and three states
+are tighter than 4.2e-9 — so "the single state" was also false as a description.
+
+D037 and D038 swept every maximum, minimum, worst-case and "throughout" and both
+missed this, because it is an extremum wearing a **definite description**. "The
+single state where...", "the one draw that...", "the tightest/closest/last..." are
+extrema in prose form and carry the same `1 - k/N` bias. The audit criterion is
+extended to cover them in `notes/VERIFICATION_RULE.md`.
+
+The direction is the usual one: a subsample understates tightness, so the true
+tightest bracket is 5x tighter and its parallelism error 5x smaller than reported.
+The corrected number is better for the claim than the published one.
+
+### Two smaller repairs at the same site
+
+- §5 said "Three of these values were previously reported from a 20-state random
+  subsample" and then listed **four**. D037 added the solver maximum to the list
+  without updating the count. Now five, listing five.
+- Fig. S1 supplies a fact the text did not have: the log-log slope of sin(angle)
+  against |eig| is **1.00**. The parallelism error is *proportional* to bracket
+  looseness, not merely increasing in it, which is a sharper statement of "bracket
+  tolerance" than the correlation alone. Added to §5.
+
+### The generator that caused D036 was still armed
+
+`verifyAgainstRun(n_identity: int = 20)` still defaulted to a 20-of-325 draw. §5's
+numbers had been re-sourced elsewhere, so nothing was wrong in the paper — but the
+function whose printout a future session would read still silently subsampled, and
+still led with the retracted max-normalised residual. Correcting the numbers while
+leaving the mechanism armed is fixing the symptom.
+
+Default is now `None`, meaning the complete population; an integer still
+subsamples, deliberately, and the printout says `(SUBSAMPLE)` when it does. The
+gradient-normalised residual is the reported statistic and the max-normalised one
+is printed beneath it labelled RETRACTED, so the retraction stays visible rather
+than being quietly deleted. No test depended on the old default.
+
+One run now reproduces §5 end to end: median 2.340e-10, max 1.292e-09,
+corr +0.9960, solver max 7.564e-07, phi over 2884. Previously no single script
+printed those five.

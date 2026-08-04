@@ -91,8 +91,17 @@ The identity residual is at the central-difference floor. The parallelism
 residual is *not* zero at the recorded states, and should not be: those states
 are bracketed approximations whose leading eigenvalue is about −2e-4, not 0. The
 +0.9960 correlation between the parallelism error and the recorded eigenvalue
-shows the residual is bracket tolerance rather than a failure of the identity —
-the one state bracketed to `eig = -4.2e-9` has `sin(angle) = 3.8e-8`.
+shows the residual is bracket tolerance rather than a failure of the identity, and
+the log-log slope is **1.00**, so the parallelism error is *proportional* to
+bracket looseness rather than merely increasing in it. The tightest-bracketed
+state in the population has `|eig| = 8.10e-10` and `sin(angle) = 7.75e-09`.
+
+**Corrected against D041.** An earlier revision read "the one state bracketed to
+`eig = -4.2e-9` has `sin(angle) = 3.8e-8`". That was the MINIMUM of the same
+20-state draw D036 found, and three states in the full 325 are tighter, so the
+uniqueness claim was false as well. An extremum written as a definite description
+is still an extremum; D037 and D038 swept every `max`, `min` and "throughout" and
+both missed this one because of its grammar.
 
 ## Consequence 1 — the fold is a 2x2 root solve
 
@@ -138,15 +147,22 @@ them. `nestedInvariance` crosses them explicitly — 10 kinetic draws x a 7x7
 |---|---|
 | `chi` with `nu` held fixed | **1.80x** |
 | `nu` with `chi` held fixed | **1.59x** |
-| both jointly, worst network | up to 13.6x |
+| both jointly, worst of the 10 draws | **13.6x** observed |
 | the kinetic parameters `theta` | **8.86x** |
 
 Variance ratio between/within: **5.9**.
 
+**13.6x is a largest-observed value over 10 kinetic draws, not a bound** (D038).
+An extremum over a subsample understates its population by construction, and this
+design was not sized to bound the per-network spread — nothing here rules out a
+larger one, and if pressed the answer is that we did not sample enough to say.
+The conclusion the number supports is unaffected, because it is an *overlap* with
+the 8.86x between-network spread and more sampling can only widen an overlap.
+
 So `phi` is more a property of the network than of its load, but the earlier
 reading of it as a load-invariant material constant is **withdrawn**: holding one
-load coordinate gives ~1.6–1.8x, but sweeping both compounds to as much as 13.6x
-in some networks, which overlaps the between-network spread. Load-sensitivity is
+load coordinate gives ~1.6–1.8x, but sweeping both compounds to 13.6x in the
+worst of the ten draws, which overlaps the between-network spread. Load-sensitivity is
 itself network-dependent — two of ten draws show essentially none (1.01x, 1.03x
 across `nu`), two show 3.7–4.0x.
 
@@ -504,8 +520,17 @@ of V_max.
   `phi`, and the kappas set saturation, so the 8.86x between-network spread is
   partly a property of the sampling box rather than of biology.
 - **Some draws collapse at `s_a` near 0.003**, where aggregation is so fast the
-  low-burden branch barely exists. These should be screened rather than averaged
-  into a median.
+  low-burden branch barely exists. This is an observation about those draws and
+  not a licence to remove them. The two claims are separable and only the first
+  survives: the draws are marginal, *and* no screen is defensible. Tested in
+  D039 — on a log axis the distribution runs from 1e-5 to 1 with no gap, and the
+  median of the survivors slides continuously with the floor chosen (0.090 at
+  1e-4 through 0.355 at 2e-2), so any floor is a free parameter moving a
+  load-bearing number by a factor of four. An earlier revision of this bullet
+  read "these should be screened rather than averaged into a median," and the
+  first version of Figure 2 acted on it and produced a 5x figure-text divergence.
+  A limitation records what is true of the data; it does not authorise an
+  operation on it.
 
 ## Reproduction
 

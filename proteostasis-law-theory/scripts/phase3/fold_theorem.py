@@ -292,26 +292,49 @@ def phase1RunDir() -> Path:
     return cands[-1] if cands else root / "__missing__"
 
 
-def verifyAgainstRun(run: Optional[Path] = None, n_identity: int = 20) -> Dict[str, float]:
-    """recompute every phase 3 headline from the phase 1 artefacts."""
+def verifyAgainstRun(run: Optional[Path] = None,
+                     n_identity: Optional[int] = None) -> Dict[str, float]:
+    """recompute every phase 3 headline from the phase 1 artefacts.
+
+    `n_identity` DEFAULTED TO 20 and no longer does (D036, D041). A 20-of-325
+    draw silently supplied three headline numbers to section 5 and all three
+    flattered -- the maximum deterministically, since an extremum over a
+    subsample understates with probability `1 - k/N`. Pass an integer only to
+    subsample deliberately; None uses every recorded fold.
+
+    Two residuals are returned. `identity_rel_err_median` divides by
+    `max(|det J|, |cross|)`, and BOTH vanish at a saddle-node, so it is 0/0 at an
+    exact fold and degrades as the bracket tightens on the thing it verifies
+    (D035). It is kept only so the retraction stays visible. The reported
+    statistic is `identity_grad_err_median`, normalised by `|grad R||grad G|`.
+    """
     run = run or phase1RunDir()
     b = pd.read_csv(run / "B" / "fold_boundary.tsv", sep="\t")
     b = b[b["found"] == True]  # noqa: E712
     base = M.Params()
 
+    def _states(seed: int):
+        """the complete population unless a subsample is explicitly requested."""
+        return b if n_identity is None else b.sample(n=n_identity, random_state=seed)
+
     # (1) the determinant identity at recorded fold states
-    ident, para = [], []
-    for _, r in b.sample(n=n_identity, random_state=1).iterrows():
+    ident, grad_err, para = [], [], []
+    for _, r in _states(1).iterrows():
         p = M.allocationParams(base.with_(nu=float(r["nu"])), float(r["chi"])).validate()
-        d = determinantIdentity(float(r["fold_u"]), float(r["fold_a"]), p)
+        u, a = float(r["fold_u"]), float(r["fold_a"])
+        d = determinantIdentity(u, a, p)
         ident.append(d["rel_err"])
+        Ru, Ra = _centralGradient(removalR, u, a, p)
+        Gu, Ga = _centralGradient(aggregateG, u, a, p)
+        nRnG = max(float(np.hypot(Ru, Ra)) * float(np.hypot(Gu, Ga)), 1e-300)
+        grad_err.append(abs(d["det_J"] - d["minus_cross"]) / nRnG)
         # parallelism should scale with how close the bracketed state is to the
         # true saddle-node, measured by the recorded leading eigenvalue
         para.append((d["sin_angle"], abs(float(r["fold_eig_real_max"]))))
 
     # (2) the solver reproduces the continuation-derived fold
     soln = []
-    for _, r in b.sample(n=n_identity, random_state=3).iterrows():
+    for _, r in _states(3).iterrows():
         p = M.allocationParams(base.with_(nu=float(r["nu"])), float(r["chi"])).validate()
         out = foldSolve(p)
         if out is not None:
@@ -336,6 +359,9 @@ def verifyAgainstRun(run: Optional[Path] = None, n_identity: int = 20) -> Dict[s
 
     return {
         "n_identity": len(ident),
+        "identity_is_subsample": n_identity is not None,
+        "identity_grad_err_median": float(np.median(grad_err)),
+        "identity_grad_err_max": float(np.max(grad_err)),
         "identity_rel_err_median": float(np.median(ident)),
         "parallelism_tracks_eigenvalue": float(np.corrcoef(
             np.log10([x[0] for x in para]), np.log10([x[1] for x in para]))[0, 1]),
@@ -420,9 +446,14 @@ def main() -> int:
     print()
     v = verifyAgainstRun(run)
     print("THEOREM  det J == -(grad R x grad G)")
-    print("  states checked                    : %d" % v["n_identity"])
-    print("  median relative error             : %.3e  (central-difference floor)"
-          % v["identity_rel_err_median"])
+    print("  states checked                    : %d%s"
+          % (v["n_identity"], "  (SUBSAMPLE)" if v["identity_is_subsample"]
+             else "  (complete population)"))
+    print("  median | max residual             : %.3e | %.3e  (grad-normalised, "
+          "central-difference floor)"
+          % (v["identity_grad_err_median"], v["identity_grad_err_max"]))
+    print("  median residual, max-normalised   : %.3e  (RETRACTED metric, D035: "
+          "0/0 at an exact fold)" % v["identity_rel_err_median"])
     print("  corr(log sin-angle, log |eig|)    : %+.4f  (-> residual is bracket "
           "tolerance, not the identity)" % v["parallelism_tracks_eigenvalue"])
     print()

@@ -244,7 +244,7 @@ Two limitations attach. Fold recovery is incomplete at large `ε`: continuation 
 
 Every quantity below is recomputed by the accompanying code and asserted by its test suite. Two distinct populations are involved and each row names its own, because they differ in what they vary and are therefore not interchangeable. The **load grid** holds kinetics fixed and sweeps the two load coordinates, nascent-chain occupancy against rescue allocation, giving 325 fold states; it answers how the boundary moves with load in one network. The **kinetic box** instead varies the kinetic parameters, 5000 Latin-hypercube draws of which 2884 admit a fold, and answers how the boundary varies across networks. Both are populations of folds, which is why a reader meeting 325 in one row and 2884 in another needs to be told which question each answers. Every entry uses the whole of its population; none is a subsample.
 
-Three of these values were previously reported from a 20-state random subsample of the load grid, under a normalisation discussed below, and all three moved when the full population was used: the median residual from 1.436×10⁻⁷ to 2.00×10⁻⁷ under the old normalisation, the correlation from +0.9987 to +0.9960, and the `|G|` maximum from 8.2×10⁻¹⁰ to 1.63×10⁻⁹, and the solver maximum from 6.652×10⁻⁷ to 7.56×10⁻⁷. **None of these changes weakens any claim made here.** The identity still sits at the differencing floor, the correlation is still decisive, and `|G|` at 1.63×10⁻⁹ remains four orders below anything that would affect a conclusion. We report the corrections explicitly rather than silently, because a section whose subject is exactness should survive arithmetic done by a reader.
+Five of these values were previously reported from a 20-state random subsample of the load grid, under a normalisation discussed below, and all five moved when the full population was used: the median residual from 1.436×10⁻⁷ to 2.00×10⁻⁷ under the old normalisation, the correlation from +0.9987 to +0.9960, the `|G|` maximum from 8.2×10⁻¹⁰ to 1.63×10⁻⁹, the solver maximum from 6.652×10⁻⁷ to 7.56×10⁻⁷, and the tightest bracket in the population from |λ| = 4.2×10⁻⁹ to 8.10×10⁻¹⁰. **None of these changes weakens any claim made here.** The identity still sits at the differencing floor, the correlation is still decisive, and `|G|` at 1.63×10⁻⁹ remains four orders below anything that would affect a conclusion. We report the corrections explicitly rather than silently, because a section whose subject is exactness should survive arithmetic done by a reader.
 
 | quantity | population | median | p99 | max |
 |---|---|---|---|---|
@@ -258,9 +258,9 @@ Three of these values were previously reported from a 20-state random subsample 
 
 Each maximum is reported beside a p99 deliberately. A maximum grows with the size of the population it is drawn from, so the `φ` maximum of 7.25×10⁻⁹ over 2884 draws and the identity maximum of 1.29×10⁻⁹ over 325 are not comparable as stated, and neither is comparable to whatever a reader obtains on a rerun of a different size. The p99 is stable under resampling and carries the same bounding claim. Where a number below is doing bounding work, the p99 is the one to read.
 
-The identity residual sits at the differencing floor. The parallelism residual is not zero at the recorded states and should not be: those states are bracketed approximations whose leading eigenvalue is about −2×10⁻⁴ rather than 0. The +0.9960 correlation between parallelism error and recorded eigenvalue shows the residual is bracket tolerance rather than failure of the identity, and the single state bracketed to eigenvalue −4.2×10⁻⁹ has sin(angle) = 3.8×10⁻⁸.
+The identity residual sits at the differencing floor. The parallelism residual is not zero at the recorded states and should not be: those states are bracketed approximations whose leading eigenvalue is about −2×10⁻⁴ rather than 0. The +0.9960 correlation between parallelism error and recorded eigenvalue shows the residual is bracket tolerance rather than failure of the identity, and the log–log slope is 1.00, so sin(angle) is proportional to bracket looseness rather than merely increasing with it. The tightest-bracketed state in the population has |λ| = 8.10×10⁻¹⁰ and sin(angle) = 7.75×10⁻⁹.
 
-The residual is normalised by `|∇R||∇G|` rather than by `max(|det J|, |cross|)`. The distinction matters, and not only for presentation: both `det J` and the cross product vanish at a saddle-node, so the second normalisation is `0/0` at an exact fold and returns 1 regardless of how well the identity holds. Measured on the same 325 states, its residual correlates with the recorded eigenvalue at −0.262, meaning it degrades as the bracket tightens on the true fold, and its maximum reaches 1.5×10⁻². The gradient normalisation correlates at +0.060 and its maximum is 1.29×10⁻⁹. A verification statistic that worsens as it approaches the object being verified is the wrong statistic, and Fig. S1 reports the contrast.
+The residual is normalised by `|∇R||∇G|` rather than by `max(|det J|, |cross|)`. The distinction matters, and not only for presentation: both `det J` and the cross product vanish at a saddle-node, so the second normalisation is `0/0` at an exact fold and returns 1 regardless of how well the identity holds. Measured on the same 325 states, its residual correlates with the recorded eigenvalue at −0.835 in log–log, meaning it degrades as the bracket tightens on the true fold, and its maximum reaches 1.54×10⁻². The gradient normalisation correlates at +0.041 and its maximum is 1.29×10⁻⁹. Stated without a correlation, splitting the population at the median eigenvalue: the max-normalised residual has median 3.13×10⁻⁷ on the tighter-bracketed half against 1.46×10⁻⁷ on the looser, 2.15 times worse where it matters most. Correlations are reported in log–log throughout, matching the +0.9960 statistic above, and the raw Pearson values are −0.221 and +0.073, same signs and same conclusion. An earlier draft reported this pair as −0.262 and +0.060; those values were computed outside the repository and do not reproduce under any definition, and they understated the effect they were cited for. A verification statistic that worsens as it approaches the object being verified is the wrong statistic, and Fig. S1 reports the contrast.
 
 One caution on the self-damage check of Section 4.3. Because `du/dt = j − R − G` holds pointwise and the central-difference operator is linear, the check reproduces the row operation exactly at any step size and carries no truncation term. Measured slopes in the step size `h` are −0.97 and −0.94 with no V-shaped minimum over four decades, which is pure roundoff falling as `h` grows. The check therefore certifies that the implementation preserves mass balance; the analytic argument carries the theorem. Reporting the ladder at the customary `h = 10⁻⁶` would have shown a spurious rise and invited a false alarm.
 
@@ -309,6 +309,20 @@ The throughput optimum sits exactly on the feasibility boundary, at `j/j_crit = 
 The front is not uniformly at the boundary. Along the non-dominated set in (throughput, accuracy), `j/j_crit` runs 0.227 to 0.965. Accuracy-favouring strategies sit far inside the envelope; only the throughput-favouring end presses against it.
 
 This gives a precise and partly deflationary form to the expectation that evolution concentrates strategies near feasibility boundaries: it holds for throughput maximisers and fails for the rest of the front. A deterministic throughput maximiser has zero safety margin, so any observed margin must come from outside this model — noise, environmental fluctuation, or robustness against parameter uncertainty. The layer cannot adjudicate which, and does not claim to.
+
+![Figure 3](../figures/fig3.pdf)
+
+**Fig. 3** The strategy front, and where along it the feasibility constraint
+actually binds. Grey points are all 469 feasible strategies on a 26×22 grid of
+(`α`, `R`); coloured points are the 13 non-dominated ones, shaded by `j/j_crit`.
+The connecting line is grey rather than colour-mapped because nothing was solved
+between the 13 points and colour along a segment would assert values that were
+never computed. The star is the throughput optimum, obtained by tracing the
+feasibility boundary rather than from the grid, at `j/j_crit = 1.000000`; the best
+grid strategy reaches only 0.8975, and that gap is discretisation. The inset gives
+the deflationary half the same visual weight as the optimum: `j/j_crit` along the
+front spans 0.227 to 0.965, so accuracy-favouring strategies sit far inside the
+envelope and only the throughput end presses on it.
 
 ## 8. What the model class cannot do
 
@@ -412,6 +426,28 @@ The substantive disagreement is about mechanism. Titration accounts place collap
 Two limitations bound everything above. Deterministic well-mixed dynamics is false in the system we scored against — aggregates are spatially segregated and molecule numbers are small — and both effects place a measured boundary below the deterministic fold and smear it across a population. And the parameter box was chosen adversarially wide in the saturation constants, which set `φ`, so the 8.86× between-network spread is partly a property of the sampling rather than of biology.
 
 The prediction that follows from Section 8.4 is the one a reader can act on. If the aggregate burden of an aging *E. coli* old-pole cell falls outside the interval that Section 8.4 requires at the measured focal share, the account given here of the aging asymmetry is wrong. Two measurements decide it, and neither has been attempted as far as we can determine: the wild-type aggregate fraction under unstressed growth, and the share of that aggregate held in the polar focus.
+
+---
+
+## Supplementary figure
+
+![Figure S1](../figures/figS1.pdf)
+
+**Fig. S1** The parallelism residual is bracket tolerance, not failure of the
+identity. Over all 325 folds of the load grid, `sin θ` between `∇R` and `∇G`
+tracks the leading eigenvalue recorded at the same state across five decades, with
+a log–log correlation of +0.9960 and a slope of 1.00 — the residual is
+*proportional* to how loosely the state is bracketed, which is what bracket
+tolerance means and what a failing identity would not produce. The circled point
+is the tightest bracket in the population, `|λ| = 8.10×10⁻¹⁰` with
+`sin θ = 7.75×10⁻⁹`. Normalisation, reported here rather than given a panel of its
+own: on these same 325 states the max-normalised residual correlates with `|λ|` at
+−0.835 and reaches 1.54×10⁻², while the gradient-normalised residual used
+throughout correlates at +0.041 and reaches 1.29×10⁻⁹. The first degrades as the
+bracket tightens on the object it is meant to verify, because both `det J` and the
+cross product vanish at a saddle-node and their ratio is 0/0 there; the second does
+not. Every number in this caption is recomputed by
+`scripts/figures/figS1.py:captionNumbers` and asserted by the test suite.
 
 ---
 

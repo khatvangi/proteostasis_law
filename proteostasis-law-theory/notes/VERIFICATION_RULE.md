@@ -42,14 +42,33 @@ For a verification statistic the standard questions are:
       verified?** Measure it: correlate the residual against a proximity measure.
       A negative correlation means the number flatters itself.
 - [ ] **What population is it computed on, and is that the whole of it?** Record
-      the count and whether it is a subsample, at the point of use.
-- [ ] **Is the population the one the surrounding text describes?** Two
-      populations under one sentence is how "2884 folds" came to head a table
-      computed over 325.
+      the count and whether it is a subsample, at the point of use. Failure mode:
+      an INCOMPLETE population. "2884 folds" headed a table computed over 325.
+- [ ] **Is it the population the surrounding sentence is about?** A separate
+      failure mode, and the one the completeness check cannot catch, because
+      nothing is missing. The `s_u` p5–p95 width of 0.890 is correct and complete
+      over the regulation experiment's 30 networks; §9 quoted it as a general
+      property of the kinetic box, whose 2884 folds give 0.876. Right statistic,
+      wrong experiment. The two values agreed, so nothing moved — which is
+      precisely why it survived four earlier corrections. Ask both questions: is
+      the population whole, and is it the population this sentence claims.
 - [ ] **Is it an extremum?** A maximum or minimum over a subsample is optimistic
       BY CONSTRUCTION, not by chance: it understates with probability `1 - k/N`.
       Never subsample an extremum. Medians and correlations on a subsample are
       noisy but unbiased; extrema are biased.
+- [ ] **Is it an extremum in disguise?** Two sweeps of every max, min, worst-case
+      and "throughout" both missed "the single state bracketed to eigenvalue
+      -4.2e-9", which is a MINIMUM written as a definite description. "The single
+      state where...", "the one draw that...", "the tightest / closest / last /
+      only..." are extrema in prose and carry the same bias. The full population
+      was 5x tighter and had three such states, so the uniqueness claim was false
+      as well. Grep for the grammar, not only for the word.
+- [ ] **Can a committed script recompute it right now?** Not "was it computed
+      correctly" but "does the code that produces it exist in the repository". §5's
+      normalisation contrast (-0.262 and +0.060) was computed in-session, never
+      committed, and does not reproduce under any of 48 definitions (D041). The
+      medians beside it in the same table reproduced exactly, which is what hid it:
+      a wrong population moves every entry, an ad-hoc computation moves only some.
 - [ ] **Does this number appear elsewhere in the repository, and does that copy
       agree?** Grep it. A corrected value in one document and the original in
       another is a lineage split inside a single repository, which is the failure
@@ -88,6 +107,44 @@ exceed a maximum over 325 from the same distribution, so two maxima with differe
 denominators are not comparable, and neither is comparable to a reader's rerun at a
 third size. **Where a maximum is doing bounding work, report a high quantile beside
 it or instead of it.** A p99 is stable under resampling and carries the same claim.
+
+## A limitation is an observation, not a licence
+
+The worst defect in the figure work was not introduced by the figure work. A
+standing limitation in `theory/FOLD_THEOREM.md` read:
+
+> Some draws collapse at `s_a` near 0.003, where aggregation is so fast the
+> low-burden branch barely exists. **These should be screened rather than
+> averaged into a median.**
+
+The first sentence is an observation and may well be right. The second is an
+instruction, and it authorises an exclusion that no evidence supports. Acting on
+it produced a 5x divergence between Figure 2 and §6 before the screen was tested
+and abandoned (D039). The limitation had sat in the repository for months as a
+**pre-authorised free parameter**, waiting for the first person to act on it.
+
+**A suspicion about data quality does not license a threshold.** The two claims
+must be stated separately, because they have different evidential status and the
+first can survive the second's failure — as it did here.
+
+The audit form: enumerate every limitation, caveat and open-question note in the
+repository, and classify each as
+
+- **an observation** — "X is true of the data" — safe;
+- **a restriction** — "do not quote X without Y" — safe, and the opposite
+  direction, since it adds a requirement rather than removing data;
+- **a direction** — "X should be screened / dropped / excluded / substituted" —
+  a free parameter with prior authorisation. Rewrite as an observation, and if
+  the operation is genuinely wanted, make it a decision entry with a test.
+
+Sweeping `theory/`, `notes/` and `STATUS.md` on 2026-08-04 found exactly one in
+the third form: the bullet above. Near misses that are safe and were left alone:
+"should not be quoted as a result without a larger sample" and "should not be
+quoted without stating which law produced them" are restrictions; "every `phi` in
+Consequences 2 and 3 should be read as `phi_enz` at `delta = 0`" is a direction in
+grammar but an algebraic identity in content, so it changes no number; and the
+`should`s in `theory/PREDICTIONS.md` are hypotheses about the world, not
+instructions about the data.
 
 ## Where this applies
 

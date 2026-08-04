@@ -332,3 +332,56 @@ divergence. No screen, no exclusion; the complete 2884 reproduce section 6 exact
 
 **Remaining:** Figures 3, S1, 5; then Zenodo v1.1.0 so the archive captures the
 corrected state in one version.
+
+**Q:** The screen finding is not really about a figure. Check whether any other
+standing limitation in FOLD_THEOREM.md or STATUS.md is phrased as licensing an
+action; record that the sixth number was a different failure type; state the 13.6x
+position rather than leaving it to be reconstructed under review. Then figures 3,
+S1, 5.
+
+**A:** D040 and D041.
+
+Swept every limitation in `theory/`, `notes/` and STATUS.md, classified as
+observation / restriction / direction. **One** in the licensing form — the `s_a`
+screen already found. Near misses left alone and listed: "should not be quoted
+without X" is a restriction (adds a requirement, opposite direction); the `phi` ->
+`phi_enz` substitution is an algebraic identity; PREDICTIONS.md's "should"s are
+hypotheses about the world. Recorded as an audit form and pinned by
+`tests/phase3/test_limitation_forms.py`, which permits the banned phrasing where
+it is QUOTED and forbids it where asserted — an absence test would have failed on
+exactly the text that fixes the defect.
+
+The sweep also found that **D038's relabelling had reached the manuscript only**.
+STATUS.md and FOLD_THEOREM.md still read "up to 13.6x", "as much as 13.6x" and
+"max 0.623" against a corrected manuscript — the lineage-split failure, inside the
+correction that introduced the warning against it. Corrected at all sites, and the
+position is now written down: the design was not sized to bound the per-network
+spread and we cannot bound it.
+
+**Q:** (during Figure S1) reconcile its numbers against the text first.
+
+**A:** D041. Section 5's normalisation contrast **does not reproduce**. -0.262 and
++0.060 appear in none of 48 correlation definitions over the complete 325, nor on
+the 20-state draw, recomputed from the run root through `determinantIdentity`
+itself. Measured: **-0.835 / +0.041** log-log, -0.221 / +0.073 raw. The medians and
+p90s in the same table reproduce exactly, which is what hid it — a wrong population
+moves every entry, an ad-hoc computation moves only some. The claim STRENGTHENS:
+the degrading metric degrades more decisively than reported, and every correction
+moves against the earlier reporting. `figS1.py:captionNumbers` now owns every
+number in that paragraph and the test asserts the manuscript against the function.
+
+A **seventh** affected number: "the single state bracketed to eigenvalue -4.2e-9"
+is a MINIMUM written as a definite description, missed by two exhaustive extremum
+sweeps on grammar alone. Full population reaches 8.10e-10 with three states
+tighter, so the uniqueness claim was false as well. Also: the corrections paragraph
+said "Three of these values" and listed four.
+
+**Figures 3 and S1 built.** Fig 3 — front spans 0.227-0.965, optimum solved on the
+boundary at `j/j_crit = 1.000000` against the grid's 0.8975; connector drawn grey
+rather than colour-mapped because nothing was solved between the 13 points. Fig S1
+— the correlation panel, and it supplies a fact the text lacked: the log-log slope
+is **1.00**, so parallelism error is *proportional* to bracket looseness, a sharper
+statement of bracket tolerance than the correlation alone.
+
+**Remaining:** the optional sixth figure (spec not recoverable from the repo
+record), then Zenodo v1.1.0.
