@@ -101,6 +101,16 @@ solves `det J = 0` directly.
 
 ## D012 — Uniqueness holds without division and fails with it
 
+**(!) Empirical motivation withdrawn (D031).** The bistability of D012/D013 had
+one pull towards biology: rejuvenation appeared to require two attractors. It does
+not. Lindner's old-pole cell inherits a physical inclusion body at every division,
+a continuously renewed perturbation rather than an attractor, and a MONOSTABLE
+model reproduces the measured lineage difference. D012 and D013 are therefore
+model properties under a growth law the project has disqualified, and in the
+manuscript they appear as such. They are not a biological claim about how
+proteostasis is lost.
+
+
 Enumerating the whole aggregate nullcline, rather than the branch a bracketing
 heuristic happens to reach, settles the question D007 left open. Without dilution
 the curve closes (152 lower, 152 upper points) and carries exactly one sign
@@ -735,7 +745,13 @@ burden that WOULD produce a measured-size loss:
 | 2.0 | 4.146 | 0.531-0.550 | 7.5x-7.8x |
 
 **The model's bistable high state is 7.5x to 254x more aggregate-laden than the
-cell Lindner actually measured.** A real old-pole E. coli carries a visible
+cell Lindner actually measured.**
+
+**(!) These severity figures UNDERSTATE the miss, and D031 established why.** For
+the twelve mechanism-on cells the reported loss of `1.000` is not a measurement
+but the LINEAR-ARREST LAW CLAMPING: `mu = mu0.max(0, 1 - (u+a)/k_mu)` returns
+exactly zero, and those states sit 3.4x to 43x past arrest. The true severity
+there is unbounded. Quote "27x to 92x" only as a lower bound on the miss. A real old-pole E. coli carries a visible
 inclusion body at a cost of 1.2-1.8% of growth rate. Every high state this model
 can produce is a cell that has essentially stopped dividing.
 
@@ -865,3 +881,80 @@ unbounded. D029's "27x to 92x too severe" therefore UNDERSTATES the miss for the
 mechanism-on cells rather than overstating it. The four distinct values decompose
 cleanly as three hyperbolic control cells plus one saturated value shared by all
 twelve.
+
+## D032 — The framing test made parameter-free. It is well-posed and currently unmeasurable
+
+D031 is an accommodation, not a post-diction, and the entry stands corrected. A
+monotone one-parameter family rising from exactly zero crosses any band below its
+maximum, so "43 cells in band, `f` from 0.60 to 0.99" shows the curve is tall
+enough, not that the model predicts 1.0 to 1.8 percent. Worse, there were FOUR
+free knobs, not the two an initial reading suggested: `f`, `mu0`, `p_qc` and
+`j/j_crit`. Four parameters, one target number, zero residual degrees of freedom.
+
+### Two of the four cancel, analytically
+
+At small burden the hyperbolic law gives `aging = (B_old - B_new)/k_mu`, and since
+`k_mu = ARREST_PROTEOME_FRACTION/p_qc` while a model burden of 1 equals a proteome
+fraction of `p_qc`,
+
+    (B_old - B_new)/k_mu  ==  32 . (B_old - B_new) as a proteome fraction
+
+**identically** — verified in code, `np.allclose` exact. `p_qc` cancels and `mu0`
+never appears. Both enter only through what the stationary aggregate load IS, so
+taking that load from measurement removes them. `j/j_crit` goes the same way, for
+the same reason. The prediction collapses onto ONE measurable number.
+
+### The fourth is pinned by data, and not where a guess would have put it
+
+Lindner's full text, via PubMed: "52.3% have no inclusion body, 46.5% of the cells
+contain only one inclusion body, and only 1.2% carry two inclusion bodies
+immediately after cell division", and the new-pole progeny are "devoid of parental
+inclusion bodies". The inclusion body is a SINGLE INDIVISIBLE OBJECT. It goes
+entirely to one daughter. So `f = 1`, not 0.6 and not 0.95, and the continuous-`f`
+model is a mean-field stand-in for an all-or-nothing partition. That is a
+modelling mismatch and is stated rather than smoothed over.
+
+### What the model then requires
+
+At `f = 1` the daughters start at `2.a_end` and `0`, so `aging = 64 . a_end` as a
+proteome fraction in the linear regime, times a damping factor of **0.4386**
+measured by the machinery (the daughter's load relaxes during its own generation,
+so the time-averaged difference is smaller than the initial one). Inverting the
+fixed band:
+
+    old-pole aggregate = 3.69e-04 to 6.34e-04 of the proteome
+                       = 0.0369% to 0.0634%
+
+**This is the whole prediction, with no free parameters.** It is falsifiable by a
+single measurement.
+
+### And that measurement does not exist at the required precision
+
+Nearest available, via PubMed: Tomoyasu T, Mogk A, Langen H, Goloubinoff P,
+Bukau B (2001) Mol Microbiol 40(2):397-413,
+doi:10.1046/j.1365-2958.2001.02383.x, PMID 11309122 — "In DeltarpoH mutants ...
+5-10% and 20-30% of total protein aggregated at 30 degrees C and 42 degrees C
+respectively", while "In rpoH+ cells, DnaK depletion did not lead to protein
+aggregation at 30 degrees C".
+
+The wild-type value is UNDETECTED, which is a bound and not a measurement. The
+model's requirement sits **79x to 271x below** the chaperone-crippled `rpoH`-null
+figure and below the detection threshold of the standard aggregate-isolation
+assay. Consistent, therefore, and uninformative.
+
+### Verdict
+
+**The framing test's structural conclusion stands and does not depend on any of
+this.** Bistability is not required to explain Lindner: the control at `f = 0.5`
+is exactly zero for an algebraic reason, and a monostable model produces a
+stationary lineage offset. That is a negative claim and it needs no fit.
+
+**The quantitative match does not stand as a post-diction.** It is an
+accommodation, now converted into a well-posed prediction that current data cannot
+score. The paper reports it that way: a falsifiable requirement of
+**0.037% to 0.063% of the proteome in the old-pole inclusion body**, together with
+the fact that the wild-type aggregate fraction has been reported only as
+undetectable. Measuring it to a precision of about 0.01% decides the question.
+
+That is the correct place for it — a stated experimental target, not a claimed
+success.

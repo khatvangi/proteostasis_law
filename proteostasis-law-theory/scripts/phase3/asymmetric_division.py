@@ -276,3 +276,71 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+# ---------------------------------------------------------------------------
+# the parameter-free form: what the model actually requires
+# ---------------------------------------------------------------------------
+
+# Tomoyasu T, Mogk A, Langen H, Goloubinoff P, Bukau B (2001) Mol Microbiol
+# 40(2):397-413, doi:10.1046/j.1365-2958.2001.02383.x, PMID 11309122, via PubMed.
+# "In DeltarpoH mutants ... 5-10% and 20-30% of total protein aggregated at 30
+#  degrees C and 42 degrees C respectively"; "In rpoH+ cells, DnaK depletion did
+#  not lead to protein aggregation at 30 degrees C".
+# So the WILD-TYPE aggregate fraction is an upper bound (undetected), not a value.
+TOMOYASU2001 = {
+    "doi": "10.1046/j.1365-2958.2001.02383.x",
+    "pmid": "11309122",
+    "rpoH_null_30C": (0.05, 0.10),
+    "wild_type_30C": None,          # undetected: a bound, not a measurement
+}
+
+# Lindner et al. 2008, full text: the inclusion body is a SINGLE INDIVISIBLE
+# object -- "52.3% have no inclusion body, 46.5% ... only one ... 1.2% ... two"
+# -- and the new-pole daughter is "devoid of parental inclusion bodies". So the
+# partition is all-or-nothing and f is pinned at 1, not fitted.
+MEASURED_F = 1.0
+
+# D015's measured slope: growth-rate loss per unit misfolded proteome fraction.
+SLOPE_PER_PROTEOME_FRACTION = 32.0
+
+
+def requiredAggregateFraction(band=(BAND_LO, BAND_HI), f: float = MEASURED_F,
+                              damping: Optional[float] = None):
+    """invert the band into the one quantity the prediction depends on.
+
+    WHY THIS IS THE PARAMETER-FREE FORM. At small burden the hyperbolic law gives
+
+        aging = (B_old - B_new)/k_mu
+
+    and `k_mu = ARREST_PROTEOME_FRACTION/p_qc` while a model burden of 1 equals a
+    proteome fraction of `p_qc`, so
+
+        (B_old - B_new)/k_mu  ==  32 . (B_old - B_new)_as_proteome_fraction
+
+    identically. **`p_qc` cancels.** `mu0` never appears. Both enter only through
+    what the stationary aggregate load IS, so taking that load from measurement
+    removes them, and the prediction collapses onto a single measurable number:
+    the aggregate as a fraction of the proteome.
+
+    At `f = 1` the daughters start at `2.a_end` and `0`, so the difference is
+    `2.a_end` and `aging = 64 . a_end_fraction` in the linear regime. `damping`
+    carries the exact-versus-linear correction measured by the machinery (the
+    daughter's load relaxes during its generation, so the time-averaged
+    difference is smaller than the initial one).
+    """
+    lo, hi = band
+    lead = 2.0 * (2.0 * f - 1.0) * SLOPE_PER_PROTEOME_FRACTION
+    d = 1.0 if damping is None else float(damping)
+    return (lo / (lead * d), hi / (lead * d))
+
+
+def dampingFactor(df: pd.DataFrame) -> float:
+    """measured ratio of the exact aging effect to its linear-regime estimate."""
+    import calibration as C
+    s = df[(df.get("settled", False) == True) & (df["f"] > CONTROL_F)]  # noqa: E712
+    if s.empty:
+        return float("nan")
+    k = np.array([C.kMuFromProteomeShare(p) for p in s["p_qc"]])
+    lin = (s["a_old_start"].to_numpy() - s["a_new_start"].to_numpy()) / k
+    return float(np.median(s["aging_effect"].to_numpy() / lin))

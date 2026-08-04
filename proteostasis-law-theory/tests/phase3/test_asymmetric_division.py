@@ -131,5 +131,55 @@ class TestTheWithdrawalIsRecorded(unittest.TestCase):
         self.assertGreater(g.rate(0.0, 0.1), 0.0)
 
 
+class TestTheParameterFreeForm(unittest.TestCase):
+    """D032: the match is an accommodation until the knobs are removed."""
+
+    def testPqcCancelsExactly(self):
+        """dB/k_mu == 32 * dB_as_proteome_fraction, identically."""
+        import calibration as C
+        for p_qc in (0.005, 0.02, 0.10):
+            k_mu = C.kMuFromProteomeShare(p_qc)
+            for dB in (1e-4, 1e-2, 0.5):
+                self.assertAlmostEqual(
+                    dB / k_mu, A.SLOPE_PER_PROTEOME_FRACTION * dB * p_qc,
+                    places=12)
+
+    def testFIsPinnedAtOneByTheIndivisibleFocus(self):
+        self.assertEqual(A.MEASURED_F, 1.0)
+
+    def testTheRequirementIsSubTenthOfAPercentOfProteome(self):
+        lo, hi = A.requiredAggregateFraction(damping=0.4386)
+        self.assertLess(hi, 1e-3)
+        self.assertGreater(lo, 1e-4)
+
+    def testTheRequirementSitsFarBelowTheOnlyMeasuredAggregateFraction(self):
+        """Tomoyasu 2001: rpoH-null 5-10%; wild type UNDETECTED, so a bound."""
+        self.assertIsNone(A.TOMOYASU2001["wild_type_30C"])
+        lo, hi = A.requiredAggregateFraction(damping=0.4386)
+        rpoh_lo, _ = A.TOMOYASU2001["rpoH_null_30C"]
+        self.assertGreater(rpoh_lo / hi, 50.0)
+
+    def testDecisionEntryCallsTheMatchAnAccommodation(self):
+        doc = (_REPO_ROOT / "DECISIONS.md").read_text()
+        entry = doc[doc.index("## D032 —"):]
+        self.assertIn("accommodation", entry)
+        self.assertIn("FOUR", entry)
+        # and keeps the structural conclusion, which needs no fit
+        self.assertIn("does not depend on any of", entry)
+
+    def testD012CarriesTheWithdrawnEmpiricalMotivation(self):
+        doc = (_REPO_ROOT / "DECISIONS.md").read_text()
+        i = doc.index("## D012 —")
+        entry = doc[i:doc.index("## D013 —")]
+        self.assertIn("Empirical motivation withdrawn", entry)
+
+    def testD029SeverityIsMarkedAsALowerBound(self):
+        doc = (_REPO_ROOT / "DECISIONS.md").read_text()
+        i = doc.index("## D029 —")
+        entry = doc[i:doc.index("## D030 —")]
+        self.assertIn("UNDERSTATE", entry)
+        self.assertIn("lower bound on the miss", entry)
+
+
 if __name__ == "__main__":
     unittest.main()

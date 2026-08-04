@@ -297,6 +297,31 @@ because symmetric partitioning in half the volume leaves concentration unchanged
 which is what the dilution term already encodes. The effect is monotone in `f` in
 every setting.
 
+**(!) The quantitative match is an ACCOMMODATION, not a post-diction (D032).**
+A monotone family rising from exactly zero crosses any band below its maximum, so
+"43 cells in band" shows the curve is tall enough, not that the model predicts
+1.0-1.8%. There were FOUR free knobs, not two: `f`, `mu0`, `p_qc`, `j/j_crit`.
+
+Removing them: `p_qc` and `mu0` **cancel analytically** — `(B_old - B_new)/k_mu`
+is identically `32 x (B_old - B_new)` as a proteome fraction, verified exact in
+code — and `f` is pinned by the full text at **1, not 0.6-0.99**, because the
+inclusion body is a single indivisible object ("46.5% of the cells contain only
+one", new-pole progeny "devoid of parental inclusion bodies"). The continuous-`f`
+model is a mean-field stand-in for an all-or-nothing partition, and that is a
+stated mismatch.
+
+What remains is one falsifiable number: the model requires the old-pole aggregate
+to be **0.037% to 0.063% of the proteome**. The nearest measurement (Tomoyasu et
+al. 2001 Mol Microbiol, doi:10.1046/j.1365-2958.2001.02383.x, via PubMed) reports
+5-10% in `rpoH`-null cells at 30 C and wild-type aggregation as **undetected** —
+a bound, not a value, sitting 79x to 271x above the requirement. So the test is
+**well-posed and currently unmeasurable**, and is reported as an experimental
+target rather than a claimed success. Measuring the wild-type aggregate fraction
+to about 0.01% decides it.
+
+**The structural conclusion does not depend on any of that**, because it rests on
+a control that is exactly zero for an algebraic reason rather than on a fit.
+
 **D026's surviving claim is WITHDRAWN.** "Rejuvenation is only a coherent
 category in a bistable system" assumed the old-pole cell occupies a second basin.
 It does not. The three prior failures were scoring a quantity the observation
