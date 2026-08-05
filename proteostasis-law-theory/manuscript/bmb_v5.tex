@@ -91,33 +91,46 @@ Section 2 fixes the model class and its hypotheses. Section 3 states and proves 
 
 \subsection{State equations}
 
-Let \(u\) denote damaged or misfolded soluble monomer and \(a\) aggregate burden, in compatible concentration units. The baseline field is
+Let \(u\) denote damaged or misfolded soluble monomer and \(a\) aggregate burden. Both are \textbf{total} pools --- free plus machinery-bound --- carried in monomer-equivalent units, so that transfer between them conserves mass one for one. The baseline field is
 
 \begin{align*}
-\frac{du}{dt} &= j - v_{ref}(u, C_f) - v_{degU}(u, D_f) - n(u) - g(u,a) + v_{dis}(a, C_f),\\
-\frac{da}{dt} &= n(u) + g(u,a) - v_{dis}(a, C_f) - v_{degA}(a, D_f).
+\frac{du}{dt} &= j - v_{ref} - v_{degU} - n - g + v_{dis},\\
+\frac{da}{dt} &= n + g - v_{dis} - v_{degA}.
 \end{align*}
 
-with rate laws
+Chaperone and protease pools are conserved and shared, and every rate law is written in free concentrations. With 1:1 rapid-equilibrium complexes \(CU\), \(CA\), \(CN\), \(DU\) and \(DA\), the four conservation laws close simultaneously on the free concentrations:
 
 \begin{align*}
-v_{ref}  &= \frac{k_{ref}\,C_f\,u}{K_{ref} + u}   &&\text{refolding}\\
-v_{degU} &= \frac{k_U\,D_f\,u}{K_U + u}           &&\text{soluble degradation}\\
-n        &= k_n u^m,\quad m > 1                   &&\text{nucleation}\\
-g        &= k_g\,u\,a                             &&\text{aggregate growth}\\
-v_{dis}  &= \frac{k_{dis}\,C_f\,a}{K_{dis} + a}   &&\text{disaggregation}\\
-v_{degA} &= \frac{k_A\,D_f\,a}{K_A + a}           &&\text{aggregate clearance}
+u_f &= \frac{u}{1 + C_f/K_{CU} + D_f/K_{DU}},
+&\qquad
+C_f &= \frac{C_{tot}}{1 + \nu + u_f/K_{CU} + a_f/K_{CA}},\\[2pt]
+a_f &= \frac{a}{1 + C_f/K_{CA} + D_f/K_{DA}},
+&\qquad
+D_f &= \frac{D_{tot}}{1 + u_f/K_{DU} + a_f/K_{DA}}.
 \end{align*}
 
-The two aggregate-forming terms are distinct processes. \(n = k_{n} u^m\) is primary nucleation with an effective reaction order greater than one, in the sense in which fitted orders are understood as coarse-grained descriptions of multi-step processes (Ferrone 1999; Knowles et al.~2009; Meisl et al.~2017). \(g = k_{g} u a\) is elongation: growth of existing aggregate at a monomer-dependent rate. The model as written carries no secondary nucleation term, which would be autocatalytic in aggregate surface (Cohen et al.~2013); adding one changes the coefficients below but not the structure, since it enters \(G\) and not \(R\).
+Given rapid equilibrium these four equations are identities rather than approximations, and they are solved jointly at every state; total substrate is never substituted into a formula expecting a free concentration. Here \(\nu = N_{f}/K_{N}\) is the occupancy contributed by nascent chains, which consume capacity without contributing damage influx --- the mechanism by which ordinary translational load can move the fold.
 
-Chaperone and protease pools are conserved and shared. Under rapid-equilibrium binding,
+\(R\) and \(G\) are therefore defined implicitly rather than by formulae in \((u, a)\), and their regularity has to be established rather than assumed.
 
-\begin{equation*}
-C_f = \frac{C_{tot}}{1 + N_f/K_N + u_f/K_{CU} + a_f/K_{CA} + O_f/K_{CO}}
-\end{equation*}
+\textbf{Lemma 0 (well-posedness of the closure).} \emph{For every \((u, a)\) in the nonnegative quadrant the four equations above have exactly one solution, and it is strictly positive. The binding Jacobian in \((C_{f}, D_{f})\) is a nonsingular M-matrix with \(\det \ge 1 + \nu\), so the free concentrations are real-analytic in \((u, a)\) on the open quadrant. Consequently \(\partial u_{f}/\partial u > 0\) and \(\partial a_{f}/\partial u \ge 0\).}
 
-and similarly for \(D_{f}\), where \(N\) denotes nascent chains and \(O\) other competing substrates. The dissociation constants \(K_{CU}\) and \(K_{CA}\) describe competitive occupancy of the pool; the Michaelis constants \(K_{ref}\), \(K_{U}\), \(K_{dis}\), \(K_{A}\) describe the rate-limiting catalytic step that follows binding. The two are distinct steps and distinct constants. \(C_{f}\) is the pool not engaged in any complex, and the catalytic factor is the fraction of that pool turning over at the given substrate concentration. Nascent chains consume capacity without contributing damage influx, which is the mechanism by which ordinary translational load can move the fold.
+\emph{Proof.} The map sending \((C_{f}, D_{f})\) to the right-hand sides of the two pool equations carries the box \([0, C_{tot}] \times [0, D_{tot}]\) into itself and is monotone increasing, since raising either free pool lowers both free substrates and so lowers both denominators; Knaster--Tarski gives a least and a greatest fixed point. It is also strictly sublinear --- scaling the argument by \(\lambda < 1\) shrinks the occupancy terms of each denominator by \(\lambda\) but leaves the additive constant, so the quotient rises by more than \(\lambda\) --- and a monotone strictly sublinear map has at most one positive fixed point, by the standard argument on the largest \(t\) with \(x \ge t y\). For the Jacobian, all four partials of the free substrates in the free pools are negative, so the off-diagonal entries are nonpositive. Contracting against the positive vector \((C_{f}, D_{f})\) and using that each free substrate is homogeneous of degree \(-1\) in \((1, C_{f}, D_{f})\) gives row values \(C_{f}(1 + \nu + s_{u}^{-1}u_{f}/K_{CU} + s_{a}^{-1}a_{f}/K_{CA})\) and \(D_{f}(1 + s_{u}^{-1}u_{f}/K_{DU} + s_{a}^{-1}a_{f}/K_{DA})\), both positive, where \(s_{u}\) and \(s_{a}\) are the two substrate denominators. A matrix with nonpositive off-diagonal entries admitting a positive vector of positive image is a nonsingular M-matrix, whence \(\det \ge 1 + \nu\) and the inverse is nonnegative. The implicit function theorem then applies at every state, and inverse-positivity applied to the derivative of the closure in \(u\) gives the two monotonicity statements. ∎
+
+The rate laws are
+
+\begin{align*}
+v_{ref}  &= \frac{k_{ref}\,C_f\,u_f}{K_{ref} + u_f}   &&\text{refolding}\\
+v_{degU} &= \frac{k_U\,D_f\,u_f}{K_U + u_f}           &&\text{soluble degradation}\\
+n        &= k_n u_f^{\,m},\quad m > 1                 &&\text{nucleation}\\
+g        &= k_g\,u_f\,a_f                             &&\text{aggregate growth}\\
+v_{dis}  &= \frac{k_{dis}\,C_f\,a_f}{K_{dis} + a_f}   &&\text{disaggregation}\\
+v_{degA} &= \frac{k_A\,D_f\,a_f}{K_A + a_f}           &&\text{aggregate clearance}
+\end{align*}
+
+The two aggregate-forming terms are distinct processes. \(n = k_{n} u_{f}^m\) is primary nucleation with an effective reaction order greater than one, in the sense in which fitted orders are understood as coarse-grained descriptions of multi-step processes (Ferrone 1999; Knowles et al.~2009; Meisl et al.~2017). \(g = k_{g} u_{f} a_{f}\) is elongation: growth of existing aggregate at a monomer-dependent rate. The model carries no secondary nucleation term, which would be autocatalytic in aggregate surface (Cohen et al.~2013); adding one changes the coefficients below but not the structure, since it enters \(G\) and not \(R\).
+
+The dissociation constants \(K_{CU}\) and \(K_{CA}\) describe competitive occupancy of the pool; the Michaelis constants \(K_{ref}\), \(K_{U}\), \(K_{dis}\) and \(K_{A}\) describe a rate-limiting catalytic step acting on the pool not held in any complex. Treating them as successive steps is a stipulation and not a derivation. Written against the bound complex instead, each flux would carry no second saturation, so the coded form asserts nonproductive sequestration followed by independent productive capture, and gives cycles sharing one pool independent Michaelis factors rather than one competitive denominator. Both stipulations bind. Over the kinetic ensemble of Section 5 the two catalytic occupancies drawing on the chaperone pool sum above unity at 334 of 2767 fold states, and the substrate that productive complexes would hold reaches a fifth of the total soluble pool at the median. Section 4.4 reports what moves under the alternative closure. Nothing in Theorem 1 depends on the choice: the hypotheses below hold for either.
 
 Write the total removal flux and the aggregate field as
 
@@ -131,15 +144,15 @@ G(u,a) = \frac{da}{dt}
 
 \subsection{Hypotheses}
 
-\textbf{H1 (state-independent influx).} The damage influx \(j\) is a parameter. It appears additively in \(du/dt\) and does not appear in \(da/dt\).
+\textbf{H1 (state-independent influx).} The damage influx \(j\) is a parameter appearing additively in \(du/dt\). Two consequences are used separately and are worth separating. \textbf{(H1a)} Total influx does not depend on the state, which is what puts mass balance in the form H2 requires. \textbf{(H1b)} \(j\) does not appear in \(da/dt\), so the curve \(\{G = 0\}\) does not move with the load. Only (H1a) enters the identity. Section 4.3 relaxes (H1b) by letting clearance capacity depend on the influx, and Theorem 1.4 covers that case.
 
 \textbf{H2 (exact mass balance).} Internal transfer between \(u\) and \(a\) cancels between the two equations, so \(du/dt + da/dt = j - R\) holds identically.
 
-\textbf{H3 (smoothness).} \(R\) and \(G\) are continuously differentiable on the region of interest.
+\textbf{H3 (smoothness).} \(R\) and \(G\) are continuously differentiable on the region of interest. For the model class of Section 2.1 this is a consequence rather than an assumption: Lemma 0 makes the free concentrations real-analytic in the state, and every rate law is rational in them apart from \(k_{n} u_{f}^m\), which is \(C^{1}\) at the origin for \(m > 1\). H3 is retained as a hypothesis because Theorem 1 is stated for the wider class in which the fields are given directly.
 
 \textbf{H4 (deterministic, well-mixed, finite-dimensional).} The system is an ODE in concentrations.
 
-\emph{Remark 1.} H1 constrains the influx, not the capacity. Nothing forbids \(C_{tot}\) or \(D_{tot}\) from depending on \(j\) or on the state. The gradients in Section 3 are taken at fixed \(j\), so parameter dependence on the influx cannot enter them, and the row operation requires only that \(j\) be additive in one equation and absent from the other. Corollary 4 treats the consequences of capacity that degrades with load.
+\emph{Remark 1.} H1 constrains the influx, not the capacity. Nothing forbids \(C_{tot}\) or \(D_{tot}\) from depending on \(j\) or on the state. The gradients in Section 3 are taken at fixed \(j\), so parameter dependence on the influx cannot enter them; the row operation needs (H1a) and H2 alone, and neither mentions \(da/dt\). What capacity feedback costs is (H1b), and with it the fixed nullcline that makes the candidate solve cheap. Corollary 4 treats the consequences of capacity that degrades with load.
 
 \emph{Remark 2.} H4 is false in the system of Section 8 in two respects. Aggregates in \emph{E. coli} are spatially segregated into polar inclusion bodies rather than well mixed, and molecule numbers per damaged species are small. Both effects act in the same direction: noise-induced escape precedes the deterministic fold, so a measured threshold should sit below \(j_{crit}\) and be smeared across a population rather than sharp.
 
@@ -147,22 +160,17 @@ G(u,a) = \frac{da}{dt}
 
 \subsection{The identity}
 
-\textbf{Theorem 1.} \emph{Under H1--H3:}
+Four statements are separated because they need different hypotheses; they are referred to collectively as Theorem 1.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \emph{equilibria are exactly the points of the curve \(\{G = 0\}\) at which \(R = j\), and, when \(G\) does not depend on \(j\), that curve is independent of the influx;}
-\item
-  \(\det J = -(\nabla R \times \nabla G)\) \emph{identically;}
-\item
-  \emph{\(\det J = 0\) therefore holds exactly at constrained critical points of \(R\) restricted to \(\{G = 0\}\), where the critical influx is \(j_{crit} = R(u^{*}, a^{*})\).}
-\end{enumerate}
+\textbf{Theorem 1.1 (mass-balance identity).} \emph{Assume (H1a), H2 and H3. Then at fixed \(j\)}
 
-\emph{Proof.} By H1, \(j\) appears in \(du/dt\) and nowhere in \(da/dt\), so \(\{G = 0\}\) is a curve in burden space on which the influx does not act; changing the load slides the state along it. An equilibrium requires \(G = 0\) and \(du/dt = 0\), and by H2 the second condition is \(R = j\) on that curve. This gives (1).
+\begin{equation*}
+\det J = -(\nabla R \times \nabla G)
+\end{equation*}
 
-By H2, \(du/dt + da/dt = j - R\) exactly. The determinant-preserving row operation \(\operatorname{row}_{1} \to \operatorname{row}_{1} + \operatorname{row}_{2}\) gives
+\emph{identically, the gradients being taken with respect to the state.}
+
+\emph{Proof.} By H2, \(du/dt + da/dt = j - R\) exactly. The determinant-preserving row operation \(\operatorname{row}_{1} \to \operatorname{row}_{1} + \operatorname{row}_{2}\) replaces the first row by the gradient of \(j - R\), and \(j\) is a parameter, so
 
 \begin{align*}
 \det J
@@ -171,25 +179,41 @@ By H2, \(du/dt + da/dt = j - R\) exactly. The determinant-preserving row operati
      \partial(da/dt)/\partial u & \partial(da/dt)/\partial a
    \end{bmatrix}
  = \det\begin{bmatrix} -R_u & -R_a\\[2pt] G_u & G_a \end{bmatrix}\\[4pt]
-&= -(R_u G_a - R_a G_u) = -(\nabla R \times \nabla G).
+&= -(R_u G_a - R_a G_u) = -(\nabla R \times \nabla G). \qquad\qquad\square
 \end{align*}
 
-which is (2). Vanishing of the determinant is \(\nabla R \parallel \nabla G\), the Lagrange condition for a critical point of \(R\) subject to \(G = 0\), and the equilibrium condition then gives the critical value. ∎
+(H1b) is not used, and the identity is indifferent to whether \(j\) enters \(G\) or the capacity depends on the load, because the gradients are taken at fixed influx.
 
-Informally: \textbf{the fold is where total removal stops responding to burden along the aggregate nullcline.}
+\textbf{Theorem 1.2 (removal along the nullcline).} \emph{Assume in addition that \(\nabla G \neq 0\). Parametrise \(\{G = 0\}\) by arclength \(s\) with unit tangent \(\gamma ' = (-G_{a}, G_{u})/\|\nabla G\|\), and put \(r(s) = R(\gamma (s))\). Then}
+
+\begin{equation*}
+r'(s) = \nabla R \cdot \gamma' = \frac{\det J}{\lVert \nabla G \rVert}
+\end{equation*}
+
+\emph{at every point of the nullcline, not only where it vanishes.}
+
+\(\det J\) \textbf{is} the derivative of total removal along the aggregate nullcline, up to the positive factor \(\|\nabla G\|\). The informal reading --- the fold is where total removal stops responding to burden along the nullcline --- is therefore an exact pointwise identity rather than a gloss on a vanishing condition. Two things follow at once. The equilibria on the nullcline are the solutions of \(r(s) = j\), so the equilibrium branch is the level-set inverse of one scalar function of one variable; and \(\det J = 0\) is \(r'(s) = 0\), a constrained critical point of \(R\) on \(\{G = 0\}\), with critical value \(j_{crit} = R(u^{*}, a^{*})\).
+
+Regularity of the constraint is a hypothesis of the Lagrange reading and not only of the converse. Where \(\nabla G = 0\) the determinant vanishes automatically, \(\{G = 0\}\) need not be a manifold, and there is no tangent to differentiate along; the two networks discussed in Section 3.2 are that case, not counterexamples to anything.
+
+\textbf{Theorem 1.3 (fixed-nullcline shortcut).} \emph{Assume (H1b), so \(\partial G/\partial j = 0\). Then \(\{G = 0\}\) is independent of the influx --- changing the load slides the state along it --- equilibria are exactly its points with \(R = j\), and the fold candidates solve \(\{G = 0, \det J = 0\}\) in the state alone.}
+
+This is the whole practical content: neither equation contains \(j\), so locating candidates is a two-dimensional root solve rather than a continuation sweep.
+
+\textbf{Theorem 1.4 (load-dependent capacity).} \emph{When \(\partial G/\partial j \neq 0\) the nullcline moves with the influx and \(j_{crit} = R(u^{*},a^{*})\) becomes a self-consistency condition; candidates solve \(\{G = 0, \det J = 0, R = j\}\) in \((u, a, j)\). Theorem 1.1 is unaffected.}
 
 At the base parameter set the alignment is visible rather than inferred: the removal contours meet the aggregate nullcline tangentially at the solved fold, to a sine of 3.54×10⁻¹⁰ (Fig. 1a). The same computed branch separates two singularities that are easily conflated. The soluble coordinate has a horizontal tangent at \(j_{turn} = 0.154090\), where \(G_{a} = 0\) and the nullcline runs vertical in the burden plane; that point is regular, since \(\det J = R_{a}\cdot G_{u} = 2.027\times 10^{-3}\) there. The fold is at \(j_{crit} = 0.154239\), where both coordinates turn together (Fig. 1b). The two lie in a fixed order and differ by one part in a thousand. This is also why tracing \(\{G = 0\}\) by solving for \(a\) at fixed \(u\) fails: the two roots in \(a\) merge exactly at \(j_{turn}\), returning the curve in two disconnected pieces with the fold in the gap between them. The root-finder's failure and the horizontal tangent are one locus, not two problems.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[max width=\linewidth]{../figures/fig1.pdf}
-\caption{The fold as a constrained critical point. \textbf{(a)} Phase plane at the base parameter set. The aggregate nullcline $\{G = 0\}$ (dark) is fixed under change of influx; grey contours are total removal $R$. At the solved fold $(u^{*}, a^{*}) = (0.4166, 0.2650)$ the gradients $\nabla R$ and $\nabla G$ are parallel, which is the Lagrange condition of Theorem 1; they are drawn from offset origins because a common origin would hide one behind the other. The sine of the angle between them is 3.54×10⁻¹⁰, and $j_{crit} = R(u^{*}, a^{*}) = 0.1542$. \textbf{(b)} Both equilibrium coordinates against influx along the same curve. Cramer's rule gives $du^{*}/dj = -G_{a}/\det J$ and $da^{*}/dj = G_{u}/\det J$, so the branch carries two distinct, ordered singularities. At $j_{turn} = 0.154090$ the soluble coordinate has a horizontal tangent where $G_{a} = 0$; this is a regular point, $\det J = R_{a}\cdot G_{u} = 2.027\times 10^{-3}$ there rather than zero, and it lies on the stable branch at $j_{turn}/j_{crit} = 0.9990$. At $j_{crit} = 0.154239$ both coordinates have a vertical tangent, which is $\det J = 0$. The inset is a ×182 zoom on the same computed data, not a schematic. The aggregate coordinate has no horizontal tangent anywhere: $G_{u} > 0$ at all 305 traced points, minimum 2.077×10⁻³.}
+\caption{The fold as a constrained critical point. \textbf{(a)} Phase plane at the base parameter set. The aggregate nullcline $\{G = 0\}$ (dark) is fixed under change of influx; grey contours are total removal $R$. At the solved fold $(u^{*}, a^{*}) = (0.4166, 0.2650)$ the gradients $\nabla R$ and $\nabla G$ are parallel, which is the Lagrange condition of Theorem 1.2; they are drawn from offset origins because a common origin would hide one behind the other. The sine of the angle between them is 3.54×10⁻¹⁰, and $j_{crit} = R(u^{*}, a^{*}) = 0.1542$. \textbf{(b)} Both equilibrium coordinates against influx along the same curve. Cramer's rule gives $du^{*}/dj = -G_{a}/\det J$ and $da^{*}/dj = G_{u}/\det J$, so the branch carries two distinct, ordered singularities. At $j_{turn} = 0.154090$ the soluble coordinate has a horizontal tangent where $G_{a} = 0$; this is a regular point, $\det J = R_{a}\cdot G_{u} = 2.027\times 10^{-3}$ there rather than zero, and it lies on the stable branch at $j_{turn}/j_{crit} = 0.9990$. At $j_{crit} = 0.154239$ both coordinates have a vertical tangent, which is $\det J = 0$. The inset is a ×182 zoom on the same computed data, not a schematic. The aggregate coordinate has no horizontal tangent anywhere: $G_{u} > 0$ at all 305 traced points, minimum 2.077×10⁻³.}
 \label{fig:fig1}
 \end{figure}
 
 \subsection{Genericity, and the converse}
 
-Theorem 1 gives one direction: a fold satisfies gradient alignment. The converse requires that the degeneracy be a fold rather than a transcritical or pitchfork bifurcation, a cusp, a double-zero eigenvalue, or a curve of equilibria. Four conditions suffice:
+Theorem 1.2 gives one direction: a fold satisfies gradient alignment. The converse requires that the degeneracy be a fold rather than a transcritical or pitchfork bifurcation, a cusp, a double-zero eigenvalue, or a curve of equilibria. Four conditions suffice:
 
 \begin{itemize}
 \tightlist
@@ -203,7 +227,29 @@ Theorem 1 gives one direction: a fold satisfies gradient alignment. The converse
   \textbf{(G4)} parameter transversality, \(w\cdot \partial F/\partial j \neq 0\) for the left null vector \(w\).
 \end{itemize}
 
-\textbf{Theorem 2 (converse).} \emph{Under H1--H3 and (G1)--(G4), a constrained critical point of \(R\) on \(\{G = 0\}\) is a generic saddle-node with \(j_{crit} = R(u^{*}, a^{*})\).}
+\textbf{Theorem 2 (converse).} \emph{Let \(F\) be \(C^{2}\). Under (G1)--(G4), a constrained critical point of \(R\) on \(\{G = 0\}\) is a generic saddle-node in \(j\), with \(j_{crit} = R(u^{*}, a^{*})\).}
+
+\emph{Proof.} By (G1) the nullcline is a \(C^{2}\) curve near the point, so Theorem 1.2 applies: equilibria on it are the solutions of \(r(s) = j\), and \(\det J = 0\) is \(r'(0) = 0\). With (G3),
+
+\begin{equation*}
+r(s) = j_{crit} + \tfrac{1}{2} r''(0)\, s^2 + O(s^3),
+\end{equation*}
+
+a nondegenerate extremum, so for \(j\) on one side of \(j_{crit}\) there are exactly two equilibria near the point and on the other side none: the pair collides and annihilates. By (G2) the zero eigenvalue is algebraically simple and the remaining eigenvalue \(\operatorname{tr} J\) lies off the imaginary axis, so the centre manifold is one-dimensional. It is the nullcline itself --- the second row of \(Jv = 0\) reads \(\nabla G\cdot v = 0\), so the right null vector is tangent to \(\{G = 0\}\) and parallel to \(\gamma '(0)\); the centre manifold and the arclength reduction are the same object. Finally the two nondegeneracy conditions coincide. With \(w = (1, 1+\lambda )\) the left null vector and \(\nabla R = \lambda \nabla G\),
+
+\begin{equation*}
+w \cdot D^2F(v,v) = -D^2R(v,v) + \lambda\, D^2G(v,v),
+\end{equation*}
+
+while differentiating \(G(\gamma (s)) = 0\) twice gives \(\nabla G\cdot \gamma '' = -D^{2}G(v,v)\), so that \(r''(0) = D^{2}R(v,v) - \lambda D^{2}G(v,v)\). Hence
+
+\begin{equation*}
+r''(0) = -\,w \cdot D^2F(v,v),
+\end{equation*}
+
+and (G3) is not merely equivalent to the classical nondegeneracy condition of the saddle-node but equal to it up to sign. The reduced equation on the centre manifold is therefore the saddle-node normal form with quadratic coefficient of sign \(-r''(0)\). ∎
+
+Two things come free. The sign of \(r''(0)\) is the orientation of Section 3.4, so that classification is a corollary rather than a separate observation. And nothing in the proof appeals to numerical verification; Table 1 reports whether the hypotheses hold in the ensembles studied, which is a question about the model rather than about the theorem.
 
 (G4) is not automatic. Since \(\partial F/\partial j = (1, 0)\) exactly, transversality reduces to \(w_{1} \neq 0\), and no structural feature of the model forces it. Measured at solved fold states it is bounded away from zero: minimum 0.341 on the load grid and 3.34×10⁻⁹ over the kinetic box.
 
@@ -249,7 +295,7 @@ Two properties of the candidate set follow from the theorem and bound what it de
 
 \textbf{Orientation.} The sign of \(d^{2}R/ds^{2}\) distinguishes two kinds of fold. Where it is negative, \(R\) has a constrained local maximum, \(R = j\) has solutions below \(R(x^{*})\) and none above, and a pair of equilibria is destroyed as the influx rises: a collapse-oriented fold. Where it is positive, the pair is created as the influx rises: a birth-oriented fold, which is the lower turning point of a hysteresis loop rather than a collapse point. On the load grid \(d^{2}R/ds^{2} < 0\) at all 325 folds. Over the kinetic box, 26 of 2765 are birth-oriented, and all 26 carry a collapse-oriented candidate at strictly higher influx; 7 of 153 ordinary folds carry the same pair. Hysteresis is therefore a feature of the model class rather than of the 26. The operative consequence is that solving \(\det J = 0\) returns candidates without distinguishing them, so orientation must be computed and not inferred from a solver having converged.
 
-\textbf{Multiplicity.} Neither \(G = 0\) nor \(\det J = 0\) contains \(j\), so locating candidates is a two-dimensional root solve rather than a continuation sweep in the influx.
+\textbf{Multiplicity.} Theorem 1.3 returns candidates, not a candidate.
 
 \textbf{Corollary 1.} \emph{Solving \(\{G = 0, \det J = 0\}\) returns the candidate set exactly and without a sweep. Identifying which candidate terminates the accessible low-burden branch requires branch information in 9.1\% of the kinetic ensemble (252 of 2765 networks, up to five candidates).}
 
@@ -318,7 +364,7 @@ We model this as \(C_{enz}(load) = C_0/(1 + \varepsilon \cdot load)\) applied to
 
 The identity holds in both modes at machine precision: gradient-normalised residual with floor 2.2×10⁻¹⁴ at \(\varepsilon = 0\), and worst median 6.4×10⁻¹⁴ (influx mode) and 4.6×10⁻¹³ (burden mode) at \(\varepsilon = 100\), where capacity has fallen to 16.7\% and 1.8\% of nominal. No correction to the algebraic form is required, for the reason given in Remark 1: the row operation needs only that \(j\) be additive in \(du/dt\) and absent from \(da/dt\), and that \(du/dt + da/dt = j - R\) be exact.
 
-What the coupling removes is the fixed nullcline. Under self-damage \(\{G = 0\}\) moves with the load, so \(j_{crit} = R(u^{*},a^{*})\) becomes a self-consistency condition and the candidate solve grows from two equations in \((u,a)\) to three in \((u,a,j)\). Corollary 1's saving applies to the frozen-capacity case.
+What the coupling removes is the fixed nullcline. Under self-damage \(\{G = 0\}\) moves with the load: (H1b) fails and Theorem 1.4 replaces Theorem 1.3, so the candidate solve grows from two equations in \((u,a)\) to three in \((u,a,j)\). Corollary 1's saving applies to the frozen-capacity case.
 
 Self-damage lowers the fold substantially without steepening the approach. Median \(j_{crit}\) relative to the frozen fold falls 0.999 / 0.990 / 0.925 / 0.640 / 0.322 across the influx ladder and 0.995 / 0.949 / 0.740 / 0.324 / 0.131 across the burden ladder. The critical-slowing exponent shows no detected shift: paired over the 19 networks carrying both values, median −0.4763 damaged against −0.4813 frozen, with a paired-difference distribution centred near zero (Wilcoxon \(p\) = 0.312).
 

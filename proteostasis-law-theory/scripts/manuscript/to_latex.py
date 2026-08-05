@@ -64,13 +64,18 @@ _MATH_OPS = {"∇": r"\nabla ", "×": r"\times ", "·": r"\cdot ", "−": "-",
              "≤": r"\le ", "≥": r"\ge ", "→": r"\to ", "∥": r"\parallel ",
              "±": r"\pm ", "∂": r"\partial ", "…": r"\dots ", "∎": r"\square",
              "∈": r"\in ", "≈": r"\approx ", "–": "-", "—": "---",
-             "≠": r"\neq "}
+             "≠": r"\neq ",
+             # U+2016 NORM. symmetric, so one mapping serves both delimiters;
+             # \lVert would be wrong on the closing one. NOT U+2225 above:
+             # `∇R ∥ ∇G` is a relation, `‖∇G‖` is a magnitude.
+             "‖": r"\|"}
 
 # prose (text mode) mappings, emitted as \newunicodechar declarations
 _TEXT_MAP = {
     "×": r"$\times$", "−": r"$-$", "–": "--", "—": "---", "∇": r"$\nabla$",
     "·": r"$\cdot$", "≤": r"$\le$", "≥": r"$\ge$", "→": r"$\to$",
     "∥": r"$\parallel$", "±": r"$\pm$", "∂": r"$\partial$", "…": r"\dots",
+    "‖": r"$\|$",
     "∎": r"$\square$", "√": r"$\surd$", "§": r"\S", "°": r"$^\circ$",
     "∈": r"$\in$", "≈": r"$\approx$", "≠": r"$\neq$", "″": "''", "′": "'",
     "ö": r'\"{o}', "é": r"\'{e}", "ü": r'\"{u}', "ä": r'\"{a}', "å": r"\aa{}",
@@ -82,7 +87,7 @@ _TEXT_MAP.update({k: f"$_{{{v}}}$" for k, v in _SUB.items()})
 
 # multi-letter operators that must not be italicised as a product of letters.
 # LaTeX already defines the first group; the second needs \operatorname.
-_BUILTIN_OPS = ("det", "sin", "cos", "max", "min", "ln", "log", "exp")
+_BUILTIN_OPS = ("det", "sin", "cos", "max", "min", "ln", "log", "exp", "sup")
 # `tr J` set t, r and J as three italic variables. LaTeX has no \tr, so it goes
 # here and not above -- putting it in the builtin list emitted \tr and the build
 # stopped, which is the behaviour that list is supposed to have.
@@ -409,32 +414,42 @@ HEADER = r"""%% GENERATED FILE -- do not edit.
 # self-invalidating mapping for the typesetting.
 
 DISPLAY_MATH = {
-"""du/dt = j − v_ref(u, C_f) − v_degU(u, D_f) − n(u) − g(u,a) + v_dis(a, C_f)
-da/dt =                                       n(u) + g(u,a) − v_dis(a, C_f) − v_degA(a, D_f)""":
+"""du/dt = j − v_ref − v_degU − n − g + v_dis
+da/dt =              n + g − v_dis − v_degA""":
 r"""\begin{align*}
-\frac{du}{dt} &= j - v_{ref}(u, C_f) - v_{degU}(u, D_f) - n(u) - g(u,a) + v_{dis}(a, C_f),\\
-\frac{da}{dt} &= n(u) + g(u,a) - v_{dis}(a, C_f) - v_{degA}(a, D_f).
+\frac{du}{dt} &= j - v_{ref} - v_{degU} - n - g + v_{dis},\\
+\frac{da}{dt} &= n + g - v_{dis} - v_{degA}.
 \end{align*}""",
 
-"""v_ref  = k_ref C_f u/(K_ref + u)      refolding
-v_degU = k_U D_f u/(K_U + u)          soluble degradation
-n      = k_n u^m,  m > 1              primary nucleation
-g      = k_g u a                      elongation
-v_dis  = k_dis C_f a/(K_dis + a)      disaggregation
-v_degA = k_A D_f a/(K_A + a)          aggregate clearance""":
+# the closure, printed in free concentrations. the four equations are solved
+# JOINTLY, so they are set as one aligned block rather than four displays:
+# splitting them once invited the reading that each is evaluated in turn, which
+# is the substitution D004 forbids.
+"""u_f = u /(1 + C_f/K_CU + D_f/K_DU)     C_f = C_tot /(1 + ν + u_f/K_CU + a_f/K_CA)
+a_f = a /(1 + C_f/K_CA + D_f/K_DA)     D_f = D_tot /(1 + u_f/K_DU + a_f/K_DA)""":
 r"""\begin{align*}
-v_{ref}  &= \frac{k_{ref}\,C_f\,u}{K_{ref} + u}   &&\text{refolding}\\
-v_{degU} &= \frac{k_U\,D_f\,u}{K_U + u}           &&\text{soluble degradation}\\
-n        &= k_n u^m,\quad m > 1                   &&\text{nucleation}\\
-g        &= k_g\,u\,a                             &&\text{aggregate growth}\\
-v_{dis}  &= \frac{k_{dis}\,C_f\,a}{K_{dis} + a}   &&\text{disaggregation}\\
-v_{degA} &= \frac{k_A\,D_f\,a}{K_A + a}           &&\text{aggregate clearance}
+u_f &= \frac{u}{1 + C_f/K_{CU} + D_f/K_{DU}},
+&\qquad
+C_f &= \frac{C_{tot}}{1 + \nu + u_f/K_{CU} + a_f/K_{CA}},\\[2pt]
+a_f &= \frac{a}{1 + C_f/K_{CA} + D_f/K_{DA}},
+&\qquad
+D_f &= \frac{D_{tot}}{1 + u_f/K_{DU} + a_f/K_{DA}}.
 \end{align*}""",
 
-"""C_f = C_tot /(1 + N_f/K_N + u_f/K_CU + a_f/K_CA + O_f/K_CO)""":
-r"""\begin{equation*}
-C_f = \frac{C_{tot}}{1 + N_f/K_N + u_f/K_{CU} + a_f/K_{CA} + O_f/K_{CO}}
-\end{equation*}""",
+"""v_ref  = k_ref C_f u_f/(K_ref + u_f)      refolding
+v_degU = k_U D_f u_f/(K_U + u_f)          soluble degradation
+n      = k_n u_f^m,  m > 1                primary nucleation
+g      = k_g u_f a_f                      elongation
+v_dis  = k_dis C_f a_f/(K_dis + a_f)      disaggregation
+v_degA = k_A D_f a_f/(K_A + a_f)          aggregate clearance""":
+r"""\begin{align*}
+v_{ref}  &= \frac{k_{ref}\,C_f\,u_f}{K_{ref} + u_f}   &&\text{refolding}\\
+v_{degU} &= \frac{k_U\,D_f\,u_f}{K_U + u_f}           &&\text{soluble degradation}\\
+n        &= k_n u_f^{\,m},\quad m > 1                 &&\text{nucleation}\\
+g        &= k_g\,u_f\,a_f                             &&\text{aggregate growth}\\
+v_{dis}  &= \frac{k_{dis}\,C_f\,a_f}{K_{dis} + a_f}   &&\text{disaggregation}\\
+v_{degA} &= \frac{k_A\,D_f\,a_f}{K_A + a_f}           &&\text{aggregate clearance}
+\end{align*}""",
 
 """R(u,a) = v_ref + v_degU + v_degA        G(u,a) = da/dt""":
 r"""\begin{equation*}
@@ -448,10 +463,16 @@ r"""\begin{equation*}
 j_{crit} = R(u^{*}, a^{*}).
 \end{equation*}""",
 
+"""det J = −(∇R × ∇G)""":
+r"""\begin{equation*}
+\det J = -(\nabla R \times \nabla G)
+\end{equation*}""",
+
+# the proof display now ends the proof, so the tombstone lives inside it
 """det J = det [ ∂(du/dt)/∂u   ∂(du/dt)/∂a ]  =  det [ −R_u  −R_a ]
             [ ∂(da/dt)/∂u   ∂(da/dt)/∂a ]        [  G_u   G_a ]
 
-      = −(R_u G_a − R_a G_u) = −(∇R × ∇G),""":
+      = −(R_u G_a − R_a G_u) = −(∇R × ∇G). ∎""":
 r"""\begin{align*}
 \det J
 &= \det\begin{bmatrix}
@@ -459,8 +480,28 @@ r"""\begin{align*}
      \partial(da/dt)/\partial u & \partial(da/dt)/\partial a
    \end{bmatrix}
  = \det\begin{bmatrix} -R_u & -R_a\\[2pt] G_u & G_a \end{bmatrix}\\[4pt]
-&= -(R_u G_a - R_a G_u) = -(\nabla R \times \nabla G).
+&= -(R_u G_a - R_a G_u) = -(\nabla R \times \nabla G). \qquad\qquad\square
 \end{align*}""",
+
+"""r(s) = j_crit + ½ r''(0) s² + O(s³),""":
+r"""\begin{equation*}
+r(s) = j_{crit} + \tfrac{1}{2} r''(0)\, s^2 + O(s^3),
+\end{equation*}""",
+
+"""w·D²F(v,v) = −D²R(v,v) + λ D²G(v,v),""":
+r"""\begin{equation*}
+w \cdot D^2F(v,v) = -D^2R(v,v) + \lambda\, D^2G(v,v),
+\end{equation*}""",
+
+"""r''(0) = −w·D²F(v,v),""":
+r"""\begin{equation*}
+r''(0) = -\,w \cdot D^2F(v,v),
+\end{equation*}""",
+
+"""r'(s) = ∇R·γ' = det J /‖∇G‖""":
+r"""\begin{equation*}
+r'(s) = \nabla R \cdot \gamma' = \frac{\det J}{\lVert \nabla G \rVert}
+\end{equation*}""",
 
 """det J = −det [ ∇R ; ∇G ; ∇C ]""":
 r"""\begin{equation*}
@@ -721,7 +762,7 @@ EXPECTED = {
     "figures_supp": 2,       # figS1 identity, figS2 pareto front
     "tables": 4,             # genericity, verification, section 6, beta
     "tables_rewidthed": 2,   # of those, the two pandoc gave proportional columns
-    "displays": 9,
+    "displays": 14,
     "spans_code": 0,         # v5 quotes no file paths in the body
     "stripped": 0,           # v5 carries no internal-only section
 }

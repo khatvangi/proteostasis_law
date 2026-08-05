@@ -13,6 +13,14 @@
     "scripts/proteostasis/sweeps.py": "d3cd0649e39905d20a49af2ad1ec0544c8861e3635b861ef9acf1d43d72631d3",
     "scripts/run_experiment_d.py": "9ff94b8f6e676587e6153087cb247ac3174918d556feaa077ca8c7347f938c67"
   },
+  "_superseded_note": "a file listed here has changed SINCE the D run. the run-time hash above is not bumped -- it is the run's identity and bumping it would silently transfer attribution to a tree that did not produce the result. instead the current hash is recorded beside it with the reason, and the test asserts BOTH: the file must match either its run hash or its recorded current hash, so a further undeclared edit still fails. behavioural equivalence on the path the run used is asserted separately, against the blob at the run's own commit, and is the claim that actually matters.",
+  "superseded_source_files": {
+    "scripts/proteostasis/model.py": {
+      "run_commit": "a17dfafdd966537088dc87aaf95faca893e935a3",
+      "current_sha256": "e408e6014f75299c79f9f7e4bab26cba4a5b57475e81ece7491149fea0fa60ff",
+      "reason": "task A3 added the `closure` field to Params and factored the rate-law partials out of `jacobian`, so that the michaelis closure the run used and the bound-complex alternative share one code path. the default is unchanged. verified bit-identical against the run-commit blob over 7200 states at 200 random parameter sets: max relative difference 0.0 in both rhs and jacobian."
+    }
+  },
   "artifact_sha256": {
     "interactions.tsv": "8067afaa0e8d5ccdd4f8add8b89f02589f3e6fd22b794856255da0e0c21a1d00",
     "backgrounds.tsv": "bc96c94cf5083eccccd186bf8133d88a54f6cb9951333bb50efc2856885f3518",

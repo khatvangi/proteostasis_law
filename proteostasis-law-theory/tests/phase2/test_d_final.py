@@ -395,9 +395,91 @@ class TestSupportDecision(unittest.TestCase):
 class TestPinnedSourceHashes(unittest.TestCase):
 
     def testTrackedSourceFilesStillHashToThePinnedValues(self):
-        """the D result is only attributable to this tree while these match."""
+        """the D result is only attributable to this tree while these match.
+
+        A file that has changed since the run must be DECLARED, with its current
+        hash and a reason, rather than have the run hash bumped underneath it --
+        bumping transfers attribution to a tree that did not produce the result.
+        A declared file must still match its declared current hash, so a second
+        undeclared edit fails here exactly as the first would have.
+        """
+        superseded = PINNED.get("superseded_source_files", {})
         for rel, want in PINNED["source_files"].items():
-            self.assertEqual(hashFile(REPO_ROOT / rel), want, rel)
+            got = hashFile(REPO_ROOT / rel)
+            if got == want:
+                continue
+            self.assertIn(rel, superseded,
+                          f"{rel} changed since the D run and is not declared")
+            self.assertEqual(got, superseded[rel]["current_sha256"], rel)
+            self.assertTrue(superseded[rel].get("reason"), f"{rel} has no reason")
+            self.assertTrue(superseded[rel].get("run_commit"), f"{rel} has no commit")
+
+    def testASupersededFileIsBehaviourallyIdenticalOnTheRunsOwnPath(self):
+        """the hash records that the file moved; this records that the model did not.
+
+        Loads the blob at the run's own commit and compares `rhs` and `jacobian`
+        against the current module over a parameter sweep. A hash equality is
+        evidence about bytes; this is evidence about the field the run
+        integrated, which is what attribution actually needs.
+        """
+        import importlib.util
+        import subprocess
+        import tempfile
+
+        import numpy as np
+
+        superseded = PINNED.get("superseded_source_files", {})
+        rel = "scripts/proteostasis/model.py"
+        if rel not in superseded:
+            self.skipTest("model.py has not been superseded")
+        commit = superseded[rel]["run_commit"]
+        try:
+            blob = subprocess.run(["git", "show", f"{commit}:{rel}"],
+                                  cwd=REPO_ROOT, capture_output=True, check=True)
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            self.skipTest("git object for the run commit is unavailable")
+
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "model_at_run.py"
+            path.write_bytes(blob.stdout)
+            import sys
+            spec = importlib.util.spec_from_file_location("model_at_run", path)
+            old = importlib.util.module_from_spec(spec)
+            # @dataclass resolves annotations through sys.modules, so the module
+            # must be registered before it executes or Params fails to build.
+            sys.modules["model_at_run"] = old
+            try:
+                spec.loader.exec_module(old)
+            finally:
+                sys.modules.pop("model_at_run", None)
+
+        from proteostasis import model as new
+        rng = np.random.default_rng(1)
+        fields = list(old.Params.__dataclass_fields__)
+        worst_rhs = worst_jac = 0.0
+        n = 0
+        for _ in range(40):
+            kw = {}
+            for f in fields:
+                if f == "m":
+                    kw[f] = float(rng.uniform(1.2, 3.0))
+                elif f in ("j", "nu"):
+                    kw[f] = float(rng.uniform(0.0, 1.0))
+                else:
+                    kw[f] = float(10 ** rng.uniform(-1.3, 0.7))
+            po, pn = old.Params(**kw).validate(), new.Params(**kw).validate()
+            for u in np.geomspace(1e-4, 20.0, 5):
+                for a in np.geomspace(1e-5, 20.0, 5):
+                    ro, rn = np.array(old.rhs(u, a, po)), np.array(new.rhs(u, a, pn))
+                    worst_rhs = max(worst_rhs, np.abs(ro - rn).max()
+                                    / max(np.abs(ro).max(), 1e-300))
+                    jo, jn = old.jacobian(u, a, po), new.jacobian(u, a, pn)
+                    worst_jac = max(worst_jac, np.abs(jo - jn).max()
+                                    / max(np.abs(jo).max(), 1e-300))
+                    n += 1
+        self.assertEqual(n, 40 * 25)
+        self.assertEqual(worst_rhs, 0.0, "rhs moved since the D run")
+        self.assertEqual(worst_jac, 0.0, "jacobian moved since the D run")
 
     def testCombinedSourceHash(self):
         self.assertEqual(hashObject(PINNED["source_files"]), PINNED["source_hash"])

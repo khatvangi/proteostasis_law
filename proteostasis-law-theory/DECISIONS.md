@@ -2063,3 +2063,132 @@ the branch was `master`, not `main`, and the `&&` chained off `tail`. A false
 success was reported to the user and acted on. Same shape as a metric that
 returns 1.0 exactly where it is quoted -- structurally unable to report failure
 at the point failure matters. Written into notes/VERIFICATION_RULE.md.
+
+---
+
+## D049 — The model statement was not the model: §2.1 printed total concentrations
+
+Phase A of the merged review order. The finding blocks Sections 2, 3.3, 6 and 7,
+and it is the most damaging kind because nothing in the paper could have caught
+it: every number in the manuscript is recomputed from `model.py`, and `model.py`
+was right. Only the *printed* model was wrong.
+
+### What was wrong
+
+§2.1 printed `v_ref = k_ref C_f u/(K_ref + u)` — a Michaelis factor in **total**
+substrate against free enzyme. `model.py` solves it in **free** substrate
+throughout, per decision D004, which forbids exactly the substitution §2.1 made.
+The manuscript also never said that `u` and `a` are total pools, free plus
+machinery-bound, so a reader had no way to detect the mismatch. At the base
+parameter set the two forms of `v_ref` differ by more than 20% at the fold state.
+
+§2.1 now prints the four conservation laws in full and every rate law in free
+concentrations. `tests/theory/test_manuscript_model.py` implements §2.1 again
+from the printed equations, by naive fixed-point iteration rather than the
+safeguarded Newton in `model.py`, and asserts the two right-hand sides agree over
+a 676-point grid and over 40 random parameter sets. A third assertion checks that
+the *old* printed form does **not** reproduce `rhs`, so the guard cannot pass for
+the wrong reason.
+
+### The second defect: the catalytic layer is stipulated, not derived
+
+For `C + U <-> CU -> C + native` the flux is `k_cat[CU]`, which the closure
+already makes `k_cat C_f U_f/K_CU`. The coded form saturates a *second* time, in
+the same substrate, against a *second* constant. That asserts a mechanism.
+
+`theory/RATE_LAWS.md` writes the reaction network under which the coded form is
+exact — nonproductive sequestration counted in all four conservation laws, then
+an independent productive cycle on the unheld pool — and then measures its two
+load-bearing assumptions at the 2767 solved fold states of the kinetic box:
+
+| assumption | measure | result |
+|---|---|---|
+| cycles sharing a pool have independent sites | `s_ref + s_dis` | median 0.455, **exceeds 1 in 334 of 2767** (max 1.97) |
+| productive complexes hold negligible substrate | `(C_f s_ref + D_f s_u)/u` | median **0.204**, exceeds 0.10 in 1863 of 2767, max 22.7 |
+
+The first could be true — GroEL is a 14-mer — but it binds in a tenth of the box.
+The second is not an approximation but a contradiction of a conservation law: the
+classical `E_tot << S_tot + K_M` condition cannot hold in a model whose subject is
+machinery being scarce relative to burden.
+
+**Verdict: option (b). The rate laws are phenomenological closures.** Theorem 1
+and its corollaries are untouched — they need only H1–H3, and mass balance is
+exact by construction for either closure. The quantitative layer is not, which is
+what D051 measures.
+
+## D050 — Lemma 0: H3 was an assumption about implicitly defined functions
+
+`R` and `G` are not formulae in `(u, a)`. They are defined through a nonlinear
+algebraic system the manuscript never stated as such, and nothing established
+that the system has a solution, that it is unique, or that it is differentiable.
+H3 asserted the conclusion.
+
+All three are provable, and the proof is elementary — `theory/LEMMA0_BINDING.md`:
+
+* **Existence.** The closure map is monotone increasing and carries
+  `[0, C_tot] × [0, D_tot]` into itself; Knaster–Tarski.
+* **Uniqueness.** It is strictly sublinear, because scaling the argument by
+  `λ < 1` shrinks each denominator's occupancy terms but not its additive
+  constant. A monotone strictly sublinear map has at most one positive fixed
+  point.
+* **Regularity.** All four partials of the free substrates in the free pools are
+  negative, so the binding Jacobian is a Z-matrix; contracting it against
+  `(C_f, D_f)` and using that each free substrate is homogeneous of degree `−1`
+  in `(1, C_f, D_f)` gives row values `C_f(1+ν+…)` and `D_f(1+…)`, both positive.
+  A Z-matrix with a positive vector of positive image is a nonsingular M-matrix.
+
+The last step yields a sharper statement than well-posedness:
+
+> **det of the binding Jacobian ≥ 1 + ν, everywhere.**
+
+Verified over 24,300 states spanning four decades of every dissociation constant:
+smallest observed margin `1.1×10⁻⁶`, largest off-diagonal `−8.0×10⁻⁹`, smallest
+row-contraction margin `3.2×10⁻⁹` — all three attained in the vanishing-burden
+limit where the bounds are equalities. The proof does not rest on the check.
+
+Two consequences beyond H3. The runtime singularity guard in `model.py:jacobian`
+**cannot fire**; it is kept as a defensive assertion and annotated as such.
+And inverse-positivity gives `∂u_f/∂u > 0` and `∂a_f/∂u ≥ 0` — raising soluble
+burden titrates machinery away and *raises* free aggregate. That second
+inequality is what kills §3.3's sign argument (task B6).
+
+## D051 — The twelvefold ceiling factor is closure-dependent. It is 2.8× under the alternative.
+
+Task A3, required because D049 landed as option (b). Same kinetic box, same
+draws, same seeding from the same recorded states; the two pipelines differ in
+exactly one field of `Params`. The alternative closure is
+`v_ref = C_f U_f/K_CU = [CU]` — catalytic flux proportional to bound complex,
+which removes both stipulations at once, since there is no second saturation and
+cycles sharing a pool compete automatically. The removal ceiling
+`c_tot + (ρ_U + ρ_A)d_tot` is unchanged, because every complex concentration is
+bounded by its own pool total, so `φ` means the same thing in both.
+
+| quantity, median at the fold | michaelis (published) | bound complex |
+|---|---|---|
+| `φ = j_crit/ceiling` | 0.0825 | **0.353** |
+| `1/φ`, the ceiling overestimate | **12.1×** | **2.8×** |
+| refolding utilisation `v/V_max` | 0.0363 | 0.256 |
+| soluble degradation utilisation | 0.0584 | 0.330 |
+| aggregate clearance utilisation | 0.0190 | 0.0658 |
+| networks yielding a solvable fold state | 2767 of 2884 | 2027 of 2884 |
+
+Paired over the 1991 networks solved under both, the median ratio is **3.81×**
+and 1516 of 1991 lie outside a factor of two. The work order's threshold was a
+factor of two. It is exceeded by the median alone.
+
+**The twelvefold claim is a property of the closure, not of the model class**, and
+must say so where it is made — abstract, §6 headline, and Discussion.
+
+Note what is *not* closure-dependent: the identity, the converse, the `n`-state
+form, the dilution corollaries, and Corollary 4. Those follow from H1–H3.
+
+### A third finding, forced by the same computation
+
+"The fold occurs while the machinery runs at roughly 5–18% of `V_max`" is not
+what `s_ref = 0.180`, `s_u = 0.159`, `s_a = 0.049` measure. Those are Michaelis
+saturation factors. Utilisation of nominal capacity is `(c_f/c_tot)·s`, which is
+**0.036 / 0.058 / 0.019** — about a fifth of the quoted figures. `φ = 0.0825` is
+the honest utilisation measure and `1/0.0825 = 12.1` is where "twelvefold" comes
+from, so the abstract currently reports two different quantities as one, and its
+own arithmetic does not close: `1/0.18` to `1/0.05` is 5.6× to 20×, not 12×.
+This is task E2(a), and it is confirmed rather than merely alleged.

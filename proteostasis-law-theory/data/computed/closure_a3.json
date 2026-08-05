@@ -108,5 +108,29 @@
     "p95_ratio": 62.32859920168996,
     "n_ratio_outside_half_to_two": 1516
   },
-  "headline_moves_more_than_twofold": true
+  "headline_moves_more_than_twofold": true,
+  "hopf": {
+    "michaelis": {
+      "n_fold_states": 2767,
+      "n_traced": 2766,
+      "n_trace_failed": 1,
+      "n_cross": 108,
+      "n_cross_clean": 104,
+      "incidence_pct": 3.9045553145336225,
+      "incidence_clean_pct": 3.759942154736081,
+      "tr_max_median": -0.31709104839554214,
+      "first_cross_frac_median": 0.83060655116164
+    },
+    "complex": {
+      "n_fold_states": 2027,
+      "n_traced": 2027,
+      "n_trace_failed": 0,
+      "n_cross": 18,
+      "n_cross_clean": 17,
+      "incidence_pct": 0.8880118401578688,
+      "incidence_clean_pct": 0.8386778490379871,
+      "tr_max_median": -0.7047761920537681,
+      "first_cross_frac_median": 0.9307438334462689
+    }
+  }
 }

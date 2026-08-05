@@ -131,8 +131,25 @@ def normalise(text: str) -> str:
 # --------------------------------------------------------------------------
 
 def checkTrackedSources() -> list:
-    """the D result is attributable to this tree only while these match."""
-    out = [(f"source_hash {rel}", hashFile(REPO / rel) == want, want[:12])
+    """the D result is attributable to this tree only while these match.
+
+    a file that has moved since the run passes only if it is DECLARED in
+    `superseded_source_files` AND still matches the hash declared there, so the
+    first undeclared edit fails and so does the second. bumping the run hash
+    would transfer attribution to a tree that did not produce the result; see
+    D049 and the `_superseded_note` in D_RUN_HASHES.json.
+    """
+    sup = PINNED.get("superseded_source_files", {})
+
+    def _ok(rel: str, want: str) -> bool:
+        got = hashFile(REPO / rel)
+        if got == want:
+            return True
+        d = sup.get(rel)
+        return bool(d and got == d.get("current_sha256")
+                    and d.get("reason") and d.get("run_commit"))
+
+    out = [(f"source_hash {rel}", _ok(rel, want), want[:12])
            for rel, want in PINNED["source_files"].items()]
     out.append(("combined_source_hash",
                 hashObject(PINNED["source_files"]) == PINNED["source_hash"],
