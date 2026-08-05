@@ -205,6 +205,60 @@ aggregate.** The second is the one that matters: it is why the sign argument of
 Section 3.3 does not survive the move from total to free concentrations, since
 the two clearance terms in `G` have `C_f` and `D_f` falling while `a_f` rises.
 
+## (vi) Corollary (task B6): a sufficient condition for `G_u > 0`
+
+Section 3.3 excluded Haldane homeostasis by asserting that all four contributions
+to `G_u` carry the same sign. That is true of the TOTAL-concentration rate laws
+the manuscript printed through v5 and false of the free-concentration closure the
+code solves, for the reason (v) makes precise: raising `u` lowers `C_f` and `D_f`,
+which RAISES `a_f`.
+
+Write `G` in the free variables and differentiate through the closure:
+
+```
+G_u = G_{uf} (∂uf/∂u) + G_{af} (∂af/∂u) + G_{cf} (∂cf/∂u) + G_{df} (∂df/∂u)
+```
+
+with the four coefficients as coded in `model.py`:
+
+```
+G_uf = alpha_n m uf^(m-1) + alpha_g af                                    > 0
+G_cf = -alpha_d af/(kappa_dis + af)                                       <= 0
+G_df = -rho_A af/(kappa_a + af)                                           <= 0
+G_af = alpha_g uf - alpha_d cf kappa_dis/(kappa_dis+af)^2
+                 - rho_A df kappa_a/(kappa_a+af)^2                    indefinite
+```
+
+Part (v) supplies the four derivative signs — and supplies them as **proof**
+rather than observation, since they follow from the inverse of a nonsingular
+M-matrix being entrywise nonnegative:
+
+```
+∂uf/∂u > 0,     ∂af/∂u >= 0,     ∂cf/∂u <= 0,     ∂df/∂u <= 0.
+```
+
+Three of the four products are therefore nonnegative without any condition, and
+the first is strictly positive: `G_uf (∂uf/∂u) > 0`, `G_cf (∂cf/∂u) >= 0` (both
+factors nonpositive), `G_df (∂df/∂u) >= 0` (likewise). Exactly one product,
+`G_af (∂af/∂u)`, has indefinite sign, and only through `G_af`.
+
+> **Corollary.** *If `G_af >= 0` at a state — that is, if aggregate is
+> self-amplifying at fixed free machinery — then `G_u > 0` there.*
+
+So the exclusion of Haldane homeostasis is **structural wherever aggregate is
+self-amplifying**, and elsewhere it is a competition between one negative
+contribution and three positive ones, which has to be measured rather than
+asserted. The word "structural" survives only under the hypothesis, and Section
+3.3 states the hypothesis.
+
+Two remarks. `G_af` is the aggregate self-amplification rate at fixed pools, and
+its sign is also what Section 7's oscillatory region is about — fast, sharply
+saturating aggregate clearance against growth-dominated aggregation is a
+statement about which of the three terms in `G_af` dominates. Whether the two
+sets of states coincide is measured separately. And `∂af/∂u >= 0` is not
+strict at `a = 0`, where `af = 0` identically; the corollary is stated on the
+open quadrant.
+
 ---
 
 ## Statement as it enters the paper

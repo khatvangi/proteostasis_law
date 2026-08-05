@@ -2464,3 +2464,94 @@ destabilisation claim §7 attributed to it. The destabilisation claim now rests 
 Krishna et al. 2006 and Xu and Qu 2012, which support it independently, and
 Goldbeter is cited for what its own abstract states. This is a citation of a
 qualitative statement made unambiguously in an abstract, not of a number.
+
+## D062 — B8: three theorem statements were formally wrong, and one of them was mine
+
+An external review of the Phase A–C state found six defects. Three were errors in
+statements I had written in this pass, which is the useful kind of finding: the
+mathematics was right and the statement of it was not.
+
+### The centre-manifold identification was false (B8.1)
+
+§3.2 said "It is the nullcline itself … the centre manifold and the arclength
+reduction are the same object." `{G = 0}` is **not invariant**. Along the flow
+
+```
+dG/dt = ∇G·(du/dt, da/dt) = G_u·(j − R),
+```
+
+which vanishes only at the equilibrium, so trajectories cross the curve rather
+than run along it. Confirmed numerically before removal: `dG/dt` is `10⁻⁴` to
+`10⁻⁶` at nullcline points either side of the base fold and `10⁻¹⁸` at the fold
+itself. A centre manifold is invariant; this is not one.
+
+What survives is the tangency at `x*`, which is all the proof ever needed. The
+proof is restated in four steps and cites Sotomayor for the normal form while
+keeping `r''(0) = −w·D²F(v,v)` as the reason no citation is needed for the
+**nondegeneracy condition**. The correct global statement — that the curve of
+equilibria lies in the extended centre manifold of the `dj/dt = 0` suspension —
+is given in its place.
+
+### (H1b) was used unnamed in three statements (B8.2)
+
+Theorem 1.1 correctly needs (H1a) and H2 only. But Theorem 1.2's corollary that
+the branch is a level-set inverse needs a *fixed* `r`, Theorem 2's proof needs
+`F_j = e₁`, and the transversality corollary opens with it. All three now name
+it; the level-set statement moved to Theorem 1.3, where (H1b) is a hypothesis.
+
+### Corollary 2 did not cover its own second verification (B8.3)
+
+It assumed `du/dt + da/dt = j − R`, while the sequestered three-state system it
+verifies satisfies `du/dt + da_r/dt + da_s/dt = j − R`. Generalised to a constant
+**mass vector** `m` with `m₁ = 1` and `mᵀF = j − R`; the row operation
+`row₁ → row₁ + Σ_{k≥2} m_k row_k` preserves the determinant *because* `m₁ = 1`,
+and yields `−∇R`. The regulated system is `m = (1,1,0)` and the sequestered
+`m = (1,1,1)`, so both verifications are now instances of the corollary. Full
+rank moved from a remark after the equivalence to a hypothesis of it — where the
+non-influx gradients are dependent the determinant vanishes for every `∇R` and
+the Lagrange reading is empty, exactly as `∇G = 0` empties it in the plane.
+Partial hyperbolicity added to the converse summary.
+
+### B8.5: a coefficient was being reported as a margin
+
+`|w·F_j|` under `w₁ = 1` proves nonvanishing but a left null vector rescales
+freely, so its size means nothing. The scale-invariant cosine
+`|w·F_j|/(‖w‖‖F_j‖)` is a different number: minimum **0.0070** against a
+coefficient that never drops below 1.0. Burden mode's exact 1.0 at all 46 states
+is the §3.2 corollary reappearing — with no `j` in the capacity factor,
+`R_j = G_j = 0` — and is now flagged as such rather than presented as data.
+
+### B8.6: a test pinned the claim B3 disproved
+
+`testTransversalityIsTheConditionWithNoStructuralGuarantee` asserted that the
+manuscript flags (G4) as having no structural guarantee, and passed for as long
+as the manuscript was wrong. Replaced by three tests pinning the result against
+its generator. The audit then found **two more** prose-pinning tests that failed
+on *correct* v5 text — both rewritten to pin the property rather than the
+sentence. The rule earns its place again: a test that asserts the manuscript
+contains a sentence will pass while the sentence is wrong.
+
+### Two items of the review's own were stale, and one was wrong
+
+`.zenodo.json` was already at 1.2.0 with a consistent description as of
+`aa97b09`; no change was made. And the handoff's parenthetical that the ORCID
+"was set as plain text" was false — it was absent from the PDF entirely. It now
+renders, on the **fifth** placement: `\equalcont` takes arbitrary text, needs no
+vendored graphic, and prints a dagger footnote under the corresponding-author
+line with no label of its own. Verified by rendering page 1 and reading it. The
+four earlier failures are kept in the source comment because each is a distinct
+failure mode, and one of them — `\footnotetext` — succeeded at the build while
+putting nothing on the page.
+
+## D063 — C5d: the small transversality cosine is (G1) again, not a new caution
+
+The smallest scale-invariant transversality margins are not scattered. With
+`w = (1, 1+λ)` the cosine falls as `|λ|` rises, and `|λ|` rises as `‖∇G‖` falls
+at fixed `‖∇R‖`. Over the 99 self-damaged fold states, log cosine correlates with
+log `‖∇G‖` at **+0.90** and with log `|λ|` at **−0.93**, and the single smallest
+cosine is the single largest `|λ|` — the same state, `‖∇G‖ = 2.7×10⁻³`.
+
+So Table 1's two exceptions, the two failures of the closed form in D054, and
+this margin are **one geometric fact reported three times**: the constraint
+losing regularity. §4.3 says it once and drops the reassurance that the margin
+is never small, which was true only of the coefficient.

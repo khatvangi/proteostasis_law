@@ -1,0 +1,15 @@
+{
+  "n_networks": 325,
+  "n_traced": 325,
+  "n_trace_failed": 0,
+  "n_with_a_turn": 247,
+  "n_without_a_turn": 78,
+  "n_turn_below_crit": 247,
+  "n_turn_above_crit": 0,
+  "ratio_min": 0.9337177030221118,
+  "ratio_median": 0.9895332614558318,
+  "ratio_max": 0.9999118379908895,
+  "separation_p99": 0.0456859129680065,
+  "separation_max": 0.06628229697788823,
+  "n_multiple_turns": 0
+}

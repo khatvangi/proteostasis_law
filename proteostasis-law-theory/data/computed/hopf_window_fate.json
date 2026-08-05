@@ -1,0 +1,14 @@
+{
+  "n_networks": 38,
+  "n_points": 266,
+  "fate_counts": {
+    "no_equilibrium": 145,
+    "cycle": 118,
+    "fixed_other": 3
+  },
+  "networks_all_interior_points_cycle": 15,
+  "networks_mixed": 4,
+  "networks_no_cycle": 19,
+  "frac_cycle_over_evaluable": 0.9752066115702479,
+  "n_evaluable": 121
+}
