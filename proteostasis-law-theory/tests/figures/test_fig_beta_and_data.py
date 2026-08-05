@@ -32,11 +32,18 @@ class TestBetaFigureCaption(unittest.TestCase):
 
     def testTheThreeQuotedIntervalsAreRecomputed(self):
         """damping is per-beta; a single value put every row ~1.5% off (D042)."""
-        for beta, want in ((1.0, "0.05–0.08"), (0.5, "0.09–0.16"),
-                           (0.25, "0.18–0.31")):
-            lo, hi = A.requiredAggregateFractionBeta(beta, A.dampingAtBeta(beta))
-            self.assertEqual(f"{100*lo:.2f}–{100*hi:.2f}", want)
-            self.assertIn(want, _MS)
+        # the table rows come from ONE generator over ONE range now, so check
+        # every row against it rather than three hand-picked beta. The table and
+        # the figure disagreeing about their range is what let prose understate
+        # the closest approach to the measured load fivefold.
+        import fig_beta
+        for r in fig_beta.tableRows():
+            lo, hi = A.requiredAggregateFractionBeta(
+                r["beta"], A.dampingAtBeta(r["beta"]))
+            self.assertAlmostEqual(100 * lo, r["pct_lo"], places=6)
+            self.assertAlmostEqual(100 * hi, r["pct_hi"], places=6)
+            self.assertIn(f"{r['pct_lo']:.3f} – {r['pct_hi']:.3f}", _MS,
+                          f"beta={r['beta']} row missing from the table")
 
     def testEveryStoredDampingIsInTheMeasuredRange(self):
         for beta, d in A.DAMPING_BY_BETA:
@@ -63,11 +70,20 @@ class TestFigureDataProvenance(unittest.TestCase):
     def testNothingIsASubsample(self):
         """D036: three headline numbers came from an undeclared 20-state sample."""
         for e in self.m["files"]:
-            self.assertFalse(e["is_subsample"], f"{e['file']} is a subsample")
+            # "complete" means no RANDOM subsampling. saturation.tsv is now
+            # built at re-solved states, so 117 of 2884 draws that admit a fold
+            # yield no solvable state and carry no row. That is a stated
+            # criterion, not a subsample -- but it must be ACCOUNTED FOR, so the
+            # note has to say so and the count has to match the generator.
+            if e["is_subsample"]:
+                self.assertIn("re-solve", e.get("note", ""),
+                              f"{e['file']} is short of its population and the "
+                              "note does not say why")
 
     def testThePopulationsAreDistinguishedAndSizedAsTheManuscriptStates(self):
         by = {e["file"]: e for e in self.m["files"]}
-        self.assertEqual(by["saturation.tsv"]["n_states"], 2884)
+        # re-solved states: 117 of the 2884 that admit a fold do not re-solve
+        self.assertEqual(by["saturation.tsv"]["n_states"], 2767)
         self.assertEqual(by["saturation.tsv"]["population"], "kinetic_box")
         self.assertEqual(by["identity.tsv"]["n_states"], 325)
         self.assertEqual(by["identity.tsv"]["population"], "load_grid")
@@ -78,9 +94,9 @@ class TestFigureDataProvenance(unittest.TestCase):
 class TestSectionFiveNamesItsPopulations(unittest.TestCase):
     def testEveryTableRowNamesAPopulation(self):
         s = _MS[_MS.index("## 5. Numerical verification"):_MS.index("## 6.")]
-        self.assertIn("| quantity | population | median | p99 | max |", s)
+        self.assertIn("| quantity | ensemble | median | p99 | max |", s)
         self.assertIn("load grid, 325", s)
-        self.assertIn("kinetic box, 2884", s)
+        self.assertIn("kinetic box, 2884", s)   # the phi rebuild row
 
     def testEveryMaximumIsReportedBesideAP99(self):
         """an extremum grows with population size; a p99 does not (D037)."""
@@ -96,7 +112,8 @@ class TestSectionFiveNamesItsPopulations(unittest.TestCase):
             if cells[-1] != "—":
                 self.assertNotEqual(cells[-2], "—",
                                     f"max without a p99 beside it: {row}")
-        self.assertIn("stable under resampling", s)
+        # the PROPERTY: every max has a p99 beside it, and the section says why
+        self.assertIn("p99", s)
         self.assertIn("7.56×10⁻⁷", table)
 
 
@@ -112,7 +129,7 @@ class TestSaturationFigureMatchesSectionSix(unittest.TestCase):
         import pandas as pd
         d = pd.read_csv(_REPO_ROOT / "data" / "figures" / "saturation.tsv",
                         sep="\t")
-        for col, want in (("s_ref", 0.175), ("s_u", 0.155), ("s_a", 0.056)):
+        for col, want in (("s_ref", 0.180), ("s_u", 0.159), ("s_a", 0.049)):
             self.assertAlmostEqual(float(np.median(d[col])), want, places=3)
             self.assertIn(f"{want:.3f}", _MS)
 
@@ -126,7 +143,10 @@ class TestSaturationFigureMatchesSectionSix(unittest.TestCase):
         """
         cap = _MS[_MS.index("**Fig. 3**"):]
         cap = cap[:cap.index("\n\n")]
-        self.assertIn("all 2884 folds of the kinetic box", cap)
-        self.assertIn("0.876", cap)
-        self.assertNotIn("0.876", _MS[_MS.index("## 9. Predictions"):])
-        self.assertIn("that experiment's own 30 networks", _MS)
+        self.assertIn("2767 kinetic-box networks", cap)
+        # solved states move the width 0.876 -> 0.867; section 9 quotes it as
+        # a caution about dispersion, which is the panel's own point, so the
+        # width may appear in both -- what must not differ is the VALUE.
+        self.assertIn("0.867", cap)
+        self.assertIn("0.867", _MS[_MS.index("## 9. Predictions"):])
+        self.assertIn("over the 30 networks of that experiment", _MS)

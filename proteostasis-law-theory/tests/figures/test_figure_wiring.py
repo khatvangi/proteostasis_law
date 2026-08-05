@@ -120,8 +120,10 @@ class TestCaptionsAgreeWithTextAndWithTheGenerator(unittest.TestCase):
         self.assertIn(f"{floors[1e-4]:.3f}", _DOC)
         self.assertIn(f"{floors[2e-2]:.3f}", _DOC)
         # medians live in the table only -- the caption must not restate them
-        self.assertNotIn("0.175", cap)
-        self.assertNotIn("0.056", cap)
+        # figure and table now share one population, so the caption need not
+        # restate medians and must not: they live in the Section 6 table.
+        self.assertNotIn("0.180", cap)
+        self.assertNotIn("0.049", cap)
 
     def testFrontNumbersMatchBothPlaces(self):
         o = fig_front.build()
@@ -138,8 +140,12 @@ class TestCaptionsAgreeWithTextAndWithTheGenerator(unittest.TestCase):
         # the generator returns proteome FRACTIONS; both table and caption are in %
         lo1, hi1 = (100 * v for v in o["at_beta_1"])
         lo25, hi25 = (100 * v for v in o["at_beta_025"])
-        self.assertIn(f"{lo1:.4f}–{hi1:.4f}%", cap)
-        self.assertIn(f"{lo25:.4f}–{hi25:.4f}%", cap)
+        # the caption echoes the TABLE'S OWN ENDPOINTS -- both ends of the one
+        # range table and figure share -- rather than restating a middle row.
+        rows = fig_beta.tableRows()
+        hi_end, lo_end = rows[0], rows[-1]
+        self.assertIn(f"{hi_end['pct_lo']:.4f}–{hi_end['pct_hi']:.4f}%", cap)
+        self.assertIn(f"{lo_end['pct_lo']:.4f}–{lo_end['pct_hi']:.4f}%", cap)
         # the table carries the same solve at two more digits
         self.assertIn(f"{lo1:.4f}", _DOC)
         self.assertIn(f"{hi25:.4f}", _DOC)

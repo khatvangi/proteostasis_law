@@ -1916,3 +1916,102 @@ converged.
 `det H = 0` homeostasis (structurally excluded, Section 3.1), `det J = 0` with
 `tr J != 0` the fold (computed), `tr J = 0` with `det J > 0` the Hopf (computed).
 Section 3.1 says so in one sentence.
+
+## D047 — v5 adopted as the submission source; four defect classes, one structural
+
+### The beta margin: a structural fault, not a lapse
+
+Section 8.3's table stopped at `beta = 0.25` and showed 16x as the closest
+approach to the measured `rpoH` load. Figure 5 plotted to `beta = 0.05`, where
+the requirement comes within **3.19x**. Prose written from the table therefore
+overstated the separation FIVEFOLD, in the paper's only falsifiable prediction.
+
+The same error was corrected in v4 earlier and came back in a clean rewrite. That
+is the signature of a structural fault: **two ranges for one quantity will always
+let prose land in the wrong place.** The fix is not the sentence. `fig_beta.py`
+now owns `BETA_LO/BETA_HI` and `tableRows()`; the manuscript table is generated
+from it, the figure sweeps the same endpoints, and the caption echoes the table's
+own endpoints rather than restating a span. The table gains its `beta = 0.05` row
+(0.913-1.570% of proteome, 3.2x-11x).
+
+### Figure 3 and Section 6 now share one population
+
+`saturation.tsv` is rebuilt at RE-SOLVED fold states, so the figure's medians
+(0.180 / 0.159 / 0.049) are the table's. A figure and a table reporting one
+quantity over two populations is the P3 divergence; a caption noting the
+discrepancy is a note, not a fix. Population 2884 -> 2767, the 117 that do not
+re-solve stated. The D039 floor ladder moves 0.0899->0.0763 at 1e-4 and
+0.3551->0.3978 at 2e-2, a factor of five rather than four. **The no-screen
+decision is unchanged** -- it rests on the absence of a gap and on the median
+sliding continuously, neither of which depends on the specific floor values.
+
+### Typography is not structure, and only rendering finds it
+
+Four defects reached the PDF with every count assertion green, a zero-overfull
+LaTeX log, and balanced-environment checks passing:
+
+- a `longtable` sharing a page with a top float displaced the page FOLIO into the
+  body text -- page 6 printed its "6" over the "u" of "input-output" and carried
+  no number at its foot. Short tables are now `table` floats.
+- markdown's `\|` table escape reached LaTeX as a DOUBLE bar, so |tr J|,
+  |d2R/ds2| and |w_1| -- all scalars -- were set as norms.
+- `tr J`, and later `Re(lambda)`, set as products of italic letters. LaTeX has no
+  `\tr`, so these belong in `_OTHER_OPS` (`\operatorname{}`), not `_BUILTIN_OPS`.
+- `+-i sqrt(det J)` reached the PDF as `\sqrt\{\det J\}` -- an EMPTY radical
+  followed by a literal set -- because the sqrt conversion ran before the
+  brace-escaping step and its own braces were escaped as set delimiters.
+
+A programmatic scan of all 273 inline math spans for these four shapes now
+returns zero, but the scan was written FROM the rendered read, not before it.
+
+### Tests: deleted, not rewritten
+
+16 assertions pinned v4 prose in sections v5 restructured. They were deleted
+rather than rewritten, because rewriting means pinning text that has not settled.
+What survives is the class that is about correctness rather than wording:
+populations named and sized, no maximum without a p99, no figure script reading
+the gitignored run root, caption numbers recomputed from their generator.
+
+**Sections are indexed by HEADING TEXT, never by number.** Three renumberings
+have now broken assertions; a section's words survive a renumber and its number
+does not.
+
+### Token-pinning recurred three times in one session
+
+Once in tests written immediately after the lesson was recorded (`### 3.2`
+indexing), once banning a string the manuscript uses correctly, and once on the
+word `phase1RunDir` appearing in a COMMENT EXPLAINING ITS OWN REMOVAL. The last
+is D042 exactly. That test now parses the AST and asks whether the module CALLS
+the function.
+
+### Figure 4 could not have been rebuilt from a clean checkout
+
+`fig_hopf.py` read the gitignored run root directly. The reduction moved into
+`build_figure_data.py`, the one script permitted to; `fig4.pdf` hashes IDENTICAL
+afterwards, which is how we know the path changed and the figure did not.
+
+### Reference verification (recorded here; the appendix stays removed)
+
+- **Jin J, Rempala GA (2026)** *J Math Biol* 92(3):35,
+  doi:10.1007/s00285-026-02352-y. v5 cited "Jin J, Yu PY" -- **the second author
+  does not exist on that paper**. The arXiv listing (2407.11248) gives Rempala
+  too, so this was not an arXiv-versus-published discrepancy; it looks like a
+  conflation with Polly Y. Yu, who works in the same area. Corrected, volume and
+  article number added.
+- **Xu L, Qu Z (2012)** *PLoS ONE* 7(4):e34616, doi:10.1371/journal.pone.0034616.
+  v5 had "Xu Y". Claim verified verbatim against the abstract.
+- **Goldbeter A (2013)** *FEBS Lett* 587(17):2778-84,
+  doi:10.1016/j.febslet.2013.07.031. Citation correct.
+- **Krishna S, Jensen MH, Sneppen K (2006)** *PNAS* 103(29):10840-5,
+  doi:10.1073/pnas.0604085103. Citation correct; the abstract supports the claim
+  directly ("depending mainly on the saturation of the active degradation rate
+  of IkappaB").
+- **Cotton MW, Goriely A, Klenerman D, Meisl G (2025)** arXiv:2511.18893.
+  Authors and title correct.
+
+**Two claims remain unverified and must not be certified from an abstract:**
+Cotton's "eight aggregation and removal mechanisms" and the two named sufficient
+conditions (the abstract says only "a wide range"); and the Goldbeter claim that
+saturable degradation lowers the cooperativity required for oscillation and
+destabilises the steady state as the Michaelis constant falls. Both need the full
+text. See `abstracts-are-not-sources-for-numbers`.

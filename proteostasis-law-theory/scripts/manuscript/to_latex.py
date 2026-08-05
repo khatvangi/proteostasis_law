@@ -86,7 +86,8 @@ _BUILTIN_OPS = ("det", "sin", "cos", "max", "min", "ln", "log", "exp")
 # `tr J` set t, r and J as three italic variables. LaTeX has no \tr, so it goes
 # here and not above -- putting it in the builtin list emitted \tr and the build
 # stopped, which is the behaviour that list is supposed to have.
-_OTHER_OPS = ("row", "ceiling", "cross", "tr")
+# Re and Im are the same case as tr: two italic variables otherwise.
+_OTHER_OPS = ("row", "ceiling", "cross", "tr", "Re", "Im")
 
 
 def _runsToScript(s: str, table: dict, wrapper: str) -> str:
@@ -129,12 +130,6 @@ def mathify(span: str) -> str:
     """
     s = _singleBars(span)
 
-    # `\sqrt` needs its argument braced; a bare \surd renders as a radical sign
-    # with nothing under it, which is what `±i√det J` produced.
-    s = re.sub(r"√\s*\\?([A-Za-z]+)\s+([A-Za-z])", r"\\sqrt{\\\1 \2}", s)
-    s = re.sub(r"√\s*\(([^()]*)\)", r"\\sqrt{\1}", s)
-    s = s.replace("√", r"\surd ")
-
     # 1. protect sub/superscript groups the source already wrote
     protected: list[str] = []
 
@@ -146,6 +141,14 @@ def mathify(span: str) -> str:
     # 2. remaining braces are set delimiters
     s = s.replace("{", r"\{").replace("}", r"\}")
     s = re.sub(r"\x00(\d+)\x00", lambda m: protected[int(m.group(1))], s)
+
+    # `\sqrt` needs its argument braced. This MUST run after the brace escaping
+    # above: done before it, the braces this introduces were themselves escaped
+    # into set delimiters, so `±i√det J` reached the PDF as `\sqrt\{\det J\}`
+    # -- an empty radical followed by a literal set. Rendered, caught, moved.
+    s = re.sub(r"√\s*\\?([A-Za-z]+)\s+([A-Za-z])", r"\\sqrt{\\\1 \2}", s)
+    s = re.sub(r"√\s*\(([^()]*)\)", r"\\sqrt{\1}", s)
+    s = s.replace("√", r"\surd ")
 
     # 3. unicode scripts -> real scripts
     s = _runsToScript(s, _SUP, "^{%s}")
