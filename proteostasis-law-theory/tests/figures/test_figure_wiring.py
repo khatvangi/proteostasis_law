@@ -27,7 +27,7 @@ for _p in (_REPO_ROOT / "scripts", _REPO_ROOT / "scripts" / "figures",
         sys.path.insert(0, str(_p))
 
 import fig_theorem, fig_dilution, fig_saturation  # noqa: E402
-import fig_front, fig_beta, fig_identity  # noqa: E402
+import fig_front, fig_beta, fig_identity, fig_hopf  # noqa: E402
 
 _DOC = (_REPO_ROOT / "manuscript" / "MANUSCRIPT_BMB_v5.md").read_text()
 
@@ -36,8 +36,10 @@ _SCRIPTS = {
     "fig_theorem": fig_theorem, "fig_dilution": fig_dilution,
     "fig_saturation": fig_saturation, "fig_front": fig_front,
     "fig_beta": fig_beta, "fig_identity": fig_identity,
+    "fig_hopf": fig_hopf,
 }
 _MAIN = ("fig1", "fig2", "fig3", "fig4", "fig5")
+_SUPP = ("figS1", "figS2")   # v5 moves the Pareto front to the supplementary
 
 
 def _proseMentions(n: str) -> list:
@@ -53,7 +55,7 @@ def _proseMentions(n: str) -> list:
 
 def _captionOf(stem: str) -> str:
     """the caption paragraph following the embed of `stem`."""
-    label = "S1" if stem == "figS1" else stem[3:]
+    label = stem[3:]
     marker = f"**Fig. {label}**"
     start = _DOC.index(marker)
     return _DOC[start: _DOC.index("\n\n", start)]
@@ -62,13 +64,13 @@ def _captionOf(stem: str) -> str:
 class TestNumberingFollowsFirstMention(unittest.TestCase):
     def testEachScriptDeclaresExactlyOneFigureNumber(self):
         claimed = sorted(m.FIGURE for m in _SCRIPTS.values())
-        self.assertEqual(claimed, sorted(list(_MAIN) + ["figS1"]))
+        self.assertEqual(claimed, sorted(list(_MAIN) + list(_SUPP)))
 
     def testEmbedsAppearInNumericOrder(self):
         embeds = re.findall(r"!\[Figure ([0-9S]+)\]\(\.\./figures/(fig[0-9S]+)\.pdf\)",
                             _DOC)
         labels = [e[0] for e in embeds]
-        self.assertEqual(labels, ["1", "2", "3", "4", "5", "S1"])
+        self.assertEqual(labels, ["1", "2", "3", "4", "5", "S1", "S2"])
         for label, stem in embeds:
             self.assertEqual(stem, f"fig{label}", "embed path disagrees with label")
 
@@ -93,7 +95,7 @@ class TestNumberingFollowsFirstMention(unittest.TestCase):
 
     def testSupplementaryIsCitedInSectionFive(self):
         cite = _DOC.index("Fig. S1")
-        self.assertLess(cite, _DOC.index("## Supplementary figure"))
+        self.assertLess(cite, _DOC.index("## Supplementary material"))
 
 
 class TestCaptionsAgreeWithTextAndWithTheGenerator(unittest.TestCase):
@@ -123,10 +125,10 @@ class TestCaptionsAgreeWithTextAndWithTheGenerator(unittest.TestCase):
 
     def testFrontNumbersMatchBothPlaces(self):
         o = fig_front.build()
-        cap = _captionOf("fig4")
-        for tok in (f"{o['front_lo']:.3f}", f"{o['front_hi']:.3f}",
-                    f"{o['exact_ratio']:.6f}", f"{o['grid_best_ratio']:.4f}"):
-            self.assertIn(tok, cap, f"{tok} missing from the Fig. 4 caption")
+        cap = _captionOf("figS2")
+        for tok in (f"{o['front_lo']:.4f}", f"{o['front_hi']:.4f}",
+                    f"{o['exact_ratio']:.6f}", f"{o['grid_best_ratio']:.6f}"):
+            self.assertIn(tok, cap, f"{tok} missing from the Fig. S2 caption")
             self.assertIn(tok, _DOC, f"{tok} missing from the text")
 
     def testBetaBandMatchesTableAndCaption(self):
@@ -136,8 +138,8 @@ class TestCaptionsAgreeWithTextAndWithTheGenerator(unittest.TestCase):
         # the generator returns proteome FRACTIONS; both table and caption are in %
         lo1, hi1 = (100 * v for v in o["at_beta_1"])
         lo25, hi25 = (100 * v for v in o["at_beta_025"])
-        self.assertIn(f"{lo1:.2f}–{hi1:.2f} %", cap)
-        self.assertIn(f"{lo25:.2f}–{hi25:.2f} %", cap)
+        self.assertIn(f"{lo1:.4f}–{hi1:.4f}%", cap)
+        self.assertIn(f"{lo25:.4f}–{hi25:.4f}%", cap)
         # the table carries the same solve at two more digits
         self.assertIn(f"{lo1:.4f}", _DOC)
         self.assertIn(f"{hi25:.4f}", _DOC)
@@ -146,12 +148,21 @@ class TestCaptionsAgreeWithTextAndWithTheGenerator(unittest.TestCase):
         # by a factor of five at the left edge of its own figure.
         self.assertAlmostEqual(o["closest_ratio"], 3.19, places=2)
         self.assertAlmostEqual(o["widest_ratio"], 214.0, delta=1.0)
-        self.assertIn("between 3× and 214× below", _DOC)
+        # pin the RANGE, not the sentence: v4 wrote "between 3x and 214x
+        # below", v5 states the same span as the requirement sitting above the
+        # measured load. Either wording is fine; omitting the closest approach
+        # is not, and that is what this guards.
+        self.assertIn(f"{o['closest_ratio']:.2f}×", _DOC)
+        self.assertIn(f"{o['widest_ratio']:.0f}×", _DOC)
+        self.assertIn(f"`β = {o['closest_at_beta']:.2f}`", _DOC)
         # 15.94, which the table rounds to 16x -- the prose says "at least
         # fifteenfold" rather than sixteen, because 15.94 is not 16
         self.assertGreater(100 * o["rpoH"][0] / hi25, 15.0)
         self.assertLess(100 * o["rpoH"][0] / hi25, 16.0)
-        self.assertIn("at least fifteenfold below", _DOC)
+        # v5 states the comparison as a ratio COLUMN in the section 8.3 table
+        # rather than as a prose clause; the property is that the ratio to the
+        # only measured load is stated, not the sentence that once stated it.
+        self.assertIn("ratio to the Δ*rpoH* load", _DOC)
 
     def testIdentityCaptionMatchesSectionFive(self):
         import pandas as pd
@@ -159,10 +170,13 @@ class TestCaptionsAgreeWithTextAndWithTheGenerator(unittest.TestCase):
         c = fig_identity.captionNumbers(df)
         cap = _captionOf("figS1")
         sec5 = _DOC[_DOC.index("## 5. Numerical verification"):
-                    _DOC.index("## 6. Where the boundary sits")]
+                    _DOC.index("## 6. Where the fold sits")]
+        # v5 keeps the normalisation contrast in the S1 caption and leaves only
+        # the headline correlation in section 5. Both must carry what they claim;
+        # requiring section 5 to repeat every token pinned v4's longer section.
         for tok in ("+0.9960", "−0.835", "+0.041", "1.54×10⁻²", "1.29×10⁻⁹"):
             self.assertIn(tok, cap, f"{tok} missing from the S1 caption")
-            self.assertIn(tok, sec5, f"{tok} missing from section 5")
+        self.assertIn("+0.9960", sec5, "section 5 must carry the correlation")
         self.assertAlmostEqual(c["corr_parallelism"], 0.9960, places=4)
         self.assertAlmostEqual(c["max_corr_loglog"], -0.835, places=3)
         # the retracted pair must not survive in the caption at all
@@ -179,7 +193,7 @@ class TestPhysicalSize(unittest.TestCase):
         from matplotlib.backends.backend_pdf import PdfPages  # noqa: F401
         from pypdf import PdfReader
         mm = 25.4 / 72.0     # pdf points -> mm
-        for stem in list(_MAIN) + ["figS1"]:
+        for stem in list(_MAIN) + list(_SUPP):
             pdf = _REPO_ROOT / "figures" / f"{stem}.pdf"
             self.assertTrue(pdf.exists(), f"{stem}.pdf not built")
             box = PdfReader(str(pdf)).pages[0].mediabox

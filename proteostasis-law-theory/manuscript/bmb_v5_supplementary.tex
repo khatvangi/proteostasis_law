@@ -30,6 +30,7 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 %% unicode that survives into prose, mapped from this document's own inventory
+\newunicodechar{²}{$^{2}$}
 \newunicodechar{¹}{$^{1}$}
 \newunicodechar{×}{$\times$}
 \newunicodechar{⁰}{$^{0}$}
@@ -55,7 +56,7 @@
 \begin{figure}[htbp]
 \centering
 \includegraphics[max width=\linewidth]{../figures/figS1.pdf}
-\caption{Parallelism residual against leading eigenvalue, over all 325 load-grid folds with no subsample. The correlation is +0.9960 in log-log with slope 1.000, so $\sin (angle)$ is proportional to bracket looseness rather than merely increasing with it; the tightest-bracketed state has $|\lambda |$ = 8.10×10⁻¹⁰ and $\sin (angle)$ = 7.75×10⁻⁹. The figure also carries the normalisation contrast: normalising by $\max (|\det J|, |\operatorname{cross}|)$ is $0/0$ at an exact fold, and that residual degrades as the bracket tightens (median 3.133×10⁻⁷ on the tighter half against 1.455×10⁻⁷ on the looser, 2.15× worse where it matters most, log-log correlation −0.835), whereas the gradient normalisation used throughout correlates at +0.041 with a maximum of 1.292×10⁻⁹.}
+\caption{Parallelism residual against leading eigenvalue, over all 325 load-grid folds with no subsample. The correlation is +0.9960 in log-log with slope 1.000, so $\sin (angle)$ is proportional to bracket looseness rather than merely increasing with it; the tightest-bracketed state has $|\lambda |$ = 8.10×10⁻¹⁰ and $\sin (angle)$ = 7.75×10⁻⁹. The figure also carries the normalisation contrast: normalising by $\max (|\det J|, |\operatorname{cross}|)$ is $0/0$ at an exact fold, and that residual degrades as the bracket tightens (median 3.133×10⁻⁷ on the tighter half against 1.455×10⁻⁷ on the looser, 2.15× worse where it matters most, log-log correlation −0.835, maximum 1.54×10⁻²), whereas the gradient normalisation used throughout correlates at +0.041 with a maximum of 1.29×10⁻⁹.}
 \label{fig:figS1}
 \end{figure}
 

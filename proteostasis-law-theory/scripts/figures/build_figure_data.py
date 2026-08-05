@@ -63,6 +63,68 @@ def _write(name: str, df: pd.DataFrame, population: str, source: str,
     }
 
 
+def buildHopf(run: Path) -> dict:
+    """Fig. 4: the kinetic coordinates and crossing flag, one row per network.
+
+    Panel (c) needs `(kappa_a, rho_A)` per network plus whether it crosses. Those
+    live in the run root, which is gitignored, so the reduction happens HERE --
+    the one script allowed to read it -- and the figure reads only the tracked
+    output. A first version of `fig_hopf.py` called `phase1RunDir()` directly and
+    the hygiene test caught it: Figure 4 could not have been rebuilt from a clean
+    checkout.
+    """
+    S = pd.read_csv(REPO_ROOT / "data" / "computed"
+                    / "hopf_refined_kinetic_box.tsv", sep="\t")
+    T = S[S["traced"] == True]  # noqa: E712
+    c = pd.read_csv(run / "C" / "samples.tsv", sep="\t")
+    c = c[c["C1_fold_exists"] == True]  # noqa: E712
+    c = c[pd.to_numeric(c["fold_burden"], errors="coerce").notna()]
+    c = c.assign(name=[f"draw{i}" for i in c.index])
+    keep = ["name", "p_kappa_a", "p_rho_A", "p_alpha_g", "p_alpha_n"]
+    m = c[keep].merge(T[["name", "tr_max", "fold_is_j_max", "j_lo", "j_crit",
+                         "j_at_first_cross"]], on="name")
+    m["cross"] = ((m["tr_max"] >= 0.0) & (m["fold_is_j_max"] == 1)).astype(int)
+    return _write("hopf_networks.tsv", m, KINETIC_BOX, run.name,
+                  complete=len(m) == len(T),
+                  note="kinetic coordinates and crossing flag per network; "
+                       "no subsampling")
+
+
+def buildHopfBranches(run: Path) -> dict:
+    """Fig. 4a: the two exemplar branch traces, as (j/j_crit, tr J) columns.
+
+    The exemplars are chosen by the rule in `fig_hopf.py` and traced here, so the
+    figure never touches the run root.
+    """
+    import genericity as GEN
+    import hopf_check as HC
+    import fig_hopf as FH
+
+    S = pd.read_csv(REPO_ROOT / "data" / "computed"
+                    / "hopf_refined_kinetic_box.tsv", sep="\t")
+    T = S[S["traced"] == True]  # noqa: E712
+    clean = T[(T["tr_max"] >= 0.0) & (T["fold_is_j_max"] == 1)]
+    cross_name, stable_name = FH.pickExemplars(T, clean)
+
+    states = {nm: (p, u, a) for nm, p, u, a in GEN.kineticBoxStates(run)}
+    rows = []
+    for label, nm in (("crossing", cross_name), ("stable", stable_name)):
+        p, u, a = states[nm]
+        out = HC.branchProfile(p, u, a)
+        if out is None:
+            continue
+        B = out["branch"].sort_values("j")
+        j_crit = float(FT.removalR(u, a, p))
+        for _, r in B.iterrows():
+            rows.append({"label": label, "name": nm,
+                         "j_over_jcrit": float(r["j"]) / j_crit,
+                         "tr_J": float(r["tr_J"])})
+    df = pd.DataFrame(rows)
+    return _write("hopf_branches.tsv", df, KINETIC_BOX, run.name, complete=True,
+                  note=f"exemplar branches: crossing={cross_name}, "
+                       f"stable={stable_name}; chosen by rule, not by eye")
+
+
 def buildSaturation(run: Path) -> dict:
     """Fig. 2: the three saturation fractions at collapse, over the kinetic box."""
     c = pd.read_csv(run / "C" / "samples.tsv", sep="\t")
@@ -145,7 +207,8 @@ def main() -> int:
         print(f"run root absent at {run}; nothing rebuilt. "
               "data/figures/ is tracked, so the figures still reproduce.")
         return 0
-    entries = [buildSaturation(run), buildIdentity(run)]
+    entries = [buildSaturation(run), buildIdentity(run),
+               buildHopf(run), buildHopfBranches(run)]
     try:
         entries.append(buildPareto())
     except Exception as exc:                                  # noqa: BLE001

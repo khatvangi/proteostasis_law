@@ -40,11 +40,9 @@ for _p in (REPO_ROOT / "scripts", REPO_ROOT / "scripts" / "figures",
 
 import _figstyle as F  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402
-import fold_theorem as FT  # noqa: E402
-import genericity as GEN  # noqa: E402
-import hopf_check as HC  # noqa: E402
 
 COMPUTED = REPO_ROOT / "data" / "computed"
+FIGDATA = REPO_ROOT / "data" / "figures"
 
 # the two networks drawn in panel (a). Chosen by RULE, not by eye.
 #
@@ -80,18 +78,17 @@ def pickExemplars(T, clean):
     return str(cross_name), str(stable_name)
 
 
-def branchOf(name: str):
-    """recompute the branch profile for one network, from the run root."""
-    run = FT.phase1RunDir()
-    for nm, p, u, a in GEN.kineticBoxStates(run):
-        if nm == name:
-            out = HC.branchProfile(p, u, a)
-            if out is None:
-                return None
-            B = out["branch"]
-            j_crit = float(FT.removalR(u, a, p))
-            return B.sort_values("j"), j_crit
-    return None
+def branchOf(label: str):
+    """one exemplar branch, from the TRACKED reduction.
+
+    The trace itself is done by `build_figure_data.py`, which is the only script
+    permitted to read the gitignored run root. An earlier version of this
+    function called `phase1RunDir()` here, which meant Figure 4 could not be
+    rebuilt from a clean checkout; the hygiene test caught it.
+    """
+    B = pd.read_csv(FIGDATA / "hopf_branches.tsv", sep="\t")
+    B = B[B["label"] == label]
+    return None if B.empty else B.sort_values("j_over_jcrit")
 
 
 def captionNumbers() -> dict:
@@ -141,13 +138,12 @@ def build():
     ax_a, ax_b, ax_c = axes
 
     # ---- (a) tr J along the branch ---------------------------------------
-    for name, colour, label in ((stable_name, "0.45", "no crossing"),
-                                (cross_name, "#c1272d", "crossing")):
-        got = branchOf(name)
-        if got is None:
+    for key, colour, label in (("stable", "0.45", "no crossing"),
+                               ("crossing", "#c1272d", "crossing")):
+        B = branchOf(key)
+        if B is None:
             continue
-        B, j_crit = got
-        ax_a.plot(B["j"] / j_crit, B["tr_J"], color=colour, lw=1.1, label=label)
+        ax_a.plot(B["j_over_jcrit"], B["tr_J"], color=colour, lw=1.1, label=label)
     ax_a.axhline(0.0, color="0.2", lw=0.5, ls=(0, (3, 2)))
     ax_a.axvline(1.0, color="0.2", lw=0.5, ls=(0, (1, 2)))
     ax_a.set_xlabel(r"influx $j/j_{\mathrm{crit}}$")
@@ -180,13 +176,8 @@ def build():
     ax_b.text(0.02, 1.06, "b", transform=ax_b.transAxes, fontweight="bold")
 
     # ---- (c) the parameter region -----------------------------------------
-    run = FT.phase1RunDir()
-    c = pd.read_csv(run / "C" / "samples.tsv", sep="\t")
-    c = c[c["C1_fold_exists"] == True]  # noqa: E712
-    c = c[pd.to_numeric(c["fold_burden"], errors="coerce").notna()]
-    c = c.assign(name=[f"draw{i}" for i in c.index])
-    m = c.merge(T[["name", "tr_max", "fold_is_j_max"]], on="name")
-    m["cross"] = (m["tr_max"] >= 0.0) & (m["fold_is_j_max"] == 1)
+    m = pd.read_csv(FIGDATA / "hopf_networks.tsv", sep="\t")
+    m["cross"] = m["cross"].astype(bool)
     ax_c.scatter(m.loc[~m["cross"], "p_kappa_a"], m.loc[~m["cross"], "p_rho_A"],
                  s=1.4, c="0.72", linewidths=0, rasterized=True)
     ax_c.scatter(m.loc[m["cross"], "p_kappa_a"], m.loc[m["cross"], "p_rho_A"],

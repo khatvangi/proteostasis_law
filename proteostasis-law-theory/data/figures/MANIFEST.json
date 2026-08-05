@@ -40,6 +40,43 @@
       "note": "all found folds; carries BOTH normalisations so the degradation of the max-normalised one is shown, not asserted"
     },
     {
+      "file": "hopf_networks.tsv",
+      "sha256": "465ac434159e4ba4c090904eeffa529b2b5a467b41c63e2a6bb70b2878ff2fd9",
+      "population": "kinetic_box",
+      "n_states": 2766,
+      "is_subsample": false,
+      "source": "run_20260731T162946-0500",
+      "columns": [
+        "name",
+        "p_kappa_a",
+        "p_rho_A",
+        "p_alpha_g",
+        "p_alpha_n",
+        "tr_max",
+        "fold_is_j_max",
+        "j_lo",
+        "j_crit",
+        "j_at_first_cross",
+        "cross"
+      ],
+      "note": "kinetic coordinates and crossing flag per network; no subsampling"
+    },
+    {
+      "file": "hopf_branches.tsv",
+      "sha256": "262d24fabbfe23c686097ca737dbebc4fe10a495147956f31419037f65a27e48",
+      "population": "kinetic_box",
+      "n_states": 269,
+      "is_subsample": false,
+      "source": "run_20260731T162946-0500",
+      "columns": [
+        "label",
+        "name",
+        "j_over_jcrit",
+        "tr_J"
+      ],
+      "note": "exemplar branches: crossing=draw4269, stable=draw583; chosen by rule, not by eye"
+    },
+    {
       "file": "pareto.tsv",
       "sha256": "955e270f903ea7d482d923c37b1fbd7895c6b3bc2724f2968b3528d97cd8ed76",
       "population": "computed",

@@ -157,15 +157,29 @@ class TestFigureHygiene(unittest.TestCase):
         holds for everything else: it reads the run root WHEN PRESENT and writes
         the reduced arrays into data/figures/, which is tracked. Figures read
         those. If it ever stops being the only exception, this test fails.
+
+        The check is on the parsed CODE, not on the source text. A string search
+        failed the moment a module explained in a comment why it no longer calls
+        `phase1RunDir` -- the same shape as D042: a token-absence test breaking on
+        text that became honest about its own history. What matters is whether
+        the module CALLS it, and only the syntax tree knows that.
         """
+        import ast
+
         allowed = {"build_figure_data.py"}
         for f in sorted((_REPO_ROOT / "scripts" / "figures").glob("*.py")):
             if f.name in allowed:
                 continue
-            src = f.read_text()
-            self.assertNotIn('"results"', src, f"{f.name} reads results/")
-            self.assertNotIn("'results'", src, f"{f.name} reads results/")
-            self.assertNotIn("phase1RunDir", src, f"{f.name} reads the run root")
+            tree = ast.parse(f.read_text())
+            names = {n.id for n in ast.walk(tree) if isinstance(n, ast.Name)}
+            attrs = {n.attr for n in ast.walk(tree) if isinstance(n, ast.Attribute)}
+            self.assertNotIn("phase1RunDir", names | attrs,
+                             f"{f.name} calls phase1RunDir; the run root is "
+                             "gitignored, so the figure would not rebuild from "
+                             "a clean checkout")
+            strings = {n.value for n in ast.walk(tree)
+                       if isinstance(n, ast.Constant) and isinstance(n.value, str)}
+            self.assertNotIn("results", strings, f"{f.name} reads results/")
 
     def testStyleDoesNotDependOnALocalMatplotlibConfig(self):
         src = (_REPO_ROOT / "scripts" / "figures" / "_figstyle.py").read_text()
