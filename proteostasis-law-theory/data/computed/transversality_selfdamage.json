@@ -1,0 +1,36 @@
+{
+  "n_solve_attempts": 200,
+  "n_solve_converged": 99,
+  "n_evaluable": 99,
+  "influx": {
+    "n": 53,
+    "margin_min": 1.0000843141350164,
+    "margin_median": 1.0420281174674197,
+    "abs_R_j_max": 1.0817900074035245,
+    "abs_G_j_max": 1.9583007979118925,
+    "n_margin_below_1e-3": 0,
+    "per_eps_margin_min": {
+      "0.01": 1.0000843141350164,
+      "0.1": 1.0008417720489344,
+      "1": 1.0082837397745532,
+      "10": 1.071810235369486,
+      "100": 1.381660506547741
+    }
+  },
+  "burden": {
+    "n": 46,
+    "margin_min": 1.0,
+    "margin_median": 1.0,
+    "abs_R_j_max": 0.0,
+    "abs_G_j_max": 0.0,
+    "n_margin_below_1e-3": 0,
+    "per_eps_margin_min": {
+      "0.01": 1.0,
+      "0.1": 1.0,
+      "1": 1.0,
+      "10": 1.0,
+      "100": 1.0
+    }
+  },
+  "margin_min_overall": 1.0
+}

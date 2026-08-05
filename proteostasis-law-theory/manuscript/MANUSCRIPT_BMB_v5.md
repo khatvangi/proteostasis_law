@@ -150,10 +150,11 @@ Theorem 1.2 gives one direction: a fold satisfies gradient alignment. The conver
 
 - **(G1)** regularity of the constraint, `∇G ≠ 0`;
 - **(G2)** a simple zero eigenvalue, `tr J ≠ 0`;
-- **(G3)** nondegeneracy, `d²R/ds² ≠ 0` along the nullcline at the critical point;
-- **(G4)** parameter transversality, `w·∂F/∂j ≠ 0` for the left null vector `w`.
+- **(G3)** nondegeneracy, `d²R/ds² ≠ 0` along the nullcline at the critical point.
 
-**Theorem 2 (converse).** *Let `F` be `C²`. Under (G1)–(G4), a constrained critical point of `R` on `{G = 0}` is a generic saddle-node in `j`, with `j_crit = R(u*, a*)`.*
+Parameter transversality, `w·∂F/∂j ≠ 0` for the left null vector `w`, is the fourth condition of the classical statement. It is not independent here, and the corollary below shows it follows from (G1).
+
+**Theorem 2 (converse).** *Let `F` be `C²`. Under (G1)–(G3), a constrained critical point of `R` on `{G = 0}` is a generic saddle-node in `j`, with `j_crit = R(u*, a*)`.*
 
 *Proof.* By (G1) the nullcline is a `C²` curve near the point, so Theorem 1.2 applies: equilibria on it are the solutions of `r(s) = j`, and `det J = 0` is `r'(0) = 0`. With (G3),
 
@@ -177,18 +178,33 @@ and (G3) is not merely equivalent to the classical nondegeneracy condition of th
 
 Two things come free. The sign of `r''(0)` is the orientation of Section 3.4, so that classification is a corollary rather than a separate observation. And nothing in the proof appeals to numerical verification; Table 1 reports whether the hypotheses hold in the ensembles studied, which is a question about the model rather than about the theorem.
 
-(G4) is not automatic. Since `∂F/∂j = (1, 0)` exactly, transversality reduces to `w₁ ≠ 0`, and no structural feature of the model forces it. Measured at solved fold states it is bounded away from zero: minimum 0.341 on the load grid and 3.34×10⁻⁹ over the kinetic box.
+*Remark 3 (what a fold terminates).* Step two of the proof also classifies the collision. Since the eigenvalues at a fold are `0` and `tr J`, a negative trace means a stable node and a saddle merge, so the fold terminates a stable branch and is the collapse threshold. A positive trace means an unstable node and a saddle merge, and the low-burden state has already lost stability somewhere below: the fold is a turning point of the branch but not a boundary of viability. On the load grid every fold has `tr J < 0`. Over the kinetic box 61 of 2767 have `tr J > 0`, and all 61 are among the networks of Section 7 whose branch loses stability before the fold — as they must be, which makes the count a consistency check between two independent computations rather than a finding. The finding is the converse: of the 108 networks that lose stability first, 47 recover it before reaching the fold, so an oscillatory excursion below `j_crit` does not imply that the fold itself is unstable.
 
-**Table 1** The four genericity conditions of Theorem 2, evaluated at every solved fold state in each ensemble. Each entry is the minimum of the condition's margin over the whole population; a value bounded away from zero means the condition holds throughout. The two exceptions are the same two networks in both rows where they appear.
+**Corollary (transversality is automatic).** *Under (G1), `w·∂F/∂j ≠ 0`.*
+
+*Proof.* Since `∂F/∂j = (1, 0)` exactly, the condition is `w₁ ≠ 0`. Let `L = I + e₁e₂^T`, so that `LJ` is the matrix whose first row is `−∇R` and whose remaining rows are the non-influx constraint gradients, and note that `L` fixes the first coordinate of any row vector multiplying it on the left. Put `z = wL⁻¹`, so `z(LJ) = 0`. If `z₁ = 0` the remaining components annihilate the non-influx constraint gradients, which have full rank by (G1), forcing `z = 0` and hence `w = 0`. So `z₁ ≠ 0`, and `w₁ = z₁ ≠ 0`. ∎
+
+The argument uses only `∂F/∂j = e₁` and full rank, so it holds in every state dimension. It also gives the margin in closed form: normalising `w = (1, 1+λ)` with `∇R = λ∇G`,
+
+```
+|w₁|/‖w‖ = (1 + (1+λ)²)^(−1/2),
+```
+
+which is small exactly when `|λ|` is large — that is, when `∇G → 0` at fixed `∇R`. The near-failures of the constraint and of transversality are therefore one event and not two, which is what Table 1's two exceptions are.
+
+Computing the two sides of the closed form by independent routes — the left from a singular value decomposition of the analytic Jacobian, the right from central-difference gradients — they agree at all 325 load-grid states and at 2765 of the 2767 kinetic-box states, at median relative difference 8.5×10⁻¹¹ and maximum 1.8×10⁻⁵. The two that disagree are precisely the two exceptions of Table 1, where `‖∇G‖` is 1.04×10⁻⁸ and 3.99×10⁻⁸ against a smallest value of 1.41×10⁻⁶ everywhere else: there the gradient ratio is differencing noise and the closed form has nothing to evaluate.
+
+**Table 1** The genericity conditions of Theorem 2, evaluated at every solved fold state in each ensemble. The first three rows are the hypotheses; each entry is the minimum of that condition's margin over the whole population, so a value bounded away from zero means the condition holds throughout. The fourth row is a consequence of the first rather than an independent condition, and takes the closed form given above wherever the constraint is regular; its two exceptions are the same two networks as (G1)'s, which is forced. The last row reports a sign rather than a margin, because `\|tr J\|` conceals the classification: the eigenvalues at a fold are `0` and `tr J`, so a negative trace is a stable node colliding with a saddle and the fold terminates a stable branch, while a positive trace is an unstable node colliding with a saddle and the fold is not a stability boundary at all.
 
 | condition | load grid (325) | kinetic box (2767) |
 |---|---|---|
 | (G1) `\|∇G\|` | min 0.106 | min 1.04×10⁻⁸, 2 exceptions |
 | (G2) `\|tr J\|` | min 0.303 | min 8.38×10⁻⁴ |
 | (G3) `\|d²R/ds²\|` | min 0.0929 | min 9.21×10⁻⁶ |
-| (G4) `\|w₁\|/\|w\|` | min 0.341 | min 3.34×10⁻⁹, 2 exceptions |
+| consequence of (G1), `\|w₁\|/\|w\|` | min 0.341 | min 3.34×10⁻⁹, 2 exceptions |
+| sign of `tr J` | all negative, −0.365 to −0.303 | −626 to +3.41; positive at 61 |
 
-The two exceptions are the same two networks, and they fail (G1), (G3) and (G4) together for one reason: both sit at aggregate burden of order 10⁻¹¹ and 10⁻¹⁵, where the aggregate compartment is empty, `∇G → 0`, the constraint ceases to be a manifold, and every condition defined on it degenerates. At both, `tr J = −∇R` exactly, the signature of a state where `G` has gone flat. These are the boundary of the model's domain of definition rather than counterexamples to Theorem 2. A further 117 of 2884 sampled networks carry no solvable state satisfying `{G = 0, det J = 0}` and are excluded from all conditions above.
+The two exceptions are the same two networks, and they fail (G1) and (G3) for one reason, taking the transversality margin down with them: both sit at aggregate burden of order 10⁻¹¹ and 10⁻¹⁵, where the aggregate compartment is empty, `∇G → 0`, the constraint ceases to be a manifold, and every condition defined on it degenerates. At both, `tr J = −∇R` exactly, the signature of a state where `G` has gone flat. These are the boundary of the model's domain of definition rather than counterexamples to Theorem 2. A further 117 of 2884 sampled networks carry no solvable state satisfying `{G = 0, det J = 0}` and are excluded from all conditions above.
 
 Both computations use arclength along the nullcline rather than the `u`-coordinate. The nullcline turns vertical where `G_a = 0`, which is a coordinate singularity of the `u`-parametrisation, and every quantity evaluated on the curve is affected there.
 
@@ -228,11 +244,15 @@ Two properties of the candidate set follow from the theorem and bound what it de
 det J = −det [ ∇R ; ∇G ; ∇C ]
 ```
 
-*which vanishes exactly when `∇R` lies in the span of the remaining gradients — the Lagrange condition for a constrained critical point of `R` on the intersection of the non-influx nullclines. The converse requires, in addition to (G2)–(G4), that the non-influx constraint gradients have full rank.*
+*which vanishes exactly when `∇R` lies in the span of the remaining gradients — the Lagrange condition for a constrained critical point of `R` on the intersection of the non-influx nullclines.*
 
 The proof is the same row operation on the first row of an `n × n` Jacobian. The practical consequence is that a model in this class can be extended without re-deriving its fold condition.
 
-We verify Corollary 2 on two three-state systems. In the first the chaperone pool is dynamical under σ32-style control, with synthesis rising as free chaperone falls: median relative error of the identity 0.000×10⁰ unregulated and 2.5×10⁻¹¹ to 2.9×10⁻¹¹ regulated, with the `σ₀ → 0` limit reproducing the two-state field exactly. In the second, aggregate is split into reactive and sequestered compartments: median 1.5×10⁻¹², maximum 4.7×10⁻¹¹ over a 144-point grid.
+The converse needs restating above two dimensions, because (G2) does two jobs at once in the plane and neither survives. Write the characteristic polynomial as `p(λ) = λⁿ + … + c₁λ + c₀`, so that `c₀ = ±det J` and `c₁` is, up to sign, the sum of the `(n−1)×(n−1)` principal minors. A zero eigenvalue is `c₀ = 0`; it is algebraically simple exactly when `c₁ ≠ 0`; and partial hyperbolicity is the separate requirement that no other eigenvalue lie on the imaginary axis. For `n = 2` both reduce to `tr J ≠ 0`, since `c₁ = −tr J` and the remaining eigenvalue is `tr J` — which is why the distinction is invisible in the plane and why (G2) may be stated as the trace condition there. In general the converse requires (G1) with the non-influx constraint gradients of full rank, `c₁ ≠ 0`, and (G3).
+
+We verify Corollary 2 on two three-state systems. In the first the chaperone pool is dynamical under σ32-style control, with synthesis rising as free chaperone falls; the identity holds at median relative error 2.5×10⁻¹¹ to 2.9×10⁻¹¹, and the `σ₀ → 0` limit reproduces the two-state field exactly. That limit is not itself a test of the identity: with synthesis off, `dc/dt` vanishes identically, `∇C = 0`, and both sides of the identity are exactly zero, so the reduction is checked against the two-state field rather than against the determinant. In the second system aggregate is split into reactive and sequestered compartments: median 1.5×10⁻¹², maximum 4.7×10⁻¹¹.
+
+The corrected conditions hold at every fold state of both. Over the regulated system `|c₁| ≥ 9.61×10⁻³` at the standard controller and `≥ 0.132` at the stronger one; over the sequestered system `|c₁| ≥ 2.13×10⁻²` across 46 fold states solved from 63 seeded attempts. In all three the remaining spectrum stays off the imaginary axis, the closest approach being `|Re λ| = 1.62×10⁻²`. The `k_seq = 0` and `σ₀ = 0` settings are excluded from these margins rather than reported as passing cases: both make a row of the Jacobian identically zero, so `det J = 0` everywhere and the states a fold solve returns for them are not folds.
 
 ### 4.2 Growth dilution
 
@@ -278,6 +298,14 @@ The identity holds in both modes at machine precision: gradient-normalised resid
 
 What the coupling removes is the fixed nullcline. Under self-damage `{G = 0}` moves with the load: (H1b) fails and Theorem 1.4 replaces Theorem 1.3, so the candidate solve grows from two equations in `(u,a)` to three in `(u,a,j)`. Corollary 1's saving applies to the frozen-capacity case.
 
+It also removes the automatic transversality of Section 3.2, and puts a checkable scalar in its place. With `F_j = (1 − R_j − G_j, G_j)` and `w = (1, 1+λ)`,
+
+```
+w·F_j = 1 − R_j + λ G_j,
+```
+
+so transversality is `R_j − λG_j ≠ 1`. This is the exact statement that (G4) ceases to be free precisely when capacity feeds back on the influx. Measured at solved self-damaged fold states — 99 converging from 200 attempts across both ladders — the margin is never small. In burden mode the capacity factor contains no `j`, so `R_j` and `G_j` vanish identically and `w·F_j = 1` exactly at all 46 states, which is (G4) reappearing for the same reason it held in Section 3.2. In influx mode the margin rises with the coupling rather than falling, from 1.000 at `ε = 0.01` to 1.38 at `ε = 100` over 53 states. The feedback moves transversality away from failure in this model; that it could move the other way is what the condition is for.
+
 Self-damage lowers the fold substantially without steepening the approach. Median `j_crit` relative to the frozen fold falls 0.999 / 0.990 / 0.925 / 0.640 / 0.322 across the influx ladder and 0.995 / 0.949 / 0.740 / 0.324 / 0.131 across the burden ladder. The critical-slowing exponent shows no detected shift: paired over the 19 networks carrying both values, median −0.4763 damaged against −0.4813 frozen, with a paired-difference distribution centred near zero (Wilcoxon `p` = 0.312).
 
 **Corollary 4 (square-root capacity ceiling).** *In influx mode every removal flux carries a factor `1/(1 + εj)`, so the necessary condition `j ≤ C_0` of the frozen model becomes `εj² + j − C_0 ≤ 0`, that is*
@@ -287,6 +315,18 @@ j ≤ ( √(1 + 4εC_0) − 1 )/(2ε)   →   √(C_0/ε)   for large ε.
 ```
 
 A linear capacity ceiling becomes a square-root one: doubling the machinery buys only √2 in tolerable error rate once the machinery is itself error-prone. The bound is exact and is not binding in the range examined, with `j_crit/j_max` of median 0.039–0.186 and largest observed 0.623 over 8 draws, so it is a necessary condition and not the fold. Continuation with intermediate rungs recovers folds that a direct solve loses at large `ε`, with recovery counts that do not decrease monotonically in `ε` (influx 7/5/6/6/4, burden 6/7/7/4/2); a genuine loss of the fold would be monotone, so this is continuation failure rather than folds disappearing. Where a fold does solve it satisfies `sin(∇R, ∇G) < 2.0×10⁻⁹` throughout that sweep. The consequence is that Corollary 4 is least checkable numerically in the regime where it would bind.
+
+### 4.4 Robustness to the catalytic closure
+
+Section 2.1 stipulates the catalytic step rather than deriving it. Nothing in Section 3 or in Sections 4.1 to 4.3 depends on that choice — the identity, the converse, the `n`-state form and the dilution corollaries follow from H1–H3, which hold for any closure preserving mass balance. The quantitative results of Sections 6 and 7 do depend on it, and this section reports by how much.
+
+The alternative is the mechanistically standard one: catalytic flux proportional to the bound complex, so that `v_ref = k_ref C_f u_f/K_CU` and likewise for the other three removal terms. It removes both stipulations at once. There is no second saturation, and cycles drawing on one pool now compete for it automatically, because the complexes they form appear in the same conservation law. The removal ceiling is unchanged at `C_tot + (ρ_U + ρ_A)D_tot`, since every complex concentration is bounded by its own pool total, so `φ` means the same thing under both and the comparison is well posed. Everything else is held fixed: the same draws, the same seeding from the same recorded states, one field of the parameter set changed.
+
+Two things move, and by similar factors. Median `φ` at the fold rises from 0.0825 to 0.353, so the ceiling overestimates the tolerable influx twelvefold under the published rate laws and 2.8-fold under the alternative; paired over the 1991 networks yielding a fold state under both, the median ratio is 3.81 and 1516 of 1991 lie outside a factor of two. And the incidence of stability loss before the fold falls from 108 of 2766 traced networks to 18 of 2027. Fewer networks admit a solvable fold state at all under the alternative, 2027 against 2767 of the same 2884 draws, and that difference is reported rather than absorbed.
+
+Neither movement is mysterious. The utilisation of nominal capacity at the fold is what `φ` aggregates, and removing a saturating factor from every removal flux raises it. The oscillatory region of Section 7 is characterised by `κ_a`, the Michaelis constant of aggregate clearance, which the alternative closure does not contain; what survives there is the weaker statement that the destabilising mechanism is saturation of clearance, whether that saturation enters through a Michaelis step or through competition for a finite pool.
+
+The consequence for what this paper claims is stated where the claims are made. The ceiling overestimate is a property of the closure as much as of the model class, and the abstract, Section 6 and Section 10 say so. The identity and its corollaries are not.
 
 ## 5. Numerical verification
 

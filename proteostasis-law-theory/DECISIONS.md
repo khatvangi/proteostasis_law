@@ -2192,3 +2192,153 @@ the honest utilisation measure and `1/0.0825 = 12.1` is where "twelvefold" comes
 from, so the abstract currently reports two different quantities as one, and its
 own arithmetic does not close: `1/0.18` to `1/0.05` is 5.6× to 20×, not 12×.
 This is task E2(a), and it is confirmed rather than merely alleged.
+
+## D052 — Theorem 1 was three claims with different hypotheses wearing one label
+
+Task B1. Two defects, one of them a contradiction the paper carried in plain
+sight.
+
+**H1 contradicted §4.3.** H1 said `j` "does not appear in `da/dt`". §4.3 lets
+`C_tot` depend on `j`, which puts `j` in `da/dt`, yet §3.2 said transversality
+reduces to `w₁ ≠ 0` *because* `∂F/∂j = (1,0)` exactly. Both could not hold. The
+identity survives because the gradients are taken with respect to the state at
+fixed `j`, not because H1 holds. H1 is now split at the point of use: **(H1a)**
+total influx is state-independent, which is what puts mass balance in the form H2
+needs; **(H1b)** `j` is absent from `da/dt`, so the nullcline does not move.
+Only (H1a) enters the identity.
+
+**"`det J = 0` holds exactly at constrained critical points" is false where
+`∇G = 0`.** The determinant vanishes automatically there, `{G = 0}` need not be a
+manifold, and the Lagrange reading is vacuous — as the paper's own two
+exceptions demonstrate. Regularity is a hypothesis of the forward direction, not
+only of the converse. The claim that it is needed only for the converse is gone.
+
+The replacement is four statements, collectively Theorem 1:
+
+| | hypotheses | content |
+|---|---|---|
+| 1.1 | (H1a), H2, H3 | `det J = −(∇R × ∇G)` |
+| 1.2 | + `∇G ≠ 0` | `r'(s) = det J/‖∇G‖` **pointwise** |
+| 1.3 | + (H1b) | candidates solve `{G = 0, det J = 0}` in the state alone |
+| 1.4 | `∂G/∂j ≠ 0` | three equations in `(u, a, j)` |
+
+**Theorem 1.2 is the strengthening and it costs three lines.** `det J` *is* the
+derivative of total removal along the aggregate nullcline, up to the positive
+factor `‖∇G‖` — at every point, not only where it vanishes. The paper's slogan
+was a gloss on a vanishing condition; it is an exact identity. Two things follow
+immediately: the equilibrium branch is the level-set inverse of one scalar
+function of one variable, and `det J = 0` is `r'(s) = 0`.
+
+## D053 — Theorem 2 was asserted. It is now proved, and (G3) turns out to be Sotomayor's condition.
+
+Task B2. Numerical verification of (G1)–(G4) is evidence that the conditions
+hold. It is not a proof that they imply the normal form, and the paper had no
+proof.
+
+The proof is half a page and needs no citation, because of Step 4. With
+`w = (1, 1+λ)` the left null vector and `v` the right one,
+
+```
+w·D²F(v,v) = −D²R(v,v) + λD²G(v,v)
+r''(0)     =  D²R(v,v) − λD²G(v,v)     [from ∇G·γ'' = −D²G(v,v)]
+⟹ r''(0) = −w·D²F(v,v)
+```
+
+so **(G3) is not merely equivalent to the classical nondegeneracy condition of
+the saddle-node but equal to it up to sign**. Step 3 is what makes the comparison
+legitimate: the second row of `Jv = 0` reads `∇G·v = 0`, so the right null vector
+is tangent to the nullcline and the centre manifold and the arclength reduction
+are the same object.
+
+The orientation classification of §3.4 becomes a corollary of Step 1 rather than
+a separate observation, and Table 1 stops carrying the weight of the converse.
+
+## D054 — (G4) follows from (G1). The genericity list is three conditions, not four.
+
+Task B3. §3.2 said "(G4) is not automatic … no structural feature of the model
+forces it." That was wrong, and the paper's own numbers were the evidence.
+
+**Proof.** `∂F/∂j = e₁`, so (G4) is `w₁ ≠ 0`. With `L = I + e₁e₂ᵀ`, `LJ` has first
+row `−∇R` and the rest the non-influx constraint gradients, and `L` fixes the
+first coordinate of a left-multiplying row vector. Put `z = wL⁻¹`; then
+`z(LJ) = 0`, and `z₁ = 0` would make the remaining components annihilate
+full-rank gradients. So `z₁ ≠ 0` and `w₁ = z₁ ≠ 0`. **Every state dimension.**
+
+The margin has a closed form: `|w₁|/‖w‖ = (1 + (1+λ)²)^(−1/2)`, small exactly
+when `|λ| → ∞`, i.e. when `∇G → 0`. **The co-occurrence of the (G1) and (G4)
+near-failures is a theorem, not an observation about two networks.**
+
+Verified by two independent routes — SVD of the analytic Jacobian against
+central-difference gradients — at all 325 load-grid and 2765 of 2767 kinetic-box
+states, median relative difference 8.5×10⁻¹¹, maximum 1.8×10⁻⁵. The two
+disagreements are exactly Table 1's two exceptions, at `‖∇G‖` of 1.04×10⁻⁸ and
+3.99×10⁻⁸ against a smallest value of 1.41×10⁻⁶ elsewhere: there the right-hand
+side is differencing noise. The closed form fails only where it has nothing to
+evaluate, which is confirmation rather than qualification.
+
+### B7, from the same computation: Table 1 reported `|tr J|` and hid the classification
+
+At a two-dimensional fold the eigenvalues are `0` and `tr J`. A negative trace is
+a stable node colliding with a saddle — the fold terminates a stable branch. A
+positive trace is an unstable node colliding with a saddle, and **the fold is not
+a stability boundary at all**. Table 1 now reports the signed range.
+
+Load grid: all 325 negative, −0.365 to −0.303. Kinetic box: −626 to **+3.41**,
+with **61 of 2767 positive**.
+
+All 61 are among §7's networks that lose stability before the fold — as they must
+be, since a positive trace at the fold puts the branch maximum above zero, so
+that count is a consistency check between two independent computations and not a
+finding. The finding is the converse, and the work order's expectation does not
+survive it: it supposed the 104 crossers "have `tr J > 0` at their folds by
+construction". **47 of the 108 crossers have `tr J < 0` at the fold** — the branch
+destabilises and recovers before reaching it. An oscillatory excursion below
+`j_crit` does not imply the fold itself is unstable.
+
+## D055 — Corollary 2's converse is false above two dimensions, and §4.1 carried a 0 = 0 check
+
+Task B4. "The converse requires, in addition to (G2)–(G4), full rank" uses
+`tr J ≠ 0` for two jobs that only coincide in the plane. Writing
+`p(λ) = λⁿ + … + c₁λ + c₀`, a zero eigenvalue is `c₀ = 0` and is algebraically
+simple exactly when `c₁ ≠ 0`, where `c₁` is up to sign the sum of the
+`(n−1)×(n−1)` principal minors; partial hyperbolicity is separate. For `n = 2`,
+`c₁ = −tr J` and the remaining eigenvalue is `tr J`, which is why the error was
+invisible. As stated, the converse was false for the two three-state systems §4.1
+verifies.
+
+The corrected conditions hold at every fold state of both: `|c₁| ≥ 9.61×10⁻³`
+(regulated), `≥ 0.132` (strong controller), `≥ 2.13×10⁻²` (sequestered, 46 fold
+states from 63 seeded attempts), with the rest of the spectrum off the imaginary
+axis by at least 1.62×10⁻².
+
+**A second finding, nearly reported as a result.** The `σ₀ = 0` and `k_seq = 0`
+settings make a row of the Jacobian identically zero, so `det J = 0` everywhere
+and a fold solve converges to an arbitrary point of the nullcline. Its 24
+"fold states" are not fold states. Excluding them was not fastidiousness — the
+first run included them and produced a `|c₁|` margin of 1.5×10⁻⁴ that measured
+nothing.
+
+The same structural zero makes §4.1's unregulated identity check vacuous:
+`∇C = 0`, so both sides are exactly zero. **"median relative error 0.000×10⁰"
+was `0 = 0`** — the defect the work order flags for Table 2 row 1, present in a
+second place. §4.1 now says what that limit does and does not test.
+
+## D056 — Transversality under load-dependent capacity, in closed form
+
+Task B5. The handoff said "use the full `F_j`". It evaluates:
+`F_j = (1 − R_j − G_j, G_j)` and `w = (1, 1+λ)` give
+
+```
+w·F_j = 1 − R_j + λG_j,    so transversality is    R_j − λG_j ≠ 1.
+```
+
+That is the exact statement that D054's automatic transversality is lost
+precisely when capacity feeds back on the influx.
+
+Measured at solved self-damaged fold states, 99 converging from 200 attempts. In
+**burden mode** the capacity factor contains no `j`, so `R_j = G_j = 0` exactly
+and `w·F_j = 1` at all 46 states — (G4) returning for the reason it held in §3.2.
+In **influx mode** the margin *rises* with the coupling, 1.000 at `ε = 0.01` to
+1.38 at `ε = 100` over 53 states. Minimum over the whole population: 1.0. The
+feedback moves transversality away from failure in this model; that it could move
+the other way is what the condition is for.

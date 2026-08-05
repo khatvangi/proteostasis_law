@@ -49,7 +49,7 @@ CODE_SPANS = frozenset({
 _CODE_SHAPED = re.compile(r"\.py\b|\.tsv\b|\.md\b|scripts/|tests/|data/|[a-z_]+\.[A-Z]")
 
 _SUP = {"⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4", "⁵": "5", "⁶": "6",
-        "⁷": "7", "⁸": "8", "⁹": "9", "⁻": "-", "⁺": "+"}
+        "⁷": "7", "⁸": "8", "⁹": "9", "⁻": "-", "⁺": "+", "ⁿ": "n"}
 _SUB = {"₀": "0", "₁": "1", "₂": "2", "₃": "3", "₄": "4", "₅": "5", "₆": "6",
         "₇": "7", "₈": "8", "₉": "9"}
 
@@ -493,6 +493,16 @@ r"""\begin{equation*}
 w \cdot D^2F(v,v) = -D^2R(v,v) + \lambda\, D^2G(v,v),
 \end{equation*}""",
 
+"""|w₁|/‖w‖ = (1 + (1+λ)²)^(−1/2),""":
+r"""\begin{equation*}
+\frac{|w_1|}{\lVert w \rVert} = \bigl(1 + (1+\lambda)^2\bigr)^{-1/2},
+\end{equation*}""",
+
+"""w·F_j = 1 − R_j + λ G_j,""":
+r"""\begin{equation*}
+w \cdot F_j = 1 - R_j + \lambda\, G_j,
+\end{equation*}""",
+
 """r''(0) = −w·D²F(v,v),""":
 r"""\begin{equation*}
 r''(0) = -\,w \cdot D^2F(v,v),
@@ -761,8 +771,13 @@ EXPECTED = {
                              # fig4 hopf, fig5 beta
     "figures_supp": 2,       # figS1 identity, figS2 pareto front
     "tables": 4,             # genericity, verification, section 6, beta
-    "tables_rewidthed": 2,   # of those, the two pandoc gave proportional columns
-    "displays": 14,
+    # of the four tables, those pandoc emitted as longtables and this script
+    # converted to `table` floats. Table 1 joined the set when task B7 widened
+    # its caption and added a row; the conversion is what SHOULD happen, and
+    # the count is asserted so that a table silently STAYING a longtable --
+    # which is how a page folio once landed in the body text -- still fails.
+    "tables_rewidthed": 3,
+    "displays": 16,
     "spans_code": 0,         # v5 quotes no file paths in the body
     "stripped": 0,           # v5 carries no internal-only section
 }
