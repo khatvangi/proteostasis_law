@@ -231,8 +231,8 @@ T_CAP = 2.0e4     # hard horizon; see integrationTest for why it is not optional
 
 
 def integrationTest(p: M.Params, u0: float, a0: float,
-                    rel: float = 1e-4, n_efold: float = 25.0,
-                    n_t: int = 4000) -> Optional[Dict]:
+                    rel: float = 1e-6, n_efold: float = 25.0,
+                    n_t: int = 8000) -> Optional[Dict]:
     """perturb the equilibrium and integrate the full nonlinear system.
 
     The state is made an exact equilibrium by setting j := R(u0, a0): with G = 0
@@ -314,7 +314,7 @@ def integrationTest(p: M.Params, u0: float, a0: float,
     ts = np.linspace(0.0, t_end, n_t)
     try:
         sol = solve_ivp(f, (0.0, t_end), x0, t_eval=ts, events=leave,
-                        method="LSODA", rtol=1e-8, atol=1e-12 * scale)
+                        method="LSODA", rtol=1e-11, atol=1e-15 * scale)
     except Exception:
         return None
     # a fast escape leaves few sampled points, and dropping those would discard
@@ -329,28 +329,42 @@ def integrationTest(p: M.Params, u0: float, a0: float,
     if d0 <= 0.0 or not np.all(np.isfinite(d)):
         return None
 
-    # the linear regime. NOT `d < d_escape`: the run now STOPS at d_escape, so
-    # that window is the whole trajectory including its final, least linear
-    # decade, and fitting an exponent across it returned a median relative error
-    # of 0.17 against max Re(lambda). one decade below escape is linear.
-    idx = np.nonzero((d < 0.1 * d_escape) & (d > 0.0))[0]
-    slope, n_per, per_meas = np.nan, np.nan, np.nan
+    # the linear regime: everything up to escape, which is where the run stopped
+    idx = np.nonzero((d < d_escape) & (d > 0.0))[0]
+    slope, n_per, per_meas, estimator = np.nan, np.nan, np.nan, "none"
     if idx.size >= 20 and t[idx[-1]] > t[idx[0]]:
-        span = float(t[idx[-1]] - t[idx[0]])
+        tw, dw = t[idx], d[idx]
+        span = float(tw[-1] - tw[0])
         n_per = span / (2.0 * np.pi / omega) if is_complex else np.inf
-        if (not is_complex) or n_per >= 3.0:
-            slope = float(np.polyfit(t[idx], np.log(d[idx]), 1)[0])
-        # period from the peaks of |delta|. NOTE the factor of two: writing
+
+        # the peaks of |delta|. NOTE the factor of two: writing
         # delta(t) = e^(sigma t)(v cos wt + w sin wt) gives
         # |delta|^2 = e^(2 sigma t)(A + B cos 2wt + C sin 2wt), so the DISTANCE
         # oscillates at 2*omega and peaks every pi/omega, not every 2*pi/omega.
-        # the first version predicted 2*pi/omega and the measurement came back
-        # at exactly half it, twice; the measurement was right.
-        if is_complex:
-            w = d[idx]
-            pk = np.nonzero((w[1:-1] > w[:-2]) & (w[1:-1] > w[2:]))[0] + 1
-            if pk.size >= 3:
-                per_meas = float(np.median(np.diff(t[idx][pk])))
+        # the first version predicted 2*pi/omega and the measurement came back at
+        # exactly half it, twice; the measurement was right.
+        pk = np.nonzero((dw[1:-1] > dw[:-2]) & (dw[1:-1] > dw[2:]))[0] + 1
+        if is_complex and pk.size >= 3:
+            per_meas = float(np.median(np.diff(tw[pk])))
+
+        # TWO estimators, because the two eigenvalue types fail differently and a
+        # single whole-window least squares is wrong for both. On a complex pair
+        # log|delta| wobbles about the linear trend, so a window spanning a
+        # non-integer number of periods is biased by the wobble; successive PEAKS
+        # sit at identical phase, so fitting those is unbiased. On a real pair
+        # there is no wobble but the subdominant mode contaminates the early
+        # window; the late half is where the leading mode dominates. Measured on
+        # 25 networks: whole-window least squares gave median relative error
+        # 1.1e-01 on real pairs (1 of 13 within 5%), where the late half gives
+        # 2.0e-02 (10 of 13) and peaks give 7.2e-04 on complex pairs (12 of 12).
+        if is_complex and pk.size >= 3:
+            slope = float(np.polyfit(tw[pk], np.log(dw[pk]), 1)[0])
+            estimator = "peak"
+        elif not is_complex:
+            h = idx.size // 2
+            if idx.size - h >= 8:
+                slope = float(np.polyfit(tw[h:], np.log(dw[h:]), 1)[0])
+                estimator = "late_half"
 
     return {
         "lambda_max": lam,
@@ -358,6 +372,7 @@ def integrationTest(p: M.Params, u0: float, a0: float,
         "complex_pair": is_complex,
         "slope": slope,
         "n_periods": float(n_per),
+        "estimator": estimator,
         "period_measured": per_meas,
         "period_predicted": float(np.pi / omega) if is_complex else np.nan,
         # the run STOPS at escape, which caps d.max()/d0 near d_escape/d0 ~ 1e2,
@@ -379,6 +394,32 @@ def integrationTest(p: M.Params, u0: float, a0: float,
 # ---------------------------------------------------------------------------
 # drivers
 # ---------------------------------------------------------------------------
+
+
+def parameterCorner(run: Path, S: pd.DataFrame, top: int = 6) -> pd.DataFrame:
+    """where in the kinetic box the crossers sit, by per-parameter median ratio.
+
+    A numerical artefact has no reason to concentrate on particular kinetic
+    parameters. This is the check that the crossers are a REGION rather than a
+    scatter, and it is the transferable half of the result -- the incidence rate
+    is a property of the sampling box, the location is a property of the model.
+    """
+    c = pd.read_csv(run / "C" / "samples.tsv", sep="\t")
+    c = c[c["C1_fold_exists"] == True]  # noqa: E712
+    c = c[pd.to_numeric(c["fold_burden"], errors="coerce").notna()]
+    c = c.assign(name=[f"draw{i}" for i in c.index])
+    T = S[S["traced"] == True]  # noqa: E712
+    m = c.merge(T[["name", "tr_max", "fold_is_j_max"]], on="name")
+    m["cross"] = (m["tr_max"] >= 0.0) & (m["fold_is_j_max"] == 1)
+    cols = [x for x in c.columns if x.startswith("p_")]
+    g = m.groupby("cross")[cols].median().T
+    g.columns = ["no_cross", "cross"]
+    g["ratio"] = g["cross"] / g["no_cross"]
+    g["abs_log2"] = np.abs(np.log2(g["ratio"]))
+    g = g.sort_values("abs_log2", ascending=False)
+    g.attrs["n_cross"] = int(m["cross"].sum())
+    g.attrs["n_total"] = int(len(m))
+    return g.head(top)
 
 
 def _summaryWorker(item):
@@ -515,17 +556,34 @@ def main() -> int:
         if not fit.empty:
             rel = (fit["slope"] - fit["lambda_max"]).abs() \
                 / fit["lambda_max"].abs().clip(lower=1e-12)
-            print(f"    exponent vs max Re(lambda), {len(fit)} of {len(cr)} with "
-                  f"a fit window of >=3 periods: median rel. diff "
-                  f"{rel.median():.3e}  p90 {rel.quantile(0.90):.3e}  "
+            print(f"    exponent vs max Re(lambda), {len(fit)} of {len(cr)} "
+                  f"evaluable: median rel. diff {rel.median():.3e}  "
+                  f"p90 {rel.quantile(0.90):.3e}  "
                   f"within 5% in {int((rel < 0.05).sum())}")
+            for est, sub in fit.groupby("estimator"):
+                e = (sub["slope"] - sub["lambda_max"]).abs() \
+                    / sub["lambda_max"].abs().clip(lower=1e-12)
+                print(f"      via {est:10s} n={len(e):3d}  median "
+                      f"{e.median():.3e}  within 5% in {int((e < 0.05).sum())}")
         per = cr[cr["period_measured"].notna()]
         if not per.empty:
             pr = (per["period_measured"] - per["period_predicted"]).abs() \
                 / per["period_predicted"]
-            print(f"    oscillation period vs 2*pi/omega, {len(per)} measurable: "
+            print(f"    oscillation period vs pi/omega, {len(per)} measurable: "
                   f"median rel. diff {pr.median():.3e}  "
                   f"within 5% in {int((pr < 0.05).sum())}")
+
+        if pop == "kinetic_box":
+            g = parameterCorner(run, S)
+            g.to_csv(OUT_DIR / "hopf_parameter_corner.tsv", sep="\t")
+            print(f"\n  WHERE the crossers sit: {g.attrs['n_cross']} of "
+                  f"{g.attrs['n_total']} = "
+                  f"{100 * g.attrs['n_cross'] / g.attrs['n_total']:.2f}%")
+            for k, r in g.iterrows():
+                d = "higher" if r["ratio"] > 1 else "lower"
+                f = r["ratio"] if r["ratio"] > 1 else 1.0 / r["ratio"]
+                print(f"    {k:12s} median {f:6.2f}x {d}  "
+                      f"({r['no_cross']:.4g} -> {r['cross']:.4g})")
     return 0
 
 

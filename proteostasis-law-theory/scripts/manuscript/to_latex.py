@@ -587,7 +587,7 @@ def _renderBody(md: str, *, headings: bool) -> tuple[str, dict]:
                  "spans_math": n_math, "spans_code": n_code}
 
 
-TITLE = ("An Exact Collapse Threshold for Conserved-Resource Models\n"
+TITLE = ("An Exact Fold Condition for Mass-Balanced Models\n"
          "       of Protein Quality Control")
 BYLINE = (r"\author*[1]{\fnm{Kiran} \sur{Boggavarapu}}"
           r"\email{kiran@mcneese.edu}" + "\n"
@@ -601,7 +601,7 @@ def _document(chars: list[str], title: str, front: str, body: str,
     """sn-jnl wants the abstract and keywords as PREAMBLE commands, not
     environments, and the title block uses \\fnm/\\sur/\\affil markup."""
     return (HEADER + preamble(chars) + "\n" + extra_preamble + "\n"
-            + rf"\title[Collapse threshold for quality-control models]{{{title}}}"
+            + rf"\title[Fold condition for quality-control models]{{{title}}}"
             + "\n" + BYLINE + "\n\n" + front + "\n"
             + r"\begin{document}" + "\n" + r"\maketitle" + "\n\n"
             + body + "\n" + r"\end{document}" + "\n")

@@ -32,9 +32,11 @@ REFINED BRANCH  kinetic_box: 2767 networks
     of these, branch left through the CEILING so the low-j part is unseen: 2 -- the crossing still precedes the fold, but where it begins is not determined
 
   INTEGRATION at the tr J maximum: 309 of 309 were exact equilibria and testable (104 crossers, 205 stable controls)
-    crossers: left the linear neighbourhood in 103 of 104; grew >10x in 104; max |delta| ratio median 98.2  max 99.91
+    crossers: left the linear neighbourhood in 102 of 104; grew >10x in 104; max |delta| ratio median 9851  max 9991
       horizon cap bound (too slow to observe in t=20000) in 4
-    controls: left the linear neighbourhood in 0 of 205; grew >10x in 0; max |delta| ratio median 1  max 3.624
+    controls: left the linear neighbourhood in 0 of 205; grew >10x in 0; max |delta| ratio median 1  max 3.625
       horizon cap bound (too slow to observe in t=20000) in 84
-    exponent vs max Re(lambda), 63 of 104 with a fit window of >=3 periods: median rel. diff 3.335e-01  p90 1.155e+00  within 5% in 5
-    oscillation period vs 2*pi/omega, 24 measurable: median rel. diff 1.078e-02  within 5% in 18
+    exponent vs max Re(lambda), 97 of 104 evaluable: median rel. diff 5.449e-03  p90 3.159e-02  within 5% in 90
+      via late_half  n= 48  median 1.325e-02  within 5% in 41
+      via peak       n= 49  median 2.916e-04  within 5% in 49
+    oscillation period vs 2*pi/omega, 49 measurable: median rel. diff 9.912e-04  within 5% in 47

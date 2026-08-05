@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: "An Exact Collapse Threshold for Conserved-Resource Models of Protein Quality Control: analysis code"
+title: "An Exact Fold Condition for Mass-Balanced Models of Protein Quality Control: analysis code"
 authors:
   - family-names: Boggavarapu
     given-names: Kiran

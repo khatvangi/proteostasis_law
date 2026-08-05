@@ -1,0 +1,18 @@
+  kinetic box: 117 of 2884 networks have no solvable fold state and carry no genericity result; reported, not screened
+kinetic box: d2R/ds2 > 0 at 26 folds, < 0 at 2739
+
+  d2R<0: 153 networks, 153 traced
+    singular candidates per network: median 1  max 3  polished 167/167
+    candidates of COLLAPSE orientation (d2R<0): median 1  none in 0
+    candidates of BIRTH orientation (d2R>0):    median 0
+    carry BOTH orientations (hysteresis): 7 of 153
+      of those, j at the birth point < j at the collapse point in 7 of 7
+    the two orientation routes agree at 162 of 167 polished candidates
+
+  d2R>0: 26 networks, 26 traced
+    singular candidates per network: median 2  max 3  polished 54/54
+    candidates of COLLAPSE orientation (d2R<0): median 1  none in 0
+    candidates of BIRTH orientation (d2R>0):    median 1
+    carry BOTH orientations (hysteresis): 26 of 26
+      of those, j at the birth point < j at the collapse point in 26 of 26
+    the two orientation routes agree at 54 of 54 polished candidates
