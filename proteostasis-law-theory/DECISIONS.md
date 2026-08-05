@@ -1646,3 +1646,82 @@ were found by looking at output, and none by a passing test.** The tests added
 here pin what rendering revealed; they could not have found it first.
 
 `tests/manuscript/test_to_latex.py`, 15 checks.
+
+
+## D044 — The class swap happened before the audit, and it changed the answer
+
+D043's visual read validated the output of `article`. Three of its four
+corruptions were class-interacting, so that read certified an artifact nobody will
+submit. `sn-jnl.cls` (Springer Nature, December 2024, LPPL) is vendored at
+`manuscript/springer/` and the build now targets it.
+
+**The reference-style option is a trap and the template arms it.** Springer ships
+`sn-article.tex` with `sn-mathphys-num` UNCOMMENTED and `sn-mathphys-ay` commented
+out one line below. BMB is author-year, and this manuscript's reference list and
+every in-text citation are author-year. Taking the template's default would have
+silently renumbered the list and left the citations pointing at nothing. The build
+declares `sn-mathphys-ay` and a test asserts `-num` never appears.
+
+**The text block is 130.7 mm, not 160.** Measured, not assumed:
+`textwidth = 372 pt`. So the 84 mm figures sit at natural size, and **the 174 mm
+figures do not fit** and are reduced to 75%. That is inherent to a one-column
+submission format and cannot be designed away, but at 75% the smallest text in
+those two figures fell to 3.0-3.2 pt.
+
+The fix was not to rescale. Those figures carried 4.0-4.6 pt annotations, which is
+**already below Springer's minimum at their own final width** — the class swap
+exposed a defect that predated it. The font floor in the two wide figures is now
+6 pt, and Figure 3 was re-laid out around the larger text: taller panel, the three
+median/width labels aligned at a fixed x clear of the `s = 1` rule, and the
+sensitivity inset moved into the empty band below the last strip.
+
+### The equations were verbatim, not mathematics
+
+The markdown writes displays as fenced code blocks. Pandoc renders those as
+`verbatim`, so **every displayed equation in the paper was typeset in typewriter
+face with ASCII operators**, and the widest ran past the right margin. Ten blocks
+now have declared layouts in `DISPLAY_MATH`, keyed by their exact source so that
+editing an equation invalidates its key and stops the build. Layout is a judgement;
+the coupling is deliberate.
+
+### A caption bug that survived a full visual read
+
+`(u*, a*)` inside a caption became `\emph{, a}`: the markdown-emphasis rule added
+in D043 matched from the first star to the second and deleted both starred
+equilibria. It was present in the `article` build and **the 21-page read did not
+catch it** — which is the honest limit of reading as a method. Backtick spans are
+now protected before emphasis conversion.
+
+### Counts before pages
+
+`figures 6` appeared in the log on every run of the broken build while one figure
+was mangled. The count was wrong, persistently, and nothing compared it against
+anything. **A count in a log that nobody asserts against is a comment, not a
+check.** The build now asserts sections, main figures, supplementary figures,
+tables, display equations, code spans and stripped sections against `EXPECTED`,
+that `figure`/`longtable`/`equation*`/`align*` are balanced, that no `\caption{`
+is unclosed, and that page counts fall in a stated range. Most of what reading
+caught this round is now caught in milliseconds.
+
+### `### Reference verification` no longer reaches the reader
+
+It records which references were checked against PubMed and what was corrected.
+That is repository provenance, not part of the paper. Stripped from both PDFs by
+`INTERNAL_SECTIONS`, kept in the markdown.
+
+### Two things decided now rather than under deadline
+
+**The generated-`.tex` discipline has an expiry.** It holds through review, where
+the markdown is edited and the `.tex` regenerated. **It breaks at proofs**, where
+Springer returns a typeset file and expects corrections against that. The handover
+is declared here: at the moment proofs arrive, `manuscript/bmb_v4.tex` stops being
+a build artefact and becomes the artifact; `to_latex.py` is retired for that
+manuscript; and `bmb_v4.md` is banner-marked superseded rather than left as a
+stale second lineage. The rule that a number must be recomputable from a script
+still holds — it just points at the proof file from then on.
+
+**Figure 5 was included by default, not by decision.** It was specified as
+droppable on page count. The main text is 23 pages, which is comfortable for BMB,
+so it stays — but this records that no one chose to keep it. If anything must come
+out later, it is the one already marked droppable, and nothing else should be cut
+before it.

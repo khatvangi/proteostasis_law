@@ -169,7 +169,7 @@ def build():
     # ---------------- panel (a): the Lagrange condition ----------------
     u_max, a_max = 1.5, 0.85
     cs = ax_a.contour(UU, AA, RR, levels=8, colors="0.78", linewidths=0.4)
-    ax_a.clabel(cs, inline=True, fontsize=4.2, fmt="%.2f")
+    ax_a.clabel(cs, inline=True, fontsize=6, fmt="%.2f")
     for seg in segs:
         ax_a.plot(seg[:, 0], seg[:, 1], color="#1b3a6b", lw=1.5, zorder=3,
                   solid_capstyle="round")
@@ -195,7 +195,7 @@ def build():
     ax_a.plot([us], [as_], "o", ms=3.6, mfc="w", mec="k", mew=0.9, zorder=6)
     ax_a.annotate(rf"$j_{{\mathrm{{crit}}}}=R(u^*,a^*)={jc:.4f}$",
                   xy=(us, as_), xytext=(0.06, 0.62),
-                  fontsize=6.0,
+                  fontsize=6,
                   arrowprops=dict(arrowstyle="-", lw=0.4, color="0.35"))
     ax_a.set_xlim(0, u_max)
     ax_a.set_ylim(0, a_max)
@@ -219,7 +219,7 @@ def build():
     ax_b.plot([jc], [us], "o", ms=3.4, mfc="w", mec=C_U, mew=0.9, zorder=6)
     ax_b.text(jc * 1.02, us, r"$u^*$", color=C_U, fontsize=7, va="center")
     ax_b.text(jc * 1.02, as_, r"$a^*$", color=C_A, fontsize=7, va="center")
-    ax_b.text(0.004, 0.455, "dashed: unstable", fontsize=5.4,
+    ax_b.text(0.004, 0.455, "dashed: unstable", fontsize=6,
               color="0.35", va="top")
     ax_b.set_xlim(0, jc * 1.10)
     ax_b.set_ylim(0, 0.62)
@@ -245,19 +245,19 @@ def build():
         ins.plot([jc], [as_], "o", ms=2.8, mfc="w", mec=C_A, mew=0.8, zorder=6)
         ins.annotate(r"$G_a=0$", xy=(turn["j"], turn["u"]),
                      xytext=(turn["j"] - 3.2e-4, turn["u"] - 0.075),
-                     fontsize=5.2, color=C_U, ha="center",
+                     fontsize=6, color=C_U, ha="center",
                      arrowprops=dict(arrowstyle="-|>", lw=0.4, color=C_U))
         ins.set_xlim(lo_j, jc * 1.0009)
         ins.set_ylim(0.18, 0.46)
         ins.set_xticks([turn["j"], jc])
-        ins.set_xticklabels([r"$j_{\rm turn}$", r"$j_{\rm crit}$"], fontsize=5.0)
+        ins.set_xticklabels([r"$j_{\rm turn}$", r"$j_{\rm crit}$"], fontsize=6)
         ins.set_yticks([])
         ins.tick_params(pad=1.0, length=1.8)
         for s in ins.spines.values():
             s.set_linewidth(0.4)
             s.set_color("0.55")
         ins.set_title(r"zoom $\times$%d near the boundary" % round(1 / 0.0055),
-                      fontsize=4.8, pad=1.5)
+                      fontsize=6, pad=1.5)
         # mark the zoomed strip on the main axes without connector lines
         ax_b.axvspan(lo_j, jc, color="0.85", alpha=0.55, lw=0, zorder=0)
 

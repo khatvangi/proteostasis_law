@@ -3,55 +3,43 @@
 %% The markdown is the source; every number in it is recomputed by a script in
 %% scripts/ and asserted by tests/.
 %%
-%% TO SUBMIT TO BULLETIN OF MATHEMATICAL BIOLOGY: replace the \documentclass
-%% line below with Springer's, which is not installed on the build machine:
-%%     \documentclass[sn-mathphys-num]{sn-jnl}
-%% and drop the geometry line. Nothing else here is class-specific.
-\documentclass[11pt,a4paper]{article}
-\usepackage[margin=25mm]{geometry}
+%% CLASS: Springer Nature sn-jnl, vendored at manuscript/springer/sn-jnl.cls
+%% (LPPL). The option is sn-mathphys-ay -- AUTHOR-YEAR, which is what Bulletin of
+%% Mathematical Biology uses and how the reference list below is written. The
+%% Springer template ships with sn-mathphys-num uncommented; selecting it would
+%% silently reformat the reference list into numbered style and break every
+%% in-text citation, which are author-year throughout.
+\documentclass[pdflatex,sn-mathphys-ay]{sn-jnl}
 
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-\usepackage{microtype}
+%% the class loads fontenc, geometry, hyperref, natbib, amsthm and others itself
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage[export]{adjustbox}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
-\usepackage{calc}
 \usepackage{textcomp}
 \usepackage{newunicodechar}
-\usepackage[hidelinks]{hyperref}
-\usepackage[font=small,labelfont=bf]{caption}
 %% pandoc marks an uncaptioned longtable with \LTcaptype{none}; the caption
 %% package then tries to step a counter of that name. Declaring it makes the
 %% marker the no-op pandoc intends rather than a fatal error.
 \newcounter{none}
-\usepackage{parskip}
 
 \setlength{\emergencystretch}{3em}
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 %% unicode that survives into prose, mapped from this document's own inventory
-\newunicodechar{§}{\S}
 \newunicodechar{°}{$^\circ$}
 \newunicodechar{²}{$^{2}$}
 \newunicodechar{³}{$^{3}$}
-\newunicodechar{·}{$\cdot$}
 \newunicodechar{¹}{$^{1}$}
 \newunicodechar{×}{$\times$}
 \newunicodechar{é}{\'{e}}
 \newunicodechar{ö}{\"{o}}
 \newunicodechar{Δ}{$\Delta$}
 \newunicodechar{β}{$\beta$}
-\newunicodechar{δ}{$\delta$}
-\newunicodechar{ε}{$\varepsilon$}
-\newunicodechar{μ}{$\mu$}
 \newunicodechar{σ}{$\sigma$}
-\newunicodechar{φ}{$\varphi$}
 \newunicodechar{–}{--}
 \newunicodechar{—}{---}
 \newunicodechar{⁰}{$^{0}$}
@@ -62,32 +50,23 @@
 \newunicodechar{⁺}{$^{+}$}
 \newunicodechar{⁻}{$^{-}$}
 \newunicodechar{→}{$\to$}
-\newunicodechar{∂}{$\partial$}
-\newunicodechar{∇}{$\nabla$}
 \newunicodechar{∎}{$\square$}
 \newunicodechar{−}{$-$}
 \newunicodechar{√}{$\surd$}
-\newunicodechar{≤}{$\le$}
 
-\title{An Exact Collapse Threshold for Conserved-Resource Models
+\title[Collapse threshold for quality-control models]{An Exact Collapse Threshold for Conserved-Resource Models
        of Protein Quality Control}
-\author{Kiran Boggavarapu\\[2pt]
-{\small Department of Chemistry and Physics, McNeese State University, Lake Charles, LA 70609, USA}\\
-{\small \texttt{kiran@mcneese.edu}}}
-\date{}
+\author*[1]{\fnm{Kiran} \sur{Boggavarapu}}\email{kiran@mcneese.edu}
+\affil*[1]{\orgdiv{Department of Chemistry and Physics}, \orgname{McNeese State University}, \orgaddress{\city{Lake Charles}, \state{LA}, \postcode{70609}, \country{USA}}}
+
+\abstract{A cell clearing misfolded protein with a finite pool of chaperones and proteases tolerates damage influx only up to a threshold, beyond which burden runs away. Where that threshold sits is normally found by numerical continuation, one parameter set at a time. We show it need not be. For any clearance network in which the damage influx is state-independent and mass balance accounts for all outflow, the Jacobian determinant factors as \(\det J = -(\nabla R \times \nabla G)\), where \(R\) is total removal flux and \(G\) the aggregate nullcline field. A saddle-node therefore occurs exactly at a constrained critical point of removal on the aggregate nullcline, and the critical influx is \(j_{crit} = R(u^{*}, a^{*})\) with no sweep required. The identity generalises to arbitrary state dimension, survives growth dilution, and survives the case in which the clearance machinery is itself damaged by the influx it clears. Three consequences follow. Collapse occurs while the machinery runs at roughly 6--18\% of maximum velocity, so the naive capacity ceiling overestimates the tolerable influx by about thirteenfold. Under cell division the ceiling fails outright, and the boundary of a dividing cell exists only because burden slows growth; the critical influx then decomposes exactly as \(j_{crit} = C_{enz}\cdot \varphi_{enz}/(1-\delta )\), with the enzymatic factor nearly invariant to division rate. When the machinery damages itself, a linear capacity ceiling becomes a square-root one. Against four published observations the underlying two-state model fails in a single direction: it cannot place a stable attractor at low burden. One of those failures resolves not by adding mechanism but by removing a requirement the data never imposed, which yields a falsifiable prediction: the aggregate load of an aging \emph{Escherichia coli} old-pole cell must lie between 0.047\% and roughly 0.5\% of total protein, depending on how much of that aggregate sits in the visible polar focus, and in every case below the current detection bound.}
+
+\keywords{proteostasis, saddle-node bifurcation, conserved resource, collapse threshold, growth dilution, clearance network}
+
+\pacs[MSC Classification]{92C40 (primary); 37G10, 34C23, 92C42 (secondary)}
 
 \begin{document}
 \maketitle
-
-\begin{abstract}
-A cell clearing misfolded protein with a finite pool of chaperones and proteases tolerates damage influx only up to a threshold, beyond which burden runs away. Where that threshold sits is normally found by numerical continuation, one parameter set at a time. We show it need not be. For any clearance network in which the damage influx is state-independent and mass balance accounts for all outflow, the Jacobian determinant factors as \(\det J = -(\nabla R \times \nabla G)\), where \(R\) is total removal flux and \(G\) the aggregate nullcline field. A saddle-node therefore occurs exactly at a constrained critical point of removal on the aggregate nullcline, and the critical influx is \(j_{crit} = R(u^{*}, a^{*})\) with no sweep required. The identity generalises to arbitrary state dimension, survives growth dilution, and survives the case in which the clearance machinery is itself damaged by the influx it clears. Three consequences follow. Collapse occurs while the machinery runs at roughly 6--18\% of maximum velocity, so the naive capacity ceiling overestimates the tolerable influx by about thirteenfold. Under cell division the ceiling fails outright, and the boundary of a dividing cell exists only because burden slows growth; the critical influx then decomposes exactly as \(j_{crit} = C_{enz}\cdot \varphi_{enz}/(1-\delta )\), with the enzymatic factor nearly invariant to division rate. When the machinery damages itself, a linear capacity ceiling becomes a square-root one. Against four published observations the underlying two-state model fails in a single direction: it cannot place a stable attractor at low burden. One of those failures resolves not by adding mechanism but by removing a requirement the data never imposed, which yields a falsifiable prediction: the aggregate load of an aging \emph{Escherichia coli} old-pole cell must lie between 0.047\% and roughly 0.5\% of total protein, depending on how much of that aggregate sits in the visible polar focus, and in every case below the current detection bound.
-\end{abstract}
-
-\noindent\textbf{MSC} 92C40 (primary); 37G10, 34C23, 92C42 (secondary)
-
-\noindent\textbf{Keywords} proteostasis; saddle-node bifurcation; conserved resource; collapse threshold; growth dilution; clearance network
-
-\medskip
 
 \section{Introduction}
 
@@ -109,37 +88,39 @@ Section 2 fixes the model class and states the hypotheses. Section 3 states and 
 
 Let \(u\) denote damaged or misfolded soluble monomer and \(a\) aggregate burden, in compatible concentration units. The baseline field is
 
-\begin{verbatim}
-du/dt = j − v_ref(u, C_f) − v_degU(u, D_f) − n(u) − g(u,a) + v_dis(a, C_f)
-da/dt =                                       n(u) + g(u,a) − v_dis(a, C_f) − v_degA(a, D_f)
-\end{verbatim}
+\begin{align*}
+\frac{du}{dt} &= j - v_{ref}(u, C_f) - v_{degU}(u, D_f) - n(u) - g(u,a) + v_{dis}(a, C_f),\\
+\frac{da}{dt} &= n(u) + g(u,a) - v_{dis}(a, C_f) - v_{degA}(a, D_f).
+\end{align*}
 
 with rate laws
 
-\begin{verbatim}
-v_ref  = k_ref C_f u/(K_ref + u)      refolding
-v_degU = k_U D_f u/(K_U + u)          soluble degradation
-n      = k_n u^m,  m > 1              nucleation
-g      = k_g u a                      aggregate growth
-v_dis  = k_dis C_f a/(K_dis + a)      disaggregation
-v_degA = k_A D_f a/(K_A + a)          aggregate clearance
-\end{verbatim}
+\begin{align*}
+v_{ref}  &= \frac{k_{ref}\,C_f\,u}{K_{ref} + u}   &&\text{refolding}\\
+v_{degU} &= \frac{k_U\,D_f\,u}{K_U + u}           &&\text{soluble degradation}\\
+n        &= k_n u^m,\quad m > 1                   &&\text{nucleation}\\
+g        &= k_g\,u\,a                             &&\text{aggregate growth}\\
+v_{dis}  &= \frac{k_{dis}\,C_f\,a}{K_{dis} + a}   &&\text{disaggregation}\\
+v_{degA} &= \frac{k_A\,D_f\,a}{K_A + a}           &&\text{aggregate clearance}
+\end{align*}
 
 The nucleation term is superlinear and the clearance terms saturate, and this asymmetry does all the work in Section 6. Both forms are standard. Autocatalytic aggregate formation with an effective order greater than one is the shared structure of nucleation-dependent polymerisation models (Ferrone 1999; Knowles et al.~2009; Cohen et al.~2011), and secondary nucleation, in which existing aggregate surface catalyses the formation of new nuclei, supplies the mechanism (Cohen et al.~2013; Meisl et al.~2016). Michaelis-Menten clearance follows from enzyme-limited refolding and proteolysis. We take \(m > 1\) as a modelling assumption rather than a fitted exponent; the theorem does not depend on its value.
 
 Chaperone and protease pools are conserved and shared. Under rapid-equilibrium binding with free substrate concentrations,
 
-\begin{verbatim}
-C_f = C_tot /(1 + N_f/K_N + u_f/K_CU + a_f/K_CA + O_f/K_CO)
-\end{verbatim}
+\begin{equation*}
+C_f = \frac{C_{tot}}{1 + N_f/K_N + u_f/K_{CU} + a_f/K_{CA} + O_f/K_{CO}}
+\end{equation*}
 
 and similarly for \(D_{f}\). Nascent chains \(N\) consume chaperone capacity without contributing damage influx, which is the mechanism by which ordinary translational load can shift the boundary.
 
 Write the total removal flux and the aggregate field as
 
-\begin{verbatim}
-R(u,a) = v_ref + v_degU + v_degA        G(u,a) = da/dt
-\end{verbatim}
+\begin{equation*}
+R(u,a) = v_{ref} + v_{degU} + v_{degA},
+\qquad
+G(u,a) = \frac{da}{dt}
+\end{equation*}
 
 \(R\) is what leaves the damaged compartment; \(G\) is the non-influx equation. Both are used throughout with these meanings.
 
@@ -172,9 +153,9 @@ R(u,a) = v_ref + v_degU + v_degA        G(u,a) = da/dt
   \emph{a saddle-node bifurcation therefore occurs exactly at a constrained critical point of \(R\) restricted to \(\{G = 0\}\), and the critical influx is}
 \end{enumerate}
 
-\begin{verbatim}
-j_crit = R(u*, a*).
-\end{verbatim}
+\begin{equation*}
+j_{crit} = R(u^{*}, a^{*}).
+\end{equation*}
 
 \emph{Proof.} Two structural facts do the work.
 
@@ -182,12 +163,15 @@ By H1, \(j\) appears in \(du/dt\) and nowhere in \(da/dt\). The aggregate nullcl
 
 By H2, \(du/dt + da/dt = j - R\) exactly. Apply the determinant-preserving row operation \(\operatorname{row}_{1} \to \operatorname{row}_{1} + \operatorname{row}_{2}\) to the Jacobian:
 
-\begin{verbatim}
-det J = det [ ∂(du/dt)/∂u   ∂(du/dt)/∂a ]  =  det [ −R_u  −R_a ]
-            [ ∂(da/dt)/∂u   ∂(da/dt)/∂a ]        [  G_u   G_a ]
-
-      = −(R_u G_a − R_a G_u) = −(∇R × ∇G).
-\end{verbatim}
+\begin{align*}
+\det J
+&= \det\begin{bmatrix}
+     \partial(du/dt)/\partial u & \partial(du/dt)/\partial a\\[2pt]
+     \partial(da/dt)/\partial u & \partial(da/dt)/\partial a
+   \end{bmatrix}
+ = \det\begin{bmatrix} -R_u & -R_a\\[2pt] G_u & G_a \end{bmatrix}\\[4pt]
+&= -(R_u G_a - R_a G_u) = -(\nabla R \times \nabla G).
+\end{align*}
 
 That is (2). A saddle-node requires \(\det J = 0\), hence \(\nabla R \parallel \nabla G\), which is the Lagrange condition for a critical point of \(R\) subject to \(G = 0\). Combining with (1), the critical value is \(j_{crit} = R(u^{*}, a^{*})\). ∎
 
@@ -202,7 +186,7 @@ At the base parameter point the Lagrange condition is visible directly rather th
 \begin{figure}[htbp]
 \centering
 \includegraphics[max width=\linewidth]{../figures/fig1.pdf}
-\caption{The collapse threshold as a constrained critical point. \textbf{(a)} Phase plane at the base parameter point. The aggregate nullcline $\{G = 0\}$ (dark) is a fixed curve; grey contours are total removal $R$. At the solved fold $(u\emph\{, a\}) = (0.4166, 0.2650)$ the gradients $\nabla R$ and $\nabla G$ point the same way, which is the Lagrange condition of Theorem 1; they are drawn from offset origins because, being parallel, a common origin hides one behind the other. The sine of the angle between them is $3.5\times 10^{-10}$. The critical influx is the removal flux evaluated there, $j_{crit} = R(u\emph\{, a\}) = 0.1542$. \textbf{(b)} Both equilibrium coordinates against influx, traced along the same curve. Cramer's rule on the two columns gives $du\emph\{/dj = -G_{a}/\det J$ and $da\}/dj = G_{u}/\det J$, so the branch carries two distinct, ordered singularities. At $j_{turn} = 0.15409$ the soluble pool has a HORIZONTAL tangent, where $G_{a} = 0$; this is a regular point of the branch, since $\det J = R_{a}\cdot G_{u} = 2.027\times 10^{-3}$ there rather than zero, and it lies on the stable branch at $j_{turn}/j_{crit} = 0.9990$. At $j_{crit}$ both coordinates have a VERTICAL tangent, which is $\det J = 0$. The inset is a ×182 zoom on the same computed data, not a schematic. The aggregate coordinate has no horizontal tangent anywhere: $G_{u} > 0$ at all 305 traced points (minimum $2.08\times 10^{-3}$), and in 40 draws from the parameter box no point with $G_{u} < 0$ was found, for the reason given in Section 3.1.}
+\caption{The collapse threshold as a constrained critical point. \textbf{(a)} Phase plane at the base parameter point. The aggregate nullcline $\{G = 0\}$ (dark) is a fixed curve; grey contours are total removal $R$. At the solved fold $(u^{*}, a^{*}) = (0.4166, 0.2650)$ the gradients $\nabla R$ and $\nabla G$ point the same way, which is the Lagrange condition of Theorem 1; they are drawn from offset origins because, being parallel, a common origin hides one behind the other. The sine of the angle between them is $3.5\times 10^{-10}$. The critical influx is the removal flux evaluated there, $j_{crit} = R(u^{*}, a^{*}) = 0.1542$. \textbf{(b)} Both equilibrium coordinates against influx, traced along the same curve. Cramer's rule on the two columns gives $du^{*}/dj = -G_{a}/\det J$ and $da^{*}/dj = G_{u}/\det J$, so the branch carries two distinct, ordered singularities. At $j_{turn} = 0.15409$ the soluble pool has a HORIZONTAL tangent, where $G_{a} = 0$; this is a regular point of the branch, since $\det J = R_{a}\cdot G_{u} = 2.027\times 10^{-3}$ there rather than zero, and it lies on the stable branch at $j_{turn}/j_{crit} = 0.9990$. At $j_{crit}$ both coordinates have a VERTICAL tangent, which is $\det J = 0$. The inset is a ×182 zoom on the same computed data, not a schematic. The aggregate coordinate has no horizontal tangent anywhere: $G_{u} > 0$ at all 305 traced points (minimum $2.08\times 10^{-3}$), and in 40 draws from the parameter box no point with $G_{u} < 0$ was found, for the reason given in Section 3.1.}
 \label{fig:fig1}
 \end{figure}
 
@@ -240,9 +224,9 @@ The standing objection to Theorem 1 is that its exactness might be a property of
 
 \textbf{Corollary 2.} \emph{Let the state be \(x = (u, a, c, \dots )\) with \(du/dt\) the only equation containing \(j\), and let mass balance give \(du/dt + da/dt = j - R(x)\). Writing the remaining equations as \(G\) (aggregate) and \(C\) (controller and any further states),}
 
-\begin{verbatim}
-det J = −det [ ∇R ; ∇G ; ∇C ]
-\end{verbatim}
+\begin{equation*}
+\det J = -\det\left[\,\nabla R \,;\, \nabla G \,;\, \nabla C\,\right]
+\end{equation*}
 
 \emph{which vanishes exactly when \(\nabla R\) lies in the span of the remaining gradients --- the Lagrange condition for a constrained critical point of \(R\) on the intersection of the non-influx nullclines.}
 
@@ -256,9 +240,9 @@ The model as stated has no cell division, and for most bacterial proteins diluti
 
 Dilution does not affect binding, so the diluted field is \(du/dt - \mu u\), \(da/dt - \mu a\). H1 and H2 both survive, with total removal now
 
-\begin{verbatim}
-R_tot = R + μ(u,a)·(u + a)
-\end{verbatim}
+\begin{equation*}
+R_{tot} = R + \mu(u,a)\cdot(u + a)
+\end{equation*}
 
 so \(\det J = -(\nabla R_{tot} \times \nabla G_{dil})\) for any dilution law. Verified at median relative error 1.2×10⁻¹⁰ for constant \(\mu\) and 4.7×10⁻¹⁰ for burden-dependent \(\mu\), with the \(\mu \to 0\) reduction exact at 0.0. For constant \(\mu\) the diluted Jacobian is \(J - \mu I\), so the saddle-node condition says exactly that \(\mu\) is an eigenvalue of the undiluted Jacobian.
 
@@ -276,9 +260,13 @@ This changes what a perturbation experiment must control. Growth rate is part of
 
 \textbf{Corollary 3 (exact decomposition under division).} \emph{Splitting the critical influx into its enzymatic and dilution parts,}
 
-\begin{verbatim}
-j_crit = C_enz · φ_enz /(1 − δ),     φ_enz = R_enz(u*,a*)/C_enz,     δ = R_dil(u*,a*)/j_crit
-\end{verbatim}
+\begin{equation*}
+j_{crit} = \frac{C_{enz}\,\varphi_{enz}}{1 - \delta},
+\qquad
+\varphi_{enz} = \frac{R_{enz}(u^{*},a^{*})}{C_{enz}},
+\qquad
+\delta = \frac{R_{dil}(u^{*},a^{*})}{j_{crit}}
+\end{equation*}
 
 \emph{with both factors dimensionless and in {[}0,1). The identity is algebraic and holds to 1.6×10⁻¹⁶.}
 
@@ -311,9 +299,12 @@ Self-damage lowers the boundary substantially without steepening the approach. M
 
 \textbf{Corollary 4 (square-root capacity ceiling).} \emph{In influx mode every removal flux carries a factor \(1/(1 + \varepsilon j)\), so the necessary condition \(j \le C_0\) of the frozen model becomes \(\varepsilon j^{2} + j - C_0 \le 0\), that is}
 
-\begin{verbatim}
-j ≤ ( √(1 + 4εC_0) − 1 )/(2ε)   →   √(C_0/ε)   for large ε.
-\end{verbatim}
+\begin{equation*}
+j \le \frac{\sqrt{1 + 4\varepsilon C_0} - 1}{2\varepsilon}
+\;\longrightarrow\;
+\sqrt{C_0/\varepsilon}
+\quad\text{for large }\varepsilon.
+\end{equation*}
 
 A linear capacity ceiling becomes a square-root one: doubling the machinery buys only √2 in tolerable error rate once the machinery is itself error-prone. The bound is exact and never violated. It is also never binding in the range tested, with \(j_{crit}/j_{max}\) of median 0.039--0.186 and a largest observed value of 0.623 over 8 drawn networks. That figure is a lower bound on the population maximum rather than the maximum itself, since an extremum over a subsample understates by construction; the conclusion does not depend on it, because the bound is not binding at any value below 1. It is recorded as a necessary condition and not as the boundary.
 
@@ -589,37 +580,5 @@ Wang Y, Huang Z, Antoneli F, Golubitsky M (2021) The structure of infinitesimal 
 Winkler J, Seybert A, König L, Pruggnaller S, Haselmann U, Sourjik V, Weiss M, Frangakis AS, Mogk A, Bukau B (2010) Quantitative and spatio-temporal features of protein aggregation in \emph{Escherichia coli} and consequences on protein quality control and cellular ageing. \emph{EMBO J} 29(5):910--923. doi:10.1038/emboj.2009.412
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\subsection*{Reference verification}
-
-All thirty-five references above were checked against PubMed records, not against
-secondary reference lists. Four corrections resulted.
-
-\begin{itemize}
-\tightlist
-\item
-  \emph{The catalytic nature of protein aggregation} is \textbf{Dear AJ} et al., not
-  Michaels et al.; Michaels is the third author. Article number 045101, confirmed.
-\item
-  Frere \& Slutsky (2018) runs \textbf{97(1):32--58}; the end page was previously unknown.
-\item
-  Stewart et al.~(2005) is \emph{PLoS Biol} \textbf{3(2):e45}, disambiguated from another
-  2005 \emph{PLoS Biol} paper with a Stewart among its authors.
-\item
-  Scott \& Hwa carries \textbf{doi:10.1038/s41579-022-00818-6} and appeared online in
-  November 2022; it is cited by its 2023 issue.
-\end{itemize}
-
-Coquel et al.~(2013) was verified but is \textbf{not cited}: it reports aggregate
-diffusion constants and the nucleoid-crowding mechanism, and does not report the
-focal mass share that §8.4 would need it for.
-
-Two gaps identified earlier are now closed. Hipp, Kasturi \& Hartl (2019) supports
-the finite-shared-resource premise of §2.1, and Schmidt et al.~(2016) supplies the
-quantitative \emph{E. coli} proteome from which the chaperone and protease share used in
-§4.2 can be obtained rather than swept. Santra, Dill \& de Graff (2019) is added as
-the closest prior model of proteostasis collapse: it drives collapse by chaperone
-titration under cumulative damage and reaches a tipping point, which is the same
-qualitative claim this paper makes exactly rather than numerically.
 
 \end{document}

@@ -58,7 +58,7 @@ def build():
     floors = (1e-4, 5e-4, 1e-3, 2e-3, 3e-3, 5e-3, 1e-2, 2e-2)
     sens = [(f, float(np.median(df.loc[df["s_a"] >= f, "s_a"]))) for f in floors]
 
-    fig, ax = plt.subplots(figsize=(F.W_SINGLE, 0.36 * F.W_SINGLE))
+    fig, ax = plt.subplots(figsize=(F.W_SINGLE, 0.46 * F.W_SINGLE))
     series = [("$s_{\\mathrm{ref}}$", keep["s_ref"].to_numpy(), "#1b3a6b"),
               ("$s_u$", keep["s_u"].to_numpy(), "#b3341f"),
               ("$s_a$", keep["s_a"].to_numpy(), "#0f7a5a")]
@@ -75,17 +75,18 @@ def build():
         ax.plot([p5, p95], [y, y], color=col, lw=1.1, solid_capstyle="butt")
         ax.plot([p50], [y], "o", ms=3.6, mfc="w", mec=col, mew=1.0, zorder=5)
         ax.text(-0.035, y, lab, ha="right", va="center", fontsize=7, color=col)
-        ax.text(p95 + 0.02, y + 0.20,
-                f"median {p50:.3f}   p5–p95 width {p95 - p5:.3f}",
-                fontsize=5.2, color=col, va="center")
+        # fixed x, clear of the s = 1 rule, so the three labels align
+        ax.text(1.06, y + 0.13,
+                f"median {p50:.3f}\np5–p95 width {p95 - p5:.3f}",
+                fontsize=6, color=col, va="center", linespacing=1.35)
         stats[lab] = {"p5": p5, "median": p50, "p95": p95, "width": p95 - p5}
 
     ax.axvline(1.0, color="0.25", lw=0.9, ls=(0, (4, 2)))
-    ax.text(1.0, len(series) - 0.42, "  capacity exhaustion\n  would predict $s = 1$",
-            fontsize=5.4, va="top", ha="left", color="0.25")
+    ax.text(1.0, len(series) - 0.10, "  capacity exhaustion\n  would predict $s = 1$",
+            fontsize=6, va="top", ha="left", color="0.25")
 
-    ax.set_xlim(-0.16, 1.28)
-    ax.set_ylim(-0.62, len(series) - 0.30)
+    ax.set_xlim(-0.18, 1.66)
+    ax.set_ylim(-1.75, len(series) - 0.25)
     ax.set_yticks([])
     ax.set_xticks([0.0, 0.25, 0.5, 0.75, 1.0])
     ax.set_xlabel("Michaelis saturation fraction at the collapse boundary")
@@ -93,20 +94,20 @@ def build():
     n_near_zero = int((df["s_a"] < 1e-9).sum())
     ax.set_title(f"all {n_all} folds, no screen and no exclusion "
                  f"({n_near_zero} sit at $s_a < 10^{{-9}}$ and are retained)",
-                 loc="left", fontsize=5.8, color="0.35")
+                 loc="left", fontsize=6, color="0.35")
 
     # inset: why no screen. the median slides continuously with any floor chosen.
-    ins = ax.inset_axes([0.60, 0.06, 0.28, 0.30])
+    ins = ax.inset_axes([0.30, 0.045, 0.26, 0.19])
     ins.plot([f for f, _ in sens], [m for _, m in sens], "o-", ms=2.0, lw=0.8,
              color="#0f7a5a")
     ins.set_xscale("log")
-    ins.set_xlabel("screen floor on $s_a$", fontsize=4.6, labelpad=1.0)
-    ins.set_ylabel("median $s_a$", fontsize=4.6, labelpad=1.0)
-    ins.tick_params(labelsize=4.0, pad=1.0, length=1.8)
+    ins.set_xlabel("screen floor on $s_a$", fontsize=6, labelpad=1.0)
+    ins.set_ylabel("median $s_a$", fontsize=6, labelpad=1.0)
+    ins.tick_params(labelsize=6, pad=1.0, length=1.8)
     for s in ins.spines.values():
         s.set_linewidth(0.4)
         s.set_color("0.55")
-    ins.set_title("no natural break: any floor\nmoves the median", fontsize=4.4,
+    ins.set_title("no natural break: any floor\nmoves the median", fontsize=6,
                   pad=1.5, color="0.35")
 
     fig.tight_layout(pad=0.35)

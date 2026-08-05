@@ -146,6 +146,39 @@ grammar but an algebraic identity in content, so it changes no number; and the
 `should`s in `theory/PREDICTIONS.md` are hypotheses about the world, not
 instructions about the data.
 
+## What tests can and cannot do
+
+Three of four, then four of seven, real defects here were found by rendering or
+reading rather than by the suite. **The wrong lesson to carry forward is that the
+suite underperforms.** It does not, and stating it loosely would do damage.
+
+The right statement is narrower. **Tests verify invariance under change. They
+cannot verify first-time correctness of a new artifact.** Every one of these
+defects appeared the first time a pipeline produced a thing -- the first figure
+render, the first LaTeX build, the first caption, the first table. Nothing had
+been correct yet, so nothing could be pinned as correct. Once a thing has been
+read and found right, the suite is exactly what keeps it right, and it has done
+that job without a single regression across 495 checks.
+
+**The operational form:**
+
+- a NEW output type gets read once, in full, by a human or by rendering;
+- only then does it get pinned;
+- from then on the suite owns it, and reading it again is not the answer to
+  anything.
+
+### Read the cheap signal before the expensive one
+
+Reading 21 pages is the last resort, not the first. The broken LaTeX build printed
+`figures 6` in its log on every run while one figure was silently mangled -- the
+count was wrong, persistently, and nothing compared it against anything. **Assert
+what the artifact should CONTAIN before you go looking at it:** counts of figures,
+tables, sections, display equations; balanced environments; no unclosed
+`\caption{`; a page count within a tolerance. Most of what reading caught this
+round would have been caught by a count assertion costing milliseconds.
+
+A count in a log that nobody asserts against is not a check. It is a comment.
+
 ## Where this applies
 
 Everywhere a number enters the manuscript, not only in post-diction. The

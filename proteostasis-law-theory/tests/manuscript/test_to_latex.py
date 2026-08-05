@@ -84,6 +84,44 @@ class TestWholeBuild(unittest.TestCase):
             self.assertEqual(doc.count(r"\centering"), doc.count(r"\begin{figure}"),
                              f"{name} has a \\centering outside a float")
 
+    def testTheDocumentContainsWhatItShould(self):
+        """the count was wrong in the log for every run of the broken build."""
+        T.checkCounts(self.info)
+        with self.assertRaises(SystemExit):
+            T.checkCounts({**self.info, "figures_main": 6})
+
+    def testAnUnclosedCaptionIsCaught(self):
+        with self.assertRaises(SystemExit):
+            T.checkBalanced(r"\begin{figure}" "\n" r"\caption{unclosed", "probe")
+
+    def testTheClassIsSnJnlWithAuthorYearReferences(self):
+        """BMB is author-year; Springer ships the template with -num selected."""
+        self.assertIn(r"\documentclass[pdflatex,sn-mathphys-ay]{sn-jnl}", self.main)
+        self.assertNotIn("sn-mathphys-num]", self.main)
+        self.assertTrue((_REPO_ROOT / "manuscript" / "springer"
+                         / "sn-jnl.cls").exists())
+
+    def testDisplayEquationsAreMathNotVerbatim(self):
+        """fenced blocks render as typewriter text unless declared."""
+        self.assertEqual(self.info["displays"], 10)
+        self.assertNotIn(r"\begin{verbatim}", self.main)
+        for env in (r"\begin{align*}", r"\begin{equation*}"):
+            self.assertIn(env, self.main)
+
+    def testInternalSectionsDoNotReachTheSubmission(self):
+        self.assertEqual(self.info["stripped"], 1)
+        for name in T.INTERNAL_SECTIONS:
+            self.assertNotIn(name, self.main)
+            self.assertNotIn(name, self.supp)
+        # but they stay in the markdown as provenance
+        self.assertIn(T.INTERNAL_SECTIONS[0],
+                      (_REPO_ROOT / "manuscript" / "bmb_v4.md").read_text())
+
+    def testCaptionMathSurvivesTheEmphasisRule(self):
+        """`(u*, a*)` was turned into \\emph{, a}, deleting both equilibria."""
+        self.assertIn("(u^{*}, a^{*})", self.main)
+        self.assertNotIn(r"\emph\{", self.main)
+
     def testFiguresAreNotRescaled(self):
         """84 and 174 mm are the journal's widths; \\linewidth threw them away."""
         self.assertIn(r"\includegraphics[max width=\linewidth]", self.main)

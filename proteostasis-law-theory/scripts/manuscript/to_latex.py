@@ -203,10 +203,23 @@ def convertFigures(md: str) -> tuple[str, int]:
         n += 1
         num, stem, caption = m.group(1), m.group(2), m.group(3)
         caption = " ".join(caption.split())
-        # the caption bypasses pandoc, so its markdown emphasis is converted here
-        # -- the first build printed a literal "**(a)**" in Figure 1
+        # The caption bypasses pandoc, so its markdown emphasis is converted here
+        # -- the first build printed a literal "**(a)**" in Figure 1. Backtick
+        # spans are PROTECTED first: `(u*, a*)` is mathematics, and the emphasis
+        # rule matched from the first star to the second and turned it into
+        # \emph{, a}, silently deleting the starred equilibria. That survived a
+        # full visual read of the article build.
+        held: list[str] = []
+
+        def _hold(mm):
+            held.append(mm.group(0))
+            return f"\x00{len(held) - 1}\x00"
+
+        caption = re.sub(r"`[^`\n]+`", _hold, caption)
         caption = re.sub(r"\*\*(.+?)\*\*", r"\\textbf{\1}", caption)
         caption = re.sub(r"(?<!\*)\*([^*]+?)\*(?!\*)", r"\\emph{\1}", caption)
+        caption = re.sub(r"\x00(\d+)\x00", lambda mm: held[int(mm.group(1))],
+                         caption)
         # A literal % opens a LaTeX comment. Figure 5's caption quotes several
         # percentages, so the unescaped % swallowed the closing brace of
         # \caption{...}; pandoc could not find \end{figure}, escaped the WHOLE
@@ -278,33 +291,27 @@ HEADER = r"""%% GENERATED FILE -- do not edit.
 %% The markdown is the source; every number in it is recomputed by a script in
 %% scripts/ and asserted by tests/.
 %%
-%% TO SUBMIT TO BULLETIN OF MATHEMATICAL BIOLOGY: replace the \documentclass
-%% line below with Springer's, which is not installed on the build machine:
-%%     \documentclass[sn-mathphys-num]{sn-jnl}
-%% and drop the geometry line. Nothing else here is class-specific.
-\documentclass[11pt,a4paper]{article}
-\usepackage[margin=25mm]{geometry}
+%% CLASS: Springer Nature sn-jnl, vendored at manuscript/springer/sn-jnl.cls
+%% (LPPL). The option is sn-mathphys-ay -- AUTHOR-YEAR, which is what Bulletin of
+%% Mathematical Biology uses and how the reference list below is written. The
+%% Springer template ships with sn-mathphys-num uncommented; selecting it would
+%% silently reformat the reference list into numbered style and break every
+%% in-text citation, which are author-year throughout.
+\documentclass[pdflatex,sn-mathphys-ay]{sn-jnl}
 
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-\usepackage{microtype}
+%% the class loads fontenc, geometry, hyperref, natbib, amsthm and others itself
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage[export]{adjustbox}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
-\usepackage{calc}
 \usepackage{textcomp}
 \usepackage{newunicodechar}
-\usepackage[hidelinks]{hyperref}
-\usepackage[font=small,labelfont=bf]{caption}
 %% pandoc marks an uncaptioned longtable with \LTcaptype{none}; the caption
 %% package then tries to step a counter of that name. Declaring it makes the
 %% marker the no-op pandoc intends rather than a fatal error.
 \newcounter{none}
-\usepackage{parskip}
 
 \setlength{\emergencystretch}{3em}
 \providecommand{\tightlist}{%
@@ -312,6 +319,129 @@ HEADER = r"""%% GENERATED FILE -- do not edit.
 
 %% unicode that survives into prose, mapped from this document's own inventory
 """
+
+
+# ---------------------------------------------------------------------------
+# display equations
+# ---------------------------------------------------------------------------
+#
+# The markdown writes displayed equations as fenced code blocks, because markdown
+# has no display math. Pandoc renders those as VERBATIM, so every equation in the
+# paper was typeset in typewriter face with ASCII operators, and the widest one
+# ran past the right margin.
+#
+# Layout of a displayed equation is a judgement -- where to break, what to align
+# on, when a matrix is a matrix -- so these are written out rather than derived.
+# The dictionary is keyed by the EXACT source block, so editing an equation in the
+# markdown invalidates its key and stops the build until the layout is revisited.
+# That is the intended coupling: one lineage for the numbers, an explicit and
+# self-invalidating mapping for the typesetting.
+
+DISPLAY_MATH = {
+"""du/dt = j − v_ref(u, C_f) − v_degU(u, D_f) − n(u) − g(u,a) + v_dis(a, C_f)
+da/dt =                                       n(u) + g(u,a) − v_dis(a, C_f) − v_degA(a, D_f)""":
+r"""\begin{align*}
+\frac{du}{dt} &= j - v_{ref}(u, C_f) - v_{degU}(u, D_f) - n(u) - g(u,a) + v_{dis}(a, C_f),\\
+\frac{da}{dt} &= n(u) + g(u,a) - v_{dis}(a, C_f) - v_{degA}(a, D_f).
+\end{align*}""",
+
+"""v_ref  = k_ref C_f u/(K_ref + u)      refolding
+v_degU = k_U D_f u/(K_U + u)          soluble degradation
+n      = k_n u^m,  m > 1              nucleation
+g      = k_g u a                      aggregate growth
+v_dis  = k_dis C_f a/(K_dis + a)      disaggregation
+v_degA = k_A D_f a/(K_A + a)          aggregate clearance""":
+r"""\begin{align*}
+v_{ref}  &= \frac{k_{ref}\,C_f\,u}{K_{ref} + u}   &&\text{refolding}\\
+v_{degU} &= \frac{k_U\,D_f\,u}{K_U + u}           &&\text{soluble degradation}\\
+n        &= k_n u^m,\quad m > 1                   &&\text{nucleation}\\
+g        &= k_g\,u\,a                             &&\text{aggregate growth}\\
+v_{dis}  &= \frac{k_{dis}\,C_f\,a}{K_{dis} + a}   &&\text{disaggregation}\\
+v_{degA} &= \frac{k_A\,D_f\,a}{K_A + a}           &&\text{aggregate clearance}
+\end{align*}""",
+
+"""C_f = C_tot /(1 + N_f/K_N + u_f/K_CU + a_f/K_CA + O_f/K_CO)""":
+r"""\begin{equation*}
+C_f = \frac{C_{tot}}{1 + N_f/K_N + u_f/K_{CU} + a_f/K_{CA} + O_f/K_{CO}}
+\end{equation*}""",
+
+"""R(u,a) = v_ref + v_degU + v_degA        G(u,a) = da/dt""":
+r"""\begin{equation*}
+R(u,a) = v_{ref} + v_{degU} + v_{degA},
+\qquad
+G(u,a) = \frac{da}{dt}
+\end{equation*}""",
+
+"""j_crit = R(u*, a*).""":
+r"""\begin{equation*}
+j_{crit} = R(u^{*}, a^{*}).
+\end{equation*}""",
+
+"""det J = det [ ∂(du/dt)/∂u   ∂(du/dt)/∂a ]  =  det [ −R_u  −R_a ]
+            [ ∂(da/dt)/∂u   ∂(da/dt)/∂a ]        [  G_u   G_a ]
+
+      = −(R_u G_a − R_a G_u) = −(∇R × ∇G).""":
+r"""\begin{align*}
+\det J
+&= \det\begin{bmatrix}
+     \partial(du/dt)/\partial u & \partial(du/dt)/\partial a\\[2pt]
+     \partial(da/dt)/\partial u & \partial(da/dt)/\partial a
+   \end{bmatrix}
+ = \det\begin{bmatrix} -R_u & -R_a\\[2pt] G_u & G_a \end{bmatrix}\\[4pt]
+&= -(R_u G_a - R_a G_u) = -(\nabla R \times \nabla G).
+\end{align*}""",
+
+"""det J = −det [ ∇R ; ∇G ; ∇C ]""":
+r"""\begin{equation*}
+\det J = -\det\left[\,\nabla R \,;\, \nabla G \,;\, \nabla C\,\right]
+\end{equation*}""",
+
+"""R_tot = R + μ(u,a)·(u + a)""":
+r"""\begin{equation*}
+R_{tot} = R + \mu(u,a)\cdot(u + a)
+\end{equation*}""",
+
+"""j_crit = C_enz · φ_enz /(1 − δ),     φ_enz = R_enz(u*,a*)/C_enz,     δ = R_dil(u*,a*)/j_crit""":
+r"""\begin{equation*}
+j_{crit} = \frac{C_{enz}\,\varphi_{enz}}{1 - \delta},
+\qquad
+\varphi_{enz} = \frac{R_{enz}(u^{*},a^{*})}{C_{enz}},
+\qquad
+\delta = \frac{R_{dil}(u^{*},a^{*})}{j_{crit}}
+\end{equation*}""",
+
+"""j ≤ ( √(1 + 4εC_0) − 1 )/(2ε)   →   √(C_0/ε)   for large ε.""":
+r"""\begin{equation*}
+j \le \frac{\sqrt{1 + 4\varepsilon C_0} - 1}{2\varepsilon}
+\;\longrightarrow\;
+\sqrt{C_0/\varepsilon}
+\quad\text{for large }\varepsilon.
+\end{equation*}""",
+}
+
+
+def convertDisplayMath(md: str) -> tuple[str, int]:
+    """replace every fenced block with its declared LaTeX, or stop."""
+    n = 0
+    missing = []
+
+    def repl(m):
+        nonlocal n
+        src = m.group(1).rstrip("\n")
+        if src not in DISPLAY_MATH:
+            missing.append(src)
+            return m.group(0)
+        n += 1
+        return DISPLAY_MATH[src] + "\n"
+
+    out = re.sub(r"^```\n(.*?)^```\n", repl, md, flags=re.S | re.M)
+    if missing:
+        raise SystemExit(
+            "display block with no declared layout:\n\n"
+            + "\n\n".join(missing)
+            + "\n\nAdd it to DISPLAY_MATH. Equation layout is not derived, and a "
+              "fenced block left alone is typeset as verbatim.")
+    return out, n
 
 
 def convertHeadings(md: str) -> tuple[str, int, int]:
@@ -377,10 +507,10 @@ def splitFrontMatter(md: str) -> tuple[str, str, str]:
     msc = re.search(r"\*\*MSC\*\* (.+)", front)
     kw = re.search(r"\*\*Keywords\*\* (.+)", front)
     meta = ""
-    if msc:
-        meta += r"\noindent\textbf{MSC} " + msc.group(1).strip() + "\n\n"
     if kw:
-        meta += r"\noindent\textbf{Keywords} " + kw.group(1).strip() + "\n"
+        meta += r"\keywords{" + kw.group(1).strip().replace("; ", ", ") + "}\n\n"
+    if msc:
+        meta += r"\pacs[MSC Classification]{" + msc.group(1).strip() + "}\n"
     return abstract, meta, body
 
 
@@ -411,11 +541,33 @@ def splitSupplementary(md: str) -> tuple[str, str]:
     return supp, body
 
 
+# sections kept in the markdown as project provenance but not part of the paper
+INTERNAL_SECTIONS = ("Reference verification",)
+
+
+def stripInternalSections(md: str) -> tuple[str, int]:
+    """drop working sections from the submission without losing them upstream.
+
+    `### Reference verification` records which references were checked against
+    PubMed and what was corrected. That is provenance the repository should keep
+    and a referee should not receive after the reference list.
+    """
+    n = 0
+    for name in INTERNAL_SECTIONS:
+        pat = re.compile(rf"^#{{2,3}} {re.escape(name)}\n.*?(?=^#{{1,3}} |\Z)",
+                         re.S | re.M)
+        md, k = pat.subn("", md)
+        n += k
+    return md, n
+
+
 def _renderBody(md: str, *, headings: bool) -> tuple[str, dict]:
     """markdown -> LaTeX body, with the checks that caught real corruption."""
-    n_sec = 0
+    n_sec = n_disp = 0
+    md, n_strip = stripInternalSections(md)
     if headings:
         md, n_sec, _ = convertHeadings(md)
+    md, n_disp = convertDisplayMath(md)
     md, n_fig = convertFigures(md)
     md, n_math, n_code = convertSpans(md)
     tex = _pandoc(md)
@@ -431,23 +583,74 @@ def _renderBody(md: str, *, headings: bool) -> tuple[str, dict]:
                          "pandoc")
     tex, n_tab = naturalTableWidths(tex)
     return tex, {"sections": n_sec, "figures": n_fig, "tables": n_tab,
+                 "displays": n_disp, "stripped": n_strip,
                  "spans_math": n_math, "spans_code": n_code}
 
 
 TITLE = ("An Exact Collapse Threshold for Conserved-Resource Models\n"
          "       of Protein Quality Control")
-BYLINE = (r"\author{Kiran Boggavarapu\\[2pt]" + "\n"
-          + r"{\small Department of Chemistry and Physics, McNeese State "
-            r"University, Lake Charles, LA 70609, USA}\\" + "\n"
-          + r"{\small \texttt{kiran@mcneese.edu}}}")
+BYLINE = (r"\author*[1]{\fnm{Kiran} \sur{Boggavarapu}}"
+          r"\email{kiran@mcneese.edu}" + "\n"
+          + r"\affil*[1]{\orgdiv{Department of Chemistry and Physics}, "
+            r"\orgname{McNeese State University}, \orgaddress{\city{Lake Charles}, "
+            r"\state{LA}, \postcode{70609}, \country{USA}}}")
 
 
 def _document(chars: list[str], title: str, front: str, body: str,
               extra_preamble: str = "") -> str:
+    """sn-jnl wants the abstract and keywords as PREAMBLE commands, not
+    environments, and the title block uses \\fnm/\\sur/\\affil markup."""
     return (HEADER + preamble(chars) + "\n" + extra_preamble + "\n"
-            + rf"\title{{{title}}}" + "\n" + BYLINE + "\n" + r"\date{}" + "\n\n"
+            + rf"\title[Collapse threshold for quality-control models]{{{title}}}"
+            + "\n" + BYLINE + "\n\n" + front + "\n"
             + r"\begin{document}" + "\n" + r"\maketitle" + "\n\n"
-            + front + "\n" + body + "\n" + r"\end{document}" + "\n")
+            + body + "\n" + r"\end{document}" + "\n")
+
+
+# What the finished paper contains. The build asserts these rather than reporting
+# them, because "figures 6" appeared in the log through every one of the runs in
+# which one figure was silently mangled -- the count was wrong, persistently, and
+# nothing compared it against anything. A count assertion is far cheaper than
+# reading 21 pages and would have caught most of what reading caught.
+EXPECTED = {
+    "sections": 10,
+    "figures_main": 5,
+    "figures_supp": 1,
+    "tables": 2,
+    "displays": 10,
+    "spans_code": 2,
+    "stripped": 1,
+}
+PAGES_MAIN = (18, 26)      # tolerance, not a target
+PAGES_SUPP = (1, 2)
+
+
+def checkCounts(info: dict) -> None:
+    wrong = {k: (info[k], v) for k, v in EXPECTED.items() if info.get(k) != v}
+    if wrong:
+        raise SystemExit("the document does not contain what it should:\n  "
+                         + "\n  ".join(f"{k}: got {g}, expected {e}"
+                                       for k, (g, e) in wrong.items()))
+
+
+def checkBalanced(tex: str, name: str) -> None:
+    """an unclosed \\caption{ is how a whole float turned into escaped text."""
+    for env in ("figure", "longtable", "equation*", "align*"):
+        b, e = tex.count(rf"\begin{{{env}}}"), tex.count(rf"\end{{{env}}}")
+        if b != e:
+            raise SystemExit(f"{name}: {env} unbalanced, {b} begin / {e} end")
+    for m in re.finditer(r"\\caption\{", tex):
+        depth, i = 0, m.end() - 1
+        while i < len(tex):
+            if tex[i] == "{" and tex[i - 1] != "\\":
+                depth += 1
+            elif tex[i] == "}" and tex[i - 1] != "\\":
+                depth -= 1
+                if depth == 0:
+                    break
+            i += 1
+        else:
+            raise SystemExit(f"{name}: unclosed \\caption{{ at offset {m.start()}")
 
 
 def build() -> dict:
@@ -462,18 +665,14 @@ def build() -> dict:
     abstract, meta = _pandoc(abstract_md), _pandoc(meta_md)
 
     chars = residualUnicode(body + abstract + meta)
-    front = (r"\begin{abstract}" + "\n" + abstract.strip() + "\n"
-             + r"\end{abstract}" + "\n\n" + meta.strip() + "\n\n"
-             + r"\medskip" + "\n")
+    front = (r"\abstract{" + abstract.strip() + "}" + "\n\n" + meta.strip() + "\n")
     OUT_TEX.write_text(_document(chars, TITLE, front, body))
 
     # the supplementary numbers its figures S1, S2, ... so they cannot collide
     schars = residualUnicode(supp)
-    supp_front = (r"\begin{center}\large\bfseries Supplementary Material\end{center}"
-                  + "\n\n" + r"\noindent This document accompanies the paper above. "
-                    r"Every number in the caption is recomputed by the script named "
-                    r"in it and asserted by the accompanying test suite." + "\n\n"
-                  + r"\medskip" + "\n")
+    supp_front = (r"\abstract{Supplementary material accompanying the paper above. "
+                  r"Every number in the caption is recomputed by the script named in "
+                  r"it and asserted by the accompanying test suite.}" + "\n")
     OUT_SUPP_TEX.write_text(_document(
         schars, TITLE, supp_front, supp,
         extra_preamble=(r"\renewcommand{\thefigure}{S\arabic{figure}}" + "\n"
@@ -483,11 +682,14 @@ def build() -> dict:
                         + r"\renewcommand{\textfraction}{0.06}" + "\n"
                         + r"\renewcommand{\floatpagefraction}{0.85}" + "\n")))
 
+    checkBalanced(OUT_TEX.read_text(), "main")
+    checkBalanced(OUT_SUPP_TEX.read_text(), "supplementary")
     return {"spans_math": info["spans_math"] + sinfo["spans_math"] + n_am,
             "spans_code": info["spans_code"] + sinfo["spans_code"] + n_ac,
             "sections": info["sections"],
             "figures_main": info["figures"], "figures_supp": sinfo["figures"],
-            "tables": info["tables"], "unicode_mapped": len(chars)}
+            "tables": info["tables"], "displays": info["displays"],
+            "stripped": info["stripped"], "unicode_mapped": len(chars)}
 
 
 # pdflatex stamps /CreationDate, /ModDate and a random /ID into every PDF, so two
@@ -500,7 +702,9 @@ _EPOCH = "1785801600"     # 2026-08-04T00:00:00Z
 def compile(tex: Path) -> int:
     """two pdflatex passes, for hyperref and any cross-references."""
     import os
-    env = dict(os.environ, SOURCE_DATE_EPOCH=_EPOCH, FORCE_SOURCE_DATE="1")
+    texinputs = str(REPO_ROOT / "manuscript" / "springer") + ":"
+    env = dict(os.environ, SOURCE_DATE_EPOCH=_EPOCH, FORCE_SOURCE_DATE="1",
+               TEXINPUTS=texinputs + os.environ.get("TEXINPUTS", ""))
     for _ in range(2):
         r = subprocess.run(["pdflatex", "-interaction=nonstopmode",
                             "-halt-on-error", "-output-directory",
@@ -518,14 +722,29 @@ def compile(tex: Path) -> int:
     return 0
 
 
+def checkPages() -> None:
+    import shutil
+    if not shutil.which("pdfinfo"):
+        return
+    for pdf, (lo, hi) in ((OUT_TEX.with_suffix(".pdf"), PAGES_MAIN),
+                          (OUT_SUPP_TEX.with_suffix(".pdf"), PAGES_SUPP)):
+        out = subprocess.run(["pdfinfo", str(pdf)], capture_output=True,
+                             text=True).stdout
+        n = int(re.search(r"Pages:\s+(\d+)", out).group(1))
+        if not lo <= n <= hi:
+            raise SystemExit(f"{pdf.name}: {n} pages, expected {lo}-{hi}")
+        print(f"  {pdf.name:32s} {n} pages, "
+              f"{pdf.stat().st_size // 1024} kB")
+
+
 if __name__ == "__main__":
     info = build()
+    checkCounts(info)
     for k, v in info.items():
         print(f"  {k:16s} {v}")
     rc = 0
     for tex in (OUT_TEX, OUT_SUPP_TEX):
         rc |= compile(tex)
-        pdf = tex.with_suffix(".pdf")
-        if pdf.exists():
-            print(f"  {pdf.name:32s} {pdf.stat().st_size // 1024} kB")
+    if rc == 0:
+        checkPages()
     sys.exit(rc)

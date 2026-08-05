@@ -3,33 +3,27 @@
 %% The markdown is the source; every number in it is recomputed by a script in
 %% scripts/ and asserted by tests/.
 %%
-%% TO SUBMIT TO BULLETIN OF MATHEMATICAL BIOLOGY: replace the \documentclass
-%% line below with Springer's, which is not installed on the build machine:
-%%     \documentclass[sn-mathphys-num]{sn-jnl}
-%% and drop the geometry line. Nothing else here is class-specific.
-\documentclass[11pt,a4paper]{article}
-\usepackage[margin=25mm]{geometry}
+%% CLASS: Springer Nature sn-jnl, vendored at manuscript/springer/sn-jnl.cls
+%% (LPPL). The option is sn-mathphys-ay -- AUTHOR-YEAR, which is what Bulletin of
+%% Mathematical Biology uses and how the reference list below is written. The
+%% Springer template ships with sn-mathphys-num uncommented; selecting it would
+%% silently reformat the reference list into numbered style and break every
+%% in-text citation, which are author-year throughout.
+\documentclass[pdflatex,sn-mathphys-ay]{sn-jnl}
 
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-\usepackage{microtype}
+%% the class loads fontenc, geometry, hyperref, natbib, amsthm and others itself
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage[export]{adjustbox}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
-\usepackage{calc}
 \usepackage{textcomp}
 \usepackage{newunicodechar}
-\usepackage[hidelinks]{hyperref}
-\usepackage[font=small,labelfont=bf]{caption}
 %% pandoc marks an uncaptioned longtable with \LTcaptype{none}; the caption
 %% package then tries to step a counter of that name. Declaring it makes the
 %% marker the no-op pandoc intends rather than a fatal error.
 \newcounter{none}
-\usepackage{parskip}
 
 \setlength{\emergencystretch}{3em}
 \providecommand{\tightlist}{%
@@ -48,21 +42,15 @@
 \renewcommand{\textfraction}{0.06}
 \renewcommand{\floatpagefraction}{0.85}
 
-\title{An Exact Collapse Threshold for Conserved-Resource Models
+\title[Collapse threshold for quality-control models]{An Exact Collapse Threshold for Conserved-Resource Models
        of Protein Quality Control}
-\author{Kiran Boggavarapu\\[2pt]
-{\small Department of Chemistry and Physics, McNeese State University, Lake Charles, LA 70609, USA}\\
-{\small \texttt{kiran@mcneese.edu}}}
-\date{}
+\author*[1]{\fnm{Kiran} \sur{Boggavarapu}}\email{kiran@mcneese.edu}
+\affil*[1]{\orgdiv{Department of Chemistry and Physics}, \orgname{McNeese State University}, \orgaddress{\city{Lake Charles}, \state{LA}, \postcode{70609}, \country{USA}}}
+
+\abstract{Supplementary material accompanying the paper above. Every number in the caption is recomputed by the script named in it and asserted by the accompanying test suite.}
 
 \begin{document}
 \maketitle
-
-\begin{center}\large\bfseries Supplementary Material\end{center}
-
-\noindent This document accompanies the paper above. Every number in the caption is recomputed by the script named in it and asserted by the accompanying test suite.
-
-\medskip
 
 \begin{figure}[htbp]
 \centering
