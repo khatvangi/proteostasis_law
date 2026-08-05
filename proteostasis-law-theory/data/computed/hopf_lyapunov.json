@@ -1,0 +1,100 @@
+{
+  "self_test": {
+    "supercritical": {
+      "expected": -1.0,
+      "computed": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "sign_correct": true,
+      "max_abs_err": 0.0
+    },
+    "subcritical": {
+      "expected": 1.0,
+      "computed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "sign_correct": true,
+      "max_abs_err": 0.0
+    }
+  },
+  "n_networks_attempted": 108,
+  "all": {
+    "n_crossings": 146,
+    "n_networks": 108,
+    "n_transversality_evaluable": 146,
+    "abs_dtr_dj_min": 0.29339797747607765,
+    "n_dtr_dj_positive": 101,
+    "n_dtr_dj_negative": 45,
+    "n_l1_evaluable": 145,
+    "n_l1_sign_unstable": 0,
+    "n_l1_not_computed": 1,
+    "n_supercritical": 120,
+    "n_subcritical": 25,
+    "abs_l1_min": 5.647233000622602e-05,
+    "abs_l1_median": 0.6806334623978277
+  },
+  "terminal": {
+    "n_crossings": 61,
+    "n_networks": 61,
+    "n_transversality_evaluable": 61,
+    "abs_dtr_dj_min": 3.251317975290175,
+    "n_dtr_dj_positive": 61,
+    "n_dtr_dj_negative": 0,
+    "n_l1_evaluable": 60,
+    "n_l1_sign_unstable": 0,
+    "n_l1_not_computed": 1,
+    "n_supercritical": 39,
+    "n_subcritical": 21,
+    "abs_l1_min": 0.009828163491944281,
+    "abs_l1_median": 0.8508141703757275
+  },
+  "window": {
+    "n_crossings": 85,
+    "n_networks": 47,
+    "n_transversality_evaluable": 85,
+    "abs_dtr_dj_min": 0.29339797747607765,
+    "n_dtr_dj_positive": 40,
+    "n_dtr_dj_negative": 45,
+    "n_l1_evaluable": 85,
+    "n_l1_sign_unstable": 0,
+    "n_l1_not_computed": 0,
+    "n_supercritical": 81,
+    "n_subcritical": 4,
+    "abs_l1_min": 5.647233000622602e-05,
+    "abs_l1_median": 0.27111468081098344
+  },
+  "window_crossing_0": {
+    "n_crossings": 47,
+    "n_networks": 47,
+    "n_transversality_evaluable": 47,
+    "abs_dtr_dj_min": 0.4414431558583777,
+    "n_dtr_dj_positive": 40,
+    "n_dtr_dj_negative": 7,
+    "n_l1_evaluable": 47,
+    "n_l1_sign_unstable": 0,
+    "n_l1_not_computed": 0,
+    "n_supercritical": 46,
+    "n_subcritical": 1,
+    "abs_l1_min": 0.0024379065076138803,
+    "abs_l1_median": 0.8577102249807226
+  },
+  "window_crossing_1": {
+    "n_crossings": 38,
+    "n_networks": 38,
+    "n_transversality_evaluable": 38,
+    "abs_dtr_dj_min": 0.29339797747607765,
+    "n_dtr_dj_positive": 0,
+    "n_dtr_dj_negative": 38,
+    "n_l1_evaluable": 38,
+    "n_l1_sign_unstable": 0,
+    "n_l1_not_computed": 0,
+    "n_supercritical": 35,
+    "n_subcritical": 3,
+    "abs_l1_min": 5.647233000622602e-05,
+    "abs_l1_median": 0.05067338485875035
+  }
+}

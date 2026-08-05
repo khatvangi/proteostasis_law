@@ -781,7 +781,11 @@ EXPECTED = {
     "spans_code": 0,         # v5 quotes no file paths in the body
     "stripped": 0,           # v5 carries no internal-only section
 }
-PAGES_MAIN = (18, 26)      # tolerance, not a target
+PAGES_MAIN = (18, 30)      # tolerance, not a target. widened once, in the
+# merged-review pass: Lemma 0, the proof of Theorem 2, the (G4) corollary, the
+# closure-robustness section and the Hopf classification are all new PROSE, so
+# the page count rose without the figure or table count changing. the band still
+# fails on a runaway build, which is what it is for.
 PAGES_SUPP = (1, 2)
 
 

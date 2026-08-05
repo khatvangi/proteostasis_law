@@ -28,9 +28,24 @@ the tracer at all:
      predicts. This test never touches the contour, the ordering, or the field
      grid, which is what the last four incidents all lacked.
 
-A tr J = 0 crossing with det J > 0 has pure imaginary eigenvalues -- that is a
-Hopf point by definition, not an inference -- so det at the crossing is reported
-beside it.
+A tr J = 0 crossing with det J > 0 has pure imaginary eigenvalues, so det at the
+crossing is reported beside it.
+
+THAT IS NECESSARY AND NOT SUFFICIENT, and this docstring used to say "a Hopf
+point by definition, not an inference", which is false. Pure imaginary
+eigenvalues at a point say nothing about whether the pair CROSSES the axis
+there (transversality) or what the cubic term does (the first Lyapunov
+coefficient). Both are computed in `hopf_lyapunov.py`, per crossing rather than
+per network, and only a crossing that passes both is called a Hopf bifurcation.
+
+The escape statistic below is subject to the same caution and it is sharper than
+it looks. `d_escape` is 1e-2 of the state scale and the perturbation is 1e-6 of
+it, so "escaped" means the perturbation grew ten-thousandfold -- which a
+SUPERCRITICAL Hopf produces just as reliably as a subcritical one, by growth
+onto a limit cycle of finite amplitude. The escape rate therefore measures
+departure from a small neighbourhood and CANNOT discriminate criticality. It was
+read that way once; 120 of 145 crossings turn out to be supercritical despite
+102 of 104 networks escaping.
 """
 
 from __future__ import annotations
