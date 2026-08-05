@@ -35,6 +35,7 @@ scoped to what the ensemble actually shows.
 
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -472,18 +473,40 @@ def runGenericity(states) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def runBranches(states, n: int = 150) -> pd.DataFrame:
-    """one field pass per network; the branch walk and the singular-point count
-    both read it, because recomputing the field doubled a 100-minute job."""
-    rows = []
-    for name, p, u, a in states:
+def _branchWorker(item):
+    """one network, for the process pool. Top level so it pickles."""
+    name, p, u, a, n = item
+    try:
         b = branchToFold(p, u, a, n=n)
-        if b is None:
-            rows.append({"name": name, "traced": False})
-            continue
-        b["name"] = name
-        b["traced"] = True
-        rows.append(b)
+    except Exception:
+        b = None
+    if b is None:
+        return {"name": name, "traced": False}
+    b["name"] = name
+    b["traced"] = True
+    return b
+
+
+def runBranches(states, n: int = 150, workers: Optional[int] = None
+                ) -> pd.DataFrame:
+    """one field pass per network, fanned out across cores.
+
+    Each network is an independent 150x150 field evaluation plus a contour walk,
+    so this is embarrassingly parallel and was needlessly serial: 2767 networks at
+    ~2.2 s each is 100 minutes on one core and about two on this machine. `map`
+    preserves input order, so the output is identical to the serial version --
+    checked, not assumed, by `--check-serial`.
+    """
+    import multiprocessing as mp
+
+    if workers is None:
+        workers = max(1, min(56, (os.cpu_count() or 2) - 8))
+    items = [(name, p, u, a, n) for name, p, u, a in states]
+    if workers == 1:
+        return pd.DataFrame([_branchWorker(i) for i in items])
+    ctx = mp.get_context("fork")
+    with ctx.Pool(processes=workers) as pool:
+        rows = pool.map(_branchWorker, items, chunksize=4)
     return pd.DataFrame(rows)
 
 

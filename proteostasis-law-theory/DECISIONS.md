@@ -1725,3 +1725,103 @@ droppable on page count. The main text is 23 pages, which is comfortable for BMB
 so it stays — but this records that no one chose to keep it. If anything must come
 out later, it is the one already marked droppable, and nothing else should be cut
 before it.
+
+
+## D045 — Block 1: the converse needs hypotheses, and three of my own numbers were artefacts first
+
+External review, major revision, core sound. Block 1 is the part that gates the
+title, so it ran before any rewriting.
+
+### 1a. The converse, with its hypotheses, verified
+
+Theorem 1 proves saddle-node => grad R parallel to grad G. It does NOT prove the
+converse: `det J = 0` is equally consistent with a transcritical or pitchfork
+bifurcation, a cusp, a double-zero eigenvalue, or a curve of equilibria. The word
+"exactly" in part (3) claimed an iff that was never established.
+
+`scripts/phase3/genericity.py` verifies the standard conditions at solved fold
+states: (G1) `|grad G| != 0`, (G2) `tr J != 0`, (G3) `d2R/ds2 != 0` along the
+constraint, (G4) parameter transversality `w . dF/dj != 0`.
+
+| population | evaluated | violations |
+|---|---|---|
+| load grid | 325 of 325 | **0** — minima 0.106 / 0.303 / 0.0929 / 0.341 |
+| kinetic box | 2767 of 2884 | **2** — `draw115`, `draw1700` |
+
+(G4) is the one that could have failed on its merits: `dF/dj = (1, 0)` exactly, so
+transversality reduces to `w_1 != 0` and nothing in the model forces it. It is
+bounded away from zero by 0.34 at worst on the load grid.
+
+The two failures fail (G1), (G3) and (G4) TOGETHER, at `a = 1.2e-11` and
+`1.3e-15`. The aggregate pool has collapsed to numerical zero, `grad G -> 0`, and
+every condition defined on the constraint degenerates with it. That is the edge of
+the model's domain, not a counterexample, and is reported as such. 117 of 2884
+networks have no solvable fold state and carry no result.
+
+**`d2R/ds2 < 0` at all 325 load-grid states.** The fold is a constrained LOCAL
+maximum of removal. Remark 3 withdrew the *global* maximum claim over the closed
+curve and that withdrawal stands, but the local statement is now measured, and
+Remark 3 should say which of the two it concedes.
+
+### 1b. Hopf exclusion, load grid complete
+
+Tracing `tr J` along the stable low-burden branch from small `j` to `j_crit`,
+contour-traced so it survives the nullcline's turn:
+
+- `max(tr J)` median **-0.338**, largest **-0.243**
+- networks reaching `tr J >= 0` anywhere: **0 of 325**
+- singular points per network: median 1, max 1, `>1` in **0 of 325**
+
+So on this population the fold is the first loss of stability, and Corollary 1's
+"no continuation sweep" needs no branch-identification caveat. The load grid
+varies load at fixed kinetics and cannot speak for the network ensemble; the
+kinetic box decides the title and is still running.
+
+### Three of my own numbers were method artefacts before they were results
+
+**The 105 Bogdanov-Takens states did not exist.** Testing at RECORDED kinetic-box
+states gave 105 of 2884 with `tr J ~ 0`, which reads as 3.6% of networks at a
+double-zero eigenvalue. Those states have `det J` up to 3.6 — they are not folds.
+`|det J|` at recorded kinetic-box states has median 2.8e-05 but **p99 2.4 and max
+52**, against a load-grid maximum of 8.9e-05. At solved states (G2) has zero
+violations. Reporting the 105 would have manufactured a serious finding out of
+loose bracketing.
+
+**`foldSolve` cost 25% of the ensemble, non-randomly.** It seeds from a coarse
+scan over `lowerNullclineA` — a first-root heuristic whose own docstring says it
+does not identify the branch the fold lives on — and failed for 718 of 2884.
+Seeding Newton from the recorded state, which experiment C's continuation already
+placed on the right branch, recovers 2767 and runs ten times faster. "No
+violations among the survivors" over a 75% subset selected by solver convergence
+would have been a selected result on precisely the geometry under test.
+
+**Half the section 6 shift was population, not correction.** Rebuilding at solved
+states moves `s_ref` 0.175->0.180, `s_u` 0.155->0.159, `s_a` 0.056->0.050, `phi`
+0.0769->0.0825. Paired on the same 2761 networks the per-network median relative
+difference is 2.5e-04, 2.6e-04, 1.4e-03 and **4.1e-07**. The correction is carried
+by a tail of 120-200 networks; the rest is the 123 networks that do not re-solve
+leaving the population. Section 6's mechanism is untouched — but the numbers are
+quoted to three decimals and `phi` 0.0769 -> 0.0825 turns "about thirteenfold too
+loose" into twelvefold. Only **1828 of 2884** recorded states were within
+`|det J| <= 1e-4` to begin with.
+
+**What connects all three:** each was caught by reporting a count that could have
+been quietly omitted — states not evaluable, solver failures, population size.
+This is the `figures 6` pattern from D044 in a different domain, and it argues the
+count assertions added to the LaTeX build should extend to ensemble runs:
+population in, population evaluated, population excluded, asserted rather than
+printed.
+
+### D034's failure recurred, in a third guise
+
+Computing `d2R/ds2` by fixing `u` and solving `G = 0` in `a` failed one-sided at
+exactly 12 of 325 — the states where the nullcline runs near-vertical. Correcting
+along `grad G` by arclength evaluates all 325. Root-finding in `a` at fixed `u`
+has now cost this project three separate defects.
+
+### 64 cores
+
+The branch trace is one independent field evaluation per network and was serial:
+146.6 s against 11.1 s on 64 networks, **13.3x**. Parallel and serial outputs
+compare EQUAL, checked rather than assumed. Behind a `workers` argument with the
+serial path preserved so the equivalence check stays runnable.

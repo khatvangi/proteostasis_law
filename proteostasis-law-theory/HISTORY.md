@@ -461,3 +461,57 @@ project were found by looking at output, none by a passing test.**
 
 Main text 21 pages, supplementary 1. `tests/manuscript/test_to_latex.py`, 15
 checks.
+
+**Q:** External review came back: major revision, core sound. Five blocks. Block 1
+gates the title — run it and report before anything else.
+
+**A:** Block 1a complete, 1b half complete (load grid done, kinetic box running).
+
+**1a — genericity conditions for the converse.** Theorem 1 proves saddle-node =>
+gradient alignment; the converse needs hypotheses, and "exactly" claimed an iff we
+had not established. Five conditions now verified at SOLVED fold states:
+
+  load grid  325/325   zero violations (min 0.106 / 0.303 / 0.0929 / 0.341)
+  kinetic box 2765/2767 clean; 117 of 2884 have no solvable fold and carry no result
+
+The two failures, draw115 and draw1700, fail (G1) (G3) (G4) together because
+`a` has collapsed to 1e-11 and 1e-15 — the edge of the model's domain, not a
+bifurcation. `d2R/ds2 < 0` at all 325 load-grid states: the fold is a constrained
+LOCAL maximum of removal, which sharpens Remark 3 (the withdrawn claim was the
+global one over the closed curve; that withdrawal stands).
+
+**Three of my own numbers were method artefacts before they were results.**
+1. Testing at RECORDED kinetic-box states gave "105 of 2884 at a Bogdanov-Takens
+   point". Those states have |det J| up to 3.6 — they are not folds. |det J| at
+   recorded states: median 2.8e-5 but p99 2.4, max 52, against a load-grid max of
+   8.9e-5. At solved states (G2) has ZERO violations. Publishing that would have
+   invented a serious result out of loose bracketing.
+2. `foldSolve` seeds from a coarse scan over `lowerNullclineA`, a first-root
+   heuristic that its own docstring says does not identify the fold's branch. It
+   lost 718 of 2884 — a 25% loss correlated with the geometry under test. Seeding
+   Newton from the recorded state recovers 2767 and runs 10x faster.
+3. Half the apparent section 6 shift was population, not correction. Paired on the
+   same 2761 networks the per-network median |rel diff| is 2.5e-4 / 2.6e-4 /
+   1.4e-3 / **4.1e-7** for s_ref/s_u/s_a/phi. Section 6's mechanism is untouched,
+   but the reported medians do move in the third decimal and phi 0.0769 -> 0.0825
+   makes "thirteenfold" twelvefold. Only 1828 of 2884 recorded states were within
+   |det J| <= 1e-4.
+
+Each was caught by reporting a count that could have been quietly omitted —
+non-evaluable states, solver failures, population size. Same pattern as the
+`figures 6` line in the LaTeX log.
+
+**1b — Hopf exclusion, load grid complete:** max tr J on the stable branch has
+median -0.338 and LARGEST -0.243; **0 of 325** networks reach tr J >= 0 anywhere;
+exactly one singular point per network, so Corollary 1 needs no branch-
+identification caveat there. Kinetic box running — it decides the title.
+
+**64 cores.** The branch trace was needlessly serial. Parallelised behind a
+`workers` argument: serial 146.6s -> parallel 11.1s on 64 networks, 13.3x, and the
+outputs compare EQUAL rather than assumed equal.
+
+**Also done this session, before the review arrived:** sn-jnl.cls vendored and the
+class swapped (D044), display equations converted from verbatim to real math, the
+reference-verification appendix stripped from the submission, count and balance
+assertions added to the LaTeX build, and the tests-vs-first-correctness
+distinction written into VERIFICATION_RULE.md.
