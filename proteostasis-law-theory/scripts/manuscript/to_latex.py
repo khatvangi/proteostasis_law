@@ -56,13 +56,15 @@ _SUB = {"₀": "0", "₁": "1", "₂": "2", "₃": "3", "₄": "4", "₅": "5", 
 _GREEK = {"α": r"\alpha", "β": r"\beta", "γ": r"\gamma", "δ": r"\delta",
           "ε": r"\varepsilon", "θ": r"\theta", "ι": r"\iota", "λ": r"\lambda",
           "μ": r"\mu", "ν": r"\nu", "ρ": r"\rho", "σ": r"\sigma", "τ": r"\tau",
-          "φ": r"\varphi", "χ": r"\chi", "Δ": r"\Delta"}
+          "φ": r"\varphi", "χ": r"\chi", "Δ": r"\Delta",
+          "κ": r"\kappa", "π": r"\pi", "ω": r"\omega"}
 
 # operators, inside math mode
 _MATH_OPS = {"∇": r"\nabla ", "×": r"\times ", "·": r"\cdot ", "−": "-",
              "≤": r"\le ", "≥": r"\ge ", "→": r"\to ", "∥": r"\parallel ",
              "±": r"\pm ", "∂": r"\partial ", "…": r"\dots ", "∎": r"\square",
-             "√": r"\surd ", "∈": r"\in ", "≈": r"\approx ", "–": "-", "—": "---"}
+             "√": r"\surd ", "∈": r"\in ", "≈": r"\approx ", "–": "-", "—": "---",
+             "≠": r"\neq "}
 
 # prose (text mode) mappings, emitted as \newunicodechar declarations
 _TEXT_MAP = {
@@ -70,7 +72,7 @@ _TEXT_MAP = {
     "·": r"$\cdot$", "≤": r"$\le$", "≥": r"$\ge$", "→": r"$\to$",
     "∥": r"$\parallel$", "±": r"$\pm$", "∂": r"$\partial$", "…": r"\dots",
     "∎": r"$\square$", "√": r"$\surd$", "§": r"\S", "°": r"$^\circ$",
-    "∈": r"$\in$", "≈": r"$\approx$", "″": "''", "′": "'",
+    "∈": r"$\in$", "≈": r"$\approx$", "≠": r"$\neq$", "″": "''", "′": "'",
     "ö": r'\"{o}', "é": r"\'{e}", "ü": r'\"{u}', "ä": r'\"{a}', "å": r"\aa{}",
     "’": "'", "‘": "`", "“": "``", "”": "''",
 }

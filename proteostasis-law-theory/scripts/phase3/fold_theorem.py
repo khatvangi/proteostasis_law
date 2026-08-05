@@ -381,6 +381,83 @@ def verifyAgainstRun(run: Optional[Path] = None,
     }
 
 
+def phiAtSolvedStates(run: Optional[Path] = None, workers: Optional[int] = None
+                      ) -> Dict[str, float]:
+    """the section 6 decomposition at RE-SOLVED fold states, with its population.
+
+    `verifyAgainstRun` evaluates the decomposition where experiment C's
+    continuation stopped. Those states are bracketed approximations: |det J| at
+    them has median 2.8e-05 but p99 2.4 and max 52, and only 1828 of 2884 are
+    within 1e-04 (D045). Re-solving {G = 0, det J = 0} from each recorded state
+    puts the decomposition where the theorem's own condition holds.
+
+    It matters by less than it might and by more than nothing. Paired on the same
+    networks the per-network median relative difference is 2.5e-04 for s_ref and
+    4.1e-07 for phi -- but phi's MEDIAN moves 0.0806 -> 0.0825, and section 6
+    quotes it to three decimals and turns 1/phi into "about twelvefold". A shift
+    carried by a tail of a few hundred networks is still a shift in the number
+    the section reports.
+
+    The population is returned, not assumed. The recorded and solved sets are not
+    the same size, and reporting a solved-state median against the recorded
+    population's count is how a table comes to name 2884 states it did not use.
+    """
+    import multiprocessing as mp
+
+    run = run or phase1RunDir()
+    c = pd.read_csv(run / "C" / "samples.tsv", sep="\t")
+    c = c[c["C1_fold_exists"] == True]  # noqa: E712
+    c = c[pd.to_numeric(c["fold_burden"], errors="coerce").notna()]
+    n_admit = len(c)
+
+    if workers is None:
+        workers = max(1, min(56, (os.cpu_count() or 2) - 8))
+    items = [(i, r) for i, r in c.iterrows()]
+    ctx = mp.get_context("fork")
+    with ctx.Pool(processes=workers) as pool:
+        rows = pool.map(_solvedDecompWorker, items, chunksize=8)
+
+    dec = [r for r in rows if r is not None]
+    D = pd.DataFrame(dec)
+    short = 1.0 - D["phi"]
+    return {
+        "n_admit_fold": int(n_admit),
+        "n_solved": int(len(D)),
+        "n_unsolved": int(n_admit - len(D)),
+        "phi_median": float(D["phi"].median()),
+        "s_ref_median": float(D["s_ref"].median()),
+        "s_u_median": float(D["s_u"].median()),
+        "s_a_median": float(D["s_a"].median()),
+        "s_min_median": float(D[["s_ref", "s_u", "s_a"]].median().min()),
+        "s_max_median": float(D[["s_ref", "s_u", "s_a"]].median().max()),
+        "s_u_p5_p95_width": float(D["s_u"].quantile(0.95) - D["s_u"].quantile(0.05)),
+        "inverse_phi": float(1.0 / D["phi"].median()),
+        "shortfall_share_saturation": float(
+            ((D["phi_if_saturated"] - D["phi"]) / short).median()),
+        "shortfall_share_sequestration": float(
+            ((D["phi_if_full_pools"] - D["phi"]) / short).median()),
+    }
+
+
+def _solvedDecompWorker(item):
+    """one network re-solved then decomposed. top level so it pickles."""
+    import genericity as GEN
+    _, r = item
+    try:
+        p = paramsFromSampleRow(r)
+        u0, a0 = foldStateFromSampleRow(r)
+    except (M.ModelError, ValueError, KeyError):
+        return None
+    s = GEN.polishFold(p, u0, a0) or foldSolve(p)
+    if s is None:
+        return None
+    _, u, a = s
+    try:
+        return phiDecomposition(u, a, p)
+    except (M.ModelError, ValueError, KeyError):
+        return None
+
+
 def nestedInvariance(run: Optional[Path] = None, k_theta: int = 12,
                      n_nu: int = 7, n_chi: int = 7, seed: int = 11) -> pd.DataFrame:
     """the properly nested design: k kinetic draws x a (nu, chi) load grid.

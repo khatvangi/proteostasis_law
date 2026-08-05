@@ -89,7 +89,7 @@ def build():
     ax.set_ylim(-1.75, len(series) - 0.25)
     ax.set_yticks([])
     ax.set_xticks([0.0, 0.25, 0.5, 0.75, 1.0])
-    ax.set_xlabel("Michaelis saturation fraction at the collapse boundary")
+    ax.set_xlabel("Michaelis saturation fraction at the fold")
     ax.spines["left"].set_visible(False)
     n_near_zero = int((df["s_a"] < 1e-9).sum())
     ax.set_title(f"all {n_all} folds, no screen and no exclusion "

@@ -229,7 +229,7 @@ The removal ceiling does not survive. `R_tot` contains `μ(u+a)`, which is unbou
 
 Growth feedback restores the boundary. With `μ(u,a) = μ₀/(1 + (u+a)/k_μ)` a fold exists at every rate tested up to `μ₀ = 0.3`.
 
-> **The collapse boundary of a dividing cell exists because burden slows growth.** Dilution alone is an unbounded disposal channel; only its throttling by the burden it disposes of makes viability finite.
+> **The fold of a dividing cell exists because burden slows growth.** Dilution alone is an unbounded disposal channel; only its throttling by the burden it disposes of makes viability finite.
 
 The coupling itself is not in dispute. Expressing protein a cell does not need reduces its growth rate, and the reduction scales with expression level (Dekel and Alon 2005; Shachrai et al. 2010). Coarse proteome partitioning makes the mechanism explicit: raising any sector's share comes at the expense of the ribosomal sector, and the resulting growth law predicts the burden of heterologous expression quantitatively (Scott et al. 2010; Scott et al. 2014; Scott and Hwa 2023). What the theory adds is that this coupling is load-bearing for the existence of the boundary rather than a correction to its position.
 
@@ -300,8 +300,8 @@ Five of these values were previously reported from a 20-state random subsample o
 | correlation of log sin(angle) with log \|eigenvalue\| | load grid, 325 | +0.9960 | — | — |
 | *n*-state identity, regulated three-state | base point | 2.5×10⁻¹¹ | — | — |
 | dilution identity, burden-dependent `μ` | base point | 4.7×10⁻¹⁰ | — | — |
-| \|G\| on the reprojected nullcline branch | load grid, 325 | — | — | 6.94×10⁻¹⁷ |
-| \|G\| on the reprojected nullcline branch | kinetic box, 2766 | — | — | 2.42×10⁻¹⁴ |
+| \|G\| on the reprojected nullcline branch | load grid, 325 | 1.56×10⁻¹⁷ | 4.16×10⁻¹⁷ | 6.94×10⁻¹⁷ |
+| \|G\| on the reprojected nullcline branch | kinetic box, 2766 | 3.47×10⁻¹⁸ | 1.11×10⁻¹⁵ | 2.42×10⁻¹⁴ |
 
 Each maximum is reported beside a p99 deliberately. A maximum grows with the size of the population it is drawn from, so the `φ` maximum of 7.25×10⁻⁹ over 2884 draws and the identity maximum of 1.29×10⁻⁹ over 325 are not comparable as stated, and neither is comparable to whatever a reader obtains on a rerun of a different size. The p99 is stable under resampling and carries the same bounding claim. Where a number below is doing bounding work, the p99 is the one to read.
 
@@ -332,7 +332,7 @@ The medians above are computed over the whole kinetic box and no draw is exclude
 
 ![Figure 3](../figures/fig3.pdf)
 
-**Fig. 3** Saturation of the clearance machinery at the collapse boundary, over
+**Fig. 3** Saturation of the clearance machinery at the fold, over
 all 2884 folds of the kinetic box, with no screen and no exclusion. Shaded strips
 are the full distributions, bars the p5–p95 span, open circles the medians
 tabulated above, against the dashed line at `s = 1` that capacity exhaustion would
@@ -453,13 +453,17 @@ Four statements are worth separating by what would refute them.
 
 **The sharper version of the same test.** Since growth rate sets the load coordinate `ν`, and `ν` drift alone contributes ~1.6× against the ~1.8× contrast expected from shifting the chaperone/protease split, an experiment that does not hold growth rate fixed cannot discriminate. Chemostat or turbidostat, not batch culture. Under fixed growth rate, raising the load of *perfectly folding* protein should lower the tolerable damage influx, because nascent chains consume chaperone capacity without contributing influx; a model in which the two loads are handled independently predicts no shift. Direction was correct in 67 of 68 settings over a 100-fold ladder, with median shift 1.22×.
 
+**Structural, and refutable by a measurement that already exists in principle.** In the oscillatory corner of Section 3.2, the low-burden state loses stability through a Hopf rather than at the fold, so burden should be seen to oscillate at growing amplitude *before* any runaway. The signature is a period, and the period is predicted: `π/ω` in the distance from equilibrium, `2π/ω` in the state variables themselves. A clearance network engineered into that corner — aggregate clearance made fast and sharply saturating, aggregate formation made growth- rather than nucleation-dominated — should oscillate. One that collapses monotonically instead, at parameters verified to lie in the corner, refutes this. The relevant caution is that the corner is identified in a stipulated sampling box, so its boundaries in real units are not established here.
+
 **A ruler, not a test.** Approaching the fold, the relaxation time scales as `τ ~ (j_crit − j)^(−1/2)` (fitted slope 0.5077, *r*² = 1.0000). This is generic to saddle-nodes, so confirming it selects this model over nothing in particular. Its use is as an instrument for locating the boundary in an experiment that then asks whether the boundary *moves*.
 
 **The measurement the theory most wants.** Whether growth arrest under misfolding burden is complete or merely asymptotic. Under the hyperbolic form, dilution keeps bounding the high-burden state and collapse is a reversible switch; under linear arrest, `μ` reaches exactly zero and the high state is a runaway. The available dosage-response constrains the slope only below 0.1% misfolded protein, roughly three decades below the arrest burden where the two forms diverge, so it cannot adjudicate. That single functional form decides whether losing proteostasis in a dividing cell is recoverable.
 
 ## 10. Discussion
 
-The threshold of a finite-resource clearance network is not something one has to find by sweeping. Given the removal flux and the aggregate nullcline, it is where their gradients become parallel, and the critical influx is the removal flux evaluated there. That statement requires no fitted parameter, holds for any number of states, survives growth dilution, and survives capacity that degrades with the load it carries.
+The folds of a finite-resource clearance network are not something one has to find by sweeping. Given the removal flux and the aggregate nullcline, they are where the two gradients become parallel, and the critical influx is the removal flux evaluated there. That statement requires no fitted parameter, holds for any number of states, survives growth dilution, and survives capacity that degrades with the load it carries. What the condition does not do by itself is single out which fold matters: it returns candidates, and in about 9% of sampled networks more than one, so orientation and branch identification remain to be done. That residual is small against a continuation sweep and it is not nothing, and the honest form of the claim names it.
+
+Two further qualifications belong beside that, and both are results rather than concessions. Folds come in two orientations, and only the constrained-maximum orientation is a collapse threshold; the other is a hysteresis fold-back, and the model class produces both. And the fold is not always the first loss of stability — in an identifiable corner of parameter space an oscillation takes the low-burden state first.
 
 What it does not do is predict a number without measured parameters. Two attempts to make the quantitative predictions sharp have failed — calibration against a measured growth-burden relation, then the addition of regulation — while the structural core survived every extension attempted. This is a structural theory rather than a predictive one, and claims should be pitched accordingly.
 

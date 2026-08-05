@@ -1825,3 +1825,94 @@ The branch trace is one independent field evaluation per network and was serial:
 146.6 s against 11.1 s on 64 networks, **13.3x**. Parallel and serial outputs
 compare EQUAL, checked rather than assumed. Behind a `workers` argument with the
 serial path preserved so the equivalence check stays runnable.
+
+## D046 — the Hopf is real, the title changes, and folds have two orientations
+
+### The verification, and why it needed one
+
+`branchToFold` reported `tr J >= 0` on the stable branch for 101 of 2765
+kinetic-box networks. Three of the four Block 1 numbers before it were method
+artefacts, and this one had two candidate mechanisms with identical signatures:
+the `u + a` ordering heuristic walking the wrong arc, and contour vertices that
+do not lie on `{G = 0}`.
+
+Both were removed rather than argued about. Ordering replaced by the maximal
+contiguous `det J > 0` run adjacent to the solved fold — connectivity decides,
+nothing guesses. Every vertex reprojected onto `{G = 0}` along `grad G` before
+its Jacobian is taken, so each point is an exact equilibrium (`|G| <= 2.4e-14`;
+with `j := R`, `du/dt = -G = 0` too). **The count went UP, 101 -> 108.** Four sit
+on branches whose `j`-maximum is not the fold and are excluded as
+multiplicity-ambiguous, leaving **104 of 2766**.
+
+### The control is what makes the dynamics check mean anything
+
+| | escaped | grew >10x | median max\|delta\|/delta_0 |
+|---|---|---|---|
+| 104 crossers | 102 | 104 | 9851 |
+| 205 stable controls | **0** | **0** | **1.00** |
+
+No distributional overlap. The integration also recovers the eigenvalue from
+nothing the contour touched: growth exponent within 5% of `max Re lambda` in 90
+of 104, period within 5% of `pi/omega` in 47 of 49.
+
+**A test without a control measures nothing.** The first version ran only on the
+crossers, and would have been unfalsifiable had the integrator drifted.
+
+### Four defects in the verifier, all found by running the whole population
+
+- fixed horizon: `lambda_max` spans 5.8e-05 to 3.6, so `t = 50` is 170 e-folds
+  for one network and 0.005 for another
+- growth read at the ENDPOINT: a slowly growing spiral can finish nearer the
+  equilibrium than it started; three were scored "did not grow" on that alone
+- whole-window exponent fit: wrong for REAL pairs (median 0.11) because the
+  subdominant mode contaminates the early window. Two estimators now — peaks for
+  complex pairs (identical phase, unbiased, 2.9e-04), late half for real (1.3e-02)
+- **the predicted period was off by exactly 2x.** `|delta|^2` oscillates at
+  `2 omega`, so peaks come every `pi/omega`. The measurement disagreed twice and
+  was right both times; the prediction was checked third.
+
+Also: the horizon must be CAPPED. `25/lambda` reaches 4.3e+05, and a horizon that
+long is spent past the escape, where `solveFreePools` can run to its 2e5-iteration
+cap on every RHS call. Stopping at escape is both the cheap fix and the correct
+one — leaving the linear neighbourhood answers the question.
+
+### The title
+
+Pre-committed rule fires: **"An Exact Fold Condition for Mass-Balanced Models of
+Protein Quality Control"**, and the paper says fold, not collapse threshold.
+Multiplicity alone would have forced it.
+
+### The load grid's cleanliness proves less than it looks
+
+0 of 325, and that is a control, not an absence of Hopf in general. The load grid
+FIXES kinetics and sweeps load; the crossers are distinguished by KINETIC
+parameters (`kappa_a` 11.7x lower, `rho_A` 7.5x higher, `alpha_g/alpha_n` 3.7 ->
+33.6). So the load grid is one point in the space where the distinction lives.
+The defensible pair, and the form the manuscript uses: an oscillatory instability
+precedes the fold in 3.76% of a deliberately wide kinetic ensemble, concentrated
+in an identifiable region; and the base kinetic set lies outside that region,
+verified over its complete load grid. The 3.76% is a property of the sampling box
+and is NOT the headline — the parameter-corner characterisation is.
+
+### Remark 3 becomes a classification, not an exception list
+
+`j_crit = R(u*, a*)`, so `sign(d2R/ds2)` is `sign(d2j/ds2)`. At a constrained
+MAXIMUM the equilibrium pair is destroyed as `j` rises: collapse. At a MINIMUM it
+is BORN: the lower turning point of a hysteresis loop, not a threshold.
+
+`d2R/ds2 < 0` at 325 of 325 load-grid folds and 2739 of 2765 kinetic-box folds.
+At the other 26 the solver returned a birth-oriented point, and **all 26 of those
+networks carry a collapse-oriented candidate too, at strictly higher influx in
+26 of 26.** They are hysteresis loops whose lower turning point was reached first.
+7 of a 153-network control sample carry the same pair. Orientation computed twice
+by independent routes: agree 54/54 and 162/167.
+
+Consequence: solving `det J = 0` returns candidates without distinguishing them,
+so orientation must be COMPUTED, never assumed from the fact that a solver
+converged.
+
+### Three degeneracies, all now instantiated or excluded
+
+`det H = 0` homeostasis (structurally excluded, Section 3.1), `det J = 0` with
+`tr J != 0` the fold (computed), `tr J = 0` with `det J > 0` the Hopf (computed).
+Section 3.1 says so in one sentence.

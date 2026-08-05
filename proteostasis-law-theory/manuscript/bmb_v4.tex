@@ -44,8 +44,10 @@
 \newunicodechar{—}{---}
 \newunicodechar{⁰}{$^{0}$}
 \newunicodechar{⁴}{$^{4}$}
+\newunicodechar{⁵}{$^{5}$}
 \newunicodechar{⁶}{$^{6}$}
 \newunicodechar{⁷}{$^{7}$}
+\newunicodechar{⁸}{$^{8}$}
 \newunicodechar{⁹}{$^{9}$}
 \newunicodechar{⁺}{$^{+}$}
 \newunicodechar{⁻}{$^{-}$}
@@ -54,14 +56,14 @@
 \newunicodechar{−}{$-$}
 \newunicodechar{√}{$\surd$}
 
-\title[Collapse threshold for quality-control models]{An Exact Collapse Threshold for Conserved-Resource Models
+\title[Fold condition for quality-control models]{An Exact Fold Condition for Mass-Balanced Models
        of Protein Quality Control}
 \author*[1]{\fnm{Kiran} \sur{Boggavarapu}}\email{kiran@mcneese.edu}
 \affil*[1]{\orgdiv{Department of Chemistry and Physics}, \orgname{McNeese State University}, \orgaddress{\city{Lake Charles}, \state{LA}, \postcode{70609}, \country{USA}}}
 
-\abstract{A cell clearing misfolded protein with a finite pool of chaperones and proteases tolerates damage influx only up to a threshold, beyond which burden runs away. Where that threshold sits is normally found by numerical continuation, one parameter set at a time. We show it need not be. For any clearance network in which the damage influx is state-independent and mass balance accounts for all outflow, the Jacobian determinant factors as \(\det J = -(\nabla R \times \nabla G)\), where \(R\) is total removal flux and \(G\) the aggregate nullcline field. A saddle-node therefore occurs exactly at a constrained critical point of removal on the aggregate nullcline, and the critical influx is \(j_{crit} = R(u^{*}, a^{*})\) with no sweep required. The identity generalises to arbitrary state dimension, survives growth dilution, and survives the case in which the clearance machinery is itself damaged by the influx it clears. Three consequences follow. Collapse occurs while the machinery runs at roughly 6--18\% of maximum velocity, so the naive capacity ceiling overestimates the tolerable influx by about thirteenfold. Under cell division the ceiling fails outright, and the boundary of a dividing cell exists only because burden slows growth; the critical influx then decomposes exactly as \(j_{crit} = C_{enz}\cdot \varphi_{enz}/(1-\delta )\), with the enzymatic factor nearly invariant to division rate. When the machinery damages itself, a linear capacity ceiling becomes a square-root one. Against four published observations the underlying two-state model fails in a single direction: it cannot place a stable attractor at low burden. One of those failures resolves not by adding mechanism but by removing a requirement the data never imposed, which yields a falsifiable prediction: the aggregate load of an aging \emph{Escherichia coli} old-pole cell must lie between 0.047\% and roughly 0.5\% of total protein, depending on how much of that aggregate sits in the visible polar focus, and in every case below the current detection bound.}
+\abstract{A cell clearing misfolded protein with a finite pool of chaperones and proteases tolerates damage influx only up to a threshold, beyond which burden runs away. Where that threshold sits is normally found by numerical continuation, one parameter set at a time. We show it need not be. For any clearance network in which the damage influx is state-independent and mass balance accounts for all outflow, the Jacobian determinant factors as \(\det J = -(\nabla R \times \nabla G)\), where \(R\) is total removal flux and \(G\) the aggregate nullcline field. A saddle-node therefore occurs at a constrained critical point of removal on the aggregate nullcline, and under stated genericity conditions only there, with critical influx \(j_{crit} = R(u^{*}, a^{*})\) and no sweep required. The condition returns the fold candidates exactly; which candidate a rising influx meets first is a separate question, and we report what selecting it costs. The identity generalises to arbitrary state dimension, survives growth dilution, and survives the case in which the clearance machinery is itself damaged by the influx it clears. Three consequences follow. Collapse occurs while the machinery runs at roughly 6--18\% of maximum velocity, so the naive capacity ceiling overestimates the tolerable influx by about thirteenfold. Under cell division the ceiling fails outright, and the boundary of a dividing cell exists only because burden slows growth; the critical influx then decomposes exactly as \(j_{crit} = C_{enz}\cdot \varphi_{enz}/(1-\delta )\), with the enzymatic factor nearly invariant to division rate. When the machinery damages itself, a linear capacity ceiling becomes a square-root one. Separately, the fold is not always the first loss of stability: in a corner of parameter space where aggregate clearance is fast and sharply saturating while aggregate growth is autocatalytic, an oscillatory instability precedes it, arising at \(tr J = 0\) with \(\det J > 0\) on the same branch. Against four published observations the underlying two-state model fails in a single direction: it cannot place a stable attractor at low burden. One of those failures resolves not by adding mechanism but by removing a requirement the data never imposed, which yields a falsifiable prediction: the aggregate load of an aging \emph{Escherichia coli} old-pole cell must lie between 0.047\% and roughly 0.5\% of total protein, depending on how much of that aggregate sits in the visible polar focus, and in every case below the current detection bound.}
 
-\keywords{proteostasis, saddle-node bifurcation, conserved resource, collapse threshold, growth dilution, clearance network}
+\keywords{proteostasis, saddle-node bifurcation, Hopf bifurcation, conserved resource, fold condition, growth dilution, clearance network}
 
 \pacs[MSC Classification]{92C40 (primary); 37G10, 34C23, 92C42 (secondary)}
 
@@ -150,12 +152,26 @@ G(u,a) = \frac{da}{dt}
 \item
   \(\det J = -(\nabla R \times \nabla G)\) \emph{identically;}
 \item
-  \emph{a saddle-node bifurcation therefore occurs exactly at a constrained critical point of \(R\) restricted to \(\{G = 0\}\), and the critical influx is}
+  \emph{a saddle-node bifurcation therefore occurs only at a constrained critical point of \(R\) restricted to \(\{G = 0\}\), and the critical influx is}
 \end{enumerate}
 
 \begin{equation*}
 j_{crit} = R(u^{*}, a^{*}).
 \end{equation*}
+
+\emph{Conversely, a constrained critical point \((u^{*}, a^{*})\) is a saddle-node provided}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{(G1)} \(\nabla G \neq 0\) \emph{there, so \(\{G = 0\}\) is a regular curve;}
+\item
+  \emph{(G2)} \(tr J \neq 0\)\emph{, so the zero eigenvalue is simple;}
+\item
+  \emph{(G3)} \(d^{2}R/ds^{2} \neq 0\) \emph{along \(\{G = 0\}\), so the critical point is nondegenerate;}
+\item
+  \emph{(G4)} \(w\cdot \partial F/\partial j \neq 0\) \emph{for \(w\) the left null vector of \(J\), the parameter transversality condition.}
+\end{itemize}
 
 \emph{Proof.} Two structural facts do the work.
 
@@ -173,20 +189,24 @@ By H2, \(du/dt + da/dt = j - R\) exactly. Apply the determinant-preserving row o
 &= -(R_u G_a - R_a G_u) = -(\nabla R \times \nabla G).
 \end{align*}
 
-That is (2). A saddle-node requires \(\det J = 0\), hence \(\nabla R \parallel \nabla G\), which is the Lagrange condition for a critical point of \(R\) subject to \(G = 0\). Combining with (1), the critical value is \(j_{crit} = R(u^{*}, a^{*})\). ∎
+That is (2). A saddle-node requires \(\det J = 0\), hence \(\nabla R \parallel \nabla G\), which is the Lagrange condition for a critical point of \(R\) subject to \(G = 0\). Combining with (1), the critical value is \(j_{crit} = R(u^{*}, a^{*})\). The converse is the standard saddle-node normal-form argument under (G1)--(G4); (G4) is the one with no structural guarantee, and it reduces here to a single scalar, because \(j\) enters \(du/dt\) alone so \(\partial F/\partial j = (1, 0)\) exactly and transversality is just \(w_{1} \neq 0\). ∎
 
-Informally: \textbf{the collapse boundary is where total removal stops responding to burden along the aggregate nullcline.}
+The conditions hold wherever we have checked them. Over the complete load grid the four margins are bounded away from zero by 0.106, 0.303, 0.0929 and 0.341 respectively, with no violations in 325 states. Over the kinetic box, 2765 of 2767 solved fold states satisfy all four; the two exceptions, which fail (G1), (G3) and (G4) together, sit at \(a = 1.2\times 10^{-11}\) and \(1.3\times 10^{-15}\), at the edge of the model's domain. A further 117 of 2884 draws admit no solvable fold state and carry no result rather than being screened out.
 
-\emph{Remark 3.} The proven statement is \emph{critical point}, not \emph{maximum}. An earlier version of this result asserted a constrained maximum; that gloss is withdrawn. Scanning \(R\) along the branch reached by taking the first root in \(a\) shows it rising monotonically to the end of that branch in every case tested, and the solved fold state has \(dG/da\) between 9.1×10⁻³ and 3.9×10⁻², so the critical point lies past the nullcline's turning point rather than on the first-root branch. Whether it is a maximum over the whole closed curve is not established. No quantity in this paper depends on the distinction, because all of them solve \(\det J = 0\) directly.
+Informally: \textbf{the fold is where total removal stops responding to burden along the aggregate nullcline.}
 
-\textbf{Corollary 1 (fold location is a root solve).} Neither \(G = 0\) nor \(\det J = 0\) contains \(j\). Locating the fold is therefore a two-dimensional root solve rather than a continuation sweep in the influx, which reduces the cost of surveying a parameter box by the length of the sweep.
+\emph{Remark 3 (two orientations).} Since \(j_{crit} = R(u^{*}, a^{*})\), the sign of \(d^{2}R/ds^{2}\) along \(\{G = 0\}\) is the sign of \(d^{2}j/ds^{2}\) along the equilibrium branch, and it classifies the critical point rather than merely qualifying it. At a constrained \textbf{maximum} the equilibrium pair is destroyed as the influx rises: this is collapse. At a constrained \textbf{minimum} the pair is \emph{born} as the influx rises, which is the lower turning point of a hysteresis loop and not a collapse threshold at all. Both occur in this model class. Solving \(\det J = 0\) returns them without distinguishing them, so the orientation must be computed and not assumed --- an earlier version of this result asserted a constrained maximum, and that gloss was withdrawn before this classification replaced it.
+
+The census is unambiguous. \(d^{2}R/ds^{2} < 0\) at 325 of 325 load-grid folds and at 2739 of 2765 kinetic-box folds. At the remaining 26 the solver returned a birth-oriented point, and \textbf{all 26 of those networks carry a collapse-oriented critical point as well, at strictly higher influx in every case} --- they are hysteresis loops whose lower turning point the solver reached first. Seven of a 153-network control sample of ordinary folds carry the same pair. Orientation is computed twice by independent routes, the arclength second derivative of \(R\) and the shape of \(j\) along the traced branch, which agree at 54 of 54 candidates among the 26 and 162 of 167 in the control sample.
+
+\textbf{Corollary 1 (fold location is a root solve).} Neither \(G = 0\) nor \(\det J = 0\) contains \(j\). Locating the fold \emph{candidates} is therefore a two-dimensional root solve rather than a continuation sweep in the influx, which reduces the cost of surveying a parameter box by the length of the sweep. The saving is real but it is not free of a residual step: a network may have more than one candidate, and then the equations alone do not say which one a rising influx meets first. Across the kinetic box 9.1\% of networks (252 of 2765) carry more than one, up to five, and identifying the operative candidate in those requires orientation and branch information that the root solve does not supply. For the remaining 91\% the solve is the whole computation.
 
 At the base parameter point the Lagrange condition is visible directly rather than inferred: the removal contours meet the aggregate nullcline tangentially at the solved fold, so \(\nabla R\) and \(\nabla G\) align there to within a sine of \(3.5\times 10^{-10}\), and the critical influx is simply the removal flux evaluated at that state (Fig. 1a).
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[max width=\linewidth]{../figures/fig1.pdf}
-\caption{The collapse threshold as a constrained critical point. \textbf{(a)} Phase plane at the base parameter point. The aggregate nullcline $\{G = 0\}$ (dark) is a fixed curve; grey contours are total removal $R$. At the solved fold $(u^{*}, a^{*}) = (0.4166, 0.2650)$ the gradients $\nabla R$ and $\nabla G$ point the same way, which is the Lagrange condition of Theorem 1; they are drawn from offset origins because, being parallel, a common origin hides one behind the other. The sine of the angle between them is $3.5\times 10^{-10}$. The critical influx is the removal flux evaluated there, $j_{crit} = R(u^{*}, a^{*}) = 0.1542$. \textbf{(b)} Both equilibrium coordinates against influx, traced along the same curve. Cramer's rule on the two columns gives $du^{*}/dj = -G_{a}/\det J$ and $da^{*}/dj = G_{u}/\det J$, so the branch carries two distinct, ordered singularities. At $j_{turn} = 0.15409$ the soluble pool has a HORIZONTAL tangent, where $G_{a} = 0$; this is a regular point of the branch, since $\det J = R_{a}\cdot G_{u} = 2.027\times 10^{-3}$ there rather than zero, and it lies on the stable branch at $j_{turn}/j_{crit} = 0.9990$. At $j_{crit}$ both coordinates have a VERTICAL tangent, which is $\det J = 0$. The inset is a ×182 zoom on the same computed data, not a schematic. The aggregate coordinate has no horizontal tangent anywhere: $G_{u} > 0$ at all 305 traced points (minimum $2.08\times 10^{-3}$), and in 40 draws from the parameter box no point with $G_{u} < 0$ was found, for the reason given in Section 3.1.}
+\caption{The fold as a constrained critical point. \textbf{(a)} Phase plane at the base parameter point. The aggregate nullcline $\{G = 0\}$ (dark) is a fixed curve; grey contours are total removal $R$. At the solved fold $(u^{*}, a^{*}) = (0.4166, 0.2650)$ the gradients $\nabla R$ and $\nabla G$ point the same way, which is the Lagrange condition of Theorem 1; they are drawn from offset origins because, being parallel, a common origin hides one behind the other. The sine of the angle between them is $3.5\times 10^{-10}$. The critical influx is the removal flux evaluated there, $j_{crit} = R(u^{*}, a^{*}) = 0.1542$. \textbf{(b)} Both equilibrium coordinates against influx, traced along the same curve. Cramer's rule on the two columns gives $du^{*}/dj = -G_{a}/\det J$ and $da^{*}/dj = G_{u}/\det J$, so the branch carries two distinct, ordered singularities. At $j_{turn} = 0.15409$ the soluble pool has a HORIZONTAL tangent, where $G_{a} = 0$; this is a regular point of the branch, since $\det J = R_{a}\cdot G_{u} = 2.027\times 10^{-3}$ there rather than zero, and it lies on the stable branch at $j_{turn}/j_{crit} = 0.9990$. At $j_{crit}$ both coordinates have a VERTICAL tangent, which is $\det J = 0$. The inset is a ×182 zoom on the same computed data, not a schematic. The aggregate coordinate has no horizontal tangent anywhere: $G_{u} > 0$ at all 305 traced points (minimum $2.08\times 10^{-3}$), and in 40 draws from the parameter box no point with $G_{u} < 0$ was found, for the reason given in Section 3.1.}
 \label{fig:fig1}
 \end{figure}
 
@@ -209,6 +229,22 @@ The branch therefore carries \textbf{two distinct singularities in a fixed order
 One numerical consequence is worth stating because it is structural rather than incidental. Tracing \(\{G = 0\}\) by solving for \(a\) at each fixed \(u\) fails exactly at this locus: the two roots in \(a\) merge where the nullcline runs vertical, so the traced curve returns as two disconnected pieces with the fold sitting in the gap between them. The root-finder's failure and the horizontal tangent of \(u^{*}(j)\) are the same point, not two problems, and contour tracing follows the curve through it.
 
 \textbf{Neither numerator.} \(\det J = 0\) is the fold, excluded from their setting by the hyperbolicity assumption their derivation requires. Geometrically, infinitesimal homeostasis is a horizontal tangent of the equilibrium branch and a saddle-node is a vertical tangent of both coordinates at once; neither condition implies the other, and on this branch the two occur at different, ordered values of the influx.
+
+Three degeneracies of the same equilibrium branch are now in view, and they exhaust the codimension-one possibilities in two states: \(\det H = 0\) is homeostasis, \(\det J = 0\) with \(tr J \neq 0\) is the fold, and \(tr J = 0\) with \(\det J > 0\) is a Hopf bifurcation. This paper reports computed instances of the second and third and a structural exclusion of the first.
+
+\subsection{The fold is not always the first loss of stability}
+
+Locating a fold does not show that it is where stability is first lost. A Hopf bifurcation --- \(tr J = 0\) with \(\det J > 0\), so that the eigenvalues are \(\pm i\surd (\det J)\) --- could precede it on the same branch, and nothing in Theorem 1 prevents that. We checked, because the check is cheap and its failure would change what \(j_{crit}\) means.
+
+It does occur. Tracing the aggregate nullcline from low burden to the fold in every kinetic-box network, and evaluating the Jacobian only at points reprojected onto \(\{G = 0\}\) so that each is an exact equilibrium, \textbf{104 of 2766 networks lose stability strictly before the fold}, at a median of 0.83 of the way to \(j_{crit}\) and as early as 0.12. \(\det J > 0\) at the crossing in all 104, minimum 1.5×10⁻⁶, so these are Hopf points by definition rather than by inference.
+
+The instability is confirmed by integration of the full nonlinear system, which uses nothing from the nullcline trace. Perturbing the equilibrium at the point of largest \(tr J\), all 104 grow by more than tenfold and 102 leave the linear neighbourhood entirely, at a median amplification of 9851. In a control block of 205 networks whose branch never crosses, taken at the same point of largest \(tr J\), \textbf{none leaves and the median amplification is 1.00} --- the two distributions do not overlap. The integration also recovers the eigenvalue quantitatively: the measured growth exponent matches \(\max Re \lambda\) within 5\% in 90 of 104, and the oscillation period matches \(\pi /\omega\) within 5\% in 47 of 49 networks where it is measurable, at a median relative difference of 9.9×10⁻⁴.
+
+The crossers are not scattered through the box but occupy an identifiable corner of it. Relative to the rest, their median \(\kappa_{a}\) is 11.7 times lower and \(\rho_{A}\) 7.5 times higher --- aggregate clearance that is both fast and sharply saturating --- while median \(\alpha_{n}\) is 5.5 times lower with \(\alpha_{g}\) little changed, so that the ratio \(\alpha_{g}/\alpha_{n}\) shifts from 3.7 to 33.6 and aggregate formation becomes growth-dominated rather than nucleation-dominated. A fast saturating negative feedback loaded by an autocatalytic positive one is the standard recipe for oscillation. The mechanism is legible enough that the numerical result is what one would expect of that corner rather than a surprise requiring explanation.
+
+Two statements are therefore both true and neither is the other. An oscillatory instability precedes the fold in 3.76\% of a deliberately wide kinetic ensemble, concentrated in the region just described. And the base kinetic parameter set, from which every quantitative result in this paper is computed, lies outside that region: over its complete 325-state load grid the largest \(tr J\) anywhere on the stable branch is −0.243, and no network crosses. The second statement is the weaker one and should be read as such --- the load grid holds kinetics fixed and sweeps load, so it is a single point in the space where the crossers are distinguished, and its cleanliness establishes that this point is outside the oscillatory corner, not that the corner is small.
+
+The incidence rate is a property of the sampling box as much as of the model class, and we do not offer 3.76\% as a prediction. The parameter-space characterisation is the transferable result: in a resource-limited clearance network, fast sharply-saturating aggregate clearance against autocatalytic growth destabilises the low-burden state through an oscillation before the removal flux stops responding to burden.
 
 What makes our determinant factor is H2, which has no counterpart in the input-output setting. Mass balance supplies the row operation that replaces the influx row by \(-\nabla R\), so \(\det J\) factors into gradients of identified physical fluxes rather than into combinatorial blocks. That is also why \(j_{crit} = R(u^{*}, a^{*})\) is an evaluation rather than a classification: the theorem locates a threshold, where the homeostasis programme enumerates the mechanisms by which a different degeneracy arises.
 
@@ -251,7 +287,7 @@ The removal ceiling does not survive. \(R_{tot}\) contains \(\mu (u+a)\), which 
 Growth feedback restores the boundary. With \(\mu (u,a) = \mu_{0}/(1 + (u+a)/k_\mu )\) a fold exists at every rate tested up to \(\mu_{0} = 0.3\).
 
 \begin{quote}
-\textbf{The collapse boundary of a dividing cell exists because burden slows growth.} Dilution alone is an unbounded disposal channel; only its throttling by the burden it disposes of makes viability finite.
+\textbf{The fold of a dividing cell exists because burden slows growth.} Dilution alone is an unbounded disposal channel; only its throttling by the burden it disposes of makes viability finite.
 \end{quote}
 
 The coupling itself is not in dispute. Expressing protein a cell does not need reduces its growth rate, and the reduction scales with expression level (Dekel and Alon 2005; Shachrai et al.~2010). Coarse proteome partitioning makes the mechanism explicit: raising any sector's share comes at the expense of the ribosomal sector, and the resulting growth law predicts the burden of heterologous expression quantitatively (Scott et al.~2010; Scott et al.~2014; Scott and Hwa 2023). What the theory adds is that this coupling is load-bearing for the existence of the boundary rather than a correction to its position.
@@ -331,6 +367,8 @@ direct solver against continuation sweep, relative & load grid, 325 & 3.03×10�
 correlation of log sin(angle) with log \textbar eigenvalue\textbar{} & load grid, 325 & +0.9960 & --- & --- \\
 \emph{n}-state identity, regulated three-state & base point & 2.5×10⁻¹¹ & --- & --- \\
 dilution identity, burden-dependent \(\mu\) & base point & 4.7×10⁻¹⁰ & --- & --- \\
+\textbar G\textbar{} on the reprojected nullcline branch & load grid, 325 & 1.56×10⁻¹⁷ & 4.16×10⁻¹⁷ & 6.94×10⁻¹⁷ \\
+\textbar G\textbar{} on the reprojected nullcline branch & kinetic box, 2766 & 3.47×10⁻¹⁸ & 1.11×10⁻¹⁵ & 2.42×10⁻¹⁴ \\
 \end{longtable}
 }
 
@@ -349,7 +387,7 @@ The theorem locates the fold. It does not by itself say how far below the capaci
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}ll@{}}
 \toprule\noalign{}
-at the collapse point & median \\
+at the fold & median \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -363,7 +401,7 @@ shortfall recovered by removing sequestration & 12.6\% \\
 \end{longtable}
 }
 
-\textbf{Collapse occurs while the clearance machinery runs at roughly 6--18\% of \(V_{max}\).} It is not capacity exhaustion. Superlinear nucleation overtakes sublinear saturating removal long before removal maxes out, which makes the removal ceiling a correct bound that is about thirteenfold too loose to predict anything on its own.
+\textbf{The fold occurs while the clearance machinery runs at roughly 6--18\% of \(V_{max}\).} It is not capacity exhaustion. Superlinear nucleation overtakes sublinear saturating removal long before removal maxes out, which makes the removal ceiling a correct bound that is about thirteenfold too loose to predict anything on its own.
 
 Two questions must not be merged here. Saturation dominates the \emph{magnitude} of \(\varphi\); the \emph{existence} of a turning point requires the aggregation runaway that drives the free pools down at high burden. The counterfactuals above answer the first only.
 
@@ -372,7 +410,7 @@ The medians above are computed over the whole kinetic box and no draw is exclude
 \begin{figure}[htbp]
 \centering
 \includegraphics[max width=\linewidth]{../figures/fig3.pdf}
-\caption{Saturation of the clearance machinery at the collapse boundary, over all 2884 folds of the kinetic box, with no screen and no exclusion. Shaded strips are the full distributions, bars the p5–p95 span, open circles the medians tabulated above, against the dashed line at $s = 1$ that capacity exhaustion would predict. The spread is drawn as prominently as the centre because both halves of the claim matter: collapse occurs far below saturation, and the p5–p95 widths of 0.881, 0.876 and 0.863 are wide enough that a single measurement discriminates weakly. The inset is the sensitivity that rules out a screen, plotting the median $s_{a}$ of the survivors against the floor imposed on them.}
+\caption{Saturation of the clearance machinery at the fold, over all 2884 folds of the kinetic box, with no screen and no exclusion. Shaded strips are the full distributions, bars the p5–p95 span, open circles the medians tabulated above, against the dashed line at $s = 1$ that capacity exhaustion would predict. The spread is drawn as prominently as the centre because both halves of the claim matter: collapse occurs far below saturation, and the p5–p95 widths of 0.881, 0.876 and 0.863 are wide enough that a single measurement discriminates weakly. The inset is the sensitivity that rules out a screen, plotting the median $s_{a}$ of the survivors against the floor imposed on them.}
 \label{fig:fig3}
 \end{figure}
 
@@ -479,13 +517,17 @@ Four statements are worth separating by what would refute them.
 
 \textbf{The sharper version of the same test.} Since growth rate sets the load coordinate \(\nu\), and \(\nu\) drift alone contributes \textasciitilde1.6× against the \textasciitilde1.8× contrast expected from shifting the chaperone/protease split, an experiment that does not hold growth rate fixed cannot discriminate. Chemostat or turbidostat, not batch culture. Under fixed growth rate, raising the load of \emph{perfectly folding} protein should lower the tolerable damage influx, because nascent chains consume chaperone capacity without contributing influx; a model in which the two loads are handled independently predicts no shift. Direction was correct in 67 of 68 settings over a 100-fold ladder, with median shift 1.22×.
 
+\textbf{Structural, and refutable by a measurement that already exists in principle.} In the oscillatory corner of Section 3.2, the low-burden state loses stability through a Hopf rather than at the fold, so burden should be seen to oscillate at growing amplitude \emph{before} any runaway. The signature is a period, and the period is predicted: \(\pi /\omega\) in the distance from equilibrium, \(2\pi /\omega\) in the state variables themselves. A clearance network engineered into that corner --- aggregate clearance made fast and sharply saturating, aggregate formation made growth- rather than nucleation-dominated --- should oscillate. One that collapses monotonically instead, at parameters verified to lie in the corner, refutes this. The relevant caution is that the corner is identified in a stipulated sampling box, so its boundaries in real units are not established here.
+
 \textbf{A ruler, not a test.} Approaching the fold, the relaxation time scales as \(\tau \sim (j_{crit} - j)^{(-1/2)}\) (fitted slope 0.5077, \emph{r}² = 1.0000). This is generic to saddle-nodes, so confirming it selects this model over nothing in particular. Its use is as an instrument for locating the boundary in an experiment that then asks whether the boundary \emph{moves}.
 
 \textbf{The measurement the theory most wants.} Whether growth arrest under misfolding burden is complete or merely asymptotic. Under the hyperbolic form, dilution keeps bounding the high-burden state and collapse is a reversible switch; under linear arrest, \(\mu\) reaches exactly zero and the high state is a runaway. The available dosage-response constrains the slope only below 0.1\% misfolded protein, roughly three decades below the arrest burden where the two forms diverge, so it cannot adjudicate. That single functional form decides whether losing proteostasis in a dividing cell is recoverable.
 
 \section{Discussion}
 
-The threshold of a finite-resource clearance network is not something one has to find by sweeping. Given the removal flux and the aggregate nullcline, it is where their gradients become parallel, and the critical influx is the removal flux evaluated there. That statement requires no fitted parameter, holds for any number of states, survives growth dilution, and survives capacity that degrades with the load it carries.
+The folds of a finite-resource clearance network are not something one has to find by sweeping. Given the removal flux and the aggregate nullcline, they are where the two gradients become parallel, and the critical influx is the removal flux evaluated there. That statement requires no fitted parameter, holds for any number of states, survives growth dilution, and survives capacity that degrades with the load it carries. What the condition does not do by itself is single out which fold matters: it returns candidates, and in about 9\% of sampled networks more than one, so orientation and branch identification remain to be done. That residual is small against a continuation sweep and it is not nothing, and the honest form of the claim names it.
+
+Two further qualifications belong beside that, and both are results rather than concessions. Folds come in two orientations, and only the constrained-maximum orientation is a collapse threshold; the other is a hysteresis fold-back, and the model class produces both. And the fold is not always the first loss of stability --- in an identifiable corner of parameter space an oscillation takes the low-burden state first.
 
 What it does not do is predict a number without measured parameters. Two attempts to make the quantitative predictions sharp have failed --- calibration against a measured growth-burden relation, then the addition of regulation --- while the structural core survived every extension attempted. This is a structural theory rather than a predictive one, and claims should be pitched accordingly.
 

@@ -26,7 +26,7 @@ import pandas as pd
 
 # manuscript figure number, by ORDER OF FIRST MENTION in bmb_v4.md.
 # filenames are deliberately semantic so a reorder touches this line only.
-FIGURE = "fig4"
+FIGURE = "figS2"
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 for _p in (REPO_ROOT / "scripts", REPO_ROOT / "scripts" / "figures",
