@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21794565.svg)](https://doi.org/10.5281/zenodo.21794565)
 
-Archived at [10.5281/zenodo.21794565](https://doi.org/10.5281/zenodo.21794565) (concept DOI, resolves to latest). Canonical manuscript: [`manuscript/bmb_v4.md`](manuscript/bmb_v4.md).
+Archived at [10.5281/zenodo.21794565](https://doi.org/10.5281/zenodo.21794565) (concept DOI, resolves to latest). Canonical manuscript: [`manuscript/MANUSCRIPT_BMB_v5.md`](manuscript/MANUSCRIPT_BMB_v5.md).
 
 This repository rebuilds the Proteostasis Law from first principles. It is a clean, theory-first project: translation is treated as a multidimensional allocation problem, and viability is determined by the stability of the proteostasis system that receives translation's products.
 
@@ -12,7 +12,7 @@ Translation strategies occupy a Pareto trade-off surface involving productive th
 
 ## Directory map
 
-- `manuscript/`: **`bmb_v4.md` is canonical** and is the only manuscript in use. `MANUSCRIPT.md` and `COLLAPSE_BOUNDARY.md` are superseded earlier drafts, retained for provenance and banner-marked as such; see `manuscript/README.md`.
+- `manuscript/`: **`MANUSCRIPT_BMB_v5.md` is canonical** and is the only manuscript in use. `bmb_v4.md`, `MANUSCRIPT.md` and `COLLAPSE_BOUNDARY.md` are superseded earlier drafts, retained for provenance and banner-marked as such; see `manuscript/README.md`.
 - `theory/`: law statement, mathematics, Pareto geometry, dynamics, predictions, scope, and nonclaims. `FOLD_THEOREM.md` derives where collapse occurs — the saddle-node is a constrained critical point of total removal on the aggregate nullcline (*critical point*, not maximum; see D011) — decomposes the margin into its saturation and sequestration deficits, extends the result to dividing cells, calibrates the growth-burden coupling to a measurement, and computes the Pareto surface the framework had only asserted.
 - `empirical/`: experimental program, measurement-to-symbol map, and `GATE4_PROPOSAL.md` — what a first empirical test of the fold theorem would require, specified without reading any outcome.
 - `notes/`: historical recovery and rejection ledger; provenance stays here.
@@ -53,7 +53,7 @@ typesetter's machine than on ours is a defect.
 python scripts/manuscript/to_latex.py
 ```
 
-Writes `manuscript/bmb_v4.{tex,pdf}` and `manuscript/bmb_v4_supplementary.{tex,pdf}`.
+Writes `manuscript/bmb_v5.{tex,pdf}` and `manuscript/bmb_v5_supplementary.{tex,pdf}`.
 The markdown is the single source; **the `.tex` files are build artefacts and must
 never be edited.** The converter treats every backtick span as mathematics unless
 it is declared in `CODE_SPANS`, so a new code-shaped span fails the build rather

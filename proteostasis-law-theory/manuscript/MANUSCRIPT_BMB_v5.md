@@ -128,13 +128,13 @@ r'(s) = ∇R·γ' = det J /‖∇G‖
 
 *at every point of the nullcline, not only where it vanishes.*
 
-`det J` **is** the derivative of total removal along the aggregate nullcline, up to the positive factor `‖∇G‖`. The informal reading — the fold is where total removal stops responding to burden along the nullcline — is therefore an exact pointwise identity rather than a gloss on a vanishing condition. Two things follow at once. The equilibria on the nullcline are the solutions of `r(s) = j`, so the equilibrium branch is the level-set inverse of one scalar function of one variable; and `det J = 0` is `r'(s) = 0`, a constrained critical point of `R` on `{G = 0}`, with critical value `j_crit = R(u*, a*)`.
+`det J` **is** the derivative of total removal along the aggregate nullcline, up to the positive factor `‖∇G‖`. The informal reading — the fold is where total removal stops responding to burden along the nullcline — is therefore an exact pointwise identity rather than a gloss on a vanishing condition, and `det J = 0` is `r'(s) = 0`, a constrained critical point of `R` on `{G = 0}` with critical value `j_crit = R(u*, a*)`. Both statements are at fixed influx, which is all (H1a) supplies; the curve and the function `r` may still move with `j`.
 
 Regularity of the constraint is a hypothesis of the Lagrange reading and not only of the converse. Where `∇G = 0` the determinant vanishes automatically, `{G = 0}` need not be a manifold, and there is no tangent to differentiate along; the two networks discussed in Section 3.2 are that case, not counterexamples to anything.
 
 **Theorem 1.3 (fixed-nullcline shortcut).** *Assume (H1b), so `∂G/∂j = 0`. Then `{G = 0}` is independent of the influx — changing the load slides the state along it — equilibria are exactly its points with `R = j`, and the fold candidates solve `{G = 0, det J = 0}` in the state alone.*
 
-This is the whole practical content: neither equation contains `j`, so locating candidates is a two-dimensional root solve rather than a continuation sweep.
+This is the whole practical content: neither equation contains `j`, so locating candidates is a two-dimensional root solve rather than a continuation sweep. It is also what makes the branch one-dimensional in the useful sense — with the curve and `r` both fixed, the equilibria on the nullcline are the solutions of `r(s) = j`, so the equilibrium branch is the level-set inverse of one scalar function of one variable, and its turning points in `j` are the critical points of `r`.
 
 **Theorem 1.4 (load-dependent capacity).** *When `∂G/∂j ≠ 0` the nullcline moves with the influx and `j_crit = R(u*,a*)` becomes a self-consistency condition; candidates solve `{G = 0, det J = 0, R = j}` in `(u, a, j)`. Theorem 1.1 is unaffected.*
 
@@ -152,17 +152,17 @@ Theorem 1.2 gives one direction: a fold satisfies gradient alignment. The conver
 - **(G2)** a simple zero eigenvalue, `tr J ≠ 0`;
 - **(G3)** nondegeneracy, `d²R/ds² ≠ 0` along the nullcline at the critical point.
 
-Parameter transversality, `w·∂F/∂j ≠ 0` for the left null vector `w`, is the fourth condition of the classical statement. It is not independent here, and the corollary below shows it follows from (G1).
+Parameter transversality, `w·∂F/∂j ≠ 0` for the left null vector `w`, is the fourth condition of the classical statement. It is not independent here, and the corollary below shows it follows from (H1b) and (G1).
 
-**Theorem 2 (converse).** *Let `F` be `C²`. Under (G1)–(G3), a constrained critical point of `R` on `{G = 0}` is a generic saddle-node in `j`, with `j_crit = R(u*, a*)`.*
+**Theorem 2 (converse).** *Let `F` be `C²` and assume (H1b). Under (G1)–(G3), a constrained critical point of `R` on `{G = 0}` is a generic saddle-node in `j`, with `j_crit = R(u*, a*)`.*
 
-*Proof.* By (G1) the nullcline is a `C²` curve near the point, so Theorem 1.2 applies: equilibria on it are the solutions of `r(s) = j`, and `det J = 0` is `r'(0) = 0`. With (G3),
+*Proof.* By (G1) the nullcline is a `C²` curve near the point, so Theorem 1.2 applies and `det J = 0` is `r'(0) = 0`. With (G3),
 
 ```
 r(s) = j_crit + ½ r''(0) s² + O(s³),
 ```
 
-a nondegenerate extremum, so for `j` on one side of `j_crit` there are exactly two equilibria near the point and on the other side none: the pair collides and annihilates. By (G2) the zero eigenvalue is algebraically simple and the remaining eigenvalue `tr J` lies off the imaginary axis, so the centre manifold is one-dimensional. It is the nullcline itself — the second row of `Jv = 0` reads `∇G·v = 0`, so the right null vector is tangent to `{G = 0}` and parallel to `γ'(0)`; the centre manifold and the arclength reduction are the same object. Finally the two nondegeneracy conditions coincide. With `w = (1, 1+λ)` the left null vector and `∇R = λ∇G`,
+a nondegenerate extremum, so for `j` on one side of `j_crit` there are exactly two equilibria near the point and on the other side none: the pair collides and annihilates. Three conditions then remain. By (G2) the zero eigenvalue is algebraically simple, since in two dimensions the other eigenvalue is `tr J`, which also places it off the imaginary axis. By (H1b) and (G1) the parameter transversality `w·∂F/∂j ≠ 0` holds, by the corollary below. For the quadratic nondegeneracy, let `v` span the kernel of `J`; the second row of `Jv = 0` reads `∇G·v = 0`, so `v` is tangent to `{G = 0}` and parallel to `γ'(0)`. With `w = (1, 1+λ)` the left null vector and `∇R = λ∇G`,
 
 ```
 w·D²F(v,v) = −D²R(v,v) + λ D²G(v,v),
@@ -174,15 +174,17 @@ while differentiating `G(γ(s)) = 0` twice gives `∇G·γ'' = −D²G(v,v)`, so
 r''(0) = −w·D²F(v,v),
 ```
 
-and (G3) is not merely equivalent to the classical nondegeneracy condition of the saddle-node but equal to it up to sign. The reduced equation on the centre manifold is therefore the saddle-node normal form with quadratic coefficient of sign `−r''(0)`. ∎
+and (G3) is not merely equivalent to the classical nondegeneracy condition of the saddle-node but equal to it up to sign. The three hypotheses of Sotomayor's theorem are met, and it supplies the normal form, with quadratic coefficient of sign `−r''(0)`. ∎
+
+The nullcline is not a centre manifold and the proof does not use it as one. `{G = 0}` is not invariant: along the flow `dG/dt = G_u·(j − R)`, which vanishes only at the equilibrium, so trajectories cross the curve rather than run along it. What the tangency supplies is that the arclength direction and the centre direction agree at the critical point, which is why `r''(0)` and the centre-manifold quadratic coefficient are the same number. In the suspended system with `dj/dt = 0` the curve of equilibria does lie in the extended centre manifold; the fixed-influx nullcline does not.
 
 Two things come free. The sign of `r''(0)` is the orientation of Section 3.4, so that classification is a corollary rather than a separate observation. And nothing in the proof appeals to numerical verification; Table 1 reports whether the hypotheses hold in the ensembles studied, which is a question about the model rather than about the theorem.
 
 *Remark 3 (what a fold terminates).* Step two of the proof also classifies the collision. Since the eigenvalues at a fold are `0` and `tr J`, a negative trace means a stable node and a saddle merge, so the fold terminates a stable branch and is the collapse threshold. A positive trace means an unstable node and a saddle merge, and the low-burden state has already lost stability somewhere below: the fold is a turning point of the branch but not a boundary of viability. On the load grid every fold has `tr J < 0`. Over the kinetic box 61 of 2767 have `tr J > 0`, and all 61 are among the networks of Section 7 whose branch loses stability before the fold — as they must be, which makes the count a consistency check between two independent computations rather than a finding. The finding is the converse: of the 108 networks that lose stability first, 47 recover it before reaching the fold — 38 of them with both crossings resolved — so an oscillatory excursion below `j_crit` does not imply that the fold itself is unstable. Section 7 treats the two groups separately.
 
-**Corollary (transversality is automatic).** *Under (G1), `w·∂F/∂j ≠ 0`.*
+**Corollary (transversality is automatic).** *Under (H1b) and (G1), `w·∂F/∂j ≠ 0`.*
 
-*Proof.* Since `∂F/∂j = (1, 0)` exactly, the condition is `w₁ ≠ 0`. Let `L = I + e₁e₂^T`, so that `LJ` is the matrix whose first row is `−∇R` and whose remaining rows are the non-influx constraint gradients, and note that `L` fixes the first coordinate of any row vector multiplying it on the left. Put `z = wL⁻¹`, so `z(LJ) = 0`. If `z₁ = 0` the remaining components annihilate the non-influx constraint gradients, which have full rank by (G1), forcing `z = 0` and hence `w = 0`. So `z₁ ≠ 0`, and `w₁ = z₁ ≠ 0`. ∎
+*Proof.* By (H1b), `∂F/∂j = (1, 0)` exactly, so the condition is `w₁ ≠ 0`. Let `L = I + e₁e₂^T`, so that `LJ` is the matrix whose first row is `−∇R` and whose remaining rows are the non-influx constraint gradients, and note that `L` fixes the first coordinate of any row vector multiplying it on the left. Put `z = wL⁻¹`, so `z(LJ) = 0`. If `z₁ = 0` the remaining components annihilate the non-influx constraint gradients, which have full rank by (G1), forcing `z = 0` and hence `w = 0`. So `z₁ ≠ 0`, and `w₁ = z₁ ≠ 0`. ∎
 
 The argument uses only `∂F/∂j = e₁` and full rank, so it holds in every state dimension. It also gives the margin in closed form: normalising `w = (1, 1+λ)` with `∇R = λ∇G`,
 
@@ -238,17 +240,25 @@ Two properties of the candidate set follow from the theorem and bound what it de
 
 ### 4.1 Arbitrary state dimension
 
-**Corollary 2.** *Let the state be `x = (u, a, c, …)` with `du/dt` the only equation containing `j`, and mass balance giving `du/dt + da/dt = j − R(x)`. Writing the remaining equations as `G` and `C`,*
+**Corollary 2.** *Let the state be `x = (u, a, c, …)` with `du/dt` the only equation containing `j`. Suppose there is a constant mass vector `m` with `m₁ = 1` such that*
 
 ```
-det J = −det [ ∇R ; ∇G ; ∇C ]
+mᵀF(x, j) = j − R(x, j)   identically.
 ```
 
-*which vanishes exactly when `∇R` lies in the span of the remaining gradients — the Lagrange condition for a constrained critical point of `R` on the intersection of the non-influx nullclines.*
+*Then, writing the non-influx equations as `F₂, …, F_n`,*
 
-The proof is the same row operation on the first row of an `n × n` Jacobian. The practical consequence is that a model in this class can be extended without re-deriving its fold condition.
+```
+det J = −det [ ∇R ; ∇F₂ ; … ; ∇F_n ]
+```
 
-The converse needs restating above two dimensions, because (G2) does two jobs at once in the plane and neither survives. Write the characteristic polynomial as `p(λ) = λⁿ + … + c₁λ + c₀`, so that `c₀ = ±det J` and `c₁` is, up to sign, the sum of the `(n−1)×(n−1)` principal minors. A zero eigenvalue is `c₀ = 0`; it is algebraically simple exactly when `c₁ ≠ 0`; and partial hyperbolicity is the separate requirement that no other eigenvalue lie on the imaginary axis. For `n = 2` both reduce to `tr J ≠ 0`, since `c₁ = −tr J` and the remaining eigenvalue is `tr J` — which is why the distinction is invisible in the plane and why (G2) may be stated as the trace condition there. In general the converse requires (G1) with the non-influx constraint gradients of full rank, `c₁ ≠ 0`, and (G3).
+*and, provided the non-influx gradients have full rank, this vanishes exactly when `∇R` lies in their span — the Lagrange condition for a constrained critical point of `R` on the intersection of the non-influx nullclines.*
+
+The proof is the row operation `row₁ → row₁ + Σ_{k≥2} m_k row_k`, which preserves the determinant **because `m₁ = 1`**, and replaces the first row by `∇(mᵀF) = ∇(j − R) = −∇R` at fixed `j`. The sign is `−1` in every dimension. Full rank is a hypothesis of the equivalence and not a refinement of it: where the non-influx gradients are dependent the determinant vanishes for every `∇R` and the Lagrange reading says nothing, exactly as `∇G = 0` empties it in the plane.
+
+The mass vector is what makes the corollary cover its own instances. A state that carries damaged material enters with `m_k = 1`; a controller state that carries none enters with `m_k = 0`. The two systems below are `m = (1, 1, 0)` and `m = (1, 1, 1)`, and the earlier two-term statement `du/dt + da/dt = j − R` covered only the first. The practical consequence is unchanged: a model in this class can be extended without re-deriving its fold condition.
+
+The converse needs restating above two dimensions, because (G2) does two jobs at once in the plane and neither survives. Write the characteristic polynomial as `p(λ) = λⁿ + … + c₁λ + c₀`, so that `c₀ = ±det J` and `c₁` is, up to sign, the sum of the `(n−1)×(n−1)` principal minors. A zero eigenvalue is `c₀ = 0`; it is algebraically simple exactly when `c₁ ≠ 0`; and partial hyperbolicity is the separate requirement that no other eigenvalue lie on the imaginary axis. For `n = 2` both reduce to `tr J ≠ 0`, since `c₁ = −tr J` and the remaining eigenvalue is `tr J` — which is why the distinction is invisible in the plane and why (G2) may be stated as the trace condition there. In general the converse requires (G1) with the non-influx constraint gradients of full rank, `c₁ ≠ 0`, no other eigenvalue on the imaginary axis, and (G3).
 
 We verify Corollary 2 on two three-state systems. In the first the chaperone pool is dynamical under σ32-style control, with synthesis rising as free chaperone falls; the identity holds at median relative error 2.5×10⁻¹¹ to 2.9×10⁻¹¹, and the `σ₀ → 0` limit reproduces the two-state field exactly. That limit is not itself a test of the identity: with synthesis off, `dc/dt` vanishes identically, `∇C = 0`, and both sides of the identity are exactly zero, so the reduction is checked against the two-state field rather than against the determinant. In the second system aggregate is split into reactive and sequestered compartments: median 1.5×10⁻¹², maximum 4.7×10⁻¹¹.
 
@@ -294,7 +304,7 @@ In a cell, chaperones and proteases are translated by the error-prone apparatus,
 
 We model this as `C_enz(load) = C_0/(1 + ε·load)` applied to both pools, with `ε` swept over four decades in two modes: `load = j` and `load = u + a`. The second places capacity inside `∇R` and `∇G` themselves.
 
-The identity holds in both modes at machine precision: gradient-normalised residual with floor 2.2×10⁻¹⁴ at `ε = 0`, and worst median 6.4×10⁻¹⁴ (influx mode) and 4.6×10⁻¹³ (burden mode) at `ε = 100`, where capacity has fallen to 16.7% and 1.8% of nominal. No correction to the algebraic form is required, for the reason given in Remark 1: the row operation needs only that `j` be additive in `du/dt` and absent from `da/dt`, and that `du/dt + da/dt = j − R` be exact.
+The identity holds in both modes at machine precision: gradient-normalised residual with floor 2.2×10⁻¹⁴ at `ε = 0`, and worst median 6.4×10⁻¹⁴ (influx mode) and 4.6×10⁻¹³ (burden mode) at `ε = 100`, where capacity has fallen to 16.7% and 1.8% of nominal. No correction to the algebraic form is required, for the reason given in Remark 1: the row operation needs (H1a) and H2 alone, and neither mentions `da/dt`.
 
 What the coupling removes is the fixed nullcline. Under self-damage `{G = 0}` moves with the load: (H1b) fails and Theorem 1.4 replaces Theorem 1.3, so the candidate solve grows from two equations in `(u,a)` to three in `(u,a,j)`. Corollary 1's saving applies to the frozen-capacity case.
 
@@ -304,7 +314,9 @@ It also removes the automatic transversality of Section 3.2, and puts a checkabl
 w·F_j = 1 − R_j + λ G_j,
 ```
 
-so transversality is `R_j − λG_j ≠ 1`. This is the exact statement that (G4) ceases to be free precisely when capacity feeds back on the influx. Measured at solved self-damaged fold states — 99 converging from 200 attempts across both ladders — the margin is never small. In burden mode the capacity factor contains no `j`, so `R_j` and `G_j` vanish identically and `w·F_j = 1` exactly at all 46 states, which is (G4) reappearing for the same reason it held in Section 3.2. In influx mode the margin rises with the coupling rather than falling, from 1.000 at `ε = 0.01` to 1.38 at `ε = 100` over 53 states. The feedback moves transversality away from failure in this model; that it could move the other way is what the condition is for.
+so transversality is `R_j − λG_j ≠ 1`. This is the exact statement that transversality ceases to be free precisely when capacity feeds back on the influx.
+
+Two quantities have to be kept apart. In the normalisation `w₁ = 1` the left-hand side is a coefficient rather than a margin, since a left null vector rescales freely; the scale-invariant quantity is `|w·F_j|/(‖w‖·‖F_j‖)`. In burden mode the capacity factor carries no `j`, so `R_j` and `G_j` vanish identically and the coefficient is exactly 1 at all 46 states — that is the corollary of Section 3.2 reappearing, not a measurement, and those 46 values are not evidence. In influx mode the coefficient rises with the coupling rather than falling, from 1.000 at `ε = 0.01` to 1.38 at `ε = 100` over 53 states. The scale-invariant margin is the number to quote: across all 99 states solved, from 200 attempts, it never falls below 0.0070. The feedback moves transversality away from failure here; that it could move the other way is what the condition is for.
 
 Self-damage lowers the fold substantially without steepening the approach. Median `j_crit` relative to the frozen fold falls 0.999 / 0.990 / 0.925 / 0.640 / 0.322 across the influx ladder and 0.995 / 0.949 / 0.740 / 0.324 / 0.131 across the burden ladder. The critical-slowing exponent shows no detected shift: paired over the 19 networks carrying both values, median −0.4763 damaged against −0.4813 frozen, with a paired-difference distribution centred near zero (Wilcoxon `p` = 0.312).
 
@@ -388,7 +400,7 @@ Integration confirms the instability independently of the branch computation. Pe
 
 What distinguishes them is the cubic term, and it is computable. At each of the 146 crossings the pair crosses the axis transversally, with `|d(tr J)/dj| ≥ 0.293`; the sign is positive at every one of the 61 single crossings and at the 40 opening crossings, and negative at all 38 closing ones, as the geometry requires. The first Lyapunov coefficient evaluates at 145 of the 146, with the sign stable across a factor of six in step size at every one of them. **120 of the 145 crossings are supercritical.** The instability windows are supercritical at both ends in 81 of their 85 crossings, so a stable limit cycle is born as the influx enters the window and is destroyed as it leaves: burden oscillates over a band of influx and then stops oscillating as the influx rises further, before the fold. Among the 61 single crossings the split is 39 supercritical against 21 subcritical, so about a third of that group loses stability hard, with no local attractor past the crossing.
 
-The crossings occupy a coherent region of parameter space (Fig. 4c). Relative to non-crossing networks, aggregate clearance is faster (`ρ_A` 7.5× higher) and saturates more sharply (`κ_a` 11.7× lower), and aggregate formation is growth-dominated rather than nucleation-dominated (`α_g/α_n` shifting from 3.7 to 33.6, with `α_g` alone only 1.67× higher). That configuration is a recognised destabilising one. Saturable rather than linear degradation of a reaction product drives a stable steady state unstable as the Michaelis constant of the degrading step falls (Goldbeter 2013); the same mechanism has been identified as the determinant of oscillation in NF-κB signalling, where strong saturation of IκB degradation destabilises the fixed point and weakening it restores stability (Krishna et al. 2006), and Michaelis-Menten degradation kinetics promotes oscillation across positive-feedback, negative-feedback and combined architectures (Xu and Qu 2012). Here the autocatalytic partner is elongation.
+The crossings occupy a coherent region of parameter space (Fig. 4c). Relative to non-crossing networks, aggregate clearance is faster (`ρ_A` 7.5× higher) and saturates more sharply (`κ_a` 11.7× lower), and aggregate formation is growth-dominated rather than nucleation-dominated (`α_g/α_n` shifting from 3.7 to 33.6, with `α_g` alone only 1.67× higher). That configuration is a recognised destabilising one. Strong saturation of a degradation step destabilises a fixed point while weakening it restores stability, which has been identified as the determinant of oscillation in NF-κB signalling, where the step is IκB degradation (Krishna et al. 2006), and Michaelis-Menten degradation kinetics promotes oscillation across positive-feedback, negative-feedback and combined architectures (Xu and Qu 2012). In enzymatic oscillators driven by allosteric product activation the Michaelian character of product decay likewise governs period, amplitude and waveform (Goldbeter 2013). Here the autocatalytic partner is elongation, and no allosteric or transcriptional feedback is present.
 
 This is a distinct mechanism from the oscillation question in the regulated heat-shock response, which turns on transcriptional feedback and delay (El-Samad et al. 2005; Zheng et al. 2016; Sivéry et al. 2016). The networks above carry no regulation.
 

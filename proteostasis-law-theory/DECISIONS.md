@@ -2342,3 +2342,125 @@ In **influx mode** the margin *rises* with the coupling, 1.000 at `ε = 0.01` to
 1.38 at `ε = 100` over 53 states. Minimum over the whole population: 1.0. The
 feedback moves transversality away from failure in this model; that it could move
 the other way is what the condition is for.
+
+## D057 — C0a: 104 and 108 were never in conflict. Neither is superseded.
+
+The work order's hypothesis was that 104 came from `genericity.py:branchToFold` and
+108 from the re-solved fold states. It is wrong. Both come from the same file,
+`data/computed/hopf_refined_kinetic_box.tsv`, produced by one computation. They
+are different quantities and neither was labelled:
+
+| number | what it is |
+|---|---|
+| 2767 | fold states solved over the kinetic box |
+| 2766 | of those whose low-burden branch traces — **1 trace failure** |
+| 108 | of those reaching `tr J = 0` before the fold |
+| 104 | of *those*, whose branch's influx maximum is the fold |
+
+The 108 → 104 step is a filter on meaning, not on quality. Where the branch's
+`j`-maximum is not the fold, a second singular point terminates the run the walk
+returned, so "the crossing precedes the fold" concerns a different branch's
+endpoint. Those 4 were excluded from the integration and from §7's headline.
+`104/2766 = 3.76%`, `108/2766 = 3.90%`. Both are now labelled wherever they
+appear, in §7, Fig. 4's caption and Remark 3.
+
+## D058 — C0b: the crossers are two populations, and one of them has a window
+
+Splitting by the sign of `tr J` at the fold (task B7):
+
+- **61 terminal** — one crossing, never recovers; the fold is reached by an
+  already-unstable branch.
+- **47 window** — `tr J` returns below zero before the fold, so the branch carries
+  an **instability window strictly interior to it**.
+
+The parity check earned its place. A terminal branch must cross an odd number of
+times and a window branch an even number ≥ 2. All 61 terminal networks cross
+exactly once. Only **38 of the 47** window networks cross exactly twice; the other
+nine are branches the trace does not resolve, and they are reported rather than
+assigned: 2 are the multiplicity-ambiguous cases, 2 leave the window through the
+high-burden side, 5 stop short of low burden. Their single traced crossing is a
+*downward* one, which is the same fact seen from the other side and is why all 7
+of the truncated ones show negative transversality at their only crossing.
+
+Window geometry over the 38 resolved: band width 0.0179 to 0.658 of `j_crit`,
+median **0.199**, opening at median 0.64 and closing at 0.95.
+
+**The escape statistic cannot answer the question it was asked.** The work order's
+decision rule was that if the window group escapes at the terminal group's rate,
+both crossings are subcritical. It does escape at the same rate — 42 of 43 against
+60 of 61 — and the inference does not follow. `d_escape` is 10⁻² of the state
+scale against a 10⁻⁶ perturbation, so "escaped" means a ten-thousandfold
+amplification, which growth onto a stable limit cycle produces exactly as
+reliably as divergence. The test measures departure from a small neighbourhood.
+Criticality needed `l₁`, and `l₁` says the opposite (D059).
+
+## D059 — C2 and C3: 120 of 145 crossings are supercritical. "Sustained" was right.
+
+`hopf_check.py` said a `tr J = 0` crossing with `det J > 0` is "a Hopf point by
+definition, not an inference". That is false — it is necessary, not sufficient —
+and it is corrected in the docstring in the same commit.
+
+Computed per crossing, not per network, because a window network has two and they
+have opposite transversality sign by construction.
+
+**C2.** All 146 crossings transversal, `|d(tr J)/dj| ≥ 0.293`. Sign positive at
+all 61 terminal crossings and at the 40 opening crossings; negative at all 38
+closing ones. The 7 remaining negatives are the truncated branches of D058.
+
+**C3.** `l₁` by the planar formula (Guckenheimer and Holmes 3.4.11), evaluable at
+145 of 146 with the sign stable across a factor of six in step size at every one.
+The differentiator was validated first against the two textbook normal forms,
+recovering `a = −1` and `a = +1` exactly; a convention error here reverses the
+paper's conclusion, so the self-test is asserted before any model result is
+computed.
+
+| | supercritical | subcritical |
+|---|---|---|
+| terminal, single crossing | 39 | 21 |
+| window, opening crossing | 46 | 1 |
+| window, closing crossing | 35 | 3 |
+| **all** | **120** | **25** |
+
+So a **stable limit cycle occupies the window**: born as the influx enters it,
+destroyed as it leaves. Burden oscillates over a band of influx and then stops
+oscillating as the influx rises further, before the fold. That licenses
+"sustained" for the window group — the word the earlier review ordered deleted,
+deleted on the strength of an escape statistic that could not see the difference.
+For the terminal group about a third of crossings are subcritical and lose
+stability hard, with no local attractor past the crossing, so the word must not
+be used there.
+
+## D060 — C4: three degeneracies, three different networks, no common centre
+
+| degeneracy | condition | closest approach | network |
+|---|---|---|---|
+| Bogdanov–Takens | `tr J = 0` at a fold | `\|tr J\| = 8.38×10⁻⁴` | draw861 |
+| Hopf-pair annihilation | `max(tr J) → 0` on a window branch | `4.56×10⁻⁴` | draw2863 |
+| Bautin | `l₁ = 0` at a crossing | `5.65×10⁻⁵` | draw820 |
+
+They are reached at three different networks, so they are three boundaries and
+not one organising centre; the manuscript says so rather than presenting a single
+attractor of the geometry.
+
+One clarification falls out. `det J = 0` holds at *every* fold, so the distance to
+a Bogdanov–Takens point just *is* the (G2) margin — Table 1 row 2 has a geometric
+meaning it was not given, and it is exactly where Theorem 2's converse fails,
+since (G2) is the condition that breaks there. Closing crossings sit an order of
+magnitude nearer the Bautin boundary than opening ones, median `|l₁|` 0.051
+against 0.858.
+
+## D061 — Goldbeter 2013: not verifiable here; claim narrowed to the abstract's own sentence
+
+The article has no PubMed Central record, so full text is unavailable through the
+tooling in this environment and the claim cannot be verified as instructed. What
+the record does support, from the abstract of Goldbeter A (2013) *FEBS Lett*
+587(17):2778–84, doi:10.1016/j.febslet.2013.07.031, retrieved via PubMed: the
+oscillations in question arise "as a result of feedback regulation" — allosteric
+product activation — and "the Michaelian nature of the product decay term markedly
+influences the period, amplitude and waveform of the oscillations".
+
+That is a modulation claim about an already-oscillating system, not the
+destabilisation claim §7 attributed to it. The destabilisation claim now rests on
+Krishna et al. 2006 and Xu and Qu 2012, which support it independently, and
+Goldbeter is cited for what its own abstract states. This is a citation of a
+qualitative statement made unambiguously in an abstract, not of a number.

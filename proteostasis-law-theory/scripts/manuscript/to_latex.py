@@ -53,7 +53,7 @@ _SUP = {"⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4", "⁵": "5", "�
 _SUB = {"₀": "0", "₁": "1", "₂": "2", "₃": "3", "₄": "4", "₅": "5", "₆": "6",
         "₇": "7", "₈": "8", "₉": "9"}
 
-_GREEK = {"α": r"\alpha", "β": r"\beta", "γ": r"\gamma", "δ": r"\delta",
+_GREEK = {"Σ": r"\Sigma", "α": r"\alpha", "β": r"\beta", "γ": r"\gamma", "δ": r"\delta",
           "ε": r"\varepsilon", "θ": r"\theta", "ι": r"\iota", "λ": r"\lambda",
           "μ": r"\mu", "ν": r"\nu", "ρ": r"\rho", "σ": r"\sigma", "τ": r"\tau",
           "φ": r"\varphi", "χ": r"\chi", "Δ": r"\Delta",
@@ -68,14 +68,14 @@ _MATH_OPS = {"∇": r"\nabla ", "×": r"\times ", "·": r"\cdot ", "−": "-",
              # U+2016 NORM. symmetric, so one mapping serves both delimiters;
              # \lVert would be wrong on the closing one. NOT U+2225 above:
              # `∇R ∥ ∇G` is a relation, `‖∇G‖` is a magnitude.
-             "‖": r"\|"}
+             "‖": r"\|", "ᵀ": r"^{\mathsf{T}}"}
 
 # prose (text mode) mappings, emitted as \newunicodechar declarations
 _TEXT_MAP = {
     "×": r"$\times$", "−": r"$-$", "–": "--", "—": "---", "∇": r"$\nabla$",
     "·": r"$\cdot$", "≤": r"$\le$", "≥": r"$\ge$", "→": r"$\to$",
     "∥": r"$\parallel$", "±": r"$\pm$", "∂": r"$\partial$", "…": r"\dots",
-    "‖": r"$\|$",
+    "‖": r"$\|$", "ᵀ": r"$^{\mathsf{T}}$",
     "∎": r"$\square$", "√": r"$\surd$", "§": r"\S", "°": r"$^\circ$",
     "∈": r"$\in$", "≈": r"$\approx$", "≠": r"$\neq$", "″": "''", "′": "'",
     "ö": r'\"{o}', "é": r"\'{e}", "ü": r'\"{u}', "ä": r'\"{a}', "å": r"\aa{}",
@@ -513,9 +513,14 @@ r"""\begin{equation*}
 r'(s) = \nabla R \cdot \gamma' = \frac{\det J}{\lVert \nabla G \rVert}
 \end{equation*}""",
 
-"""det J = −det [ ∇R ; ∇G ; ∇C ]""":
+"""mᵀF(x, j) = j − R(x, j)   identically.""":
 r"""\begin{equation*}
-\det J = -\det\left[\,\nabla R \,;\, \nabla G \,;\, \nabla C\,\right]
+m^{\mathsf{T}} F(x, j) = j - R(x, j) \qquad\text{identically.}
+\end{equation*}""",
+
+"""det J = −det [ ∇R ; ∇F₂ ; … ; ∇F_n ]""":
+r"""\begin{equation*}
+\det J = -\det\left[\,\nabla R \,;\, \nabla F_2 \,;\, \dots \,;\, \nabla F_n\,\right]
 \end{equation*}""",
 
 """R_tot = R + μ(u,a)·(u + a)""":
@@ -777,7 +782,7 @@ EXPECTED = {
     # the count is asserted so that a table silently STAYING a longtable --
     # which is how a page folio once landed in the body text -- still fails.
     "tables_rewidthed": 3,
-    "displays": 16,
+    "displays": 17,
     "spans_code": 0,         # v5 quotes no file paths in the body
     "stripped": 0,           # v5 carries no internal-only section
 }

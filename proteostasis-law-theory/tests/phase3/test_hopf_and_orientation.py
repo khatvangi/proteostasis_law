@@ -73,14 +73,57 @@ class TestGenericityConditions(unittest.TestCase):
         self.assertEqual(self.text.count("2 exceptions"), 2)
         self.assertIn("117 of 2884", self.text)
 
-    def testTransversalityIsTheConditionWithNoStructuralGuarantee(self):
-        """(G4) reduces to w_1 != 0 because dF/dj = (1,0) exactly."""
+    def testTransversalityFollowsFromRegularityRatherThanBeingAssumed(self):
+        """(G4) is a CONSEQUENCE of (G1) under (H1b). Task B3, decision D054.
+
+        This test previously asserted the opposite -- that the manuscript flags
+        transversality as "the condition with no structural guarantee" -- and it
+        passed for as long as the manuscript said so. It is the documented
+        hazard in its purest form: a test that pins a sentence outlives the
+        finding it was written for, and reports success while the sentence is
+        wrong. What is pinned now is the RESULT, and the numbers come from the
+        generator rather than from the prose.
+        """
         seg = _section(self.text, "Genericity, and the converse")
         self.assertIn("(1, 0)", seg)
-        # the CLAIM, not one phrasing of it: nothing in the model forces w1 != 0
-        self.assertTrue(re.search(r"no structural (guarantee|feature)", seg),
-                        "(G4) must be flagged as the condition with no "
-                        "structural guarantee")
+        # the claim must be that it FOLLOWS, and from what
+        self.assertRegex(seg, r"transversality is automatic")
+        self.assertRegex(seg, r"\(H1b\) and \(G1\)")
+        self.assertNotRegex(seg, r"no structural (guarantee|feature)")
+
+    def testTheClosedFormForTheTransversalityMarginHolds(self):
+        """|w_1|/||w|| = (1 + (1+lambda)^2)^(-1/2), by two independent routes.
+
+        The left side comes from an SVD of the analytic Jacobian, the right from
+        central-difference gradients. Nothing connects them but the theorem, so
+        agreement is a check and not a restatement.
+        """
+        D = _load("genericity_structure.tsv")
+        K = D[D["population"] == "kinetic_box"]
+        self.assertEqual(len(K), 2767)
+
+        lam = K["lambda"].to_numpy(float)
+        closed = 1.0 / np.sqrt(1.0 + (1.0 + lam) ** 2)
+        np.testing.assert_allclose(closed, K["transversality_closed_form"],
+                                   rtol=1e-12)
+
+        rel = K["rel_diff"].to_numpy(float)
+        # it fails at exactly two states, and only where grad G is noise
+        self.assertEqual(int((rel > 1e-4).sum()), 2)
+        bad, good = K[rel > 1e-4], K[rel <= 1e-4]
+        self.assertLess(float(bad["grad_G"].max()), float(good["grad_G"].min()))
+        self.assertLess(float(np.median(good["rel_diff"])), 1e-9)
+
+    def testTheSignOfTheTraceAtTheFoldIsReportedNotItsModulusAlone(self):
+        """Task B7: |tr J| hides whether the fold terminates a stable branch."""
+        D = _load("genericity_structure.tsv")
+        K = D[D["population"] == "kinetic_box"]
+        L = D[D["population"] == "load_grid"]
+        self.assertEqual(int((K["tr_J"] > 0).sum()), 61)
+        self.assertEqual(int((L["tr_J"] > 0).sum()), 0)
+        seg = _section(self.text, "Genericity, and the converse")
+        self.assertIn("sign of `tr J`", seg)
+        self.assertIn("positive at 61", seg)
 
 
 class TestFoldOrientation(unittest.TestCase):
@@ -178,9 +221,22 @@ class TestHopfPrecedesTheFold(unittest.TestCase):
         self.assertIn("not that the region is small", seg)
         self.assertIn("the load grid holds kinetics fixed", seg)
 
-    def testOneHundredAndFourNetworksCrossBeforeTheFold(self):
-        self.assertEqual((len(self.clean), len(self.traced)), (104, 2766))
-        self.assertIn("104 of 2766", self.text)
+    def testTheCrossingCountsAreBothPresentAndBothLabelled(self):
+        """108 raw, 104 branch-unambiguous. Decision D057.
+
+        Pin the PROPERTY -- that each count appears with the population it
+        belongs to -- rather than one sentence carrying one of them. The earlier
+        version asserted the string "104 of 2766" and so failed the moment the
+        section learned to say which population it meant.
+        """
+        cross = self.traced[self.traced["tr_max"] >= 0.0]
+        self.assertEqual((len(cross), len(self.clean), len(self.traced)),
+                         (108, 104, 2766))
+        seg = _section(self.text, "Instabilities preceding the fold")
+        for n in ("2767", "2766", "108", "104"):
+            self.assertIn(n, seg, f"count {n} missing from section 7")
+        # the ambiguous four must be accounted for, not silently dropped
+        self.assertRegex(seg, r"remaining four|four .{0,40}ambiguous")
         frac = self.clean["j_at_first_cross"] / self.clean["j_crit"]
         self.assertAlmostEqual(float(frac.median()), 0.83, delta=0.006)
         self.assertAlmostEqual(float(frac.min()), 0.12, delta=0.006)
@@ -247,10 +303,25 @@ class TestHopfPrecedesTheFold(unittest.TestCase):
             self.assertIn(quoted, seg)
 
     def testTheIncidenceRateIsNotOfferedAsAPrediction(self):
+        """the disclaimer is the property; the rate itself may be restated."""
         seg = _section(self.text, "Instabilities preceding the fold")
-        self.assertIn("3.8%", seg)
         self.assertIn("property of the stipulated parameter box", seg)
         self.assertIn("not offered as a prediction", seg)
+        # whichever rate is quoted must be one of the two computed ones
+        self.assertTrue("3.90%" in seg or "3.76%" in seg,
+                        "section 7 must quote a computed incidence")
+
+    def testNoCrossingIsCalledAHopfWithoutAClassification(self):
+        """C3 acceptance: tr J = 0 with det J > 0 is necessary, not sufficient."""
+        L = _load("hopf_lyapunov.tsv")
+        self.assertEqual(len(L), 146)
+        ev = L[L["l1"].notna() & (L["sign_stable"] == True)]  # noqa: E712
+        self.assertEqual(len(ev), 145)
+        self.assertEqual(int((ev["l1"] < 0).sum()), 120)
+        self.assertEqual(int((ev["l1"] > 0).sum()), 25)
+        self.assertGreater(float(L["dtr_dj"].abs().min()), 0.29)
+        src = (_REPO_ROOT / "scripts" / "phase3" / "hopf_check.py").read_text()
+        self.assertNotIn("Hopf point by definition, not an inference", src)
 
 
 class TestTitleAndTerminology(unittest.TestCase):

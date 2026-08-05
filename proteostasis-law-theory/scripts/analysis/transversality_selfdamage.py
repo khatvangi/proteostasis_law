@@ -24,9 +24,12 @@ precisely when capacity feeds back on the influx, and it is checkable: the two
 derivatives are one-dimensional differences in `j` at a solved fold state, and
 `lambda` comes from the gradient ratio.
 
-The margin reported is `|w . F_j|`, i.e. `|1 - R_j + lambda G_j|`, over both
-epsilon ladders of Section 4.3. The minimum over the whole population is the
-number the section needs.
+TWO QUANTITIES, AND ONLY ONE IS A MARGIN. `|w . F_j|` in the normalisation
+`w_1 = 1` proves NONVANISHING, but a left null vector rescales freely, so its
+size means nothing on its own; it is reported as `coefficient`. The
+scale-invariant quantity is the cosine `|w . F_j| / (||w|| ||F_j||)`, reported as
+`margin`. They differ by more than presentation: the coefficient never drops
+below 1.0 while the cosine reaches 0.0070.
 """
 
 from __future__ import annotations
@@ -83,11 +86,18 @@ def transversalityAt(u: float, a: float, p: M.Params, sd: SD.SelfDamage,
         return None
 
     w_dot_Fj = 1.0 - R_j + lam * G_j
+    # the quantity above is taken in the normalisation w_1 = 1, which proves
+    # NONVANISHING but is not a margin: a left null vector rescales freely. the
+    # scale-invariant quantity is the cosine between w and F_j.
+    n_w = float(np.hypot(1.0, 1.0 + lam))
+    n_Fj = float(np.hypot(1.0 - R_j - G_j, G_j))
     return {
         "u": u, "a": a, "j": p.j, "eps": sd.eps, "mode": sd.mode,
         "lambda": lam, "R_j": float(R_j), "G_j": float(G_j),
         "w_dot_Fj": float(w_dot_Fj),
-        "margin": float(abs(w_dot_Fj)),
+        "coefficient": float(abs(w_dot_Fj)),
+        "margin": float(abs(w_dot_Fj) / max(n_w * n_Fj, 1e-300)),
+        "norm_w": n_w, "norm_Fj": n_Fj,
         "grad_G": float(np.hypot(Gu, Ga)),
     }
 
@@ -127,11 +137,17 @@ def run(k: int = 20, seed: int = 11) -> dict:
             continue
         out[mode] = {
             "n": int(len(sub)),
+            "coefficient_min": float(sub["coefficient"].min()),
+            "coefficient_max": float(sub["coefficient"].max()),
             "margin_min": float(sub["margin"].min()),
             "margin_median": float(sub["margin"].median()),
             "abs_R_j_max": float(sub["R_j"].abs().max()),
             "abs_G_j_max": float(sub["G_j"].abs().max()),
             "n_margin_below_1e-3": int((sub["margin"] < 1e-3).sum()),
+            "per_eps_coefficient_min": {
+                f"{e:g}": float(sub[sub["eps"] == e]["coefficient"].min())
+                for e in sorted(sub["eps"].unique())
+                if (sub["eps"] == e).any()},
             "per_eps_margin_min": {
                 f"{e:g}": float(sub[sub["eps"] == e]["margin"].min())
                 for e in sorted(sub["eps"].unique())
