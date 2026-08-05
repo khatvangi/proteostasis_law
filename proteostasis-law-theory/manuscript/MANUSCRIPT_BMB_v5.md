@@ -130,6 +130,8 @@ Theorem 1 gives one direction: a fold satisfies gradient alignment. The converse
 
 (G4) is not automatic. Since `∂F/∂j = (1, 0)` exactly, transversality reduces to `w₁ ≠ 0`, and no structural feature of the model forces it. Measured at solved fold states it is bounded away from zero: minimum 0.341 on the load grid and 3.34×10⁻⁹ over the kinetic box.
 
+**Table 1** The four genericity conditions of Theorem 2, evaluated at every solved fold state in each ensemble. Each entry is the minimum of the condition's margin over the whole population; a value bounded away from zero means the condition holds throughout. The two exceptions are the same two networks in both rows where they appear.
+
 | condition | load grid (325) | kinetic box (2767) |
 |---|---|---|
 | (G1) `\|∇G\|` | min 0.106 | min 1.04×10⁻⁸, 2 exceptions |
@@ -241,6 +243,8 @@ A linear capacity ceiling becomes a square-root one: doubling the machinery buys
 
 Two ensembles support the results. The **load grid** holds kinetics fixed at the base parameter set and sweeps nascent occupancy and rescue allocation, giving 325 folds; it describes how the fold moves within one network. The **kinetic box** is a Latin-hypercube ensemble of 5000 draws from a stipulated parameter box, of which 2884 admit a fold and 2767 yield a solvable fold state; it describes how the fold varies across networks. Every quantity below is recomputed from tracked generators and asserted by the accompanying test suite.
 
+**Table 2** Numerical verification of the identity and the solver. Each row names its own ensemble because the two are not interchangeable, and each maximum is reported beside a p99 because a maximum grows with the size of the population it is drawn from while a p99 does not.
+
 | quantity | ensemble | median | p99 | max |
 |---|---|---|---|---|
 | identity residual, gradient-normalised | load grid, 325 | 2.34×10⁻¹⁰ | 9.67×10⁻¹⁰ | 1.29×10⁻⁹ |
@@ -258,6 +262,8 @@ One caution attaches to the self-damage check of Section 4.3. Because `du/dt = j
 
 Writing `R = c_f s_ref + ρ_U d_f s_u + ρ_A d_f s_a` against `ceiling = c_tot + ρ_U d_tot + ρ_A d_tot`, and `φ = j_crit/ceiling`, the saturation fractions at the fold answer how far below the ceiling it lies. The decomposition is evaluated at re-solved fold states satisfying `{G = 0, det J = 0}` rather than where continuation stopped; of the 2884 draws admitting a fold, 2767 yield such a state and the remaining 117 are excluded and carry no entry. Evaluated instead at the recorded continuation states, `φ` reads 0.0806 and the ceiling factor thirteenfold rather than twelvefold.
 
+**Table 3** Where the fold sits relative to the capacity ceiling, at re-solved fold states over the 2767 networks that admit one. The saturation fractions are Michaelis factors, so a value of 1 would mean the machinery is running at maximum velocity.
+
 | at the fold, kinetic box, 2767 solved states | median |
 |---|---|
 | `φ` | 0.0825 |
@@ -271,15 +277,15 @@ Writing `R = c_f s_ref + ρ_U d_f s_u + ρ_A d_f s_a` against `ceiling = c_tot +
 
 Two questions must not be merged. Saturation dominates the *magnitude* of `φ`; the *existence* of a turning point requires the aggregation runaway that drives the free pools down at high burden. The counterfactuals answer the first only.
 
-Dispersion is large. A nested design crossing 10 kinetic draws with a 7×7 load grid gives a between-to-within variance ratio for `φ` of 5.9, with per-network spread as large as 13.6× observed when both load coordinates sweep, against an 8.86× between-network spread — so `φ` is network-characteristic but not load-invariant. The saturation box was chosen deliberately wide, so part of the between-network spread is a property of the sampling. Adding σ32-style regulation widens the p5–p95 width of `s_u` from 0.890 to 0.968 over the 30 networks of that experiment rather than narrowing it, with regulated median `s_u` 0.323 against 0.169 unregulated; only 14 of 30 regulated networks converged against 24 unregulated, so that comparison is indicative. Over the kinetic box the p5–p95 width of `s_u` is 0.876.
+Dispersion is large. A nested design crossing 10 kinetic draws with a 7×7 load grid gives a between-to-within variance ratio for `φ` of 5.9, with per-network spread as large as 13.6× observed when both load coordinates sweep, against an 8.86× between-network spread — so `φ` is network-characteristic but not load-invariant. The saturation box was chosen deliberately wide, so part of the between-network spread is a property of the sampling. Adding σ32-style regulation widens the p5–p95 width of `s_u` from 0.890 to 0.968 over the 30 networks of that experiment rather than narrowing it, with regulated median `s_u` 0.323 against 0.169 unregulated; only 14 of 30 regulated networks converged against 24 unregulated, so that comparison is indicative. Over the kinetic box the p5–p95 width of `s_u` is 0.867.
 
-Fig. 3 shows why the dispersion, rather than the median, is what a reader should take from this section: the p5–p95 spans cover most of the unit interval, so a single measured saturation fraction discriminates weakly. Its inset gives the reason no screening floor is applied to the low-`s_a` tail — the distribution runs smoothly across five decades with no gap, and the median slides continuously from 0.0899 to 0.3551 with whatever floor is imposed, so any floor is a free parameter moving a load-bearing number fourfold.
+Fig. 3 shows why the dispersion, rather than the median, is what a reader should take from this section: the p5–p95 spans cover most of the unit interval, so a single measured saturation fraction discriminates weakly. Its inset gives the reason no screening floor is applied to the low-`s_a` tail — the distribution runs smoothly across five decades with no gap, and the median slides continuously from 0.076 to 0.398 with whatever floor is imposed, so any floor is a free parameter moving a load-bearing number fivefold.
 
 The claim this section supports is that the capacity bound overestimates by roughly an order of magnitude and that the fold is a computable constrained critical point — not that the fold occurs at any particular fraction of `V_max`.
 
 ![Figure 3](../figures/fig3.pdf)
 
-**Fig. 3** Saturation of the clearance machinery at the fold, over all 2884 kinetic-box folds with none excluded. The distributions are evaluated at the recorded continuation states, where Section 6's table is evaluated at re-solved states satisfying `{G = 0, det J = 0}`; the two populations differ by the 117 networks that do not re-solve and the medians differ in the third decimal, so the medians are quoted in the table only. The p5–p95 widths here are 0.881, 0.876 and 0.863. The point the figure carries is the width, not the centre: the spans are wide enough that a single measurement discriminates weakly against the capacity-exhaustion alternative. **Inset:** median `s_a` against an imposed lower screening floor, from 0.090 at a floor of 10⁻⁴ to 0.355 at 2×10⁻². The distribution runs smoothly across five decades with no gap, so any floor is a free parameter that moves a load-bearing median by a factor of four. No floor is applied anywhere in this paper.
+**Fig. 3** Saturation of the clearance machinery at the fold, over the 2767 kinetic-box networks that yield a solvable fold state, with none excluded. The distributions are evaluated at the same re-solved states as the table in Section 6, so figure and table describe one population; the p5–p95 widths are 0.877 for `s_ref`, 0.867 for `s_u` and 0.892 for `s_a`. The point the figure carries is the width, not the centre: the spans are wide enough that a single measurement discriminates weakly against the capacity-exhaustion alternative. **Inset:** median `s_a` against an imposed lower screening floor, from 0.076 at a floor of 10⁻⁴ to 0.398 at 2×10⁻². The distribution runs smoothly across five decades with no gap, so any floor is a free parameter that moves a load-bearing median by a factor of five. No floor is applied anywhere in this paper.
 
 ## 7. Instabilities preceding the fold
 
@@ -319,22 +325,25 @@ The scored quantity is Lindner et al.'s `Δ(GR_old − GR_new)/GR_mean`, whose a
 
 Partitioning is set by one physical quantity. The visible focus is indivisible and passes entirely to one daughter, but the model's `a` is total aggregate, of which the focus is a share `β`. The old-pole daughter then receives `(1+β)a` and the new-pole daughter `(1−β)a` after division into half the volume, which is the scalar rule at `f_eff = (1+β)/2`. With `k_μ = 0.03125/p_qc`, the scored quantity is `32 × (B_old − B_new)` as a proteome fraction exactly, so the quality-control proteome share and the growth rate enter only through the stationary load. Inverting gives a requirement scaling as `1/β`:
 
+**Table 4** The old-pole aggregate load required by the account of Section 8.3, as a function of the share `β` of aggregate held in the visible polar focus, over the same range Fig. 5 plots. The final column compares the requirement with the only aggregate load that has been measured, 5–10% of total protein in Δ*rpoH* at 30 °C; the columns pair the extremes, so they give the widest and narrowest separations consistent with both intervals.
+
 | `β` | `f_eff` | required old-pole aggregate (% of proteome) | ratio to the Δ*rpoH* load |
 |---|---|---|---|
-| 1.00 | 1.000 | 0.047 – 0.080 | 62× – 214× |
-| 0.75 | 0.875 | 0.061 – 0.104 | 48× – 165× |
-| 0.50 | 0.750 | 0.091 – 0.157 | 32× – 110× |
-| 0.25 | 0.625 | 0.182 – 0.314 | 16× – 55× |
+| `1.00` | 1.000 | 0.047 – 0.080 | 62× – 214× |
+| `0.75` | 0.875 | 0.061 – 0.104 | 48× – 165× |
+| `0.50` | 0.750 | 0.091 – 0.157 | 32× – 110× |
+| `0.25` | 0.625 | 0.182 – 0.314 | 16× – 55× |
+| `0.05` | 0.525 | 0.913 – 1.570 | 3.2× – 11× |
 
 The damping factor for the daughter's relaxation during its own generation is 0.346–0.355, with weak `β` dependence.
 
-The table stops at `β = 0.25`, but the requirement continues to fall as `β` does, and the figure plots it further. Over the whole plotted range the required load runs between 3.19× and 214× above the only aggregate load anyone has measured, the 5–10% of total protein reported for Δ*rpoH* at 30 °C; the closest approach is at `β = 0.05`. Quoting the tabulated rows alone would put the nearest approach at 16× and overstate the separation fivefold.
+The table spans the same `β` range the figure plots. At `β = 1.00`, where the whole aggregate is in the focus, the requirement sits 62× to 214× above the Δ*rpoH* load; at `β = 0.05` it is 3.2× to 11× above it. Reporting only the rows down to `β = 0.25` would put the nearest approach at 16× and overstate the separation fivefold.
 
 No source we could find bounds `β` under unstressed growth. Winkler et al. (2010) report aggregate mass and focus size separately, and under heat stress, which is neither the condition at issue nor a focus-share measurement. The requirement is therefore a `β`-indexed family (Fig. 5), and the direction is the informative part: the less of the aggregate held in the focus, the more aggregate the account requires, and the closer the requirement moves to the only load anyone has measured. Tomoyasu et al. (2001) report 5–10% of total protein aggregated in Δ*rpoH* mutants at 30 °C and no detectable aggregation in *rpoH*⁺ cells at the same temperature; wild type is a bound rather than a value, and the reported mutant figures are not a limit of detection for the assay.
 
 ![Figure 5](../figures/fig5.pdf)
 
-**Fig. 5** The old-pole aggregate load required by the account of Section 8.3, as a function of the focus share `β`. The requirement scales as `1/β`: at `β = 1.00`, where the whole aggregate sits in the visible focus, the required load is 0.0467–0.0803% of the proteome, and at `β = 0.25` it is 0.1824–0.3137%. The interval at each `β` comes from the aggregate-attributable part of the measured lineage difference, 1.04–1.78%. Across the plotted range the requirement sits between 3.19× and 214× above the measured Δ*rpoH* load, closest at `β = 0.05`. The direction is the informative part: the less of the aggregate held in the focus, the more aggregate the account requires and the closer the requirement moves to the only load anyone has measured.
+**Fig. 5** The old-pole aggregate load required by the account of Section 8.3, as a function of the focus share `β`, over the same range as the table there. The requirement scales as `1/β`: at `β = 1.00` it is 0.047–0.080% of the proteome and at `β = 0.05` it is 0.913–1.570%. The interval at each `β` comes from the aggregate-attributable part of the measured lineage difference, 1.04–1.78%. The shaded band is the only aggregate load anyone has measured, 5–10% of total protein in Δ*rpoH* at 30 °C; no measurement bounds `β`, so no vertical line is drawn.
 
 Two measurements close the question: the wild-type aggregate fraction under unstressed growth, and the share of that aggregate held in the polar focus, by quantitative fluorescence of the focus against total aggregated protein by sedimentation in the same cells.
 
@@ -342,7 +351,7 @@ Two measurements close the question: the wild-type aggregate fraction under unst
 
 **Mathematical.** The identity `det J = −(∇R × ∇G)`, its `n`-state form, the converse under (G1)–(G4), the `μ → 0` and `σ₀ → 0` reductions, the `J − μI` form under constant dilution, the `(φ_enz, δ)` decomposition, and Corollary 4 follow from H1–H3 and no observation bears on them.
 
-**The fold sits far below saturation.** The alternative is capacity exhaustion, in which the fold occurs as `s → 1`. The observable is a ratio, so testing it does not require absolute copies-per-cell calibration. Two cautions: the dispersion in `s_u` is wide (p5–p95 width 0.876 over the kinetic box), so a single measurement discriminates weakly, and adding regulation widens rather than narrows it.
+**The fold sits far below saturation.** The alternative is capacity exhaustion, in which the fold occurs as `s → 1`. The observable is a ratio, so testing it does not require absolute copies-per-cell calibration. Two cautions: the dispersion in `s_u` is wide (p5–p95 width 0.867 over the kinetic box), so a single measurement discriminates weakly, and adding regulation widens rather than narrows it.
 
 **The fold moves under nascent load.** Since nascent chains consume chaperone capacity without contributing influx, raising the load of perfectly folding protein should lower the tolerable damage influx; a model handling the two loads independently predicts no shift. Direction was correct in 67 of 68 settings over a 100-fold ladder, with median shift 1.22×. Growth rate sets the load coordinate and contributes about 1.6× on its own against the ~1.8× contrast expected, so the experiment requires externally fixed growth rate: chemostat or turbidostat, not batch culture.
 
@@ -406,7 +415,7 @@ Ferrone F (1999) Analysis of protein aggregation kinetics. *Methods Enzymol* 309
 
 Geiler-Samerotte KA, Dion MF, Budnik BA, Wang SM, Hartl DL, Drummond DA (2011) Misfolded proteins impose a dosage-dependent fitness cost and trigger a cytosolic unfolded protein response in yeast. *Proc Natl Acad Sci USA* 108:680–685.
 
-Goldbeter A (2013) Oscillatory enzyme reactions and Michaelis-Menten kinetics. *FEBS Lett* 587:2778–2784.
+Goldbeter A (2013) Oscillatory enzyme reactions and Michaelis-Menten kinetics. *FEBS Lett* 587:2778–2784. doi:10.1016/j.febslet.2013.07.031
 
 Golubitsky M, Stewart I (2017) Homeostasis, singularities and networks. *J Math Biol* 74:387–407.
 
@@ -422,7 +431,7 @@ Khammash M (2021) Perfect adaptation in biology. *Cell Syst* 12:509–521.
 
 Knowles TPJ, Waudby CA, Devlin GL, Cohen SIA, Aguzzi A, Vendruscolo M, Terentjev EM, Welland ME, Dobson CM (2009) An analytical solution to the kinetics of breakable filament assembly. *Science* 326:1533–1537.
 
-Krishna S, Jensen MH, Sneppen K (2006) Minimal model of spiky oscillations in NF-κB signaling. *Proc Natl Acad Sci USA* 103:10840–10845.
+Krishna S, Jensen MH, Sneppen K (2006) Minimal model of spiky oscillations in NF-κB signaling. *Proc Natl Acad Sci USA* 103:10840–10845. doi:10.1073/pnas.0604085103
 
 Lin X, Antoneli F, Wang Y (2026) Automated classification of homeostasis structure in input-output networks. *Bull Math Biol*, article 113.
 
@@ -462,6 +471,6 @@ Wang Y, Huang Z, Antoneli F, Golubitsky M (2021) The structure of infinitesimal 
 
 Winkler J, Seybert A, König L, Pruggnaller S, Haselmann U, Sourjik V, Weiss M, Frangakis AS, Mogk A, Bukau B (2010) Quantitative and spatio-temporal features of protein aggregation in *Escherichia coli* and consequences on protein quality control and cellular ageing. *EMBO J* 29:910–923.
 
-Xu Y, Qu Z (2012) Roles of protein ubiquitination and degradation kinetics in biological oscillations. *PLoS ONE* 7:e34616.
+Xu L, Qu Z (2012) Roles of protein ubiquitination and degradation kinetics in biological oscillations. *PLoS ONE* 7:e34616. doi:10.1371/journal.pone.0034616
 
 Zheng X, Krakowiak J, Patel N, Beyzavi A, Ezike J, Khalil AS, Pincus D (2016) Dynamic control of Hsf1 during heat shock by a chaperone switch and phosphorylation. *eLife* 5:e18638.

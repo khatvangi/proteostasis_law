@@ -46,10 +46,45 @@ import asymmetric_division as A  # noqa: E402
 # marked beta reproduce the table exactly.
 damping = A.dampingAtBeta
 
+# ONE range, owned here, used by the sweep AND by the manuscript's table rows.
+#
+# The table used to stop at beta = 0.25 while the figure plotted to 0.05. Prose
+# written from the table then put the closest approach to the measured load at
+# 16x, when over the figure's own range it is 3.19x -- the paper's only
+# falsifiable prediction, understated fivefold. That is a structural fault, not
+# an oversight: two ranges for one quantity will always let prose land in the
+# wrong place. `tableRows()` below emits exactly the rows the manuscript prints,
+# from the same endpoints the figure draws, so either source gives one answer.
+BETA_LO, BETA_HI = 0.05, 1.0
+TABLE_BETAS = (1.00, 0.75, 0.50, 0.25, 0.05)
+
+
+def tableRows():
+    """the Section 8.3 table, generated. one row per beta over the plotted range.
+
+    `f_eff = (1 + beta)/2` is the partitioning fraction. The ratio columns pair
+    the EXTREMES -- the smallest ratio is the measured lower bound against the
+    largest requirement -- because that is the honest span, and pairing
+    like-with-like would understate the closest approach.
+    """
+    rpo_lo, rpo_hi = A.TOMOYASU2001["rpoH_null_30C"]
+    rows = []
+    for b in TABLE_BETAS:
+        lo, hi = A.requiredAggregateFractionBeta(b, damping(b))
+        rows.append({
+            "beta": b,
+            "f_eff": (1.0 + b) / 2.0,
+            "pct_lo": 100.0 * lo,
+            "pct_hi": 100.0 * hi,
+            "ratio_lo": rpo_lo / hi,
+            "ratio_hi": rpo_hi / lo,
+        })
+    return rows
+
 
 def build():
     F.setStyle()
-    betas = np.geomspace(0.05, 1.0, 200)
+    betas = np.geomspace(BETA_LO, BETA_HI, 200)
     lo = np.array([A.requiredAggregateFractionBeta(b, damping(b))[0] for b in betas])
     hi = np.array([A.requiredAggregateFractionBeta(b, damping(b))[1] for b in betas])
 
@@ -100,6 +135,7 @@ def build():
             "at_beta_1": A.requiredAggregateFractionBeta(1.0, damping(1.0)),
             "at_beta_05": A.requiredAggregateFractionBeta(0.5, damping(0.5)),
             "at_beta_025": A.requiredAggregateFractionBeta(0.25, damping(0.25)),
+            "rows": tableRows(),
             "rpoH": (rpo_lo, rpo_hi), "hashes": hashes}
 
 

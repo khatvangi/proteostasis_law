@@ -663,11 +663,22 @@ def _renderBody(md: str, *, headings: bool) -> tuple[str, dict]:
 
 TITLE = ("An Exact Fold Condition for Mass-Balanced Models\n"
          "       of Protein Quality Control")
+# the ORCID is in the markdown front matter and was being dropped, because this
+# byline is hardcoded rather than parsed.
+#
+# NOT via sn-jnl's \orcid: that macro is `\gdef\orcid#1{\href{#1}{\orcidlogo}}`,
+# which expects a URL and typesets `Orcidlogo.eps` -- a file the class ships
+# separately and we have not vendored. Passing it a bare identifier killed the
+# build. Springer collects the ORCID through the submission system anyway, so
+# the identifier goes in the author note as text, where a reader can see it and
+# no missing graphic can break the compile.
+ORCID = "0000-0003-0751-6459"
 BYLINE = (r"\author*[1]{\fnm{Kiran} \sur{Boggavarapu}}"
           r"\email{kiran@mcneese.edu}" + "\n"
           + r"\affil*[1]{\orgdiv{Department of Chemistry and Physics}, "
             r"\orgname{McNeese State University}, \orgaddress{\city{Lake Charles}, "
-            r"\state{LA}, \postcode{70609}, \country{USA}}}")
+            r"\state{LA}, \postcode{70609}, \country{USA}}}" + "\n"
+          + rf"\footnotetext{{ORCID {ORCID}}}")
 
 
 def _document(chars: list[str], title: str, front: str, body: str,

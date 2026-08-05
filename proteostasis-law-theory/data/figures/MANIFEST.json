@@ -7,10 +7,10 @@
   "files": [
     {
       "file": "saturation.tsv",
-      "sha256": "5f9e396bd45d1e975254f55b4e379013df2942dfd0ab2cb7cd0737f6cea7892d",
+      "sha256": "d7b1d98e259b26bfe929c8c53b61160aff6a070be76180d7c3d603ee4a19cc59",
       "population": "kinetic_box",
-      "n_states": 2884,
-      "is_subsample": false,
+      "n_states": 2767,
+      "is_subsample": true,
       "source": "run_20260731T162946-0500",
       "columns": [
         "s_ref",
@@ -20,7 +20,7 @@
         "cf_frac",
         "df_frac"
       ],
-      "note": "michaelis factors at the fold; every draw that admits a fold and rebuilds, no subsampling"
+      "note": "michaelis factors at RE-SOLVED fold states; every draw that admits a fold and re-solves, no subsampling"
     },
     {
       "file": "identity.tsv",

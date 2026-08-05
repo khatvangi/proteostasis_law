@@ -130,11 +130,24 @@ def buildSaturation(run: Path) -> dict:
     c = pd.read_csv(run / "C" / "samples.tsv", sep="\t")
     c = c[c["C1_fold_exists"] == True]  # noqa: E712
     c = c[pd.to_numeric(c["fold_burden"], errors="coerce").notna()]
+    import genericity as GEN
     rows = []
     for _, r in c.iterrows():
         try:
             p = FT.paramsFromSampleRow(r)
-            u, a = FT.foldStateFromSampleRow(r)
+            u0, a0 = FT.foldStateFromSampleRow(r)
+        except (M.ModelError, ValueError, KeyError):
+            continue
+        # RE-SOLVE onto {G = 0, det J = 0} before decomposing. The recorded
+        # continuation states are bracketed approximations (|det J| p99 2.4,
+        # max 52), and Section 6's table is now built at solved states. A figure
+        # and a table reporting the same quantity over different populations is
+        # the divergence that cost P3, so the figure moves to match the table.
+        sol = GEN.polishFold(p, u0, a0) or FT.foldSolve(p)
+        if sol is None:
+            continue
+        _, u, a = sol
+        try:
             d = FT.phiDecomposition(u, a, p)
         except (M.ModelError, ValueError, KeyError):
             continue
@@ -144,8 +157,8 @@ def buildSaturation(run: Path) -> dict:
     df = pd.DataFrame(rows)
     return _write("saturation.tsv", df, KINETIC_BOX, run.name,
                   complete=len(df) == len(c),
-                  note="michaelis factors at the fold; every draw that admits a "
-                       "fold and rebuilds, no subsampling")
+                  note="michaelis factors at RE-SOLVED fold states; every draw "
+                       "that admits a fold and re-solves, no subsampling")
 
 
 def buildIdentity(run: Path) -> dict:
