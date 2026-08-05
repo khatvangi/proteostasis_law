@@ -377,6 +377,7 @@ HEADER = r"""%% GENERATED FILE -- do not edit.
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{textcomp}
+
 \usepackage{newunicodechar}
 %% pandoc marks an uncaptioned longtable with \LTcaptype{none}; the caption
 %% package then tries to step a counter of that name. Declaring it makes the
@@ -675,13 +676,26 @@ TITLE = ("An Exact Fold Condition for Mass-Balanced Models\n"
 # build. Springer collects the ORCID through the submission system anyway, so
 # the identifier goes in the author note as text, where a reader can see it and
 # no missing graphic can break the compile.
-ORCID = "0000-0003-0751-6459"
+# The ORCID is NOT emitted into the PDF, and that is a decision rather than an
+# omission. Four placements were tried and all failed:
+#   \orcid{}        -- sn-jnl defines it as \href{#1}{\orcidlogo} and typesets
+#                      Orcidlogo.eps, which the class ships separately and we
+#                      have not vendored; the build dies.
+#   redefined \orcid -- still dies: the macro cannot sit in that position in the
+#                      class's author block whatever it expands to.
+#   \footnotetext    -- silently swallowed before \maketitle. The build SUCCEEDED
+#                      and the identifier never reached the PDF.
+#   \presentaddress  -- renders, under the label "Present Address:", which is
+#                      false. A wrong label is worse than an absent one.
+# The identifier is carried by CITATION.cff, .zenodo.json and the markdown front
+# matter, and Springer collects it through the submission system.
+ORCID = "0000-0003-0751-6459"   # recorded here for the metadata files only
 BYLINE = (r"\author*[1]{\fnm{Kiran} \sur{Boggavarapu}}"
-          r"\email{kiran@mcneese.edu}" + "\n"
+          + r"\email{kiran@mcneese.edu}" + "\n"
           + r"\affil*[1]{\orgdiv{Department of Chemistry and Physics}, "
             r"\orgname{McNeese State University}, \orgaddress{\city{Lake Charles}, "
             r"\state{LA}, \postcode{70609}, \country{USA}}}" + "\n"
-          + rf"\footnotetext{{ORCID {ORCID}}}")
+          )
 
 
 def _document(chars: list[str], title: str, front: str, body: str,

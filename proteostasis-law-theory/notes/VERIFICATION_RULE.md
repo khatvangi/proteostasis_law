@@ -185,3 +185,32 @@ Everywhere a number enters the manuscript, not only in post-diction. The
 post-diction protocol governs how an empirical target is chosen; this governs
 whether a computed quantity means what it is being asked to mean. They are
 different failures and both have occurred here.
+
+## Read success from the operation, never from a later step
+
+An operation's success is its own exit status. Never infer it from a step that
+runs after it in a chain.
+
+```
+git push -q origin main 2>&1 | tail -3 && echo "pushed"
+```
+
+printed `pushed` while the push failed with `src refspec main does not match
+any` — the branch was `master`. The `&&` chained off `tail`, which succeeded at
+printing the error. A false success was reported and acted on.
+
+This is the same shape as the max-normalised residual returning exactly 1.0 at a
+fold: a metric that is structurally incapable of reporting failure at the point
+where failure matters. There the denominator vanished; here the exit status
+belonged to the wrong process.
+
+**How to apply**
+
+- capture and assert the status of the operation itself: `git push …; echo "exit=$?"`,
+  or verify the postcondition (`git status -sb` against the remote).
+- a pipeline's status is its LAST stage. `cmd | tail` reports `tail`. Use
+  `PIPESTATUS`/`pipefail` or drop the pipe.
+- when a command's own output is the evidence, read that output — do not add an
+  `echo` that claims what the output should have said.
+- the general form: **never let a check's success come from anything other than
+  the thing being checked.**

@@ -6,7 +6,7 @@ authors:
     given-names: Kiran
     orcid: "https://orcid.org/0000-0003-0751-6459"
     affiliation: "McNeese State University"
-version: 1.1.0
+version: 1.2.0
 doi: 10.5281/zenodo.21794565
 license: MIT
 repository-code: "https://github.com/khatvangi/proteostasis-law-theory"
@@ -23,9 +23,15 @@ identifiers:
       DOI below.
   - type: doi
     value: 10.5281/zenodo.21798343
-    description: "Version DOI for v1.1.0 -- the current, corrected state"
+    description: >-
+      Version DOI for v1.1.0. Superseded: v1.1.0 predates the Hopf result
+      (D046), the fold-orientation classification, the adoption of v5 as the
+      manuscript source, and the beta-range correction (D047-D048).
+  # The v1.2.0 version DOI is minted by Zenodo on deposit and is added here
+  # afterwards. It is deliberately absent rather than guessed: a DOI written
+  # before it exists is a fabricated identifier.
 abstract: >-
-  Derivation, verification and numerical study of the collapse boundary of a
+  Derivation, verification and numerical study of the fold condition of a
   finite-resource proteostasis clearance network. The saddle-node of the
   two-state conserved-resource model is shown to be exactly a constrained
   critical point of total removal flux on the aggregate nullcline, giving the

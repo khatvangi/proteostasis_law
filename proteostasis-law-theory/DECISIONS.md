@@ -2015,3 +2015,51 @@ conditions (the abstract says only "a wide range"); and the Goldbeter claim that
 saturable degradation lowers the cooperativity required for oscillation and
 destabilises the steady state as the Michaelis constant falls. Both need the full
 text. See `abstracts-are-not-sources-for-numbers`.
+
+## D048 — provenance, and two claims closed
+
+### Cotton et al. 2025: both claims VERIFIED from the full text
+
+Table I lists eight models -- Constant Removal, MM Removal, Mass Saturating,
+Combination Removal, Overlapping Aggregates, Conserved Protein, No
+Self-Replication, Fragmenting. Section IV C states the two sufficient conditions
+explicitly: a self-replicating aggregation mechanism with a monomer
+concentration-dependent rate, and a limited-capacity aggregate removal mechanism.
+Sections 1 and 3.3 characterise both correctly.
+
+Also confirmed from the full text: their monomer concentration enters primary
+nucleation, secondary nucleation and elongation in BOTH moment equations, so H1
+fails for their system. Section 3.3's statement stands.
+
+### Goldbeter 2013: claim NARROWED, not verified
+
+The cooperativity clause came through a secondary summary rather than the
+article. It is not load-bearing for Section 7 and is removed. What remains is
+what the NF-kappaB and ubiquitination sources support independently: saturable
+degradation drives a stable steady state unstable as the Michaelis constant of
+the degrading step falls.
+
+### OPS_SUBMISSION.md documents a run that produced NOTHING
+
+It records a submission at 16:12:20 writing to `results/phase1/{A,B,C,D}`. Those
+four directories were EMPTY -- the launch was reaped by the sandbox -- and were
+quarantined at 16:28:56. The run that produced every number in the paper is
+`results/phase1/run_20260731T162946-0500`, launched 17 minutes later.
+
+Committing it as "the provenance" would have attributed the results to a run that
+generated nothing. It is committed as history; `data/PROVENANCE.md` carries the
+identity of the run actually used, extracted from the per-experiment
+`provenance.json` records rather than from the operational narrative.
+
+**The run is not single-commit.** A ran at `73e1c0ab`, B and C at `a17dfafd`, D
+at `850726c7`, all with a dirty working tree. `OPS_SUBMISSION.md` asserts one
+canonical HEAD; that is true only of A. B and C sharing a commit is the case that
+matters for comparing the load grid against the kinetic box.
+
+### Read success from the operation, never from a later step
+
+`git push … | tail -3 && echo "pushed"` printed `pushed` while the push failed:
+the branch was `master`, not `main`, and the `&&` chained off `tail`. A false
+success was reported to the user and acted on. Same shape as a metric that
+returns 1.0 exactly where it is quoted -- structurally unable to report failure
+at the point failure matters. Written into notes/VERIFICATION_RULE.md.
