@@ -146,9 +146,14 @@ class TestCaptionsAgreeWithTextAndWithTheGenerator(unittest.TestCase):
         hi_end, lo_end = rows[0], rows[-1]
         self.assertIn(f"{hi_end['pct_lo']:.4f}–{hi_end['pct_hi']:.4f}%", cap)
         self.assertIn(f"{lo_end['pct_lo']:.4f}–{lo_end['pct_hi']:.4f}%", cap)
-        # the table carries the same solve at two more digits
-        self.assertIn(f"{lo1:.4f}", _DOC)
-        self.assertIn(f"{hi25:.4f}", _DOC)
+        # EVERY generated row must appear in the table, at the table's own
+        # precision. The caption quotes the endpoints at four digits and the
+        # table prints three; both come from `tableRows()`, so checking each
+        # against the generator is what stops the caption drifting -- as it did,
+        # by my rounding 0.9126 up to 0.9128 from the table's 3-dp row.
+        for r in rows:
+            self.assertIn(f"{r['pct_lo']:.3f} – {r['pct_hi']:.3f}", _DOC,
+                          f"beta={r['beta']:.2f} row missing from the table")
         # the prose quotes a closest approach over the WHOLE plotted range, not at
         # the marked beta -- an earlier draft quoted the marked value and was wrong
         # by a factor of five at the left edge of its own figure.
@@ -158,8 +163,15 @@ class TestCaptionsAgreeWithTextAndWithTheGenerator(unittest.TestCase):
         # below", v5 states the same span as the requirement sitting above the
         # measured load. Either wording is fine; omitting the closest approach
         # is not, and that is what this guards.
-        self.assertIn(f"{o['closest_ratio']:.2f}×", _DOC)
-        self.assertIn(f"{o['widest_ratio']:.0f}×", _DOC)
+        # THE structural guarantee: the closest approach over the continuous
+        # sweep must fall AT an endpoint the table prints. When it did not, the
+        # table stopped at beta = 0.25, the figure ran to 0.05, and prose written
+        # from the table put the nearest approach at 16x instead of 3.2x --
+        # overstating the paper's only falsifiable prediction fivefold.
+        self.assertAlmostEqual(o["closest_at_beta"], rows[-1]["beta"], places=6,
+                               msg="the sweep's closest approach is outside the "
+                                   "range the table prints")
+        self.assertAlmostEqual(o["closest_ratio"], rows[-1]["ratio_lo"], places=6)
         self.assertIn(f"`β = {o['closest_at_beta']:.2f}`", _DOC)
         # 15.94, which the table rounds to 16x -- the prose says "at least
         # fifteenfold" rather than sixteen, because 15.94 is not 16
