@@ -1,0 +1,42 @@
+  kinetic box: 117 of 2884 networks have no solvable fold state and carry no genericity result; reported, not screened
+
+
+REFINED BRANCH  load_grid: 325 networks
+  traced 325, trace failures 0
+  max tr J on the branch: median -3.379e-01  p99 -2.807e-01  max -2.429e-01
+  networks with tr J >= 0 anywhere: 0 of 325
+  tr J at the LOW-BURDEN end: median -7.590e-01  max -3.058e-01  >= 0 in 0
+  det J at the LOW-BURDEN end: min 1.981e-02  <= 0 in 0
+  |G| on the projected branch: max 6.939e-17
+  branch touches the window's u floor in 0, a floor in 325
+  projection failures per network: max 0  total 0
+  fold is NOT the j-maximum of the branch in 0 of 325 (ambiguous by multiplicity)
+  low-burden end runs out of WINDOW rather than out of curve in 325 of 325
+
+
+REFINED BRANCH  kinetic_box: 2767 networks
+  traced 2766, trace failures 1
+  max tr J on the branch: median -3.171e-01  p99 +4.835e-01  max +6.975e+00
+  networks with tr J >= 0 anywhere: 108 of 2766
+  tr J at the LOW-BURDEN end: median -1.104e+00  max +7.699e-01  >= 0 in 7
+  det J at the LOW-BURDEN end: min 4.227e-09  <= 0 in 0
+  |G| on the projected branch: max 2.424e-14
+  branch touches the window's u floor in 63, a floor in 2412
+  projection failures per network: max 0  total 0
+  fold is NOT the j-maximum of the branch in 29 of 2766 (ambiguous by multiplicity)
+  low-burden end runs out of WINDOW rather than out of curve in 2650 of 2766
+
+  the 108 crossers, 104 of them on branches whose j-maximum is the fold:
+    j_first_cross / j_crit: min 0.117  median 0.831  max 1.000
+    det J at the first crossing: min 1.492e-06  median 4.092e-02  <= 0 in 0
+    of these, branch truncated at the low-burden end: 79 -- the crossing precedes the fold, but where it begins is not determined
+/storage/kiran-stuff/proteostasis_law/proteostasis-law-theory/scripts/phase3/hopf_check.py:334: RuntimeWarning: divide by zero encountered in log
+  slope = float(np.polyfit(t[idx], np.log(d[idx]), 1)[0])
+
+  INTEGRATION at the tr J maximum: 309 of 309 were exact equilibria and testable (104 crossers, 205 stable controls)
+    crossers: left the linear neighbourhood in 103 of 104; grew >10x in 104; max |delta| ratio median 98.2  max 99.91
+      horizon cap bound (too slow to observe in t=20000) in 4
+    controls: left the linear neighbourhood in 0 of 205; grew >10x in 0; max |delta| ratio median 1  max 3.624
+      horizon cap bound (too slow to observe in t=20000) in 84
+    exponent vs max Re(lambda), 69 of 104 with a fit window of >=3 periods: median rel. diff 1.682e-01  p90 5.260e-01  within 5% in 24
+    oscillation period vs 2*pi/omega, 33 measurable: median rel. diff 3.641e-03  within 5% in 32

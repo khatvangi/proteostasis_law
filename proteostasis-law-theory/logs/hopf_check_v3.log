@@ -1,0 +1,17 @@
+  kinetic box: 117 of 2884 networks have no solvable fold state and carry no genericity result; reported, not screened
+
+
+REFINED BRANCH  load_grid: 325 networks
+  traced 325, trace failures 0
+  max tr J on the branch: median -3.379e-01  p99 -2.807e-01  max -2.429e-01
+  networks with tr J >= 0 anywhere: 0 of 325
+  tr J at the LOW-BURDEN end: median -7.590e-01  max -3.058e-01  >= 0 in 0
+  det J at the LOW-BURDEN end: min 1.981e-02  <= 0 in 0
+  |G| on the projected branch: max 6.939e-17
+  branch touches the window's u floor in 0, a floor in 325
+  projection failures per network: max 0  total 0
+  fold is NOT the j-maximum of the branch in 0 of 325 (ambiguous by multiplicity)
+  low-burden end of the branch reaches the window FLOOR (near-zero burden) in 325 of 325; leaves through the CEILING (low-j part unseen) in 0
+
+
+REFINED BRANCH  kinetic_box: 2767 networks

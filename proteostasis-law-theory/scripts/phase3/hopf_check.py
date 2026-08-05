@@ -203,13 +203,18 @@ def branchSummary(p: M.Params, u_star: float, a_star: float,
         # are ambiguous by multiplicity and are reported as such, not counted.
         "fold_is_j_max": int(bool(j_crit > 0 and B["j"].max() <= 1.001 * j_crit
                                   and B["j"].min() < 0.999 * j_crit)),
-        # does the low-burden end of the branch run out of window rather than
-        # out of curve? if so the branch is truncated and where the instability
-        # STARTS is not determined, though that it precedes the fold still is.
-        "lowj_at_edge": int(bool(
+        # where the low-burden end of the branch stops, and the two cases are not
+        # the same fact. hitting the window FLOOR (u = 1e-4, a = 1e-6) is the
+        # branch reaching genuinely near-zero burden -- benign, and it is what
+        # 325 of 325 load-grid branches do. hitting the CEILING means the curve
+        # left through the high-burden side and the low-j part was never seen, so
+        # "tr J at the low-burden end" is about the edge of the window rather
+        # than about low burden. lumping the two reported 325 of 325 truncated.
+        "lowj_at_floor": int(bool(
             B["u"].iloc[k_lo] <= 1.001 * out["u_min"]
-            or B["a"].iloc[k_lo] <= 1.001 * out["a_min"]
-            or B["u"].iloc[k_lo] >= 0.999 * out["u_max"]
+            or B["a"].iloc[k_lo] <= 1.001 * out["a_min"])),
+        "lowj_at_ceiling": int(bool(
+            B["u"].iloc[k_lo] >= 0.999 * out["u_max"]
             or B["a"].iloc[k_lo] >= 0.999 * out["a_max"])),
         "frac_of_path": float(len(B) / max(len(D), 1)),
         "n_proj_fail": int(out["n_proj_fail"]),
@@ -222,8 +227,11 @@ def branchSummary(p: M.Params, u_star: float, a_star: float,
 # ---------------------------------------------------------------------------
 
 
+T_CAP = 2.0e4     # hard horizon; see integrationTest for why it is not optional
+
+
 def integrationTest(p: M.Params, u0: float, a0: float,
-                    rel: float = 1e-6, n_efold: float = 25.0,
+                    rel: float = 1e-4, n_efold: float = 25.0,
                     n_t: int = 4000) -> Optional[Dict]:
     """perturb the equilibrium and integrate the full nonlinear system.
 
@@ -273,11 +281,17 @@ def integrationTest(p: M.Params, u0: float, a0: float,
     is_complex = bool(omega > 1e-12)
 
     # the horizon carries a fixed number of e-folds of whatever rate is present,
-    # and at least a few oscillation periods when there is a period
-    t_end = n_efold / max(abs(lam), 1e-6)
+    # and at least a few oscillation periods when there is a period. it is also
+    # CAPPED: `25/lambda` is 4.3e+05 for the slowest network here, and a horizon
+    # that long is not merely expensive, it is spent entirely past the escape,
+    # where `solveFreePools` can run to its 2e5-iteration fixed-point cap on
+    # every right-hand side call. where the cap binds, the network is reported
+    # as too slow to observe rather than given a verdict.
+    t_want = n_efold / max(abs(lam), 1e-12)
     if is_complex:
-        t_end = max(t_end, 8.0 * 2.0 * np.pi / omega)
-    t_end = float(min(t_end, 1e6))
+        t_want = max(t_want, 8.0 * 2.0 * np.pi / omega)
+    t_end = float(min(t_want, T_CAP))
+    horizon_short = bool(t_want > T_CAP)
 
     def f(t, x):
         if x[0] <= 0.0 or x[1] <= 0.0 or not np.all(np.isfinite(x)):
@@ -287,14 +301,26 @@ def integrationTest(p: M.Params, u0: float, a0: float,
         except (M.ModelError, OverflowError):
             return np.zeros(2)
 
+    # leaving the linear neighbourhood ANSWERS the question, so stop there.
+    # integrating past it buys nothing and costs everything.
+    d_escape = 1e-2 * scale
+
+    def leave(t, x):
+        return float(np.hypot(x[0] - u0, x[1] - a0)) - d_escape
+    leave.terminal = True
+    leave.direction = 1.0
+
     x0 = np.array([u0 * (1.0 + rel), a0 * (1.0 + rel)])
     ts = np.linspace(0.0, t_end, n_t)
     try:
-        sol = solve_ivp(f, (0.0, t_end), x0, t_eval=ts,
-                        rtol=1e-10, atol=1e-14 * scale)
+        sol = solve_ivp(f, (0.0, t_end), x0, t_eval=ts, events=leave,
+                        method="LSODA", rtol=1e-8, atol=1e-12 * scale)
     except Exception:
         return None
-    if not sol.success or sol.y.shape[1] < 20:
+    # a fast escape leaves few sampled points, and dropping those would discard
+    # exactly the most unstable networks -- the selection this whole check exists
+    # to avoid. keep them; the exponent fit reports itself unevaluable instead.
+    if not sol.success or sol.y.shape[1] < 5:
         return None
 
     d = np.hypot(sol.y[0] - u0, sol.y[1] - a0)
@@ -303,16 +329,23 @@ def integrationTest(p: M.Params, u0: float, a0: float,
     if d0 <= 0.0 or not np.all(np.isfinite(d)):
         return None
 
-    # the linear regime: still small against the state itself
-    idx = np.nonzero(d < 1e-2 * scale)[0]
+    # the linear regime. NOT `d < d_escape`: the run now STOPS at d_escape, so
+    # that window is the whole trajectory including its final, least linear
+    # decade, and fitting an exponent across it returned a median relative error
+    # of 0.17 against max Re(lambda). one decade below escape is linear.
+    idx = np.nonzero((d < 0.1 * d_escape) & (d > 0.0))[0]
     slope, n_per, per_meas = np.nan, np.nan, np.nan
     if idx.size >= 20 and t[idx[-1]] > t[idx[0]]:
         span = float(t[idx[-1]] - t[idx[0]])
         n_per = span / (2.0 * np.pi / omega) if is_complex else np.inf
         if (not is_complex) or n_per >= 3.0:
             slope = float(np.polyfit(t[idx], np.log(d[idx]), 1)[0])
-        # period from the peaks of |delta|, which for a growing spiral keeps the
-        # spacing 2*pi/omega
+        # period from the peaks of |delta|. NOTE the factor of two: writing
+        # delta(t) = e^(sigma t)(v cos wt + w sin wt) gives
+        # |delta|^2 = e^(2 sigma t)(A + B cos 2wt + C sin 2wt), so the DISTANCE
+        # oscillates at 2*omega and peaks every pi/omega, not every 2*pi/omega.
+        # the first version predicted 2*pi/omega and the measurement came back
+        # at exactly half it, twice; the measurement was right.
         if is_complex:
             w = d[idx]
             pk = np.nonzero((w[1:-1] > w[:-2]) & (w[1:-1] > w[2:]))[0] + 1
@@ -326,12 +359,17 @@ def integrationTest(p: M.Params, u0: float, a0: float,
         "slope": slope,
         "n_periods": float(n_per),
         "period_measured": per_meas,
-        "period_predicted": float(2.0 * np.pi / omega) if is_complex else np.nan,
-        "grew": bool(d.max() > 100.0 * d0),
+        "period_predicted": float(np.pi / omega) if is_complex else np.nan,
+        # the run STOPS at escape, which caps d.max()/d0 near d_escape/d0 ~ 1e2,
+        # so a 100x threshold could never fire. 10x is inside the cap and still
+        # far outside anything a stable equilibrium does (controls sit at 1.0).
+        "grew": bool(d.max() > 10.0 * d0),
         "ratio_max": float(d.max() / d0),
         "ratio_end": float(d[-1] / d0),
-        "escaped": bool(d.max() > 1e-2 * scale),
+        "escaped": bool(sol.t_events is not None and len(sol.t_events[0]) > 0),
+        "horizon_short": horizon_short,
         "t_end": t_end,
+        "t_last": float(sol.t[-1]),
         "eq_residual": float(res / scale),
         "j_eq": float(j_eq),
         "n_fit": int(idx.size),
@@ -420,8 +458,10 @@ def main() -> int:
         print(f"  fold is NOT the j-maximum of the branch in "
               f"{int((T['fold_is_j_max'] == 0).sum())} of {len(T)} "
               "(ambiguous by multiplicity)")
-        print(f"  low-burden end runs out of WINDOW rather than out of curve in "
-              f"{int(T['lowj_at_edge'].sum())} of {len(T)}")
+        print(f"  low-burden end of the branch reaches the window FLOOR "
+              f"(near-zero burden) in {int(T['lowj_at_floor'].sum())} of {len(T)}; "
+              f"leaves through the CEILING (low-j part unseen) in "
+              f"{int(T['lowj_at_ceiling'].sum())}")
 
         if cross.empty:
             continue
@@ -435,9 +475,9 @@ def main() -> int:
               f"{clean['det_at_first_cross'].min():.3e}  "
               f"median {clean['det_at_first_cross'].median():.3e}  "
               f"<= 0 in {int((clean['det_at_first_cross'] <= 0).sum())}")
-        print(f"    of these, branch truncated at the low-burden end: "
-              f"{int(clean['lowj_at_edge'].sum())} -- the crossing precedes the "
-              "fold, but where it begins is not determined")
+        print(f"    of these, branch left through the CEILING so the low-j part "
+              f"is unseen: {int(clean['lowj_at_ceiling'].sum())} -- the crossing "
+              "still precedes the fold, but where it begins is not determined")
 
         # --- the independent check, at the point of largest tr J --------------
         # run on the crossers AND on a control block of non-crossers. a test that
@@ -465,9 +505,11 @@ def main() -> int:
             if sub.empty:
                 continue
             print(f"    {lab}: left the linear neighbourhood in "
-                  f"{int(sub['escaped'].sum())} of {len(sub)}; grew >100x in "
+                  f"{int(sub['escaped'].sum())} of {len(sub)}; grew >10x in "
                   f"{int(sub['grew'].sum())}; max |delta| ratio median "
-                  f"{sub['ratio_max'].median():.3e}")
+                  f"{sub['ratio_max'].median():.4g}  max {sub['ratio_max'].max():.4g}")
+            print(f"      horizon cap bound (too slow to observe in t={T_CAP:g}) "
+                  f"in {int(sub['horizon_short'].sum())}")
         cr = ok[ok["is_cross"]]
         fit = cr[cr["slope"].notna()]
         if not fit.empty:
