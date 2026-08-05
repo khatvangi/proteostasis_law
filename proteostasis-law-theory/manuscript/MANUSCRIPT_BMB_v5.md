@@ -36,33 +36,42 @@ Section 2 fixes the model class and its hypotheses. Section 3 states and proves 
 
 ### 2.1 State equations
 
-Let `u` denote damaged or misfolded soluble monomer and `a` aggregate burden, in compatible concentration units. The baseline field is
+Let `u` denote damaged or misfolded soluble monomer and `a` aggregate burden. Both are **total** pools — free plus machinery-bound — carried in monomer-equivalent units, so that transfer between them conserves mass one for one. The baseline field is
 
 ```
-du/dt = j − v_ref(u, C_f) − v_degU(u, D_f) − n(u) − g(u,a) + v_dis(a, C_f)
-da/dt =                                       n(u) + g(u,a) − v_dis(a, C_f) − v_degA(a, D_f)
+du/dt = j − v_ref − v_degU − n − g + v_dis
+da/dt =              n + g − v_dis − v_degA
 ```
 
-with rate laws
+Chaperone and protease pools are conserved and shared, and every rate law is written in free concentrations. With 1:1 rapid-equilibrium complexes `CU`, `CA`, `CN`, `DU` and `DA`, the four conservation laws close simultaneously on the free concentrations:
 
 ```
-v_ref  = k_ref C_f u/(K_ref + u)      refolding
-v_degU = k_U D_f u/(K_U + u)          soluble degradation
-n      = k_n u^m,  m > 1              primary nucleation
-g      = k_g u a                      elongation
-v_dis  = k_dis C_f a/(K_dis + a)      disaggregation
-v_degA = k_A D_f a/(K_A + a)          aggregate clearance
+u_f = u /(1 + C_f/K_CU + D_f/K_DU)     C_f = C_tot /(1 + ν + u_f/K_CU + a_f/K_CA)
+a_f = a /(1 + C_f/K_CA + D_f/K_DA)     D_f = D_tot /(1 + u_f/K_DU + a_f/K_DA)
 ```
 
-The two aggregate-forming terms are distinct processes. `n = k_n u^m` is primary nucleation with an effective reaction order greater than one, in the sense in which fitted orders are understood as coarse-grained descriptions of multi-step processes (Ferrone 1999; Knowles et al. 2009; Meisl et al. 2017). `g = k_g u a` is elongation: growth of existing aggregate at a monomer-dependent rate. The model as written carries no secondary nucleation term, which would be autocatalytic in aggregate surface (Cohen et al. 2013); adding one changes the coefficients below but not the structure, since it enters `G` and not `R`.
+Given rapid equilibrium these four equations are identities rather than approximations, and they are solved jointly at every state; total substrate is never substituted into a formula expecting a free concentration. Here `ν = N_f/K_N` is the occupancy contributed by nascent chains, which consume capacity without contributing damage influx — the mechanism by which ordinary translational load can move the fold.
 
-Chaperone and protease pools are conserved and shared. Under rapid-equilibrium binding,
+`R` and `G` are therefore defined implicitly rather than by formulae in `(u, a)`, and their regularity has to be established rather than assumed.
+
+**Lemma 0 (well-posedness of the closure).** *For every `(u, a)` in the nonnegative quadrant the four equations above have exactly one solution, and it is strictly positive. The binding Jacobian in `(C_f, D_f)` is a nonsingular M-matrix with `det ≥ 1 + ν`, so the free concentrations are real-analytic in `(u, a)` on the open quadrant. Consequently `∂u_f/∂u > 0` and `∂a_f/∂u ≥ 0`.*
+
+*Proof.* The map sending `(C_f, D_f)` to the right-hand sides of the two pool equations carries the box `[0, C_tot] × [0, D_tot]` into itself and is monotone increasing, since raising either free pool lowers both free substrates and so lowers both denominators; Knaster–Tarski gives a least and a greatest fixed point. It is also strictly sublinear — scaling the argument by `λ < 1` shrinks the occupancy terms of each denominator by `λ` but leaves the additive constant, so the quotient rises by more than `λ` — and a monotone strictly sublinear map has at most one positive fixed point, by the standard argument on `λ* = sup{λ : x ≥ λy}`. For the Jacobian, all four partials of the free substrates in the free pools are negative, so the off-diagonal entries are nonpositive. Contracting against the positive vector `(C_f, D_f)` and using that each free substrate is homogeneous of degree `−1` in `(1, C_f, D_f)` gives row values `C_f(1 + ν + s_u^{-1}u_f/K_CU + s_a^{-1}a_f/K_CA)` and `D_f(1 + s_u^{-1}u_f/K_DU + s_a^{-1}a_f/K_DA)`, both positive, where `s_u` and `s_a` are the two substrate denominators. A matrix with nonpositive off-diagonal entries admitting a positive vector of positive image is a nonsingular M-matrix, whence `det ≥ 1 + ν` and the inverse is nonnegative. The implicit function theorem then applies at every state, and inverse-positivity applied to the derivative of the closure in `u` gives the two monotonicity statements. ∎
+
+The rate laws are
 
 ```
-C_f = C_tot /(1 + N_f/K_N + u_f/K_CU + a_f/K_CA + O_f/K_CO)
+v_ref  = k_ref C_f u_f/(K_ref + u_f)      refolding
+v_degU = k_U D_f u_f/(K_U + u_f)          soluble degradation
+n      = k_n u_f^m,  m > 1                primary nucleation
+g      = k_g u_f a_f                      elongation
+v_dis  = k_dis C_f a_f/(K_dis + a_f)      disaggregation
+v_degA = k_A D_f a_f/(K_A + a_f)          aggregate clearance
 ```
 
-and similarly for `D_f`, where `N` denotes nascent chains and `O` other competing substrates. The dissociation constants `K_CU` and `K_CA` describe competitive occupancy of the pool; the Michaelis constants `K_ref`, `K_U`, `K_dis`, `K_A` describe the rate-limiting catalytic step that follows binding. The two are distinct steps and distinct constants. `C_f` is the pool not engaged in any complex, and the catalytic factor is the fraction of that pool turning over at the given substrate concentration. Nascent chains consume capacity without contributing damage influx, which is the mechanism by which ordinary translational load can move the fold.
+The two aggregate-forming terms are distinct processes. `n = k_n u_f^m` is primary nucleation with an effective reaction order greater than one, in the sense in which fitted orders are understood as coarse-grained descriptions of multi-step processes (Ferrone 1999; Knowles et al. 2009; Meisl et al. 2017). `g = k_g u_f a_f` is elongation: growth of existing aggregate at a monomer-dependent rate. The model carries no secondary nucleation term, which would be autocatalytic in aggregate surface (Cohen et al. 2013); adding one changes the coefficients below but not the structure, since it enters `G` and not `R`.
+
+The dissociation constants `K_CU` and `K_CA` describe competitive occupancy of the pool; the Michaelis constants `K_ref`, `K_U`, `K_dis` and `K_A` describe a rate-limiting catalytic step acting on the pool not held in any complex. Treating them as successive steps is a stipulation and not a derivation. Written against the bound complex instead, each flux would carry no second saturation, so the coded form asserts nonproductive sequestration followed by independent productive capture, and gives cycles sharing one pool independent Michaelis factors rather than one competitive denominator. Both stipulations bind. Over the kinetic ensemble of Section 5 the two catalytic occupancies drawing on the chaperone pool sum above unity at 334 of 2767 fold states, and the substrate that productive complexes would hold reaches a fifth of the total soluble pool at the median. Section 4.4 reports what moves under the alternative closure. Nothing in Theorem 1 depends on the choice: the hypotheses below hold for either.
 
 Write the total removal flux and the aggregate field as
 
@@ -78,7 +87,7 @@ R(u,a) = v_ref + v_degU + v_degA        G(u,a) = da/dt
 
 **H2 (exact mass balance).** Internal transfer between `u` and `a` cancels between the two equations, so `du/dt + da/dt = j − R` holds identically.
 
-**H3 (smoothness).** `R` and `G` are continuously differentiable on the region of interest.
+**H3 (smoothness).** `R` and `G` are continuously differentiable on the region of interest. For the model class of Section 2.1 this is a consequence rather than an assumption: Lemma 0 makes the free concentrations real-analytic in the state, and every rate law is rational in them apart from `k_n u_f^m`, which is `C¹` at the origin for `m > 1`. H3 is retained as a hypothesis because Theorem 1 is stated for the wider class in which the fields are given directly.
 
 **H4 (deterministic, well-mixed, finite-dimensional).** The system is an ODE in concentrations.
 

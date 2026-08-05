@@ -96,6 +96,19 @@ class Params:
     kappa_du: float = 0.5
     kappa_da: float = 0.5
 
+    # --- which catalytic closure the removal fluxes use ----------------------
+    # "michaelis" (default, everything published): each removal flux is
+    #     available enzyme x a michaelis factor in its own free substrate. this
+    #     is a STIPULATION, not a derivation -- see theory/RATE_LAWS.md.
+    # "complex": the mechanistically standard alternative in which catalytic
+    #     flux is proportional to the bound complex, v_ref = k_cat [CU] with
+    #     [CU] = cf*uf/kappa_cu. no second saturation, cycles sharing a pool
+    #     compete for it automatically, and substrate held in complexes is
+    #     counted in the totals. task A3 uses it to test closure dependence.
+    # the ceiling c_tot + (rho_U + rho_A) d_tot bounds removal in BOTH, since
+    # every complex concentration is bounded by its own pool total.
+    closure: str = "michaelis"
+
     def validate(self) -> "Params":
         for name in ("c_tot", "d_tot", "rho_U", "rho_A", "alpha_n", "alpha_g",
                      "alpha_d", "kappa_ref", "kappa_u", "kappa_a", "kappa_dis",
@@ -108,6 +121,8 @@ class Params:
             raise ModelError("nascent occupancy nu must be finite and nonnegative")
         if not self.m > 1.0:
             raise ModelError("nucleation order m must exceed 1 (m<=1 breaks the fold structure)")
+        if self.closure not in ("michaelis", "complex"):
+            raise ModelError(f"unknown catalytic closure '{self.closure}'")
         return self
 
     def asDict(self) -> Dict[str, float]:
@@ -320,14 +335,26 @@ def fluxes(u: float, a: float, p: Params,
            guess: Optional[Tuple[float, float]] = None) -> Dict[str, float]:
     """all individual mass fluxes at a state; used for mass-balance checks."""
     uf, af, cf, df = solveFreePools(u, a, p, guess)
+    if p.closure == "complex":
+        # catalytic flux proportional to the bound complex. the michaelis
+        # constants play no part; the dissociation constants set the rates.
+        refold = cf * uf / p.kappa_cu
+        degrade_u = p.rho_U * df * uf / p.kappa_du
+        disaggregate = p.alpha_d * cf * af / p.kappa_ca
+        degrade_a = p.rho_A * df * af / p.kappa_da
+    else:
+        refold = cf * uf / (p.kappa_ref + uf)
+        degrade_u = p.rho_U * df * uf / (p.kappa_u + uf)
+        disaggregate = p.alpha_d * cf * af / (p.kappa_dis + af)
+        degrade_a = p.rho_A * df * af / (p.kappa_a + af)
     return {
         "influx": p.j,
-        "refold": cf * uf / (p.kappa_ref + uf),
-        "degrade_u": p.rho_U * df * uf / (p.kappa_u + uf),
+        "refold": refold,
+        "degrade_u": degrade_u,
         "nucleate": p.alpha_n * uf ** p.m,
         "grow": p.alpha_g * uf * af,
-        "disaggregate": p.alpha_d * cf * af / (p.kappa_dis + af),
-        "degrade_a": p.rho_A * df * af / (p.kappa_a + af),
+        "disaggregate": disaggregate,
+        "degrade_a": degrade_a,
         "uf": uf, "af": af, "cf": cf, "df": df,
     }
 
@@ -390,6 +417,10 @@ def jacobian(u: float, a: float, p: Params,
     r2_a = df / (sa * p.kappa_da)
 
     det = j11 * j22 - j12 * j21
+    # THIS CANNOT FIRE. lemma 0 (theory/LEMMA0_BINDING.md) proves the binding
+    # jacobian is a nonsingular m-matrix at every state, with the explicit bound
+    # det >= 1 + nu >= 1. the guard is kept as a defensive assertion against a
+    # future edit that breaks the closure's structure, not as a live branch.
     if not np.isfinite(det) or abs(det) < 1e-300:
         raise ModelError("singular binding jacobian; cannot differentiate free pools")
     inv = np.array([[j22, -j12], [-j21, j11]], dtype=float) / det
@@ -406,24 +437,39 @@ def jacobian(u: float, a: float, p: Params,
     daf_du = daf_dcf * dcf_du + daf_ddf * ddf_du
     daf_da = 1.0 / sa + daf_dcf * dcf_da + daf_ddf * ddf_da
 
-    # partials of the rhs w.r.t. the free concentrations
-    ref_den = (p.kappa_ref + uf) ** 2
-    degu_den = (p.kappa_u + uf) ** 2
-    dis_den = (p.kappa_dis + af) ** 2
-    dega_den = (p.kappa_a + af) ** 2
+    # partials of the rhs w.r.t. the free concentrations. only the four
+    # enzymatic removal terms differ between closures; nucleation and elongation
+    # are not enzymatic and are shared.
     nuc_prime = p.alpha_n * p.m * (uf ** (p.m - 1.0)) if uf > 0.0 else 0.0
 
-    f1_uf = (-cf * p.kappa_ref / ref_den - p.rho_U * df * p.kappa_u / degu_den
-             - nuc_prime - p.alpha_g * af)
-    f1_af = -p.alpha_g * uf + p.alpha_d * cf * p.kappa_dis / dis_den
-    f1_cf = -uf / (p.kappa_ref + uf) + p.alpha_d * af / (p.kappa_dis + af)
-    f1_df = -p.rho_U * uf / (p.kappa_u + uf)
+    if p.closure == "complex":
+        # v = k [E_f][S_f]: bilinear, so each partial is the other factor
+        ref_uf, ref_cf = cf / p.kappa_cu, uf / p.kappa_cu
+        degu_uf, degu_df = p.rho_U * df / p.kappa_du, p.rho_U * uf / p.kappa_du
+        dis_af, dis_cf = p.alpha_d * cf / p.kappa_ca, p.alpha_d * af / p.kappa_ca
+        dega_af, dega_df = p.rho_A * df / p.kappa_da, p.rho_A * af / p.kappa_da
+    else:
+        ref_den = (p.kappa_ref + uf) ** 2
+        degu_den = (p.kappa_u + uf) ** 2
+        dis_den = (p.kappa_dis + af) ** 2
+        dega_den = (p.kappa_a + af) ** 2
+        ref_uf, ref_cf = cf * p.kappa_ref / ref_den, uf / (p.kappa_ref + uf)
+        degu_uf = p.rho_U * df * p.kappa_u / degu_den
+        degu_df = p.rho_U * uf / (p.kappa_u + uf)
+        dis_af = p.alpha_d * cf * p.kappa_dis / dis_den
+        dis_cf = p.alpha_d * af / (p.kappa_dis + af)
+        dega_af = p.rho_A * df * p.kappa_a / dega_den
+        dega_df = p.rho_A * af / (p.kappa_a + af)
+
+    f1_uf = -ref_uf - degu_uf - nuc_prime - p.alpha_g * af
+    f1_af = -p.alpha_g * uf + dis_af
+    f1_cf = -ref_cf + dis_cf
+    f1_df = -degu_df
 
     f2_uf = nuc_prime + p.alpha_g * af
-    f2_af = (p.alpha_g * uf - p.alpha_d * cf * p.kappa_dis / dis_den
-             - p.rho_A * df * p.kappa_a / dega_den)
-    f2_cf = -p.alpha_d * af / (p.kappa_dis + af)
-    f2_df = -p.rho_A * af / (p.kappa_a + af)
+    f2_af = p.alpha_g * uf - dis_af - dega_af
+    f2_cf = -dis_cf
+    f2_df = -dega_df
 
     j_uu = f1_uf * duf_du + f1_af * daf_du + f1_cf * dcf_du + f1_df * ddf_du
     j_ua = f1_uf * duf_da + f1_af * daf_da + f1_cf * dcf_da + f1_df * ddf_da
