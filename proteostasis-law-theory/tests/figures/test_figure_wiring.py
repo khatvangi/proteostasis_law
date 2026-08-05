@@ -29,7 +29,7 @@ for _p in (_REPO_ROOT / "scripts", _REPO_ROOT / "scripts" / "figures",
 import fig_theorem, fig_dilution, fig_saturation  # noqa: E402
 import fig_front, fig_beta, fig_identity  # noqa: E402
 
-_DOC = (_REPO_ROOT / "manuscript" / "bmb_v4.md").read_text()
+_DOC = (_REPO_ROOT / "manuscript" / "MANUSCRIPT_BMB_v5.md").read_text()
 
 # script module -> the number it claims in the manuscript
 _SCRIPTS = {

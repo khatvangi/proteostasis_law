@@ -77,7 +77,7 @@ class TestExtremaCarryTheirDirectionEverywhere(unittest.TestCase):
     """D038 relabelled these; the relabelling had reached the manuscript only."""
 
     def testThirteenPointSixIsNeverStatedAsABound(self):
-        for rel in ("STATUS.md", "theory/FOLD_THEOREM.md", "manuscript/bmb_v4.md"):
+        for rel in ("STATUS.md", "theory/FOLD_THEOREM.md", "manuscript/MANUSCRIPT_BMB_v5.md"):
             doc = (_REPO_ROOT / rel).read_text()
             self.assertNotRegex(
                 doc, r"(up to|as much as|at most)\s+\*{0,2}13\.6",
@@ -85,7 +85,7 @@ class TestExtremaCarryTheirDirectionEverywhere(unittest.TestCase):
             )
 
     def testEverySiteQuotingThirteenPointSixNamesItsSample(self):
-        for rel in ("STATUS.md", "theory/FOLD_THEOREM.md", "manuscript/bmb_v4.md"):
+        for rel in ("STATUS.md", "theory/FOLD_THEOREM.md", "manuscript/MANUSCRIPT_BMB_v5.md"):
             doc = (_REPO_ROOT / rel).read_text()
             if "13.6" not in doc:
                 continue
@@ -104,7 +104,7 @@ class TestExtremaCarryTheirDirectionEverywhere(unittest.TestCase):
             self.assertIn("not sized to bound", low)
 
     def testSixTwoThreeIsALowerBoundAtEverySite(self):
-        for rel in ("STATUS.md", "manuscript/bmb_v4.md"):
+        for rel in ("STATUS.md", "manuscript/MANUSCRIPT_BMB_v5.md"):
             doc = (_REPO_ROOT / rel).read_text()
             if "0.623" not in doc:
                 continue

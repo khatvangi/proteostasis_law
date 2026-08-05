@@ -1,9 +1,9 @@
-"""Convert `manuscript/bmb_v4.md` to submission LaTeX, and build the PDF.
+"""Convert `manuscript/MANUSCRIPT_BMB_v5.md` to submission LaTeX, and build the PDF.
 
 WHY A CONVERTER AND NOT A HAND-PORT
 The markdown is the single source. A hand-made .tex would be a second lineage for
 every number in the paper, which is the failure this project keeps catching. This
-script is the only thing that writes `manuscript/bmb_v4.tex`; that file is a build
+script is the only thing that writes `manuscript/bmb_v5.tex`; that file is a build
 artefact and must never be edited.
 
 THE HARD PART IS THE INLINE CODE SPANS
@@ -34,10 +34,10 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-SRC = REPO_ROOT / "manuscript" / "bmb_v4.md"
-OUT_TEX = REPO_ROOT / "manuscript" / "bmb_v4.tex"
-OUT_PDF = REPO_ROOT / "manuscript" / "bmb_v4.pdf"
-OUT_SUPP_TEX = REPO_ROOT / "manuscript" / "bmb_v4_supplementary.tex"
+SRC = REPO_ROOT / "manuscript" / "MANUSCRIPT_BMB_v5.md"
+OUT_TEX = REPO_ROOT / "manuscript" / "bmb_v5.tex"
+OUT_PDF = REPO_ROOT / "manuscript" / "bmb_v5.pdf"
+OUT_SUPP_TEX = REPO_ROOT / "manuscript" / "bmb_v5_supplementary.tex"
 
 # the only backtick spans that are literal code. everything else is mathematics.
 CODE_SPANS = frozenset({
@@ -63,7 +63,7 @@ _GREEK = {"α": r"\alpha", "β": r"\beta", "γ": r"\gamma", "δ": r"\delta",
 _MATH_OPS = {"∇": r"\nabla ", "×": r"\times ", "·": r"\cdot ", "−": "-",
              "≤": r"\le ", "≥": r"\ge ", "→": r"\to ", "∥": r"\parallel ",
              "±": r"\pm ", "∂": r"\partial ", "…": r"\dots ", "∎": r"\square",
-             "√": r"\surd ", "∈": r"\in ", "≈": r"\approx ", "–": "-", "—": "---",
+             "∈": r"\in ", "≈": r"\approx ", "–": "-", "—": "---",
              "≠": r"\neq "}
 
 # prose (text mode) mappings, emitted as \newunicodechar declarations
@@ -83,7 +83,10 @@ _TEXT_MAP.update({k: f"$_{{{v}}}$" for k, v in _SUB.items()})
 # multi-letter operators that must not be italicised as a product of letters.
 # LaTeX already defines the first group; the second needs \operatorname.
 _BUILTIN_OPS = ("det", "sin", "cos", "max", "min", "ln", "log", "exp")
-_OTHER_OPS = ("row", "ceiling", "cross")
+# `tr J` set t, r and J as three italic variables. LaTeX has no \tr, so it goes
+# here and not above -- putting it in the builtin list emitted \tr and the build
+# stopped, which is the behaviour that list is supposed to have.
+_OTHER_OPS = ("row", "ceiling", "cross", "tr")
 
 
 def _runsToScript(s: str, table: dict, wrapper: str) -> str:
@@ -102,6 +105,15 @@ def _runsToScript(s: str, table: dict, wrapper: str) -> str:
     return "".join(out)
 
 
+def _singleBars(s: str) -> str:
+    r"""``\\|`` is markdown's escape for a literal pipe inside a table cell.
+
+    Passing it through to LaTeX math sets a DOUBLE bar, so |tr J|, |d2R/ds2| and
+    |w_1| -- all scalars -- rendered as norms. The author wrote absolute value.
+    """
+    return s.replace(r"\|", "|")
+
+
 def mathify(span: str) -> str:
     """render one backtick span as LaTeX inline math.
 
@@ -115,7 +127,13 @@ def mathify(span: str) -> str:
       * pandoc will not parse `$...$` as math when a space precedes the closing
         delimiter, and escapes both dollars instead, so the result is stripped.
     """
-    s = span
+    s = _singleBars(span)
+
+    # `\sqrt` needs its argument braced; a bare \surd renders as a radical sign
+    # with nothing under it, which is what `±i√det J` produced.
+    s = re.sub(r"√\s*\\?([A-Za-z]+)\s+([A-Za-z])", r"\\sqrt{\\\1 \2}", s)
+    s = re.sub(r"√\s*\(([^()]*)\)", r"\\sqrt{\1}", s)
+    s = s.replace("√", r"\surd ")
 
     # 1. protect sub/superscript groups the source already wrote
     protected: list[str] = []
@@ -245,7 +263,7 @@ def convertFigures(md: str) -> tuple[str, int]:
     return out, n
 
 
-def naturalTableWidths(tex: str) -> tuple[str, int]:
+def naturalTableWidths(tex: str) -> tuple[str, int, int]:
     """let LaTeX size table columns instead of pandoc's equal fractions.
 
     Pandoc derives column widths from the markdown separator row, which is
@@ -267,15 +285,62 @@ def naturalTableWidths(tex: str) -> tuple[str, int]:
     # so the span is matched non-greedily rather than line by line
     out = re.sub(r"\\begin\{longtable\}\[\]\{@\{\}\n(.*?)@\{\}\}",
                  repl, tex, flags=re.S)
+    # `n` counts CONVERSIONS, not tables: pandoc emits simple `@{}ll@{}` columns
+    # directly for narrow tables, and those never match the pattern above. In v4
+    # the paper had exactly two tables and both needed conversion, so the two
+    # numbers coincided and the mislabel was invisible; v5 has four tables of
+    # which two needed conversion, and the assertion named "tables" passed at 2
+    # while the document contained 4. Count the environments themselves.
+    n_tables = out.count(r"\begin{longtable}")
     # pandoc wraps header cells in minipages sized to \linewidth; with `l`
     # columns that would stretch each header to the full text width
     out = re.sub(r"\\begin\{minipage\}\[b\]\{\\linewidth\}\\raggedright\n(.*?)\n\\end\{minipage\}",
                  lambda m: m.group(1).strip(), out, flags=re.S)
-    return out, n
+    return out, n_tables, n
 
 
 def residualUnicode(text: str) -> list[str]:
     return sorted({c for c in text if ord(c) > 127})
+
+
+def longtableToTabular(tex: str) -> tuple[str, int]:
+    """turn pandoc's longtables into ordinary `table` floats.
+
+    `longtable` runs its own output routine. On a page that ALSO carries a
+    top-placed float, that interaction displaced the page folio into the middle
+    of the body text -- page 6 printed its "6" over the "u" of "input-output",
+    and the page carried no folio at its foot. Every count assertion passed and
+    the LaTeX log reported no overfull box; only rendering the page showed it.
+
+    These tables are short and none of them spans a page, so a float is both the
+    correct environment and the one Springer expects. The ``\\LTcaptype`` wrapper
+    that suppressed longtable's counter goes with it.
+    """
+    n = 0
+
+    def repl(m):
+        nonlocal n
+        n += 1
+        cols, body = m.group(1), m.group(2)
+        body = re.sub(r"\\(endhead|endlastfoot|endfirsthead)\b", "", body)
+        body = body.replace(r"\noalign{}", "")
+        body = re.sub(r"\\(top|mid|bottom)rule", "", body)
+        rows = [ln.rstrip() for ln in body.strip().split("\n") if ln.strip()]
+        head, rest = rows[0], rows[1:]
+        return ("\\begin{table}[htbp]\n\\centering\n"
+                + "\\begin{tabular}{" + cols + "}\n\\toprule\n"
+                + head + "\n\\midrule\n" + "\n".join(rest)
+                + "\n\\bottomrule\n\\end{tabular}\n\\end{table}")
+
+    # the column spec is `@{}lll@{}`, which CONTAINS braces, so it cannot be
+    # matched with `[^}]*` -- that stops at the first `}` and the whole pattern
+    # fails silently, converting nothing. Take everything to the last `}` on the
+    # line instead.
+    out = re.sub(
+        r"\{\\def\\LTcaptype\{none\}[^\n]*\n"
+        r"\\begin\{longtable\}\[\]\{([^\n]+)\}\n(.*?)\\end\{longtable\}\n\}",
+        repl, tex, flags=re.S)
+    return out, n
 
 
 def preamble(chars: list[str]) -> str:
@@ -289,7 +354,7 @@ def preamble(chars: list[str]) -> str:
 
 
 HEADER = r"""%% GENERATED FILE -- do not edit.
-%% Written by scripts/manuscript/to_latex.py from manuscript/bmb_v4.md.
+%% Written by scripts/manuscript/to_latex.py from manuscript/MANUSCRIPT_BMB_v5.md.
 %% The markdown is the source; every number in it is recomputed by a script in
 %% scripts/ and asserted by tests/.
 %%
@@ -349,8 +414,8 @@ r"""\begin{align*}
 
 """v_ref  = k_ref C_f u/(K_ref + u)      refolding
 v_degU = k_U D_f u/(K_U + u)          soluble degradation
-n      = k_n u^m,  m > 1              nucleation
-g      = k_g u a                      aggregate growth
+n      = k_n u^m,  m > 1              primary nucleation
+g      = k_g u a                      elongation
 v_dis  = k_dis C_f a/(K_dis + a)      disaggregation
 v_degA = k_A D_f a/(K_A + a)          aggregate clearance""":
 r"""\begin{align*}
@@ -382,7 +447,7 @@ j_{crit} = R(u^{*}, a^{*}).
 """det J = det [ ∂(du/dt)/∂u   ∂(du/dt)/∂a ]  =  det [ −R_u  −R_a ]
             [ ∂(da/dt)/∂u   ∂(da/dt)/∂a ]        [  G_u   G_a ]
 
-      = −(R_u G_a − R_a G_u) = −(∇R × ∇G).""":
+      = −(R_u G_a − R_a G_u) = −(∇R × ∇G),""":
 r"""\begin{align*}
 \det J
 &= \det\begin{bmatrix}
@@ -532,10 +597,13 @@ def splitSupplementary(md: str) -> tuple[str, str]:
     standalone document with `\thefigure` redefined to S1, S2, ... so its numbers
     cannot collide with the main sequence.
     """
-    m = re.search(r"^## Supplementary figures?\n(.*?)(?=^## |\Z)", md,
+    # match the SECTION, not one spelling of its title: v4 called it
+    # "Supplementary figure", v5 calls it "Supplementary material", and pinning
+    # the exact token made a rename look like a missing section.
+    m = re.search(r"^## Supplementary\b[^\n]*\n(.*?)(?=^## |\Z)", md,
                   re.S | re.M)
     if not m:
-        raise SystemExit("no '## Supplementary figure' section found")
+        raise SystemExit("no '## Supplementary ...' section found")
     supp = m.group(1).strip()
     body = (md[:m.start()] + md[m.end():])
     # the horizontal rule that separated it goes too
@@ -583,8 +651,12 @@ def _renderBody(md: str, *, headings: bool) -> tuple[str, dict]:
     if n_graphics != n_fig:
         raise SystemExit(f"{n_fig} figures converted but {n_graphics} survived "
                          "pandoc")
-    tex, n_tab = naturalTableWidths(tex)
+    tex, n_tab, n_conv = naturalTableWidths(tex)
+    tex, n_float = longtableToTabular(tex)
+    if n_float != n_tab:
+        raise SystemExit(f'{n_tab} tables but {n_float} converted to floats; a longtable left in place can displace the page folio')
     return tex, {"sections": n_sec, "figures": n_fig, "tables": n_tab,
+                 "tables_rewidthed": n_conv,
                  "displays": n_disp, "stripped": n_strip,
                  "spans_math": n_math, "spans_code": n_code}
 
@@ -615,13 +687,15 @@ def _document(chars: list[str], title: str, front: str, body: str,
 # nothing compared it against anything. A count assertion is far cheaper than
 # reading 21 pages and would have caught most of what reading caught.
 EXPECTED = {
-    "sections": 10,
-    "figures_main": 5,
-    "figures_supp": 1,
-    "tables": 2,
-    "displays": 10,
-    "spans_code": 2,
-    "stripped": 1,
+    "sections": 10,          # numbered ## 1 .. ## 10
+    "figures_main": 5,       # fig1 theorem, fig2 dilution, fig3 saturation,
+                             # fig4 hopf, fig5 beta
+    "figures_supp": 2,       # figS1 identity, figS2 pareto front
+    "tables": 4,             # genericity, verification, section 6, beta
+    "tables_rewidthed": 2,   # of those, the two pandoc gave proportional columns
+    "displays": 9,
+    "spans_code": 0,         # v5 quotes no file paths in the body
+    "stripped": 0,           # v5 carries no internal-only section
 }
 PAGES_MAIN = (18, 26)      # tolerance, not a target
 PAGES_SUPP = (1, 2)
@@ -691,6 +765,7 @@ def build() -> dict:
             "sections": info["sections"],
             "figures_main": info["figures"], "figures_supp": sinfo["figures"],
             "tables": info["tables"], "displays": info["displays"],
+            "tables_rewidthed": info["tables_rewidthed"],
             "stripped": info["stripped"], "unicode_mapped": len(chars)}
 
 

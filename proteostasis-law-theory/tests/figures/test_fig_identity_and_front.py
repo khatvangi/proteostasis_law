@@ -25,7 +25,7 @@ for _p in (_REPO_ROOT / "scripts", _REPO_ROOT / "scripts" / "figures",
 import fig_front  # noqa: E402
 import fig_identity  # noqa: E402
 
-_MANUSCRIPT = (_REPO_ROOT / "manuscript" / "bmb_v4.md").read_text()
+_MANUSCRIPT = (_REPO_ROOT / "manuscript" / "MANUSCRIPT_BMB_v5.md").read_text()
 
 
 def _section(doc: str, header: str) -> str:

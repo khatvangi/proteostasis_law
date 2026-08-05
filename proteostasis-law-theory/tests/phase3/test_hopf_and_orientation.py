@@ -20,7 +20,22 @@ import pandas as pd
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 _COMPUTED = _REPO_ROOT / "data" / "computed"
-_PAPER = _REPO_ROOT / "manuscript" / "bmb_v4.md"
+_PAPER = _REPO_ROOT / "manuscript" / "MANUSCRIPT_BMB_v5.md"
+
+
+def _section(text: str, heading: str) -> str:
+    """the body of one section, located by its HEADING TEXT rather than number.
+
+    v5 renumbered every section relative to v4 (the Hopf result moved from 3.2 to
+    7, orientation from a remark to 3.4). Eleven assertions in the first version
+    of this file failed on correct text because they indexed on "### 3.2". A
+    heading's words survive a renumber; its number does not.
+    """
+    m = re.search(rf"^#+ [\d.]*\s*{re.escape(heading)}\s*$(.*?)(?=^#+ |\Z)",
+                  text, re.S | re.M)
+    if m is None:
+        raise AssertionError(f"no section headed {heading!r}")
+    return m.group(1)
 
 
 def _load(name):
@@ -55,14 +70,17 @@ class TestGenericityConditions(unittest.TestCase):
         # both sit at the edge of the domain, which is why they are reported
         # rather than treated as counterexamples
         self.assertLess(float(bad["a"].max()), 1e-10)
-        self.assertIn("2765 of 2767", self.text)
+        self.assertEqual(self.text.count("2 exceptions"), 2)
         self.assertIn("117 of 2884", self.text)
 
     def testTransversalityIsTheConditionWithNoStructuralGuarantee(self):
         """(G4) reduces to w_1 != 0 because dF/dj = (1,0) exactly."""
-        seg = self.text[self.text.index("(G4)"):][:1200]
-        self.assertIn("(1, 0)", seg + self.text[:0] or seg)
-        self.assertIn("no structural guarantee", self.text)
+        seg = _section(self.text, "Genericity, and the converse")
+        self.assertIn("(1, 0)", seg)
+        # the CLAIM, not one phrasing of it: nothing in the model forces w1 != 0
+        self.assertTrue(re.search(r"no structural (guarantee|feature)", seg),
+                        "(G4) must be flagged as the condition with no "
+                        "structural guarantee")
 
 
 class TestFoldOrientation(unittest.TestCase):
@@ -76,14 +94,16 @@ class TestFoldOrientation(unittest.TestCase):
         d2 = D[D["ok"] == True]["d2R_signed"].dropna()  # noqa: E712
         self.assertEqual(int((d2 < 0).sum()), 325)
         self.assertEqual(int((d2 > 0).sum()), 0)
-        self.assertIn("325 of 325 load-grid folds", self.text)
+        seg = _section(self.text, "Orientation and multiplicity")
+        self.assertIn("all 325 folds", seg)
 
     def testTwentySixKineticBoxFoldsAreBirthOriented(self):
         D = _load("genericity_kinetic_box.tsv")
         d2 = D[D["ok"] == True]["d2R_signed"].dropna()  # noqa: E712
         self.assertEqual(int((d2 > 0).sum()), 26)
         self.assertEqual(int((d2 < 0).sum()), 2739)
-        self.assertIn("2739 of 2765", self.text)
+        seg = _section(self.text, "Orientation and multiplicity")
+        self.assertIn("26 of 2765", seg)
 
     def testEveryBirthOrientedNetworkAlsoCarriesACollapsePointAboveIt(self):
         """the claim that makes them hysteresis loops rather than counterexamples."""
@@ -94,7 +114,10 @@ class TestFoldOrientation(unittest.TestCase):
                          "a birth-oriented fold with no collapse point above it "
                          "would be a counterexample, not a hysteresis loop")
         self.assertEqual(int((pos["j_at_min"] < pos["j_at_max"]).sum()), 26)
-        self.assertIn("all 26 of those networks carry a collapse-oriented", self.text)
+        seg = _section(self.text, "Orientation and multiplicity")
+        self.assertIn("all 26 carry a collapse-oriented candidate at strictly "
+                      "higher influx", seg)
+        self.assertIn("7 of 153", seg)
 
     def testTheTwoOrientationRoutesAgree(self):
         """arclength d2R/ds2 and the shape of j along the branch are independent."""
@@ -149,10 +172,11 @@ class TestHopfPrecedesTheFold(unittest.TestCase):
         self.assertAlmostEqual(float(L["tr_max"].max()), -0.243, delta=0.0006)
         # the load grid is ONE POINT in kinetic space, and the manuscript must
         # not let its cleanliness read as a bound on the oscillatory corner
-        seg = self.text[self.text.index("### 3.2"):]
-        seg = seg[:seg.index("## 4.")]
-        self.assertIn("not that the corner is small", seg)
-        self.assertIn("holds kinetics fixed and sweeps load", seg)
+        seg = _section(self.text, "Instabilities preceding the fold")
+        # the load grid is ONE POINT in kinetic space. its cleanliness must not
+        # read as a bound on the size of the oscillatory region.
+        self.assertIn("not that the region is small", seg)
+        self.assertIn("the load grid holds kinetics fixed", seg)
 
     def testOneHundredAndFourNetworksCrossBeforeTheFold(self):
         self.assertEqual((len(self.clean), len(self.traced)), (104, 2766))
@@ -165,7 +189,9 @@ class TestHopfPrecedesTheFold(unittest.TestCase):
         det = self.clean["det_at_first_cross"]
         self.assertEqual(int((det <= 0).sum()), 0)
         self.assertGreaterEqual(float(det.min()), 1.4e-6)
-        self.assertIn("Hopf points by definition", self.text)
+        seg = _section(self.text, "Instabilities preceding the fold")
+        # det > 0 at a tr = 0 crossing IS a Hopf; the paper must say why
+        self.assertIn("±i√det J", seg)
 
     def testTheBranchPointsAreExactEquilibria(self):
         """reprojection is what makes tr J at these points mean anything."""
@@ -216,16 +242,15 @@ class TestHopfPrecedesTheFold(unittest.TestCase):
         self.assertAlmostEqual(float(g.loc["p_rho_A", "ratio"]), 7.5, delta=0.05)
         self.assertAlmostEqual(1.0 / float(g.loc["p_alpha_n", "ratio"]), 5.5,
                                delta=0.05)
-        for quoted in ("11.7 times lower", "7.5 times higher",
-                       "5.5 times lower", "3.7 to 33.6"):
-            self.assertIn(quoted, self.text)
+        seg = _section(self.text, "Instabilities preceding the fold")
+        for quoted in ("11.7×", "7.5×", "3.7 to 33.6"):
+            self.assertIn(quoted, seg)
 
     def testTheIncidenceRateIsNotOfferedAsAPrediction(self):
-        seg = self.text[self.text.index("### 3.2"):]
-        seg = seg[:seg.index("## 4.")]
-        self.assertIn("3.76%", seg)
-        self.assertIn("property of the sampling box", seg)
-        self.assertIn("do not offer 3.76% as a prediction", seg)
+        seg = _section(self.text, "Instabilities preceding the fold")
+        self.assertIn("3.8%", seg)
+        self.assertIn("property of the stipulated parameter box", seg)
+        self.assertIn("not offered as a prediction", seg)
 
 
 class TestTitleAndTerminology(unittest.TestCase):
@@ -261,8 +286,13 @@ class TestTitleAndTerminology(unittest.TestCase):
                                      f"threshold in: {naming}")
         # and the phenomenon is still discussed, so the word itself must survive
         self.assertIn("proteostasis collapse", self.text.lower())
-        # the two legitimate uses distinguish rather than name; keep them honest
-        self.assertIn("not a collapse threshold at all", self.text)
+        # the legitimate use DISTINGUISHES rather than names: a birth-oriented
+        # fold must be denied the status somewhere, or the classification in
+        # "Orientation and multiplicity" has no content.
+        seg = _section(self.text, "Orientation and multiplicity")
+        self.assertTrue(
+            re.search(r"rather than a collapse (point|threshold)", seg),
+            "the birth-oriented fold must be distinguished from a collapse point")
 
     def testTheMetadataTitlesTrackTheManuscript(self):
         title = ("An Exact Fold Condition for Mass-Balanced Models of "
@@ -274,7 +304,7 @@ class TestTitleAndTerminology(unittest.TestCase):
 class TestThreeDegeneracies(unittest.TestCase):
     def testSectionThreeOneNamesAllThree(self):
         text = _PAPER.read_text()
-        seg = text[text.index("**Neither numerator."):][:1400]
+        seg = _section(text, "Relation to infinitesimal homeostasis")
         for token in ("`det H = 0`", "`det J = 0`", "`tr J = 0`", "Hopf"):
             self.assertIn(token, seg)
 

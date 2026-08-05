@@ -25,7 +25,7 @@ import boundary_structure as B  # noqa: E402
 import dilution as D  # noqa: E402
 import _figstyle as F  # noqa: E402
 
-_MS = (_REPO_ROOT / "manuscript" / "bmb_v4.md").read_text()
+_MS = (_REPO_ROOT / "manuscript" / "MANUSCRIPT_BMB_v5.md").read_text()
 
 
 class TestFigureOneNumbers(unittest.TestCase):

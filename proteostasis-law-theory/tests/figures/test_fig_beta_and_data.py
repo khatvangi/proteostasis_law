@@ -15,7 +15,7 @@ for _p in (_REPO_ROOT / "scripts", _REPO_ROOT / "scripts" / "phase3",
 import asymmetric_division as A  # noqa: E402
 import fig_beta  # noqa: E402
 
-_MS = (_REPO_ROOT / "manuscript" / "bmb_v4.md").read_text()
+_MS = (_REPO_ROOT / "manuscript" / "MANUSCRIPT_BMB_v5.md").read_text()
 _DATA = _REPO_ROOT / "data" / "figures"
 _MANIFEST = _DATA / "MANIFEST.json"
 

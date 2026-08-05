@@ -53,9 +53,14 @@ class TestMathConversion(unittest.TestCase):
 class TestSpanClassification(unittest.TestCase):
     def testTheManuscriptClassifiesWithoutGuessing(self):
         """a new code-shaped span must fail the build, not render as math."""
-        md = (_REPO_ROOT / "manuscript" / "bmb_v4.md").read_text()
+        md = (_REPO_ROOT / "manuscript" / "MANUSCRIPT_BMB_v5.md").read_text()
         _, n_math, n_code = T.convertSpans(md)
-        self.assertEqual(n_code, len(T.CODE_SPANS))
+        # v5 quotes no file paths in its body, so the declared set is unused.
+        # the PROPERTY is that nothing code-shaped is silently mathified,
+        # which convertSpans enforces by raising; the count is whatever the
+        # document happens to contain.
+        self.assertEqual(n_code, T.EXPECTED["spans_code"])
+        self.assertLessEqual(n_code, len(T.CODE_SPANS))
         self.assertGreater(n_math, 250)
 
     def testAnUndeclaredCodeSpanRaises(self):
@@ -72,7 +77,7 @@ class TestWholeBuild(unittest.TestCase):
 
     def testFiguresAreSplitBetweenTheTwoDocuments(self):
         self.assertEqual(self.info["figures_main"], 5)
-        self.assertEqual(self.info["figures_supp"], 1)
+        self.assertEqual(self.info["figures_supp"], T.EXPECTED["figures_supp"])
 
     def testNoRawBlockWasEscapedByPandoc(self):
         """an unescaped % in a caption orphaned \\centering and centred §10 on."""
@@ -81,7 +86,15 @@ class TestWholeBuild(unittest.TestCase):
                              "escaped raw block")
             self.assertEqual(doc.count(r"\begin{figure}"),
                              doc.count(r"\end{figure}"), f"{name} floats unbalanced")
-            self.assertEqual(doc.count(r"\centering"), doc.count(r"\begin{figure}"),
+            # every \centering must sit inside a float. it used to be enough to
+            # compare against figures alone; short tables are now `table`
+            # floats too (they were longtables, which displaced a page folio
+            # into the body text), so both float types count. The property is
+            # unchanged: an ORPHANED \centering silently centres the rest of
+            # the document, which is how a caption bug once reached the PDF.
+            self.assertEqual(doc.count(r"\centering"),
+                             doc.count(r"\begin{figure}")
+                             + doc.count(r"\begin{table}"),
                              f"{name} has a \\centering outside a float")
 
     def testTheDocumentContainsWhatItShould(self):
@@ -103,19 +116,25 @@ class TestWholeBuild(unittest.TestCase):
 
     def testDisplayEquationsAreMathNotVerbatim(self):
         """fenced blocks render as typewriter text unless declared."""
-        self.assertEqual(self.info["displays"], 10)
+        self.assertEqual(self.info["displays"], T.EXPECTED["displays"])
         self.assertNotIn(r"\begin{verbatim}", self.main)
         for env in (r"\begin{align*}", r"\begin{equation*}"):
             self.assertIn(env, self.main)
 
     def testInternalSectionsDoNotReachTheSubmission(self):
-        self.assertEqual(self.info["stripped"], 1)
+        self.assertEqual(self.info["stripped"], T.EXPECTED["stripped"])
         for name in T.INTERNAL_SECTIONS:
             self.assertNotIn(name, self.main)
             self.assertNotIn(name, self.supp)
-        # but they stay in the markdown as provenance
-        self.assertIn(T.INTERNAL_SECTIONS[0],
-                      (_REPO_ROOT / "manuscript" / "bmb_v4.md").read_text())
+        # the property is CONDITIONAL: an internal section, if the markdown has
+        # one, must be stripped from both documents and must survive in the
+        # source as provenance. v5 carries none, so `stripped` is 0 and there is
+        # nothing to find -- asserting its presence unconditionally pinned a v4
+        # section that no longer exists.
+        md = (_REPO_ROOT / "manuscript" / "MANUSCRIPT_BMB_v5.md").read_text()
+        present = [n for n in T.INTERNAL_SECTIONS if n in md]
+        self.assertEqual(len(present), self.info["stripped"],
+                         "every internal section in the source must be stripped")
 
     def testCaptionMathSurvivesTheEmphasisRule(self):
         """`(u*, a*)` was turned into \\emph{, a}, deleting both equilibria."""
