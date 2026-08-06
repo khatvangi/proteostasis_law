@@ -2555,3 +2555,107 @@ So Table 1's two exceptions, the two failures of the closed form in D054, and
 this margin are **one geometric fact reported three times**: the constraint
 losing regularity. §4.3 says it once and drops the reassurance that the margin
 is never small, which was true only of the coefficient.
+
+## D064 — C5a: the window carries a cycle, and the widest one carries something else too
+
+§7 said a stable limit cycle "is born as the influx enters the window and is
+destroyed as it leaves". That was `l₁ < 0` at the two endpoints with an
+interpolation across the middle, and it does not follow: between the crossings
+the cycle could be destroyed and recreated, or meet a fold of cycles.
+
+Integration at seven interior influx values per network, past the escape
+threshold and with no terminal event, over the 38 confirmed two-crossing
+networks. All 266 points evaluable.
+
+| | |
+|---|---|
+| bounded cycle | 252 of 266 points |
+| networks with a cycle at every interior point | **34 of 38** |
+| mixed / no cycle anywhere / none evaluable | 3 / 1 / 0 |
+| period against `2π/ω` | median 10% relative |
+| period cv, peak-height cv | 0.020, **0.0025** |
+
+Settled periodic orbits, not slow transients: peak heights repeat to a quarter
+of a percent.
+
+**The amplitude is not always a single hump, and that is the finding.** Exemplars
+chosen by rule. The narrowest window (width 0.018 of `j_crit`) is textbook —
+amplitude 0.21 → 0.28 → 0.21, peaking mid-window, which is what two supercritical
+Hopf points bounding one branch of cycles produce. The median window is
+single-humped too. The **widest** (0.658 of `j_crit`) jumps from amplitude 2.07 to
+3756 between adjacent influx samples, three orders of magnitude, which is the
+signature of a fold of limit cycles or a canard transition. This run integrates;
+it does not continue the periodic orbit, so it cannot distinguish them. Per the
+acceptance criterion the manuscript therefore says cycles are present across the
+window and names the wide-window structure as unresolved, rather than asserting a
+single connected branch.
+
+**The one network with no cycle at any point is `draw2863`, which is exactly
+C4's closest approach to Hopf-pair annihilation** (`max(tr J) = 4.56×10⁻⁴`). The
+single exception is the network whose two crossings are nearest to colliding.
+That is structure rather than an anomaly, and it is the first place C4's margins
+have predicted anything.
+
+**§9's observable is half wrong and must be reported rather than predicted.**
+Mean aggregate over the cycle relative to the equilibrium: median **1.21×**, p95
+**2974×**. "The amplitude grows while the mean burden remains low" is true
+typically and fails badly in the upper tail.
+
+### A method defect found and fixed mid-task
+
+The first run lost **145 of 266 points** to a failed equilibrium solve, because
+`equilibriumAtInflux` was seeded from the FOLD state at every influx and the
+window often sits far below it. Seeding from the branch trace — which already
+knows where the equilibrium is at each load — recovered all 266. The first run's
+per-network summary also counted "no equilibrium found" as "no cycle", reporting
+a method failure as a result about the model; not-evaluable is now its own
+verdict and is counted.
+
+## D065 — B6: the oscillatory region is where the Haldane exclusion is STRUCTURAL
+
+`theory/LEMMA0_BINDING.md` (vi) proves `G_af ≥ 0 ⟹ G_u > 0`, with three of the
+four chain-rule products nonnegative unconditionally by the M-matrix property and
+exactly one carrying `G_af`'s sign. Measured at 2767 kinetic-box and 325
+load-grid fold states — against a standing claim that rested on 40 draws.
+
+`G_u > 0` at every one of the 3092 states. The chain-rule decomposition agrees
+with the central-difference `G_u` to `2.6×10⁻¹⁰`, which is what makes the
+four-product split a check rather than a restatement.
+
+The sufficient condition fails at 72.2% of kinetic-box fold states, so the
+exclusion is a competition at most of them. But the small minimum is not there:
+
+| | minimum `G_u` |
+|---|---|
+| where `G_af ≥ 0` (proof holds) | `3.36×10⁻¹¹`, at `a = 1.2×10⁻¹¹` |
+| where `G_af < 0` (proof does not reach) | `7.64×10⁻⁷` |
+
+The `6.67×10⁻¹²`-class minimum is an `a → 0` boundary artifact and it occurs
+where the proof holds, five orders below the smallest value anywhere the argument
+is actually needed. Reported that way.
+
+**The overlap runs opposite to the expectation.** The work order anticipated that
+`G_af < 0` states would coincide with §7's crossing networks. They anti-coincide:
+
+| group | fraction with `G_af < 0` |
+|---|---|
+| non-crossing | **74.7%** |
+| terminal | 13.1% |
+| window | **6.4%** |
+
+Crossing networks overwhelmingly have `G_af ≥ 0`. §3.3's exclusion is structural
+*precisely in* §7's oscillatory region. The two sections are one object, with the
+sign the other way round, and the manuscript says it once.
+
+## D066 — R1: the ordering holds, the separation does not
+
+§3.1 said `j_turn` and `j_crit` "lie in a fixed order and differ by one part in a
+thousand", both read off the base parameter set. Over all 325 load-grid networks,
+traced with no failures:
+
+- 247 have a turn; **`j_turn < j_crit` in 247 of 247**. The ordering survives.
+- 78 have **no turn at all**, which the manuscript never mentioned.
+- Separation `1 − j_turn/j_crit`: median 1.05%, p99 4.6%, **max 6.6%**.
+
+So the order is a property of the population and the "one part in a thousand" is
+a property of one member of it. No network has more than one turn.
