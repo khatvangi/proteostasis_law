@@ -1,19 +1,20 @@
 {
-  "n_networks": 8,
-  "n_points": 56,
+  "n_networks": 38,
+  "n_points": 266,
   "fate_counts": {
-    "cycle": 52,
-    "fixed_other": 4
+    "cycle": 227,
+    "not_converged": 29,
+    "fixed_other": 10
   },
-  "networks_all_evaluable_points_cycle": 7,
-  "networks_mixed": 1,
+  "networks_all_evaluable_points_cycle": 34,
+  "networks_mixed": 3,
   "networks_no_cycle": 0,
-  "networks_none_evaluable": 0,
+  "networks_none_evaluable": 1,
   "points_per_network_evaluable_median": 7.0,
-  "n_not_converged": 0,
-  "efolds_min": 15.94010230087266,
-  "efolds_median": 137.13500982594627,
-  "n_at_block_budget": 0,
-  "frac_cycle_over_evaluable": 0.9285714285714286,
-  "n_evaluable": 56
+  "n_not_converged": 29,
+  "efolds_min": 12.039684822898115,
+  "efolds_median": 217.64972283082574,
+  "n_at_block_budget": 29,
+  "frac_cycle_over_evaluable": 0.9578059071729957,
+  "n_evaluable": 237
 }

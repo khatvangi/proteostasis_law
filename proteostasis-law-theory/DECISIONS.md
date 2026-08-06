@@ -2659,3 +2659,130 @@ traced with no failures:
 
 So the order is a property of the population and the "one part in a thousand" is
 a property of one member of it. No network has more than one turn.
+
+## D067 — §3.3 rewritten: the Haldane exclusion is a sign condition, and §7 measures it
+
+D065 found the overlap; this writes it. Three changes, plus one prerequisite the
+work uncovered.
+
+**The prerequisite.** §7 and Fig. 4c quote `ρ_A`, `κ_a`, `α_g` and `α_n`, and
+§6 quotes `ρ_U`, `ρ_A`. None of those symbols was defined anywhere in the paper:
+§2.1 states the model dimensionally in `k_ref, k_U, k_n, k_g, k_dis, k_A` and
+`K_ref, K_U, K_dis, K_A`, while the code — and every later section — carries the
+form nondimensionalised in `1/k_ref`. The two sets were checked term by term
+against `model.fluxes` and map exactly. One sentence at the end of §2.1 now
+declares the scaling. Undefined symbols in a results section is a referee's first
+question, and it was not on any review list.
+
+**Lemma 0's statement.** Its proof establishes inverse-positivity of a
+nonsingular M-matrix and therefore signs all four closure derivatives, but the
+statement listed only two. It now also states that both free machinery pools are
+nonincreasing in `u`, which is what §3.3 needs to cite.
+
+**§3.3.** The old text asserted "all four contributions carry the same sign",
+which is false in general, and rested on 40 kinetic draws with a minimum `G_u` of
+6.67×10⁻¹². Replaced by the decomposition: three products are nonnegative
+unconditionally, the fourth carries the sign of `G_af`, and `G_af ≥ 0` is
+sufficient for `G_u > 0`.
+
+**The mechanism, measured rather than asserted.** §7 describes its region as
+sharply saturating clearance against growth-dominated aggregation, and the claim
+that this *is* `G_af ≥ 0` was worth checking rather than repeating, because the
+ensemble ratios do not settle it on their own: `ρ_A` is 7.5× **higher** in the
+crossing group while `κ_a` is 11.7× lower, and the two enter the clearance term
+as a product. Decomposing `G_af` at all 2767 fold states, as medians of each
+negative term relative to the positive `α_g u_f`:
+
+| group | n | disaggregation | clearance |
+|---|---|---|---|
+| window | 47 | 0.0055 | 0.067 |
+| terminal | 61 | 0.0115 | 0.344 |
+| non-crossing | 2659 | 0.759 | 0.709 |
+
+The clearance term is suppressed 10.6-fold in the window group — that is the
+`κ_a` effect §7 names. The disaggregation term is suppressed **139-fold**, a
+larger effect that §7's descriptor does not mention at all. Both negative terms
+sit near 1% of the positive one where oscillation occurs and near 70% where it
+does not.
+
+**The residual risk profile, and a correction to its size.** The smallest `G_u`
+anywhere, 3.4×10⁻¹¹, lies where `G_af ≥ 0` and the proof applies, at an
+`a = 1.2×10⁻¹¹` boundary state; the smallest among the 1998 states where the
+proof does not reach is 7.6×10⁻⁷. That was called "five orders larger" in the
+review note and repeated here before being checked: the ratio is 2.3×10⁴, four
+and a third orders. The manuscript states the factor rather than the order.
+
+## D068 — C5a re-run: the fixed integration horizon was manufacturing the findings
+
+D064 reported C5a from a single solve to `min(60/sigma, 5e4)`. The cap bound 42
+of 266 points. **Every point it then called divergent was capped**, and the worst
+saw 3.1 e-folds of a requested 60. `growth = e_late/e_mid > 3` cannot separate a
+slow spiral still on its way out from a genuine divergence at a fifth of the
+requested horizon.
+
+The truncation was worst exactly where the physics is slowest. `draw2863` has the
+population's smallest `max(tr J)`, 4.56e-4 — C4's closest approach to Hopf-pair
+annihilation — so it needs the longest integration, and it was the only network
+the run called no-cycle. The verdict was the clock.
+
+**The fix.** Integration now proceeds in blocks, continuing from the previous
+block's final state, until the envelope stops changing over two consecutive
+blocks. Not settling inside the budget is its own outcome instead of being
+absorbed into `divergent`. Two iterations were needed: the first staged version
+reported 110 of 266 unsettled, which was a 40-e-fold block guard cutting blocks
+to a median 14 oscillations, so the envelope moved between blocks on phase alone
+— those points carried a SMALLER period dispersion than the ones that passed
+(median cv 1.5e-3 against 8.1e-3), which is a settled orbit being called
+unsettled. Snapping the envelope to detected peaks makes every measurement span
+whole periods and fixed it.
+
+**What C5a actually shows.** Of 266 points at 7 interior influx values across 38
+windows: 227 settled cycles, 10 settling to a different fixed point, 29 not
+settled inside the budget, and **zero divergent**. 34 of 38 networks carry a
+cycle at every evaluable interior point; 3 are mixed; `draw4627` has no evaluable
+point. No network is now no-cycle. Orbits are clean — period dispersion median
+8.2e-3, max 1.3e-2.
+
+`draw2863` carries a cycle at all seven points, amplitude rising 0.82 to 1.20 and
+falling to 0.53: a single-humped profile across the window, which is what one
+branch between two supercritical crossings looks like.
+
+**Three numbers from D064 that were artifacts and are withdrawn.**
+
+- The 3756 amplitude at the widest window. Amplitude now spans a median factor
+  1.78 across a window, at most 6.0, with no jump between adjacent samples.
+- The mean-burden p95 of 2974x. Over 227 settled cycles the mean burden is
+  median **1.15x** the equilibrium, p95 3.04x, **max 4.40x**. That was a
+  transient still growing, not a cycle mean. Section 9's low-mean-burden
+  signature survives, bounded, rather than being killed by a tail.
+- `draw2863` as the one no-cycle network.
+
+**The amplitude-floor argument does not apply and could not have.** The proposed
+confirmation was that a window narrowing toward annihilation shrinks its cycle
+below detection. Cycle radius goes as `sqrt(sigma_max/|l1|)`, and `draw2863`'s
+`l1` is also small (0.0083 against a window median of 0.271), giving a predicted
+0.166 — O(1e-1), not O(1e-8). Small window AND small `l1` is the Bautin
+direction, C4's third margin. The classifier's floor is 1e-8 and the smallest
+cycle observed anywhere is 0.204, larger by a factor of 2.0e7. Nothing in this
+population was ever near the floor. Across 37 networks the `sqrt(sigma_max/|l1|)`
+scaling tracks the rank ordering (Spearman 0.64) but its prefactor scatters over
+a factor of 25, so it is an order-of-magnitude guide and is not quoted as a law.
+
+**Item 3, answered: one phenomenon, not two.** Mean burden and amplitude
+correlate at Spearman 0.69 over cycle points, and the top-5% tails are the same
+four networks (`draw4544`, `draw4714`, `draw4882`, `draw4884`) — 4 of the 5
+top-mean networks are exactly the 4 top-amplitude ones. Section 9 states it once.
+
+**Item 4, answered by position rather than by count.** The 10 non-cycle points
+sit at 3 networks and at `frac` 0.08, 0.22, 0.36 and 0.50 — the opening half of
+the window, never the closing half, and one is dead centre. They are not
+amplitude falling below detection: envelopes reach 1e-15 while `a_mean/a_eq` is
+1.3e-5 to 1.0e-3 and `u_mean/u_eq` is 0.19 to 0.74. The trajectory leaves the
+unstable equilibrium and settles at a **distinct low-aggregate fixed point**.
+Subcriticality does not explain it: only 1 of the 3 (`draw1552`) has a
+subcritical crossing, and the other two are supercritical at both ends.
+
+**The period check.** Measured period against the linear `2pi/omega`: median
+ratio 1.050 over 227 cycles, median absolute deviation 7.5%. That is the expected
+finite-amplitude correction and is reported as a check on C1 rather than left in
+a table.
