@@ -1,0 +1,43 @@
+{
+  "kinetic_box": {
+    "n": 2767,
+    "n_G_af_negative": 1998,
+    "frac_G_af_negative": 0.7220816769063968,
+    "G_u_min": 3.364022668604178e-11,
+    "n_G_u_nonpositive": 0,
+    "G_u_min_where_G_af_negative": 7.644686210136199e-07,
+    "G_u_min_where_G_af_nonneg": 3.364022668604178e-11,
+    "a_at_G_u_min": 1.2167125802531073e-11,
+    "chain_vs_central_max_rel": 2.639630884710898e-10
+  },
+  "load_grid": {
+    "n": 325,
+    "n_G_af_negative": 310,
+    "frac_G_af_negative": 0.9538461538461539,
+    "G_u_min": 0.10364475564106555,
+    "n_G_u_nonpositive": 0,
+    "G_u_min_where_G_af_negative": 0.10364475564106555,
+    "G_u_min_where_G_af_nonneg": 0.16478498992048995,
+    "a_at_G_u_min": 0.171133231207,
+    "chain_vs_central_max_rel": 1.30976477177978e-10
+  },
+  "overlap_with_section7": {
+    "non_crossing": {
+      "False": 672,
+      "True": 1987
+    },
+    "terminal": {
+      "False": 53,
+      "True": 8
+    },
+    "window": {
+      "False": 44,
+      "True": 3
+    }
+  },
+  "frac_G_af_negative_by_group": {
+    "terminal": 0.13114754098360656,
+    "window": 0.06382978723404255,
+    "non_crossing": 0.7472734110567882
+  }
+}

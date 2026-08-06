@@ -175,25 +175,50 @@ def fateAt(p: M.Params, j: float, u_eq: float, a_eq: float,
 
 
 def _worker(item):
+    """ONE (network, influx) point. Flattened so the pool sees 266 units of work
+    rather than 38; with 7 sequential integrations per unit the wall time was
+    the slowest chain, not the slowest point."""
+    name, p, u_seed, a_seed, j, fr, j_crit = item
+    eq = equilibriumAtInflux(p, j, u_seed, a_seed)
+    if eq is None:
+        return {"name": name, "frac": float(fr), "j": float(j),
+                "fate": "no_equilibrium"}
+    r = fateAt(p, j, eq[0], eq[1])
+    if r is None:
+        return {"name": name, "frac": float(fr), "j": float(j),
+                "fate": "not_evaluable"}
+    r.update({"name": name, "frac": float(fr),
+              "j_over_jcrit": float(j / j_crit)})
+    return r
+
+
+def _seedWorker(item):
+    """branch points nearest each target influx, as seeds for the equilibrium solve.
+
+    Seeding every influx from the FOLD state failed at 145 of 266 points: the
+    window can sit far below the fold and hybr was started in the wrong place.
+    The branch trace already knows where the equilibrium is at each load.
+    """
+    import hopf_check as HC
     name, p, u_f, a_f, jH1, jH2, j_crit = item
-    rows = []
-    fracs = np.linspace(0.08, 0.92, 7)          # interior of the window only
+    try:
+        out = HC.branchProfile(p, u_f, a_f, n=150)
+    except Exception:
+        out = None
+    fracs = np.linspace(0.08, 0.92, 7)
+    items = []
+    if out is None:
+        for fr in fracs:
+            items.append((name, p, u_f, a_f, jH1 + fr * (jH2 - jH1), fr, j_crit))
+        return items
+    B = out["branch"]
+    jb = B["j"].to_numpy(float)
     for fr in fracs:
         j = jH1 + fr * (jH2 - jH1)
-        eq = equilibriumAtInflux(p, j, u_f, a_f)
-        if eq is None:
-            rows.append({"name": name, "frac": float(fr), "j": float(j),
-                         "fate": "no_equilibrium"})
-            continue
-        r = fateAt(p, j, eq[0], eq[1])
-        if r is None:
-            rows.append({"name": name, "frac": float(fr), "j": float(j),
-                         "fate": "not_evaluable"})
-            continue
-        r.update({"name": name, "frac": float(fr),
-                  "j_over_jcrit": float(j / j_crit)})
-        rows.append(r)
-    return rows
+        k = int(np.argmin(np.abs(jb - j)))
+        items.append((name, p, float(B["u"].iloc[k]), float(B["a"].iloc[k]),
+                      float(j), float(fr), j_crit))
+    return items
 
 
 def run(workers: int | None = None, max_networks: int | None = None) -> dict:
@@ -230,22 +255,42 @@ def run(workers: int | None = None, max_networks: int | None = None) -> dict:
     if workers is None:
         workers = max(1, min(56, (os.cpu_count() or 2) - 8))
     with mp.get_context("fork").Pool(processes=workers) as pool:
-        nested = pool.map(_worker, items, chunksize=1)
-    D = pd.DataFrame([r for rows in nested for r in rows])
+        seeded = pool.map(_seedWorker, items, chunksize=1)
+        flat = [x for sub in seeded for x in sub]
+        rows = pool.map(_worker, flat, chunksize=1)
+    D = pd.DataFrame(rows)
     D.to_csv(OUT_TSV, sep="\t", index=False)
 
     counts = D["fate"].value_counts().to_dict()
-    per_net = D.groupby("name")["fate"].apply(
-        lambda s: "all_cycle" if (s == "cycle").all()
-        else ("no_cycle" if (s == "cycle").sum() == 0 else "mixed"))
+    _EVAL = ("cycle", "divergent", "fixed_same", "fixed_other")
+
+    def verdict(s):
+        """classify a network by its EVALUABLE points only.
+
+        The first run called a network "no_cycle" when every point failed to
+        yield an equilibrium, which reported a method failure as a result about
+        the model. Not-evaluable is now its own verdict and is counted.
+        """
+        e = s[s.isin(_EVAL)]
+        if e.empty:
+            return "none_evaluable"
+        if (e == "cycle").all():
+            return "all_evaluable_cycle"
+        return "no_cycle" if (e == "cycle").sum() == 0 else "mixed"
+
+    per_net = D.groupby("name")["fate"].apply(verdict)
 
     out = {
         "n_networks": int(len(items)),
         "n_points": int(len(D)),
         "fate_counts": {k: int(v) for k, v in counts.items()},
-        "networks_all_interior_points_cycle": int((per_net == "all_cycle").sum()),
+        "networks_all_evaluable_points_cycle": int(
+            (per_net == "all_evaluable_cycle").sum()),
         "networks_mixed": int((per_net == "mixed").sum()),
         "networks_no_cycle": int((per_net == "no_cycle").sum()),
+        "networks_none_evaluable": int((per_net == "none_evaluable").sum()),
+        "points_per_network_evaluable_median": float(
+            D[D["fate"].isin(_EVAL)].groupby("name").size().median()),
     }
     ev = D[D["fate"].isin(["cycle", "divergent", "fixed_same", "fixed_other"])]
     if not ev.empty:
