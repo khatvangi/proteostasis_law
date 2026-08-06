@@ -148,7 +148,7 @@ At the base parameter set the alignment is visible rather than inferred: the rem
 
 ### 3.2 Genericity, and the converse
 
-Theorem 1.2 gives one direction: a fold satisfies gradient alignment. The converse requires that the degeneracy be a fold rather than a transcritical or pitchfork bifurcation, a cusp, a double-zero eigenvalue, or a curve of equilibria. Four conditions suffice:
+Theorem 1.2 gives one direction: a fold satisfies gradient alignment. The converse requires that the degeneracy be a fold rather than a transcritical or pitchfork bifurcation, a cusp, a double-zero eigenvalue, or a curve of equilibria. Three conditions suffice:
 
 - **(G1)** regularity of the constraint, `∇G ≠ 0`;
 - **(G2)** a simple zero eigenvalue, `tr J ≠ 0`;
@@ -377,7 +377,7 @@ One caution attaches to the self-damage check of Section 4.3. Because `du/dt = j
 
 ## 6. Where the fold sits
 
-Writing `R = c_f s_ref + ρ_U d_f s_u + ρ_A d_f s_a` against `ceiling = c_tot + ρ_U d_tot + ρ_A d_tot`, and `φ = j_crit/ceiling`, the saturation fractions at the fold answer how far below the ceiling it lies. The decomposition is evaluated at re-solved fold states satisfying `{G = 0, det J = 0}` rather than where continuation stopped; of the 2884 draws admitting a fold, 2767 yield such a state and the remaining 117 are excluded and carry no entry. Evaluated instead at the recorded continuation states, `φ` reads 0.0806 and the ceiling factor thirteenfold rather than twelvefold.
+Writing `R = c_f s_ref + ρ_U d_f s_u + ρ_A d_f s_a` against `ceiling = c_tot + ρ_U d_tot + ρ_A d_tot`, and `φ = j_crit/ceiling`, the saturation fractions at the fold answer how far below the ceiling it lies (Table 3). The decomposition is evaluated at re-solved fold states satisfying `{G = 0, det J = 0}` rather than where continuation stopped; of the 2884 draws admitting a fold, 2767 yield such a state and the remaining 117 are excluded and carry no entry. Evaluated instead at the recorded continuation states, `φ` reads 0.0806 and the ceiling factor thirteenfold rather than twelvefold.
 
 **Table 3** Where the fold sits relative to the capacity ceiling, at re-solved fold states over the 2767 networks that admit one. The saturation fractions are Michaelis factors, so a value of 1 would mean the machinery is running at maximum velocity.
 
@@ -392,7 +392,7 @@ Writing `R = c_f s_ref + ρ_U d_f s_u + ρ_A d_f s_a` against `ceiling = c_tot +
 
 **At the fold the machinery delivers 8.3% of the flux its pools could support, its catalytic steps running at Michaelis factors of 5 to 18%**, so the capacity ceiling is a correct bound that overestimates the tolerable influx about twelvefold under the stipulated catalytic closure — and 2.8-fold under the alternative of Section 4.4, which is why the factor is quoted with its closure wherever it is claimed. That clearance saturation eventually fails to balance aggregation is the qualitative content of the limited-capacity condition identified by Cotton et al. (2025); the decomposition above quantifies how far short of saturation the failure occurs, and splits it.
 
-Two questions must not be merged. Saturation dominates the *magnitude* of `φ`; the *existence* of a turning point requires the aggregation runaway that drives the free pools down at high burden. The counterfactuals answer the first only.
+Two questions must not be merged. Saturation dominates the *magnitude* of `φ`; the *existence* of a turning point requires the superlinear aggregation that drives the free pools down at high burden. The counterfactuals answer the first only.
 
 Dispersion is large. A nested design crossing 10 kinetic draws with a 7×7 load grid gives a between-to-within variance ratio for `φ` of 5.9, with per-network spread as large as 13.6× observed when both load coordinates sweep, against an 8.86× between-network spread — so `φ` is network-characteristic but not load-invariant. The saturation box was chosen deliberately wide, so part of the between-network spread is a property of the sampling. Adding σ32-style regulation widens the p5–p95 width of `s_u` from 0.890 to 0.968 over the 30 networks of that experiment rather than narrowing it, with regulated median `s_u` 0.323 against 0.169 unregulated; only 14 of 30 regulated networks converged against 24 unregulated, so that comparison is indicative. Over the kinetic box the p5–p95 width of `s_u` is 0.867.
 
@@ -462,7 +462,7 @@ Partitioning is set by one physical quantity. The visible focus is indivisible a
 
 The damping factor for the daughter's relaxation during its own generation is 0.346–0.355, with weak `β` dependence.
 
-The table spans the same `β` range the figure plots. At `β = 1.00`, where the whole aggregate is in the focus, the requirement sits 62× to 214× below the Δ*rpoH* load; at `β = 0.05` it is 3.2× to 11× below it. The requirement is therefore smaller than the only load ever measured, and the informative comparison is how far below it falls.
+Table 4 spans the same `β` range the figure plots. At `β = 1.00`, where the whole aggregate is in the focus, the requirement sits 62× to 214× below the Δ*rpoH* load; at `β = 0.05` it is 3.2× to 11× below it. The requirement is therefore smaller than the only load ever measured, and the informative comparison is how far below it falls.
 
 No source we could find bounds `β` under unstressed growth. Winkler et al. (2010) report aggregate mass and focus size separately, and under heat stress, which is neither the condition at issue nor a focus-share measurement. The requirement is therefore a `β`-indexed family (Fig. 5), and the direction is the informative part: the less of the aggregate held in the focus, the more aggregate the account requires, and the closer the requirement moves to the only load anyone has measured. Tomoyasu et al. (2001) report 5–10% of total protein aggregated in Δ*rpoH* mutants at 30 °C and no detectable aggregation in *rpoH*⁺ cells at the same temperature; wild type is a bound rather than a value, and the reported mutant figures are not a limit of detection for the assay.
 

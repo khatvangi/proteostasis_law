@@ -92,7 +92,15 @@ class TestFigure3ReconcilesWithSectionSeven(unittest.TestCase):
     def testTheFrontRangeMatchesTheText(self):
         self.assertAlmostEqual(self.o["front_lo"], 0.227, places=3)
         self.assertAlmostEqual(self.o["front_hi"], 0.965, places=3)
-        self.assertIn("0.227 to 0.965", _MANUSCRIPT)
+        # The caption stated this range twice, at three and at four decimals,
+        # and this check pinned the three-decimal copy. Task R9 removed the
+        # duplicate — two printings of one quantity are how prose lands in the
+        # wrong place (D047) — so the surviving four-decimal statement is what
+        # is asserted, and it is asserted once.
+        self.assertIn(f"{self.o['front_lo']:.4f} to {self.o['front_hi']:.4f}",
+                      _MANUSCRIPT)
+        self.assertEqual(_MANUSCRIPT.count("0.2271 to 0.9652"), 1,
+                         "the front range is printed more than once again")
 
     def testTheOptimumIsSolvedOnTheBoundaryNotReadOffTheGrid(self):
         self.assertAlmostEqual(self.o["exact_ratio"], 1.0, places=6)

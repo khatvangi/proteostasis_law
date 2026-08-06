@@ -1,7 +1,8 @@
 # Status
 
-The paper is complete and is the artifact. This file says where things are; it
-deliberately carries no numbers.
+The paper is complete and is the artifact. This file says where things are and
+carries the caveats that have to stay written down. It keeps no second copy of
+the paper's results.
 
 ## Canonical
 
@@ -10,11 +11,11 @@ deliberately carries no numbers.
 | manuscript source | `manuscript/MANUSCRIPT_BMB_v5.md` |
 | built paper | `manuscript/bmb_v5.pdf`, `bmb_v5_supplementary.pdf` |
 | build | `python scripts/manuscript/to_latex.py` |
-| decisions, in order | `DECISIONS.md` (D001–D068) |
+| decisions, in order | `DECISIONS.md` (D001–D071) |
 | provenance of the ensembles | `data/PROVENANCE.md` |
 | target | *Bulletin of Mathematical Biology* |
 
-## Why there are no numbers here
+## Why the results are not restated here
 
 Every quantity in the paper is recomputed by a script in `scripts/` from
 `data/computed/` or the phase-1 run root, and asserted by the test suite. This
@@ -23,7 +24,9 @@ fractions, a shortfall split and a ceiling factor that no longer matched the
 manuscript. D047 identified the general form of that failure — **two ranges for
 one quantity will always let prose land in the wrong place** — after it put the
 paper's only falsifiable prediction out by fivefold. A second copy of the
-numbers is that fault with more steps, so this file no longer keeps one.
+numbers is that fault with more steps, so this file no longer keeps one. The
+caveats below are the exception, and the reason is given there: they are
+answers, not results, and they have no generator.
 
 The Phase 0 to Phase 2 record, including its stale figures, is preserved
 verbatim in `STATUS_PHASE0_TO_2.md`. Read it as history, not as a source.
@@ -42,9 +45,36 @@ python -m unittest discover -s tests -p 'test_*.py'
 The subdirectories are not packages, so `-t .` fails on them; run each with
 `-s` as above.
 
+## Pinned caveats
+
+These are kept here, and not moved to the history file, because they are answers
+a later session must meet in writing rather than re-derive. Tests assert them.
+
+**Bistability under division.** A bistable window was found at one parameter point,
+not surveyed.
+
+**That parameter point is unphysical, in a specific and measured way.** It uses
+constant dilution (`k_mu = inf`), under which growth rate cannot respond to
+burden, so the same regime predicts **exactly zero** growth-rate loss at any
+aggregate load. That contradicts the one dosage-resolved measurement the project
+holds (D015: 3.2 % loss at <0.1 % misfolded) and the observation the first
+post-diction tried to explain (D026/D028: a 1.2–1.8 % aggregate-attributable
+growth deficit — not the ">30 %" an earlier reading of that abstract took it to
+be). The regime that produces the bistability is the same regime that gets the
+measured quantity wrong. Under the physiological laws it does not survive as
+stated — linear arrest gives no bounded high-burden state, hyperbolic feedback
+is monostable in four of six settings.
+Pinned by test so it cannot be edited away.
+
+**The per-network spread of `phi` is not bounded.** The nested design
+was not sized to bound the per-network spread, and the stated position is that
+we cannot bound it. Any figure quoted for it is a largest-observed value over
+ten draws and understates its population (D038). A referee pushing on it should
+meet this sentence, not a number invented on the spot.
+
 ## Supersession
 
-Phases A through C (D045–D068) rebuilt the theorem layer and re-derived every
+Phases A through C (D045–D071) rebuilt the theorem layer and re-derived every
 quantity the manuscript reports. Where an earlier decision, note or status
 entry disagrees with the manuscript, the manuscript and the generating script
 are correct and the earlier text is superseded. In particular:

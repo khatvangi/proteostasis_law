@@ -2865,3 +2865,93 @@ recreate the fault D047 named — two ranges for one quantity will always let
 prose land in the wrong place. It is now a navigation file carrying no numbers,
 with the supersession list; the old text is preserved verbatim as
 `STATUS_PHASE0_TO_2.md` and marked history.
+
+## D070 — the submission gate
+
+A seven-point read-not-run pass over the assembled paper. The gate was specified
+in the fourth review round and never written to disk, so it is reconstructed
+here and recorded, which is what should have happened the first time.
+
+**What was read as rendered**, not as markdown: pages 1, 4, 7, 9, 11, 17, 19,
+22, 25, 26, 28 and 30 — the title and abstract, every page carrying a change
+from this pass, Table 3 and Table 4 with their captions, both new display
+equations, and the reference list. The remaining pages were checked
+mechanically rather than read, and that distinction is stated rather than
+blurred.
+
+**What passed.**
+
+- Citations: every author-year cited in the body appears among the 41 reference
+  entries; none cited-but-not-listed.
+- Retracted claims: nine patterns searched — the identity requiring (H1b), the
+  centre-manifold identification, "all four contributions carry the same sign",
+  the Section 8.3 inversion, "burden runs away", the "constrained maximum"
+  gloss, the two 20-state subsample residuals, and the old `G_u` floor. All
+  absent.
+- Figures: seven files present, every one cited and captioned.
+- Metadata: `.zenodo.json` and `CITATION.cff` agree on version and title; both
+  READMEs name `MANUSCRIPT_BMB_v5.md`.
+- Rendered text of both PDFs: no unresolved placeholder, broken reference,
+  stray markdown, doubled word, or literal LaTeX command.
+
+**Four defects found, none of them a number.**
+
+1. **Tables 3 and 4 were never cited by number.** Each appeared only as its own
+   caption. A table a journal typesets as a float must be referenced from the
+   text or it can move away from the sentence it supports.
+2. **Section 3.2 read "Four conditions suffice:" above a list of three.** True
+   of the classical statement and false of the list beneath it, and now
+   inconsistent with an abstract that says three plus a consequence. Corrected
+   to three; the paragraph below already explains the classical fourth and why
+   it is not independent here.
+3. **Section 6 used "aggregation runaway"** while Section 7 states the word is
+   avoided, and for a reason — escape to a stable cycle reaches the same
+   threshold as divergence. The mechanism there is superlinear nucleation, so it
+   is named that.
+4. **A figures test pinned a token that R9 deleted.** It asserted the literal
+   "0.227 to 0.965", which was the three-decimal half of a range the caption
+   printed twice. Removing the duplicate broke it. It now asserts the range the
+   generator computes, at the precision the caption prints, and asserts it
+   appears exactly ONCE — so the next duplicate fails rather than passes. That
+   is two token-pinned tests corrected in this pass, after R5's.
+
+**Not done here, and deliberately.** Posting to bioRxiv, cutting the Zenodo
+release, and submitting through Editorial Manager are outward-facing acts for
+the author. `SUBMISSION.md` lists them with the files and metadata each needs.
+No reviewers are suggested: naming real people is the author's call.
+
+## D071 — STATUS.md is a limitation document, and emptying it was a regression
+
+The D069 cleanup replaced `STATUS.md` with a numberless navigation file. Three
+phase-3 tests failed: two in `test_decision_caveats` and one in
+`test_limitation_forms`. They were right.
+
+`STATUS.md` is listed in `_LIMITATION_DOCS`. It was not only a status page; it
+carried caveats that a later session is required to MEET IN WRITING rather than
+re-derive, and one of them ends with the sentence **"Pinned by test so it cannot
+be edited away."** It was pinned precisely against what this pass did to it.
+
+Two caveats were restored verbatim:
+
+- the bistable window was found at one parameter point, not surveyed, and that
+  point is unphysical in a measured way — constant dilution predicts exactly
+  zero growth-rate loss, contradicting D015 and D026/D028, so the regime that
+  produces the bistability is the same regime that gets the measured quantity
+  wrong;
+- the nested design was not sized to bound the per-network spread of `phi`, and
+  the stated position is that we cannot bound it.
+
+**The distinction the cleanup missed.** "No second copy of the numbers" is a
+rule about RESULTS, which the manuscript owns and a generator recomputes.
+Caveats are not results. They are answers, they have no generator, and deleting
+one does not make the paper cleaner — it makes the next session invent a worse
+one under referee pressure. D047's lesson (two ranges for one quantity) and
+D040's lesson (a limitation must stay written down) point in opposite
+directions, and this pass applied the first to material governed by the second.
+
+**A detail worth keeping.** The restored text had to match the tests' exact line
+wrapping — `"found at one parameter point,\nnot surveyed."` and `"not sized to
+bound"` unbroken. Assertions against hard-wrapped prose are brittle in a way
+that is invisible until a rewrite, and that brittleness is the cost of pinning a
+sentence rather than a property. It is accepted here: for a caveat, the sentence
+IS the property.
