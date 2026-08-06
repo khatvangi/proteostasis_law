@@ -17,5 +17,5 @@
     "mathematical biology"
   ],
   "description": "Derivation, verification and numerical study of the fold condition of a finite-resource proteostasis clearance network. Accompanies the manuscript of the same name. Every reported number is recomputable from the tracked scripts; see DECISIONS.md for the decision log and notes/POSTDICTION_PROTOCOL.md for the empirical-contact protocol.",
-  "version": "1.2.0"
+  "version": "2.0.0"
 }

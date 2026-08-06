@@ -3002,3 +3002,48 @@ both metadata files together, publish a Release rather than a tag, re-resolve th
 concept DOI and READ it, then bioRxiv, then Editorial Manager. The cover letter's
 preprint sentence asserts a deposit that does not exist yet and must follow step
 5, not precede it.
+
+## D073 — 2.0.0 cut and pushed; the Release is blocked on a webhook that is gone
+
+Acting on D072. Version chosen as **2.0.0**: Phases A through C changed theorem
+hypotheses, reduced the genericity list from four conditions to three,
+generalised Corollary 2 through the mass vector, reversed the expectation on
+Hopf criticality, and retracted claims the v1.x code supports. A reader holding
+v1.x and expecting continuity would be misled, which is what a major bump is
+for, and it separates the "collapse boundary" lineage from the "fold condition"
+lineage in the version list.
+
+**1.2.0 was not available.** The tag points at `0550f6ff`, which predates Phase
+A. A Release cut from it would archive a tree OLDER than the one Zenodo already
+holds, under the wrong title, and moving the tag to reuse the number is the
+lineage split this repository has produced three times.
+
+**The tag is on `da0a74e`, not `1ccbc64`.** The instruction named `1ccbc64`, but
+that tree still declares `"version": "1.2.0"`; Zenodo reads `.zenodo.json` from
+the archived tree, so depositing it would have relabelled the release 1.2.0 and
+reintroduced the defect being fixed. `da0a74e` is the first commit whose
+metadata reads 2.0.0. Verified by reading both trees before tagging.
+
+Master and tag are pushed; the remote is at `da0a74e` and `v2.0.0^{}` resolves
+to it.
+
+**The Release was NOT published, and that is the finding.**
+`GET /repos/.../hooks` returns `[]` — the Zenodo GitHub integration is off. The
+only Release that exists is `v1.1.0`, the deposit `21798343`. Zenodo archives
+releases published AFTER a repository is enabled and does not reach back for
+earlier ones, so publishing `v2.0.0` against a dead webhook would mint nothing
+and consume the version number, leaving the concept DOI still resolving to the
+superseded record. Enabling the integration is an authenticated action on
+zenodo.org and cannot be done from here.
+
+**A consequence worth stating before it bites.** If re-enabling mints a NEW
+concept DOI rather than continuing `10.5281/zenodo.21794565`, then the DOI
+printed in the manuscript is the wrong one, and the availability sentence has to
+be corrected and the PDF rebuilt BEFORE submission. That is why reading the
+resolved record precedes bioRxiv rather than following it.
+
+**The general form, which is permanent.** Every test in this repository verifies
+local state. Nothing verifies the deposit, the remote, or any other external
+artifact, and nothing can, because those are network acts. `test_canonical_file`
+checks the file that describes the deposit and is blind to the deposit itself.
+This is a manual gate item forever, not a test waiting to be written.
