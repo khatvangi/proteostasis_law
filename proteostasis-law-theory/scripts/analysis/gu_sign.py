@@ -53,9 +53,16 @@ def signsAt(u: float, a: float, p: M.Params) -> dict | None:
         return None
 
     G_uf = p.alpha_n * p.m * (uf ** (p.m - 1.0)) + p.alpha_g * af
-    G_af = (p.alpha_g * uf
-            - p.alpha_d * cf * p.kappa_dis / (p.kappa_dis + af) ** 2
-            - p.rho_A * df * p.kappa_a / (p.kappa_a + af) ** 2)
+    # the three terms of G_af, kept apart. Section 7 describes the oscillatory
+    # region as sharply saturating clearance against growth-dominated
+    # aggregation, which is a claim about WHICH of these dominates -- and the
+    # ensemble ratios alone do not settle it, since rho_A is 7.5x HIGHER there
+    # while kappa_a is 11.7x lower and the two enter the clearance term as a
+    # product. Measured, not inferred.
+    t_growth = p.alpha_g * uf
+    t_disagg = -p.alpha_d * cf * p.kappa_dis / (p.kappa_dis + af) ** 2
+    t_clear = -p.rho_A * df * p.kappa_a / (p.kappa_a + af) ** 2
+    G_af = t_growth + t_disagg + t_clear
     G_cf = -p.alpha_d * af / (p.kappa_dis + af)
     G_df = -p.rho_A * af / (p.kappa_a + af)
 
@@ -78,6 +85,8 @@ def signsAt(u: float, a: float, p: M.Params) -> dict | None:
     return {
         "u": u, "a": a, "uf": uf, "af": af,
         "G_af": float(G_af), "G_u": float(Gu),
+        "t_growth": float(t_growth), "t_disagg": float(t_disagg),
+        "t_clear": float(t_clear),
         "p_uf": float(G_uf * duf), "p_af": float(G_af * daf),
         "p_cf": float(G_cf * dcf), "p_df": float(G_df * ddf),
         "duf_du": float(duf), "daf_du": float(daf),
@@ -167,6 +176,18 @@ def run(workers: int | None = None) -> dict:
             if len(sub):
                 out.setdefault("frac_G_af_negative_by_group", {})[g] = \
                     float((sub["G_af"] < 0.0).mean())
+                # which term carries the sign: the two negative ones are
+                # compared against the one positive one on its own scale
+                s = sub["t_growth"].abs().clip(lower=1e-300)
+                out.setdefault("G_af_terms_by_group", {})[g] = {
+                    "n": int(len(sub)),
+                    "disagg_over_growth_median": float(
+                        (sub["t_disagg"].abs() / s).median()),
+                    "clear_over_growth_median": float(
+                        (sub["t_clear"].abs() / s).median()),
+                    "n_clear_is_larger_negative": int(
+                        (sub["t_clear"].abs() > sub["t_disagg"].abs()).sum()),
+                }
     except FileNotFoundError:
         out["overlap_with_section7"] = "hopf_zero_counts.tsv absent"
     return out

@@ -39,5 +39,25 @@
     "terminal": 0.13114754098360656,
     "window": 0.06382978723404255,
     "non_crossing": 0.7472734110567882
+  },
+  "G_af_terms_by_group": {
+    "terminal": {
+      "n": 61,
+      "disagg_over_growth_median": 0.011533260143345443,
+      "clear_over_growth_median": 0.34411090100154695,
+      "n_clear_is_larger_negative": 54
+    },
+    "window": {
+      "n": 47,
+      "disagg_over_growth_median": 0.005475053634521104,
+      "clear_over_growth_median": 0.06703876702524282,
+      "n_clear_is_larger_negative": 39
+    },
+    "non_crossing": {
+      "n": 2659,
+      "disagg_over_growth_median": 0.7586459413845468,
+      "clear_over_growth_median": 0.7094030113257965,
+      "n_clear_is_larger_negative": 1489
+    }
   }
 }

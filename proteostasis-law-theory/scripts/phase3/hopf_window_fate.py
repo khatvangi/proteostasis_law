@@ -9,12 +9,13 @@ equilibrium regaining it. Nothing computed so far looks inside the band.
 
 THE TEST. For each resolved window network, take influx values spanning
 `[j_H1, j_H2]`, locate the branch equilibrium at each, perturb it, and integrate
-the full nonlinear system long enough to see what the trajectory does. Classify
-by the envelope of the late trajectory:
+the full nonlinear system until the envelope SATURATES. Classify by that
+envelope:
 
-    cycle      bounded oscillation with a non-growing envelope
-    fixed      settles to a point (which may or may not be where it started)
-    divergent  envelope still growing at the horizon, or leaves the orthant
+    cycle      the envelope stops changing between blocks
+    fixed      collapses to a point (same equilibrium, or a different one)
+    divergent  the envelope grows without bound, or the state leaves the orthant
+    not_converged  neither, inside the block budget -- reported, not classified
 
 A window spanned by one cycle gives `cycle` at every interior influx. Anything
 else is a finding, and the point of running it is that both outcomes are
@@ -25,6 +26,19 @@ WHY THE ENVELOPE AND NOT THE ESCAPE FLAG. `hopf_check.integrationTest` stops at
 as a divergence does (decision D058). This integration deliberately has NO
 terminal event: it runs past that point, because the question is where the
 trajectory ends up, not whether it left.
+
+WHY STAGED, AND NOT ONE LONG SOLVE. The first version integrated once to
+`min(60/sigma, 5e4)`. The cap bound 42 of 266 points, INCLUDING every point it
+then called divergent, and the worst of them saw 3.1 e-folds of a requested 60.
+`growth = e_late/e_mid > 3` cannot separate a slow spiral still on its way out
+from a genuine divergence when the run stopped at a fifth of the horizon it asked
+for -- and the truncation was worst exactly where the physics is slowest, at the
+smallest `max(tr J)`, which is the closest approach to Hopf-pair annihilation and
+the most interesting network in the set. Blocks fix both halves: the run
+continues from the previous final state until the envelope stops moving, and each
+block carries its own `t_eval` so 40 samples per period is held whatever the
+total elapsed time. Non-convergence inside the budget is now its own outcome
+rather than being absorbed into `divergent`.
 """
 
 from __future__ import annotations
@@ -53,7 +67,24 @@ COMPUTED = REPO_ROOT / "data" / "computed"
 OUT = COMPUTED / "hopf_window_fate.json"
 OUT_TSV = COMPUTED / "hopf_window_fate.tsv"
 
-T_CAP = 5.0e4
+PERIODS_PER_BLOCK = 100.0   # samples/period is held at 4000/100 = 40
+EFOLDS_PER_BLOCK_MAX = 200.0  # a runaway guard only -- see below
+EFOLDS_NO_OSC = 20.0        # block length when there is no oscillation to count
+EFOLDS_TARGET = 120.0       # twice the 60 the single-solve version asked for
+N_BLOCKS_MIN, N_BLOCKS_MAX = 8, 240
+SETTLE_TOL = 0.02           # envelope change between blocks, twice running
+AMP_FLOOR = 1e-8            # below this the envelope is a fixed point
+AMP_CEIL = 1e6              # above this it is a divergence
+
+# WHY THE E-FOLD GUARD IS LOOSE. At 40 e-folds it bound the block length
+# wherever `sigma/omega` was large, cutting the block to a median of 14
+# oscillations -- and an envelope measured over a non-integer number of periods
+# moves between blocks on phase alone. 110 of 266 points then failed a 1% settle
+# test while carrying a SMALLER period dispersion than the points that passed
+# (median cv 1.5e-3 against 8.1e-3), which is a settled orbit being called
+# unsettled. The guard is now far enough out to be inactive in practice;
+# divergence is caught inside the block by the orthant and finiteness checks,
+# which is where it should have been caught in the first place.
 
 
 def equilibriumAtInflux(p: M.Params, j: float, u0: float, a0: float):
@@ -78,9 +109,37 @@ def equilibriumAtInflux(p: M.Params, j: float, u0: float, a0: float):
     return u, a
 
 
+def _envelope(U, A):
+    """peak-to-peak of each coordinate relative to its own mean, whichever larger."""
+    du = (U.max() - U.min()) / max(abs(U.mean()), 1e-300)
+    da = (A.max() - A.min()) / max(abs(A.mean()), 1e-300)
+    return float(max(du, da))
+
+
+def _peaks(A):
+    return np.nonzero((A[1:-1] > A[:-2]) & (A[1:-1] >= A[2:]))[0] + 1
+
+
+def _envelopeSnapped(U, A):
+    """the envelope of the late trajectory over WHOLE oscillations.
+
+    Anchoring both ends on a maximum of `a` makes the window an integer number
+    of periods, so the block-to-block comparison measures amplitude and not the
+    phase the block happened to end on. Falls back to the plain second half when
+    there are too few peaks to snap to.
+    """
+    h0 = len(A) // 2
+    pk = _peaks(A)
+    pk = pk[pk >= h0]
+    if pk.size >= 3:
+        i, jx = int(pk[0]), int(pk[-1])
+        return _envelope(U[i:jx + 1], A[i:jx + 1]), i, jx
+    return _envelope(U[h0:], A[h0:]), h0, len(A) - 1
+
+
 def fateAt(p: M.Params, j: float, u_eq: float, a_eq: float,
            rel: float = 1e-6) -> dict | None:
-    """integrate past escape and classify the trajectory by its late envelope."""
+    """integrate in blocks until the envelope saturates, then classify it."""
     q = p.with_(j=float(j)).validate()
     try:
         J = M.jacobian(u_eq, a_eq, q)
@@ -90,12 +149,16 @@ def fateAt(p: M.Params, j: float, u_eq: float, a_eq: float,
     sigma = float(np.max(ev.real))
     omega = float(np.max(np.abs(ev.imag)))
     scale = max(abs(u_eq), abs(a_eq), 1e-300)
+    s_abs = max(abs(sigma), 1e-12)
 
-    # long enough to grow AND to settle: many e-folds and many periods
-    t_want = 60.0 / max(abs(sigma), 1e-12)
+    # one block: 100 oscillations, so the envelope always spans whole periods
     if omega > 1e-12:
-        t_want = max(t_want, 200.0 * 2.0 * np.pi / omega)
-    t_end = float(min(t_want, T_CAP))
+        t_blk = float(min(PERIODS_PER_BLOCK * 2.0 * np.pi / omega,
+                          EFOLDS_PER_BLOCK_MAX / s_abs))
+    else:
+        t_blk = float(EFOLDS_NO_OSC / s_abs)
+    n_blocks = int(np.ceil(EFOLDS_TARGET / s_abs / t_blk))
+    n_blocks = int(np.clip(n_blocks, N_BLOCKS_MIN, N_BLOCKS_MAX))
 
     def f(t, x):
         if x[0] <= 0.0 or x[1] <= 0.0 or not np.all(np.isfinite(x)):
@@ -105,48 +168,75 @@ def fateAt(p: M.Params, j: float, u_eq: float, a_eq: float,
         except (M.ModelError, OverflowError, ValueError):
             return np.zeros(2)
 
-    x0 = [u_eq * (1.0 + rel), a_eq * (1.0 + rel)]
-    try:
-        sol = solve_ivp(f, (0.0, t_end), x0, method="LSODA", rtol=1e-10,
-                        atol=1e-14 * scale, dense_output=False,
-                        t_eval=np.linspace(0.0, t_end, 4000))
-    except Exception:
+    x = np.array([u_eq * (1.0 + rel), a_eq * (1.0 + rel)], float)
+    envs, t_total, fate, last = [], 0.0, None, None
+    n_settled = 0
+
+    for _ in range(n_blocks):
+        try:
+            sol = solve_ivp(f, (0.0, t_blk), x, method="LSODA", rtol=1e-10,
+                            atol=1e-14 * scale, dense_output=False,
+                            t_eval=np.linspace(0.0, t_blk, 4000))
+        except Exception:
+            return None
+        if not sol.success or sol.y.shape[1] < 100:
+            return None
+        U, A, T = sol.y[0], sol.y[1], sol.t
+        t_total += t_blk
+
+        if not (np.all(np.isfinite(U)) and np.all(np.isfinite(A))):
+            fate, last = "divergent", (U, A, T)
+            break
+        if U.min() <= 0.0 or A.min() <= 0.0:
+            fate, last = "divergent", (U, A, T)
+            break
+
+        # the envelope of the SECOND half of the block, snapped to whole
+        # oscillations: the first half still carries the hand-off transient from
+        # the previous block's final state
+        e, i0, i1 = _envelopeSnapped(U, A)
+        h = slice(i0, i1 + 1)
+        envs.append(e)
+        x = np.array([U[-1], A[-1]], float)
+        last = (U, A, T)
+
+        if e > AMP_CEIL:
+            fate = "divergent"
+            break
+        if e < AMP_FLOOR:
+            d0 = float(np.hypot(U[-1] - u_eq, A[-1] - a_eq)) / scale
+            fate = "fixed_same" if d0 < 1e-4 else "fixed_other"
+            break
+        if len(envs) >= 2:
+            prev = envs[-2]
+            if abs(e - prev) / max(e, prev, 1e-300) < SETTLE_TOL:
+                n_settled += 1
+                if n_settled >= 2:      # two consecutive quiet blocks
+                    fate = "cycle"
+                    break
+            else:
+                n_settled = 0
+
+    if fate is None:
+        fate = "not_converged"
+    if last is None:
         return None
-    if not sol.success or sol.y.shape[1] < 100:
-        return None
 
-    U, A, T = sol.y[0], sol.y[1], sol.t
-    if not np.all(np.isfinite(U)) or not np.all(np.isfinite(A)):
-        return {"fate": "divergent", "reason": "nonfinite", "sigma": sigma,
-                "omega": omega, "j": j}
+    U, A, T = last
+    e_last, i0, i1 = _envelopeSnapped(U, A)
+    h = slice(i0, i1 + 1)
+    e_late = envs[-1] if envs else e_last
+    e_mid = envs[-2] if len(envs) >= 2 else float("nan")
+    growth = float(e_late / e_mid) if len(envs) >= 2 else float("nan")
+    first = slice(0, len(T) // 2)
+    drift = (abs(U[h].mean() - U[first].mean())
+             / max(abs(U[first].mean()), 1e-300))
 
-    n = len(T)
-    late = slice(int(0.60 * n), n)
-    mid = slice(int(0.30 * n), int(0.60 * n))
-
-    def envelope(sl):
-        uu, aa = U[sl], A[sl]
-        du = (uu.max() - uu.min()) / max(abs(uu.mean()), 1e-300)
-        da = (aa.max() - aa.min()) / max(abs(aa.mean()), 1e-300)
-        return max(du, da)
-
-    e_late, e_mid = envelope(late), envelope(mid)
-    growth = e_late / max(e_mid, 1e-300)
-    drift = abs(U[late].mean() - U[mid].mean()) / max(abs(U[mid].mean()), 1e-300)
-
-    if e_late < 1e-8:
-        d0 = float(np.hypot(U[-1] - u_eq, A[-1] - a_eq)) / scale
-        fate = "fixed_same" if d0 < 1e-4 else "fixed_other"
-    elif growth > 3.0 or (growth > 1.2 and drift > 0.1):
-        fate = "divergent"
-    else:
-        fate = "cycle"
-
-    # periodicity: successive maxima of a(t) in the late window. a settled cycle
+    # periodicity: successive maxima of a(t) in the final block. a settled cycle
     # has both a stable period and a stable peak height; a slow transient has
     # neither, and the escape flag cannot tell them apart (D058).
-    aa, tt = A[late], T[late]
-    pk = np.nonzero((aa[1:-1] > aa[:-2]) & (aa[1:-1] >= aa[2:]))[0] + 1
+    aa, tt = A[h], T[h]
+    pk = _peaks(aa)
     period = period_cv = peak_cv = np.nan
     n_peaks = int(pk.size)
     if n_peaks >= 4:
@@ -160,15 +250,21 @@ def fateAt(p: M.Params, j: float, u_eq: float, a_eq: float,
     return {
         "fate": fate, "j": float(j), "sigma": sigma, "omega": omega,
         "amp_late": float(e_late), "amp_mid": float(e_mid),
-        "growth": float(growth), "drift": float(drift),
-        "u_eq": u_eq, "a_eq": a_eq, "t_end": t_end,
-        "u_min": float(U[late].min()), "u_max": float(U[late].max()),
+        "growth": growth, "drift": float(drift),
+        "u_eq": u_eq, "a_eq": a_eq,
+        # the horizon is now reported, because the version that hid it inside a
+        # constant classified 42 truncated points as if they had converged
+        "t_end": float(t_total), "n_blocks_run": int(len(envs)),
+        "n_blocks_budget": int(n_blocks), "t_block": float(t_blk),
+        "efolds": float(t_total * s_abs),
+        "converged": bool(fate != "not_converged"),
+        "u_min": float(U[h].min()), "u_max": float(U[h].max()),
         # section 9's observable, computed rather than predicted: does the mean
         # burden over the cycle stay near the equilibrium while the amplitude
         # grows, or does the cycle sit at a higher mean burden?
-        "a_amp_rel": float((A[late].max() - A[late].min()) / max(a_eq, 1e-300)),
-        "a_mean_over_eq": float(A[late].mean() / max(a_eq, 1e-300)),
-        "u_mean_over_eq": float(U[late].mean() / max(u_eq, 1e-300)),
+        "a_amp_rel": float((A[h].max() - A[h].min()) / max(a_eq, 1e-300)),
+        "a_mean_over_eq": float(A[h].mean() / max(a_eq, 1e-300)),
+        "u_mean_over_eq": float(U[h].mean() / max(u_eq, 1e-300)),
         "n_peaks": n_peaks, "period": period, "period_cv": period_cv,
         "peak_cv": peak_cv, "period_predicted": period_pred,
     }
@@ -269,7 +365,8 @@ def run(workers: int | None = None, max_networks: int | None = None) -> dict:
 
         The first run called a network "no_cycle" when every point failed to
         yield an equilibrium, which reported a method failure as a result about
-        the model. Not-evaluable is now its own verdict and is counted.
+        the model. Not-evaluable is now its own verdict and is counted, and so
+        is a point whose envelope had not settled inside the block budget.
         """
         e = s[s.isin(_EVAL)]
         if e.empty:
@@ -292,7 +389,14 @@ def run(workers: int | None = None, max_networks: int | None = None) -> dict:
         "points_per_network_evaluable_median": float(
             D[D["fate"].isin(_EVAL)].groupby("name").size().median()),
     }
-    ev = D[D["fate"].isin(["cycle", "divergent", "fixed_same", "fixed_other"])]
+    if "converged" in D.columns:
+        out["n_not_converged"] = int((D["fate"] == "not_converged").sum())
+        fin = D[D["efolds"].notna()]
+        out["efolds_min"] = float(fin["efolds"].min())
+        out["efolds_median"] = float(fin["efolds"].median())
+        out["n_at_block_budget"] = int(
+            (fin["n_blocks_run"] >= fin["n_blocks_budget"]).sum())
+    ev = D[D["fate"].isin(_EVAL)]
     if not ev.empty:
         out["frac_cycle_over_evaluable"] = float((ev["fate"] == "cycle").mean())
         out["n_evaluable"] = int(len(ev))
