@@ -2955,3 +2955,50 @@ bound"` unbroken. Assertions against hard-wrapped prose are brittle in a way
 that is invisible until a rewrite, and that brittleness is the cost of pinning a
 sentence rather than a property. It is accepted here: for a caveat, the sentence
 IS the property.
+
+## D072 — the availability statement resolves to the superseded paper
+
+The last pre-submission check was to read the rendered availability section and
+confirm it carries a minted DOI and a real repository URL rather than a token
+waiting to be filled. It does, on both counts, and a placeholder scan across the
+PDF, the LaTeX, the markdown, `.zenodo.json`, `CITATION.cff` and the cover letter
+came back completely clean.
+
+**Resolving them is a different test, and it fails.**
+
+- `10.5281/zenodo.21794565` is a real concept DOI and resolves to a record
+  titled *"An Exact Collapse Threshold for Conserved-Resource Models of Protein
+  Quality Control: analysis code"*, described as the "collapse boundary", version
+  v2, archiving GitHub tag `v1.0.0` (`db22ba8`, the bmb_v4 era).
+- `github.com/khatvangi/proteostasis-law-theory` is public and MIT, at
+  `aa97b09` — five commits behind local, README still naming `bmb_v4.md`
+  canonical.
+
+The title, the model class and the central object are all ones this manuscript
+supersedes, and the archived code predates Phases A through C, so it cannot
+recompute any number the paper now reports. A referee following the DOI would
+land on the previous paper.
+
+**Why the guard did not catch it.** `test_canonical_file` asserts that
+`.zenodo.json` contains "Fold Condition" and does not contain "collapse
+boundary". Both hold — the LOCAL metadata is correct and always has been. The
+test verifies the file that DESCRIBES the deposit, never the deposit. That is
+the same shape as "never verify against a serialised summary", one level out:
+never verify an artifact against the file that declares its intent.
+
+**Why the deposit never moved.** Tags `v1.0.0`, `v1.1.0` and `v1.2.0` all exist
+on the remote, but no GitHub *Release* does. Zenodo mints on a Release, not on a
+tag, so it has sat on the record it made from `v1.0.0` while three tags went past
+it. The corrected metadata is already in `.zenodo.json` and will be applied the
+moment a Release is cut; nothing needs rewriting.
+
+**The manuscript prose is right and stays.** "Concept DOI, resolving to the
+latest version" is true, and it will be true of the correct record once the
+release exists. The defect is in the deposit, not in the sentence, so the fix is
+process and not prose.
+
+**Ordering, now explicit in `SUBMISSION.md`.** Push, choose the version and bump
+both metadata files together, publish a Release rather than a tag, re-resolve the
+concept DOI and READ it, then bioRxiv, then Editorial Manager. The cover letter's
+preprint sentence asserts a deposit that does not exist yet and must follow step
+5, not precede it.
