@@ -3181,3 +3181,28 @@ figure, checksums every shipped artifact against its source, and with
 `--compile` builds `latex_source` in a scratch tree with no access to the
 repository and asserts the page counts match the shipped PDFs. A stale copy now
 fails the build instead of shipping.
+
+## D076 — Brennan et al. is 2024, and the two dates are both real
+
+The reference read 2023 with volume 84(3). Volume 84 of *SIAM J Appl Math* is
+the 2024 volume, and the secondary sources disagree: an institutional repository
+and one author's publication list say 2023, another author's list says 2024.
+SIAM's own site refuses automated access.
+
+Crossref settles it, because it stores the two dates separately:
+
+| field | value |
+|---|---|
+| `published-online` | 2023-07-17 |
+| `published-print` | **2024-06-30** |
+| `journal-issue` | issue 3, `published-print` 2024 |
+
+Both dates are correct and they describe different things. 2023 is the
+online-first posting, which is what the repository and the 2023-listing author
+recorded; the version of record is volume 84, issue 3, **2024**. The reference
+and the single in-text citation now read 2024.
+
+The general form: an author-year citation names the version of record, so a
+volume number and a year that disagree are a signal to check `published-print`
+rather than `issued`. `issued` on this record is the online date, and taking it
+at face value is what produced the error in the first place.
