@@ -3047,3 +3047,87 @@ local state. Nothing verifies the deposit, the remote, or any other external
 artifact, and nothing can, because those are network acts. `test_canonical_file`
 checks the file that describes the deposit and is blind to the deposit itself.
 This is a manual gate item forever, not a test waiting to be written.
+
+## D074 — the merged review pass: 22 items, three of which needed data
+
+An external read of the assembled PDF and the shipped sources. Everything below
+is fixed; the three that required recomputation are recorded first because each
+changed a number.
+
+**The crossing census did not close (61 + 40 + 38 = 139 against 146).** "40" was
+never a position count. Over the 38 windows whose two crossings both resolve,
+index 0 is the LOWER influx in all 38, and `d(tr J)/dj` is positive there and
+negative at the upper crossing in all 38 — the geometry holds exactly. The seven
+negatives sit in the NINE unresolved window branches, which contribute one
+crossing each and split 2 positive / 7 negative, consistent with a trace that
+caught the closing crossing without its partner. The groups are 61, 76 and 9.
+"As the geometry requires" had been glossing nine cases it does not cover.
+
+**The ceiling-factor contrast was not like-for-like.** Section 6 read "`φ` reads
+0.0806 and the ceiling factor thirteenfold rather than twelvefold", and
+1/0.0806 = 12.4. Recomputed: over the same 2767 networks the recorded states give
+0.0803 against the re-solved 0.0825, so the factor is twelvefold either way and
+the evaluation point moves the median by 2.7%. Thirteenfold comes from all 2884
+recorded states (median 0.0769) — the excluded tail, not the evaluation point.
+Both are now stated with their populations and the contrast is retired.
+
+**"7 of 153 ordinary folds" had an undefined denominator.** 153 is
+`neg[::18]`, a systematic every-eighteenth control block drawn from the 2739
+collapse-oriented networks. So 7/153 is a RATE ESTIMATE of 4.6%, not a count of
+ordinary folds, and it now says so. The same shape appears at Section 7's 205
+non-crossing controls, which are `ctrl[::13]` of 2658 traces; that rule is now
+stated too. Two systematic subsamples were being read as populations.
+
+**Blocking, on the package rather than the science.** `latex_source` did not
+compile: the `.tex` calls `../figures/fig1.pdf` while the folder held
+`Figure1.pdf`, and `sn-jnl.cls` sat in a subdirectory rather than beside the
+`.tex`. The shipped PDFs had been built from a different tree, which is the
+lineage split again, in the submission package. Rebuilt to mirror the repository
+layout and VERIFIED by compiling a copy in isolation with no access to the repo:
+31 and 2 pages, matching the shipped PDFs, no missing files.
+
+**The abstract was 356 words against BMB's 150-250.** Cut to 246 by removing the
+dilution decomposition and the square-root ceiling, both of which the body
+carries, and the "Michaelis factors of 5 to 18%" clause — which also removes the
+utilisation/Michaelis conflation rather than merely qualifying it.
+
+**No Statements and Declarations section.** BMB returns submissions without one.
+Added, with competing interests, funding, ethics and author contributions, and
+data/code availability moved under it. The competing-interests declaration had
+existed only in the cover letter.
+
+**Section headings lost their emphasis.** Heading text is emitted as raw LaTeX
+BEFORE pandoc runs, so `*E. coli*` printed with literal asterisks in roman type,
+in a section title. Headings now get their own inline-markup pass.
+
+**Citations, all verified against Crossref rather than inferred.** Cotton et al.
+is no longer a preprint: J Chem Phys 164(7):075101, doi:10.1063/5.0312752, and
+the year moves 2025 -> 2026 in three in-text places. Antoneli et al. (2025) has
+appeared: Math Biosci 384:109435, doi:10.1016/j.mbs.2025.109435. Lin, Antoneli &
+Wang (2026) Bull Math Biol 88(7):113 and Jin & Rempala (2026) J Math Biol
+92(3):35 both confirmed real with correct authorship.
+
+**Smaller.** (G1)-(G4) corrected to (G1)-(G3) in Section 9. Section 10 now
+carries the closure-dependence Section 4.4 claims it does. The four denominators
+are fixed once in Section 5 with what each is the population FOR. The Section 1
+roadmap runs to Section 10 and names 8.3 as the falsifiable prediction, which
+Section 9 now carries. The ORCID moved out of `\equalcont`, whose dagger reads
+as an equal-contribution marker on a sole-author paper, into the affiliation
+line. The duplicated Fig. S2 range was already removed at R9.
+
+**Two declined, with reasons.** Tables are floats but their captions are run-in
+paragraphs, so they are not `\caption`-numbered; fixing it means restructuring
+table emission, production re-typesets tables, and every "Table N" in the prose
+is currently correct. And the space before each comma in the MSC line is
+`sn-jnl`'s own list formatting, not present in our source — the publisher's
+macro, left to the publisher.
+
+**Addendum — the guard for that denominator pinned the token.**
+`test_hopf_and_orientation` asserted the literal `"7 of 153"`. It passed for as
+long as 153 was undefined anywhere in the paper, because the string was present
+and the reader's question — 153 of what — is not a string. It now asserts the
+control arm from `fold_orientation.tsv` (153 rows, 7 with both orientations),
+requires the section to name the 2739 it was drawn from and to call it a control
+block, and requires the 7 to be given as a rate. Fourth token-pinned test
+corrected in this sequence, after R5's label, Fig. S2's range and STATUS.md's
+wrapping.

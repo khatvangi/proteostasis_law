@@ -157,10 +157,22 @@ class TestFoldOrientation(unittest.TestCase):
                          "a birth-oriented fold with no collapse point above it "
                          "would be a counterexample, not a hysteresis loop")
         self.assertEqual(int((pos["j_at_min"] < pos["j_at_max"]).sum()), 26)
+        # the control arm: 153 is NOT a population. It is `neg[::18]`, every
+        # eighteenth of the 2739 collapse-oriented networks, so 7 of them is a
+        # rate estimate and not a count of ordinary folds. This check pinned the
+        # bare token "7 of 153" and so kept passing while the denominator was
+        # undefined anywhere in the paper -- the reader had no way to know which
+        # of 2739, 2765 or 179 it came from.
+        ctl = R[(R["group"] == "d2R<0") & (R["ok"] == True)]  # noqa: E712
+        self.assertEqual(len(ctl), 153)
+        self.assertEqual(int(ctl["has_both"].sum()), 7)
         seg = _section(self.text, "Orientation and multiplicity")
         self.assertIn("all 26 carry a collapse-oriented candidate at strictly "
                       "higher influx", seg)
-        self.assertIn("7 of 153", seg)
+        for tok in (str(len(ctl)), "2739", "control block"):
+            self.assertIn(tok, seg, f"the control arm does not state {tok!r}")
+        self.assertRegex(seg, r"estimate|rate",
+                         "7 of 153 must be given as a rate, not as a count")
 
     def testTheTwoOrientationRoutesAgree(self):
         """arclength d2R/ds2 and the shape of j along the branch are independent."""
