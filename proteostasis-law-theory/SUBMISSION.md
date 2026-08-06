@@ -7,7 +7,7 @@ Preprint: bioRxiv, posted before or at submission.
 
 | file | purpose |
 |---|---|
-| `manuscript/bmb_v5.pdf` | the paper, 30 pages, Springer `sn-jnl` class |
+| `manuscript/bmb_v5.pdf` | the paper, 31 pages, Springer `sn-jnl` class |
 | `manuscript/bmb_v5_supplementary.pdf` | supplementary, 2 pages |
 | `manuscript/bmb_v5.tex` | LaTeX source, for production |
 | `manuscript/springer/sn-jnl.cls`, `sn-mathphys-ay.bst` | class and bibliography style |
@@ -29,7 +29,7 @@ and any count that departs from `EXPECTED`.
 - Code: https://github.com/khatvangi/proteostasis-law-theory, MIT
 - Archive: https://doi.org/10.5281/zenodo.21794565 (concept DOI)
 - Competing interests: none
-- Funding: to be stated by the author
+- Funding: none received (declared in the manuscript's Statements and Declarations)
 - Data: no new experimental data generated
 
 ## Gate record
@@ -38,33 +38,50 @@ The seven-point read-not-run pass is recorded in `DECISIONS.md` D070, including
 what was read as rendered and what was checked mechanically. Four defects were
 found and fixed by it; none was a number.
 
-## (!) The availability statement does not yet point at this paper
+## The deposit — done, with one field outstanding
 
-Checked 2026-08-05 by resolving the DOI and the URL in the rendered PDF. Both
-are real and neither is a placeholder — and both currently resolve to the
-**previous** version of this work:
+Deposited 2026-08-06 as **10.5281/zenodo.21830300**, a new version of concept
+`10.5281/zenodo.21794565`. Two things verified from the Zenodo API:
 
-| what the PDF says | what it resolves to today |
-|---|---|
-| `doi.org/10.5281/zenodo.21794565` | a record titled *"An Exact **Collapse Threshold** for **Conserved-Resource** Models…"*, described as the "**collapse boundary**", archiving GitHub tag `v1.0.0` |
-| `github.com/khatvangi/proteostasis-law-theory` | public, MIT, at `aa97b09` — **5 commits behind local**, README still naming `bmb_v4.md` canonical |
+- the **concept DOI is preserved**, so the string printed in the manuscript
+  resolves to this deposit and will resolve to every later one;
+- the archive is `proteostasis-law-theory-2.0.1.zip`, md5
+  `5d27fa3496890ddeb64a1fa9488fb434`, byte-for-byte identical to the local build
+  from tag `v2.0.1`.
 
-Both are titles and claims this paper explicitly supersedes, and the archived
-code predates Phases A–C, so it cannot recompute a single number in the current
-manuscript. `.zenodo.json` and `CITATION.cff` locally carry the correct title
-and description; they have simply never been deposited. **Do not submit before
-the steps below.**
+**(!) The record's metadata is still the previous version's.** Zenodo's "New
+version" form pre-fills from the prior deposit, and it was published unedited,
+so the landing page reads *"An Exact Collapse Threshold for Conserved-Resource
+Models…"*, describes the "collapse boundary", and has an empty version field. A
+referee following the DOI lands on a record named after the superseded paper.
+
+Files are immutable once published; **metadata is not**. Open
+`https://zenodo.org/records/21830300`, click Edit, and set:
+
+- Title: `An Exact Fold Condition for Mass-Balanced Models of Protein Quality Control: analysis code`
+- Version: `2.0.1`
+- Description: the fold-condition text from `.zenodo.json`
+
+No new version is needed for this. Do it before submitting.
+
+**Do not enable the Zenodo GitHub integration.** This concept was created by
+manual upload; enabling the integration would mint a SECOND record with its own
+concept DOI, competing with the one printed in the paper.
 
 ## Done
 
-1. ~~Push `master`~~ — pushed, remote at `da0a74e`.
-2. ~~Bump the version~~ — `2.0.0` in `.zenodo.json` and `CITATION.cff`, agreeing.
-   `1.2.0` was not available: that tag points at `0550f6ff`, which predates
-   Phase A, so a Release cut from it would archive a tree older than the one
-   Zenodo already holds.
-3. ~~Tag~~ — `v2.0.0` annotated on `da0a74e` and pushed. Not on `1ccbc64`: that
-   tree still declares `1.2.0`, so a deposit from it would carry the wrong
-   version.
+1. ~~Push `master`~~ — pushed; the remote carries the reviewed HEAD.
+2. ~~Bump the version~~ — see item 4. `1.2.0` was not available: that tag points
+   at `0550f6ff`, which predates Phase A, so a Release cut from it would archive
+   a tree older than the one Zenodo already holds.
+3. ~~Tag~~ — the release tag is **`v2.0.1`**, annotated on the reviewed HEAD and
+   pushed. `v2.0.0` remains at `da0a74e` and **must not be released**: it
+   predates the three external review passes, so a deposit from it would archive
+   the 356-word abstract, no Declarations section, `(G1)–(G4)`, the withdrawn
+   ceiling-factor contrast, and four citations since corrected. It was never
+   deposited, so it is inert; it is left in place rather than moved because a
+   pushed ref that changes meaning is the lineage split this repo keeps finding.
+4. ~~Version~~ — `2.0.1` in `.zenodo.json` and `CITATION.cff`, agreeing.
 
 ## (!) Stop: the Zenodo integration is off
 
@@ -73,9 +90,9 @@ Zenodo webhook on this repository, and the only GitHub Release that exists is
 `v1.1.0` — the deposit `10.5281/zenodo.21798343` that `CITATION.cff` records.
 
 **Zenodo archives releases published after a repository is enabled; it does not
-reach back for earlier ones.** Publishing `v2.0.0` now would therefore mint
-nothing and consume the version number, leaving the concept DOI still resolving
-to the superseded record. The Release is deliberately not created.
+reach back for earlier ones.** Publishing against a dead webhook mints nothing
+and consumes the version number, leaving the concept DOI still resolving to the
+superseded record. No Release has been created; enable the integration first.
 
 ## What only the author can do, in this order
 
@@ -83,12 +100,12 @@ to the superseded record. The Release is deliberately not created.
    `khatvangi/proteostasis-law-theory` on). This is an authenticated web action.
    Confirm afterwards that a webhook appears:
    `gh api repos/khatvangi/proteostasis-law-theory/hooks` must be non-empty.
-2. **Publish the GitHub Release for the existing `v2.0.0` tag** — a tag alone
+2. **Publish the GitHub Release for the `v2.0.1` tag** — a tag alone
    never triggers a deposit. The Release picks up `.zenodo.json`, so the
    corrected title, description and version land automatically.
 3. **Re-resolve the concept DOI and READ the record**, before anything else.
    It must show a title containing "Fold Condition", a description with no
-   "collapse boundary", and version `2.0.0`. Two things to watch:
+   "collapse boundary", and version `2.0.1`. Two things to watch:
    - a published Zenodo version cannot be withdrawn, only superseded, so if the
      record comes through wrong the remedy is another version, not an edit;
    - if re-enabling mints a **new concept DOI** rather than continuing

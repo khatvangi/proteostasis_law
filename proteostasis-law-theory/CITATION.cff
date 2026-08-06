@@ -6,7 +6,7 @@ authors:
     given-names: Kiran
     orcid: "https://orcid.org/0000-0003-0751-6459"
     affiliation: "McNeese State University"
-version: 2.0.0
+version: 2.0.1
 doi: 10.5281/zenodo.21794565
 license: MIT
 repository-code: "https://github.com/khatvangi/proteostasis-law-theory"
@@ -27,13 +27,23 @@ identifiers:
       Version DOI for v1.1.0. Superseded: v1.1.0 predates the Hopf result
       (D046), the fold-orientation classification, the adoption of v5 as the
       manuscript source, and the beta-range correction (D047-D048). It also
-      predates Phases A-C entirely, and is the last version Zenodo holds: its
-      record still carries the earlier "collapse threshold" title (D072).
-  # v1.2.0 was TAGGED but never deposited. Zenodo mints on a GitHub Release and
-  # not on a tag, so no version DOI exists for it and none is written here.
-  # The v2.0.0 version DOI is minted on deposit and added afterwards. Both
-  # absences are deliberate rather than guessed: a DOI written before it exists
-  # is a fabricated identifier.
+      predates Phases A-C entirely.
+  - type: doi
+    value: 10.5281/zenodo.21830300
+    description: >-
+      Version DOI for v2.0.1, the state submitted to the Bulletin of
+      Mathematical Biology. Deposited 2026-08-06 as a new version of the
+      concept above, which is why the concept DOI printed in the manuscript
+      resolves here. The deposited archive is the v2.0.1 tag, md5
+      5d27fa3496890ddeb64a1fa9488fb434, verified byte-for-byte against the
+      local build.
+  # v1.2.0 and v2.0.0 were TAGGED but never deposited, so no version DOI exists
+  # for either and none is written here. v2.0.0 additionally predates the
+  # external review passes (D074-D076) and must not be deposited: an archive
+  # from it would carry the manuscript as it stood before the abstract was cut
+  # to length, before the Declarations section existed, and with four citations
+  # since corrected. Every absence here is deliberate rather than guessed: a
+  # DOI written before it exists is a fabricated identifier.
 abstract: >-
   Derivation, verification and numerical study of the fold condition of a
   finite-resource proteostasis clearance network. The saddle-node of the

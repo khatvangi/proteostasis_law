@@ -3206,3 +3206,73 @@ The general form: an author-year citation names the version of record, so a
 volume number and a year that disagree are a signal to check `published-print`
 rather than `issued`. `issued` on this record is the online date, and taking it
 at face value is what produced the error in the first place.
+
+## D077 — the release tag is v2.0.1, because v2.0.0 predates the review
+
+`v2.0.0` was cut at `da0a74e` and pushed before the external review. Three
+passes followed — D074, D075, D076 — and a Release from that tag would have
+deposited, irreversibly, the manuscript as it stood beforehand: a 356-word
+abstract against BMB's 150-250, no Statements and Declarations section, the
+`(G1)-(G4)` reference, the withdrawn "thirteenfold rather than twelvefold"
+contrast, the undefined `7 of 153`, the incoherent `81 of 85`, Cotton as a 2025
+preprint and Brennan as 2023. It also predates `FINAL_SUBMISSION` entirely.
+
+Caught by checking what the tag contained before publishing rather than after.
+Zenodo mints from the tag, and a published version can only be superseded.
+
+**The tag is not moved.** Moving it was free — nothing was ever deposited from
+it — and it was still the wrong move: a pushed ref whose meaning changes is the
+lineage split this repository has produced three times, and `v2.0.0` had already
+been on the remote for a day. It is left in place, inert and documented as
+must-not-release, and the release tag is the additive **`v2.0.1`** on the
+reviewed HEAD. `.zenodo.json` and `CITATION.cff` move together to 2.0.1 or the
+canonical-file test fails.
+
+`CITATION.cff` now records that v1.2.0 AND v2.0.0 were both tagged without ever
+being deposited, and why v2.0.0 specifically must not be. No version DOI is
+written for either, and none for 2.0.1 until it is minted.
+
+**On the zip.** A manual Zenodo upload needs one; the GitHub Release route does
+not, because Zenodo builds the archive from the tag itself. If the manual route
+is taken it must be "New version" on the EXISTING record rather than a new
+upload, because that is what preserves the concept DOI `10.5281/zenodo.21794565`
+— the string printed inside the compiled PDF. Whether re-enabling the webhook
+continues the same concept lineage could not be established from here, and
+"New version" removes the question.
+
+## D078 — deposited: concept DOI preserved, metadata not carried over
+
+v2.0.1 is deposited as **10.5281/zenodo.21830300**, a new version of concept
+`10.5281/zenodo.21794565`. Verified from the Zenodo API rather than the page:
+
+- `conceptdoi` reads `10.5281/zenodo.21794565`. The DOI printed inside the
+  compiled PDF therefore resolves to this deposit, which was the whole point of
+  using "New version" rather than a new upload.
+- the archive is `proteostasis-law-theory-2.0.1.zip`, 8,283,485 bytes, md5
+  `5d27fa3496890ddeb64a1fa9488fb434` — byte-for-byte the local build from tag
+  `v2.0.1`. The right code is under the right DOI.
+
+**The metadata is still the previous version's.** Zenodo's "New version" form
+pre-fills from the prior deposit, and it was published unedited, so the record
+still reads "An Exact Collapse Threshold for Conserved-Resource Models…",
+describes the "collapse boundary", and carries an empty version field. `.zenodo.json`
+is correct and sits inside the archive, but a MANUAL upload does not read it —
+only the GitHub-Release route does. That distinction is the whole defect.
+
+**Two corrections to what this file said earlier.**
+
+The route: "no zip needed, use the GitHub Release" was wrong for this repository.
+The existing concept was created by manual upload, and enabling the GitHub
+integration would have minted a SECOND record with its own concept DOI,
+competing with the one printed in the paper. `hooks: []` was evidence for that
+all along and was read as "the integration was switched off" rather than "there
+never was one". The integration must stay off.
+
+The remedy: "a published Zenodo version cannot be withdrawn, only superseded"
+holds for FILES, which are immutable. Metadata is editable in place by the
+owner, so the stale title, description and version are fixed with Edit on the
+published record and need no further version.
+
+**Still outstanding, and it blocks submission**: correcting those three fields.
+A referee following the DOI currently lands on a record named after the paper
+this one supersedes.
