@@ -43,6 +43,9 @@ OUT_SUPP_TEX = REPO_ROOT / "manuscript" / "bmb_v5_supplementary.tex"
 CODE_SPANS = frozenset({
     "scripts/figures/",
     "scripts/figures/fig_identity.py:captionNumbers",
+    # a network identifier in the deposit. Set as math it reads as a product of
+    # five variables, which is the same defect as an italic operator name.
+    "draw4627",
 })
 
 # a span shaped like code must be declared above or the build stops
@@ -414,6 +417,15 @@ HEADER = r"""%% GENERATED FILE -- do not edit.
 # self-invalidating mapping for the typesetting.
 
 DISPLAY_MATH = {
+# Section 3.3. The one term of `G_u` whose sign is not settled by Lemma 0, set
+# as a single display because the three terms are compared against each other.
+"""G_af = α_g u_f − α_d c_f κ_dis/(κ_dis + a_f)² − ρ_A d_f κ_a/(κ_a + a_f)²""":
+r"""\begin{equation*}
+G_{af} \;=\; \alpha_g u_f
+\;-\; \alpha_d c_f \frac{\kappa_{dis}}{(\kappa_{dis} + a_f)^2}
+\;-\; \rho_A d_f \frac{\kappa_a}{(\kappa_a + a_f)^2},
+\end{equation*}""",
+
 """du/dt = j − v_ref − v_degU − n − g + v_dis
 da/dt =              n + g − v_dis − v_degA""":
 r"""\begin{align*}
@@ -786,8 +798,8 @@ EXPECTED = {
     # the count is asserted so that a table silently STAYING a longtable --
     # which is how a page folio once landed in the body text -- still fails.
     "tables_rewidthed": 3,
-    "displays": 17,
-    "spans_code": 0,         # v5 quotes no file paths in the body
+    "displays": 18,
+    "spans_code": 1,         # one network identifier in Section 7; no file paths
     "stripped": 0,           # v5 carries no internal-only section
 }
 PAGES_MAIN = (18, 30)      # tolerance, not a target. widened once, in the
