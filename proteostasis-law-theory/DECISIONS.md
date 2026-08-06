@@ -3131,3 +3131,53 @@ requires the section to name the 2739 it was drawn from and to call it a control
 block, and requires the 7 to be given as a rate. Fourth token-pinned test
 corrected in this sequence, after R5's label, Fig. S2's range and STATUS.md's
 wrapping.
+
+## D075 — second review pass: six open, and one that was carried three times
+
+**The three carried from the merged pass, and why they survived it.** All three
+were "propagate" items where the head was fixed and the tail was not.
+
+- The abstract dropped the Michaelis clause; Section 6's bolded headline kept it.
+  The headline now claims only the 8.3% utilisation, and a following sentence
+  states the distinction outright: the Table 3 fractions are Michaelis factors of
+  the catalytic steps, not the utilisation of a pool, which carries the free
+  fraction too, and `φ` is what aggregates both.
+- The abstract said a Hopf precedes the fold in 3.9% "opening a band of influx".
+  Only 47 of those 108 networks open a band; the other 61 lose stability and do
+  not regain it. The clause now names the 47.
+- Section 7 said the windows are "supercritical at both ends in 81 of their 85
+  crossings". Two errors in one clause. 81 of 85 is a CROSSING count, and "both
+  ends" is only defined for the 38 windows whose crossings both resolve — where
+  the figure is **35 of 38**, being 73 of those 76 crossings, with 8 of the 9
+  unpaired window crossings supercritical as well. The clause had also been made
+  self-contradictory by the fix two clauses earlier, which established that nine
+  of the 85 are not pairs.
+
+**Three found on the full read.**
+
+- Fig. S2's caption pointed at "Supplementary Section S1". There is no Section
+  S1; the supplementary is two figure captions. The sentence was also redundant
+  with the two before it, so it is deleted rather than repaired.
+- Section 9's new 8.3 entry quoted "62x to 214x below" unindexed. That is the
+  `beta = 1.00` row alone, and Section 8.3 goes to some length to present a
+  beta-indexed family and say the direction is the informative part. Both ends
+  are now given: 62x-214x at `beta = 1`, 3.2x-11x at `beta = 0.05`.
+- The Section 1 roadmap said "Section 4 gives three extensions". Section 4 has
+  four subsections; 4.4 went unmentioned. Half of the roadmap item from the
+  previous pass had not been picked up.
+
+**Two minor.** 2765 was defined once as "the subset whose orientation is
+evaluable" while also carrying the transversality closed form and the
+multiplicity count — one set, three jobs, one named; all three are now named.
+Brennan et al. (2023) gains its volume, SIAM J Appl Math 84(3).
+
+**The divergence surface, closed.** Each figure ships twice, byte-identical:
+`figures/FigureN.pdf` for upload and `latex_source/figures/figN.pdf` for the
+compile. That is the right shape for a bundle and it is exactly the two-copies
+fault this project keeps finding, relocated into the delivery folder. The
+package is no longer assembled by hand: `scripts/manuscript/make_submission.py`
+copies it, checksums every pair against each other AND against the canonical
+figure, checksums every shipped artifact against its source, and with
+`--compile` builds `latex_source` in a scratch tree with no access to the
+repository and asserts the page counts match the shipped PDFs. A stale copy now
+fails the build instead of shipping.
