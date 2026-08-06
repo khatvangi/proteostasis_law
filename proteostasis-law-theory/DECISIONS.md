@@ -2786,3 +2786,82 @@ subcritical crossing, and the other two are supercritical at both ends.
 ratio 1.050 over 227 cycles, median absolute deviation 7.5%. That is the expected
 finite-amplitude correction and is reported as a check on C1 rather than left in
 a table.
+
+## D069 — the residual sweep, D1, D2 and STATUS.md
+
+The closing pass. Nothing here is a scientific question; each item had a
+determined answer.
+
+**R5 — the one place the paper asserted something false.** Section 8.3 said the
+required old-pole load "sits 62x to 214x **above** the Delta-rpoH load". The
+table's own column is the measured load DIVIDED BY the requirement, so 62x means
+the measured load is 62 times larger and the requirement sits that far BELOW it.
+The ledger already had it right at D046 ("79x to 271x below", the earlier
+numbers). Column relabelled `Delta-rpoH load / required load`, both directions
+corrected, and the caption now states which way the division runs.
+
+Deleted with it: "Reporting only the rows down to `beta = 0.25` would put the
+nearest approach at 16x and overstate the separation fivefold." That sentence is
+a record of D047's own defect — review history inside the manuscript — and the
+table it defends already prints the full range down to 0.05.
+
+**The test that guarded it pinned a token.** `test_figure_wiring` asserted the
+literal string "ratio to the Delta-rpoH load" and passed for as long as the
+prose beside it inverted the comparison. It now asserts the DIRECTION: the
+header carries both operands, the prose says "below", and "above" must not
+appear. Third recurrence of pin-the-property.
+
+**R1** — Section 3.1's "the two lie in a fixed order and differ by one part in a
+thousand" was two readings of one branch. Restricted to the base parameter set,
+which is what was computed there. D066's population result (247 of 247, no turn
+at all in 78, separation to 6.6%) stays in the ledger and out of the paper.
+
+**R4** — "no stable attractor at low burden" is false as written; the low-burden
+branch IS a stable attractor and the fold is what ends it. What Section 8.1
+means is that no variant produces an attractor carrying the measured aggregate
+at a small growth-rate cost. Stated that way.
+
+**R6, R7** — Corollary 3's factors are both defined from the fold state, so the
+identity is a rearrangement and not a derivation; it now says so, and its content
+is located where it belongs, in the behaviour of the two factors. The state is
+also named: the fold state of the DILUTED system at that mu, which the bare
+`(u*, a*)` left ambiguous.
+
+**R8** — Corollary 4's limit needs `epsilon*C_0 >> 1`, not "large epsilon";
+with `C_0` small the square-root form does not follow from large epsilon alone.
+
+**R9** — Fig. S2's caption stated the front's range twice. One removed.
+
+**D1, cheap form.** The two checks that matter. Table 2 row 1 compares the
+analytic Jacobian's determinant against a cross product of central-difference
+gradients: the differentiation is independent, the closure solve is common, so
+it tests the Jacobian and not the closure — and the caption now says so instead
+of leaving "identity residual" to be taken on trust. Section 5 gains one
+sentence naming which checks are independent and which are not, since a residual
+between two expressions of one computation measures nothing. Section 4.1's
+`sigma_0 -> 0` reduction already carried its own disclosure (both sides vanish
+identically; it is checked against the two-state field) and needed nothing.
+
+**D2, minimum remedy, and it turned up something.** The launch-time diff does
+not exist: `provenance.json` records `dirty: true` for all four experiments and
+stores no patch. A diff against the next commit would be a guess, and none is
+produced. What is exact is the tracked source at each recorded commit, now
+snapshotted with per-file SHA-256 into `data/provenance_snapshots/`.
+
+Doing it exposed a worse fact than PROVENANCE.md recorded. **Experiment A's
+baseline commit contains no code at all** — `73e1c0ab` holds 17 files, every one
+markdown or `.gitignore`. A ran from an entirely uncommitted tree and its
+recorded commit is not a baseline in any sense. Its snapshot comes from
+`a17dfafd`, the earliest commit holding the driver, and `index.json` marks that
+with `recorded_commit_held_no_source`. The availability section states the
+limitation, and states its scope: the gap sits between source and raw ensembles,
+and every reported number is recomputed from those ensembles by tracked code.
+The 5000-draw box is not re-run — a new run would carry new provenance, not
+recover the old.
+
+**STATUS.md.** It had drifted: saturation fractions, a shortfall split and a
+ceiling factor that no longer matched the manuscript. Updating them would
+recreate the fault D047 named — two ranges for one quantity will always let
+prose land in the wrong place. It is now a navigation file carrying no numbers,
+with the supersession list; the old text is preserved verbatim as
+`STATUS_PHASE0_TO_2.md` and marked history.

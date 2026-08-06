@@ -42,3 +42,31 @@ So `OPS_SUBMISSION.md` is a record of scheduler probing, environment capture and
 a failed launch. It is kept for that history. **It is not the provenance of any
 number in the manuscript**, and reading it as such would attribute the results to
 a run that generated nothing.
+
+## Source snapshots (D2)
+
+`scripts/analysis/snapshot_phase1_sources.py` writes the tracked source of each
+experiment's driver and the `proteostasis` package to
+`data/provenance_snapshots/{A,B,C,D}/`, with a SHA-256 per file in `index.json`.
+This replaces a twelve-hex commit prefix the reader would have to resolve with a
+fixed artifact in the deposit.
+
+**The launch-time diff is not among them and cannot be.** `provenance.json`
+records `dirty: true` for all four experiments and stores no patch. A diff
+between the recorded commit and the next one would be a plausible-looking guess
+rather than the code that ran, and is deliberately not produced.
+
+**Experiment A's recorded commit contains no code.** `73e1c0ab` holds 17 files,
+every one of them markdown or `.gitignore`; no Python existed in the repository
+at that point, so A ran entirely from an uncommitted tree and its recorded
+commit is not a baseline in any useful sense. Its snapshot is taken from
+`a17dfafd`, the earliest commit containing `run_experiment_a.py`, and
+`index.json` marks this with `recorded_commit_held_no_source`. The table above
+lists A's commit as `73e1c0ab` with `tree dirty: yes`, which is true and
+understates the problem; this entry is the correction.
+
+**Where the gap sits.** Phase 1 produced the raw ensembles. Every derived number
+in the manuscript is recomputed from those raw outputs by tracked code under the
+test suite, so the unrecorded state affects the generation of the ensembles and
+not the analysis built on them. Re-running the 5000-draw box would not close it
+either, since a new run would carry a new provenance rather than recover the old.

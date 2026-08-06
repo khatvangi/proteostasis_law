@@ -549,12 +549,12 @@ j_{crit} = \frac{C_{enz}\,\varphi_{enz}}{1 - \delta},
 \delta = \frac{R_{dil}(u^{*},a^{*})}{j_{crit}}
 \end{equation*}""",
 
-"""j ≤ ( √(1 + 4εC_0) − 1 )/(2ε)   →   √(C_0/ε)   for large ε.""":
+"""j ≤ ( √(1 + 4εC_0) − 1 )/(2ε)   →   √(C_0/ε)   for εC_0 ≫ 1.""":
 r"""\begin{equation*}
 j \le \frac{\sqrt{1 + 4\varepsilon C_0} - 1}{2\varepsilon}
 \;\longrightarrow\;
 \sqrt{C_0/\varepsilon}
-\quad\text{for large }\varepsilon.
+\quad\text{for }\varepsilon C_0 \gg 1.
 \end{equation*}""",
 }
 

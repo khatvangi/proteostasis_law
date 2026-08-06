@@ -206,7 +206,7 @@ This is the whole practical content: neither equation contains \(j\), so locatin
 
 \textbf{Theorem 1.4 (load-dependent capacity).} \emph{When \(\partial G/\partial j \neq 0\) the nullcline moves with the influx and \(j_{crit} = R(u^{*},a^{*})\) becomes a self-consistency condition; candidates solve \(\{G = 0, \det J = 0, R = j\}\) in \((u, a, j)\). Theorem 1.1 is unaffected.}
 
-At the base parameter set the alignment is visible rather than inferred: the removal contours meet the aggregate nullcline tangentially at the solved fold, to a sine of 3.54×10⁻¹⁰ (Fig. 1a). The same computed branch separates two singularities that are easily conflated. The soluble coordinate has a horizontal tangent at \(j_{turn} = 0.154090\), where \(G_{a} = 0\) and the nullcline runs vertical in the burden plane; that point is regular, since \(\det J = R_{a}\cdot G_{u} = 2.027\times 10^{-3}\) there. The fold is at \(j_{crit} = 0.154239\), where both coordinates turn together (Fig. 1b). The two lie in a fixed order and differ by one part in a thousand. This is also why tracing \(\{G = 0\}\) by solving for \(a\) at fixed \(u\) fails: the two roots in \(a\) merge exactly at \(j_{turn}\), returning the curve in two disconnected pieces with the fold in the gap between them. The root-finder's failure and the horizontal tangent are one locus, not two problems.
+At the base parameter set the alignment is visible rather than inferred: the removal contours meet the aggregate nullcline tangentially at the solved fold, to a sine of 3.54×10⁻¹⁰ (Fig. 1a). The same computed branch separates two singularities that are easily conflated. The soluble coordinate has a horizontal tangent at \(j_{turn} = 0.154090\), where \(G_{a} = 0\) and the nullcline runs vertical in the burden plane; that point is regular, since \(\det J = R_{a}\cdot G_{u} = 2.027\times 10^{-3}\) there. The fold is at \(j_{crit} = 0.154239\), where both coordinates turn together (Fig. 1b). Here they differ by one part in a thousand, with \(j_{turn}\) the smaller. This is also why tracing \(\{G = 0\}\) by solving for \(a\) at fixed \(u\) fails: the two roots in \(a\) merge exactly at \(j_{turn}\), returning the curve in two disconnected pieces with the fold in the gap between them. The root-finder's failure and the horizontal tangent are one locus, not two problems.
 
 \begin{figure}[htbp]
 \centering
@@ -392,7 +392,7 @@ j_{crit} = \frac{C_{enz}\,\varphi_{enz}}{1 - \delta},
 \delta = \frac{R_{dil}(u^{*},a^{*})}{j_{crit}}
 \end{equation*}
 
-\emph{with both factors dimensionless and in {[}0,1). The identity is algebraic and holds to 1.6×10⁻¹⁶.}
+\emph{with \((u^{*}, a^{*})\) the fold state of the diluted system at that \(\mu\), and both factors dimensionless and in {[}0,1). Both are defined from that state, so the identity is a rearrangement rather than a derivation; it holds to 1.6×10⁻¹⁶, and its content is how the two factors behave under division and not the identity itself.}
 
 At the base parameters \(\varphi_{enz}\) stays within 0.125--0.134 as \(\mu\) runs 0 → 0.08, a ±4\% band, while \(\delta\) runs 0 → 0.39 and carries essentially all the variation. Division does not change the enzymatic condition for the fold; it multiplies the tolerable influx by \(1/(1 - \delta )\). Loss of the fold is \(\delta \to 1\), and across the draws above the median \(\delta\) at the threshold is 0.35: the fold is typically lost once division does about a third of the disposal work. Since growth rate is part of disposal, an experiment that lets growth rate float is not holding disposal capacity fixed. The two factors are drawn on one axis in Fig. 2 because the contrast is the content: \(\varphi_{enz}\) is flat to within 7.5\% of its own mean across the sweep while \(\delta\) traverses most of its range.
 
@@ -431,7 +431,7 @@ Self-damage lowers the fold substantially without steepening the approach. Media
 j \le \frac{\sqrt{1 + 4\varepsilon C_0} - 1}{2\varepsilon}
 \;\longrightarrow\;
 \sqrt{C_0/\varepsilon}
-\quad\text{for large }\varepsilon.
+\quad\text{for }\varepsilon C_0 \gg 1.
 \end{equation*}
 
 A linear capacity ceiling becomes a square-root one: doubling the machinery buys only √2 in tolerable error rate once the machinery is itself error-prone. The bound is exact and is not binding in the range examined, with \(j_{crit}/j_{max}\) of median 0.039--0.186 and largest observed 0.623 over 8 draws, so it is a necessary condition and not the fold. Continuation with intermediate rungs recovers folds that a direct solve loses at large \(\varepsilon\), with recovery counts that do not decrease monotonically in \(\varepsilon\) (influx 7/5/6/6/4, burden 6/7/7/4/2); a genuine loss of the fold would be monotone, so this is continuation failure rather than folds disappearing. Where a fold does solve it satisfies \(\sin (\nabla R, \nabla G) < 2.0\times 10^{-9}\) throughout that sweep. The consequence is that Corollary 4 is least checkable numerically in the regime where it would bind.
@@ -452,7 +452,7 @@ The consequence for what this paper claims is stated where the claims are made. 
 
 Two ensembles support the results. The \textbf{load grid} holds kinetics fixed at the base parameter set and sweeps nascent occupancy and rescue allocation, giving 325 folds; it describes how the fold moves within one network. The \textbf{kinetic box} is a Latin-hypercube ensemble of 5000 draws from a stipulated parameter box, of which 2884 admit a fold and 2767 yield a solvable fold state; it describes how the fold varies across networks. Every quantity below is recomputed from tracked generators and asserted by the accompanying test suite.
 
-\textbf{Table 2} Numerical verification of the identity and the solver. Each row names its own ensemble because the two are not interchangeable, and each maximum is reported beside a p99 because a maximum grows with the size of the population it is drawn from while a p99 does not.
+\textbf{Table 2} Numerical verification of the identity and the solver. Each row names its own ensemble because the two are not interchangeable, and each maximum is reported beside a p99 because a maximum grows with the size of the population it is drawn from while a p99 does not. Row 1 compares two routes to one quantity: \(\det J\) from the analytic Jacobian, whose partials are hand-derived, against \(-(\nabla R \times \nabla G)\) from central differences of the two flux fields. The differentiation is independent; the closure solve is common to both, so the row tests the Jacobian and not the closure.
 
 \begin{table}[htbp]
 \centering
@@ -471,6 +471,8 @@ direct solver against continuation & load grid, 325 & 3.03×10⁻⁷ & 7.20×10�
 Maxima over ensembles of different size are not directly comparable, and neither is comparable to a maximum computed at a third size; the p99 column is given for that reason, and at \(n = 325\) it rests on a small number of upper-tail observations.
 
 The identity residual sits at the central-difference floor. The parallelism residual is not zero at recorded states and should not be: those are bracketed approximations whose leading eigenvalue is of order 10⁻⁴ rather than 0. The correlation between log parallelism error and log leading eigenvalue is +0.9960 over the load grid, showing the residual to be bracket tolerance rather than failure of the identity, and the tightest-bracketed state in the complete population has \(|\lambda |\) = 8.10×10⁻¹⁰ with \(\sin (angle)\) = 7.75×10⁻⁹ (Fig. S1).
+
+A residual between two expressions of one computation measures nothing, so the routes are worth naming. Row 1 of Table 2 differentiates by two independent routes over a closure solve common to both, and the four-product form of \(G_{u}\) in Section 3.3 is checked the same way, agreeing with a central-difference gradient to 2.6×10⁻¹⁰ across the ensemble. Two checks in this paper are not of that kind, and both are stated where they occur: the \(\sigma_{0} \to 0\) reduction of Section 4.1, where both sides of the identity vanish identically and the comparison is made against the two-state field instead, and the self-damage check below.
 
 One caution attaches to the self-damage check of Section 4.3. Because \(du/dt = j - R - G\) holds pointwise and the central-difference operator is linear, that check reproduces the row operation exactly at any step size and carries no truncation term; measured slopes in the step size are −0.97 and −0.94 with no minimum over four decades, which is roundoff alone. It certifies that the implementation preserves mass balance. The analytic argument carries the result.
 
@@ -548,7 +550,7 @@ Unstressed \emph{E. coli} accumulate aggregates at the old pole and lose reprodu
 
 \subsection{What the model class cannot do}
 
-No variant of the model examined places a stable attractor at low burden. Under constant dilution the system is bistable, with a 12.6- to 32.3-fold aggregate ratio between branches, but that regime predicts a growth-rate loss of exactly zero because \(\mu\) cannot respond to burden. Under the calibrated hyperbolic law the system is monostable in four of six settings tested. Under linear arrest there is no bounded high-burden state: \(\mu\) reaches exactly zero beyond \(k_\mu\), switching dilution off and removing the bound. Adding a sequestered compartment --- aggregate drained into an inert pool that neither nucleates nor occupies chaperone or protease --- produces 12 bistable cells against a control's 3, but none of 384 qualified cells predicts a loss within the measured range, every bistable cell predicting 0.482, 0.508, 0.954 or 1.000. Inverting the growth law, the high state is at least 7.5 to 254 times more aggregate-laden than the measured cell, and the upper figure is a lower bound because the 1.000 values are the linear-arrest law clamping at states 3.4 to 43 times past arrest. A real old-pole cell carries a visible inclusion body and divides at 96--99\% of normal.
+No variant of the model examined places a stable aggregate-bearing attractor at a low growth-rate cost. Under constant dilution the system is bistable, with a 12.6- to 32.3-fold aggregate ratio between branches, but that regime predicts a growth-rate loss of exactly zero because \(\mu\) cannot respond to burden. Under the calibrated hyperbolic law the system is monostable in four of six settings tested. Under linear arrest there is no bounded high-burden state: \(\mu\) reaches exactly zero beyond \(k_\mu\), switching dilution off and removing the bound. Adding a sequestered compartment --- aggregate drained into an inert pool that neither nucleates nor occupies chaperone or protease --- produces 12 bistable cells against a control's 3, but none of 384 qualified cells predicts a loss within the measured range, every bistable cell predicting 0.482, 0.508, 0.954 or 1.000. Inverting the growth law, the high state is at least 7.5 to 254 times more aggregate-laden than the measured cell, and the upper figure is a lower bound because the 1.000 values are the linear-arrest law clamping at states 3.4 to 43 times past arrest. A real old-pole cell carries a visible inclusion body and divides at 96--99\% of normal.
 
 \subsection{The observation does not require bistability}
 
@@ -562,13 +564,13 @@ The scored quantity is Lindner et al.'s \(\Delta (GR_{old} - GR_{new})/GR_{mean}
 
 Partitioning is set by one physical quantity. The visible focus is indivisible and passes entirely to one daughter, but the model's \(a\) is total aggregate, of which the focus is a share \(\beta\). The old-pole daughter then receives \((1+\beta )a\) and the new-pole daughter \((1-\beta )a\) after division into half the volume, which is the scalar rule at \(f_{eff} = (1+\beta )/2\). With \(k_\mu = 0.03125/p_{qc}\), the scored quantity is \(32 \times (B_{old} - B_{new})\) as a proteome fraction exactly, so the quality-control proteome share and the growth rate enter only through the stationary load. Inverting gives a requirement scaling as \(1/\beta\):
 
-\textbf{Table 4} The old-pole aggregate load required by the account of Section 8.3, as a function of the share \(\beta\) of aggregate held in the visible polar focus, over the same range Fig. 5 plots. The final column compares the requirement with the only aggregate load that has been measured, 5--10\% of total protein in Δ\emph{rpoH} at 30 °C; the columns pair the extremes, so they give the widest and narrowest separations consistent with both intervals.
+\textbf{Table 4} The old-pole aggregate load required by the account of Section 8.3, as a function of the share \(\beta\) of aggregate held in the visible polar focus, over the same range Fig. 5 plots. The final column divides the only aggregate load that has been measured, 5--10\% of total protein in Δ\emph{rpoH} at 30 °C, by the requirement, so an entry is the factor by which the measured load exceeds it; the columns pair the extremes, so they give the widest and narrowest separations consistent with both intervals.
 
 \begin{table}[htbp]
 \centering
 \begin{tabular}{@{}llll@{}}
 \toprule
-\(\beta\) & \(f_{eff}\) & required old-pole aggregate (\% of proteome) & ratio to the Δ\emph{rpoH} load \\
+\(\beta\) & \(f_{eff}\) & required old-pole aggregate (\% of proteome) & Δ\emph{rpoH} load / required load \\
 \midrule
 \(1.00\) & 1.000 & 0.047 -- 0.080 & 62× -- 214× \\
 \(0.75\) & 0.875 & 0.061 -- 0.104 & 48× -- 165× \\
@@ -581,7 +583,7 @@ Partitioning is set by one physical quantity. The visible focus is indivisible a
 
 The damping factor for the daughter's relaxation during its own generation is 0.346--0.355, with weak \(\beta\) dependence.
 
-The table spans the same \(\beta\) range the figure plots. At \(\beta = 1.00\), where the whole aggregate is in the focus, the requirement sits 62× to 214× above the Δ\emph{rpoH} load; at \(\beta = 0.05\) it is 3.2× to 11× above it. Reporting only the rows down to \(\beta = 0.25\) would put the nearest approach at 16× and overstate the separation fivefold.
+The table spans the same \(\beta\) range the figure plots. At \(\beta = 1.00\), where the whole aggregate is in the focus, the requirement sits 62× to 214× below the Δ\emph{rpoH} load; at \(\beta = 0.05\) it is 3.2× to 11× below it. The requirement is therefore smaller than the only load ever measured, and the informative comparison is how far below it falls.
 
 No source we could find bounds \(\beta\) under unstressed growth. Winkler et al.~(2010) report aggregate mass and focus size separately, and under heat stress, which is neither the condition at issue nor a focus-share measurement. The requirement is therefore a \(\beta\)-indexed family (Fig. 5), and the direction is the informative part: the less of the aggregate held in the focus, the more aggregate the account requires, and the closer the requirement moves to the only load anyone has measured. Tomoyasu et al.~(2001) report 5--10\% of total protein aggregated in Δ\emph{rpoH} mutants at 30 °C and no detectable aggregation in \emph{rpoH}⁺ cells at the same temperature; wild type is a bound rather than a value, and the reported mutant figures are not a limit of detection for the assay.
 
@@ -629,6 +631,8 @@ The prediction a reader can act on is Section 8.3. If the aggregate burden of an
 \section*{Data and code availability}
 
 All analysis code, parameter configurations, and the test suite asserting every numerical quantity reported here are at https://github.com/khatvangi/proteostasis-law-theory under the MIT licence, archived at https://doi.org/10.5281/zenodo.21794565 (concept DOI, resolving to the latest version).
+
+One limitation of the deposit is stated rather than glossed. The two ensembles --- the load grid and the kinetic box --- were generated by a run whose working tree was uncommitted at launch, and no patch was recorded, so the launch-time source is not recoverable. The deposit therefore archives the tracked source of each generating experiment, with per-file checksums, in place of a commit identifier alone; for the structural-check experiment the recorded commit contained no code at all, and its snapshot is taken from the earliest commit that does, which the index marks. The gap lies between that source and the raw ensembles. Every quantity in this paper is recomputed from those raw outputs by the tracked code above, under the test suite, so no reported number depends on the unrecorded state.
 
 \section*{References}
 

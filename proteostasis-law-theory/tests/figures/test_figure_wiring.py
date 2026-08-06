@@ -180,7 +180,17 @@ class TestCaptionsAgreeWithTextAndWithTheGenerator(unittest.TestCase):
         # v5 states the comparison as a ratio COLUMN in the section 8.3 table
         # rather than as a prose clause; the property is that the ratio to the
         # only measured load is stated, not the sentence that once stated it.
-        self.assertIn("ratio to the Δ*rpoH* load", _DOC)
+        # The old form of this check pinned the label "ratio to the Δ*rpoH*
+        # load" and passed for as long as the prose beside it said the
+        # requirement sat 62x ABOVE a load it sits 62x below. What matters is
+        # the DIRECTION, so that is what is asserted.
+        sec83 = _DOC[_DOC.index("### 8.3"):_DOC.index("## 9. Predictions")]
+        header = [ln for ln in sec83.splitlines() if ln.startswith("| `β`")]
+        self.assertEqual(len(header), 1, "section 8.3 has no table header")
+        for tok in ("Δ*rpoH*", "required"):
+            self.assertIn(tok, header[0], f"the ratio column lost {tok}")
+        self.assertIn("below the Δ*rpoH* load", sec83)
+        self.assertNotIn("above the Δ*rpoH* load", sec83)
 
     def testIdentityCaptionMatchesSectionFive(self):
         import pandas as pd

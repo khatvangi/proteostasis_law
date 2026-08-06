@@ -1,0 +1,78 @@
+{
+  "A": {
+    "experiment": "A",
+    "recorded_commit": "73e1c0ab341530f7b2d369c459008674897f6287",
+    "source_taken_from": "a17dfafdd966537088dc87aaf95faca893e935a3",
+    "driver": "scripts/run_experiment_a.py",
+    "recorded_commit_held_no_source": true,
+    "tree_dirty_at_launch": true,
+    "launch_diff_captured": false,
+    "files": {
+      "scripts/run_experiment_a.py": "fdc05bbab85f838944d9684c086a3ff1e4dbff4719be430f5d5871b3a49bf91a",
+      "scripts/proteostasis/__init__.py": "2ddbe26173697aec44b7188ddc7588713a17401c67ce635e462596e3fc8b074a",
+      "scripts/proteostasis/equilibria.py": "c00bb65eee6ac126c09a2e4d38354819a5876f447ff96a77c8c731ec11c3ebd3",
+      "scripts/proteostasis/model.py": "bf3b642f147315f51454ce6304d6e6152c51b483a8eaee5d971b2f75c650ff0c",
+      "scripts/proteostasis/provenance.py": "1f00777fce3fb05e6b7d396a351ab5c3d956a37ab3aff04ecc5f560f2e2eb291",
+      "scripts/proteostasis/simulate.py": "d4d0cdeed0b5d4adc6589940dbc80978cf338d37d74a16bcbadf2160bd5f4883",
+      "scripts/proteostasis/sweeps.py": "d3cd0649e39905d20a49af2ad1ec0544c8861e3635b861ef9acf1d43d72631d3",
+      "scripts/proteostasis/units.py": "1952cc3cd50d5603e9fe1e48c173c38e7a255354e508e2bbcb2043315f533361"
+    }
+  },
+  "B": {
+    "experiment": "B",
+    "recorded_commit": "a17dfafdd966537088dc87aaf95faca893e935a3",
+    "source_taken_from": "a17dfafdd966537088dc87aaf95faca893e935a3",
+    "driver": "scripts/run_experiment_b.py",
+    "recorded_commit_held_no_source": false,
+    "tree_dirty_at_launch": true,
+    "launch_diff_captured": false,
+    "files": {
+      "scripts/run_experiment_b.py": "1cb5e7e3469382c91305f8f95c86d24d9447006b1a94c6421dffd85fec1cdec3",
+      "scripts/proteostasis/__init__.py": "2ddbe26173697aec44b7188ddc7588713a17401c67ce635e462596e3fc8b074a",
+      "scripts/proteostasis/equilibria.py": "c00bb65eee6ac126c09a2e4d38354819a5876f447ff96a77c8c731ec11c3ebd3",
+      "scripts/proteostasis/model.py": "bf3b642f147315f51454ce6304d6e6152c51b483a8eaee5d971b2f75c650ff0c",
+      "scripts/proteostasis/provenance.py": "1f00777fce3fb05e6b7d396a351ab5c3d956a37ab3aff04ecc5f560f2e2eb291",
+      "scripts/proteostasis/simulate.py": "d4d0cdeed0b5d4adc6589940dbc80978cf338d37d74a16bcbadf2160bd5f4883",
+      "scripts/proteostasis/sweeps.py": "d3cd0649e39905d20a49af2ad1ec0544c8861e3635b861ef9acf1d43d72631d3",
+      "scripts/proteostasis/units.py": "1952cc3cd50d5603e9fe1e48c173c38e7a255354e508e2bbcb2043315f533361"
+    }
+  },
+  "C": {
+    "experiment": "C",
+    "recorded_commit": "a17dfafdd966537088dc87aaf95faca893e935a3",
+    "source_taken_from": "a17dfafdd966537088dc87aaf95faca893e935a3",
+    "driver": "scripts/run_experiment_c.py",
+    "recorded_commit_held_no_source": false,
+    "tree_dirty_at_launch": true,
+    "launch_diff_captured": false,
+    "files": {
+      "scripts/run_experiment_c.py": "3d6c50b1b4aff69221bfd88f24274016136908ad9daaba81c2b46501e7be64de",
+      "scripts/proteostasis/__init__.py": "2ddbe26173697aec44b7188ddc7588713a17401c67ce635e462596e3fc8b074a",
+      "scripts/proteostasis/equilibria.py": "c00bb65eee6ac126c09a2e4d38354819a5876f447ff96a77c8c731ec11c3ebd3",
+      "scripts/proteostasis/model.py": "bf3b642f147315f51454ce6304d6e6152c51b483a8eaee5d971b2f75c650ff0c",
+      "scripts/proteostasis/provenance.py": "1f00777fce3fb05e6b7d396a351ab5c3d956a37ab3aff04ecc5f560f2e2eb291",
+      "scripts/proteostasis/simulate.py": "d4d0cdeed0b5d4adc6589940dbc80978cf338d37d74a16bcbadf2160bd5f4883",
+      "scripts/proteostasis/sweeps.py": "d3cd0649e39905d20a49af2ad1ec0544c8861e3635b861ef9acf1d43d72631d3",
+      "scripts/proteostasis/units.py": "1952cc3cd50d5603e9fe1e48c173c38e7a255354e508e2bbcb2043315f533361"
+    }
+  },
+  "D": {
+    "experiment": "D",
+    "recorded_commit": "850726c76afec231948fdbd1fd1241b04e89f2b6",
+    "source_taken_from": "850726c76afec231948fdbd1fd1241b04e89f2b6",
+    "driver": "scripts/run_experiment_d.py",
+    "recorded_commit_held_no_source": false,
+    "tree_dirty_at_launch": true,
+    "launch_diff_captured": false,
+    "files": {
+      "scripts/run_experiment_d.py": "9ff94b8f6e676587e6153087cb247ac3174918d556feaa077ca8c7347f938c67",
+      "scripts/proteostasis/__init__.py": "2ddbe26173697aec44b7188ddc7588713a17401c67ce635e462596e3fc8b074a",
+      "scripts/proteostasis/equilibria.py": "c00bb65eee6ac126c09a2e4d38354819a5876f447ff96a77c8c731ec11c3ebd3",
+      "scripts/proteostasis/model.py": "bf3b642f147315f51454ce6304d6e6152c51b483a8eaee5d971b2f75c650ff0c",
+      "scripts/proteostasis/provenance.py": "1f00777fce3fb05e6b7d396a351ab5c3d956a37ab3aff04ecc5f560f2e2eb291",
+      "scripts/proteostasis/simulate.py": "d4d0cdeed0b5d4adc6589940dbc80978cf338d37d74a16bcbadf2160bd5f4883",
+      "scripts/proteostasis/sweeps.py": "d3cd0649e39905d20a49af2ad1ec0544c8861e3635b861ef9acf1d43d72631d3",
+      "scripts/proteostasis/units.py": "1952cc3cd50d5603e9fe1e48c173c38e7a255354e508e2bbcb2043315f533361"
+    }
+  }
+}
