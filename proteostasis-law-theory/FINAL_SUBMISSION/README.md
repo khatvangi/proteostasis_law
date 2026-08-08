@@ -7,7 +7,9 @@ Kiran Boggavarapu — *Bulletin of Mathematical Biology*
 |---|---|
 | `MANUSCRIPT.pdf` | the paper, 31 pages, figures and tables embedded |
 | `SUPPLEMENTARY.pdf` | supplementary, 2 pages, Figures S1–S2 |
-| `COVER_LETTER.md` | cover letter |
+| `ABSTRACT.pdf` | title, abstract, keywords and MSC on one page |
+| `COVER_LETTER.docx` | cover letter, for the submission portal |
+| `COVER_LETTER.md` | cover letter, source |
 | `figures/Figure1–5.{pdf,png}` | main figures, for separate upload |
 | `figures/FigureS1–S2.{pdf,png}` | supplementary figures |
 | `latex_source/` | source, for production |

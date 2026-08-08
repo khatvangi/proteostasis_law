@@ -68,6 +68,37 @@ def build() -> dict:
     for dst, src in shipped.items():
         _copy(src, dst)
 
+    # Editorial Manager takes the cover letter as a document, not markdown.
+    # Generated rather than kept by hand so it cannot drift from the .md, which
+    # is the source; a hand-maintained .docx is a second lineage for the one
+    # part of the package a human actually reads first.
+    docx = OUT / "COVER_LETTER.docx"
+    r = subprocess.run(["pandoc", str(REPO_ROOT / "COVER_LETTER.md"),
+                        "-o", str(docx), "--from=markdown", "--to=docx"],
+                       capture_output=True, text=True)
+    if r.returncode != 0 or not docx.exists():
+        raise SystemExit(f"cover letter did not convert to docx:\n{r.stderr}")
+
+    # The abstract as a standalone page, for portals that ask for it as a file.
+    # Page 1 of the built PDF IS the abstract page -- title, byline, abstract,
+    # keywords, MSC -- so it is extracted rather than re-rendered. A separately
+    # typeset abstract would be a second lineage for the paper's most-read
+    # paragraph, and would drift the first time the abstract was edited.
+    r = subprocess.run(["pdftotext", "-layout", "-f", "2", "-l", "2",
+                        str(m / "bmb_v5.pdf"), "-"],
+                       capture_output=True, text=True)
+    if "Introduction" not in r.stdout:
+        raise SystemExit("page 2 is not the Introduction: the abstract no longer "
+                         "ends on page 1, so ABSTRACT.pdf would be truncated")
+    tmp = OUT / "ABSTRACT_%d.pdf"
+    r = subprocess.run(["pdfseparate", "-f", "1", "-l", "1",
+                        str(m / "bmb_v5.pdf"), str(tmp)],
+                       capture_output=True, text=True)
+    got = OUT / "ABSTRACT_1.pdf"
+    if r.returncode != 0 or not got.exists():
+        raise SystemExit(f"abstract page did not extract:\n{r.stderr}")
+    got.rename(OUT / "ABSTRACT.pdf")
+
     # the two copies of each figure, and the record that they are one file
     pairs = []
     for stem in MAIN_FIGS + SUPP_FIGS:
@@ -93,7 +124,7 @@ def build() -> dict:
         raise SystemExit("submission package is inconsistent:\n  "
                          + "\n  ".join(bad))
 
-    return {"files": len(shipped) + 3 * len(pairs), "figure_pairs": len(pairs)}
+    return {"files": len(shipped) + 2 + 3 * len(pairs), "figure_pairs": len(pairs)}
 
 
 def compileInIsolation() -> tuple[int, int]:

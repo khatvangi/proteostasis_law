@@ -52,8 +52,8 @@ on bioRxiv. I declare no competing interests.
 
 Yours sincerely,
 
-Kiran Boggavarapu
-ORCID 0000-0003-0751-6459
-Department of Chemistry and Physics, McNeese State University
-Lake Charles, LA 70609, USA
+Kiran Boggavarapu  
+ORCID 0000-0003-0751-6459  
+Department of Chemistry and Physics, McNeese State University  
+Lake Charles, LA 70609, USA  
 kiran@mcneese.edu
