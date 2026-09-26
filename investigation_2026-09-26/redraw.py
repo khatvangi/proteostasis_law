@@ -50,6 +50,25 @@ def stationary_points(rho=4.0, chi=0.15):
     return sorted(float(r.real) for r in roots if abs(r.imag) < 1e-9 and r.real > 0)
 
 
+def equilibrium_polynomial(lam, rho=4.0, chi=0.15):
+    """Coefficients for g(x)=lam after clearing the denominator."""
+    return [-chi, 1.0 - chi, 1.0 + rho - lam, -lam]
+
+
+def positive_equilibria(lam, rho=4.0, chi=0.15):
+    """Return positive real roots of g(x)=lam, sorted by x."""
+    roots = np.roots(equilibrium_polynomial(lam, rho, chi))
+    return sorted(float(r.real) for r in roots if abs(r.imag) < 1e-9 and r.real > 0)
+
+
+def positive_zero(rho=4.0, chi=0.15):
+    """Return the positive nonzero root of g(x)=0."""
+    roots = positive_equilibria(0.0, rho, chi)
+    if len(roots) != 1:
+        raise ValueError(f"expected one positive nonzero g root, got {roots}")
+    return roots[0]
+
+
 def make_plots():
     import matplotlib
     matplotlib.use("Agg")
@@ -70,15 +89,15 @@ def make_plots():
     ax.axvline(xmax, color="#D1495B", ls="--", lw=1.2,
                label=fr"maximum: $x={xmax:.4f}$")
     ax.scatter([xmax], [g(xmax, rho, chi)], color="#D1495B", zorder=5)
-    xzero = (-(1.0 - chi) - np.sqrt((1.0 - chi) ** 2 + 4.0 * chi * (rho + 1.0))) / (-2.0 * chi)
+    xzero = positive_zero(rho, chi)
     ax.axvline(xzero, color="#777777", ls=":", lw=1.2,
                label=fr"$g=0$ at $x={xzero:.4f}$")
     # Mark equilibria for lambda=2: stable low root and unstable upper root.
     lam = 2.0
-    coeff = [-chi, 1.0 - chi, rho + 1.0, -lam]
-    eq = sorted(float(r.real) for r in np.roots(coeff)
-                if abs(r.imag) < 1e-8 and r.real > 0)
+    eq = positive_equilibria(lam, rho, chi)
     for z in eq:
+        if not math.isclose(g(z, rho, chi), lam, rel_tol=0.0, abs_tol=1e-9):
+            raise ValueError(f"equilibrium residual too large at x={z}: {g(z, rho, chi)-lam}")
         ax.scatter([z], [lam], s=55, color="#2A9D8F" if gprime(z, rho, chi) > 0 else "#E76F51",
                    zorder=6)
     ax.axhline(lam, color="#2A9D8F", ls="-.", lw=1.0,
@@ -127,8 +146,13 @@ def main():
     xm = stationary_points()[0]
     print(f"stationary_x={xm:.12f}")
     print(f"g_max={g(xm):.12f}")
-    xzero = (-(1.0 - 0.15) - np.sqrt((1.0 - 0.15) ** 2 + 4.0 * 0.15 * 5.0)) / (-2.0 * 0.15)
+    xzero = positive_zero()
     print(f"positive_zero={xzero:.12f}")
+    lam = 2.0
+    for root in positive_equilibria(lam):
+        print(f"lambda={lam:.1f} equilibrium={root:.12f} "
+              f"g_residual={g(root)-lam:.3e} gprime={gprime(root):.12f} "
+              f"stability={'stable' if gprime(root) > 0 else 'unstable'}")
     for M in (0, 1, 5, 10, 25, 50, 100, 150, 200, 300):
         ca = float(approximate_free(M))
         ce, cb = finite_pool(M)

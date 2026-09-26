@@ -21,9 +21,18 @@ Use
 with `rho=4`, `chi=0.15`, and `F=lambda-g`. Stationary points are roots of
 `g'(x)=1+rho/(1+x)^2-2 chi x`; the script obtains them from the expanded cubic
 after multiplying by `(1+x)^2`, then filters real roots with `x>0`.
-Equilibria at `lambda=2` are roots of
-`-chi*x^3 + (1-chi)*x^2 + (rho+1)*x - lambda=0`. Stability is evaluated from
-`F'(x)=-g'(x)`: an equilibrium is locally stable when `F'<0`.
+Equilibria at `g(x)=lambda` are obtained by multiplying by `(1+x)`:
+`-chi*x^3 + (1-chi)*x^2 + (1+rho-lambda)*x - lambda=0`.
+For `rho=4`, `chi=0.15`, and `lambda=2`, the positive roots are
+`x=0.5808674541` and `x=7.9669676044`. Each retained root is independently
+checked against the original rational function with `abs(g(x)-lambda)<1e-9`.
+The third algebraic real root is `x=-2.8811683919` and is outside the
+nonnegative physical domain; it also satisfies the cleared equation and the
+original rational function.
+Stability is evaluated from `F'(x)=-g'(x)`: an equilibrium is locally stable
+when `g'(x)>0` (equivalently `F'<0`) and unstable when `g'(x)<0`.
+The positive nonzero root for `lambda=0` is `x=9.2645937939`; it is obtained
+from the same polynomial, not from an `x=10` marker.
 
 ## Exact finite-pool binding
 
@@ -48,6 +57,9 @@ form,
 then returns `C_f=C_T-C_b`. The legacy approximation is evaluated as
 `C_T/(1+M_T/K_d)`. Both are inserted into the same source-inspired functional
 form `v_fold=k_obs_max C_f/(C_f+K_d)`.
+The exact/approximate rate ratio is checked at representative loads; for
+`M_T=0, 10, 50, 300 µM` it is approximately `1.00000, 1.19042, 1.75382,
+1.16534`, respectively.
 
 ## Plots and files
 

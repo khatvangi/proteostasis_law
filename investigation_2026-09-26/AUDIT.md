@@ -1,4 +1,4 @@
-# First-pass scientific reevaluation — 2026-09-26
+# Independent scalar and finite-pool validation — 2026-09-26
 
 Scope is proteostasis P1 only. This directory is a new, non-destructive audit;
 no pre-existing project file, raw data, manuscript, or git metadata was changed.
@@ -7,6 +7,13 @@ repair plan at `envelope-paper/PLAN_P1_REPAIR.md`, and the active manuscript
 notes. It does not treat old generated outputs as validated evidence.
 
 ## Verdict
+
+The scalar redraw has been corrected and independently rechecked. The
+stationary-point cubic is `-0.30x^3+0.40x^2+1.70x+5=0`; the prior `+9.60x`
+coefficient is rejected. The equilibrium polynomial is
+`-chi*x^3+(1-chi)*x^2+(1+rho-lambda)*x-lambda=0`; for `lambda=2` the prior
+`rho+1` coefficient is rejected. All plotted positive roots below satisfy
+`abs(g(root)-lambda)<1e-9` when evaluated in the original rational function.
 
 | Item | Observation / derivation | Status | Consequence |
 |---|---|---|---|
@@ -49,7 +56,10 @@ Thus `lambda_fold = 4.80218919587308` is the maximum admissible positive
 horizontal level for the low-load equilibrium in the nonnegative domain. The
 positive zero of `g` is `x=9.2645937939` (the other roots are `x=0` and
 `x=-3.5979271272`). For `lambda=2`, the positive equilibria are
-`x=0.3773994369` and `x=9.1502916726`; because `F'=-g'`, the low root is
+`x=0.5808674541` and `x=7.9669676044`; direct substitution gives residuals
+below `1e-12`. The third algebraic real root is `x=-2.8811683919`, outside
+the nonnegative physical domain, and also has residual below `1e-12`. Because
+`F'=-g'`, the low root is
 locally stable (`g'>0`, `F'<0`) and the high root is unstable (`g'<0`,
 `F'>0`). For `lambda>g_max`, there is no positive equilibrium below the
 overload crossing; the scalar flow is positive there and the reduced model
@@ -92,7 +102,8 @@ Selected computed values:
 | 300 | 0.16611 | 0.19905 | 49.80095 | 1.16534 |
 
 The difference peaks around stoichiometric competition, not at the largest
-ligand load. These are numerical consequences of alternate binding closures;
+ligand load. The exact/approximate folding-rate ratios at `M_T=0, 10, 50,
+300 µM` are `1.00000, 1.19042, 1.75382, 1.16534`. These are numerical consequences of alternate binding closures;
 they do not by themselves imply improved or worsened viability.
 
 ## Observed / derived / speculative boundary
