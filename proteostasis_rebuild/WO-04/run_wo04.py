@@ -179,36 +179,109 @@ def g45_fold(scans):
     return out
 
 
+def g44_dynamic(scans, n_ex=3):
+    """independent check of the eigenvalue classification: integrate the full
+    6-D ODE from each steady state perturbed by +-1e-3 relative along U. a
+    stable state must be returned to; an unstable one must be left for a
+    different steady state."""
+    from scipy.integrate import solve_ivp
+    out = []
+    for v in ("V1", "V2"):
+        for ex in scans[v]["multi_examples"][:n_ex]:
+            p = ex["params"]
+            xs = [bf.full_state(r, p) for r in ex["roots"]]
+            T = 50.0 / min(bf.classify(x, p)["min_abs_real_eig"] for x in xs)
+            for j, (x, stable) in enumerate(zip(xs, ex["stable_pattern"])):
+                for sgn in (-1, 1):
+                    x0 = x.copy()
+                    x0[1] *= 1 + sgn * 1e-3
+                    sol = solve_ivp(lambda t, z: bf.f(z, p), (0, T), x0, method="Radau",
+                                    jac=lambda t, z: bf.jac(z, p), rtol=1e-10, atol=1e-14)
+                    xe = sol.y[:, -1]
+                    dist = [abs(xe[1] - y[1]) / y[1] for y in xs]
+                    k = int(np.argmin(dist))
+                    ok = (k == j) if stable else (k != j)
+                    out.append({"variant": v, "idx": ex["idx"], "root": j, "stable": stable,
+                                "sign": sgn, "ended_at_root": k, "rel_dist": float(dist[k]),
+                                "consistent": bool(ok and dist[k] < 1e-4)})
+    return out
+
+
+def g45_continuation(scans, n_ex=10):
+    """continuation along the exact equilibrium curve (U-parametrised) for the
+    stored multistable examples, plus V0 samples as the negative control."""
+    res = {}
+    for v in ("V1", "V2"):
+        rows = []
+        for ex in scans[v]["multi_examples"][:n_ex]:
+            p = ex["params"]
+            c = bf.continue_branch(p)
+            # consistency: continuation and global root finding count the
+            # same number of steady states at the scanned eps
+            n_cross = int(np.sum(np.diff(np.sign(c["eps"] - p["eps"])) != 0))
+            rows.append({"idx": ex["idx"], "folds": c["folds"],
+                         "n_det_sign_changes": len(c["det_sign_changes"]),
+                         "n_curve_crossings_at_eps": n_cross, "n_roots_at_eps": ex["n_roots"]})
+        res[v] = rows
+    rng = np.random.default_rng(999)
+    v0 = []
+    for _ in range(10):
+        c = bf.continue_branch(bf.sample(rng, "V0"), n=1500)
+        v0.append({"n_folds": len(c["folds"]), "n_det_sign_changes": len(c["det_sign_changes"]),
+                   "eps_monotone_increasing": bool(np.all(np.diff(c["eps"]) > 0))})
+    res["V0_control"] = v0
+    return res
+
+
 def run(n=2000):
     okP, okC = bf.conservation_ok()
     scans = {v: scan(v, n, seed=100 + i) for i, v in enumerate(("V0", "V1", "V2"))}
     r = {"G4.1": g41_scalar(), "G4.2": g42_legacy(),
          "variant_conservation": {"P_T": okP, "C_T": okC, "V0_equals_WO02": bf.reduces_to_wo02()},
-         "G4.3_scans": scans, "G4.3_crosscheck_V0": crosscheck_v0(), "G4.5": g45_fold(scans)}
+         "G4.3_analytic_V0": bf.analytic_v0(),
+         "G4.3_scans": scans, "G4.3_crosscheck_V0": crosscheck_v0(),
+         "G4.4_dynamic": g44_dynamic(scans),
+         "G4.5": g45_fold(scans), "G4.5_continuation": g45_continuation(scans)}
     s41 = r["G4.1"]
     v0 = scans["V0"]
-    folds_ok = all(
-        (not fv["found"]) or all(
-            abs(fd["G_at_fold_rel"]) < 1e-8
-            and fd["det_sign_branch_a"] * fd["det_sign_branch_b"] < 0
-            and fd["min_abs_real_eig_at_fold"] < 1e-3 * min(fd["min_abs_real_eig_branch_a"],
-                                                           fd["min_abs_real_eig_branch_b"]) * 1e3
-            for fd in fv["folds"])
-        for fv in r["G4.5"].values())
+    # fold verification on the continuation. the previous criterion here was
+    # "min_abs_eig_at_fold < 1e-3 * min(branch) * 1e3", whose factors cancel;
+    # replaced by an explicit 1e-4 ratio.
+    cont = r["G4.5_continuation"]
+    phys = [fd for v in ("V1", "V2") for row in cont[v] for fd in row["folds"] if fd["physical"]]
+    folds_ok = bool(
+        len(phys) > 0
+        and all(abs(fd["G_rel_at_fold"]) < 1e-10
+                and fd["min_abs_eig_at_fold"] < 1e-4 * fd["ref_min_abs_eig_nearby"]
+                and fd["det_sign_left"] * fd["det_sign_right"] < 0 for fd in phys)
+        and all(row["n_det_sign_changes"] == len(row["folds"])
+                and row["n_curve_crossings_at_eps"] == row["n_roots_at_eps"]
+                for v in ("V1", "V2") for row in cont[v])
+        and all(c["n_folds"] == 0 and c["n_det_sign_changes"] == 0 and c["eps_monotone_increasing"]
+                for c in cont["V0_control"]))
+    # the old eps-sweep + fsolve fold must agree with the continuation fold
+    cont_eps = [fd["eps_fold"] for row in cont["V1"][:1] for fd in row["folds"] if fd["physical"]]
+    old_eps = [fd["eps_fold"] for fd in r["G4.5"]["V1"]["folds"]]
+    r["G4.5_methods_agree"] = bool(len(cont_eps) == len(old_eps) and np.allclose(
+        sorted(cont_eps), sorted(old_eps), rtol=1e-6))
+    a = r["G4.3_analytic_V0"]
+    analytic_ok = all(a[k] for k in ("reduction_unique", "curve_satisfies_other_balances",
+                                     "dG_dU_decomposition_holds", "G0_formula_holds"))
     r["pass"] = {
         "G4.1": bool(np.allclose(s41["cubic_coeffs"], [-0.3, 0.4, 1.7, 5.0])
                      and s41["g2_identity_negative_definite"]
                      and abs(s41["lambda_fold"] - 4.80218919587308) < 1e-10
                      and max(s41["residuals"]) < 1e-12),
         "G4.2": all("mechanism" in x for x in r["G4.2"]),
-        "G4.3": bool(v0["count_hist"] == {1: v0["n"]}
+        "G4.3": bool(analytic_ok and v0["count_hist"] == {1: v0["n"]}
                      and r["G4.3_crosscheck_V0"]["n_disagree_with_reduction"] == 0
                      and r["G4.3_crosscheck_V0"]["n_converged_physical"] > 0
                      and all(scans[v]["n_bad_residual"] == 0 for v in scans)
                      and okP and okC and r["variant_conservation"]["V0_equals_WO02"]),
         "G4.4": bool(all(scans[v]["n_single_root_unstable"] == 0
-                         and scans[v]["n_stability_pattern_mismatch"] == 0 for v in scans)),
-        "G4.5": bool(folds_ok),
+                         and scans[v]["n_stability_pattern_mismatch"] == 0 for v in scans)
+                     and all(d["consistent"] for d in r["G4.4_dynamic"])),
+        "G4.5": bool(folds_ok and r["G4.5_methods_agree"]),
     }
     return r
 

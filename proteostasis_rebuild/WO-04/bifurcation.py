@@ -286,14 +286,14 @@ def eps_of_U(Ug, p):
 
 def continue_branch(p, n=4000):
     """continuation of the full equilibrium curve parametrised by U (never
-    turns in U). returns the physical part 0 < eps < 1, the sign of det(J) of
-    the full 6-D system at each point, and the folds (extrema of eps(U))
-    refined by brentq on d eps/dU."""
+    turns in U) on one contiguous grid. folds are the extrema of eps(U),
+    refined by brentq on d eps/dU; det(J) of the full 6-D system is tracked
+    along the whole curve. a fold is physical if 0 < eps_fold < 1; the grid is
+    not cut to the physical window first, because cutting joins points across
+    a gap and manufactures spurious sign changes."""
     Umax = p["s_P"] / p["mu"]
     Ug = np.geomspace(1e-9 * Umax, Umax, n)
     e = eps_of_U(Ug, p)
-    keep = (e > 0) & (e < 1)
-    Ug, e = Ug[keep], e[keep]
     dets = np.array([np.sign(np.linalg.det(jac(full_state(u, {**p, "eps": ee}), {**p, "eps": ee})))
                      for u, ee in zip(Ug, e)])
 
@@ -307,18 +307,16 @@ def continue_branch(p, n=4000):
         uf = brentq(de, Ug[i], Ug[i + 1], xtol=1e-14 * Ug[i + 1], rtol=1e-13)
         ef = float(eps_of_U(np.array([uf]), p)[0])
         q = {**p, "eps": ef}
-        xf = full_state(uf, q)
-        ev = np.linalg.eigvals(jac(xf, q))
-        # reference scale: slowest eigenvalue at the regular curve points
-        # either side of the fold (grid neighbours, not the fold itself)
+        ev = np.linalg.eigvals(jac(full_state(uf, q), q))
+        jl, jr = max(i - 5, 0), min(i + 6, len(Ug) - 1)
+        # reference scale: slowest eigenvalue at regular curve points either side
         ref = min(classify(full_state(Ug[j], {**p, "eps": e[j]}), {**p, "eps": e[j]})["min_abs_real_eig"]
-                  for j in (max(i - 5, 0), min(i + 6, len(Ug) - 1)))
-        folds.append({"U_fold": float(uf), "eps_fold": ef,
+                  for j in (jl, jr))
+        folds.append({"U_fold": float(uf), "eps_fold": ef, "physical": bool(0 < ef < 1),
                       "G_rel_at_fold": float(G(np.array([uf]), q)[0] / p["s_P"]),
                       "min_abs_eig_at_fold": float(np.min(np.abs(ev))),
                       "ref_min_abs_eig_nearby": float(ref),
-                      "det_sign_left": float(dets[max(i - 5, 0)]),
-                      "det_sign_right": float(dets[min(i + 6, len(Ug) - 1)]),
+                      "det_sign_left": float(dets[jl]), "det_sign_right": float(dets[jr]),
                       "kind": "max" if d[i] > 0 else "min"})
     det_changes = [(float(Ug[i]), float(Ug[i + 1])) for i in np.where(dets[:-1] * dets[1:] < 0)[0]]
     return {"n_points": int(len(Ug)), "folds": folds, "det_sign_changes": det_changes,
