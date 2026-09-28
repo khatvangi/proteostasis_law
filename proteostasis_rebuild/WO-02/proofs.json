@@ -1,0 +1,43 @@
+{
+  "G2.1": {
+    "P_T_identity": true,
+    "C_T_identity": true
+  },
+  "G2.2": {
+    "n_bad_terms": 0,
+    "bad": []
+  },
+  "G2.3": {
+    "N": true,
+    "U": true,
+    "B": true,
+    "A": true,
+    "C": true
+  },
+  "G2.4": {
+    "n": 200,
+    "n_integration_failures": 0,
+    "max_rel_err_P_T": 3.025724895992816e-13,
+    "max_rel_err_C_T": 9.530454125012159e-10,
+    "most_negative_state": 0.0
+  },
+  "G2.5": {
+    "P_star": 0.0011041648112449756,
+    "Phi_at_P_star": 1.0329908196169086,
+    "phantom_fraction_of_inflow_at_P_star": 0.03193718568490618,
+    "P_dagger": 0.027402369283022754,
+    "Phi_at_P_dagger": 1.9402628510600128,
+    "phantom_fraction_of_inflow_at_P_dagger": 0.4846059133412385,
+    "phantom_rate_at_P_dagger_per_s": 0.00016459879856950635,
+    "unaccounted_flux_symbolic": "J_bare*P*Prot_tot_uM*UM_TO_M*k_agg_M_s*(C_tot_uM + K_d_uM + P*Prot_tot_uM)/(C_tot_uM*k_obs_max + k_deg*(C_tot_uM + K_d_uM + P*Prot_tot_uM))",
+    "unaccounted_equals_J_bare_times_Phi_minus_1": true,
+    "donor_pool_found": false
+  },
+  "pass": {
+    "G2.1": true,
+    "G2.2": true,
+    "G2.3": true,
+    "G2.4": true,
+    "G2.5": true
+  }
+}

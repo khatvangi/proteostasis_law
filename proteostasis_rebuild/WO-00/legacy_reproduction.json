@@ -1,0 +1,74 @@
+{
+  "mechanism_at_baseline": "aggregation_death",
+  "legacy_A_reproduction_factor": 1.0,
+  "rows": [
+    {
+      "check": "headroom_P at usage-weighted mu",
+      "recomputed": 24.817281807890474,
+      "stored": 24.817281807890474,
+      "rel_err": 0.0,
+      "tol": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "headroom_A at usage-weighted mu",
+      "recomputed": 274.6521619913062,
+      "stored": 274.6521619913062,
+      "rel_err": 0.0,
+      "tol": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "headroom_P at window bottom 1e-4",
+      "recomputed": 158.05573178050503,
+      "stored": 158.05573178050503,
+      "rel_err": 0.0,
+      "tol": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "baseline two-pool f_codon_crit",
+      "recomputed": 0.01000320880691999,
+      "stored": 0.01000320880691999,
+      "rel_err": 0.0,
+      "tol": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "baseline two-pool P_dagger",
+      "recomputed": 0.027402369283022754,
+      "stored": 0.027402369283022754,
+      "rel_err": 0.0,
+      "tol": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "arith exact, stated params",
+      "recomputed": 0.005658142850513878,
+      "stored": 0.005658142850513878,
+      "rel_err": 0.0,
+      "tol": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "arith with (1-S)p_m forced to 1",
+      "recomputed": 0.0011882099986079142,
+      "stored": 0.0011882099986079142,
+      "rel_err": 0.0,
+      "tol": 1e-06,
+      "pass": true
+    }
+  ],
+  "all_pass": true,
+  "detail_at_usage_weighted_mu": {
+    "P_dagger": 0.027402369283022754,
+    "J_crit": 0.00017505615412109985,
+    "mechanism": "aggregation_death",
+    "P_death": 0.027402369967882124,
+    "P_star": 0.0011041648112449756,
+    "A_star": 0.0009102422430882356,
+    "headroom_P": 24.817281807890474,
+    "headroom_A": 274.6521619913062,
+    "f_codon_crit": 0.01000320880691999
+  }
+}

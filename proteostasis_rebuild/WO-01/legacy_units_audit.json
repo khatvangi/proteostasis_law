@@ -1,0 +1,139 @@
+{
+  "pieces": [
+    {
+      "piece": "M (misfolded conc.)",
+      "where": "two_pool_ode.py:128",
+      "unit": "1e-06*conc",
+      "expected": "1e-06*conc",
+      "dimension_ok": true
+    },
+    {
+      "piece": "C_free",
+      "where": ":129",
+      "unit": "1e-06*conc",
+      "expected": "1e-06*conc",
+      "dimension_ok": true
+    },
+    {
+      "piece": "v_fold",
+      "where": ":133",
+      "unit": "time^-1",
+      "expected": "time^-1",
+      "dimension_ok": true
+    },
+    {
+      "piece": "v_agg",
+      "where": ":137-138",
+      "unit": "time^-1",
+      "expected": "time^-1",
+      "dimension_ok": true
+    },
+    {
+      "piece": "Phi",
+      "where": ":141",
+      "unit": "1",
+      "expected": "1",
+      "dimension_ok": true
+    },
+    {
+      "piece": "R (clearance flux)",
+      "where": ":144",
+      "unit": "time^-1",
+      "expected": "time^-1",
+      "dimension_ok": true
+    },
+    {
+      "piece": "drain",
+      "where": ":150",
+      "unit": "time^-1",
+      "expected": "time^-1",
+      "dimension_ok": true
+    },
+    {
+      "piece": "A_qs",
+      "where": ":158-159",
+      "unit": "1",
+      "expected": "1",
+      "dimension_ok": true
+    },
+    {
+      "piece": "dP/dt",
+      "where": ":19",
+      "unit": "time^-1",
+      "expected": "time^-1",
+      "dimension_ok": true
+    },
+    {
+      "piece": "dA/dt",
+      "where": ":20",
+      "unit": "time^-1",
+      "expected": "time^-1",
+      "dimension_ok": true
+    },
+    {
+      "piece": "f_codon from J",
+      "where": ":262",
+      "unit": "codon^-1 protein",
+      "expected": "codon^-1 protein",
+      "dimension_ok": true
+    }
+  ],
+  "all_dimension_ok": true,
+  "fluxes": [
+    {
+      "flux": "J_bare",
+      "donor": "external:synthesis of error-bearing chains",
+      "receiver": "P",
+      "conservative": true,
+      "note": "source is protein synthesis, but synthesis itself is not modelled; see ln2 finding"
+    },
+    {
+      "flux": "J_bare*(Phi-1)",
+      "donor": null,
+      "receiver": "P",
+      "conservative": false,
+      "note": "extra inflow proportional to v_agg; no pool is debited and no synthesis process is named. mass enters P from nowhere"
+    },
+    {
+      "flux": "k_deg*P",
+      "donor": "P",
+      "receiver": "external:degradation",
+      "conservative": true,
+      "note": "degradation sink"
+    },
+    {
+      "flux": "v_fold*P",
+      "donor": "P",
+      "receiver": "untracked native pool",
+      "conservative": true,
+      "note": "refolded protein leaves to a native pool that is not a state; harmless only because nothing depends on the native pool"
+    },
+    {
+      "flux": "drain*(1-A_sat)",
+      "donor": "P",
+      "receiver": "A",
+      "conservative": true,
+      "note": "paired transfer P -> A"
+    },
+    {
+      "flux": "k_clear*A",
+      "donor": "A",
+      "receiver": "external:clearance",
+      "conservative": true,
+      "note": "disaggregation (Mogk) would return A to P or N; modelled as total removal"
+    },
+    {
+      "flux": "dilution mu*P, mu*A",
+      "donor": null,
+      "receiver": null,
+      "conservative": false,
+      "note": "ABSENT. in growth at T_gen = 3600 s, mu = ln2/T_gen = 1.93e-4 /s, the same order as k_deg (3e-4) and k_clear (4e-4)"
+    }
+  ],
+  "synthesis_rate_semantics": {
+    "legacy_synthesis_rate_per_protein": 0.0002777777777777778,
+    "balanced_growth_rate_mu": 0.0001925408834888737,
+    "legacy_over_balanced": 1.4426950408889634
+  },
+  "negative_control_rejected": true
+}
