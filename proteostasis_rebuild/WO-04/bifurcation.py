@@ -220,3 +220,106 @@ def locate_fold(p, e_lo, e_hi):
         return [g / (p["s_P"]), dg / (p["mu"] + p["k_d"] + p["k_a"] * u + 1e-300)]
     sol = fsolve(eqs, [U0, np.log(side)], xtol=1e-13)
     return float(sol[0]), float(np.exp(sol[1])), (rs[j], rs[j + 1], side)
+
+
+# ------------------------------------------------------------ G4.3 analytic (V0)
+def analytic_v0():
+    """analytical steady-state count for the conservative core V0 (k_onA = 0).
+
+    step 1 (necessity + uniqueness of the reduction): each of dN, dB, dA, dCA
+    and dC_T is linear in one unknown with a strictly positive coefficient
+    (mu > 0), so sympy's solve returns exactly one expression for N, B, A, CA
+    and C in terms of U. every steady state therefore lies on this curve.
+    step 2 (sufficiency): on that curve dN = dB = dA = dC = dCA = 0
+    identically and dU equals G(U).
+    step 3 (count): dG/dU equals an explicit sum of terms that are each <= 0
+    for nonnegative parameters, one of which, -(k_d + mu), is < 0 for mu > 0.
+    G(0) = eps s_P + k_mis (1-eps) s_P/(k_mis+mu) > 0 whenever eps > 0, and
+    G -> -inf. hence exactly one root on U >= 0: exactly one steady state."""
+    CT, KM = sp.symbols("C_T K_M", positive=True)
+    sub0 = {k_onA: 0}
+    # step 1: solve each balance for its own unknown
+    Bs = sp.solve(sp.Eq(RHS[2], 0), B)
+    CAs = sp.solve(sp.Eq(RHS[5].subs(sub0), 0), CA)
+    As = sp.solve(sp.Eq(RHS[3].subs(sub0).subs(CA, 0), 0), A)
+    Ns = sp.solve(sp.Eq(RHS[0], 0), N)
+    Ctot = sp.solve(sp.Eq(s_C - mu * CT, 0), CT)         # dC_T/dt = s_C - mu C_T
+    Cs = sp.solve(sp.Eq(C + Bs[0] - CT, 0), C)          # C_T = C + B (CA = 0)
+    single = all(len(s) == 1 for s in (Bs, CAs, As, Ns, Ctot, Cs))
+    ca_zero = sp.simplify(CAs[0]) == 0
+    km = (k_off + k_cat + mu) / k_on
+    Cexpr = sp.simplify(Cs[0].subs(CT, s_C / mu))
+    Bexpr = sp.simplify(Bs[0].subs(C, Cexpr))
+    Aexpr = As[0]
+    Nexpr = sp.simplify(Ns[0].subs(B, Bexpr))
+    curve = {N: Nexpr, B: Bexpr, A: Aexpr, C: Cexpr, CA: 0}
+    # step 2
+    zero_others = all(sp.simplify(RHS[i].subs(sub0).subs(curve)) == 0 for i in (0, 2, 3, 4, 5))
+    Gsym = sp.simplify(RHS[1].subs(sub0).subs(curve))
+    # step 3: the claimed sign decomposition of dG/dU
+    CT_ = s_C / mu
+    claimed = (-(phi * k_cat * mu / (k_mis + mu) + mu) * CT_ * km / (km + U) ** 2
+               - (k_d + mu)
+               - 2 * k_a * U * (k_dA + mu) / (k_dis + k_dA + mu))
+    dG_ok = sp.simplify(sp.diff(Gsym, U) - claimed) == 0
+    G0 = sp.simplify(Gsym.subs(U, 0))
+    G0_ok = sp.simplify(G0 - (eps * s_P + k_mis * (1 - eps) * s_P / (k_mis + mu))) == 0
+    return {"reduction_unique": bool(single and ca_zero),
+            "curve_satisfies_other_balances": bool(zero_others),
+            "dG_dU_decomposition_holds": bool(dG_ok),
+            "dG_dU": str(claimed), "G0": str(G0), "G0_formula_holds": bool(G0_ok),
+            "conclusion": "exactly one steady state for all nonnegative parameters "
+                          "with mu > 0 and eps > 0 (or k_mis > 0)"}
+
+
+# ------------------------------------------------------------ G4.5 continuation
+def eps_coeff(p):
+    """G(U, eps) = eps * eps_coeff(p) + H(U); the U-dependent pools do not depend on eps."""
+    return p["s_P"] * p["mu"] / (p["k_mis"] + p["mu"])
+
+
+def eps_of_U(Ug, p):
+    """exact equilibrium curve: every steady state is (U, eps(U))."""
+    H = G(Ug, {**p, "eps": 0.0})
+    return -H / eps_coeff(p)
+
+
+def continue_branch(p, n=4000):
+    """continuation of the full equilibrium curve parametrised by U (never
+    turns in U). returns the physical part 0 < eps < 1, the sign of det(J) of
+    the full 6-D system at each point, and the folds (extrema of eps(U))
+    refined by brentq on d eps/dU."""
+    Umax = p["s_P"] / p["mu"]
+    Ug = np.geomspace(1e-9 * Umax, Umax, n)
+    e = eps_of_U(Ug, p)
+    keep = (e > 0) & (e < 1)
+    Ug, e = Ug[keep], e[keep]
+    dets = np.array([np.sign(np.linalg.det(jac(full_state(u, {**p, "eps": ee}), {**p, "eps": ee})))
+                     for u, ee in zip(Ug, e)])
+
+    def de(u):
+        h = 1e-6 * u
+        return float((eps_of_U(np.array([u + h]), p)[0] - eps_of_U(np.array([u - h]), p)[0]) / (2 * h))
+
+    d = np.array([de(u) for u in Ug])
+    folds = []
+    for i in np.where(np.sign(d[:-1]) * np.sign(d[1:]) < 0)[0]:
+        uf = brentq(de, Ug[i], Ug[i + 1], xtol=1e-14 * Ug[i + 1], rtol=1e-13)
+        ef = float(eps_of_U(np.array([uf]), p)[0])
+        q = {**p, "eps": ef}
+        xf = full_state(uf, q)
+        ev = np.linalg.eigvals(jac(xf, q))
+        # reference scale: slowest eigenvalue at the regular curve points
+        # either side of the fold (grid neighbours, not the fold itself)
+        ref = min(classify(full_state(Ug[j], {**p, "eps": e[j]}), {**p, "eps": e[j]})["min_abs_real_eig"]
+                  for j in (max(i - 5, 0), min(i + 6, len(Ug) - 1)))
+        folds.append({"U_fold": float(uf), "eps_fold": ef,
+                      "G_rel_at_fold": float(G(np.array([uf]), q)[0] / p["s_P"]),
+                      "min_abs_eig_at_fold": float(np.min(np.abs(ev))),
+                      "ref_min_abs_eig_nearby": float(ref),
+                      "det_sign_left": float(dets[max(i - 5, 0)]),
+                      "det_sign_right": float(dets[min(i + 6, len(Ug) - 1)]),
+                      "kind": "max" if d[i] > 0 else "min"})
+    det_changes = [(float(Ug[i]), float(Ug[i + 1])) for i in np.where(dets[:-1] * dets[1:] < 0)[0]]
+    return {"n_points": int(len(Ug)), "folds": folds, "det_sign_changes": det_changes,
+            "U": Ug, "eps": e, "det_sign": dets}
