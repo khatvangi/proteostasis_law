@@ -1,0 +1,223 @@
+{
+  "G5.1": {
+    "landerer_definition_quote": "For each codon, an error detection rate was calculated as the total number of times (number of Peptide Spectrum Match [PSM]) peptides covering a position with this codon and carrying a substitution at that position were detected divided by the total number of times peptides, modified or unmodified, covering a position with this codon were detected.",
+    "landerer_source": "Landerer, Poehls, Toth-Petroczy 2024 MBE 41:msae048, PMC10939442",
+    "legacy_mu_equals_DataS2_mean": true,
+    "n_datasets_per_codon_min": 3.0000001418831594,
+    "n_datasets_per_codon_max": 67.99999608124021,
+    "n_max_dev_from_integer": 5.125677436979004e-05,
+    "n_datasets_total": 80,
+    "inference": "n < 80 for every codon, so Data_S2 mean is over datasets with >= 1 detected substitution at that codon (conditional mean)",
+    "legacy_docstring_misdescribes": "02_axis_structure / MANUSCRIPT:202 call mu the 'mean across detected substitutions'; it is a mean across datasets of a destination-summed rate"
+  },
+  "G5.2": [
+    {
+      "file": "/storage/kiran-stuff/proteostasis_law/envelope-paper/scripts/11_headroom_sensitivity.py",
+      "line": 81,
+      "anchor": "(1.0 - p.S_avg)",
+      "anchor_found": true,
+      "class": "double-discount",
+      "input": "MS mu (usage-weighted Data_S2 mean)",
+      "note": "the x25 headroom"
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis_law/envelope-paper/scripts/12_chaperone_availability.py",
+      "line": 72,
+      "anchor": "(1.0 - p.S_avg)",
+      "anchor_found": true,
+      "class": "double-discount",
+      "input": "MS mu (translation_burden.json)",
+      "note": "theta sweep"
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis_law/envelope-paper/scripts/09_supraadditivity.py",
+      "line": 99,
+      "anchor": "(1.0 - p.S_avg)",
+      "anchor_found": true,
+      "class": "double-discount",
+      "input": "MS mu (translation_burden.json)",
+      "note": "supraadditivity; margins also compared in f-space against f_codon_from_J, a raw-level threshold"
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis_law/envelope-paper/scripts/vendor/two_pool_ode.py",
+      "line": 262,
+      "anchor": "(1.0 - p.S_avg)",
+      "anchor_found": true,
+      "class": "correct",
+      "input": "J_crit -> raw-error threshold",
+      "note": "correct as a raw threshold; comparing it to MS mu understates the margin by (1-S)"
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis_law/envelope-paper/scripts/vendor/two_pool_ode.py",
+      "line": 513,
+      "anchor": "(1.0 - p.S_avg)",
+      "anchor_found": true,
+      "class": "ambiguous",
+      "input": "f_codon = 1e-4 'observed E. coli rate'",
+      "note": "the kind of the 1e-4 literature window is not stated"
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis-P1/two_pool_ode.py",
+      "line": 262,
+      "anchor": "(1.0 - p.S_avg)",
+      "anchor_found": true,
+      "class": "correct",
+      "input": "J_crit -> raw-error threshold",
+      "note": ""
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis-P1/two_pool_ode.py",
+      "line": 513,
+      "anchor": "(1.0 - p.S_avg)",
+      "anchor_found": true,
+      "class": "ambiguous",
+      "input": "f_codon = 1e-4 'observed E. coli rate'",
+      "note": "kind of 1e-4 window is unstated"
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis-P1/two_pool_ode.backup_uniformN.py",
+      "line": 236,
+      "anchor": "(1.0 - p.S_avg)",
+      "anchor_found": true,
+      "class": "correct",
+      "input": "J_crit -> raw-error threshold",
+      "note": "backup implementation"
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis-P1/two_pool_ode.backup_uniformN.py",
+      "line": 483,
+      "anchor": "(1.0 - p.S_avg)",
+      "anchor_found": true,
+      "class": "ambiguous",
+      "input": "f_codon = 1e-4 crosscheck",
+      "note": "kind of 1e-4 window is unstated"
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis-P1/paired_mc.py",
+      "line": 146,
+      "anchor": "(1.0 - p.S_avg)",
+      "anchor_found": true,
+      "class": "ambiguous",
+      "input": "f_obs = 1e-4",
+      "note": "same undocumented window value"
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis-P1/paired_mc.py",
+      "line": 148,
+      "anchor": "f_eff_obs = f_obs * (1.0 - S) * p_m",
+      "anchor_found": true,
+      "class": "ambiguous",
+      "input": "f_obs = 1e-4",
+      "note": "same undocumented window value"
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis-P1/arithmetic_stress_test.py",
+      "line": 72,
+      "anchor": "denom = (1.0 - S_syn) * p_misfold",
+      "anchor_found": true,
+      "class": "correct",
+      "input": "threshold on raw error",
+      "note": "exact raw threshold"
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis-P1/arithmetic_stress_test.py",
+      "line": 80,
+      "anchor": "denom = (1.0 - S_syn) * p_misfold",
+      "anchor_found": true,
+      "class": "correct",
+      "input": "threshold on raw error",
+      "note": "large-N approximation"
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis-P1/arithmetic_stress_test.py",
+      "line": 113,
+      "anchor": "denom = (1.0 - S_syn) * p_misfold",
+      "anchor_found": true,
+      "class": "correct",
+      "input": "threshold on raw error",
+      "note": ""
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis-P1/arithmetic_stress_test.py",
+      "line": 242,
+      "anchor": "f_cod = f_eff / ((1.0 - base.S_syn) * base.p_misfold)",
+      "anchor_found": true,
+      "class": "correct",
+      "input": "effective damage -> raw error",
+      "note": ""
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis-P1/arithmetic_stress_test.py",
+      "line": 202,
+      "anchor": "(1-S)\u00b7p_m = 1.0",
+      "anchor_found": true,
+      "class": "ambiguous",
+      "input": "Part A point estimate",
+      "note": "factor forced to 1.0: neither a raw nor a substitution threshold under the stated model; source of 1.19e-3"
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis-P1/essential_bound.py",
+      "line": 209,
+      "anchor": "denom = (1.0 - S_syn) * p_misfold",
+      "anchor_found": true,
+      "class": "correct",
+      "input": "threshold on raw error",
+      "note": ""
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis-P1/essential_bound.py",
+      "line": 216,
+      "anchor": "f_eff = f_codon * (1.0 - S_syn) * p_misfold",
+      "anchor_found": true,
+      "class": "correct",
+      "input": "raw error -> effective damage",
+      "note": "correct if f_codon is raw"
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis-P1/essential_bound.py",
+      "line": 241,
+      "anchor": "denom = (1.0 - S_syn) * p_misfold",
+      "anchor_found": true,
+      "class": "correct",
+      "input": "threshold on raw error",
+      "note": ""
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis-P1/figures/fig2_arithmetic.py",
+      "line": 114,
+      "anchor": "((1.0 - Ssyn) * pmis)",
+      "anchor_found": true,
+      "class": "correct",
+      "input": "threshold on raw error",
+      "note": "same threshold form at lines 109, 121, 123"
+    },
+    {
+      "file": "/storage/kiran-stuff/proteostasis_law/envelope-paper/scripts/06_translation_burden.py",
+      "line": 37,
+      "anchor": "mubar = float((w * m.mu).sum())",
+      "anchor_found": true,
+      "class": "correct",
+      "input": "MS mu used directly as f_sub in 1-exp(-mu N)",
+      "note": "no (1-S); a lower bound, since MS undercounts"
+    }
+  ],
+  "G5.4": {
+    "threshold_raw_exact": 0.005658142850513878,
+    "threshold_raw_largeN": 0.0056615070466465465,
+    "threshold_sub_exact": 0.003960699995359715,
+    "legacy_quoted_minus_lnP_over_N": 0.0011889164797957749,
+    "unfiltered_exact_1_minus_P_pow": 0.0011882099986079142,
+    "explanation": "1.19e-3 = -ln(0.7)/300: arithmetic_stress_test.py Part A sets (1-S)p_m = 1.0 (line 202), dropping both factors"
+  },
+  "G5.5": {
+    "status": "BLOCKED",
+    "reason": "Data_S2 mean is conditional on datasets with detected errors; the eligible-dataset denominator and zero-detection codon/dataset cells are unavailable, so the population per-codon substitution rate needed for an empirical headroom is unresolved.",
+    "computed_headroom": false
+  },
+  "pass": {
+    "G5.1": true,
+    "G5.2": true,
+    "G5.4": true,
+    "G5.5": "BLOCKED"
+  }
+}

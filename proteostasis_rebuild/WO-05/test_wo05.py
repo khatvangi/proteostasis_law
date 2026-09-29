@@ -58,12 +58,11 @@ class TestNumbers(unittest.TestCase):
         self.assertTrue(g["legacy_mu_equals_DataS2_mean"])
         self.assertLess(g["n_datasets_per_codon_max"], 80)
 
-    def test_g55_legacy_reproduced_and_corrected_lower(self):
+    def test_g55_blocks_unresolved_empirical_denominator(self):
         g = r.g55()
-        pub = [x for x in g["by_anchoring"] if x["anchoring"] == "as_published"][0]
-        self.assertAlmostEqual(pub["headroom_P_legacy"], 24.817281807890474, places=6)
-        self.assertAlmostEqual(g["J_ratio"], 1 / 0.7, places=12)
-        self.assertLess(pub["headroom_P_corrected"], pub["headroom_P_legacy"])
+        self.assertEqual(g["status"], "BLOCKED")
+        self.assertFalse(g["computed_headroom"])
+        self.assertIn("eligible-dataset denominator", g["reason"])
 
 
 if __name__ == "__main__":
