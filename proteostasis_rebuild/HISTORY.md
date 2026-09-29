@@ -1,0 +1,4 @@
+## 2026-09-29
+
+**Q:** Reopen WO-05 adversarially: does a covered codon with zero detected substitutions enter the Landerer rate as 0 or get excluded; what does n=(sd/se)^2 mean; recompute the x25 headroom without the (1-S) double discount and with the ln2/T_gen fix; evaluate Stikeleather 2026 separately.
+**A:** Landerer Data_S4 (per-dataset counts, same supplement) settles it: Data_S2 is reproduced only when the 3,015 covered zero-error cells are dropped (deTEL drops log10(0)); n = datasets with >=1 detection. The prior block's reason (denominators unavailable) was false, so G5.5 was computed. x24.817 -> x17.32 without (1-S), x35.88 with ln2 only, x25.06 with both (cancel); zero-inclusive input x63, pooled x113, per-dataset x4.6-x2370. These are eTEL aggregate, legacy-model-conditional numbers, not an E. coli baseline. Stikeleather 1.82e-3 is stationary phase, kept separate. WO-05 PASS; WO-06 not started.

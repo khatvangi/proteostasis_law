@@ -24,3 +24,30 @@ Append-only log of loop transitions. Machine-readable mirror: `loop_state.json`.
   four-state cycle shows drive-dependent ultra-affinity with detailed-balance
   control; nascent competition makes theta an output; tQSSA err < 0.5%).
   WO-04 started.
+
+## 2026-09-28 (backfilled 2026-09-29 from WO reports; not logged at the time)
+
+- WO-04 PASS (see WO-04/REPORT.md). WO-05 started.
+- WO-05 BLOCKED on G5.5: Data_S2 means judged conditional on detection from
+  (sd/se)^2 < 80; zero cells and denominators judged unavailable. Loop stopped.
+
+## 2026-09-29
+
+- WO-05 reopened adversarially on user instruction.
+- Found: Landerer Data_S4 (same supplement as Data_S2) has per-dataset
+  base_count/error_count for all 80 E. coli datasets. Data_S2 reproduced to
+  ~1e-9 ONLY when covered zero-error cells are dropped (3015 such cells; 19
+  cells without coverage). n = (sd/se)^2 = datasets with >=1 detection.
+  Upstream deTEL global_report.py drops rate-0 rows via log10 -> NaN -> dropna.
+  Prior inference confirmed; prior block reason (data unavailable) was false.
+- G5.5 computed in the legacy model: x24.817 reproduced; remove (1-S) only
+  x17.320; ln2/T_gen only x35.876; both x25.064; with zero-inclusive input
+  x63.10; PSM-pooled x112.87; per-dataset spread x4.6 to x2370. All labelled
+  eTEL-aggregate, legacy-model-conditional, not an E. coli baseline.
+- Stikeleather 2026 NAR (doi:10.1093/nar/gkag674) recorded as a separate
+  STATIONARY-phase estimate (1.82e-3 /codon); no headroom computed from it.
+- CLAIM_REGISTER: C05 CORRECTED, C06 REJECTED, C10 CONDITIONAL, C21-C24
+  CORRECTED. Provenance check 35/0; legacy hashes 30/30 unchanged.
+- WO-05 PASS. WO-06 eligible, NOT started in this session (a citation audit
+  run short on time would risk VERIFIED marks without real record checks).
+  Loop paused.

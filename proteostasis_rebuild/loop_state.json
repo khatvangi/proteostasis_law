@@ -1,21 +1,28 @@
 {
   "run_started": "2026-09-27",
   "mode": "bounded single-session sequential loop",
-  "current_gate": "WO-04",
-  "next_eligible": "WO-04",
-  "stopped": false,
-  "stop_reason": null,
+  "last_updated": "2026-09-29",
+  "current_gate": "WO-06",
+  "next_eligible": "WO-06",
+  "stopped": true,
+  "stop_reason": "session ended after WO-05 was reopened and passed; WO-06 not started",
   "work_orders": {
     "WO-00": "PASS",
     "WO-01": "PASS",
     "WO-02": "PASS",
     "WO-03": "PASS",
-    "WO-04": "IN_PROGRESS",
-    "WO-05": "PENDING",
+    "WO-04": "PASS",
+    "WO-05": "PASS",
     "WO-06": "PENDING",
     "WO-07": "PENDING",
     "WO-08": "PENDING",
     "WO-09": "PENDING",
     "WO-10": "PENDING"
-  }
+  },
+  "history": [
+    {"date": "2026-09-28", "wo": "WO-05", "verdict": "BLOCKED",
+     "note": "reason (denominators unavailable) later shown false"},
+    {"date": "2026-09-29", "wo": "WO-05", "verdict": "PASS",
+     "note": "reopened; Data_S4 used; G5.5 computed"}
+  ]
 }

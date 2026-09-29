@@ -16,9 +16,10 @@ three quantities, kept apart by type (all dimensionless, per codon translated):
                 so it estimates f_sub, from below: I/L substitutions are
                 invisible (identical mass) and rare events are missed.
                 Data_S2 "mean" is the mean of per-dataset rates over the
-                datasets in which the codon had >= 1 detected substitution
-                (inferred: n = (sd/se)^2 is an integer 3..68 for every codon,
-                never the 80 datasets).
+                datasets in which the codon had >= 1 detected substitution.
+                verified, not inferred: Data_S4 per-dataset counts reproduce
+                Data_S2 only when covered zero-error cells are dropped
+                (landerer_s4.reconstruct_s2); deTEL drops them via log10(0).
 
 burden flux into the misfolded pool (legacy units, fraction/s):
   J = f_sub * N_prot * p_misfold / T_gen
@@ -68,9 +69,14 @@ def as_substitution(e: ErrorRate, S: float) -> ErrorRate:
     return e
 
 
-def flux(e: ErrorRate, N_prot: float, p_misfold: float, T_gen: float, S: float) -> float:
-    """corrected mapping: every kind is first converted to f_sub exactly once."""
-    return as_substitution(e, S).value * N_prot * p_misfold / T_gen
+def flux(e: ErrorRate, N_prot: float, p_misfold: float, T_gen: float, S: float,
+         balanced_growth: bool = False) -> float:
+    """corrected mapping: every kind is first converted to f_sub exactly once.
+    balanced_growth=True uses the per-protein synthesis rate ln2/T_gen of
+    exponential growth (WO-01 finding); False keeps the legacy 1/T_gen, so the
+    two corrections (synonymous discount, synthesis rate) can be isolated."""
+    k_syn = (math.log(2.0) if balanced_growth else 1.0) / T_gen
+    return as_substitution(e, S).value * N_prot * p_misfold * k_syn
 
 
 def flux_legacy(f: float, N_prot: float, p_misfold: float, T_gen: float, S: float) -> float:

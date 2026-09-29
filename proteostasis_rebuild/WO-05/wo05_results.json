@@ -1,14 +1,43 @@
 {
   "G5.1": {
     "landerer_definition_quote": "For each codon, an error detection rate was calculated as the total number of times (number of Peptide Spectrum Match [PSM]) peptides covering a position with this codon and carrying a substitution at that position were detected divided by the total number of times peptides, modified or unmodified, covering a position with this codon were detected.",
-    "landerer_source": "Landerer, Poehls, Toth-Petroczy 2024 MBE 41:msae048, PMC10939442",
+    "landerer_source": "Landerer, Poehls, Toth-Petroczy 2024 MBE 41:msae048, doi:10.1093/molbev/msae048, PMC10939442",
+    "supplement_zip": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/msae048_supplementary_data.zip",
+    "supplement_zip_sha256": "c2b7cef8d8e29ba29e1b5d73520595b53622b2fd68601faff1285f6884c9c416",
+    "legacy_data_S2_identical_to_supplement": true,
     "legacy_mu_equals_DataS2_mean": true,
     "n_datasets_per_codon_min": 3.0000001418831594,
     "n_datasets_per_codon_max": 67.99999608124021,
     "n_max_dev_from_integer": 5.125677436979004e-05,
     "n_datasets_total": 80,
-    "inference": "n < 80 for every codon, so Data_S2 mean is over datasets with >= 1 detected substitution at that codon (conditional mean)",
-    "legacy_docstring_misdescribes": "02_axis_structure / MANUSCRIPT:202 call mu the 'mean across detected substitutions'; it is a mean across datasets of a destination-summed rate"
+    "cell_census": {
+      "datasets": 80,
+      "possible_sense_cells": 4880,
+      "no_coverage_cells": 19,
+      "covered_zero_cells": 3015,
+      "covered_positive_cells": 1846,
+      "stop_codon_rows": 1,
+      "max_abs_rate_minus_err_over_base": 9.977370492297855e-17
+    },
+    "numerator_mismatches_codon_counts_vs_substitution_rows": 0,
+    "total_substitution_psms": 58990,
+    "s2_reconstruction": {
+      "zero_inclusive_covering": {
+        "max_abs_dev_mean": 0.018014553462979407,
+        "max_abs_dev_sd": 0.03871191849213523,
+        "max_abs_dev_median": 0.003751488,
+        "n_equals_sd_over_se_sq": false
+      },
+      "detected_only_error_count_gt_0": {
+        "max_abs_dev_mean": 2.6194859129025083e-09,
+        "max_abs_dev_sd": 4.188797801674138e-09,
+        "max_abs_dev_median": 3.8775294954052075e-10,
+        "n_equals_sd_over_se_sq": true
+      }
+    },
+    "n_meaning": "n = (sd/se)^2 = number of datasets with >= 1 detected substitution at the codon (verified against Data_S4). it is NOT the number of covering datasets: 3015 covered zero-error cells are excluded, only 19 cells lack coverage.",
+    "upstream_mechanism": "deTEL main @ c3593d46 (git.mpi-cbg.de/tothpetroczylab/detel, accessed 2026-09-29), eTEL/workflow/global_report.py get_all_codon_count: log10(detection_rate), inf -> NaN, dropna -> zero-detection codon/dataset cells are removed",
+    "legacy_docstring_misdescribes": "02_axis_structure / MANUSCRIPT:202 call mu the 'mean across detected substitutions'; it is a mean across detection-positive datasets of a destination-summed per-dataset rate"
   },
   "G5.2": [
     {
@@ -210,14 +239,229 @@
     "explanation": "1.19e-3 = -ln(0.7)/300: arithmetic_stress_test.py Part A sets (1-S)p_m = 1.0 (line 202), dropping both factors"
   },
   "G5.5": {
-    "status": "BLOCKED",
-    "reason": "Data_S2 mean is conditional on datasets with detected errors; the eligible-dataset denominator and zero-detection codon/dataset cells are unavailable, so the population per-codon substitution rate needed for an empirical headroom is unresolved.",
-    "computed_headroom": false
+    "model": "legacy vendored two_pool_ode (read-only), as_published anchoring; legacy-model-conditional (Phi inflow, no dilution, A_max gate: WO-01/02/04)",
+    "quantity_label": "MS error-DETECTION rate, amino-acid-substitution level, a lower bound on f_sub (I/L invisible, rare events missed); NOT raw decoding error; an eTEL aggregate over 80 heterogeneous PRIDE datasets (strains, media, phases), NOT an E. coli physiological operating point",
+    "per_dataset_spread": {
+      "min": 6.740653106668966e-06,
+      "q25": 1.985455594020046e-05,
+      "median": 5.8591628181571554e-05,
+      "q75": 0.00020032082157611091,
+      "max": 0.0032934766827772107,
+      "spearman_rate_vs_psm_depth": -0.37245663384903893
+    },
+    "global_psm_pooled_all_codons": 0.00011930249150158339,
+    "inputs": {
+      "conditional_mean_DataS2": {
+        "f": 0.0006334247646364578,
+        "note": "legacy mu: usage-weighted Data_S2 means; each codon mean excludes covered datasets with zero detections -> selected on detection, biased upward",
+        "headroom": {
+          "legacy_(1-S)_1/T": {
+            "J": 1.1084933381138009e-05,
+            "P_star": 0.0011041647536645964,
+            "P_dagger": 0.027402369283022754,
+            "J_crit": 0.00017505615412109985,
+            "mechanism": "aggregation_death",
+            "headroom_P": 24.81728310207098,
+            "headroom_A": 274.65219050743485
+          },
+          "no_(1-S)_1/T": {
+            "J": 1.5835619115911444e-05,
+            "P_star": 0.0015820828826108011,
+            "P_dagger": 0.027402369283022754,
+            "J_crit": 0.00017505615412109985,
+            "mechanism": "aggregation_death",
+            "headroom_P": 17.320438508128305,
+            "headroom_A": 134.41273928695952
+          },
+          "(1-S)_ln2/T": {
+            "J": 7.683490319830633e-06,
+            "P_star": 0.0007637981501302094,
+            "P_dagger": 0.027402369283022754,
+            "J_crit": 0.00017505615412109985,
+            "mechanism": "aggregation_death",
+            "headroom_P": 35.87645411075073,
+            "headroom_A": 572.6226806092491
+          },
+          "no_(1-S)_ln2/T": {
+            "J": 1.097641474261519e-05,
+            "P_star": 0.0010932832448290856,
+            "P_dagger": 0.027402369283022754,
+            "J_crit": 0.00017505615412109985,
+            "mechanism": "aggregation_death",
+            "headroom_P": 25.064290898656004,
+            "headroom_A": 280.1218723813472
+          }
+        }
+      },
+      "zero_inclusive_mean": {
+        "f": 0.000252567826546815,
+        "note": "PRIMARY eTEL aggregate: per codon, mean of per-dataset detection rates over every dataset covering it (zeros kept); usage-weighted",
+        "headroom": {
+          "legacy_(1-S)_1/T": {
+            "J": 4.4199369645692625e-06,
+            "P_star": 0.00043854662891630705,
+            "P_dagger": 0.027402369283022754,
+            "J_crit": 0.00017505615412109985,
+            "mechanism": "aggregation_death",
+            "headroom_P": 62.48450558321876,
+            "headroom_A": 1734.4431574273046
+          },
+          "no_(1-S)_1/T": {
+            "J": 6.314195663670376e-06,
+            "P_star": 0.0006271789974110086,
+            "P_dagger": 0.027402369283022754,
+            "J_crit": 0.00017505615412109985,
+            "mechanism": "aggregation_death",
+            "headroom_P": 43.691465109864296,
+            "headroom_A": 848.6623519799793
+          },
+          "(1-S)_ln2/T": {
+            "J": 3.063666845243867e-06,
+            "P_star": 0.0003037422079726172,
+            "P_dagger": 0.027402369283022754,
+            "J_crit": 0.00017505615412109985,
+            "mechanism": "aggregation_death",
+            "headroom_P": 90.21587571225241,
+            "headroom_A": 3614.2536650112334
+          },
+          "no_(1-S)_ln2/T": {
+            "J": 4.376666921776954e-06,
+            "P_star": 0.00043424261394480655,
+            "P_dagger": 0.027402369283022754,
+            "J_crit": 0.00017505615412109985,
+            "mechanism": "aggregation_death",
+            "headroom_P": 63.10382353793051,
+            "headroom_A": 1768.970701636084
+          }
+        }
+      },
+      "pooled_ratio": {
+        "f": 0.00014135789051159146,
+        "note": "per codon sum(error PSM)/sum(covering PSM) across datasets; dominated by the deepest datasets; usage-weighted",
+        "headroom": {
+          "legacy_(1-S)_1/T": {
+            "J": 2.4737630839528506e-06,
+            "P_star": 0.0002451749752965916,
+            "P_dagger": 0.027402369283022754,
+            "J_crit": 0.00017505615412109985,
+            "mechanism": "aggregation_death",
+            "headroom_P": 111.76658323254127,
+            "headroom_A": 5546.5678300127365
+          },
+          "no_(1-S)_1/T": {
+            "J": 3.533947262789787e-06,
+            "P_star": 0.0003504612213165041,
+            "P_dagger": 0.027402369283022754,
+            "J_crit": 0.00017505615412109985,
+            "mechanism": "aggregation_death",
+            "headroom_P": 78.18944755167497,
+            "headroom_A": 2715.180445411471
+          },
+          "(1-S)_ln2/T": {
+            "J": 1.7146819070151936e-06,
+            "P_star": 0.0001698692205160088,
+            "P_dagger": 0.027402369283022754,
+            "J_crit": 0.00017505615412109985,
+            "mechanism": "aggregation_death",
+            "headroom_P": 161.3145053576101,
+            "headroom_A": 11553.041784190355
+          },
+          "no_(1-S)_ln2/T": {
+            "J": 2.449545581450277e-06,
+            "P_star": 0.00024277143841886965,
+            "P_dagger": 0.027402369283022754,
+            "J_crit": 0.00017505615412109985,
+            "mechanism": "aggregation_death",
+            "headroom_P": 112.87311827738002,
+            "headroom_A": 5656.913227585976
+          }
+        }
+      },
+      "dataset_median": {
+        "f": 5.8591628181571554e-05,
+        "note": "median over the 80 datasets of each dataset's own usage-weighted rate",
+        "headroom": {
+          "legacy_(1-S)_1/T": {
+            "J": 1.025353493177502e-06,
+            "P_star": 0.00010153957014601614,
+            "P_dagger": 0.027402369283022754,
+            "J_crit": 0.00017505615412109985,
+            "mechanism": "aggregation_death",
+            "headroom_P": 269.8688722398326,
+            "headroom_A": 32331.42858287163
+          },
+          "no_(1-S)_1/T": {
+            "J": 1.4647907045392888e-06,
+            "P_star": 0.00014509259787789589,
+            "P_dagger": 0.027402369283022754,
+            "J_crit": 0.00017505615412109985,
+            "mechanism": "aggregation_death",
+            "headroom_P": 188.86124918711215,
+            "headroom_A": 15835.162074188596
+          },
+          "(1-S)_ln2/T": {
+            "J": 7.107208828732766e-07,
+            "P_star": 7.036934728186614e-05,
+            "P_dagger": 0.027402369283022754,
+            "J_crit": 0.00017505615412109985,
+            "mechanism": "aggregation_death",
+            "headroom_P": 389.407751265077,
+            "headroom_A": 67316.22668776603
+          },
+          "no_(1-S)_ln2/T": {
+            "J": 1.0153155469618238e-06,
+            "P_star": 0.0001005449531623274,
+            "P_dagger": 0.027402369283022754,
+            "J_crit": 0.00017505615412109985,
+            "mechanism": "aggregation_death",
+            "headroom_P": 272.5384857336627,
+            "headroom_A": 32974.22948495743
+          }
+        }
+      }
+    },
+    "old_x": 24.81728310207098,
+    "effect_on_old_x": {
+      "remove_(1-S)_only": 17.320438508128305,
+      "ln2_only": 35.87645411075073,
+      "both": 25.064290898656004,
+      "zero_inclusive_input_both": 63.10382353793051,
+      "pooled_input_both": 112.87311827738002
+    },
+    "f_crit_substitution_corrected": 0.010102105817104193,
+    "f_crit_raw_legacy": 0.01000320880691999,
+    "linear_f_margin_corrected": {
+      "conditional_mean_DataS2": 15.948391002524358,
+      "zero_inclusive_mean": 39.99759571606285,
+      "pooled_ratio": 71.46474654186929,
+      "dataset_median": 172.41551618600596
+    },
+    "headroom_P_corrected_across_datasets": {
+      "min": 2370.1835514942186,
+      "q25": 804.5777457952388,
+      "median": 272.5384857336627,
+      "q75": 79.6034982233425,
+      "max": 4.616022821811727
+    },
+    "stikeleather_2026": {
+      "value": 0.00182,
+      "se": 5.92e-05,
+      "source": "Stikeleather, Ali, Ho, Licknack, Lynch 2026 NAR 54(13) gkag674, doi:10.1093/nar/gkag674, PMID 42406629, PMC13335486",
+      "definition": "total detected substitutions / total sites sampled (MS, I/L merged, chemical-artefact substitutions removed); wild type, 3 replicates",
+      "condition": "Xac-derived E. coli, LB (Miller), 37 C, overnight, harvested in STATIONARY phase",
+      "verification": "value 1.82e-3 and stationary-phase protocol read in PMC full text 2026-09-29; SE exponent lost in PMC text extraction (mantissa 5.92 matches), exponent -5 taken from the task statement: UNVERIFIED",
+      "ratio_to_zero_inclusive_eTEL": 7.205985120447048,
+      "ratio_to_global_psm_pooled_eTEL": 15.255339407357178,
+      "MISMATCHED_what_if_f_crit_over_value": 5.550607591815491,
+      "headroom": "NOT COMPUTED: the legacy parameters (T_gen = 3600 s growth synthesis, chaperone pool) describe exponential growth; a stationary-phase error rate needs a stationary bundle (WO-07)"
+    },
+    "status": "COMPUTED",
+    "computed_headroom": true
   },
   "pass": {
     "G5.1": true,
     "G5.2": true,
     "G5.4": true,
-    "G5.5": "BLOCKED"
+    "G5.5": true
   }
 }
