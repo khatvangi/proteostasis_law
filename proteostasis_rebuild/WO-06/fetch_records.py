@@ -52,20 +52,32 @@ PMIDS = [
     "6989832",   # Larrabee 1980 JBC, synthesis vs degradation in growing E. coli
     "4912536",   # Nath & Koch 1970 JBC, rapidly/slowly decaying protein components
     "21829590",  # Volkmer & Heinemann 2011 PLoS One, cell volume (Schmidt's volumes)
+    "1748995",   # Zimmerman & Trach 1991, macromolecule concentration in E. coli (reviewer lead)
 ]
 
-# citations exactly as the legacy wrote them: journal|year|volume|first_page
+# citations exactly as the legacy wrote them: journal|year|volume|first_page|author.
+# every probe that is expected to fail has a paired CONTROL (same author, the
+# real journal/year) that must resolve; a NOT_FOUND counts only if its control fires.
 CITMATCH = {
-    "Ciryam2013_PNAS_110_E3453": "proc natl acad sci u s a|2013|110|E3453",
-    "Bednarska2013_MolCell_52_617": "mol cell|2013|52|617",
-    "Stirling2018_CellRep_25_2242": "cell rep|2018|25|2242",
-    "DrummondWilke2009_Cell": "cell|2009||",
-    "Yamanaka2017_CurrBiol": "curr biol|2017||",
-    "Pierpaoli1997_EMBOJ": "embo j|1997||",
-    "Mogk1999_EMBOJ_18": "embo j|1999|18|6934",
-    "Lorimer1996_FASEBJ_10": "faseb j|1996|10|5",
-    "Upadhyay2012_PLoSOne_7": "plos one|2012|7|e33951",
-    "Belle2006_PNAS_103": "proc natl acad sci u s a|2006|103|13004",
+    "Ciryam2013_PNAS_110_E3453": "proc natl acad sci u s a|2013|110|E3453|ciryam p",
+    "Ciryam2013_PNAS_110": "proc natl acad sci u s a|2013|110||ciryam p",
+    "CONTROL_Ciryam2013_CellRep_5": "cell rep|2013|5||ciryam p",
+    "Bednarska2013_MolCell_52_617": "mol cell|2013|52|617|",
+    "Bednarska2013_MolCell_52_author": "mol cell|2013|52||bednarska ng",
+    "CONTROL_Bednarska2013_Microbiology_159": "microbiology|2013|159||bednarska ng",
+    "Stirling2018_CellRep_25_2242": "cell rep|2018|25|2242|",
+    "Stirling2018_CellRep_25_author": "cell rep|2018|25||stirling",
+    "CONTROL_CellRep_2018_25_page": "cell rep|2018|25|302|",
+    "DrummondWilke2009_Cell": "cell|2009|||drummond da",
+    "CONTROL_DrummondWilke2008_Cell": "cell|2008|||drummond da",
+    "Yamanaka2017_CurrBiol": "curr biol|2017|||yamanaka",
+    "CONTROL_CurrBiol_2017_author": "curr biol|2017|||saarikangas j",
+    "Pierpaoli1997_EMBOJ": "embo j|1997|||pierpaoli ev",
+    "CONTROL_Pierpaoli1997_JMolBiol": "j mol biol|1997|||pierpaoli ev",
+    "Mogk1999_EMBOJ_18": "embo j|1999|18|6934|",
+    "Lorimer1996_FASEBJ_10": "faseb j|1996|10|5|",
+    "Upadhyay2012_PLoSOne_7": "plos one|2012|7|e33951|",
+    "Belle2006_PNAS_103": "proc natl acad sci u s a|2006|103|13004|",
 }
 
 
@@ -98,7 +110,7 @@ def main():
                 g.write_text(efetch("pmc", m.group(1)[3:]))
     cm = {}
     for key, bdata in CITMATCH.items():
-        q = urllib.parse.urlencode({"db": "pubmed", "retmode": "xml", "bdata": bdata + f"|x|{key}|"})
+        q = urllib.parse.urlencode({"db": "pubmed", "retmode": "xml", "bdata": bdata + f"|{key}|"})
         time.sleep(0.4)
         cm[key] = {"query": bdata, "result": get(E + "ecitmatch.cgi?" + q).strip().split("|")[-1]}
     (REC / "citmatch.json").write_text(json.dumps(cm, indent=2))

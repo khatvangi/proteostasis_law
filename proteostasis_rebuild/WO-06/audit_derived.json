@@ -1,0 +1,113 @@
+{
+ "codon_usage": {
+  "n_cds_in_fna": 4318,
+  "n_codons_in_tsv": 61,
+  "tsv_total": 1337970,
+  "fna_total_sense_excl_stop": 1337692,
+  "max_abs_count_diff": 16,
+  "n_codons_differing": 58
+ },
+ "S_code": {
+  "all_positions_unweighted": 0.25475285171102663,
+  "all_positions_usage_weighted": 0.24423536792894954,
+  "third_position_unweighted": 0.7159090909090909,
+  "third_position_usage_weighted": 0.6935442743750662,
+  "legacy_value": 0.3,
+  "legacy_ranges": {
+   "two_pool": [
+    0.25,
+    0.35
+   ],
+   "arithmetic_paired": [
+    0.2,
+    0.4
+   ]
+  }
+ },
+ "k_deg": {
+  "legacy_baseline_per_s": 0.0003,
+  "legacy_range_per_s": [
+   0.0001,
+   0.001
+  ],
+  "half_life_min_at_baseline": 38.50817669777474,
+  "half_life_min_at_range": [
+   11.552453009332421,
+   115.52453009332422
+  ],
+  "cited_consensus_hours": [
+   1,
+   10
+  ],
+  "k_equiv_to_cited_consensus_per_s": [
+   1.925408834888737e-05,
+   0.0001925408834888737
+  ],
+  "christiano_median_half_life_h_Scer": 8.8,
+  "k_from_christiano_median_per_s": 2.187964585100837e-05,
+  "baseline_inside_cited_consensus": false
+ },
+ "prot_tot": {
+  "legacy_uM": 300.0,
+  "legacy_range_uM": [
+   250.0,
+   350.0
+  ],
+  "milo2013_mM_from_2to4e6_per_um3": [
+   3.3210781343476934,
+   6.642156268695387
+  ],
+  "bnid104726_mM": 4.0,
+  "schmidt_glucose_mM_wholecell": 2.965183894743172,
+  "schmidt_exponential_range_mM": [
+   2.7189287101881785,
+   3.2383449904134642
+  ],
+  "fold_low_vs_schmidt_glucose": 9.883946315810574,
+  "fold_low_vs_bnid": 13.333333333333334
+ },
+ "lengths": {
+  "n": 4403,
+  "median": 271.0,
+  "mean": 307.6179877356348,
+  "legacy_N": 300.0,
+  "legacy_label": "median protein length"
+ },
+ "k_clear": {
+  "legacy_k_clear": 0.0004,
+  "recomputed_minus_ln_0p05_over_7200": 0.00041607392688249874
+ },
+ "pools": {
+  "Glucose": {
+   "dnaK_plus_groL_protomers_uM": 24.178256972197907,
+   "dnaK_plus_groEL14_uM": 11.830194041421619,
+   "clpB6_uM": 0.011658230995378804,
+   "dnaK_over_dnaJ": 27.02698933229247
+  },
+  "LB": {
+   "dnaK_plus_groL_protomers_uM": 48.68706917042405,
+   "dnaK_plus_groEL14_uM": 24.982095853671364,
+   "clpB6_uM": 0.027401042286790647,
+   "dnaK_over_dnaJ": 29.728654846750242
+  },
+  "42\u00b0C glucose": {
+   "dnaK_plus_groL_protomers_uM": 61.530900926588544,
+   "dnaK_plus_groEL14_uM": 27.6735055356729,
+   "clpB6_uM": 0.048836533616801764,
+   "dnaK_over_dnaJ": 25.01802152002652
+  },
+  "Stationary phase 1 day": {
+   "dnaK_plus_groL_protomers_uM": 63.03669795492148,
+   "dnaK_plus_groEL14_uM": 37.423118333521955,
+   "clpB6_uM": 0.10621975872451898,
+   "dnaK_over_dnaJ": 52.34209574996961
+  },
+  "Stationary phase 3 days": {
+   "dnaK_plus_groL_protomers_uM": 61.90164122114152,
+   "dnaK_plus_groEL14_uM": 36.998537934885675,
+   "clpB6_uM": 0.09493241565059522,
+   "dnaK_over_dnaJ": 70.97795761866881
+  },
+  "legacy_C_tot_uM": 50.0
+ }
+}

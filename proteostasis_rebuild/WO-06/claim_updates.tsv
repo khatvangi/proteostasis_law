@@ -1,0 +1,9 @@
+claim_id	current_status	proposed_status	audit_rows	reason
+C19	OPEN	UNVERIFIED	L13a;L13b;L13c;L13d;L13e	A_max = 0.25 has no verified source: Ciryam 'PNAS 110:E3453' and Bednarska 'Mol Cell 52:617' are MISCITED (no such record / resolves to an unrelated paper), Yamanaka 2017 and Stirling 2018 have no record. treat as ASSUMED
+C20	OPEN	REJECTED	L06a;L06b;L06c;L06d	300 uM is 10-13x below every checked E. coli value: BNID 104726 4 mM (B/r, glucose minimal, 37 C), Schmidt 2016 glucose 2.97 mM, Milo 2013 3.3-6.6 mM
+C25	OPEN	REJECTED	L01a;L01b;L01c	Christiano 2014 is yeast (S. cerevisiae, S. pombe), not bacteria; the legacy baseline t1/2 38.5 min lies outside the '1-10 hr' window it cites; no E. coli rate verified
+C26	OPEN	OPEN (WO-07)	L03a;L03b;L03c;S01;S02	Lorimer 1996 record matched but '30 uM' not located. measured (Schmidt 2016): GroEL 13.3 uM protomer / 0.95 uM 14-mer (glucose), DnaK 8.3-25 uM exponential and 35 uM stationary. phase matching is WO-07
+C27	OPEN	REJECTED	L13b	Mol Cell 2013;52:617 is PMID 24239291 (Caulobacter SocB toxin); Bednarska 2013 is a Microbiology review with no 20% threshold in its abstract
+C28	OPEN	REJECTED	L13a	no PNAS 2013;110:E3453 record; Ciryam's 2013 supersaturation paper is Cell Rep 5:781 and gives no aggregated-fraction threshold
+C29	OPEN	REJECTED	L09	no Drummond & Wilke Cell 2009; neither the 2008 Cell nor the 2009 Nat Rev Genet paper gives 0.3; NRG 2009 says the failure rate 'remains essentially unknown'
+C30	OPEN	UNVERIFIED	L11	Mogk 1999 EMBO J record matched; the 95% / 2 h figure is not in the abstract and no machine-readable full text was retrievable; heat-shock recovery, not steady growth

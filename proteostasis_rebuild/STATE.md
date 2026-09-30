@@ -51,3 +51,20 @@ Append-only log of loop transitions. Machine-readable mirror: `loop_state.json`.
 - WO-05 PASS. WO-06 eligible, NOT started in this session (a citation audit
   run short on time would risk VERIFIED marks without real record checks).
   Loop paused.
+- WO-06 started (same day, later session).
+- WO-06 PASS. 59-row parameter_audit.tsv; every citation checked against a
+  saved PubMed/PMC/BioNumbers/UniProt record or an ecitmatch probe with a fired
+  control; check_audit.py 0 errors; 22 tests OK; WO-01..05 suites OK;
+  provenance 35/0; legacy hashes unchanged.
+- Key findings: none of the 13 legacy two-pool scalar parameters is verified
+  for E. coli balanced growth. Prot_tot 300 uM is ~10x low (BNID 104726 4 mM;
+  Schmidt 2016 glucose 2.97 mM). A_max has no source (2 MISCITED, 2
+  UNMATCHED). Pierpaoli "1997 EMBO J" K_d/k_obs ranges are verbatim in
+  Pierpaoli 1998 Biochemistry (in-vitro R-state peptide binding, 25 C).
+  D&W "2009 Cell", Ciryam "PNAS 110:E3453", Bednarska "Mol Cell 52:617"
+  miscited; Christiano 2014 is yeast. Stikeleather SE 5.92e-5 now verified.
+- One self-caught probe flaw fixed before verdict (dummy author in ecitmatch);
+  independent reviewer corrected 5 labels (no fabricated values).
+- Proposed register changes in WO-06/claim_updates.tsv (CLAIM_REGISTER.tsv and
+  STATUS.md not edited: preexisting files preserved per instruction).
+- WO-07 eligible, NOT started. Loop paused.

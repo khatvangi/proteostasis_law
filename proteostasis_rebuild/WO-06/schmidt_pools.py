@@ -5,8 +5,9 @@ PMID 26641532, PMC4888949; Supplementary Tables xlsx, sha256 below).
 what is measured vs inferred in this source (read from its Methods, saved as
 records/pmc_PMC4888949.xml):
   * copies/cell per protein: MS, 41 proteins by SRM + isotope dilution, the
-    rest by summed MS intensity calibrated on those 41 (Table S6, dataset 2,
-    strain BW25113, biological triplicates).
+    rest by summed MS intensity calibrated on those 41 (Table S6, the combined
+    table: 301 of its rows come from dataset 1 only, ~0.5% of glucose copies;
+    strain BW25113).
   * total protein mass per cell: measured by LC-MS in triplicate for GLUCOSE
     only; for every other condition it was ADJUSTED "assuming that the
     volumetric protein concentration is condition independent". so total
@@ -111,7 +112,7 @@ def run():
                      "stationary_1d": float(df.loc[df.condition == "Stationary phase 1 day", col].iloc[0]),
                      "stationary_3d": float(df.loc[df.condition == "Stationary phase 3 days", col].iloc[0])}
     out = {"source": "Schmidt et al. 2016 Nat Biotechnol 34:104-110, PMID 26641532, "
-                     "Supplementary Tables S6 (dataset 2, BW25113) and S23",
+                     "Supplementary Tables S6 (combined, both datasets; BW25113) and S23",
            "xlsx_sha256": XLSX_SHA256, "n_proteins": int(copies.shape[0]),
            "caveats": ["volume calculated (Volkmer & Heinemann 2011), whole-cell incl. periplasm",
                        "total protein mass/cell measured for glucose only; other conditions "

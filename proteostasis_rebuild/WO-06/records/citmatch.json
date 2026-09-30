@@ -1,42 +1,78 @@
 {
   "Ciryam2013_PNAS_110_E3453": {
-    "query": "proc natl acad sci u s a|2013|110|E3453",
+    "query": "proc natl acad sci u s a|2013|110|E3453|ciryam p",
     "result": "NOT_FOUND"
+  },
+  "Ciryam2013_PNAS_110": {
+    "query": "proc natl acad sci u s a|2013|110||ciryam p",
+    "result": "23256155"
+  },
+  "CONTROL_Ciryam2013_CellRep_5": {
+    "query": "cell rep|2013|5||ciryam p",
+    "result": "24183671"
   },
   "Bednarska2013_MolCell_52_617": {
-    "query": "mol cell|2013|52|617",
+    "query": "mol cell|2013|52|617|",
     "result": "24239291"
   },
-  "Stirling2018_CellRep_25_2242": {
-    "query": "cell rep|2018|25|2242",
+  "Bednarska2013_MolCell_52_author": {
+    "query": "mol cell|2013|52||bednarska ng",
     "result": "NOT_FOUND"
+  },
+  "CONTROL_Bednarska2013_Microbiology_159": {
+    "query": "microbiology|2013|159||bednarska ng",
+    "result": "23894132"
+  },
+  "Stirling2018_CellRep_25_2242": {
+    "query": "cell rep|2018|25|2242|",
+    "result": "NOT_FOUND"
+  },
+  "Stirling2018_CellRep_25_author": {
+    "query": "cell rep|2018|25||stirling",
+    "result": "NOT_FOUND"
+  },
+  "CONTROL_CellRep_2018_25_page": {
+    "query": "cell rep|2018|25|302|",
+    "result": "30304671"
   },
   "DrummondWilke2009_Cell": {
-    "query": "cell|2009||",
+    "query": "cell|2009|||drummond da",
     "result": "NOT_FOUND"
+  },
+  "CONTROL_DrummondWilke2008_Cell": {
+    "query": "cell|2008|||drummond da",
+    "result": "18662548"
   },
   "Yamanaka2017_CurrBiol": {
-    "query": "curr biol|2017||",
+    "query": "curr biol|2017|||yamanaka",
     "result": "NOT_FOUND"
+  },
+  "CONTROL_CurrBiol_2017_author": {
+    "query": "curr biol|2017|||saarikangas j",
+    "result": "28262489"
   },
   "Pierpaoli1997_EMBOJ": {
-    "query": "embo j|1997||",
+    "query": "embo j|1997|||pierpaoli ev",
     "result": "NOT_FOUND"
   },
+  "CONTROL_Pierpaoli1997_JMolBiol": {
+    "query": "j mol biol|1997|||pierpaoli ev",
+    "result": "9223639"
+  },
   "Mogk1999_EMBOJ_18": {
-    "query": "embo j|1999|18|6934",
+    "query": "embo j|1999|18|6934|",
     "result": "10601016"
   },
   "Lorimer1996_FASEBJ_10": {
-    "query": "faseb j|1996|10|5",
+    "query": "faseb j|1996|10|5|",
     "result": "8566548"
   },
   "Upadhyay2012_PLoSOne_7": {
-    "query": "plos one|2012|7|e33951",
+    "query": "plos one|2012|7|e33951|",
     "result": "22479486"
   },
   "Belle2006_PNAS_103": {
-    "query": "proc natl acad sci u s a|2006|103|13004",
+    "query": "proc natl acad sci u s a|2006|103|13004|",
     "result": "16916930"
   }
 }
