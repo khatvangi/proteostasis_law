@@ -5,3 +5,8 @@
 
 **Q:** Execute WO-06 (literature parameter audit) against fixed gates G6.1–G6.3; verify every citation against real bibliographic records; revisit suspicious anchors; stop before WO-07.
 **A:** WO-06 PASS. 59-row audit, records saved in WO-06/records/, validator plus 22 tests. None of the 13 legacy two-pool parameters is verified for E. coli exponential growth. Prot_tot 300 uM is ~10x low (4 mM BNID; 2.97 mM Schmidt 2016). A_max is unsourced. Pierpaoli/Drummond-Wilke/Ciryam/Bednarska citations are miscited, and Christiano is yeast. The K_d/k_obs ranges are in-vitro peptide binding (Pierpaoli 1998). Measured DnaK/GroEL/ClpB pools were added for WO-07. The Stikeleather SE is verified. WO-07 eligible, not started.
+
+## 2026-09-30
+
+**Q:** Execute WO-07 only: separate EXPONENTIAL and STATIONARY parameter bundles with match flags, a test that fails on opposite-phase values without MISMATCHED, mismatch effects quantified as ranges, Stikeleather kept separate, chaperones machine-by-machine, an adversarial completeness section; do not start WO-08.
+**A:** WO-07 PASS (G7.1-G7.3). 80-row bundles.tsv; EXPONENTIAL matches 13/27 parameters (abundances and growth only, no kinetics); STATIONARY matches 1/27 (Stikeleather standing substitution frequency). Found that Schmidt stationary concentrations carry an exponential normalization, and that MS error rates are standing-proteome frequencies (per-synthesis rate unmeasured in both phases). Legacy summed pool overstates DnaK 4.6x; legacy headroom is unconstrained by data (in-vitro k_cat span alone moves it 689x). An independent reviewer found 5 errors and 4 validator bypasses, all fixed before the verdict. PASS certifies bookkeeping, not biological completeness. WO-08 eligible, not started.

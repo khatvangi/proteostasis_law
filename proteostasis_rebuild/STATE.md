@@ -68,3 +68,28 @@ Append-only log of loop transitions. Machine-readable mirror: `loop_state.json`.
 - Proposed register changes in WO-06/claim_updates.tsv (CLAIM_REGISTER.tsv and
   STATUS.md not edited: preexisting files preserved per instruction).
 - WO-07 eligible, NOT started. Loop paused.
+
+## 2026-09-30
+
+- WO-07 started.
+- WO-07 PASS. bundles.tsv: 80 rows, 27 params per bundle. EXPONENTIAL 13
+  MATCHED (all abundances/growth; no kinetic parameter), 12 MISMATCHED, 13
+  UNMEASURED. STATIONARY 1 MATCHED (Stikeleather standing substitution
+  frequency), 16 MISMATCHED, 25 UNMEASURED. check_bundles.py 0 errors; 38
+  tests OK (23 negative controls); WO-01..06 suites OK; provenance 35/0;
+  legacy hashes 30/30 unchanged; pipeline rerun byte-identical.
+- Key findings: Schmidt stationary absolute concentrations carry the
+  glucose-exponential volumetric normalization (hidden cross-phase borrowing;
+  ratios to P_T cancel it). MS error rates are standing-proteome frequencies;
+  the per-synthesis error rate is UNMEASURED in both phases. Legacy summed
+  C_tot overstates DnaK 4.6x. Legacy headroom with matched values (63.6) equals
+  as-published (63.1) only by compensation; P_T alone gives 19.7; in-vitro
+  k_cat span moves it 689x. Stikeleather-into-exponential would cut it 4-38x
+  (counterfactual, prohibited in bundles).
+- Independent reviewer: no fabricated value; 5 ERRORs + 4 validator bypasses
+  verified and fixed before verdict (Stikeleather semantics, |mu| sign error,
+  DERIVED_OUTPUT mislabels, self-reported MATCHED conditions); each bypass is a
+  regression test.
+- PASS certifies bookkeeping/mismatch transparency, NOT biological
+  completeness: neither bundle supports quantitative physiological prediction.
+- WO-08 eligible, NOT started. Loop paused.

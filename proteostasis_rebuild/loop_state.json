@@ -1,11 +1,11 @@
 {
   "run_started": "2026-09-27",
   "mode": "bounded single-session sequential loop",
-  "last_updated": "2026-09-29",
-  "current_gate": "WO-07",
-  "next_eligible": "WO-07",
+  "last_updated": "2026-09-30",
+  "current_gate": "WO-08",
+  "next_eligible": "WO-08",
   "stopped": true,
-  "stop_reason": "WO-06 passed; WO-07 eligible but not started per instruction",
+  "stop_reason": "WO-07 passed; WO-08 eligible but not started per instruction",
   "work_orders": {
     "WO-00": "PASS",
     "WO-01": "PASS",
@@ -14,7 +14,7 @@
     "WO-04": "PASS",
     "WO-05": "PASS",
     "WO-06": "PASS",
-    "WO-07": "PENDING",
+    "WO-07": "PASS",
     "WO-08": "PENDING",
     "WO-09": "PENDING",
     "WO-10": "PENDING"
@@ -37,6 +37,12 @@
       "wo": "WO-06",
       "verdict": "PASS",
       "note": "parameter audit; 0/13 legacy scalar params verified for E. coli; Prot_tot ~10x low; A_max unsourced"
+    },
+    {
+      "date": "2026-09-30",
+      "wo": "WO-07",
+      "verdict": "PASS",
+      "note": "phase-separated bundles; EXP 13/27 matched (no kinetics), STAT 1/27 matched; every mismatch ranged; PASS = bookkeeping, not completeness"
     }
   ]
 }

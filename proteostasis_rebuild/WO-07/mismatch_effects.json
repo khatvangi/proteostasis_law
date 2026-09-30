@@ -1,0 +1,953 @@
+{
+ "illustrative": {
+  "k_d": 0.0003,
+  "eps": 0.04,
+  "K_ref_uM": 1.0,
+  "norm_factor": [
+   0.5,
+   2.0
+  ]
+ },
+ "references": {
+  "EXPONENTIAL": {
+   "f": "eTEL zero-inclusive, translated weights (MIXED phase)",
+   "k_cat": "0.04 /s in vitro T->R",
+   "K": "1 uM ILLUSTRATIVE"
+  },
+  "STATIONARY": {
+   "Lw": "Schmidt copy-weighted 1 d (MISMATCHED)",
+   "mu": "Schmidt 1 d, -0.01 /h (MISMATCHED)",
+   "k_cat": "0.04 /s in vitro",
+   "K": "1 uM ILLUSTRATIVE",
+   "P_T/pools": "Schmidt 1 d (MISMATCHED)"
+  }
+ },
+ "reference_outputs": {
+  "EXPONENTIAL": {
+   "O1_phi_sub": {
+    "value": 0.06285349125317552,
+    "kind": "SENSITIVITY"
+   },
+   "O2_sigma_DnaK": {
+    "value": 0.0689928287360282,
+    "kind": "SENSITIVITY"
+   },
+   "O2s_sP_breakeven": {
+    "value": 6.924256921812162,
+    "kind": "SENSITIVITY"
+   },
+   "O3_legacy_headroom_P": {
+    "value": 63.62726657314925,
+    "kind": "LEGACY_CONDITIONAL"
+   },
+   "O5_dilution_share": {
+    "value": 0.3493975903614458,
+    "kind": "SENSITIVITY"
+   },
+   "O4_chains_per_DnaK": {
+    "value": 272.5266916680382,
+    "kind": "DERIVED_OUTPUT"
+   },
+   "O4_chains_per_GroEL": {
+    "value": 3121.73584211219,
+    "kind": "DERIVED_OUTPUT"
+   },
+   "O4_chains_per_GroES": {
+    "value": 2398.0818933370906,
+    "kind": "DERIVED_OUTPUT"
+   },
+   "O4_chains_per_ClpB": {
+    "value": 254342.52382874716,
+    "kind": "DERIVED_OUTPUT"
+   },
+   "O4_chains_per_DnaJ": {
+    "value": 14731.151976954055,
+    "kind": "DERIVED_OUTPUT"
+   },
+   "O4_chains_per_GrpE": {
+    "value": 1717.297214464159,
+    "kind": "DERIVED_OUTPUT"
+   },
+   "O4_chains_per_TF": {
+    "value": 203.39911221550852,
+    "kind": "DERIVED_OUTPUT"
+   },
+   "O4_chains_per_HtpG": {
+    "value": 4839.277650600129,
+    "kind": "DERIVED_OUTPUT"
+   },
+   "s_P_uM_per_s": {
+    "value": 0.4777240719308444,
+    "kind": "DERIVED_OUTPUT"
+   }
+  },
+  "STATIONARY": {
+   "O1_phi_sub": {
+    "value": 0.31014411145457577,
+    "kind": "SENSITIVITY"
+   },
+   "O2s_sP_breakeven": {
+    "value": 4.572434770630449,
+    "kind": "SENSITIVITY"
+   },
+   "O5_dilution_share": {
+    "value": 0.0,
+    "kind": "SENSITIVITY"
+   },
+   "O4_chains_per_DnaK": {
+    "value": 99.47799028591241,
+    "kind": "SENSITIVITY"
+   },
+   "O4_chains_per_GroEL": {
+    "value": 1789.9922259826747,
+    "kind": "SENSITIVITY"
+   },
+   "O4_chains_per_GroES": {
+    "value": 1049.035394229453,
+    "kind": "SENSITIVITY"
+   },
+   "O4_chains_per_ClpB": {
+    "value": 33202.65091660691,
+    "kind": "SENSITIVITY"
+   },
+   "O4_chains_per_DnaJ": {
+    "value": 10413.772985119547,
+    "kind": "SENSITIVITY"
+   },
+   "O4_chains_per_GrpE": {
+    "value": 1099.664024284409,
+    "kind": "SENSITIVITY"
+   },
+   "O4_chains_per_TF": {
+    "value": 446.2250955154374,
+    "kind": "SENSITIVITY"
+   },
+   "O4_chains_per_HtpG": {
+    "value": 3583.7088569626044,
+    "kind": "SENSITIVITY"
+   },
+   "O1_phi_sub_at_f_pm_2SE": {
+    "value": [
+     0.29484210279503253,
+     0.3249375450584916
+    ],
+    "kind": "SENSITIVITY"
+   }
+  }
+ },
+ "effects": {
+  "X_PT_BNID": {
+   "bundle": "EXPONENTIAL",
+   "params": [
+    "total_protein_P_T"
+   ],
+   "span": [
+    2965.183894743172,
+    4000.0
+   ],
+   "span_basis": "matched Schmidt glucose vs BNID 104726 (B/r, 40 min doubling, assumed volume)",
+   "span_kind": "DATA",
+   "outputs": {
+    "O4_chains_per_DnaK": {
+     "kind": "SENSITIVITY",
+     "at_reference": 272.5266916680382,
+     "lo": 272.5266916680382,
+     "hi": 367.6354672655376,
+     "fold_span": 1.3489888458828478,
+     "illustrative_held": []
+    },
+    "O4_chains_per_GroEL": {
+     "kind": "SENSITIVITY",
+     "at_reference": 3121.73584211219,
+     "lo": 3121.73584211219,
+     "hi": 4211.186830802044,
+     "fold_span": 1.348988845882848,
+     "illustrative_held": []
+    },
+    "O4_chains_per_ClpB": {
+     "kind": "SENSITIVITY",
+     "at_reference": 254342.52382874716,
+     "lo": 254342.52382874716,
+     "hi": 343105.2276786724,
+     "fold_span": 1.348988845882848,
+     "illustrative_held": []
+    },
+    "O2_sigma_DnaK": {
+     "kind": "SENSITIVITY",
+     "at_reference": 0.0689928287360282,
+     "lo": 0.0689928287360282,
+     "hi": 0.09307055641080769,
+     "fold_span": 1.3489888458828483,
+     "illustrative_held": [
+      "p_misfold=1 (bound)",
+      "one DnaK cycle per client",
+      "standing substitution frequency used as per-synthesis error rate (UNMEASURED)"
+     ]
+    },
+    "O3_legacy_headroom_P": {
+     "kind": "LEGACY_CONDITIONAL",
+     "at_reference": 63.62726657314925,
+     "lo": 49.41469146410048,
+     "hi": 63.62726657314925,
+     "fold_span": 1.2876184124183825,
+     "illustrative_held": [
+      "legacy k_deg, k_agg, p_baseline, S, k_clear, A_half, A_max (all ASSUMED/UNVERIFIED, WO-06)",
+      "standing substitution frequency used as per-synthesis error rate (UNMEASURED)"
+     ]
+    }
+   }
+  },
+  "X_PT_MILO": {
+   "bundle": "EXPONENTIAL",
+   "params": [
+    "total_protein_P_T"
+   ],
+   "span": [
+    2965.183894743172,
+    6642.156268695387
+   ],
+   "span_basis": "matched value through the Milo 2013 generic range",
+   "span_kind": "DATA",
+   "outputs": {
+    "O4_chains_per_DnaK": {
+     "kind": "SENSITIVITY",
+     "at_reference": 272.5266916680382,
+     "lo": 272.5266916680382,
+     "hi": 610.4730558731371,
+     "fold_span": 2.2400486797702284,
+     "illustrative_held": []
+    },
+    "O4_chains_per_GroEL": {
+     "kind": "SENSITIVITY",
+     "at_reference": 3121.73584211219,
+     "lo": 3121.73584211219,
+     "hi": 6992.840251714814,
+     "fold_span": 2.240048679770229,
+     "illustrative_held": []
+    },
+    "O4_chains_per_ClpB": {
+     "kind": "SENSITIVITY",
+     "at_reference": 254342.52382874716,
+     "lo": 254342.52382874716,
+     "hi": 569739.634712013,
+     "fold_span": 2.2400486797702284,
+     "illustrative_held": []
+    },
+    "O2_sigma_DnaK": {
+     "kind": "SENSITIVITY",
+     "at_reference": 0.0689928287360282,
+     "lo": 0.0689928287360282,
+     "hi": 0.1545472949237535,
+     "fold_span": 2.240048679770229,
+     "illustrative_held": [
+      "p_misfold=1 (bound)",
+      "one DnaK cycle per client",
+      "standing substitution frequency used as per-synthesis error rate (UNMEASURED)"
+     ]
+    },
+    "O3_legacy_headroom_P": {
+     "kind": "LEGACY_CONDITIONAL",
+     "at_reference": 63.62726657314925,
+     "lo": 32.30945124459074,
+     "hi": 63.62726657314925,
+     "fold_span": 1.9693081783245003,
+     "illustrative_held": [
+      "legacy k_deg, k_agg, p_baseline, S, k_clear, A_half, A_max (all ASSUMED/UNVERIFIED, WO-06)",
+      "standing substitution frequency used as per-synthesis error rate (UNMEASURED)"
+     ]
+    }
+   }
+  },
+  "X_N_GENOME": {
+   "bundle": "EXPONENTIAL",
+   "params": [
+    "copy_weighted_length_N"
+   ],
+   "span": [
+    "copy-weighted (glucose)",
+    "genome-unweighted"
+   ],
+   "span_basis": "two weightings of the length distribution",
+   "span_kind": "DATA",
+   "outputs": {
+    "O1_phi_sub": {
+     "kind": "SENSITIVITY",
+     "at_reference": 0.06285349125317552,
+     "lo": 0.06285349125317552,
+     "hi": 0.07286264033017796,
+     "fold_span": 1.159245713761314,
+     "illustrative_held": []
+    },
+    "O2_sigma_DnaK": {
+     "kind": "SENSITIVITY",
+     "at_reference": 0.0689928287360282,
+     "lo": 0.0689928287360282,
+     "hi": 0.07997964099250911,
+     "fold_span": 1.159245713761314,
+     "illustrative_held": [
+      "p_misfold=1 (bound)",
+      "one DnaK cycle per client",
+      "standing substitution frequency used as per-synthesis error rate (UNMEASURED)"
+     ]
+    },
+    "O3_legacy_headroom_P": {
+     "kind": "LEGACY_CONDITIONAL",
+     "at_reference": 63.62726657314925,
+     "lo": 54.27511180855533,
+     "hi": 63.62726657314925,
+     "fold_span": 1.1723101888317022,
+     "illustrative_held": [
+      "legacy k_deg, k_agg, p_baseline, S, k_clear, A_half, A_max (all ASSUMED/UNVERIFIED, WO-06)",
+      "standing substitution frequency used as per-synthesis error rate (UNMEASURED)"
+     ]
+    }
+   }
+  },
+  "X_CODON_GENOMIC": {
+   "bundle": "EXPONENTIAL",
+   "params": [
+    "codon_usage_weights"
+   ],
+   "span": [
+    0.0005091745959917154,
+    0.0006334247646364578
+   ],
+   "span_basis": "translated vs genomic codon weights for the aggregate that moves most (conditional_mean_DataS2); O1 ratio genomic/translated for every aggregate in 'O1_ratio_by_aggregate'",
+   "span_kind": "DATA",
+   "outputs": {
+    "O1_phi_sub": {
+     "kind": "SENSITIVITY",
+     "at_reference": 0.12187622788950125,
+     "lo": 0.12187622788950125,
+     "hi": 0.1482791077644852,
+     "fold_span": 1.2166368317447602,
+     "illustrative_held": []
+    },
+    "O2_sigma_DnaK": {
+     "kind": "SENSITIVITY",
+     "at_reference": 0.13378072641825894,
+     "lo": 0.13378072641825894,
+     "hi": 0.16276255913802307,
+     "fold_span": 1.21663683174476,
+     "illustrative_held": [
+      "p_misfold=1 (bound)",
+      "one DnaK cycle per client",
+      "standing substitution frequency used as per-synthesis error rate (UNMEASURED)"
+     ]
+    }
+   },
+   "O1_ratio_by_aggregate": {
+    "conditional_mean_DataS2": 1.2166368317447602,
+    "zero_inclusive_mean": 1.0083849998602274,
+    "pooled_ratio": 1.165689034133852,
+    "dataset_median": 1.0351032639952384
+   },
+   "f_ratio_by_aggregate": {
+    "conditional_mean_DataS2": 1.2440227175959973,
+    "zero_inclusive_mean": 1.0088022548894606,
+    "pooled_ratio": 1.170281562361747,
+    "dataset_median": 1.0355053850193725
+   }
+  },
+  "X_F_ETEL": {
+   "bundle": "EXPONENTIAL",
+   "params": [
+    "substitution_freq_standing_f"
+   ],
+   "span": [
+    5.658263977108666e-05,
+    0.0005091745959917154
+   ],
+   "span_basis": "min..max of the four eTEL aggregates (translated weights); all MIXED phase. every value is an MS LOWER bound, so the range is OPEN ABOVE",
+   "span_kind": "DATA",
+   "outputs": {
+    "O1_phi_sub": {
+     "kind": "SENSITIVITY",
+     "at_reference": 0.06285349125317552,
+     "lo": 0.014739253176554234,
+     "hi": 0.12187622788950125,
+     "fold_span": 8.268819758342307,
+     "illustrative_held": []
+    },
+    "O2_sigma_DnaK": {
+     "kind": "SENSITIVITY",
+     "at_reference": 0.0689928287360282,
+     "lo": 0.01617893850972979,
+     "hi": 0.13378072641825894,
+     "fold_span": 8.268819758342309,
+     "illustrative_held": [
+      "p_misfold=1 (bound)",
+      "one DnaK cycle per client",
+      "standing substitution frequency used as per-synthesis error rate (UNMEASURED)"
+     ]
+    },
+    "O3_legacy_headroom_P": {
+     "kind": "LEGACY_CONDITIONAL",
+     "at_reference": 63.62726657314925,
+     "lo": 30.579781076334307,
+     "hi": 286.2909331058292,
+     "fold_span": 9.362098845350785,
+     "illustrative_held": [
+      "legacy k_deg, k_agg, p_baseline, S, k_clear, A_half, A_max (all ASSUMED/UNVERIFIED, WO-06)",
+      "standing substitution frequency used as per-synthesis error rate (UNMEASURED)"
+     ]
+    }
+   },
+   "open_above": true,
+   "secondary_per_dataset_span": {
+    "span": [
+     6.740653106668966e-06,
+     0.0032934766827772107
+    ],
+    "basis": "80 per-dataset usage-weighted rates (genomic weights, WO-05)",
+    "outputs": {
+     "O1_phi_sub": {
+      "kind": "SENSITIVITY",
+      "at_reference": 0.06285349125317552,
+      "lo": 0.0017729481381380543,
+      "hi": 0.5165838587927788,
+      "fold_span": 291.3699773165919,
+      "illustrative_held": []
+     },
+     "O2_sigma_DnaK": {
+      "kind": "SENSITIVITY",
+      "at_reference": 0.0689928287360282,
+      "lo": 0.0019461243093038033,
+      "hi": 0.5670421958571173,
+      "fold_span": 291.3699773165919,
+      "illustrative_held": [
+       "p_misfold=1 (bound)",
+       "one DnaK cycle per client",
+       "standing substitution frequency used as per-synthesis error rate (UNMEASURED)"
+      ]
+     }
+    }
+   }
+  },
+  "X_KCAT": {
+   "bundle": "EXPONENTIAL",
+   "params": [
+    "DnaK_cycle_rate_k_cat"
+   ],
+   "span": [
+    0.003,
+    1.0
+   ],
+   "span_basis": "every in-vitro DnaK rate in saved records (L02 binding 3e-3..8.4e-2; L02b T->R 0.04, R->T 1.0); NOT a bound on the in-vivo rate",
+   "span_kind": "DATA",
+   "outputs": {
+    "O2_sigma_DnaK": {
+     "kind": "SENSITIVITY",
+     "at_reference": 0.0689928287360282,
+     "lo": 0.0027597131494411283,
+     "hi": 0.9199043831470428,
+     "fold_span": 333.33333333333337,
+     "illustrative_held": [
+      "p_misfold=1 (bound)",
+      "one DnaK cycle per client",
+      "standing substitution frequency used as per-synthesis error rate (UNMEASURED)"
+     ]
+    },
+    "O3_legacy_headroom_P": {
+     "kind": "LEGACY_CONDITIONAL",
+     "at_reference": 63.62726657314925,
+     "lo": 3.6403676126096105,
+     "hi": 2508.390326794595,
+     "fold_span": 689.0486329199172,
+     "illustrative_held": [
+      "legacy k_deg, k_agg, p_baseline, S, k_clear, A_half, A_max (all ASSUMED/UNVERIFIED, WO-06)",
+      "standing substitution frequency used as per-synthesis error rate (UNMEASURED)"
+     ]
+    }
+   }
+  },
+  "X_K": {
+   "bundle": "EXPONENTIAL",
+   "params": [
+    "DnaK_affinity_K"
+   ],
+   "span": [
+    0.06,
+    107.0
+   ],
+   "span_basis": "R-state 0.06..2 through T-state 2.2..107 uM (in vitro, peptides)",
+   "span_kind": "DATA",
+   "outputs": {
+    "O6_DnaK_bound_fraction": {
+     "kind": "SENSITIVITY",
+     "at_reference": 0.9908111031100538,
+     "lo": 0.5136769805094559,
+     "hi": 0.9994433779410246,
+     "fold_span": 1.9456651083523229,
+     "illustrative_held": [
+      "eps=0.04 (WO-02 SCENARIO, ILLUSTRATIVE)",
+      "M = eps*P_T treated as free client"
+     ]
+    },
+    "O3_legacy_headroom_P": {
+     "kind": "LEGACY_CONDITIONAL",
+     "at_reference": 63.62726657314925,
+     "lo": 10.637016837475565,
+     "hi": 67.53746176946974,
+     "fold_span": 6.34928597005945,
+     "illustrative_held": [
+      "legacy k_deg, k_agg, p_baseline, S, k_clear, A_half, A_max (all ASSUMED/UNVERIFIED, WO-06)",
+      "standing substitution frequency used as per-synthesis error rate (UNMEASURED)"
+     ]
+    }
+   }
+  },
+  "S_MU": {
+   "bundle": "STATIONARY",
+   "params": [
+    "growth_rate_mu"
+   ],
+   "span": [
+    -3.611111111111111e-06,
+    -1.9444444444444444e-06
+   ],
+   "span_basis": "Schmidt stationary net growth -0.01 +- 0.003 /h: negative throughout, so the dilution sink max(mu, 0) is zero over the whole span",
+   "span_kind": "DATA",
+   "outputs": {
+    "O5_dilution_share": {
+     "kind": "SENSITIVITY",
+     "at_reference": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "fold_span": null,
+     "illustrative_held": [
+      "k_d=3e-4 /s (WO-02 SCENARIO, ILLUSTRATIVE)"
+     ]
+    }
+   }
+  },
+  "S_MEDIUM_DnaK": {
+   "bundle": "STATIONARY",
+   "params": [
+    "pool_DnaK"
+   ],
+   "span": [
+    16.48258299505412,
+    75.4608099399267
+   ],
+   "span_basis": "Schmidt 1 d/3 d (35.45, 35.08) widened by the exponential LB:glucose factor 2.13 for this machine. that factor confounds medium with growth rate (1.9 vs 0.58 /h); the medium effect in stationary phase is unmeasured, so the scale is BORROWED from exponential growth and labelled as such",
+   "span_kind": "SENSITIVITY",
+   "outputs": {
+    "O4_chains_per_DnaK": {
+     "kind": "SENSITIVITY",
+     "at_reference": 99.47799028591241,
+     "lo": 46.73654539600136,
+     "hi": 213.96995667697743,
+     "fold_span": 4.578215074819887,
+     "illustrative_held": []
+    },
+    "O2s_sP_breakeven": {
+     "kind": "SENSITIVITY",
+     "at_reference": 4.572434770630449,
+     "lo": 2.1257966714571253,
+     "hi": 9.73235436726695,
+     "fold_span": 4.578215074819887,
+     "illustrative_held": [
+      "p_misfold=1 (bound)",
+      "one DnaK cycle per client",
+      "standing substitution frequency used as per-synthesis error rate (UNMEASURED)"
+     ]
+    }
+   }
+  },
+  "S_MEDIUM_GroEL": {
+   "bundle": "STATIONARY",
+   "params": [
+    "pool_GroEL14"
+   ],
+   "span": [
+    0.9978596942874433,
+    3.7824009312579254
+   ],
+   "span_basis": "Schmidt 1 d/3 d (1.97, 1.916) widened by the exponential LB:glucose factor 1.92 for this machine. that factor confounds medium with growth rate (1.9 vs 0.58 /h); the medium effect in stationary phase is unmeasured, so the scale is BORROWED from exponential growth and labelled as such",
+   "span_kind": "SENSITIVITY",
+   "outputs": {
+    "O4_chains_per_GroEL": {
+     "kind": "SENSITIVITY",
+     "at_reference": 1789.9922259826747,
+     "lo": 932.4176980369723,
+     "hi": 3534.3421420531818,
+     "fold_span": 3.7905137895752787,
+     "illustrative_held": []
+    }
+   }
+  },
+  "S_MEDIUM_GroES": {
+   "bundle": "STATIONARY",
+   "params": [
+    "pool_GroES7"
+   ],
+   "span": [
+    1.4929805515110923,
+    6.431892409095015
+   ],
+   "span_basis": "Schmidt 1 d/3 d (3.362, 2.856) widened by the exponential LB:glucose factor 1.91 for this machine. that factor confounds medium with growth rate (1.9 vs 0.58 /h); the medium effect in stationary phase is unmeasured, so the scale is BORROWED from exponential growth and labelled as such",
+   "span_kind": "SENSITIVITY",
+   "outputs": {
+    "O4_chains_per_GroES": {
+     "kind": "SENSITIVITY",
+     "at_reference": 1049.035394229453,
+     "lo": 548.3265802750955,
+     "hi": 2362.239458381995,
+     "fold_span": 4.30808854313949,
+     "illustrative_held": []
+    }
+   }
+  },
+  "S_MEDIUM_ClpB": {
+   "bundle": "STATIONARY",
+   "params": [
+    "pool_ClpB6"
+   ],
+   "span": [
+    0.04039058146111057,
+    0.24965469475231258
+   ],
+   "span_basis": "Schmidt 1 d/3 d (0.1062, 0.09493) widened by the exponential LB:glucose factor 2.35 for this machine. that factor confounds medium with growth rate (1.9 vs 0.58 /h); the medium effect in stationary phase is unmeasured, so the scale is BORROWED from exponential growth and labelled as such",
+   "span_kind": "SENSITIVITY",
+   "outputs": {
+    "O4_chains_per_ClpB": {
+     "kind": "SENSITIVITY",
+     "at_reference": 33202.65091660691,
+     "lo": 14126.622264706064,
+     "hi": 87316.8308500861,
+     "fold_span": 6.181012645056587,
+     "illustrative_held": []
+    }
+   }
+  },
+  "S_MEDIUM_DnaJ": {
+   "bundle": "STATIONARY",
+   "params": [
+    "pool_DnaJ2"
+   ],
+   "span": [
+    0.12771719323688394,
+    0.6553341054147471
+   ],
+   "span_basis": "Schmidt 1 d/3 d (0.3387, 0.2471) widened by the exponential LB:glucose factor 1.94 for this machine. that factor confounds medium with growth rate (1.9 vs 0.58 /h); the medium effect in stationary phase is unmeasured, so the scale is BORROWED from exponential growth and labelled as such",
+   "span_kind": "SENSITIVITY",
+   "outputs": {
+    "O4_chains_per_DnaJ": {
+     "kind": "SENSITIVITY",
+     "at_reference": 10413.772985119547,
+     "lo": 5381.648139836079,
+     "hi": 27613.960814462243,
+     "fold_span": 5.131134570106499,
+     "illustrative_held": []
+    }
+   }
+  },
+  "S_MEDIUM_GrpE": {
+   "bundle": "STATIONARY",
+   "params": [
+    "pool_GrpE2"
+   ],
+   "span": [
+    1.6827201016821791,
+    6.055930327583788
+   ],
+   "span_basis": "Schmidt 1 d/3 d (3.207, 3.177) widened by the exponential LB:glucose factor 1.89 for this machine. that factor confounds medium with growth rate (1.9 vs 0.58 /h); the medium effect in stationary phase is unmeasured, so the scale is BORROWED from exponential growth and labelled as such",
+   "span_kind": "SENSITIVITY",
+   "outputs": {
+    "O4_chains_per_GrpE": {
+     "kind": "SENSITIVITY",
+     "at_reference": 1099.664024284409,
+     "lo": 582.367593185891,
+     "hi": 2095.878908114767,
+     "fold_span": 3.598893435414366,
+     "illustrative_held": []
+    }
+   }
+  },
+  "S_MEDIUM_TF": {
+   "bundle": "STATIONARY",
+   "params": [
+    "pool_TF"
+   ],
+   "span": [
+    4.870027161537614,
+    11.797909985355991
+   ],
+   "span_basis": "Schmidt 1 d/3 d (7.904, 7.27) widened by the exponential LB:glucose factor 1.49 for this machine. that factor confounds medium with growth rate (1.9 vs 0.58 /h); the medium effect in stationary phase is unmeasured, so the scale is BORROWED from exponential growth and labelled as such",
+   "span_kind": "SENSITIVITY",
+   "outputs": {
+    "O4_chains_per_TF": {
+     "kind": "SENSITIVITY",
+     "at_reference": 446.2250955154374,
+     "lo": 298.9324019045733,
+     "hi": 724.1802668432973,
+     "fold_span": 2.422555274133427,
+     "illustrative_held": []
+    }
+   }
+  },
+  "S_MEDIUM_HtpG": {
+   "bundle": "STATIONARY",
+   "params": [
+    "pool_HtpG2"
+   ],
+   "span": [
+    0.38325119073421116,
+    2.616313454560364
+   ],
+   "span_basis": "Schmidt 1 d/3 d (0.9841, 1.019) widened by the exponential LB:glucose factor 2.57 for this machine. that factor confounds medium with growth rate (1.9 vs 0.58 /h); the medium effect in stationary phase is unmeasured, so the scale is BORROWED from exponential growth and labelled as such",
+   "span_kind": "SENSITIVITY",
+   "outputs": {
+    "O4_chains_per_HtpG": {
+     "kind": "SENSITIVITY",
+     "at_reference": 3583.7088569626044,
+     "lo": 1347.9950436477966,
+     "hi": 9202.261218340933,
+     "fold_span": 6.826628377978884,
+     "illustrative_held": []
+    }
+   }
+  },
+  "S_MEDIUM_P_T": {
+   "bundle": "STATIONARY",
+   "params": [
+    "total_protein_P_T"
+   ],
+   "span": [
+    3117.858201866959,
+    3851.6742568109435
+   ],
+   "span_basis": "1 d/3 d widened by the exponential LB:glucose factor 1.09; that factor is an artefact of Schmidt's constant-concentration normalization (composition only), SENSITIVITY with a borrowed scale",
+   "span_kind": "SENSITIVITY",
+   "outputs": {
+    "O4_chains_per_DnaK": {
+     "kind": "SENSITIVITY",
+     "at_reference": 99.47799028591241,
+     "lo": 87.94381324507917,
+     "hi": 108.64218305984224,
+     "fold_span": 1.235359021300128,
+     "illustrative_held": []
+    }
+   }
+  },
+  "S_NORM": {
+   "bundle": "STATIONARY",
+   "params": [
+    "total_protein_P_T",
+    "pool_DnaK",
+    "pool_GroEL14",
+    "pool_GroES7",
+    "pool_ClpB6",
+    "pool_DnaJ2",
+    "pool_GrpE2",
+    "pool_TF",
+    "pool_HtpG2"
+   ],
+   "span": [
+    0.5,
+    2.0
+   ],
+   "span_basis": "common factor on the stationary volumetric normalization (Schmidt used the glucose-exponential value); factor range ILLUSTRATIVE",
+   "span_kind": "SENSITIVITY",
+   "outputs": {
+    "O4_chains_per_DnaK": {
+     "kind": "SENSITIVITY",
+     "at_reference": 99.47799028591241,
+     "lo": 99.47799028591241,
+     "hi": 99.47799028591241,
+     "fold_span": 1.0,
+     "illustrative_held": [
+      "normalization factor 0.5..2"
+     ]
+    },
+    "O4_chains_per_GroEL": {
+     "kind": "SENSITIVITY",
+     "at_reference": 1789.9922259826747,
+     "lo": 1789.9922259826747,
+     "hi": 1789.9922259826747,
+     "fold_span": 1.0,
+     "illustrative_held": [
+      "normalization factor 0.5..2"
+     ]
+    },
+    "O4_chains_per_ClpB": {
+     "kind": "SENSITIVITY",
+     "at_reference": 33202.65091660691,
+     "lo": 33202.65091660691,
+     "hi": 33202.650916606915,
+     "fold_span": 1.0000000000000002,
+     "illustrative_held": [
+      "normalization factor 0.5..2"
+     ]
+    },
+    "O2s_sP_breakeven": {
+     "kind": "SENSITIVITY",
+     "at_reference": 4.572434770630449,
+     "lo": 2.2862173853152243,
+     "hi": 9.144869541260897,
+     "fold_span": 4.0,
+     "illustrative_held": [
+      "p_misfold=1 (bound)",
+      "one DnaK cycle per client",
+      "standing substitution frequency used as per-synthesis error rate (UNMEASURED)",
+      "normalization factor 0.5..2"
+     ]
+    }
+   }
+  },
+  "S_N": {
+   "bundle": "STATIONARY",
+   "params": [
+    "copy_weighted_length_N"
+   ],
+   "span": [
+    "copy-weighted 1 d (Schmidt)",
+    "genome-unweighted"
+   ],
+   "span_basis": "two MISMATCHED weightings; the anchor culture's proteome is UNMEASURED",
+   "span_kind": "DATA",
+   "outputs": {
+    "O1_phi_sub": {
+     "kind": "SENSITIVITY",
+     "at_reference": 0.31014411145457577,
+     "lo": 0.31014411145457577,
+     "hi": 0.39254599082083286,
+     "fold_span": 1.265689001734685,
+     "illustrative_held": []
+    },
+    "O2s_sP_breakeven": {
+     "kind": "SENSITIVITY",
+     "at_reference": 4.572434770630449,
+     "lo": 3.6126052800993897,
+     "hi": 4.572434770630449,
+     "fold_span": 1.265689001734685,
+     "illustrative_held": [
+      "p_misfold=1 (bound)",
+      "one DnaK cycle per client",
+      "standing substitution frequency used as per-synthesis error rate (UNMEASURED)"
+     ]
+    }
+   }
+  },
+  "S_KCAT": {
+   "bundle": "STATIONARY",
+   "params": [
+    "DnaK_cycle_rate_k_cat"
+   ],
+   "span": [
+    0.003,
+    1.0
+   ],
+   "span_basis": "every in-vitro DnaK rate in saved records",
+   "span_kind": "DATA",
+   "outputs": {
+    "O2s_sP_breakeven": {
+     "kind": "SENSITIVITY",
+     "at_reference": 4.572434770630449,
+     "lo": 0.3429326077972837,
+     "hi": 114.31086926576121,
+     "fold_span": 333.3333333333333,
+     "illustrative_held": [
+      "p_misfold=1 (bound)",
+      "one DnaK cycle per client",
+      "standing substitution frequency used as per-synthesis error rate (UNMEASURED)"
+     ]
+    }
+   }
+  },
+  "S_K": {
+   "bundle": "STATIONARY",
+   "params": [
+    "DnaK_affinity_K"
+   ],
+   "span": [
+    0.06,
+    107.0
+   ],
+   "span_basis": "R-state through T-state in-vitro K_d",
+   "span_kind": "DATA",
+   "outputs": {
+    "O6_DnaK_bound_fraction": {
+     "kind": "SENSITIVITY",
+     "at_reference": 0.9906498145553355,
+     "lo": 0.5331001205842618,
+     "hi": 0.9994323470489566,
+     "fold_span": 1.8747554323446944,
+     "illustrative_held": [
+      "eps=0.04 (WO-02 SCENARIO, ILLUSTRATIVE)",
+      "M = eps*P_T treated as free client"
+     ]
+    }
+   }
+  }
+ },
+ "counterfactuals": {
+  "CF_STIKELEATHER_INTO_EXP": {
+   "what": "stationary-harvest f (Stikeleather) placed into the EXPONENTIAL bundle",
+   "at_stikeleather": {
+    "O1_phi_sub": 0.35065955069326343,
+    "O2_sigma_DnaK": 0.384910906988172,
+    "O3_legacy_headroom_P": 7.545352892386836
+   },
+   "etel_span": {
+    "O1_phi_sub": [
+     0.014739253176554234,
+     0.12187622788950125
+    ],
+    "O2_sigma_DnaK": [
+     0.01617893850972979,
+     0.13378072641825894
+    ],
+    "O3_legacy_headroom_P": [
+     30.579781076334307,
+     286.2909331058292
+    ]
+   },
+   "f_ratio_to_etel": [
+    3.574412420272461,
+    32.165342715770706
+   ]
+  },
+  "CF_EXP_POOLS_INTO_STAT": {
+   "what": "exponential glucose DnaK pool placed into the STATIONARY bundle",
+   "O2s_sP_breakeven": [
+    1.4032628890766572,
+    4.572434770630449
+   ],
+   "O4_chains_per_DnaK": [
+    324.14212991482884,
+    99.47799028591241
+   ]
+  },
+  "CF_SUMMED_POOL": {
+   "what": "machines summed into one pool (legacy C_tot) instead of DnaK alone",
+   "O2_sigma_DnaK": {
+    "legacy_50": 0.015013312888268359,
+    "DnaK+GroEL_protomers": 0.031047136494437678,
+    "DnaK+GroEL14": 0.0634533670187553,
+    "DnaK_only": 0.0689928287360282
+   },
+   "O3_legacy_headroom_P": {
+    "legacy_50": 107.7853196157854,
+    "DnaK+GroEL_protomers": 96.6432572457304,
+    "DnaK+GroEL14": 66.52644346031556,
+    "DnaK_only": 63.62726657314925
+   }
+  },
+  "CF_LEGACY_VALUES": {
+   "what": "legacy P_T 300 and C_tot 50 vs bundle values (all else legacy for O3)",
+   "O4_chains_per_pool": {
+    "legacy_300_over_50": 6.0,
+    "bundle_P_T_over_DnaK": 272.5266916680382
+   },
+   "O3_legacy_headroom_P": {
+    "as_published_params_zero_inclusive_genomic_f": 63.10382353793051,
+    "only_P_T_to_bundle": 19.653108319676786,
+    "all_matched_values_substituted": 63.62726657314925
+   },
+   "control": "as_published value must equal WO-05 zero_inclusive_input_both (63.10)"
+  }
+ },
+ "label": "every effect range varies a MISMATCHED input and is a SENSITIVITY or LEGACY_CONDITIONAL range, not a prediction"
+}
