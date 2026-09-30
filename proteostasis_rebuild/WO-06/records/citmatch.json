@@ -1,0 +1,42 @@
+{
+  "Ciryam2013_PNAS_110_E3453": {
+    "query": "proc natl acad sci u s a|2013|110|E3453",
+    "result": "NOT_FOUND"
+  },
+  "Bednarska2013_MolCell_52_617": {
+    "query": "mol cell|2013|52|617",
+    "result": "24239291"
+  },
+  "Stirling2018_CellRep_25_2242": {
+    "query": "cell rep|2018|25|2242",
+    "result": "NOT_FOUND"
+  },
+  "DrummondWilke2009_Cell": {
+    "query": "cell|2009||",
+    "result": "NOT_FOUND"
+  },
+  "Yamanaka2017_CurrBiol": {
+    "query": "curr biol|2017||",
+    "result": "NOT_FOUND"
+  },
+  "Pierpaoli1997_EMBOJ": {
+    "query": "embo j|1997||",
+    "result": "NOT_FOUND"
+  },
+  "Mogk1999_EMBOJ_18": {
+    "query": "embo j|1999|18|6934",
+    "result": "10601016"
+  },
+  "Lorimer1996_FASEBJ_10": {
+    "query": "faseb j|1996|10|5",
+    "result": "8566548"
+  },
+  "Upadhyay2012_PLoSOne_7": {
+    "query": "plos one|2012|7|e33951",
+    "result": "22479486"
+  },
+  "Belle2006_PNAS_103": {
+    "query": "proc natl acad sci u s a|2006|103|13004",
+    "result": "16916930"
+  }
+}
