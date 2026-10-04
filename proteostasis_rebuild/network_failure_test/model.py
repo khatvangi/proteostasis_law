@@ -144,6 +144,30 @@ def makeInstance(seed, W=2.0, wU=1.0, alpha=1.0, abundance="measured",
 
 # ---------------------------------------------------------------- solvers
 
+RETRIES = [0]   # per-process count of LP solves that needed a fallback method
+
+
+def solveCapLP(obj, U, c, Aeq, beq, n_extra=0):
+    """LP with machine-capacity rows U^T x <= c, numerically conditioned:
+    each row is divided by its capacity (rhs = 1), and a machine at zero
+    capacity is removed by fixing every route that uses it to 0. variables
+    are R route fluxes followed by n_extra free-standing nonnegative columns.
+    on solver failure the other HiGHS methods are tried and counted."""
+    on = c > 0
+    dead = (U[:, ~on] > 0).any(axis=1)
+    A = np.hstack([(U[:, on] / c[on]).T, np.zeros((int(on.sum()), n_extra))])
+    bounds = [(0, 0) if dz else (0, None) for dz in dead] + [(0, None)] * n_extra
+    for method in ("highs", "highs-ipm", "highs-ds"):
+        res = linprog(obj, A_ub=A if A.shape[0] else None, b_ub=np.ones(A.shape[0]) if A.shape[0] else None,
+                      A_eq=Aeq, b_eq=beq, bounds=bounds, method=method)
+        if res.status == 0:
+            res.on = on
+            return res
+        RETRIES[0] += 1
+    res.on = on
+    return res
+
+
 def solveLamC(inst, c=None, duals=False):
     """lambda*_C: max concurrent flow LP. variables (x_1..x_R, lambda)."""
     U, cls, d = inst["U"], inst["cls"], inst["d"]
@@ -154,17 +178,16 @@ def solveLamC(inst, c=None, duals=False):
     for r in range(R):
         Aeq[cls[r], r] = 1.0
     Aeq[:, R] = -d
-    Aub = np.hstack([U.T, np.zeros((M, 1))])
     obj = np.zeros(R + 1)
     obj[R] = -1.0
-    res = linprog(obj, A_ub=Aub, b_ub=c, A_eq=Aeq, b_eq=np.zeros(K),
-                  bounds=[(0, None)] * (R + 1), method="highs")
+    res = solveCapLP(obj, U, c, Aeq, np.zeros(K), n_extra=1)
     if res.status != 0:
         raise RuntimeError(f"LP failed: {res.message}")
     lam = max(0.0, -res.fun)
     if duals:
         # marginals of the capacity rows: d(lambda*)/d(c_m) >= 0 = bottleneck prices
-        y = -res.ineqlin.marginals
+        y = np.zeros(M)
+        y[res.on] = -res.ineqlin.marginals / c[res.on]   # undo the row scaling
         return lam, res.x[:R], y
     return lam
 
@@ -267,8 +290,7 @@ def solveMinCost(inst, lam, c=None, cap_scale=1.0):
     Aeq = np.zeros((len(d), R))
     for r in range(R):
         Aeq[cls[r], r] = 1.0
-    res = linprog(cost, A_ub=U.T, b_ub=c * cap_scale, A_eq=Aeq, b_eq=lam * d,
-                  bounds=[(0, None)] * R, method="highs")
+    res = solveCapLP(cost, U, c * cap_scale, Aeq, lam * d)
     return res.x if res.status == 0 else None
 
 
@@ -282,6 +304,8 @@ def findSaturationEvents(inst, n=200, tol=1e-7):
     grid = np.arange(1, n) / n             # strictly below lambda*
     for f in grid:
         x = solveMinCost(inst, f * lamC)
+        if x is None:                      # cannot happen below lambda* except numerically
+            raise RuntimeError(f"min-cost LP failed below lambda* at f={f}")
         usage = inst["U"].T @ x
         for m in np.flatnonzero(usage >= inst["c"] * (1 - tol)):
             first.setdefault(int(m), float(f))
@@ -316,8 +340,7 @@ def findParetoFront(inst, load_frac=0.5, n=25):
     lam = load_frac * lamC
     pts = []
     for t in np.linspace(load_frac * (1 + 1e-9), 1.0, n):
-        res = linprog(atp, A_ub=U.T, b_ub=t * inst["c"], A_eq=Aeq, b_eq=lam * d,
-                      bounds=[(0, None)] * len(U), method="highs")
+        res = solveCapLP(atp, U, t * inst["c"], Aeq, lam * d)
         if res.status != 0:
             continue
         pts.append({"max_utilization": float(t), "reserve_margin": float(1 - t),

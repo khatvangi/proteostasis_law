@@ -54,6 +54,19 @@ def initWorker(pools):
 
 
 def runInstance(args):
+    """wrapper: a numerical failure is recorded, never silently dropped."""
+    st, seed = args
+    M.RETRIES[0] = 0
+    try:
+        row = runInstanceInner(args)
+        row["failed"] = ""
+    except Exception as e:
+        row = {"setting": st["name"], "seed": seed, "failed": repr(e)[:200]}
+    row["lp_fallbacks"] = M.RETRIES[0]
+    return row
+
+
+def runInstanceInner(args):
     st, seed = args
     inst = M.makeInstance(seed, W=st["W"], wU=st["wU"], alpha=st["alpha"],
                           abundance=st["abundance"], structure=st["structure"], pools=P)
@@ -94,6 +107,13 @@ def runInstance(args):
 
 
 def runFeedback(args):
+    try:
+        return runFeedbackInner(args)
+    except Exception as e:
+        return {"kind": args[0], "seed": args[1], "failed": repr(e)[:200]}
+
+
+def runFeedbackInner(args):
     kind, seed = args
     rng = np.random.default_rng(10_000 + seed)
     inst = M.makeInstance(seed, W=2.0, pools=P)
@@ -124,17 +144,23 @@ def findParetoInstance():
 def main():
     OUT.mkdir(exist_ok=True)
     pools = findPools()
-    nproc = int(os.environ.get("SLURM_CPUS_PER_TASK", os.cpu_count()))
+    nproc = int(os.environ.get("NPROC", os.environ.get("SLURM_CPUS_PER_TASK", os.cpu_count())))
     jobs = [(st, s) for st in SETTINGS for s in range(st["n"])]
     with Pool(nproc, initializer=initWorker, initargs=(pools,)) as pool:
         rows = pool.map(runInstance, jobs, chunksize=4)
-        fjobs = [("none", s) for s in range(100)] + [("titration", s) for s in range(600)] \
-            + [("utilization", s) for s in range(600)]
+        fjobs = [("none", s) for s in range(50)] + [("titration", s) for s in range(400)] \
+            + [("utilization", s) for s in range(400)]
         frows = pool.map(runFeedback, fjobs, chunksize=1)
     df = pd.DataFrame(rows)
     df.to_csv(OUT / "instances.csv", index=False)
+    failed = df[df.failed != ""]
+    df = df[df.failed == ""].copy()
     fdf = pd.DataFrame(frows)
+    if "failed" not in fdf:
+        fdf["failed"] = np.nan
     fdf.to_csv(OUT / "feedback.csv", index=False)
+    ffail = int(fdf.failed.notna().sum())
+    fdf = fdf[fdf.failed.isna()].copy()
 
     initWorker(pools)
     seed, inst, pts = findParetoInstance()
@@ -155,7 +181,11 @@ def main():
     pd.DataFrame(mk).to_csv(OUT / "machine_knockouts.csv", index=False)
 
     summ = {"settings": {}, "feedback": {}, "pareto": {"seed": seed, "load_frac": 0.5,
-                                                         "n_points": len(pts)}}
+                                                         "n_points": len(pts)},
+            "numerics": {"failed_instances": int(len(failed)),
+                         "failed_detail": failed[["setting", "seed", "failed"]].to_dict("records"),
+                         "instances_with_lp_fallback": int((df.lp_fallbacks > 0).sum()),
+                         "failed_feedback_runs": ffail}}
     q = lambda s: {"median": float(s.median()), "q05": float(s.quantile(0.05)),
                    "q95": float(s.quantile(0.95))}
     for name, g in df.groupby("setting", sort=False):

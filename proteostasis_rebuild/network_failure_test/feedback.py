@@ -29,9 +29,8 @@ Z(lambda) = sum z / sum D on the upward continuation, confirmed by bisection
 refinement (the drop must survive a 2^-14 shrink of the interval).
 """
 import numpy as np
-from scipy.optimize import linprog
 
-from model import CLASSES, FOLDING, MACHINES, MIDX, solveLamC
+from model import CLASSES, FOLDING, MACHINES, MIDX, solveCapLP, solveLamC
 
 FOLD_IDX = [CLASSES.index(k) for k in FOLDING]
 AGG = CLASSES.index("AGG")
@@ -47,9 +46,7 @@ def solveServed(inst, D, c_eff):
         Aeq[cls[r], r] = 1.0
     Aeq[:, R:] = np.eye(K)
     obj = np.concatenate([1e-6 * cost / cost.max(), TRIAGE])
-    Aub = np.hstack([U.T, np.zeros((U.shape[1], K))])
-    res = linprog(obj, A_ub=Aub, b_ub=np.maximum(c_eff, 0), A_eq=Aeq, b_eq=D,
-                  bounds=[(0, None)] * (R + K), method="highs")
+    res = solveCapLP(obj, U, np.maximum(c_eff, 0), Aeq, D, n_extra=K)
     if res.status != 0:
         raise RuntimeError(res.message)
     return res.x[:R], res.x[R:]
@@ -142,7 +139,7 @@ def findCascade(inst, fb, fmin=0.2, fmax=3.0, n=141, jump=0.1, refine=14, confir
 def makeFeedback(rng, kind):
     """broad random feedback parameters."""
     fb = {"kind": kind, "gamma": float(10 ** rng.uniform(-1, 1)),
-          "beta": float(10 ** rng.uniform(-1, 1))}
+          "beta": float(10 ** rng.uniform(-1, 2))}   # broad: give the cascade every chance
     if kind == "utilization":
         fb["beta"] = float(rng.uniform(0.1, 1.0))       # fractional capacity loss
         fb["theta"] = float(rng.uniform(0.3, 0.95))
