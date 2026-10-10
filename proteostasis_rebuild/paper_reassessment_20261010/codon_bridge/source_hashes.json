@@ -1,0 +1,817 @@
+[
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD000367_codon_counts.csv",
+    "bytes": 1391,
+    "sha256": "bc1337f3450dae1ecccc6d706408c8df14c257a618b427ae2c2dc7d624b60d7d"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD000367_substitution_errors.csv",
+    "bytes": 6376,
+    "sha256": "76de6498496f9bd8775712d9855d1f99a792880c27d170df4e0fb197cd9dd35f"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD000498_codon_counts.csv",
+    "bytes": 1937,
+    "sha256": "c24ff277eb907d2060be22999bc145d5d7385e4e503069f1b6034bd5e4e1db49"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD000498_substitution_errors.csv",
+    "bytes": 1398095,
+    "sha256": "ea7e06881ac0519fbc3828695b7b1d9b84ef934305ca686f0fe3807e33c7f1d6"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD001226_codon_counts.csv",
+    "bytes": 1296,
+    "sha256": "841087899d690b1fa5a7bb003dd4e90c2e1ca0ab2f7f9c8bb6e0794401b23766"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD001226_substitution_errors.csv",
+    "bytes": 4987,
+    "sha256": "4fdb5c877c04981547aeceb9b2974298b5ed9546d3eac3944582c99d819f05a9"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD001947_codon_counts.csv",
+    "bytes": 1327,
+    "sha256": "33d4570d1de7386c25a4a1665cb480bc813376cc9ced3a3cde0d4bd2f7caa796"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD001947_substitution_errors.csv",
+    "bytes": 3385,
+    "sha256": "4ce04aaa3b4159f8804485f9b4358a5246250176a9a78a7c062b5d8149095b28"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD001968_codon_counts.csv",
+    "bytes": 1559,
+    "sha256": "7362de960d2161eba96f1de83cc0c5e8f72e145c8fdb16e14f2a2c30c2c05119"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD001968_substitution_errors.csv",
+    "bytes": 40759,
+    "sha256": "c8bd223d969fcf34c573b26af348b5bde45242a10b1cbb49695886bc7454124c"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD001983_codon_counts.csv",
+    "bytes": 1358,
+    "sha256": "0603e9e83d95ad7e8df399bfa7a26c006f73e4dfef0d5ae0a6c0d1639b543230"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD001983_substitution_errors.csv",
+    "bytes": 7454,
+    "sha256": "b7d4bdc33d788ef96669fd4ff7fead8b46222f794580083513ed81521ebcd9dd"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD002012_codon_counts.csv",
+    "bytes": 1249,
+    "sha256": "1f435528d203d1e1bbc6e90135b5f5026de877754c6fe4bdbfae825358bc9870"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD002012_substitution_errors.csv",
+    "bytes": 3794,
+    "sha256": "27bbcf6f50954e1f4f680e1adfd89d7f80e697244990890ad2a66d885bebb8e2"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD002140_codon_counts.csv",
+    "bytes": 2021,
+    "sha256": "bf2adf54a6b13bfb715e33f44dee3748026a96fb4b49066dfd35e3ad4063ca0e"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD002140_substitution_errors.csv",
+    "bytes": 79153,
+    "sha256": "4a5d1126e385ebe43ca5feb4dfb09ad58386261d2ec978993ae3fbbca52679d0"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD002473_codon_counts.csv",
+    "bytes": 1364,
+    "sha256": "778ef4d36e4d712cf5851647d5a7c3ce3e0ed08d5716194da18d2e43909e9417"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD002473_substitution_errors.csv",
+    "bytes": 2491,
+    "sha256": "0a2f099922506d80ce5f4b3c1d96a0f92525249885ea80d259086ed69fda35c4"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD002912_codon_counts.csv",
+    "bytes": 2053,
+    "sha256": "74283a74257ac3254a4497fb927f9c858e9246b7eaf87f2d85e74ae4e98aa8a6"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD002912_substitution_errors.csv",
+    "bytes": 60203,
+    "sha256": "d5cf7c26e36d47ad76226a42cc55eb318f05f0a4363b736a88d2b169750cb82b"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD004321_codon_counts.csv",
+    "bytes": 1788,
+    "sha256": "3d6761b203de31ad896fce34c3c328b28029bd2f971fefd6736d2662fe1fcdde"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD004321_substitution_errors.csv",
+    "bytes": 89706,
+    "sha256": "1e49c08e0428259d2ae852f37ecd7d44efe65b0177db0819d6cf3b728a47a80e"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD004351_codon_counts.csv",
+    "bytes": 1103,
+    "sha256": "989df8ab11245515f80c52964ee6b83c1e506a538402014b94014918b1434c2a"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD004351_substitution_errors.csv",
+    "bytes": 4035,
+    "sha256": "cb189a83bb8c33adc1bcc00ca167f847e5ef4a3de06773e97c5dd118e9d76a82"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD005164_codon_counts.csv",
+    "bytes": 1415,
+    "sha256": "8f0d417e21e3869e3ac3fa1b9c463e54c09d822933c7a45ddb1347c4e8666790"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD005164_substitution_errors.csv",
+    "bytes": 16831,
+    "sha256": "be2cbf3c529bb8c14d14cd10209a93d420f58da9803a61faa0335399e2a86ea7"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD005259_codon_counts.csv",
+    "bytes": 1771,
+    "sha256": "d290e0f3a6be7e166d44393f80fe955049653d0e29d647d741b8b67187795136"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD005259_substitution_errors.csv",
+    "bytes": 13284,
+    "sha256": "8b34ddf68818ae5a28e78609152844949df22de0460fc426053bb790a61df0a5"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD005642_codon_counts.csv",
+    "bytes": 1485,
+    "sha256": "7733d948fd3ec45cd24940a54dfb49637f06a14caa8e91c5bb092fce190b4c8e"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD005642_substitution_errors.csv",
+    "bytes": 20965,
+    "sha256": "823c47f39100c63a3f565063e8e2ad8cef7ccc14d07fda4020a18d5a047bd385"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD006474_codon_counts.csv",
+    "bytes": 1601,
+    "sha256": "1e9b94ac24042db004effc385b2022288d759e7931a4cc8b57b50004fba27ca0"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD006474_substitution_errors.csv",
+    "bytes": 15375,
+    "sha256": "ad645add810df639f0d299c82f77db8ecaba10d8e4f2698e7bc5b4c385f4056c"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD007087_codon_counts.csv",
+    "bytes": 1474,
+    "sha256": "498bdd92c782ee4cb9efe98b1ed8db30fea5bebc746a8bb6ae868dac2fb54378"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD007087_substitution_errors.csv",
+    "bytes": 27544,
+    "sha256": "b4ba49f1482df8d540c088ac0617ed65c3607fca3c6dd51b750e773e6ca6ab9e"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD007587_codon_counts.csv",
+    "bytes": 1758,
+    "sha256": "06770504692eab307427b1ab6b433bb0a31bc48098a0a94242a524d81091e03a"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD007587_substitution_errors.csv",
+    "bytes": 22155,
+    "sha256": "1286b6ef8e8998be91c098e9e7911400c22732b29bdcde0d6c8cfff6ba3c60bf"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD008093_codon_counts.csv",
+    "bytes": 1177,
+    "sha256": "a9957ab90f34c433d94ce7cf3e3eb4da071aaf9877bef950b94e96cec378862b"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD008093_substitution_errors.csv",
+    "bytes": 15786,
+    "sha256": "0593287a3135d01833b9a859390d9a7c5bf7e4c9c5509687dd268c7385319528"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD008211_codon_counts.csv",
+    "bytes": 1524,
+    "sha256": "2f61ef1d4c2bf050ecd06daa5f3d0cb1750c9734737b226ecd12fa3fb941452d"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD008211_substitution_errors.csv",
+    "bytes": 10027,
+    "sha256": "b19bb3c16800c416e903d2af8422f5dc3de56dd2e96ecc0f85b62a56905b8088"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD008777_codon_counts.csv",
+    "bytes": 1296,
+    "sha256": "7102f02775f2fdeabab771697caf4bdfc7049d930fa8e7ef2d5b7d934361ca6c"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD008777_substitution_errors.csv",
+    "bytes": 16836,
+    "sha256": "6cd5edcd606c655692f832747801441ca1f55c6c0f9c60422e53b175f329d4d7"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD008782_codon_counts.csv",
+    "bytes": 1553,
+    "sha256": "03a92d686471e8fa05eefd3cebf511d20a68b6cc8d6486862625a0613ff1d99f"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD008782_substitution_errors.csv",
+    "bytes": 11224,
+    "sha256": "1c41a1c0705c4b24ea3c13bc67080186e55a106950f73452e4119f88b8864e74"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD009242_codon_counts.csv",
+    "bytes": 1595,
+    "sha256": "6e1fab30e9dd61750c13db604a3a61c4e0929b02c4871e0f93924482d90aed40"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD009242_substitution_errors.csv",
+    "bytes": 11637,
+    "sha256": "bfea7fcd718038539f8f3f24d54a956673188b10f7bfef35db5f1a515c3df53e"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD009463_codon_counts.csv",
+    "bytes": 1799,
+    "sha256": "e52c0fc7d87265173cc7db3bc91dd678002bcd69cf09768f8ce13d1f0258ed7e"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD009463_substitution_errors.csv",
+    "bytes": 64296,
+    "sha256": "0dd42fa95204bf7c7083e3bffe2d12f60d50b29183cab1ac4db9796e99701f6d"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD009674_codon_counts.csv",
+    "bytes": 1274,
+    "sha256": "8b6b96b4fb1abd780c4cac565a3705c3e1e87376ed4c62efd062b9312021b566"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD009674_substitution_errors.csv",
+    "bytes": 2125,
+    "sha256": "b5008f816c893e2b36044c5d5d91061975af9b18c3d7f1a8b6d7e0f87f54c536"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD010014_codon_counts.csv",
+    "bytes": 2050,
+    "sha256": "4cd69af3457342e76b4ef7d0a5269f4574bc32a4809f6b891b34e74ce4651bd6"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD010014_substitution_errors.csv",
+    "bytes": 354608,
+    "sha256": "4abb76ca4b42eeb7df8de457aa545c1799ae98c2ed4917d188990faf20bde002"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD010101_codon_counts.csv",
+    "bytes": 1915,
+    "sha256": "1cca0223309f9590a5f578ff31e62ae255aa605adc6e3a53b9521e4636c15d9c"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD010101_substitution_errors.csv",
+    "bytes": 62768,
+    "sha256": "e6ae6998dc85d3b44308436dd9f1581b78d036665fe790a33ef0366bdeba405b"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD010174_codon_counts.csv",
+    "bytes": 1669,
+    "sha256": "4a466ea5d5d8f659e75e6e1f8d99d307e1dc29fdbfc16bde456de442e635a438"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD010174_substitution_errors.csv",
+    "bytes": 26403,
+    "sha256": "dc720cf4c6a0b87de1c3a7db4055b1c50e6f82f4a2cd0ae18cb504eff9ded470"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD010237_codon_counts.csv",
+    "bytes": 1417,
+    "sha256": "67ff1a519f2c68ad95481c7e1b8d005f6ad9003073b845d5803d1a8275f4ca0c"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD010237_substitution_errors.csv",
+    "bytes": 18636,
+    "sha256": "1782a6e274ff0c25fee593b2356f29b212a138afb2d69292b256bed8c1f0312b"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD010988_codon_counts.csv",
+    "bytes": 1227,
+    "sha256": "6fb3e13342ec5531395c5578bc09b1c107cb567b41df425a8303c92911440bb9"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD010988_substitution_errors.csv",
+    "bytes": 2639,
+    "sha256": "fad737e8acdfbd177c91b42e2feb63beb1e0fa1b197428ee30893873336e9fff"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD011437_codon_counts.csv",
+    "bytes": 1764,
+    "sha256": "890c576c2a5aec3ac3352ef29ac95bcaabea9d187c1bb0949673fe249503f853"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD011437_substitution_errors.csv",
+    "bytes": 26968,
+    "sha256": "3438fbaadc5a84ae22dab8f81621b954c98c003e7ec3fe425581f7197e95fb60"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD012320_codon_counts.csv",
+    "bytes": 1942,
+    "sha256": "a351a3d9c116c053345e772e733bbb5ec46a695e91dd1b463e8a49829504e926"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD012320_substitution_errors.csv",
+    "bytes": 233019,
+    "sha256": "9f8efc25e48ce4409b245dfb5ad8811359b092e91bd3b36256bcc69b359b0d3a"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD012370_codon_counts.csv",
+    "bytes": 1941,
+    "sha256": "4b9cec6228f1c00b1b9b0b76a1a2503659c067146b93d31ecb14460fab5f454a"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD012370_substitution_errors.csv",
+    "bytes": 216660,
+    "sha256": "9f5912d808fabf4249456f216367cb22d58f3029bdbe828c272d7a73b8e96aeb"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD013088_codon_counts.csv",
+    "bytes": 1627,
+    "sha256": "7d229d5bbbd22b2a79420ad1a235d07ac9b39639e6bfa0044095c344bef21c63"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD013088_substitution_errors.csv",
+    "bytes": 75754,
+    "sha256": "66221789db9fbbb13bdcc50f9a4010cae59a4e6c10bd27477e16aeaee67d433e"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD013273_codon_counts.csv",
+    "bytes": 1608,
+    "sha256": "312fc2f5f30822b1ca9e2958c7fcb2f62096645111ca25974d8941e232adfb2a"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD013273_substitution_errors.csv",
+    "bytes": 160651,
+    "sha256": "21a0f7ee368019bac28663193199bf4d9df0d10cef1e0709a57f8bc8e0207c84"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD013610_codon_counts.csv",
+    "bytes": 1460,
+    "sha256": "d53ac91885b583e310853f195bd7a1944627dd2930162a962728999bc2914ebf"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD013610_substitution_errors.csv",
+    "bytes": 30236,
+    "sha256": "8b62ef728ce3a9d09458c5e8737e395fb03836ed250180111642265cf634a013"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD014049_codon_counts.csv",
+    "bytes": 1769,
+    "sha256": "6c75b4620c00021ca4006ec238759515fbe1a40e1bcb4a1756df661bd236f14a"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD014049_substitution_errors.csv",
+    "bytes": 83787,
+    "sha256": "5d66c3859c44f2668c4ae762f04cf12b35ac9558da4f744e4b64b42f478d30df"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD014096_codon_counts.csv",
+    "bytes": 1478,
+    "sha256": "2e42af6438098fe99f32af44fba12f5946d349f752b46f810624451a9bbc8f75"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD014096_substitution_errors.csv",
+    "bytes": 6859,
+    "sha256": "47bf9451edaf4db78a5b22118cd566cbf551224b52fc9376c716df9e978786ce"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD014341_codon_counts.csv",
+    "bytes": 2373,
+    "sha256": "a883c217c9979abea75d2bffc171275ea9ec2ea649a79e7e2b1d552e2aed3819"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD014341_substitution_errors.csv",
+    "bytes": 2944799,
+    "sha256": "30b642bfffb7591d963b3c687ae947115645a8e0f90be86bdcf724b6ef061090"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD015275_codon_counts.csv",
+    "bytes": 1144,
+    "sha256": "a4eaf7eb6c9fc4e3d267619a99435e965d6c01594fe7380c1acb19c5c0348182"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD015275_substitution_errors.csv",
+    "bytes": 39821,
+    "sha256": "60702bcd921ae129cf9e54e457db74238b4c0cc4175dadad102612833448e82c"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD015985_codon_counts.csv",
+    "bytes": 2117,
+    "sha256": "8b9f1811ce04b226b0c3f51d668956bf068fd9606aa8a9461757345f25e9bc27"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD015985_substitution_errors.csv",
+    "bytes": 90029,
+    "sha256": "8ba94d308066341d292b39d2357b0a72c651de0b0ce0e8b919ae64b382bbaedd"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD016669_codon_counts.csv",
+    "bytes": 1637,
+    "sha256": "a5429978c46cd60b1b7432f23f1f1d2a79411a377ef42a75abc39a928e5b52cf"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD016669_substitution_errors.csv",
+    "bytes": 18836,
+    "sha256": "307f44c70d53ed534ec780a9eeace7b2502b74c41a4535393293f8a57f543c01"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD016825_codon_counts.csv",
+    "bytes": 1410,
+    "sha256": "9142fee9a8380ec459adedcad76acbc7a6fde740779f177561a6d34ea0410bab"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD016825_substitution_errors.csv",
+    "bytes": 5273,
+    "sha256": "a3e62070c8a068a685adda2daee72898a7834b7c4674a5e50aece0fe626b8fa0"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD017618_codon_counts.csv",
+    "bytes": 1640,
+    "sha256": "382d13184fd653c2a5636fd7b961ab0a20285b34cdcb7aa00eb1c11d412f4cb5"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD017618_substitution_errors.csv",
+    "bytes": 29463,
+    "sha256": "35841d1f98d958072734267c38bb9ee1bfbcb289f624c6947e6df58f1e5d2c90"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD018935_codon_counts.csv",
+    "bytes": 1540,
+    "sha256": "b66306ef5fd43e25b2acdac9b2b20fbeaad5adee8ac5119c574133da90e3bd46"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD018935_substitution_errors.csv",
+    "bytes": 9959,
+    "sha256": "0bb95c1f68cb361c53160b895c9b818b275136861b6c54e4a339a5c54ba5070b"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD019140_codon_counts.csv",
+    "bytes": 1559,
+    "sha256": "b19c470c882a779bb9b3b2e5d2ab19291ee6db920493da610b4a71c0f9606e58"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD019140_substitution_errors.csv",
+    "bytes": 12381,
+    "sha256": "51206d3fd830878c7c4c29187fce1f0a172a2156192fa84d3ccdaabb148a8ca1"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD019288_codon_counts.csv",
+    "bytes": 1351,
+    "sha256": "bf251ec94cc66824d2432b56a667dab1ebbe380a49eba500a4b62f77fa2af2ed"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD019288_substitution_errors.csv",
+    "bytes": 6975,
+    "sha256": "239d7af4e0957a711505a45577da30bb62588f8e5de87553540ebfaa884c9f15"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD019508_codon_counts.csv",
+    "bytes": 1166,
+    "sha256": "60b2361504821dbfb1cc9d3becec313a937b98f58f61dd217fb9c73ad60cf499"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD019508_substitution_errors.csv",
+    "bytes": 2232,
+    "sha256": "33490173c16d85aad7c0dcfa23bb0cb28dc17cbd76e06997bfd76317e2ec59b9"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD019900_codon_counts.csv",
+    "bytes": 2159,
+    "sha256": "e05193e07e734f69b031c01da374104be3eb409dcf77740b0cb7a9cdd79a9d29"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD019900_substitution_errors.csv",
+    "bytes": 79817,
+    "sha256": "652d88df3d9755c2c101e3a8a946c67359d60cf1c6e874d321b239a52b88e6b5"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD021374_codon_counts.csv",
+    "bytes": 1807,
+    "sha256": "fe4d4981acdcbe76b4547bc0bc71e9e395575675ad01a900595a952264094878"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD021374_substitution_errors.csv",
+    "bytes": 67292,
+    "sha256": "35005bd11718498e34b75af65e36cb70e3ceae2bf4741468ea748c493f06e2a4"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD021870_codon_counts.csv",
+    "bytes": 2102,
+    "sha256": "4985ba34967f937ddd1a06870278bb882946fc7539d39f7a65874c2cc1076ce5"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD021870_substitution_errors.csv",
+    "bytes": 438390,
+    "sha256": "053a3bea9221aed6c0752066e7c8c1d2962f21ef6849915792389037a972556f"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD021872_codon_counts.csv",
+    "bytes": 1569,
+    "sha256": "5a0dcdb8ac3f2ba66bc19e3444c4e95e23874124c7afcda05d1f9da3c158381d"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD021872_substitution_errors.csv",
+    "bytes": 16657,
+    "sha256": "033b3b0169fcd3960d1c9e338f85116c8281c4085316fda31c9e8cb7e7aeb442"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD022286_codon_counts.csv",
+    "bytes": 2133,
+    "sha256": "9e73c93daca84b50e52c54a8907de0cefcef4907bfe93748825cbc894288c250"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD022286_substitution_errors.csv",
+    "bytes": 185026,
+    "sha256": "f0d2239057d6cd3fec4427d386f96bbdb04b5c09cf8787276555502313cd2cc0"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD022526_codon_counts.csv",
+    "bytes": 1439,
+    "sha256": "3b25850c8ed41a3eebc426e79bbbfa68a4299c617b582d2212faf68c9c3b4b2c"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD022526_substitution_errors.csv",
+    "bytes": 8932,
+    "sha256": "b3c98db882a7a6e47c63da0c431affb9b74e63936a2dce22e10df7819cd00c53"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD022965_codon_counts.csv",
+    "bytes": 1544,
+    "sha256": "3e96bcc376bdd2442921c8da9f86a0c0be956eacc441e8cdf54c68c26ada1192"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD022965_substitution_errors.csv",
+    "bytes": 794131,
+    "sha256": "338ea66dac137d3b335cc03000f4188ab5ff7f8e231574f1b88444e92790ca63"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD023192_codon_counts.csv",
+    "bytes": 1587,
+    "sha256": "e4c24575a87b7be3d0c6394443b94aa098b8d096076ed80a32fe5cfb65cad913"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD023192_substitution_errors.csv",
+    "bytes": 20566,
+    "sha256": "beeea28f18c483bc827566ecd34b812ae5720f1f016e42da4eacdbd6487faa22"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD023729_codon_counts.csv",
+    "bytes": 1498,
+    "sha256": "073406b791129b7af7334f88c5ab3ca819df7245a778a4c5378a545e3d8cbd01"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD023729_substitution_errors.csv",
+    "bytes": 11362,
+    "sha256": "2b4d970ef8f03253bd1beb6641b9c74c17e2f2279d9243e91de3a114b9a2d553"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD023945_codon_counts.csv",
+    "bytes": 1292,
+    "sha256": "8bfdba0f6e22cf9fe70a3de30aa5fd92c2977c450905bfa2179ee77355a91a24"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD023945_substitution_errors.csv",
+    "bytes": 2568,
+    "sha256": "80763879d8bd180f0191b22d83fdab2ca40fdd066d629b70405acb476d058286"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD023998_codon_counts.csv",
+    "bytes": 1524,
+    "sha256": "f52f1cfb6a6a19e6cc30cde99c38b3e89f670f0c55e7d2962d1db52201ff0545"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD023998_substitution_errors.csv",
+    "bytes": 19068,
+    "sha256": "6f40bf2a5544633d508977e0f1f34c0a07b48b71c0ab65516dca1eb472a0c80f"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD024151_codon_counts.csv",
+    "bytes": 1446,
+    "sha256": "a7a41720eb7fc52ff719d5fcdc0023dfa86825358dbc169616ed5831a1007853"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD024151_substitution_errors.csv",
+    "bytes": 8699,
+    "sha256": "7a8ac1301b52f2843b88aabb31834baba00574d35d1abdbc58e5267b7e6ccb65"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD024231_codon_counts.csv",
+    "bytes": 1892,
+    "sha256": "d2fa7143f0a83a3fb18761657a3e9c2a27bc24b3e637add82d64db42818b795e"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD024231_substitution_errors.csv",
+    "bytes": 245288,
+    "sha256": "2e53eec40f88d1731460ca9aded3ba70e0e2560bb5071379f21c2e76097aa6b1"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD024458_codon_counts.csv",
+    "bytes": 1793,
+    "sha256": "696eed7bff06bd0259a82c095dfb036432a8cc95ba53965ef7993792d80a27af"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD024458_substitution_errors.csv",
+    "bytes": 31465,
+    "sha256": "16c2eac8d4d11d8328bdd455ec4aed055e38c72398237383379aac4a6bc042a4"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD024782_codon_counts.csv",
+    "bytes": 1624,
+    "sha256": "420a6fa5b2e04cda815aacdd4c32033937831772d993721282543defc407d9ad"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD024782_substitution_errors.csv",
+    "bytes": 20406,
+    "sha256": "e6c885febb3804f726d0456819fb182938e27e7aa80983d09be3a09d1d9d5fc6"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD025088_codon_counts.csv",
+    "bytes": 1678,
+    "sha256": "75642eacb2f28a2f3019848026f66aa886c43b39752c9f9f9eefc775bc2c29dd"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD025088_substitution_errors.csv",
+    "bytes": 28503,
+    "sha256": "df98e20ffeb681d609e6c4991d47e9f81633d3e8948c6d3c32e329e06485fa0f"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD025370_codon_counts.csv",
+    "bytes": 1299,
+    "sha256": "bc7ce643500bd4cd39dedf5d4a423178f2c322fc4bfd0e3b944d0f992d674995"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD025370_substitution_errors.csv",
+    "bytes": 2433,
+    "sha256": "cac880256ab3f8d011fe0f57e20285cb50d0e7396e80755d06942dfc7e5a98d2"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD025706_codon_counts.csv",
+    "bytes": 1629,
+    "sha256": "70ea5c28df323f65e158586f482b8813d604b2dd1f9c26b44a0eea79a406b86b"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD025706_substitution_errors.csv",
+    "bytes": 10001,
+    "sha256": "c0a4d29f3bc857d21540b3ae9be88cd7c1a46353c8a0faaa86f021205cda2397"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD025875_codon_counts.csv",
+    "bytes": 1908,
+    "sha256": "4f41e0ace8077132385d1607478fdcad3a007498a9bf1cbd3597d84624b54ba5"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD025875_substitution_errors.csv",
+    "bytes": 84004,
+    "sha256": "1440d27b2d07bc647ade54adf7c9437b316d943a8695d7c84036aa2a438469d9"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD026017_codon_counts.csv",
+    "bytes": 1339,
+    "sha256": "6cbd03a2387b39943810f578f7c8490675dd3aeea11df302268c80fa1d0eec3b"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD026017_substitution_errors.csv",
+    "bytes": 22556,
+    "sha256": "61dd2a8b5aab34775f78e2a4a0cfc2626c63e4d77fc9a418960edc27d004202e"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD026062_codon_counts.csv",
+    "bytes": 1337,
+    "sha256": "6a18cd47da692441ec974b9e41e86c32bc56ad76b66752310a7556d6d38272aa"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD026062_substitution_errors.csv",
+    "bytes": 7664,
+    "sha256": "dc13baf402ffd2e1d6d15aa53d22e45e877d7214e7562a04d6b2d08a5ddf9e37"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD026884_codon_counts.csv",
+    "bytes": 1364,
+    "sha256": "dc9c9ae7715e43a1bbc645c1dd02234d1e0af3009179ac74534b9619d97d8371"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD026884_substitution_errors.csv",
+    "bytes": 7381,
+    "sha256": "5cedbfb0c26ebb90876d6b9800cbce7902a3b75dd7f0ec8df4dc4437970f4254"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD027167_codon_counts.csv",
+    "bytes": 1788,
+    "sha256": "2f652ba066a1767081013092410eb3d57b3478983fa1df5e8334922f04751c92"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD027167_substitution_errors.csv",
+    "bytes": 39913,
+    "sha256": "36dd25b914ea6d6b7815e7e63273444b3225da0e556d21d1c55ae162b0e87889"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD027810_codon_counts.csv",
+    "bytes": 1692,
+    "sha256": "54f81f6de1f014ce6fb989ca9a7d78ea33ca3a4c7aa222d870eda99b73d055d4"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD027810_substitution_errors.csv",
+    "bytes": 32216,
+    "sha256": "bbb602a77dc91bc84a2c36cbb41649f2ce4977f25ec32b03f85bcdabf8b5d15e"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD029252_codon_counts.csv",
+    "bytes": 1776,
+    "sha256": "b7b958249863a3134974d61548d6a2647a03d79d65b23a080396b80327af5037"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD029252_substitution_errors.csv",
+    "bytes": 92941,
+    "sha256": "0584a4b31490bb63329ed1b3b2da929db83c9f544e7d774dfb2b992d900ee3b5"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD029931_codon_counts.csv",
+    "bytes": 1737,
+    "sha256": "a2a871ce28de4b6ce0e53c603f6f810db8d4b4bf0dfdd96451ca1bd781e30a08"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD029931_substitution_errors.csv",
+    "bytes": 122282,
+    "sha256": "c62f41b198a40a96a0c1d7ddda87a9d2b8cb792eb6ea237ce05ae77cb7739156"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD030113_codon_counts.csv",
+    "bytes": 1987,
+    "sha256": "9d305afc16bc4a3f4b0faafbde9a7b31527c8f7724018898e525ad535585e48a"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD030113_substitution_errors.csv",
+    "bytes": 113994,
+    "sha256": "4ee2463a749d954da8c3ddb45b367cb4f22d45227f77f955b30ebadd66172ec9"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD031441_codon_counts.csv",
+    "bytes": 1157,
+    "sha256": "bd8999de961bf2ea8272148dd3cbb1a7dcd7b5e69b11c1e119e17468f11dcce2"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD031441_substitution_errors.csv",
+    "bytes": 2720,
+    "sha256": "dea99501c1c127efa68711c4ae70182c7564bf7699af6186eb53de22a3031930"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD031540_codon_counts.csv",
+    "bytes": 1770,
+    "sha256": "a77da588fb640ea1b0b2161d03d2923c1634e34140d405458e1442aefc672fd0"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD031540_substitution_errors.csv",
+    "bytes": 29827,
+    "sha256": "d93c17f273f9fd8c575eeb8b5fd351581bfd023667ea29a2cf93eef2a059602e"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD033577_codon_counts.csv",
+    "bytes": 1525,
+    "sha256": "b00b65c7e452cfef4c77d2d6a3cf591718b4a4054774ddd14d55f964da95e70a"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD033577_substitution_errors.csv",
+    "bytes": 9814,
+    "sha256": "50a02a3330198c6c0a352534e20267d417018be7970382e5e7f6b3031d6d1e5f"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD033975_codon_counts.csv",
+    "bytes": 1945,
+    "sha256": "890c5dc0131518a40b22b9e8d037b904b7f697b79552d38e7518dc164f6f54f3"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD033975_substitution_errors.csv",
+    "bytes": 43559,
+    "sha256": "5e8ea20bf56fc0af492c45e3c27b4d24c4f2abbf035499fddde88b04efbf37ff"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD034138_codon_counts.csv",
+    "bytes": 1524,
+    "sha256": "f76ddbc47faba43de95bbf2f94dc1bb2afce75e6fa3659b68c0d32dcbb5f4c53"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/S4/ecoli_filtered/PXD034138_substitution_errors.csv",
+    "bytes": 18389,
+    "sha256": "916e40b88f1f4bfd6f1f8bae0748ed2cd1d8980d08efa4e752ce879175679d3d"
+  },
+  {
+    "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/Data_S2_error_detection_rate.xlsx",
+    "bytes": 22731,
+    "sha256": "08ef9455c90b937bf622a93a459e4106b65484133a9a34d280df627396dc266b"
+  },
+  {
+    "path": "/storage/kiran-stuff/proteostasis_law/proteostasis-law-empirical-phase3/data/raw/error_rates/stikeleather_2026/218_stats.csv",
+    "bytes": 16806,
+    "sha256": "f15a5b023bd730578f795db3c6c18a82860c62448430b5e5c2cc48754df17ea0"
+  },
+  {
+    "path": "/storage/kiran-stuff/proteostasis_law/proteostasis-law-empirical-phase3/data/raw/error_rates/stikeleather_2026/codon_error_rates_by_expr_levels.csv",
+    "bytes": 4883,
+    "sha256": "062c07edd3c5f66054c69c470a428d28b0ad2538f38bb89b179f9ed0a602c86c"
+  }
+]

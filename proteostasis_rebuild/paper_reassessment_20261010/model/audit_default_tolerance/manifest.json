@@ -1,0 +1,23 @@
+{
+  "seed": 20261010,
+  "trials": 200,
+  "python": "3.12.11",
+  "numpy": "2.2.6",
+  "scipy": "1.14.0",
+  "pool_units": "uM functional units; relative scale only",
+  "pools": {
+    "TF": 14.5782,
+    "DnaK": 10.8803,
+    "DnaJ": 0.201287,
+    "GrpE": 1.72666,
+    "GroEL": 0.949851,
+    "GroES": 1.23648,
+    "ClpB": 0.0116582
+  },
+  "hashes": {
+    "WO-07/bundles.tsv": "bee6960c27b40a78560894a1878690aa3d5e2eb312482931a1d94ba4d7f812d8",
+    "paper_reassessment_20261010/model/model.py": "7302be7eb73d941d9e582f3beb5d3078d66174b650590875d5716a2b371a8c14",
+    "paper_reassessment_20261010/model/run.py": "6b16ea670b41b4f69c2df9566783bbccc9278d96737020dff01c767ab88de311",
+    "paper_reassessment_20261010/model/report.py": "43a906b9685b52544c917951455a05f42e861b40cc2d549c323f3fb4c9ee9609"
+  }
+}

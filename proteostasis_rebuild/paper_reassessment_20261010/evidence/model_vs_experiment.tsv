@@ -1,0 +1,16 @@
+machine	gene	model_setting	model_fraction_structural_zero	model_fraction_KO_lethal_rho05	experimental_call	source_id	matched_condition	conclusion
+TF	tig	bio_measured_W2	0.0	0.107	viable	C2012	no	qualitative_constraint_only;no_accuracy_or_p_value
+DnaK	dnaK	bio_measured_W2	0.735	0.824	viable	D2004	no	qualitative_constraint_only;no_accuracy_or_p_value
+DnaJ	dnaJ	bio_measured_W2	0.735	0.824	UNKNOWN_single_deletion	H2021	no	qualitative_constraint_only;no_accuracy_or_p_value
+GrpE	grpE	bio_measured_W2	0.735	0.824	essential_without_suppressor	E1989	no	qualitative_constraint_only;no_accuracy_or_p_value
+GroEL	groL	bio_measured_W2	0.799	0.828	essential_in_tested_background	G1989	no	qualitative_constraint_only;no_accuracy_or_p_value
+GroES	groS	bio_measured_W2	0.799	0.828	essential_in_tested_background	G1989	no	qualitative_constraint_only;no_accuracy_or_p_value
+HtpG	htpG	bio_measured_W2	0.503	0.53	viable	H2021	no	qualitative_constraint_only;no_accuracy_or_p_value
+ClpB	clpB	bio_measured_W2	0.206	0.434	viable_growth_defect_heat	L1991	no	qualitative_constraint_only;no_accuracy_or_p_value
+IbpA	ibpA	bio_measured_W2	0.0	0.171	viable	I2015	no	qualitative_constraint_only;no_accuracy_or_p_value
+IbpB	ibpB	bio_measured_W2	0.0	0.171	viable	I2015	no	qualitative_constraint_only;no_accuracy_or_p_value
+Lon	lon	bio_measured_W2	0.064	0.269	viable	H2021	no	qualitative_constraint_only;no_accuracy_or_p_value
+ClpX	clpX	bio_measured_W2	0.075	0.213	UNKNOWN_single_deletion	P1999	no	qualitative_constraint_only;no_accuracy_or_p_value
+ClpP	clpP	bio_measured_W2	0.075	0.213	viable	H2021	no	qualitative_constraint_only;no_accuracy_or_p_value
+HslU	hslU	bio_measured_W2	0.088	0.116	UNKNOWN_single_deletion	P1999	no	qualitative_constraint_only;no_accuracy_or_p_value
+HslV	hslV	bio_measured_W2	0.088	0.116	viable	H2021	no	qualitative_constraint_only;no_accuracy_or_p_value

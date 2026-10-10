@@ -1,0 +1,25 @@
+strain	genotype	temperature_C	relative_plating_efficiency	missing_status	normalization	footnote	source_id	table	exact_url	provenance
+MG1655	WT	20	1.5		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+MG1655	WT	30	1.5		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+MG1655	WT	37	1.4		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+MG1655	WT	42	1		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+MG1655	WT	44	0.88		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+MG1655	WT	45	1.4		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2966	delta-hslVU	20	0.8		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2966	delta-hslVU	30	1.3		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2966	delta-hslVU	37	0.88		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2966	delta-hslVU	42	1		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2966	delta-hslVU	44		ND	same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2966	delta-hslVU	45	0.97		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2347	delta(clpPX-lon)	20	0.72		same strain at42 C	b	P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2347	delta(clpPX-lon)	30	0.22		same strain at42 C	b	P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2347	delta(clpPX-lon)	37	0.41		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2347	delta(clpPX-lon)	42	1		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2347	delta(clpPX-lon)	44	1.5		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2347	delta(clpPX-lon)	45	1.6		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2350	delta-hslVU delta(clpPX-lon)	20	1.4e-05		same strain at42 C	b	P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2350	delta-hslVU delta(clpPX-lon)	30	3.3e-05		same strain at42 C	b	P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2350	delta-hslVU delta(clpPX-lon)	37	0.01		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2350	delta-hslVU delta(clpPX-lon)	42	1		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2350	delta-hslVU delta(clpPX-lon)	44	1.5		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts
+KY2350	delta-hslVU delta(clpPX-lon)	45	0.00016		same strain at42 C		P1999	Table2	https://pmc.ncbi.nlm.nih.gov/articles/PMC93843/	manual_transcription_of_primary_table_via_search_index;no_raw_colony_counts

@@ -1,0 +1,121 @@
+{
+  "groel_multipliers": [
+    1.0,
+    2.0,
+    5.0,
+    10.0,
+    100.0
+  ],
+  "full": {
+    "1x": {
+      "median_essential_fraction": 0.0,
+      "trials_with_any_essential_flux": 0,
+      "trials": 200
+    },
+    "2x": {
+      "median_essential_fraction": 0.0,
+      "trials_with_any_essential_flux": 0,
+      "trials": 200
+    },
+    "5x": {
+      "median_essential_fraction": 0.0,
+      "trials_with_any_essential_flux": 0,
+      "trials": 200
+    },
+    "10x": {
+      "median_essential_fraction": 0.0,
+      "trials_with_any_essential_flux": 0,
+      "trials": 200
+    },
+    "100x": {
+      "median_essential_fraction": 0.0,
+      "trials_with_any_essential_flux": 0,
+      "trials": 200
+    }
+  },
+  "no_serial": {
+    "1x": {
+      "median_essential_fraction": 1.0,
+      "trials_with_any_essential_flux": 200,
+      "trials": 200
+    },
+    "2x": {
+      "median_essential_fraction": 1.0,
+      "trials_with_any_essential_flux": 200,
+      "trials": 200
+    },
+    "5x": {
+      "median_essential_fraction": 1.0,
+      "trials_with_any_essential_flux": 200,
+      "trials": 200
+    },
+    "10x": {
+      "median_essential_fraction": 1.0,
+      "trials_with_any_essential_flux": 200,
+      "trials": 200
+    },
+    "100x": {
+      "median_essential_fraction": 1.0,
+      "trials_with_any_essential_flux": 200,
+      "trials": 200
+    }
+  },
+  "radial": {
+    "trials": 200,
+    "lambda_all_classes_q05_50_95": [
+      0.0009511159647987176,
+      0.020974307321095176,
+      0.2043491309095503
+    ],
+    "lambda_without_aggregate_q05_50_95": [
+      0.018908560149950942,
+      0.13598049245573812,
+      0.561028510124734
+    ],
+    "ratio_q05_50_95": [
+      1.0,
+      5.736268894337989,
+      140.9490799677469
+    ],
+    "trials_ratio_above_2": 138,
+    "aggregate_share_q05_50_95": [
+      0.0013452723726788737,
+      0.010498485834581303,
+      0.08469423257530012
+    ],
+    "clpb_pool_uM": 0.0116582,
+    "dnak_pool_uM": 10.8803
+  },
+  "kappa_sweep": {
+    "kappa_1": {
+      "trials": 200,
+      "trials_double_KO_still_short": 0,
+      "trials_rescued_by_10x_GroEL": 200
+    },
+    "kappa_2": {
+      "trials": 200,
+      "trials_double_KO_still_short": 1,
+      "trials_rescued_by_10x_GroEL": 200
+    },
+    "kappa_5": {
+      "trials": 200,
+      "trials_double_KO_still_short": 14,
+      "trials_rescued_by_10x_GroEL": 200
+    },
+    "kappa_10": {
+      "trials": 200,
+      "trials_double_KO_still_short": 31,
+      "trials_rescued_by_10x_GroEL": 200
+    },
+    "kappa_20": {
+      "trials": 200,
+      "trials_double_KO_still_short": 46,
+      "trials_rescued_by_10x_GroEL": 199
+    },
+    "kappa_50": {
+      "trials": 200,
+      "trials_double_KO_still_short": 71,
+      "trials_rescued_by_10x_GroEL": 186
+    }
+  }
+}

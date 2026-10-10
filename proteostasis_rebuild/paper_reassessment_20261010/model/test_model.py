@@ -21,7 +21,7 @@ class Tests(unittest.TestCase):
         self.assertLess(e,1e-12)
 
     def test_hall_cut(self):
-        # k0 can use m0,m1; k1 only m0. Enumerated min-cuts: 3,3,2,3.
+        # k0 can use m0,m1; k1 only m0. Enumerated min-cuts: 3,4,2,2.
         n=Network(np.array([[1,0,1],[0,1,0.]]),np.array([[1,1,0],[0,0,1.]]),np.ones(3),
                   np.array(['rescue']*3),np.ones(3),['a','b','c'])
         _,v,_,_=solve(n,np.array([1.,2.]),np.array([1.,1.]),'architecture',np.ones(3))
@@ -90,6 +90,14 @@ class Tests(unittest.TestCase):
         self.assertAlmostEqual(r['essential_fraction'],1.)
         C[1]=0
         self.assertEqual(evaluate(architecture(control='remove_obligate'),d,C,'architecture')['essential_fraction'],0.)
+
+    def test_small_demand_tolerance_regression(self):
+        s,C,costs,_=draw(20261010,189); n=architecture(costs)
+        d=.9*radial_capacity(n,s,C)*s
+        for scenario in ('pair_DnaK_ClpB_b','pair_DnaK_ClpB_ab'):
+            r=evaluate(n,d,perturbations(C)[scenario],'architecture')
+            self.assertLessEqual(r['folded_fraction'],1.+1e-8)
+            self.assertLess(r['certificate_error'],1e-9)
 
     def test_nonidentification_witness(self):
         H=np.eye(2); C=np.array([1.,0.]); d=np.array([.5,.5]); reward=np.array([1.,0.])

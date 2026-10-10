@@ -1,0 +1,1248 @@
+{
+  "landerer": {
+    "simulations": 500,
+    "any_false_sign_hit": 1.0,
+    "any_false_sign_hit_all_data": 1.0,
+    "any_false_sign_hit_balanced": 0.01,
+    "mean_false_hits_all_data": 6.54,
+    "per_pair": [
+      {
+        "aa": "A",
+        "codon_a": "GCA",
+        "codon_b": "GCC",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "A",
+        "codon_a": "GCA",
+        "codon_b": "GCG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "A",
+        "codon_a": "GCA",
+        "codon_b": "GCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "A",
+        "codon_a": "GCC",
+        "codon_b": "GCG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.002
+      },
+      {
+        "aa": "A",
+        "codon_a": "GCC",
+        "codon_b": "GCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "A",
+        "codon_a": "GCG",
+        "codon_b": "GCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "C",
+        "codon_a": "TGC",
+        "codon_b": "TGT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "D",
+        "codon_a": "GAC",
+        "codon_b": "GAT",
+        "null_hit_all": 0.002,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "E",
+        "codon_a": "GAA",
+        "codon_b": "GAG",
+        "null_hit_all": 0.002,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "F",
+        "codon_a": "TTC",
+        "codon_b": "TTT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "G",
+        "codon_a": "GGA",
+        "codon_b": "GGC",
+        "null_hit_all": 0.058,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "G",
+        "codon_a": "GGA",
+        "codon_b": "GGG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.002
+      },
+      {
+        "aa": "G",
+        "codon_a": "GGA",
+        "codon_b": "GGT",
+        "null_hit_all": 0.074,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "G",
+        "codon_a": "GGC",
+        "codon_b": "GGG",
+        "null_hit_all": 0.008,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "G",
+        "codon_a": "GGC",
+        "codon_b": "GGT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "G",
+        "codon_a": "GGG",
+        "codon_b": "GGT",
+        "null_hit_all": 0.026,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "H",
+        "codon_a": "CAC",
+        "codon_b": "CAT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "I",
+        "codon_a": "ATA",
+        "codon_b": "ATC",
+        "null_hit_all": 0.84,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "I",
+        "codon_a": "ATA",
+        "codon_b": "ATT",
+        "null_hit_all": 0.642,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "I",
+        "codon_a": "ATC",
+        "codon_b": "ATT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "K",
+        "codon_a": "AAA",
+        "codon_b": "AAG",
+        "null_hit_all": 0.002,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTA",
+        "codon_b": "CTC",
+        "null_hit_all": 0.012,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTA",
+        "codon_b": "CTG",
+        "null_hit_all": 0.778,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTA",
+        "codon_b": "CTT",
+        "null_hit_all": 0.016,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTA",
+        "codon_b": "TTA",
+        "null_hit_all": 0.006,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTA",
+        "codon_b": "TTG",
+        "null_hit_all": 0.014,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTC",
+        "codon_b": "CTG",
+        "null_hit_all": 0.04,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTC",
+        "codon_b": "CTT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.002
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTC",
+        "codon_b": "TTA",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTC",
+        "codon_b": "TTG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTG",
+        "codon_b": "CTT",
+        "null_hit_all": 0.064,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTG",
+        "codon_b": "TTA",
+        "null_hit_all": 0.096,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTG",
+        "codon_b": "TTG",
+        "null_hit_all": 0.038,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTT",
+        "codon_b": "TTA",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTT",
+        "codon_b": "TTG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "TTA",
+        "codon_b": "TTG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.002
+      },
+      {
+        "aa": "N",
+        "codon_a": "AAC",
+        "codon_b": "AAT",
+        "null_hit_all": 0.002,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "P",
+        "codon_a": "CCA",
+        "codon_b": "CCC",
+        "null_hit_all": 0.008,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "P",
+        "codon_a": "CCA",
+        "codon_b": "CCG",
+        "null_hit_all": 0.002,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "P",
+        "codon_a": "CCA",
+        "codon_b": "CCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "P",
+        "codon_a": "CCC",
+        "codon_b": "CCG",
+        "null_hit_all": 0.184,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "P",
+        "codon_a": "CCC",
+        "codon_b": "CCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "P",
+        "codon_a": "CCG",
+        "codon_b": "CCT",
+        "null_hit_all": 0.022,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "Q",
+        "codon_a": "CAA",
+        "codon_b": "CAG",
+        "null_hit_all": 0.002,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGA",
+        "codon_b": "AGG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGA",
+        "codon_b": "CGA",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGA",
+        "codon_b": "CGC",
+        "null_hit_all": 0.694,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGA",
+        "codon_b": "CGG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGA",
+        "codon_b": "CGT",
+        "null_hit_all": 0.836,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGG",
+        "codon_b": "CGA",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGG",
+        "codon_b": "CGC",
+        "null_hit_all": 0.696,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGG",
+        "codon_b": "CGG",
+        "null_hit_all": 0.002,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGG",
+        "codon_b": "CGT",
+        "null_hit_all": 0.826,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "CGA",
+        "codon_b": "CGC",
+        "null_hit_all": 0.122,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "CGA",
+        "codon_b": "CGG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "CGA",
+        "codon_b": "CGT",
+        "null_hit_all": 0.178,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "CGC",
+        "codon_b": "CGG",
+        "null_hit_all": 0.066,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "CGC",
+        "codon_b": "CGT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "CGG",
+        "codon_b": "CGT",
+        "null_hit_all": 0.104,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGC",
+        "codon_b": "AGT",
+        "null_hit_all": 0.002,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGC",
+        "codon_b": "TCA",
+        "null_hit_all": 0.006,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGC",
+        "codon_b": "TCC",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGC",
+        "codon_b": "TCG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGC",
+        "codon_b": "TCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGT",
+        "codon_b": "TCA",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGT",
+        "codon_b": "TCC",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGT",
+        "codon_b": "TCG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGT",
+        "codon_b": "TCT",
+        "null_hit_all": 0.002,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "TCA",
+        "codon_b": "TCC",
+        "null_hit_all": 0.006,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "TCA",
+        "codon_b": "TCG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "TCA",
+        "codon_b": "TCT",
+        "null_hit_all": 0.008,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "TCC",
+        "codon_b": "TCG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "TCC",
+        "codon_b": "TCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "TCG",
+        "codon_b": "TCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "T",
+        "codon_a": "ACA",
+        "codon_b": "ACC",
+        "null_hit_all": 0.046,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "T",
+        "codon_a": "ACA",
+        "codon_b": "ACG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "T",
+        "codon_a": "ACA",
+        "codon_b": "ACT",
+        "null_hit_all": 0.004,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "T",
+        "codon_a": "ACC",
+        "codon_b": "ACG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "T",
+        "codon_a": "ACC",
+        "codon_b": "ACT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "T",
+        "codon_a": "ACG",
+        "codon_b": "ACT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "V",
+        "codon_a": "GTA",
+        "codon_b": "GTC",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "V",
+        "codon_a": "GTA",
+        "codon_b": "GTG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "V",
+        "codon_a": "GTA",
+        "codon_b": "GTT",
+        "null_hit_all": 0.002,
+        "null_hit_balanced": 0.002
+      },
+      {
+        "aa": "V",
+        "codon_a": "GTC",
+        "codon_b": "GTG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "V",
+        "codon_a": "GTC",
+        "codon_b": "GTT",
+        "null_hit_all": 0.002,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "V",
+        "codon_a": "GTG",
+        "codon_b": "GTT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.002
+      },
+      {
+        "aa": "Y",
+        "codon_a": "TAC",
+        "codon_b": "TAT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      }
+    ],
+    "null": "Equal detected-event rates within dataset/amino-acid; observed unequal exposures; independent Poisson sampling",
+    "inference": "Diagnostic only: sign-test equality of signs is not equality of underlying detection rates"
+  },
+  "stikeleather": {
+    "simulations": 500,
+    "any_false_sign_hit": 0.0,
+    "any_false_sign_hit_all_data": 0.0,
+    "any_false_sign_hit_balanced": 0.0,
+    "mean_false_hits_all_data": 0.0,
+    "per_pair": [
+      {
+        "aa": "A",
+        "codon_a": "GCA",
+        "codon_b": "GCC",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "A",
+        "codon_a": "GCA",
+        "codon_b": "GCG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "A",
+        "codon_a": "GCA",
+        "codon_b": "GCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "A",
+        "codon_a": "GCC",
+        "codon_b": "GCG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "A",
+        "codon_a": "GCC",
+        "codon_b": "GCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "A",
+        "codon_a": "GCG",
+        "codon_b": "GCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "C",
+        "codon_a": "TGC",
+        "codon_b": "TGT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "D",
+        "codon_a": "GAC",
+        "codon_b": "GAT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "E",
+        "codon_a": "GAA",
+        "codon_b": "GAG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "F",
+        "codon_a": "TTC",
+        "codon_b": "TTT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "G",
+        "codon_a": "GGA",
+        "codon_b": "GGC",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "G",
+        "codon_a": "GGA",
+        "codon_b": "GGG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "G",
+        "codon_a": "GGA",
+        "codon_b": "GGT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "G",
+        "codon_a": "GGC",
+        "codon_b": "GGG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "G",
+        "codon_a": "GGC",
+        "codon_b": "GGT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "G",
+        "codon_a": "GGG",
+        "codon_b": "GGT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "H",
+        "codon_a": "CAC",
+        "codon_b": "CAT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "I",
+        "codon_a": "ATA",
+        "codon_b": "ATC",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "I",
+        "codon_a": "ATA",
+        "codon_b": "ATT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "I",
+        "codon_a": "ATC",
+        "codon_b": "ATT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "K",
+        "codon_a": "AAA",
+        "codon_b": "AAG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTA",
+        "codon_b": "CTC",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTA",
+        "codon_b": "CTG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTA",
+        "codon_b": "CTT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTA",
+        "codon_b": "TTA",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTA",
+        "codon_b": "TTG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTC",
+        "codon_b": "CTG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTC",
+        "codon_b": "CTT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTC",
+        "codon_b": "TTA",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTC",
+        "codon_b": "TTG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTG",
+        "codon_b": "CTT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTG",
+        "codon_b": "TTA",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTG",
+        "codon_b": "TTG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTT",
+        "codon_b": "TTA",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "CTT",
+        "codon_b": "TTG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "L",
+        "codon_a": "TTA",
+        "codon_b": "TTG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "N",
+        "codon_a": "AAC",
+        "codon_b": "AAT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "P",
+        "codon_a": "CCA",
+        "codon_b": "CCC",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "P",
+        "codon_a": "CCA",
+        "codon_b": "CCG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "P",
+        "codon_a": "CCA",
+        "codon_b": "CCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "P",
+        "codon_a": "CCC",
+        "codon_b": "CCG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "P",
+        "codon_a": "CCC",
+        "codon_b": "CCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "P",
+        "codon_a": "CCG",
+        "codon_b": "CCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "Q",
+        "codon_a": "CAA",
+        "codon_b": "CAG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGA",
+        "codon_b": "AGG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGA",
+        "codon_b": "CGA",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGA",
+        "codon_b": "CGC",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGA",
+        "codon_b": "CGG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGA",
+        "codon_b": "CGT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGG",
+        "codon_b": "CGA",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGG",
+        "codon_b": "CGC",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGG",
+        "codon_b": "CGG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "AGG",
+        "codon_b": "CGT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "CGA",
+        "codon_b": "CGC",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "CGA",
+        "codon_b": "CGG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "CGA",
+        "codon_b": "CGT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "CGC",
+        "codon_b": "CGG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "CGC",
+        "codon_b": "CGT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "R",
+        "codon_a": "CGG",
+        "codon_b": "CGT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGC",
+        "codon_b": "AGT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGC",
+        "codon_b": "TCA",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGC",
+        "codon_b": "TCC",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGC",
+        "codon_b": "TCG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGC",
+        "codon_b": "TCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGT",
+        "codon_b": "TCA",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGT",
+        "codon_b": "TCC",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGT",
+        "codon_b": "TCG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "AGT",
+        "codon_b": "TCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "TCA",
+        "codon_b": "TCC",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "TCA",
+        "codon_b": "TCG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "TCA",
+        "codon_b": "TCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "TCC",
+        "codon_b": "TCG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "TCC",
+        "codon_b": "TCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "S",
+        "codon_a": "TCG",
+        "codon_b": "TCT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "T",
+        "codon_a": "ACA",
+        "codon_b": "ACC",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "T",
+        "codon_a": "ACA",
+        "codon_b": "ACG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "T",
+        "codon_a": "ACA",
+        "codon_b": "ACT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "T",
+        "codon_a": "ACC",
+        "codon_b": "ACG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "T",
+        "codon_a": "ACC",
+        "codon_b": "ACT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "T",
+        "codon_a": "ACG",
+        "codon_b": "ACT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "V",
+        "codon_a": "GTA",
+        "codon_b": "GTC",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "V",
+        "codon_a": "GTA",
+        "codon_b": "GTG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "V",
+        "codon_a": "GTA",
+        "codon_b": "GTT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "V",
+        "codon_a": "GTC",
+        "codon_b": "GTG",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "V",
+        "codon_a": "GTC",
+        "codon_b": "GTT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "V",
+        "codon_a": "GTG",
+        "codon_b": "GTT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      },
+      {
+        "aa": "Y",
+        "codon_a": "TAC",
+        "codon_b": "TAT",
+        "null_hit_all": 0.0,
+        "null_hit_balanced": 0.0
+      }
+    ],
+    "null": "Equal detected-event rates within dataset/amino-acid; observed unequal exposures; independent Poisson sampling",
+    "inference": "Diagnostic only: sign-test equality of signs is not equality of underlying detection rates"
+  },
+  "landerer_psm_quality": {
+    "min": 0.0507,
+    "below_0_99": 15705,
+    "duplicate_ds_spectrum_codon": 0,
+    "warning": "PeptideProphet score is not a substitution-localization/decoy error guarantee."
+  }
+}

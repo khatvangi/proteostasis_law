@@ -1,0 +1,34 @@
+[
+  {
+    "artifact_id": "lynch_218_stats",
+    "study_id": "stikeleather_2026",
+    "source_url": "https://raw.githubusercontent.com/LynchLab/ErrorRateAnalysis/66f9d6786b11fd589a8b1f868764f85b8a09c78d/evo_analysis/data/218_stats.csv",
+    "protocol": "https",
+    "tier": "small",
+    "role": "per-sample summary statistics",
+    "local_path": "data/raw/error_rates/stikeleather_2026/218_stats.csv",
+    "retrieved_at_utc": "2026-08-01T03:41:55+00:00",
+    "status": "retrieved",
+    "cached": true,
+    "sha256": "f15a5b023bd730578f795db3c6c18a82860c62448430b5e5c2cc48754df17ea0",
+    "size_bytes": 16806,
+    "expected_size_bytes": 16806,
+    "size_within_tolerance": true
+  },
+  {
+    "artifact_id": "lynch_codon_error_rates_by_expr",
+    "study_id": "stikeleather_2026",
+    "source_url": "https://raw.githubusercontent.com/LynchLab/ErrorRateAnalysis/66f9d6786b11fd589a8b1f868764f85b8a09c78d/evo_analysis/output/codon_error_rates_by_expr_levels.csv",
+    "protocol": "https",
+    "tier": "small",
+    "role": "per-codon error rate stratified by expression level",
+    "local_path": "data/raw/error_rates/stikeleather_2026/codon_error_rates_by_expr_levels.csv",
+    "retrieved_at_utc": "2026-08-01T03:41:55+00:00",
+    "status": "retrieved",
+    "cached": true,
+    "sha256": "062c07edd3c5f66054c69c470a428d28b0ad2538f38bb89b179f9ed0a602c86c",
+    "size_bytes": 4883,
+    "expected_size_bytes": 4883,
+    "size_within_tolerance": true
+  }
+]

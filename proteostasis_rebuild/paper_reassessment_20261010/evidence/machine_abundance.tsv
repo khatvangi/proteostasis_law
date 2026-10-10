@@ -1,0 +1,16 @@
+machine	gene	uniprot	copies_per_cell	volume_fL	subunits_per_unit	unit_pool_uM	source_id	label	meaning
+TF	tig	P0A850	24928.52477952569	2.839508	1	14.5782	S2016	S6 Glucose;S23 BW25113 Glucose	abundance converted using calculated cell volume;not capacity or throughput
+DnaK	dnaK	P0A6Y8	18605.29615636357	2.839508	1	10.8803	S2016	S6 Glucose;S23 BW25113 Glucose	abundance converted using calculated cell volume;not capacity or throughput
+DnaJ	dnaJ	P08622	688.3969178961984	2.839508	2	0.201287	S2016	S6 Glucose;S23 BW25113 Glucose	abundance converted using calculated cell volume;not capacity or throughput
+GrpE	grpE	P09372	5905.139502109935	2.839508	2	1.72666	S2016	S6 Glucose;S23 BW25113 Glucose	abundance converted using calculated cell volume;not capacity or throughput
+GroEL	groL	P0A6F5	22739.32226050871	2.839508	14	0.949851	S2016	S6 Glucose;S23 BW25113 Glucose	abundance converted using calculated cell volume;not capacity or throughput
+GroES	groS	P0A6F9	14800.611589454034	2.839508	7	1.23648	S2016	S6 Glucose;S23 BW25113 Glucose	abundance converted using calculated cell volume;not capacity or throughput
+HtpG	htpG	P0A6Z3	2095.5358113701263	2.839508	2	0.612733	S2016	S6 Glucose;S23 BW25113 Glucose	abundance converted using calculated cell volume;not capacity or throughput
+ClpB	clpB	P63284	119.61286848938808	2.839508	6	0.0116582	S2016	S6 Glucose;S23 BW25113 Glucose	abundance converted using calculated cell volume;not capacity or throughput
+IbpA	ibpA	P0C054	363.4180215114091	2.839508	1	0.21252619201450398	S2016	S6 Glucose;S23 BW25113 Glucose	abundance converted using calculated cell volume;not capacity or throughput
+IbpB	ibpB	P0C058	20.321541898717204	2.839508	1	0.011884000407123382	S2016	S6 Glucose;S23 BW25113 Glucose	abundance converted using calculated cell volume;not capacity or throughput
+Lon	lon	P0A9M0	1139.1568398895495	2.839508	6	0.11102947155369285	S2016	S6 Glucose;S23 BW25113 Glucose	abundance converted using calculated cell volume;not capacity or throughput
+ClpX	clpX	P0A6H1	3250.9753476904384	2.839508	6	0.3168607361591663	S2016	S6 Glucose;S23 BW25113 Glucose	abundance converted using calculated cell volume;not capacity or throughput
+ClpP	clpP	P0A6G7	8820.947219750858	2.839508	14	0.36846241038625666	S2016	S6 Glucose;S23 BW25113 Glucose	abundance converted using calculated cell volume;not capacity or throughput
+HslU	hslU	P0A6H5	1367.0446828906233	2.839508	6	0.13324087027941475	S2016	S6 Glucose;S23 BW25113 Glucose	abundance converted using calculated cell volume;not capacity or throughput
+HslV	hslV	P0A7B8	466.82878054690786	2.839508	12	0.022750051176097724	S2016	S6 Glucose;S23 BW25113 Glucose	abundance converted using calculated cell volume;not capacity or throughput

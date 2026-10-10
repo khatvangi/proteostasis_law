@@ -1,0 +1,96 @@
+{
+  "landerer": {
+    "datasets": 80,
+    "cells_possible": 4880,
+    "covered": 4861,
+    "zero": 3015,
+    "positive": 1846,
+    "absent": 19,
+    "error_psms": 58990,
+    "base": 494457401,
+    "s2_max_error": 2.6194859129025083e-09,
+    "global_pooled": 0.000119302491742863,
+    "usage_weighted": {
+      "conditional": 0.0006334247646364578,
+      "zero_inclusive": 0.000252567826546815,
+      "pooled": 0.00014135789051159146
+    },
+    "same_aa_pairs": 87,
+    "holm_sign_hits": 17,
+    "balanced_holm_sign_hits": 2,
+    "proline_CCA_minus_CCG": {
+      "aa": "P",
+      "codon_a": "CCA",
+      "codon_b": "CCG",
+      "n_pairs": 80,
+      "n_nonzero": 45,
+      "positive": 13,
+      "negative": 32,
+      "mean_delta": -2.673636026996847e-05,
+      "min_delta": -0.0056521739130434,
+      "max_delta": 0.0036764705882352,
+      "bootstrap_lo": -0.0002123258758050165,
+      "bootstrap_hi": 0.00013130373479576307,
+      "sign_p": 0.006608822842281368,
+      "lodo_sign_stable": false,
+      "balanced_n": 0,
+      "balanced_delta": NaN,
+      "balanced_sign_p": 1.0,
+      "holm_p": 0.9582793121307984,
+      "balanced_holm_p": 1.0
+    }
+  },
+  "stikeleather": {
+    "datasets": 3,
+    "integer_count_residual": 7.361222742474638e-12,
+    "replicate_rates": {
+      "1": 0.0017120412200546378,
+      "2": 0.001916761254316948,
+      "3": 0.0018255253716043054
+    },
+    "mean_rate": 0.0018181092819919637,
+    "se": 5.921379877456516e-05,
+    "errors_by_rep": {
+      "1": 2090,
+      "2": 2376,
+      "3": 2226
+    },
+    "bases_by_rep": {
+      "1": 1220765,
+      "2": 1239591,
+      "3": 1219375
+    },
+    "same_aa_pairs": 87,
+    "holm_sign_hits": 0,
+    "balanced_holm_sign_hits": 0,
+    "proline_CCA_minus_CCG": {
+      "aa": "P",
+      "codon_a": "CCA",
+      "codon_b": "CCG",
+      "n_pairs": 3,
+      "n_nonzero": 3,
+      "positive": 0,
+      "negative": 3,
+      "mean_delta": -0.0006104549281411001,
+      "min_delta": -0.0008042817350662,
+      "max_delta": -0.00042912128738400003,
+      "bootstrap_lo": -0.0008042817350661999,
+      "bootstrap_hi": -0.00042912128738400003,
+      "sign_p": 0.25,
+      "lodo_sign_stable": true,
+      "balanced_n": 0,
+      "balanced_delta": NaN,
+      "balanced_sign_p": 1.0,
+      "holm_p": 1.0,
+      "balanced_holm_p": 1.0
+    },
+    "unused_expression_table_inconsistent_rows": 11,
+    "unused_expression_table_zero_count_nonzero_rate": 11
+  },
+  "arithmetic": {
+    "raw_threshold": 0.005658142850513878,
+    "sub_threshold": 0.003960699995359715,
+    "reduced_fold_x": 3.8907582151173496,
+    "reduced_fold_lambda": 4.80218919587308
+  }
+}

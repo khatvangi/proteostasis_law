@@ -1,0 +1,15 @@
+{
+  "radial_dual_trials": 200,
+  "max_radial_duality_gap": 1.1102230246251565e-16,
+  "reproducibility": "two independent three-trial runs byte-identical for every artifact",
+  "small_run_sha256": {
+    "RESULTS.md": "6104775c0a2ca04f517df5fb118310359d364e40bdaef891a3786dd34d49eca2",
+    "controls.csv": "c9b0d50250dadfb384217ef09a797904426edcaad0cf35dac84a615c948c98cb",
+    "inputs.json": "cff9ec71a6fac3257ea3271b0a1552c7218ac7e9fcca2fa53a62d62ad838a666",
+    "manifest.json": "1f7771d45a7b61a26a332efbdcd8deb56b1122a9b7bd76b2b570b65de08a5b39",
+    "sensitivity.csv": "6d1cdc1b5a9754248b0a0a8ead41450c5511e9dc458ff47df0c9db8aea19bb17",
+    "trials.csv": "4e3246c28db032aa05df1b8febfb08f6f1984c437b388b1930795a67a691fede"
+  },
+  "unit_tests": "15 passed",
+  "input_and_code_hashes_verified": true
+}

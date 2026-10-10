@@ -9,6 +9,7 @@ MACHINES = ('TF', 'DnaK', 'DnaJ', 'GrpE', 'GroEL', 'GroES', 'ClpB', 'PROTEASE', 
 CLASSES = ('essential_obligate', 'other_obligate', 'overlap', 'aggregate', 'other')
 PARAMS = ('pool_TF', 'pool_DnaK', 'pool_DnaJ2', 'pool_GrpE2', 'pool_GroEL14', 'pool_GroES7', 'pool_ClpB6')
 ROOT = Path(__file__).resolve().parents[2]
+SOLVER_OPTIONS = {'primal_feasibility_tolerance': 1e-10, 'dual_feasibility_tolerance': 1e-10, 'ipm_optimality_tolerance': 1e-10}
 
 @dataclass
 class Network:
@@ -89,14 +90,14 @@ def solve(net, d, C, kind, reward, extra=()):
     if extra:
         B = np.vstack([B, *[r for r, _ in extra]])
         b = np.r_[b, [v for _, v in extra]]
-    res = linprog(-np.asarray(reward), A_ub=B, b_ub=b, bounds=(0, None), method='highs')
+    res = linprog(-np.asarray(reward), A_ub=B, b_ub=b, bounds=(0, None), method='highs', options=SOLVER_OPTIONS)
     if not res.success:
         raise RuntimeError(res.message)
     x = res.x; prices = -res.ineqlin.marginals
     primal = float(reward @ x); dual = float(b @ prices)
     error = max(float(np.max(B @ x - b)), float(np.max(reward - B.T @ prices)),
                 float(max(0, -prices.min())), abs(primal - dual), float(max(0, -x.min())))
-    if error > 2e-7 * max(1, abs(primal)):
+    if error > 2e-9 * max(1, abs(primal)):
         raise AssertionError(('certificate', error))
     return x, primal, prices, error
 
@@ -111,7 +112,7 @@ def evaluate(net, d, C, kind):
     fix.append((-np.ones(len(x)), -handled))
     x, _, _, e4 = solve(net, d, C, kind, -net.atp, fix)
     u = d - net.H @ x
-    if np.min(u) < -2e-7 or (kind == 'architecture' and np.max(net.A @ x - C) > 2e-7):
+    if np.min(u) < -2e-9 or (kind == 'architecture' and np.max(net.A @ x - C) > 2e-9):
         raise AssertionError('conservation violation')
     return dict(essential_fraction=ev/d[0] if d[0] else 1., folded=folded,
                 folded_fraction=folded/d.sum(), degradation=float(x[net.sink == 'degradation'].sum()),
@@ -127,7 +128,7 @@ def radial_capacity(net, shares, C):
     H = net.H[:, net.productive.astype(bool)]
     n = A.shape[1]
     res = linprog(np.r_[np.zeros(n), -1.], A_ub=np.c_[A, np.zeros(len(C))], b_ub=C,
-                  A_eq=np.c_[H, -shares], b_eq=np.zeros(len(shares)), bounds=(0,None), method='highs')
+                  A_eq=np.c_[H, -shares], b_eq=np.zeros(len(shares)), bounds=(0,None), method='highs', options=SOLVER_OPTIONS)
     if not res.success:
         raise RuntimeError(res.message)
     return float(res.x[-1])

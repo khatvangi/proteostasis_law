@@ -16,7 +16,7 @@ def report(out):
     manifest=json.loads((out/'manifest.json').read_text()); n=manifest['trials']
     lookup={(int(r['trial']),r['model'],r['scenario']):r for r in rows}
     get=lambda m,s,key:np.array([lookup[i,m,s][key] for i in range(n)])
-    q=lambda a:'/'.join(f'{x:.6g}' for x in np.quantile(a,[.05,.5,.95]))
+    q=lambda a:'/'.join(f'{(0. if abs(x)<1e-12 else x):.6g}' for x in np.quantile(a,[.05,.5,.95]))
     text=['# Results: finite-capacity client routes', '',
           '**Empirical predictive claim: FAIL / not established.** This is a validated computational discrimination of model assumptions, not a fitted E. coli failure probability. GroEL obligation and TF/DnaK route coverage use the observations being reproduced. Neither is held-out validation.', '',
           f'{n} independent seeded parameter draws (seed {manifest["seed"]}); the same draws, demand and total scalar capacities are used across all three nested models. Primary load is 0.9 times the full architecture’s all-client productive radial capacity. This guarantees a feasible baseline by design, not by observation.', '',
@@ -40,7 +40,7 @@ def report(out):
             interaction=f('a')+f('b')-f('ab')-get(m,'baseline','folded_fraction')
             contrast=np.ptp(np.vstack([f('ab'),f('aa'),f('bb')]),axis=0)
             text.append(f'| {pair} | {m} | {q(interaction)} | {sum(interaction>1e-7)}/{n} | {sum(contrast>1e-7)}/{n} |')
-    text+=['','Positive interactions in the scalar model arise from an ordinary capacity threshold. They cannot establish a biological serial mechanism. Matched arm contrasts can reject the scalar reduction within a specified network, but do not validate that network.','','## Obligation and upstream-overlap ablations','','Complete knockouts below are **not** matched-total perturbations. Demand remains fixed to the original architecture baseline, including in ablations. All bypasses have finite machine costs.','','| Route assumption | Perturbation | Essential fraction q05/q50/q95 | Folding fraction q05/q50/q95 | Essential quota shortfall |','|---|---|---|---|---:|']
+    text+=['','Positive interactions can arise in a scalar model from an ordinary capacity threshold, even when none occur in this primary grid. They cannot establish a biological serial mechanism. Matched arm contrasts can reject the scalar reduction within a specified network, but do not validate that network.','','## Obligation and upstream-overlap ablations','','Complete knockouts below are **not** matched-total perturbations. Demand remains fixed to the original architecture baseline, including in ablations. All bypasses have finite machine costs.','','| Route assumption | Perturbation | Essential fraction q05/q50/q95 | Folding fraction q05/q50/q95 | Essential quota shortfall |','|---|---|---|---|---:|']
     for s in ('KO_GroEL','KO_TF','KO_DnaK','KO_TF_DnaK'):
         e=get('architecture',s,'essential_fraction'); f=get('architecture',s,'folded_fraction')
         text.append(f'| full | {s} | {q(e)} | {q(f)} | {int(sum(get("architecture",s,"essential_shortfall")))}/{n} |')
@@ -69,9 +69,13 @@ def report(out):
             if abs(a['essential_fraction']-c['essential_fraction'])<1e-7:
                 assert a['folded_fraction']+1e-7>=b['folded_fraction']>=c['folded_fraction']-1e-7
         assert np.ptp([lookup[i,'architecture','matched_'+s]['total_capacity'] for s in ('GroEL','DnaK','ClpB')])<1e-12
+    for r in rows+controls+sens:
+        assert -1e-8 <= r['folded_fraction'] <= 1.+1e-8
+        assert -1e-8 <= r['essential_fraction'] <= 1.+1e-8
     maxerr=max(r['certificate_error'] for r in rows+controls+sens)
-    text+=['',f'Every optimization checks primal feasibility, dual feasibility, nonnegative prices and strong duality. Maximum absolute certificate residual across all saved evaluations: **{maxerr:.3g}**. Ensemble assertions pass: scalar target invariance, equal remaining capacities and nested essential optima (secondary optima checked when primary quotas coincide).', '',
-           'The mathematical result is publishable as an explicit limitation of scalar reductions; the biological numerical ranking is not established. No pass is awarded for matching the observations used to specify routes. Required next evidence: client-resolved synthesis/turnover demands, productive route qualification, machine occupancy/service times, and held-out perturbation outcomes. Kerner client counts and capacity occupancy, Calloni interactions, and Babu genetic interactions are not full rate constraints.', '',
+    text+=['',f'Every route-allocation optimization checks primal feasibility, dual feasibility, nonnegative prices and strong duality. Maximum absolute certificate residual across all saved evaluations: **{maxerr:.3g}**. Ensemble assertions pass: scalar target invariance, equal remaining capacities and nested essential optima (secondary optima checked when primary quotas coincide).', '',
+           'The supported mathematical result is an explicit limitation of scalar reductions; the biological numerical ranking is not established. No pass is awarded for matching the observations used to specify routes. Required next evidence: client-resolved synthesis/turnover demands, productive route qualification, machine occupancy/service times, and held-out perturbation outcomes. Kerner client counts and capacity occupancy, Calloni interactions, and Babu genetic interactions are not full rate constraints.', '',
+           'Two direct confrontations with existing experiments — the imposed serial TF/DnaK requirement versus GroEL/ES overproduction rescue of the double knockout, and the effect of all-client radial normalization — are in [CONFRONTATION.md](CONFRONTATION.md), produced by `confront.py`.', '',
            'See [THEORY.md](THEORY.md) for proofs, [README.md](README.md) for exact reproduction and scope, and [SOURCES.md](SOURCES.md) for provenance. Raw outputs and input draws are in `outputs/`.']
     target=HERE/'RESULTS.md' if out.resolve()==(HERE/'outputs').resolve() else out/'RESULTS.md'
     target.write_text('\n'.join(text)+'\n')

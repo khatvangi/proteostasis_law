@@ -1,0 +1,20 @@
+test_ablation_has_finite_bypass (test_model.Tests.test_ablation_has_finite_bypass) ... ok
+test_deterministic_draws (test_model.Tests.test_deterministic_draws) ... ok
+test_disposal_never_essential_rescue (test_model.Tests.test_disposal_never_essential_rescue) ... ok
+test_dual_shadow_price (test_model.Tests.test_dual_shadow_price) ... ok
+test_finite_storage (test_model.Tests.test_finite_storage) ... ok
+test_hall_cut (test_model.Tests.test_hall_cut) ... ok
+test_label_permutation_negative_control (test_model.Tests.test_label_permutation_negative_control) ... ok
+test_matched_and_nonnegative (test_model.Tests.test_matched_and_nonnegative) ... ok
+test_nesting_and_baseline (test_model.Tests.test_nesting_and_baseline) ... ok
+test_nonidentification_witness (test_model.Tests.test_nonidentification_witness) ... ok
+test_pool_anchor (test_model.Tests.test_pool_anchor) ... ok
+test_scalar_target_invariance (test_model.Tests.test_scalar_target_invariance) ... ok
+test_series_not_or (test_model.Tests.test_series_not_or) ... ok
+test_small_demand_tolerance_regression (test_model.Tests.test_small_demand_tolerance_regression) ... ok
+test_zero_capacity_no_miracles (test_model.Tests.test_zero_capacity_no_miracles) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.353s
+
+OK
