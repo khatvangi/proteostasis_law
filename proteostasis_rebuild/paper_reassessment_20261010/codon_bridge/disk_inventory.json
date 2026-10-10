@@ -1,0 +1,77 @@
+{
+  "roots": [
+    "/storage/kiran-stuff/proteostasis_law",
+    "/storage/kiran-stuff/triplet-proof",
+    "/storage/kiran-stuff/programme-map"
+  ],
+  "matches": [
+    {
+      "path": "/storage/kiran-stuff/proteostasis_law/envelope-paper/data/raw/Data_S2_error_detection_rate.xlsx",
+      "bytes": 22731
+    },
+    {
+      "path": "/storage/kiran-stuff/proteostasis_law/proteostasis-law-empirical-phase3/data/raw/error_rates/stikeleather_2026/wt_ecoli.gbff",
+      "bytes": 12698882
+    },
+    {
+      "path": "/storage/kiran-stuff/proteostasis_law/proteostasis-law-empirical-phase3/data/raw/error_rates/stikeleather_2026/wt_ecoli-1.xlsx",
+      "bytes": 1181458
+    },
+    {
+      "path": "/storage/kiran-stuff/proteostasis_law/proteostasis-law-empirical-phase3/data/raw/error_rates/stikeleather_2026/wt_ecoli-2.xlsx",
+      "bytes": 1088620
+    },
+    {
+      "path": "/storage/kiran-stuff/proteostasis_law/proteostasis-law-empirical-phase3/data/raw/error_rates/stikeleather_2026/wt_ecoli-3.xlsx",
+      "bytes": 1079368
+    },
+    {
+      "path": "/storage/kiran-stuff/proteostasis_law/proteostasis-law-empirical-phase3/data/raw/error_rates/stikeleather_2026/wt_ecoli_generic.xlsx",
+      "bytes": 69398
+    },
+    {
+      "path": "/storage/kiran-stuff/proteostasis_law/proteostasis-law-empirical-phase3/data/raw/error_rates/stikeleather_2026/PXD064116_checksum.txt",
+      "bytes": 3159
+    },
+    {
+      "path": "/storage/kiran-stuff/proteostasis_law/proteostasis-law-empirical-phase3/data/raw/error_rates/stikeleather_2026/PXD064116_file_index.json",
+      "bytes": 36342
+    },
+    {
+      "path": "/storage/kiran-stuff/proteostasis_law/proteostasis_rebuild/WO-06/records/pubmed_42406629.xml",
+      "bytes": 42696
+    },
+    {
+      "path": "/storage/kiran-stuff/proteostasis_law/proteostasis_rebuild/WO-06/records/pmc_PMC13335486.xml",
+      "bytes": 167077
+    },
+    {
+      "path": "/storage/kiran-stuff/proteostasis_law/legacy_root_triplet_attempt/errors/Data_S2_error_detection_rate.xlsx",
+      "bytes": 22731
+    },
+    {
+      "path": "/storage/kiran-stuff/proteostasis_law/legacy_root_triplet_attempt/errors/Data_S4_detected_misincorporations.zip",
+      "bytes": 4904907
+    },
+    {
+      "path": "/storage/kiran-stuff/proteostasis_law/proteostasis-paper/legacy/triplet_origin_attempt/data/raw/Data_S2_error_detection_rate.xlsx",
+      "bytes": 22731
+    },
+    {
+      "path": "/storage/kiran-stuff/proteostasis_law/proteostasis-paper/data/raw/landerer_2024/Data_S2_error_detection_rate.xlsx",
+      "bytes": 22731
+    },
+    {
+      "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/Data_S2_error_detection_rate.xlsx",
+      "bytes": 22731
+    },
+    {
+      "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/Data_S2_error_detection_rate.xlsx",
+      "bytes": 22731
+    },
+    {
+      "path": "/storage/kiran-stuff/triplet-proof/reviewer_response/position_rates/raw/landerer2024/Data_S4_detected_misincorporations.zip",
+      "bytes": 4904907
+    }
+  ]
+}
