@@ -1,0 +1,19 @@
+PASS all requested deliverables exist
+PASS frozen original byte-identical
+PASS canonical authors preserved
+PASS manuscript 2500-4500 words including references
+Manuscript word count: 3224
+PASS all source hashes unchanged
+PASS all matrix line ranges and anchor excerpts valid
+PASS matrix uses allowed statuses
+PASS all manuscript claim IDs covered
+PASS 22 distinct claim IDs and 34 rows
+PASS literature IDs resolve and all listed references cited
+PASS all active local Markdown links resolve
+PASS start-here map covers every other delivery file
+PASS mathematical run has no failures; optional symbolic availability explicit
+PASS report closes scientific scope
+PASS current report and manuscript state not submission-ready
+PACKAGE COUNTS: 15 checks; 15 passed; 0 failed
+SOURCE COUNTS: 27 files; 34 evidence rows
+Biological validation: not performed. Manual scientific audit: ADVERSARIAL_AUDIT.md.

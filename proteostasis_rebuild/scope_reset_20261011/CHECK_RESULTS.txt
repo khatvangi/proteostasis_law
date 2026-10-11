@@ -23,7 +23,7 @@ test_19_symbolic_conservation_and_machine_identity (__main__.Accounting.test_19_
 test_20_symbolic_steady_occupancy_and_boundary_signs (__main__.Accounting.test_20_symbolic_steady_occupancy_and_boundary_signs) ... ok
 
 ----------------------------------------------------------------------
-Ran 20 tests in 0.352s
+Ran 20 tests in 0.357s
 
 OK
 COUNTS: 20 run; 20 passed; 0 failed; 0 errors; 0 skipped

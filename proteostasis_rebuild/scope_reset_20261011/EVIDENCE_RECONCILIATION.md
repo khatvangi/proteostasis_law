@@ -11,7 +11,6 @@ The following locally archived original workbooks were opened read-only. Dimensi
   Header: Uniprot ID | Gene Name | Protein Name | Essential Gene | Category | WT mean mass fraction | WT mass fraction SD | ∆KJ mean mass fraction | ∆KJ mass fraction SD | ∆KJG mean mass fraction | ∆KJG mass fraction SD | ∆G mean mass fraction | ∆G mass fraction SD
 - `Table_2.xlsx` / `Molarity`: 1340 rows × 13 columns.
   Header: Uniprot ID | Gene Name | Protein Name | Essential Gene | Category | WT mean molarity (µM) | WT molarity SD | ∆KJ mean molarity (µM) | ∆KJ molarity SD | ∆KJG mean molarity (µM) | ∆KJG molarity SD | ∆G mean molarity (µM) | ∆G molarity SD
-  Header: P00350 | gnd | 6-phosphogluconate dehydrogenase, decarboxylating | no | Others | 17.767118283994925 | 1.5324165076516605 | 21.727612469159315 | 1.0072865531670856 | 22.347996137891954 | 0.8877669767996967 | 16.862400592600096 | 0.8368758188967808
 - `Table_3.xlsx` / `Pellet mass fractions`: 1341 rows × 13 columns.
   Header: Table S3: Normalized pellet mass fractions (means & standard deviations, five biological replicates), indicating the quantities of insoluble proteins for each of the 1339 significantly quantified proteins in the four E. coli strains
   Header: Uniprot ID | Gene Name | Protein Name | Essential Gene | Category | WT mean pellet mass fraction | WT pellet mass fraction SD | ∆KJ mean pellet mass fraction | ∆KJ pellet mass fraction SD | ∆KJG mean pellet mass fraction | ∆KJG pellet mass fraction SD | ∆G mean pellet mass fraction | ∆G pellet mass fraction SD

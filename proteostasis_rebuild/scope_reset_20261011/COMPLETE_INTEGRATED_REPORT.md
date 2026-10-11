@@ -105,6 +105,6 @@ Report the factorial interaction `I=y11−y10−y01+y00` on a preselected scale,
 
 ## Completion boundary
 
-All mathematical check counts are recorded in [CHECK_RESULTS.txt](CHECK_RESULTS.txt); the manuscript, evidence matrix and adversarial audit form one complete package. Reconstruction, claim disposition and specification of the decisive test are finished. New wet-lab validation was not performed and remains unavailable. No modifications to earlier branches or the external idea ledger were made; the user required writes only here. An append-ready ledger record is preserved locally.
+The delivered mathematical run passed **20/20 checks**, with zero failures, errors or skips; **15/15 package checks** also passed. Full output is recorded in [CHECK_RESULTS.txt](CHECK_RESULTS.txt) and [DELIVERY_VERIFICATION.txt](DELIVERY_VERIFICATION.txt); the manuscript, evidence matrix and adversarial audit form one complete package. Reconstruction, claim disposition and specification of the decisive test are finished. New wet-lab validation was not performed and remains unavailable. No modifications to earlier branches or the external idea ledger were made; the user required writes only here. An append-ready ledger record is preserved locally.
 
 **STOP / FINISHED SCIENTIFIC SCOPE: bounded reconstruction complete; empirical validation outstanding, not silently claimed complete.**

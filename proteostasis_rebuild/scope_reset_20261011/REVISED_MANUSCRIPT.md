@@ -156,14 +156,14 @@ The factorial interaction, (I=y_{11}-y_{10}-y_{01}+y_{00}), must use a prespecif
 
 Identifiers below come from the existing verified ledgers or archived primary-source manifests; source-access limitations remain in the evidence matrix.
 
-- **FE12** — Powers DL, Powers ET, Gierasch LM. FoldEco model. *Cell Reports* 1:265–276 (2012). DOI: 10.1016/j.celrep.2012.02.011; PMID: 22509487.
+- **FE12** — Powers ET, Powers DL, Gierasch LM. FoldEco model. *Cell Reports* 1:265–276 (2012). DOI: 10.1016/j.celrep.2012.02.011; PMID: 22509487.
 - **SD17** — Santra M, Farrell DW, Dill KA. Chaperone-mediated folding and growth model. *PNAS* 114:E2654 (2017). DOI: 10.1073/pnas.1620646114; PMID: 28292901.
 - **FM17** — Chen et al. FoldME. *PNAS* 114:11548 (2017). DOI: 10.1073/pnas.1705524114; PMCID: PMC5664499.
 - **FS19** — Pobre KFR, Powers DL, Ghosh K, Gierasch LM, Powers ET. Kinetic versus thermodynamic control of mutational effects on protein homeostasis: A perspective from computational modeling and experiment. *Protein Science* 28:1324–1339 (2019). DOI: 10.1002/pro.3639; PMID: 31074892; PMCID: PMC6566562. Erratum PMCID: PMC6863698 (acknowledgment correction).
 - **V04** — Vorderwülbecke et al. GroEL/GroES rescue of TF/DnaK deficiency. *FEBS Letters* 559:181–187 (2004). DOI: 10.1016/S0014-5793(04)00052-3; PMID: 14960329. Duplicate-publication flag unresolved; not counted as independent replicate evidence.
 - **C2012** — Calloni et al. DnaK client network. *Cell Reports* 1:251 (2012). DOI: 10.1016/j.celrep.2011.12.007; PMID: 22832197.
 - **H2021** — Fauvet et al. Bacterial Hsp90 Facilitates the Degradation of Aggregation-Prone Hsp70–Hsp40 Substrates. *Frontiers in Molecular Biosciences* 8:653073 (2021). DOI: 10.3389/fmolb.2021.653073; PMCID: PMC8082187; proteomics accession: PXD010014.
-- **R24** — Reingewertz et al. Mouse DHFR substitutions and GroEL dependence. *Protein Science* 33:e5087 (2024). DOI: 10.1002/pro.5087; PMID: 39074255.
+- **R24** — Reingewertz TH, Ben-Maimon M, Zafrir Z, Tuller T, Horovitz A. Synonymous and non-synonymous codon substitutions can alleviate dependence on GroEL for folding. *Protein Science* 33:e5087 (2024). DOI: 10.1002/pro.5087; PMID: 39074255.
 - **LA24** — Landerer C, Poehls J, Toth-Petroczy A. Fitness effects of phenotypic mutations at proteome-scale reveal optimality of translation machinery. *Molecular Biology and Evolution* 41 (2024). PMCID: PMC10939442. Interpretation here uses the project's corrected codon analysis, not its withdrawn detection-conditional estimate.
 - **S2016** — Schmidt et al. E. coli protein abundance measurements. *Nature Biotechnology* 34:104 (2016). DOI: 10.1038/nbt.3418; PMID: 26641532; PMCID: PMC4888949.
 - **T98** — Tomoyasu T, Ogura T, Tatsuta T, Bukau B. DnaK/J and heat-shock control. *Molecular Microbiology* 30:567 (1998). DOI: 10.1046/j.1365-2958.1998.01090.x.
