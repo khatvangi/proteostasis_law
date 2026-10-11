@@ -1,0 +1,16 @@
+Protein Sci. 2019 Nov 19;28(12):2144. doi: 10.1002/pro.3768
+Erratum to “Kinetic versus thermodynamic control of mutational effects on protein homeostasis: A perspective from computational modeling and experiment”
+Kristine Faye R Pobre 1, David L Powers 2, Kingshuk Ghosh 3, Lila M Gierasch 1, Evan T Powers 4
+Author information
+Article notes
+Copyright and License information
+PMCID: PMC6863698  PMID: 31743539
+This corrects the article "Kinetic versus thermodynamic control of mutational effects on protein homeostasis: A perspective from computational modeling and experiment" on page 1324.
+
+First published: May 10, 2019 https://doi.org/10.1002/pro.3639
+
+An acknowledgment was inadvertently omitted on page 1336 of this article. The Acknowledgement is listed below. We regret this error.
+
+Kristine Faye R. Pobre was partially supported by a fellowship from the University of Massachusetts as part of the Chemistry‐Biology Interface Training Program (National Research Service Award T32 GM08515).
+
+Articles from Protein Science : A Publication of the Protein Society are provided here courtesy of The Protein Society

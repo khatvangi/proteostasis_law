@@ -1,0 +1,37 @@
+test_quota_failure_at_vanishing_occupancy (test_laws.TestCapacityVersusRealized.test_quota_failure_at_vanishing_occupancy) ... ok
+test_s1_capacity_up_realized_down (test_laws.TestCapacityVersusRealized.test_s1_capacity_up_realized_down) ... ok
+test_sign_law_symbolic (test_laws.TestCapacityVersusRealized.test_sign_law_symbolic) ... ok
+test_sign_law_transfers_to_finite_pool_single_machine (test_laws.TestCapacityVersusRealized.test_sign_law_transfers_to_finite_pool_single_machine) ... ok
+test_two_machines_sign_transfer_recorded_not_claimed (test_laws.TestCapacityVersusRealized.test_two_machines_sign_transfer_recorded_not_claimed) ... ok
+test_capacity_set_up_closed (test_laws.TestCoRegulation.test_capacity_set_up_closed) ... ok
+test_realized_yield_has_interior_optimum (test_laws.TestCoRegulation.test_realized_yield_has_interior_optimum) ... ok
+test_cotranslational_symbolic (test_laws.TestCodon.test_cotranslational_symbolic) ... ok
+test_margin_sensitivity_binding_vs_slack (test_laws.TestCodon.test_margin_sensitivity_binding_vs_slack) ... ok
+test_mistranslation_first_order_bound (test_laws.TestCodon.test_mistranslation_first_order_bound) ... ok
+test_two_client_cross_effect_and_ode_agreement (test_laws.TestCodon.test_two_client_cross_effect_and_ode_agreement) ... ok
+test_front_exists_only_with_energy_row (test_laws.TestEnergyOptional.test_front_exists_only_with_energy_row) ... ok
+test_bound_symbolic (test_laws.TestInductionRace.test_bound_symbolic) ... ok
+test_machine_ceiling_any_regulation (test_laws.TestInductionRace.test_machine_ceiling_any_regulation) ... ok
+test_post_shock_equilibrium_locally_stable (test_laws.TestInductionRace.test_post_shock_equilibrium_locally_stable) ... ok
+test_static_feasible_yet_guaranteed_transient_violation (test_laws.TestInductionRace.test_static_feasible_yet_guaranteed_transient_violation) ... ok
+test_trajectory_below_bound_and_conserved (test_laws.TestInductionRace.test_trajectory_below_bound_and_conserved) ... ok
+test_violation_survives_maximal_instant_induction (test_laws.TestInductionRace.test_violation_survives_maximal_instant_induction) ... ok
+test_farkas_alternative_random (test_laws.TestRouteFeasibility.test_farkas_alternative_random) ... ok
+test_gale_cut_condition_exact_for_single_machine_routes (test_laws.TestRouteFeasibility.test_gale_cut_condition_exact_for_single_machine_routes) ... ok
+test_margin_monotone_in_every_pool (test_laws.TestRouteFeasibility.test_margin_monotone_in_every_pool) ... ok
+test_parallel_route_breaks_bottleneck_min (test_laws.TestRouteFeasibility.test_parallel_route_breaks_bottleneck_min) ... ok
+test_pooling_is_a_strict_relaxation (test_laws.TestRouteFeasibility.test_pooling_is_a_strict_relaxation) ... ok
+test_realized_steady_state_is_lp_feasible (test_laws.TestRouteFeasibility.test_realized_steady_state_is_lp_feasible) ... ok
+test_serial_certificate_exact (test_laws.TestRouteFeasibility.test_serial_certificate_exact) ... ok
+test_serial_route_breaks_hall_union (test_laws.TestRouteFeasibility.test_serial_route_breaks_hall_union) ... ok
+test_time_unit_invariance (test_laws.TestRouteFeasibility.test_time_unit_invariance) ... ok
+test_cotranslational_floor_excludes_failure (test_laws.TestTimeToDepletion.test_cotranslational_floor_excludes_failure) ... ok
+test_failure_time_inside_window_random (test_laws.TestTimeToDepletion.test_failure_time_inside_window_random) ... ok
+test_moving_quota_face_term_is_needed (test_laws.TestTimeToDepletion.test_moving_quota_face_term_is_needed) ... ok
+test_symbolic_solution_and_crossing (test_laws.TestTimeToDepletion.test_symbolic_solution_and_crossing) ... ok
+test_upper_bound_is_attained_by_extreme_inputs (test_laws.TestTimeToDepletion.test_upper_bound_is_attained_by_extreme_inputs) ... ok
+
+----------------------------------------------------------------------
+Ran 32 tests in 87.457s
+
+OK

@@ -1,0 +1,1586 @@
+Table S3
+
+
+
+
+           Table S3. List of biophysical profiles and simulation results for the examination of KJE and GroELS system substrates with a sy
+                                        Parameters                                                       No chaperones
+           km         Km          kf           Kf         ka           C crit      Native protein Aggregated protein
+            1.420007 -1.22838 0.59514 2.470275 -2.37376                    -2.7363   86.21742429                1.10E-08
+            -1.04836 0.96031 2.003869 2.561892 2.762631 0.280836                     59.82033857            0.003486338
+            0.049801      -1.8113 1.952618 7.534692 2.826289 2.73751                 199.4562706                1.36E-10
+            -0.11592 2.629487 -1.37632 6.655974 0.477679 2.081409                    9.593492538            108.0061693
+            0.446656 -1.61119           2.125 5.229832 2.988615 1.042851             198.9160397                2.30E-10
+            1.936378 1.403042 2.873412 3.011459 0.617478 0.507457                    17.96739247            13.51269567
+            -2.77691 2.048923 -1.35605 2.405496 2.992081 0.735717                    57.80288545            1.41071E-05
+            -0.56364 -1.29839 -1.71815 3.21044 -2.20203 2.230603                     50.07641354            0.000766961
+            -1.67378 -2.21229 -0.64312 3.277437 -2.18097 2.19536                     128.2459132                1.55E-06
+            1.576094 0.360729 2.819752 4.485247 -2.13991 1.084404                    189.3971424            4.89601E-05
+            1.202419 2.602818 2.311731 5.909439 0.842358 -0.76015                    177.3171578                4.71E-06
+            -1.72786 1.602557 2.251704 2.935977               -1.7189 2.03496        124.6034087            0.004825796
+            -2.29495 -0.11479 0.035125 6.490567 -0.05642 0.695783                    182.6858386                7.21E-08
+            2.901537 -1.61097 0.723297 7.482676 -0.35088 -0.78811                    195.8749411                       0
+            -1.61485 0.599904 1.141919 4.394615 0.531164 1.424325                    193.1451994                2.43E-06
+            -2.64511 1.353848 -0.66003 5.13212 -1.21612 -0.60383                     143.4465041                1.74E-08
+            1.340056 2.72505          -0.6881 5.985382 2.344147 -2.33754             3.928926522            3.14435E-05
+            -1.95063 0.430992 -1.16548 6.147013 1.59649 1.651427                     94.01625068            0.006615322
+            -0.48746 2.809899 0.492445 7.065221 1.367461 0.972385                    176.0114904            7.55621E-05
+            -0.15875 1.171797 2.341707 5.408391 2.451547 -2.19704                    196.9444234                2.09E-09
+            0.382279 -1.36161 1.784874 5.981799 0.636948 2.767183                    199.2308235                6.31E-09
+            1.634931 -0.36976 -0.26129 3.470243 -2.87082 -2.28199                    140.8039773                9.41E-08
+            1.666085 1.038777 -1.49165 6.848615 -0.26273                   -1.3401   13.06084863            0.000197279
+            -0.16038 -2.32529 -2.20651 4.903593 2.897445 2.140365                    25.10446321            1.10959E-05
+            -2.96659 -0.73476 1.881436 7.756389 -1.39526 -1.78349                    199.4177823                       0
+            -1.57666      -0.6651 0.047628 6.790063 2.947213 -2.37579                182.1375151                3.39E-10
+              -2.9614 2.812558 0.532391 3.341018 -0.07815 1.594617                   161.1365263                8.73E-07
+            -2.50024 -1.91383 -0.45471 2.330445 1.92023 0.94758                      71.99237247                2.29E-06
+            -1.84861 -0.22492 0.998388 6.120202 -1.12718 1.665564                    197.3771365                5.59E-08
+            1.911181 -2.26951 -2.21438 4.889813 -1.99622 -2.88928                    24.75504359                1.34E-10
+            -0.01009 -0.97289 0.967689 6.974398 -2.25123 -0.07673                    197.3066028                8.59E-10
+            2.651158 0.974257 -0.20095 6.608851 1.699514 0.144424                    95.02498094             0.00058416
+             1.02409 -1.11348 -2.19356 3.943946 -0.41302 -2.16705                    24.31366337                1.28E-07
+            1.882108      -2.7246 -2.84937 3.145124 -1.06385 -0.87217                7.312707847                2.93E-09
+            -1.27106 1.750073 0.647246 7.182784 -2.81383 0.17389                     193.0452468                1.68E-07
+            -1.04873 2.231478 -2.06203 4.497723 2.774708 -1.59317                    12.70494619            6.73988E-05
+            -1.29433 -2.88203 0.432699 4.159328 -0.14104 -2.21293                    186.5641752                       0
+            2.929863 1.028485 -0.48226 5.065976 -1.87415 -2.70589                    65.74421752                1.95E-06
+            2.223318 0.685276 2.997893 6.037349 1.503883 -2.62137                    199.0224333                       0
+            -2.44291 -0.32196 -2.02678 4.060396 0.509297 2.716252                    31.73947515            3.135590159
+            0.502266 2.930275 1.478806 6.906772 2.518008 0.911147                    180.4387918            6.76264E-05
+            2.503519 2.857471 2.508216 7.671116 -2.53327 1.24337                     169.8178213            0.000403465
+            0.286536 1.795356 -0.04871 4.959227 -2.24352 -0.97582                    77.59101629            8.78698E-05
+Table S5
+
+
+
+
+           Table S5. List of biophysical profiles and simulation results for the examination of KJE and GroELS system substrates with a sy
+                                         Parameters                                                      No chaperones
+           km          Km          kf           Kf         ka          C crit      Native protein Aggregated protein
+            1.420007 -1.22838 0.59514 2.470275 -2.37376                    -2.7363    1721.966243               4.42E-06
+            -1.04836 0.96031 2.003869 2.561892 2.762631 0.280836                      698.2210701           1036.602426
+            0.049801       -1.8113 1.952618 7.534692 2.826289 2.73751                 1994.859603               1.36E-08
+            -0.11592 2.629487 -1.37632 6.655974 0.477679 2.081409                     98.87022092           1721.042122
+            0.446656 -1.61119            2.125 5.229832 2.988615 1.042851             1989.643007               2.30E-08
+            1.936378 1.403042 2.873412 3.011459 0.617478 0.507457                     44.94326389           1712.374346
+            -2.77691 2.048923 -1.35605 2.405496 2.992081 0.735717                      1587.05553            102.622792
+            -0.56364 -1.29839 -1.71815 3.21044 -2.20203 2.230603                      1630.590377           55.39246481
+            -1.67378 -2.21229 -0.64312 3.277437 -2.18097 2.19536                      1748.891132           0.000335394
+            1.576094 0.360729 2.819752 4.485247 -2.13991 1.084404                     1921.727469           0.005481124
+            1.202419 2.602818 2.311731 5.909439 0.842358 -0.76015                     1829.531857            0.00178622
+            -1.72786 1.602557 2.251704 2.935977               -1.7189 2.03496          1639.30928           120.8360407
+            -2.29495 -0.11479 0.035125 6.490567 -0.05642 0.695783                     1880.327376           1.69906E-05
+            2.901537 -1.61097 0.723297 7.482676 -0.35088 -0.78811                     1962.848569               2.71E-09
+            -1.61485 0.599904 1.141919 4.394615 0.531164 1.424325                     1941.645537           0.000463638
+            -2.64511 1.353848 -0.66003 5.13212 -1.21612 -0.60383                      1767.594443           2.84951E-05
+            1.340056 2.72505          -0.6881 5.985382 2.344147 -2.33754               812.497764           636.2475742
+            -1.95063 0.430992 -1.16548 6.147013 1.59649 1.651427                      1492.790538           229.7057457
+            -0.48746 2.809899 0.492445 7.065221 1.367461 0.972385                     1780.039087           76.60893185
+            -0.15875 1.171797 2.341707 5.408391 2.451547 -2.19704                     1970.875138               2.55E-07
+            0.382279 -1.36161 1.784874 5.981799 0.636948 2.767183                     1992.653646               6.33E-07
+            1.634931 -0.36976 -0.26129 3.470243 -2.87082 -2.28199                      1768.57928           1.60836E-05
+            1.666085 1.038777 -1.49165 6.848615 -0.26273                   -1.3401    723.0356755           937.9347774
+            -0.16038 -2.32529 -2.20651 4.903593 2.897445 2.140365                      503.448707           1185.874957
+            -2.96659 -0.73476 1.881436 7.756389 -1.39526 -1.78349                     1994.486346                      0
+            -1.57666       -0.6651 0.047628 6.790063 2.947213 -2.37579                1877.960231               5.05E-08
+              -2.9614 2.812558 0.532391 3.341018 -0.07815 1.594617                    1818.277518           0.002270945
+            -2.50024 -1.91383 -0.45471 2.330445 1.92023 0.94758                       1704.404227           0.002763057
+            -1.84861 -0.22492 0.998388 6.120202 -1.12718 1.665564                     1975.410201               6.27E-06
+            1.911181 -2.26951 -2.21438 4.889813 -1.99622 -2.88928                     1660.555108               5.86E-07
+            -0.01009 -0.97289 0.967689 6.974398 -2.25123 -0.07673                     1974.902653               8.62E-08
+            2.651158 0.974257 -0.20095 6.608851 1.699514 0.144424                     651.6862062           1104.613652
+             1.02409 -1.11348 -2.19356 3.943946 -0.41302 -2.16705                      1659.68895           0.000582953
+            1.882108       -2.7246 -2.84937 3.145124 -1.06385 -0.87217                 1563.77961           0.000141346
+            -1.27106 1.750073 0.647246 7.182784 -2.81383 0.17389                      1938.185047           2.50809E-05
+            -1.04873 2.231478 -2.06203 4.497723 2.774708 -1.59317                     194.4471809           1445.335823
+            -1.29433 -2.88203 0.432699 4.159328 -0.14104 -2.21293                     1902.505614                      0
+            2.929863 1.028485 -0.48226 5.065976 -1.87415 -2.70589                     1695.270371           0.001291295
+            2.223318 0.685276 2.997893 6.037349 1.503883 -2.62137                     1990.656853               4.58E-09
+            -2.44291 -0.32196 -2.02678 4.060396 0.509297 2.716252                     1217.121675           462.4745592
+            0.502266 2.930275 1.478806 6.906772 2.518008 0.911147                     1804.729003           87.50219933
+            2.503519 2.857471 2.508216 7.671116 -2.53327 1.24337                      1825.515193           0.200825459
+            0.286536 1.795356 -0.04871 4.959227 -2.24352 -0.97582                     1673.922863           8.230653767
+Supplemental Figures and Text
+
+
+
+
+                 Supplemental Information for “FoldEco: A Model for Proteostasis in
+                                              E. coli”
+
+
+                                    Evan T. Powers1, David L. Powers2, and Lila M. Gierasch3
+
+
+
+             1
+                 Department of Chemistry, The Scripps Research Institute, La Jolla, CA 92037
+
+             2
+                 Department of Mathematics and Computer Science, Clarkson University, Potsdam, NY 13699
+
+             3
+                 Departments of Chemistry and Biochemistry & Molecular Biology, University of
+
+             Massachusetts-Amherst, Amherst MA 01003
+
+             Correspondence to: epowers@scripps.edu; gierasch@biochem.umass.edu
+
+
+
+
+                                                               1
+Supplemental Figure Legends
+
+Figure S1, related to Figure 1. The FoldEco model for protein folding in E. coli in detail. The
+variable names for the various rate constants are in green text. Estimated values for each rate
+constant based on literature data for each step are shown next to the arrows. Explanations for
+the choice of rate constants and other information are in red text. Complexes between
+proteostasis network components and the client protein are denoted by abbreviations for the
+species in the complex separated by colons. (A) Synthesis and folding system in FoldEco. Key: R
+= ribosome; Ra,i = ribosome actively synthesizing client protein i; Ra:Ui = ribosome with
+emerging nascent chain; T, T2 = trigger factor monomer and dimer; Ui = unfolded client protein;
+Mi = misfolded client protein; Ni = native protein; Ai,j = aggregates consisting of j monomers. (B)
+KJE system. KT = ATP-bound DnaK; KD = ADP-bound DnaK; J, J2 = DnaJ monomer and dimer; E, E2
+= GrpE monomer and dimer. (C) GroELS system. GrL, GrLT, GrLD = nucleotide free, ATP-bound,
+and ADP bound GroEL; GrS = GroES. When the states of the cis and trans cavities of GroEL are
+both defined, they are separated by two colons. (D) B+KJE system. B = ClpB. (E) Degradation
+system. Lon = Lon protease for unfolded and misfolded proteins; Dn = ClpAP-type protease for
+natively folded proteins with degrons.
+
+
+
+
+                                                2
+3
+4
+5
+6
+7
+Figure S2, related to Figure 2. Kinetics of protein accumulation in FoldEco. (A) As Figure 2,
+except the black curves represent the minimum concentration of Lon needed to suppress
+aggregation to <5% of total protein after 1,000 s, 3,162 s, 10,000 s, 31,622 s, or 100,000 s, as
+indicated. The red curve represents the minimum concentration of Lon required to suppress
+aggregation altogether at steady state (which is achieved by keeping the steady state
+concentration of Mi below its critical concentration of 0.1 μM). (B) Concentrations of Ui, Mi
+(blue curves, left-hand axis) and Ni (red curve, right-hand axis) vs time. See Extended
+Experimental Procedures for parameters used in the simulation. (C) Simplified model for
+analyzing protein accumulation kinetics. Lowercase greek letters represent rate constants.
+Synthesis is condensed to a single step with rate σ. Degradation is simplified to a Briggs-
+Haldane scheme, where D is a Lon-type protease that degrades U and M. The rate constants for
+substrate binding, release, and degradation (δ1, δ2, δ3) are assumed to be the same for U and
+M. The folding and unfolding rate constants are φ1 and φ2, while those for misfolding and un-
+misfolding are μ1 and μ2.
+
+
+
+
+                                               8
+9
+Figure S3, related to Figure 3. Biophysical profiles for various groups of client proteins from
+the simulation at a low synthesis rate. (A) As Figure 3A, but for proteins that aggregate at a low
+synthesis rate in the absence of chaperones. (B) As Figure 3A, but for the top KJE system
+substrates in the presence of the GroELS system. (C) As Figure 3A, but for the top GroELS
+system substrates in the presence of the KJE system. (D) As Figure 3A, but for the client proteins
+corresponding to the blue data points in region 1 of Figure 3C, for which the combined effects
+of the KJE and GroELS systems are less than the summed effects, but neither system alone
+completely rescues the client protein. (E) As Figure 3A, but for the client proteins corresponding
+to the blue data points in region 2 of Figure 3C, for which the combined effects of the KJE and
+GroELS systems are similar.
+
+
+
+
+                                               10
+Figure S4, related to Figure 4. Biophysical profiles for various groups of client proteins from
+the simulation at a high synthesis rate. (A) As Figure 4A, but for the top KJE system substrates
+in the presence of the GroELS system. (B) As Figure 4B, but for the top GroELS system
+substrates in the presence of the KJE system.
+
+
+
+
+                                              11
+Figure S5, related to Figure 5. Testing FoldEco against Experimental Data on the Effect of
+Translation Rate on Luciferase Folding. (A) Three-dimensional representation of the tif image
+of the gel from Figure 2a of Siller et al (Siller et al., 2010). (B) Plot of the fraction of active Luc vs.
+time during the in vitro refolding of Luc (0.25 μM) in the presence of DnaK (1.25 μM), DnaJ
+(0.25 μM) and GrpE (1.25 μM). Black circles: data from Figure 1 of Szabo et al. (Szabo et al.,
+1994). Red line: fit of FoldEco to the data (see Extended Experimental Methods); R2 = 0.98. (C)
+and (D) As Figure 5A and 5B, respectively, but using the default chaperone concentrations from
+Table S1 in the FoldEco simulation. (E) Plot of the FoldEco-calculated ratio of the absolute
+activity of Luc expressed in the slower and faster translating bacteria vs. the fold-increase in kf
+in slower translating bacteria (which mimics the effect of cotranslational folding). The
+experimental value of the former (~1.5) corresponds to a value of 1.9 for the latter.
+
+
+
+
+                                                    12
+Table Legends (for Tables included as separate Excel files)
+
+Table S3, related to Figure 3. List of biophysical profiles and simulation results for the Monte
+Carlo simulation experiments with a synthesis rate of 0.02 μM s -1.
+
+Table S5, related to Figure 4. List of biophysical profiles and simulation results for the Monte
+Carlo simulation experiments with a synthesis rate of 0.2 μM s-1.
+
+
+
+
+                                               13
+Tables
+
+Table S1, related to Figure 1. Concentrations of proteostasis network components.
+Concentration data for the proteostasis network components in FoldEco were obtained from 5
+databases. The primary data are listed for each database. In two cases (Neidhardt and Ellison)
+this is wt% of total protein. In the other three cases (Marcotte, Frishman, and Xie) this is copy
+number. For each data source, the primary data are converted to concentrations in μM units.
+The reported mean is the geometric mean (since concentrations are naturally positive), and the
+range given is the 50% confidence interval (25th to 75th percentile), assuming that the
+concentration measurements have a lognormal distribution. The column labeled “FoldEco
+concs. (μM)” lists the default concentrations used in FoldEco. These are simply round numbers
+close to the mean values.
+                               a             b                   c               d                   e
+                   Neidhardt           Ellison        Marcotte          Frishman               Xie          Mean          FoldEco
+                                                                                                            (μM)          Concs.
+               wt%       Conc      wt%      Conc   Copy #    Conc     Copy #   Conc     Copy         Conc   (50% CI)      (μM)
+Component                (μM)               (μM)             (μM)              (μM)     #            (μM)
+
+Trigger        0.61      25.3      0.967    40.1   10043     16.7     31200    51.8     730          4.0    20 (10 to     20
+factor                                                                                                      40)
+
+DnaK           0.933     27.0      2.439    70.6   13814     22.9     31200    51.8     2435         13.5   31 (20 to     30
+                                                                                                            49)
+
+DnaJ           −         −         −        −      1354      2.3      805      1.3      69           0.4    1.0 (0.6 to   1
+                                                                                                            1.9)
+
+GrpE           0.117     10.7      0.212    19.5   3564      5.9      16000    26.5     −            −      13 (8.6 to    15
+                                                                                                            21)
+
+GroEL          1.35      47.1      1.09     38.0   11649     19.4     61000    101      −            −      43 (27 to     42
+                                                                                                            69)
+
+GroES          0.244     47.0      0.32     61.6   64699     107      6540     10.9     2150         11.9   33 (17 to     35
+                                                                                                            66)
+
+ClpB           −         −         0.298    6.2    341       0.6      1640     2.7      115          0.6    1.6 (0.7 to   1.8
+                                                                                                            3.4)
+
+Lon            0.21      4.8       0.077    1.8    500       0.8      1550     2.6      159          0.9    1.7 (1.1 to   1.8
+                                                                                                            2.9)
+
+a
+  From Van Bogelen et al (Van Bogelen et al., 1996). Protein weight fractions were measured from E. coli K-12 grown in glucose
+minimal MOPS media at 37 °C with a doubling time of 40 min by quantifying spots in a 2D gel by radiography. The weight
+fractions were converted to μM concentrations by multiplying them by the concentration of protein in the bacterial cytosol
+        -1
+(200 g L ), and dividing the resulting weight concentration by the relevant molecular weight. The protein concentration in
+cytoplasm is taken from Cayley, et al (Cayley et al., 1991).
+b
+  From Lopez-Campistrous, et al (Lopez-Campistrous et al., 2005) These concentrations were measured from E. coli K-12 grown
+“in the presence of amino acids”, by differential in gel electrophoresis (DIGE). Weight fractions were converted to μM
+concentrations as described above.
+
+                                                              14
+C
+  From Lu et al. (Lu et al., 2007). Protein copy numbers were measured from E. coli K-12 grown in glucose minimal MOPS media
+at 37 °C by “absolute protein expression measurements” (APEX), a mass spectrometric method that relies on counts of peptide
+fragments from digests of total protein. Copy numbers were converted to μM concentrations by converting them to moles
+(dividing by Avogadro’s number), then dividing them by the volume of cytoplasm in a bacterial cell. Cell volume depends on the
+rate of cell division; fast-dividing cells are substantially larger than slow-dividing cells. For cells growing in glucose-minimal
+MOPS media at 37 °C, we used a cell volume of 1 fL and assumed that this was mostly cytoplasm. Cell size was estimated based
+on the data reported by Kubitschek (Kubitschek, 1969).
+d
+  From Ishihama, et al. (Ishihama et al., 2008). Protein copy numbers were measured from E. coli K-12 MC4100 grown in “rich or
+minimal media” at 37 °C by “exponentially modified protein abundance index” (emPAI), a mass spectrometric method that
+relies on counts of peptide fragments from digests of total protein. The data from rich and minimal media were combined.
+Copy numbers were converted to μM concentrations as described for Marcotte above.
+e
+  From Taniguchi, et al (Taniguchi et al., 2010). Protein copy numbers were measured from E. coli grown in M9 minimal media
+at 30 °C by single molecule fluorescence measurements. Copy numbers were converted to μM concentrations as described for
+Marcotte above, except that these authors used exceptionally slow dividing cells in their experiments (they report 4-5 cell
+divisions in 11-12 hours), and slow dividing bacteria tend to be small. Unfortunately, the authors provide no scale bars in their
+fluorescence microscopy images, so we cannot calculate the volume directly. They do, however, mention that the surface areas
+                                             2
+of their bacteria vary from 1.9 to 4.0 µm , and assuming that the bacteria are approximately cylindrical with a diameter ~0.6 µm
+(Woldringh et al., 1977; Zaritsky et al., 1993), this suggests a volume between 0.2 and 0.5 fL. We use 0.3 fL as a compromise.
+
+
+
+
+                                                               15
+Table S2, related to Figure 2. Rate constants used in FoldEco simulations for synthesis and
+degradation rate simulation experiments.
+
+    Folding                                                    KJE system                                               B+KJE system
+    Parameter                     Value                        Parameter                         Value                  Parameter     Value
+                                       −1                                                                       −1 −1                             −1 −1
+    km                            1s                           k0,1                              0.1 µM s               bi,j,1        0.3 µM s
+                                                                                                                 −1                               −1
+    Km                            10                           k0,2                              0.0001 s               bi,j,2        0.006 s
+                                       −1                                                                       −1 −1                         −1 −1
+    kf                            1s                           k0,3                              0.1 µM s               bi,j,3        1 µM s
+                                                                                                           −1                           −1
+    Kf                            1000                         k0,4                              0.2 s                  bi,j,4        2s
+                                                 −1 −1                                                          −1 −1                         −1 −1
+    ka                            0.1 µM s                     ki,5, ki,17                       0.3 µM s               bi,j,5        1 µM s
+                                                                                                                −1                            −1 −1
+    Ccrit                         0.1 µM                       ki,6, ki,18                       0.006 s                bi,j,6        1 µM s
+                 a                                                                                         −1 −1                                  −1
+    Csupercrit                    10 µM                        ki,7, ki,19                       1 µM s                 bi,j,7        0.006 s
+                                                                                                      −1                                −1
+    nucleus size                  3                            ki,8, ki,20                       2s                     bi,j,8        2s
+                                                                                                           −1 −1                        −1
+    Synthesis                                                  ki,9, ki,21                       1 µM s                 bi,j,9        1s
+                                                                                                           −1 −1                              −1 −1
+    Parameter                     Value                        ki,10, ki,22                      1 µM s                 bi,j,10       1 µM s
+                                                  −1 −1                                                         −1                                −1 −1
+    s0,1, si,5                    0.02 µM s                    ki,11, ki,23                      0.006 s                bi,j,11       0.3 µM s
+                                             −1                                                       −1                                −1
+    s0,2, si,6                    0.05 s                       ki,12, ki,24                      2s                     bi,j,12       1s
+                                                   −1     −1                                          −1                                          −1 −1
+    si,3, si,4                    0.00050 s to 0.375 s         ki,13                             1s                     bi,j,13       0.1 µM s
+                                             −1                                                            −1 −1                                  −1
+    si,7, si,8                    0.25 s                       ki,14                             1 µM s                 bi,j,14       0.002 s
+                                                 −1 −1                                                          −1 −1                             −1 −1
+    si,9                          0.2 µM s                     ki,15                             0.3 µM s               bi,j,15       0.3 µM s
+                                             −1                                                       −1                                −1
+    si,10                         0.05 s                       ki,16                             1s                     bi,j,16       1s
+                                            −1                                                                                               −1
+    si,11, si,12                  0.1 s                        GroELS system                                            bi,j,17       0.1 s
+    Initial concentrations                                     Parameter                         Value                  Degradation
+                                                                                                       −1
+    Species                       Concentration                g0,1                              30 s                   Parameter     Value
+                                                                                                           −1                                     −1 −1
+    Ribosomes                     20 μM                        g0,2                              0.1 s                  di,1, di,5    0.1 µM s
+                                                                                                                −1 −1                   −1
+    Trigger factor                0 μM                         gi,3, gi,7, gi,k,36 – gi,k,41     10 µM s                di,2, di,6    1s
+                                                                                                           −1                           −1
+    DnaK                          0 μM                         gi,4, gi,8                        0.1 s                  di,3, di,7    5s
+                                                                                                           −1 −1                             −1
+    DnaJ                          0 μM                         gi,5, gi,9                        1 µM s                 di,4          0.1 s
+                                                                                                           −1                                     −1 −1
+    GrpE                          0 μM                         gi,6, gi,10                       0.1 s                  di,8          0.1 µM s
+                                                                                                           −1                                −1
+    GroEL                         0 μM                         gi,11, gi,12, gi,k,42 – gi,k,47   2.5 s                  di,9          0.1 s
+                                                                                                           −1 −1                              −1
+    GroES                         0 μM                         gi,13, gi,14                      1 µM s                 di,10         0.05 s
+                                                                                                                                             −1
+    Lon                           0.1 to 20 μM                 gi,15, gi,22, gi,29               km                     di,11         0.1 s
+    Dn (ClpAP-type protease)      0 μM                         gi,16, gi,23, gi,30               km/Km
+    ClpB                          0 μM                         gi,17, gi,24, gi,31               kf
+    Client protein (all states)   0 μM                         gi,18, gi,25, gi,32               kf/Kf
+                                                                                                           −1
+                                                               gi,19, gi,20, gi,21               0.1 s
+                                                                                                       −1
+                                                               gi,26, gi,27, gi,28               30 s
+                                                                                                      −1
+                                                               gi,33, gi,34, gi,35               1s
+a
+ Csupercrit is the “supercritical concentration”, or the monomer dissociation constant from oligomers smaller than the nucleus, as
+defined by Powers and Powers (Powers and Powers, 2006).
+
+
+
+                                                                        16
+Table S4, related to Figure 4. Rate constants used in FoldEco simulations for Monte Carlo
+simulation experiments.
+
+    Folding                                                    KJE system                                               B+KJE system
+    Parameter                     Value                        Parameter                         Value                  Parameter     Value
+                                                                                                                −1 −1                             −1 −1
+    km                            see Table S3                 k0,1                              0.1 µM s               bi,j,1        0.3 µM s
+                                                                                                                 −1                               −1
+    Km                            see Table S3                 k0,2                              0.0001 s               bi,j,2        0.006 s
+                                                                                                                −1 −1                         −1 −1
+    kf                            see Table S3                 k0,3                              0.1 µM s               bi,j,3        1 µM s
+                                                                                                           −1                           −1
+    Kf                            see Table S3                 k0,4                              0.2 s                  bi,j,4        2s
+                                                                                                                −1 −1                         −1 −1
+    ka                            see Table S3                 ki,5, ki,17                       0.3 µM s               bi,j,5        1 µM s
+                                                                                                                −1                            −1 −1
+    Ccrit                         see Table S3                 ki,6, ki,18                       0.006 s                bi,j,6        1 µM s
+                 a                                                                                         −1 −1                                  −1
+    Csupercrit                    100×Ccrit                    ki,7, ki,19                       1 µM s                 bi,j,7        0.006 s
+                                                                                                      −1                                −1
+    nucleus size                  3                            ki,8, ki,20                       2s                     bi,j,8        2s
+                                                                                                           −1 −1                        −1
+    Synthesis                                                  ki,9, ki,21                       1 µM s                 bi,j,9        1s
+                                                                                                           −1 −1                              −1 −1
+    Parameter                     Value                        ki,10, ki,22                      1 µM s                 bi,j,10       1 µM s
+                                                −1 −1                                                           −1                                −1 −1
+    s0,1, si,5                    0.02 µM s                    ki,11, ki,23                      0.006 s                bi,j,11       0.3 µM s
+                                           −1                                                         −1                                −1
+    s0,2, si,6                    0.05 s                       ki,12, ki,24                      2s                     bi,j,12       1s
+                                                 −1       −1                                          −1                                          −1 −1
+    si,3, si,4                    0.00101 s or 0.0116 s        ki,13                             1s                     bi,j,13       0.1 µM s
+                                           −1                                                              −1 −1                                  −1
+    si,7, si,8                    0.25 s                       ki,14                             1 µM s                 bi,j,14       0.002 s
+                                               −1 −1                                                            −1 −1                             −1 −1
+    si,9                          0.2 µM s                     ki,15                             0.3 µM s               bi,j,15       0.3 µM s
+                                           −1                                                         −1                                −1
+    si,10                         0.05 s                       ki,16                             1s                     bi,j,16       1s
+                                          −1                                                                                                 −1
+    si,11, si,12                  0.1 s                        GroELS system                                            bi,j,17       0.1 s
+    Initial concentrations                                     Parameter                         Value                  Degradation
+                                                                                                       −1
+    Species                       Concentration                g0,1                              30 s                   Parameter     Value
+                                                                                                           −1                                     −1 −1
+    Ribosomes                     20 μM                        g0,2                              0.1 s                  di,1, di,5    0.1 µM s
+                                                                                                                −1 −1                   −1
+    Trigger factor                20 μM                        gi,3, gi,7, gi,k,36 – gi,k,41     10 µM s                di,2, di,6    1s
+                                                                                                           −1                           −1
+    DnaK                          0 or 30 μM                   gi,4, gi,8                        0.1 s                  di,3, di,7    5s
+                                                                                                           −1 −1                             −1
+    DnaJ                          0 or 1 μM                    gi,5, gi,9                        1 µM s                 di,4          0.1 s
+                                                                                                           −1                                     −1 −1
+    GrpE                          0 or 15 μM                   gi,6, gi,10                       0.1 s                  di,8          0.1 µM s
+                                                                                                           −1                                −1
+    GroEL                         0 or 42 μM                   gi,11, gi,12, gi,k,42 – gi,k,47   2.5 s                  di,9          0.1 s
+                                                                                                           −1 −1                              −1
+    GroES                         0 or 35 μM                   gi,13, gi,14                      1 µM s                 di,10         0.05 s
+                                                                                                                                             −1
+    Lon                           0.3 μM                       gi,15, gi,22, gi,29               km                     di,11         0.1 s
+    Dn (ClpAP-type protease)      0 μM                         gi,16, gi,23, gi,30               km/Km
+    ClpB                          0 μM                         gi,17, gi,24, gi,31               kf
+    Client protein (all states)   0 μM                         gi,18, gi,25, gi,32               kf/Kf
+                                                                                                           −1
+                                                               gi,19, gi,20, gi,21               0.1 s
+                                                                                                       −1
+                                                               gi,26, gi,27, gi,28               30 s
+                                                                                                      −1
+                                                               gi,33, gi,34, gi,35               1s
+a
+    Csupercrit was set to be 100-fold higher than Ccrit; it was not varied independently.
+
+
+
+
+                                                                       17
+Table S6, related to Figure 5. Results of FoldEco simulations of firefly luceiferase expression
+experiments by Siller et al. at the 15 min time point.
+
+Slower Translation Rate
+                                                                             a                                              b
+Protein state   Total (μM)     Free (μM)       TF bound          KJE bound       GroELS       B+KJE           Lon bound
+                                                                                                    a
+                                               (μM)              (μM)            bound (μM)   bound (μM)      (μM)
+U               38.73          2.23            15.89             20.10           0.50         N/A             0
+M               20.39          0.99            6.94              8.00            4.46         N/A             0
+N               24.86          24.80           N/A               N/A             0.06         N/A
+A               52.37          2.30            N/A               N/A             N/A          50.07
+Total           136.35         30.33           22.83             5.02            5.02         50.07           0
+Faster Translation Rate
+                                                                             a                                              b
+Protein state   Total (μM)     Free (μM)       TF bound          KJE bound       GroELS       B+KJE           Lon bound
+                                                                                                    a
+                                               (μM)              (μM)            bound (μM)   bound (μM)      (μM)
+U               36.98          2.09            16.17             18.22           0.50         N/A             0
+M               19.63          0.93            7.00              7.24            4.46         N/A             0
+N               33.94          33.89           N/A               N/A             0.06         N/A
+A               171.24         7.27            N/A               N/A             N/A          163.96
+Total           261.79         44.18           23.17             25.47           5.01         163.96          0
+a
+ The column ”KJE bound” includes only unfolded and misfolded protein bound to DnaK and DnaJ2. Aggregates bound to DnaK
+and DnaJ2 are accounted for in the column “B+KJE bound”, along with aggregates bound to ClpB. For aggregates, we give the
+size-weighted concentration of aggregates (i.e., the concentration of monomers in the aggregated state).
+b
+ Includes only protein that is reversibly bound to Lon. Protein that is already committed to degradation is not included.
+
+
+
+
+                                                            18
+Table S7, related to Figure 5. Results of FoldEco Simulations with Lower Chaperone
+Concentrations of Firefly Luceiferase Expression Experiments by Siller et al. at the 15 min
+Time Point.
+
+Slower Translation Rate
+                                                                             a                                              b
+Protein state   Total (μM)     Free (μM)       TF bound          KJE bound       GroELS       B+KJE           Lon bound
+                                                                                                    a
+                                               (μM)              (μM)            bound (μM)   bound (μM)      (μM)
+U               14.54          1.22            4.66              8.35            0.31         N/A             0
+M               10.23          0.71            2.59              4.31            2.62         N/A             0
+N               20.60          20.57           N/A               N/A             0.03         N/A
+A               95.11          4.95            N/A               N/A             N/A          90.17
+Total           140.49         27.45           7.26              12.66           2.95         90.17           0
+Faster Translation Rate
+                                                                             a                                              b
+Protein state   Total (μM)     Free (μM)       TF bound          KJE bound       GroELS       B+KJE           Lon bound
+                                                                                                    a
+                                               (μM)              (μM)            bound (μM)   bound (μM)      (μM)
+U               14.92          1.33            5.53              7.74            0.31         N/A             0
+M               9.71           0.71            2.73              3.66            2.61         N/A             0
+N               24.58          24.55           N/A               N/A             0.03         N/A
+A               217.10         12.45           N/A               N/A             N/A          204.65
+Total           266.31         39.04           8.25              11.40           2.96         204.65          0
+a
+ The column ”KJE bound” includes only unfolded and misfolded protein bound to DnaK and DnaJ2. Aggregates bound to DnaK
+and DnaJ2 are accounted for in the column “B+KJE bound”, along with aggregates bound to ClpB. For aggregates, we give the
+size-weighted concentration of aggregates (i.e., the concentration of monomers in the aggregated state).
+b
+ Includes only protein that is reversibly bound to Lon. Protein that is already committed to degradation is not included.
+
+
+
+
+                                                            19
+Supplemental Experimental Procedures
+
+Assumptions and Simplifications in FoldEco
+
+Models like FoldEco that are intended to capture the complexity of biological processes
+occurring in vivo inevitably contain some assumptions and simplifications; without them, it is
+sometimes impossible to make progress. Here we present a list of the most important
+assumptions and simplifications in the current version of FoldEco.
+
+FoldEco is a deterministic, not a stochastic, model
+FoldEco consists of a set of ordinary differential equations that are numerically integrated to
+produce a solution that consists of the time-dependent concentrations of the species in the
+model. As such, FoldEco is valid for examining the average state of proteostasis in populations
+of E. coli under a given set of conditions. Focusing on population averages means that FoldEco
+cannot capture cell-to-cell variability, but it has the advantage that measuring population
+averages for variables of interest is often experimentally easier than measuring the same
+variables in individual cells.
+
+FoldEco assumes free mixing of components
+FoldEco treats E. coli as single compartments (the cytoplasm) that are freely mixed; that is, we
+assume that the concentrations of the species in the model do not vary across the cell. Many
+factors could cause concentration heterogeneities within cells. However, the data to
+parameterize the spatial dependence of in vivo protein concentrations is only now becoming
+available (Beck et al., 2011), and some of it suggests that FoldEco components like GroEL
+(Charbon et al., 2011) and DnaK and DnaJ (Taniguchi et al., 2010) are in fact uniformly
+distributed. Thus, rather than complicating our model by adding the capacity to account for
+spatially heterogeneous concentrations of FoldEco components as well as introducing
+parameters for which we do not have estimates, we use the free mixing approximation.
+
+Parameters measured in vitro are used for processes occurring in vivo
+The default parameters used in FoldEco were all measured in vitro. However, FoldEco is meant
+to simulate these processes in vivo. Some features of the in vivo environment are easy to mimic
+in vitro (pH, ionic strength), but some are not; in particular, the presence of the cellular
+proteome is expected to affect protein folding and protein association energetics (Ebbinghaus
+and Gruebele, 2011; Gershenson and Gierasch, 2011). Measurements of protein stabilities in
+vivo have suggested that they are often similar to in vitro stabilities (Ghaemmaghami and Oas,
+2001; Ignatova and Gierasch, 2004), but they are sometimes higher (Dhar et al., 2011;
+Ebbinghaus et al., 2010), and high protein concentrations can also lower protein stability
+(Miklos et al., 2011). Given this uncertainty, we have taken a conservative approach and chosen
+
+                                                20
+to use the in-vitro-measured parameters without correction. These parameters will be replaced
+in the model as specific information about rate or equilibrium constants for the processes in
+FoldEco becomes available.
+
+FoldEco does not account for bacterial growth
+In its present form, FoldEco does not account for bacterial growth, which in effect dilutes
+proteins as they are being synthesized. Thus, FoldEco best represents bacteria that are not
+growing. This condition is met by bacteria that are overexpressing heterologous proteins, for
+which growth is strongly inhibited (Dong et al., 1995; Kurland and Dong, 1996), and bacteria in
+the lag and stationary phases. Future versions of FoldEco will account for bacterial growth.
+
+FoldEco does not account for the presence of the background proteome
+The FoldEco simulations reported herein track the synthesis and folding of a single client
+protein. However, no protein is produced in isolation: there is a background proteome that in
+principle could compete for proteostasis network components. This problem is acute during
+bacterial growth, as many, if not most, newly synthesized proteins interact with the
+proteostasis network (Calloni et al., 2012; Chapman et al., 2006; Fujiwara et al., 2010; Kerner et
+al., 2005) and would therefore compete with a client protein of interest. The problem is much
+reduced when bacteria are not growing, as the proteostasis network does not interact to nearly
+the same extent with pre-existing proteins (Calloni et al., 2012). Thus, again, FoldEco is most
+appropriate for use in situations like the overexpression of heterologous proteins, or the lag
+and stationary phases, where E. coli are producing few proteins other than the one of interest.
+In ongoing work, we are extending FoldEco to account for the proteome, using a realistic
+parameterization and coarse graining methods.
+
+FoldEco does not have the proteostasis network components for membrane or periplasmic
+proteins
+Membrane proteins have specialized systems for their folding and quality control (Dalbey et al.,
+2011; Knowles et al., 2009), as do periplasmic proteins (Allen et al., 2009). These systems are
+not included in the current version of FoldEco, which is intended for use with cytoplasmic
+proteins, but will be included in future versions.
+
+FoldEco does not account for stress responses
+FoldEco does not yet account for stress responses, like the heat shock response (Guisbert et al.,
+2008), which can upregulate the levels of proteostasis network components in response to
+environmental changes that affect protein folding. However, such stress responses can be
+roughly approximated by increasing the initial concentrations of the relevant components and
+accounting for the effect of the stress on the protein folding parameters (for example,
+
+                                                21
+increasing the temperature would be expected to destabilize a protein). Future versions of
+FoldEco will incorporate stress responses.
+
+FoldEco does not account for fluctuations in ATP concentration
+In this version of FoldEco, we have assumed that the concentration of ATP is in the millimolar
+range and is constant, so that ATP binding is never rate limiting. However, FoldEco can be used
+to track ATP use by the proteostasis network, since ATP consumption rates are known for the
+systems in FoldEco (Figure S1).
+
+Concentrations of mRNA are assumed to be at steady state in FoldEco
+The rate constant for translation initiation, si,3, is assumed to be constant throughout FoldEco
+simulations. This is equivalent to assuming that the concentration of mRNA for the client
+protein of interest is at steady state at the beginning of the simulation. This assumption is
+consistent with observations that transcription is not rate limiting in protein production
+(Sanden et al., 2003) that protein synthesis lags mRNA synthesis (Golding et al., 2005), and that
+protein translation can occur co-transcriptionally (Miller et al., 1970). However, given this
+assumption, one must be judicious in choosing the t = 0 time point when simulating
+experimental data. The t = 0 time point should be assigned to the time at which the client
+protein mRNA (and therefore the rate of protein synthesis) reaches steady state, not
+necessarily the time when expression is induced. When mRNA levels reach steady state rapidly
+compared to the time scale of the simulation (say, within 15 min for a 3 hour simulation), the
+time when expression is induced can be assigned to be t = 0. This condition should be satisfied
+most of the time, given that the approach of the concentration of a given mRNA to its steady
+state value is determined by its degradation rate, and the half-lives of mRNA in E. coli are
+generally 3-8 min (Bernstein et al., 2002). When this condition is not met, the time point at
+which the protein synthesis rate reaches steady state should be assigned to be t = 0.
+
+FoldEco uses a simplified model of translation
+In FoldEco, protein synthesis is represented as a simplified, three-step process. The synthesis of
+a client protein (protein “i”) begins with the initiation of translation. This process involves
+several steps (Laursen et al., 2005), but is simplified to a single step in FoldEco. This
+simplification is appropriate since there is a single rate limiting step in translation initiation: the
+rearrangement to the stable 30S initiation complex of the metastable ternary complex between
+the 30S ribosome subunit, mRNA, and the formyl-Met-charged tRNA (Gualerzi et al., 1977;
+Laursen et al., 2005). The next step is mRNA translation up to the point that the nascent protein
+is long enough to emerge from the ribosomal exit tunnel, and the final step is translation of the
+remainder of the mRNA. We treat both of these processes as single steps, rather than treating
+the translation of individual codons separately, as has been done in some models of translation
+
+                                                  22
+(Zouridis and Hatzimanikatis, 2007). This approach is justified here, because the rate of protein
+synthesis rapidly comes to steady state (within ~1 min for all of the simulations described in this
+work) on the time scales of interest to us (15 min to 2.75 h). Using a finer grained model of
+translation is therefore not necessary.
+
+FoldEco does not explicitly account for co-translational folding and misfolding
+Many proteins are known to begin folding co-translationally, especially multi-domain proteins
+(Eichmann et al., 2010; Evans et al., 2008; Fedorov and Baldwin, 1995; Frydman et al., 1999;
+Kelkar et al., 2012; Siller et al., 2010). The role of co-translational folding in E. coli, however, is
+diminished by two factors. First, bacterial ribosomes translate proteins much faster than
+eukaryotic ribosomes, leaving less time for co-translational folding (Siller et al., 2010). Second,
+trigger factor and/or DnaK bind to most proteins as they emerge from the ribosomal exit tunnel
+(Deuerling et al., 1999; Teter et al., 1999; Wegrzyn and Deuerling, 2005). This role of trigger
+factor and DnaK is incorporated implicitly into the model by not including a pathway for co-
+translational folding or misfolding. This approach should yield acceptable results, except in the
+case of double deletions of trigger factor and DnaK. Future versions of FoldEco will explicitly
+include the possibility of co-translational folding and misfolding.
+
+Aggregation in FoldEco
+Aggregates composed of two, three, etc. monomers and all of their complexes with chaperones
+(of which there are nine) count as individual species in FoldEco. The size of the system of
+equations in FoldEco therefore depends on the maximum aggregate size allowed. We have
+found that artifacts arise when the cut-off size is too small, while computation times are too
+long when the cut-off size is too large (computation time scales quadratically with the number
+of equations being solved: with a maximum aggregate size of 100, FoldEco can be solved in ~1
+s, but with a maximum size of 1000, 20-40 s are needed). We find that a maximum aggregate
+size between 50 and 200 is a good compromise between these considerations. An aggregate
+consisting of 200 monomers is much smaller than typical inclusion bodies (Taylor et al., 1986),
+but increasing the size cut-off does not change the behavior of the model substantially (see
+below for more information on the interpretation of the maximum fibril size setting).
+
+The stoichiometry of B+KJE system components binding to aggregates is assumed to be 1:1
+In principle, it should be possible for multiple ClpB molecules to be working in parallel on a
+single aggregate (provided that the aggregate is large enough). However, in the mechanism for
+the B+KJE disaggregation system (Figure S1D), a 1:1 stoichiometry is assumed between
+disaggregation system components and aggregates. Unfortunately, this is a computational
+necessity. Each aggregate size is tracked individually in the model; thus, if aggregates composed
+of up to n monomers can each have m ClpB molecules bound to them, then n × m equations
+
+                                                  23
+would be needed to track all of the aggregate:ClpB species, which would greatly increase
+computation times. This problem is mitigated, however, upon consideration of how FoldEco
+represents aggregation. The most intuitive way to view the aggregated states A2, A3,…, An is as
+individual oligomers. In a rough approximation, they also could be viewed as reactive sites on a
+single large aggregate instead, in which case the number concentration of aggregates (         )
+is equivalent to the number of reactive sites on the single aggregate, the size-weighted
+concentration of aggregates (            ) is equivalent to the total number of monomers in the
+single aggregate, and n corresponds to the maximum number of monomers in the aggregate
+per reactive site. In this scenario, ClpB molecules can attach to each reactive site, and the
+density of reactive sites is controlled by adjusting n, with the number of reactive sites
+decreasing as n increases.
+
+Proteostasis network components not currently in FoldEco
+Some chaperoning systems are not yet included in FoldEco, like the bacterial small heat shock
+proteins, IbpA and IbpB, and the bacterial Hsp90, HtpG. However, the effects of these systems
+on proteostasis appear to be subtle (Bardwell and Craig, 1988; Thomas and Baneyx, 1998).
+Nevertheless, future versions of FoldEco will incorporate these proteostasis network
+components as the necessary mechanistic information becomes available.
+
+Synthesis and Degradation Rate Simulation Experiments
+
+We determined how the balance between synthesis and degradation affects aggregation in the
+absence of chaperones in FoldEco by seeking conditions that would allow a model client protein
+with kf = 1 s−1, Kf = 1000, km = 1 s−1, Km = 10, ka = 0.1 μM−1 s−1, and Ccrit = 0.1 μM (the other
+parameters used are listed Table S2) to be less than 5% aggregated after 10,000 s of simulation
+time. To do this, the chaperone concentrations were set to 0 and FoldEco was solved for the
+model protein at a constant synthesis rate while the Lon concentration was varied (using a
+quasi-Newton method as implemented by the Mathematica® function FindMinimum) until the
+amount of aggregates at 10,000 s was 5% of total protein. Above this Lon concentration, in the
+unshaded region of Figure 2A, aggregates are < 5% of total protein; below it, in the shaded
+region of Figure 2A, aggregates are > 5%. This was repeated at several synthesis rates, ranging
+from 0.01 μM s−1 to 1 μM s−1, to give the points that, when joined, give the black curve in Figure
+2A. FoldEco was solved again with the synthesis rates and Lon concentrations found above to
+determine the native protein concentration and the fraction of synthesized protein that has
+been degraded at 10,000 s. The synthesis rate was varied by varying si,3 and si,4 between
+0.000504 s−1 and 0.375 s−1 with si,7 = si,8 = 0.25 s−1, si,11 = si,12 = 0.1 s−1 (appropriate for synthesis
+of a 200-residue protein at 20 residues s−1; Figure S1A), and a ribosome concentration of 20
+μM. This procedure was repeated with the default chaperone concentrations (Table S1) to
+
+
+                                                   24
+determine how including chaperones modulated the effect of the balance between synthesis
+and degradation on aggregation model client protein described above.
+
+Approach to steady state
+
+We solved FoldEco for the test protein described in the “Synthesis and Degradation Rate
+Simulation Experiments”, which has the following set of folding parameters: kf = 1 s−1, Kf = 1000,
+km = 1 s−1, Km = 10, ka = 0.1 μM−1 s−1, and Ccrit = 0.1 μM, and an initial Lon concentration of 0.3
+μM. The other parameters used are listed Table S2. The solutions for unfolded, misfolded and
+native protein are shown in Figure S2B. These plots show that protein accumulation occurs on
+two time scales. It begins rapidly, with the unfolded and misfolded states reaching a pseudo-
+steady state within 50 s. The concentrations of these species slowly increase after that until
+they reach their true steady state at 15,000-20,000 s.
+
+Analysis of a simplified model for protein synthesis, folding, and degradation
+
+We analyzed the behavior of FoldEco on the two time scales described above using a simplified
+model that includes only synthesis, folding, and degradation (Figure S2C). Synthesis is
+condensed to a single step with rate σ. Degradation is simplified to a Briggs-Haldane scheme,
+where D is a Lon-type protease that degrades U and M. The rate constants for substrate
+binding, release, and degradation (δ1, δ2, δ3) are assumed to be the same for U and M. The
+folding and unfolding rate constants are φ1 and φ2, while those for misfolding and un-
+misfolding are μ1 and μ2. The rate equations for the system are
+
+                                                                                           (S1)
+
+                                                                                           (S2)
+
+                                                                                           (S3)
+
+                                                                                           (S4)
+
+                                                                                           (S5)
+
+                                                                                   (S6)
+
+There is also one conservation equation:
+
+                                                                                   (S7)
+
+
+
+                                                25
+We begin by examining the true steady state, where all of the rate equations above are equal
+to 0. Setting equations S4 and S5 equal to 0 and rearranging them gives
+
+                                                                                              (S8)
+
+                                                                                              (S9)
+
+where the subscript “s” indicates steady state. Summing equations (S1) and (S2), and equations
+(S4) and (S5) gives
+
+
+
+                                                                                      (S10)
+
+                                                                                              (S11)
+
+And from equation (S3) we have
+
+                                                                                              (S12)
+
+Summing equations (S10), (S11), and (S12) gives
+
+
+
+Or
+
+                                                                                              (S13)
+
+Inserting this into equation (S8) for the conservation of D and rearranging gives
+
+                                                                                              (S14)
+
+So, the concentration of free protease can be written simply in terms of the total protease
+concentration ([D]tot), the synthesis rate (σ), and the equivalent of kcat for the protease (δ3). In
+addition, combining equations (S10), (S12), (S13), and (S14) and rearranging gives
+
+                                                                                              (S15)
+
+
+For convenience we define
+
+
+                                                                                              (S16)
+
+
+
+                                                  26
+Δs is the effective degradation rate constant. Equation (S15) can now be written as
+
+                                                                                             (S17)
+
+We note that if σ/δ3 > [D]tot, then [D]s and Δs would be negative, which is not physically
+reasonable. In this situation, synthesis and degradation cannot be balanced, and there is no
+steady state. The amount of protein in the system simply increases without bound.
+
+Equation (S17) shows that the sum of the concentrations of U and M at true steady state can be
+written in terms of the synthesis and degradation parameters, independent of the folding
+parameters. The ratio of [U]s and [M]s can be obtained by inserting equation (S9) into equation
+(S2) to give
+
+                                                                                             (S18)
+
+Or
+
+
+                                                                                             (S19)
+
+The ratio of [M] and [U] at steady state is then
+
+                                                                                             (S20)
+
+At equilibrium, in the absence of synthesis and degradation, this ratio would be
+
+
+
+
+Since Δs has to be positive if steady state is possible, the steady state ratio of [M] and [U] has to
+be lower than their equilibrium ratio. In other words, the degradation system decreases the
+apparent steady-state stability of the misfolded state. Finally, the steady state ratio of [N] and
+[U] is
+
+                                                                                             (S21)
+
+The steady state ratio of [N] and [U] is the same as it is at equilibrium.
+
+We analyze the earlier pseudo-steady state by assuming that the rate equations for all of the
+species in the system except N are approximately equal to 0, and that φ1[U] >> φ2[N] (i.e.,
+unfolding is negligible compared to folding). The equations for processes that do not involve
+
+
+
+                                                   27
+interconversion or interaction with the native state retain their form, so that equations (S8) and
+(S9) become
+
+                                                                                           (S22)
+
+                                                                                           (S23)
+
+where the subscript “ps” indicates pseudo-steady state. We begin our analysis of the pseudo-
+steady state by summing equations (S1) and (S4), and equations (S2) and (S5) to get
+
+                                                                                           (S24)
+
+
+                                                                                           (S25)
+
+Inserting the expressions for [D:U] and [D:M] into equations (S24) and (S25) gives
+
+                                                                                           (S26)
+
+
+                                                                                           (S27)
+
+The coefficients in the last terms in these equations are similar to the expression for Δs. We
+therefore define
+
+                                                                                           (S28)
+
+where [D]ps is the pseudo-steady state concentration of D. Equations (S26) and (S27) can be
+rearranged and written in matrix form
+
+                                                                                           (S29)
+
+The determinant of the rate constant matrix Rps is
+
+                                                                                           (S30)
+
+The solution to equation (S29) is
+
+                                                                                           (S31)
+
+From this solution, the sum of [U] and [M] at pseudo-steady state is
+
+                                                28
+                                                                                              (S32)
+
+
+
+This is similar in form to the expression at steady state in equation (S17), except that there is a
+second term in the denominator, and it depends explicitly on folding parameters: the folding
+rate φ1 and the quantity μ1/(μ2 + Δps). This latter quantity is the pseudo-steady state ratio of [M]
+to [U], as is evident from equation (S31):
+
+                                                                                              (S33)
+
+Again, Δps has to be positive, so the ratio of [M] and [U] at pseudo-steady state is less than it is
+at equilibrium, just as it is at true steady state. Thus, degradation decreases the apparent
+steady-state stability of the misfolded state throughout the time course of protein synthesis,
+and not just at steady state.
+
+The effect of this apparent destabilization of the misfolded state on the concentration of the
+native state is mediated by its effect on the concentration of the unfolded state. The
+concentration of native protein at steady state is proportional to the concentration of unfolded
+protein, as illustrated by rearranging equation (S21).
+
+                                                                                              (S34)
+
+The rate of accumulation of native protein at pseudo-steady state is also proportional to the
+concentration of unfolded protein. Given the pseudo-steady state assumptions, the rate
+equation for [N] becomes
+
+                                                                                              (S35)
+
+Because degradation destabilizes the misfolded state relative to the unfolded state at both
+pseudo- and true steady state, the concentration of unfolded protein is higher than one would
+expect based on its equilibrium energetics under these conditions. As a consequence, both the
+rate of accumulation of natively folded protein and its final concentration are higher because of
+degradation. This result explains the observation that jointly increasing the synthesis rate and
+protease concentration can result in an increase in the native state concentration throughout
+the time course of a FoldEco simulation.
+
+As noted above and as apparent from Figure S2B, protein accumulation in FoldEco happens in
+two stages. The pseudo-steady state is reached rapidly, and is followed by a much slower
+evolution to true steady state. The rate of approach to true steady state cannot be determined
+
+
+                                                 29
+analytically, even for this simplified system. We can, however, get some information by
+examining the asymptotic rate of approach to steady state using perturbation methods. To do
+this, we first observe that the equations for [D:U] and [D:M] have the same form at pseudo-
+and true steady state, and so it is reasonable to assume that they retain this form throughout
+the approach to steady state. Thus,
+
+                                                                                        (S36)
+
+                                                                                        (S37)
+
+where the subscript “t” indicates that the equations are valid between pseudo- and true steady
+state. Combining equations (S36) and (S37) with equation (S7) yields
+
+                                                                                        (S38)
+
+
+Inserting equations (S36) and (S37) into equations (S1), (S2), and (S3) gives
+
+                                                                                        (S39)
+
+                                                                                        (S40)
+
+                                                                                        (S41)
+
+Close to steady state, [U]t differs from [U]s by only a small quantity u:
+
+                                                                                        (S42)
+
+Similarly, for [M]t, [D]t, and [N]t:
+
+                                                                                        (S43)
+
+                                                                                        (S44)
+
+                                                                                        (S45)
+
+The value of d can be approximated in terms of u and m using equation (S38) and noting that
+[D]t = [D]s at steady state
+
+
+                                                                                        (S46)
+
+
+
+                                                 30
+Using equations (S14) and (S15) to substitute for [U]s + [M]s enables us to simplify equation
+(S46) to
+
+                                                                                           (S47)
+
+We note that the last two terms in equation (S39) can be combined to give
+
+                                                                                           (S48)
+
+Using equations (S42) and (S43),
+
+                                                                                           (S49)
+
+Neglecting the last term in which the small quantities u and d are multiplied, and using
+equation (S47) to replace d gives
+
+
+                                                                                           (S50)
+
+Inserting equation (S16) into the above gives
+
+                                                                                  (S51)
+
+Similarly,
+
+                                                                                           (S52)
+
+With this groundwork, we can write equations for du/dt, dm/dt, and dn/dt for the asymptotic
+rate of approach of the system to steady state. Inserting equations (S42)-(S45) into equations
+(S39)-(S41) and then simplifying with equations (S51) and (S52) gives the following:
+
+
+
+                                                                                  (S53)
+
+                                                                                           (S54)
+
+                                                                                           (S55)
+
+In matrix form,
+
+
+
+                                                31
+                                                                                             (S56)
+
+
+
+
+Let the matrix of rate constants above be denoted Rp, where the subscript “p” indicates that it
+is for the rate equations of the perturbations u, m, and n. This system of equations is first-order,
+homogeneous, linear, and has constant coefficients. Its solutions are therefore sums of
+exponentials, the coefficients and exponents of which are derived from the eigenvectors and
+eigenvalues of Rp. The eigenvalue of Rp with the smallest magnitude is of particular interest
+because it determines the rate of approach of the system to steady state. Unfortunately, the
+eigenvalues of a 3×3 matrix are the roots of a third-order polynomial, and are therefore difficult
+to analyze. A lower bound on these eigenvalues, however, can be determined using the
+Gershgorin circle theorem (Marcus and Minc, 1964). For an n×n matrix A with elements aij, we
+can define
+
+                                                                                             (S57)
+
+The Gershgorin circle theorem states that each eigenvalue of A is in at least one of n circles in
+the complex plane centered at aii and with radius ri:
+
+                                                                                             (S58)
+
+For Rp, a 3×3 matrix, there are 3 circles. Since the diagonal elements of Rp are real, these circles
+are centered on the real number axis. Furthermore, Rp is diagonally similar to a symmetric
+matrix, so its eigenvalues are real as well. The bounds on the eigenvalues are therefore the
+points where the Gershgorin circles intersect the real number axis. To shrink the circles we can
+use a diagonal similarity transformation, wherein Rp is multiplied by a diagonal matrix P and its
+inverse P−1 on the right and left, respectively.
+
+                                                                                             (S59)
+
+This operation leaves the eigenvalues of Rp unchanged, but changes the radii of the Gershgorin
+circles, so that the bounds can be improved. If we take
+
+
+                                                                                             (S60)
+
+
+then
+
+
+
+                                                 32
+                                                                                           (S61)
+
+
+and
+
+
+
+
+                                                                                           (S62)
+
+
+
+
+where c is a positive constant. The value of c can be chosen so that all of the Gershgorin circles
+lie entirely in the left half of the complex plane. With this choice, we can now concern ourselves
+exclusively with the lowest-magnitude (least negative) bound on the eigenvalues, that is, the
+intersection of the Gershgorin circles with the real number axis that is closest to 0. The
+intersections of the Gershgorin circle with the real number axis are given by the center ± the
+radius of the circles. Since the circles are entirely in the left-half of the complex plane, the
+intersection for which the center and radius are added is closest to 0. The sum of the centers
+and radii of the Gershgorin circles happens to be equal to the column sums of the matrix. These
+column sums are
+
+                                                                                           (S63)
+
+                                                                                           (S64)
+
+                                                                                           (S65)
+
+Here we have used equations (S14) and (S17) to simplify these column sums. Since c can be
+chosen arbitrarily, we can use it to ensure that the column 1 and column 3 sums are equal:
+
+                                                                                           (S66)
+
+Rearranging equation (S66) shows that
+
+                                                                                           (S67)
+
+The left-hand side of equation (S67) is equal to φ1 when c = 0 and increases to φ1 + φ2 when c =
+1. The right-hand side is equal to 0 when c = 0 and tends to infinity when c → 1−. Thus, the left-
+and right-hand sides of equation (S67) have to be equal somewhere in the range 0 ≤ c ≤ 1. With
+this information, we can rearrange equation (S66) as follows:
+
+                                                33
+                                                                                              (S68)
+
+In equation (S68), the second term has to be negative, because it was shown above that 0 ≤ c ≤
+1. This observation means that
+
+                                                                                              (S69)
+
+In this inequality, the left-hand side is the bound on the eigenvalue from column 2 of Rp. The
+right-hand side is the bound on the eigenvalue from column 3 of Rp (which is equal to the
+bound from column 1 by virtue of our choice of c). Inequality (S69) shows that the lowest
+magnitude bound on the eigenvalues of Rp, which we will denote βmin, is therefore the one
+derived from columns 1 and 3, that is:
+
+                                                                                              (S70)
+
+The rate of approach of the system to steady state clearly depends on φ2, the rate constant for
+unfolding of the native state. It also depends on the value of c. An explicit expression for c can
+be obtained by rearranging equation (S66):
+
+                                                                                              (S71)
+
+This equation is quadratic in c. The positive root is:
+
+
+
+                                                                                              (S72)
+
+This root can be simplified by noting that φ1 >> φ2 for proteins with stable native states (recall
+that the equilibrium constant for folding, Kf, is equal to φ1/φ2 and is usually >> 1). Since 0 ≤ c ≤
+1, the term φ2c2 in equation (S71) can be neglected, and the root simplifies to
+
+                                                                                              (S73)
+
+
+Inserting this into equation (S70) gives
+
+
+                                                                                              (S74)
+
+
+Equation (S74) shows that when Δs[D]s/[D]tot >> φ1, βmin is
+
+                                                                                              (S75)
+
+
+                                                  34
+which happens when degradation is much faster than folding. On the other hand, when φ1 >>
+Δs[D]s/[D]tot,
+
+
+                                                                                        (S76)
+
+which happens when folding is much faster than degradation. In summary, the rate of approach
+of the system to steady state is governed by the smallest eigenvalue of Rp, which is the
+apparent rate constant for the approach of the system to steady state. The bound on this
+eigenvalue is βmin, which is a function of the folding, unfolding, and degradation rates, but is
+never larger than the unfolding rate constant of the client protein. In FoldEco, the unfolding
+rate constant is given by kf / Kf, the ratio of the folding rate and equilibrium constants.
+
+Examination of KJE and GroELS substrates
+
+Four thousand random biophysical profiles were generated, comprising folding rate and
+equilibrium constants (kf and Kf), misfolding rate and equilibrium constants (km and Km),
+monomer-aggregate association rate constants (ka), and critical concentrations for aggregation
+(Ccrit). The values of kf and km varied between 10−3 and 103 s−1; ka varied between 10-3 and 103
+μM−1 s−1; Kf varied between 102 and 108; Km varied between 10−3 and 103; and Ccrit varied
+between 1 mM and 1 nM. In all cases, the parameters were log-uniformly distributed (i.e., their
+logarithms had a uniform distribution) between the indicated bounds.
+
+The bounds for kf are taken from a set of reported folding rates of single domain proteins
+(Ouyang and Liang, 2008; Plaxco et al., 1998). The same bounds are used for km, since
+misfolding and folding should be kinematically similar, despite having different endpoints. The
+bounds for ka correspond to nonspecific bimolecular associations at the low end to the diffusion
+limit at the high end (Northrup and Erickson, 1992). Values of Kf from 102 to 108 correspond to
+folding free energies from about −3 to −11 kcal mol−1, which are typical of single domain
+proteins (although the very low end of stabilities would probably only be found in proteins with
+destabilizing mutations) (Ghosh and Dill, 2010; Ghosh and Dill, 2009). Values of Km from 10−3 to
+103 correspond to misfolding free energies from about +4 to −4 kcal mol−1. This range reflects
+our expectation that the misfolded state should be unstable for well-behaved proteins, but
+usually less stable than the native state even for poorly-behaved proteins. The range for Ccrit
+(which is also equal to the monomer-aggregate dissociation constant) corresponds to weak,
+nonspecific protein-protein associations at the low end to moderately strong protein-protein
+associations at the high end (Kastritis et al., 2011).
+
+While using the bounds described above ensures that individual parameters will have realistic
+values, it is possible that combinations of parameters that do not occur in nature will be
+
+                                               35
+included in our data set. Such parameter combinations, however, can still be instructive about
+trends in chaperone behavior. Moreover, we are unaware of experimental data on joint
+parameter distributions that could be used to justify blocking out regions of parameter space.
+We therefore uniformly sampled the entire six-dimensional parameter space.
+
+FoldEco was solved at two synthesis rates (0.02 μM s−1 and 0.2 μM s−1) with each of the random
+biophysical profiles under three conditions: with neither the KJE nor the GroELS system, with
+the KJE system (30 μM DnaK, 1 μM DnaJ, 15 μM GrpE), or with the GroELS system (3 μM GroEL
+tetradecamer, 5 μM GroES hexamer). The desired synthesis rates were obtained by setting si,3
+and si,4 to 0.001014 s−1 or 0.011628 s−1, with si,7 = si,8 = 0.25 s−1, si,11 = si,12 = 0.1 s−1 (appropriate
+for synthesis of a 200-residue protein at 20 residues s−1; Figure S1A). In all cases, Lon (0.3 μM
+hexamer) and trigger factor (20 μM) were included, but ClpB and native state proteases were
+excluded. The same association rate and equilibrium constants with DnaK, DnaJ, and GroEL
+(those given in Figure S1) were used for all of the random client proteins, and the folding and
+misfolding rates were assumed to be the same inside the GroEL cavity as in solution. We
+provide a complete list of the parameters used in Table S4 (other than kf, Kf, km, Km, ka, and Ccrit
+which are in Tables S3 and S5). Of the 4,000 solutions at the low synthesis rate, 13 (0.325%)
+failed error tests (i.e., the solutions had insufficient accuracy or precision) at time steps before
+10,000 s. At the high synthesis rate, 11 (0.275%) solutions failed error tests. These problems
+arise almost exclusively in the rare cases in which a very fast aggregation rate (ka > 102.5 μM−1
+s−1) is coupled with low fibril stability (Ccrit > 100 μM), and tendencies toward high misfolded
+state stability (Km > 1) and a low folding rate (kf < 1 s−1). For this small region of parameter
+space, the solutions to FoldEco are too stiff to integrate up to 10,000 s with the default
+accuracy and precision goals, even with Mathematica’s powerful numerical differential
+equation solving algorithms. This problem could be addressed by relaxing the accuracy and/or
+precision goals, but since such a small portion of the parameter space was affected, we simply
+discarded the cases in question. The solutions were evaluated at 10,000 s and the top 5% of the
+increases in the concentration of the native state upon adding the KJE system or the GroELS
+system (top 200) were identified (Tables S3 and S5).
+
+Testing FoldEco against Experimental Data on the Effect of Translation Rate on Luciferase
+Folding
+
+Siller et al. examined the effect of translation rate on the in vivo folding efficiency of firefly
+luciferase (Luc), an aggregation-prone protein (Siller et al., 2010). They controlled the
+translation rate using streptomycin pseudo-dependent (SmP) ribosomes of E. coli, which have a
+translation rate of 5 amino acids per second (AA s−1) under normal conditions, but an
+approximately two-fold higher translation rate in the presence of streptomycin (Ruusala et al.,
+1984; Siller et al., 2010; Zengel et al., 1977). They found that the aggregation of Luc decreased
+
+                                                    36
+at the slower translation rate (in the absence of streptomycin), while the specific and absolute
+activities of Luc increased, after both 15 min and 1 h of Luc expression. Our goal in this
+experiment was to determine to what extent these experimental results can be reproduced in
+simulations with FoldEco.
+
+To do this, we first needed quantitative information on all of these effects. The extents of
+aggregation in equivalent amounts of Luc produced at slower or faster translation rates (here,
+“slower” and “faster” translation rates refers to the translation rates of Sm P ribosomes in the
+absence or presence of streptomycin, or about 5 or 10 AA s −1, respectively) after 15 min or 1 h
+of expression are illustrated by a western blot (15 min; their Figure 2a) or a Coomassie-stained
+gel (1 h; their Figure 2b). These gels qualitatively show that there is less aggregation with slower
+translation of Luc than with faster translation. To quantify these results, we copied the images
+of the gels in the pdf file of the Siller et al. paper using Adobe® Acrobat®, pasted the image into
+Adobe® Photoshop®, and saved them as grayscale tif files. These files, which each consisted of a
+set of numbers between 0 and 1 that represent the gray level of the image (0 = black, 1 =
+white), were imported into Mathematica® and inverted (so that 1 = black and 0 = white). The
+result for the gel from the 15 min time point is shown as a three-dimensional plot in Figure S5A,
+with the original gel shown as an inset. The bands representing Luc in the lanes with soluble
+and pelleted protein were integrated using Mathematica® to determine the relative amounts of
+Luc in each of these bands. The resulting integrated intensities (in arbitrary units) for the Luc
+bands in the gel from the 15 min time point after background subtraction were: soluble Luc,
+slow translation = 188.9; pelleted Luc, slow translation = 64.2; soluble Luc, fast translation =
+96.4; pelleted luc, fast translation = 86.6. Thus, the fraction of Luc that remained soluble at the
+slow translation rate (fsol) was 0.75. This fraction decreased to 0.53 at the faster translation
+rate. Unfortunately, the Luc bands were not sufficiently resolved from background bands in the
+gel from the 1 h time point to reliably integrate them, so from here on we focused on the data
+from the 15 min time point.
+
+The relative specific activity (rSA) of Luc at 15 min was determined directly from the bar graph in
+Figure 2a in Siller et al (Siller et al., 2010). This graph shows the relative Luc activity in a given
+amount of total protein and the Luc activity present in just the soluble fraction when Luc is
+expressed at slow or fast translation rates. We focused on the relative activities of the soluble
+fractions, since they had virtually all of the Luc activity. Measuring directly from the bar graph in
+Figure 2a in Siller et al., we found that the ratio of the relative activities in the soluble fractions
+from samples of Luc expressed at slower and faster translation rates was rSA = 1.7.
+
+To simulate these experimental results using FoldEco, we first had to constrain the input
+parameters to the extent possible. It has been shown that Luc folds in vitro via a mechanism
+that involves an initial fast equilibration between the unfolded state and a pair of aggregation-
+
+
+                                                  37
+prone intermediates, which we consider together to make up the misfolded state (M) in
+FoldEco. This first event happens within the dead time of manual mixing experiments. Based on
+this observation, we assigned km = 1 s−1 (Herbst et al., 1998) The stability of these two
+intermediates collectively was measured to be ~4 kcal mol−1, which corresponds to Km = 800
+(Herbst et al., 1997). The overall stability of Luc was measured to be ~12 kcal mol −1, which
+corresponds to Kf = 5 × 108 (Herbst et al., 1997). Luc aggregates at concentrations below 100
+nM, so we assigned Ccrit = 10 nM; however, this process is not fast at sub-micromolar
+concentrations, so we assigned ka = 0.1 μM s−1 (Herbst et al., 1998; Herbst et al., 1997). The
+aggregation of Luc shows some signs of behaving like a downhill polymerization—the
+concentration of soluble aggregation-prone intermediate in equilibrium with aggregates has a
+weak tendency to increase in concentration as a function of total protein (Herbst et al., 1998)—
+so the supercritical concentration was set equal to Ccrit.
+
+To constrain kf, we took advantage of literature data for the in vitro KJE-system-mediated
+refolding of Luc. Szabo et al. measured the kinetics of reactivation of Luc (0.25 μM) in the
+presence of 1.25 μM DnaK, 0.25 μM DnaJ, and 1.25 μM GrpE (Szabo et al., 1994). Their data
+(fraction of active Luc vs. time) were read off of their Figure 1 and are reproduced in Figure S5B.
+FoldEco was then used to fit this data set by setting the concentrations of the KJE components
+to their experimental values, and setting the concentrations of the ribosome, proteases, and
+the other chaperones equal to 0. With these settings, all of the systems in FoldEco are switched
+off except the KJE cycle, and FoldEco simplifies to a model of KJE-system-assisted in vitro
+folding. The folding parameters were set to the values noted above for Luc, and the parameters
+in Table S2 were used for the steps in the KJE cycle. FoldEco was then fit to the experimental
+data using the Mathematica® function NonlinearModelFit with kf as the only adjustable
+parameter. The fit to the data was good (R2 = 0.98; Figure S5B), with the best-fit value of kf
+being 0.015 s−1 (95% confidence interval: 0.010 s−1 to 0.023 s−1). This value of kf completed the
+biophysical profile of Luc,
+
+The parameters for protein synthesis were constrained as follows. Siller et al. reported that the
+rate of protein synthesis in their system was proportional to the rate of polypeptide elongation
+(steps si,7 and si,8, and si,11 and si,12 in Figure S1A). Protein synthesis was therefore rate limited
+by this process rather than translation initiation. The rate of elongation was set to 5 AA s −1 for
+the slower translating bacteria and 10 AA s−1 for the faster translating bacteria (Ruusala et al.,
+1984). According to Figure S1A, this makes si,7 = si,8 = 0.125 s−1 and si,11 = si,12 = 0.0098 s−1 for the
+slower translating bacteria, and si,7 = si,8 = 0.25 s−1 and si,11 = si,12 = 0.0196 s−1 for the faster
+translating bacteria. The rate constant for the initiation of translation (si,3) was set to 0.1 s−1, so
+that initiation was much faster than elongation. Figure 1A in Siller et al suggests that their
+bacteria double in ~1 h during log-phase growth for the faster translating bacteria (Siller et al.,
+2010), so the concentration of ribosomes (which correlates with the growth rate) for these
+
+                                                   38
+bacteria was set to 20 μM (Bremer and Dennis, 1987). The concentration of ribosomes was kept
+the same for the slower translating bacteria, since their slow growth rate was assumed to be
+due to their translation rate, not the concentration of their ribosomes.
+
+The concentrations of the other proteostasis network components were set using the
+information in Table S1. This table shows that reported measurements of chaperone vary
+widely, and any set of concentrations within the 50% confidence intervals in Table S1 can be
+supported with experimental data. Because the expression of aggregation-prone proteins like
+Luc is known to induce the heat-shock response (Hoffmann and Rinas, 2004), we used
+concentrations from the tops of these confidence intervals, which are comparable to the
+concentrations reported by Ishihama et al. and Lopez-Campistrous et al. (Ishihama et al., 2008;
+Lopez-Campistrous et al., 2005). Thus we set the chaperone concentrations as follows: [trigger
+factor] = 40 μM, [DnaK] = 50 μM, [DnaJ] = 2 μM, [GrpE] = 20 μM, [GroEL tetradecamer] = 5 μM,
+[GroES heptamer] = 10 μM, [Lon hexamer] = 0.5 μM, [ClpB hexamer] = 0.5 μM. Siller et al.
+found no difference in chaperone concentrations between the slower and faster translating
+bacteria (Siller et al., 2010), so we used the above chaperone concentrations in our simulations
+of both conditions.
+
+Using the parameters noted above and the default values in Table S2 for the remaining
+parameters, we simulated the expression of Luc in the slower and faster translating bacteria.
+We took the fraction of soluble Luc (fsol) to be
+
+
+
+
+A substantial amount of non-native chaperone-bound Luc was included in the soluble fraction.
+Siller et al. do not report experiments that can be used to judge whether their soluble protein in
+fact included chaperone-bound, non-native Luc (Siller et al., 2010). The ratio of specific
+activities of Luc in the slower and faster translating bacteria (rSA) was taken to be
+
+
+
+
+The results of our simulation at the 15 min time point are summarized in Table S6, according to
+which the values of fsol for the slower and faster translating bacteria are 0.62 and 0.35, and the
+value of rSA is 1.4. These values are compared to the experimental results in Figure 5.
+
+To determine the effect of chaperone concentrations on our results, the simulations were
+repeated with the default chaperone concentrations from Table S1 ([trigger factor] = 20 μM,
+[DnaK] = 30 μM, [DnaJ] = 1 μM, [GrpE] = 15 μM, [GroEL tetradecamer] = 3 μM, [GroES
+
+                                               39
+heptamer] = 5 μM, [Lon hexamer] = 0.3 μM, [ClpB hexamer] = 0.3 μM). The results of these
+simulations at lower chaperone concentrations are summarized in Table S7, according to which
+the values of fsol for the slower and faster translating bacteria are 0.32 and 0.18, and the value
+of rSA is 1.6. These values are compared to the experimental results in Figure S5C and D. As
+stated in the main text, the simulations reproduce the trends in the experimental data, but they
+overemphasize aggregation.
+
+Of the proteostasis network components in FoldEco, the results of the Luc expression
+simulations are most sensitive to the concentrations of the KJE system components (data not
+shown). The concentration of GroEL does not strongly affect our results, consistent with the
+experimentally observed inability of GroEL to facilitate Luc refolding in vitro (Buchberger et al.,
+1996).
+
+Siller et al. observe that not only the specific activity, but the absolute activity of Luc increases
+in the slower translating bacteria. According to their Figure 2c, the Luc produced by the slower
+translating bacteria is about 1.5-fold higher than that produced by the faster translating
+bacteria after 1 h (Siller et al., 2010). They attribute this effect to improved cotranslational
+folding when translation is slower. Since FoldEco does not explicitly account for cotranslational
+folding (see above), this effect is not reproduced in our simulations. We can, however, roughly
+approximate cotranslational folding by increasing the kf in the simulation with the slower
+translation rate. We find that increasing kf by a factor of about 1.9 reproduces the
+experimentally observed 1.5-fold difference in the absolute activity of Luc produced in the
+slower translating bacteria (Figure S5E). Thus, co-translational folding increases the effective
+folding rate of Luc by 1.9 fold.
+
+
+
+
+                                                 40
+                                     Supplemental References
+
+Allen, W.J., Phan, G., and Waksman, G. (2009). Structural biology of periplasmic chaperones.
+Adv Protein Chem Struct Biol 78, 51-97.
+Bardwell, J.C., and Craig, E.A. (1988). Ancient heat shock gene is dispensable. J. Bacteriol. 170,
+2977-2983.
+Beck, M., Topf, M., Frazier, Z., Tjong, H., Xu, M., Zhang, S., and Alber, F. (2011). Exploring the
+spatial and temporal organization of a cell's proteome. J Struct Biol 173, 483-496.
+Bernstein, J.A., Khodursky, A.B., Lin, P.H., Lin-Chao, S., and Cohen, S.N. (2002). Global analysis of
+mRNA decay and abundance in Escherichia coli at single-gene resolution using two-color
+fluorescent DNA microarrays. Proc Natl Acad Sci U S A 99, 9697-9702.
+Bremer, H., and Dennis, P.P. (1987). Modulation of chemical composition and other parameters
+of the cell by growth rate. In Escherichia coli and Salmonella typhimurium: Cellular and
+molecular biology, F.C. Neidhardt, ed. (Washington, D. C., American Society for Microbiology),
+pp. 1527-1542.
+Buchberger, A., Schroder, H., Hesterkamp, T., Schonfeld, H.J., and Bukau, B. (1996). Substrate
+shuttling between the DnaK and GroEL systems indicates a chaperone network promoting
+protein folding. J Mol Biol 261, 328-333.
+Calloni, G., Chen, T., Schermann, S.M., Change, H.-C., Genevaux, P., Agostini, F., Tartaglia, G.G.,
+Hayer-Hartl, M., and Hartl, F.U. (2012). DnaK functions as a central hub in the E. coli chaperone
+network. Cell Reports, In press.
+Cayley, S., Lewis, B.A., Guttman, H.J., and Record, M.T., Jr. (1991). Characterization of the
+cytoplasm of Escherichia coli K-12 as a function of external osmolarity. Implications for protein-
+DNA interactions in vivo. J. Mol. Biol. 222, 281-300.
+Chapman, E., Farr, G.W., Usaite, R., Furtak, K., Fenton, W.A., Chaudhuri, T.K., Hondorp, E.R.,
+Matthews, R.G., Wolf, S.G., Yates, J.R., et al. (2006). Global aggregation of newly translated
+proteins in an Escherichia coli strain deficient of the chaperonin GroEL. Proc Natl Acad Sci U S A
+103, 15800-15805.
+Charbon, G., Wang, J., Brustad, E., Schultz, P.G., Horwich, A.L., Jacobs-Wagner, C., and
+Chapman, E. (2011). Localization of GroEL determined by in vivo incorporation of a fluorescent
+amino acid. Bioorg Med Chem Lett 21, 6067-6070.
+Dalbey, R.E., Wang, P., and Kuhn, A. (2011). Assembly of bacterial inner membrane proteins.
+Annu Rev Biochem 80, 161-187.
+Deuerling, E., Schulze-Specking, A., Tomoyasu, T., Mogk, A., and Bukau, B. (1999). Trigger factor
+and DnaK cooperate in folding of newly synthesized proteins. Nature 400, 693-696.
+Dhar, A., Girdhar, K., Singh, D., Gelman, H., Ebbinghaus, S., and Gruebele, M. (2011). Protein
+stability and folding kinetics in the nucleus and endoplasmic reticulum of eucaryotic cells.
+Biophys J 101, 421-430.
+Dong, H., Nilsson, L., and Kurland, C.G. (1995). Gratuitous overexpression of genes in
+Escherichia coli leads to growth inhibition and ribosome destruction. J Bacteriol 177, 1497-
+1504.
+Ebbinghaus, S., Dhar, A., McDonald, J.D., and Gruebele, M. (2010). Protein folding stability and
+dynamics imaged in a living cell. Nat Methods 7, 319-323.
+
+
+                                                 41
+Ebbinghaus, S., and Gruebele, M. (2011). Protein Folding Landscapes in the Living Cell. J Phys
+Chem Lett 2, 314-319.
+Eichmann, C., Preissler, S., Riek, R., and Deuerling, E. (2010). Co-translational structure
+acquisition of nascent polypeptides monitored by NMR spectroscopy. Proc Natl Acad Sci U S A
+107, 9111-9116.
+Evans, M.S., Sander, I.M., and Clark, P.L. (2008). Co-translational folding promotes beta-helix
+formation and avoids aggregation in vivo. J Mol Biol 383, 683-692.
+Fedorov, A.N., and Baldwin, T.O. (1995). Contribution of co-translational folding to the rate of
+formation of native protein structure. Proc Natl Acad Sci U S A 92, 1227-1231.
+Frydman, J., Erdjument-Bromage, H., Tempst, P., and Hartl, F.U. (1999). Co-translational domain
+folding as the structural basis for the rapid de novo folding of firefly luciferase. Nat Struct Biol 6,
+697-705.
+Fujiwara, K., Ishihama, Y., Nakahigashi, K., Soga, T., and Taguchi, H. (2010). A systematic survey
+of in vivo obligate chaperonin-dependent substrates. EMBO J. 29, 1552-1564.
+Gershenson, A., and Gierasch, L.M. (2011). Protein folding in the cell: challenges and progress.
+Curr Opin Struct Biol 21, 32-41.
+Ghaemmaghami, S., and Oas, T.G. (2001). Quantitative protein stability measurement in vivo.
+Nat Struct Biol 8, 879-882.
+Ghosh, K., and Dill, K. (2010). Cellular proteomes have broad distributions of protein stability.
+Biophys. J. 99, 3996-4002.
+Ghosh, K., and Dill, K.A. (2009). Computing protein stabilities from their chain lengths. Proc.
+Natl. Acad. Sci. U. S. A. 106, 10649-10654.
+Golding, I., Paulsson, J., Zawilski, S.M., and Cox, E.C. (2005). Real-time kinetics of gene activity in
+individual bacteria. Cell 123, 1025-1036.
+Gualerzi, C., Risuleo, G., and Pon, C.L. (1977). Initial rate kinetic analysis of the mechanism of
+initiation complex formation and the role of initiation factor IF-3. Biochemistry 16, 1684-1689.
+Guisbert, E., Yura, T., Rhodius, V.A., and Gross, C.A. (2008). Convergence of molecular,
+modeling, and systems approaches for an understanding of the Escherichia coli heat shock
+response. Microbiol Mol Biol Rev 72, 545-554.
+Herbst, R., Gast, K., and Seckler, R. (1998). Folding of firefly (Photinus pyralis) luciferase:
+aggregation and reactivation of unfolding intermediates. Biochemistry 37, 6586-6597.
+Herbst, R., Schafer, U., and Seckler, R. (1997). Equilibrium intermediates in the reversible
+unfolding of firefly (Photinus pyralis) luciferase. J Biol Chem 272, 7099-7105.
+Hoffmann, F., and Rinas, U. (2004). Stress induced by recombinant protein production in
+Escherichia coli. Adv Biochem Eng Biotechnol 89, 73-92.
+Ignatova, Z., and Gierasch, L.M. (2004). Monitoring protein stability and aggregation in vivo by
+real-time fluorescent labeling. Proc Natl Acad Sci U S A 101, 523-528.
+Ishihama, Y., Schmidt, T., Rappsilber, J., Mann, M., Hartl, F.U., Kerner, M.J., and Frishman, D.
+(2008). Protein abundance profiling of the Escherichia coli cytosol. BMC Genomics 9, 102.
+Kastritis, P.L., Moal, I.H., Hwang, H., Weng, Z., Bates, P.A., Bonvin, A.M., and Janin, J. (2011). A
+structure-based benchmark for protein-protein binding affinity. Protein Sci. 20, 482-491.
+Kelkar, D.A., Khushoo, A., Yang, Z., and Skach, W.R. (2012). Kinetic Analysis of Ribosome-bound
+Fluorescent Proteins Reveals an Early, Stable, Co-translational Folding Intermediate. J Biol Chem
+287, 2568-2578.
+
+                                                  42
+Kerner, M.J., Naylor, D.J., Ishihama, Y., Maier, T., Chang, H.C., Stines, A.P., Georgopoulos, C.,
+Frishman, D., Hayer-Hartl, M., Mann, M., et al. (2005). Proteome-wide analysis of chaperonin-
+dependent protein folding in Escherichia coli. Cell 122, 209-220.
+Knowles, T.J., Scott-Tucker, A., Overduin, M., and Henderson, I.R. (2009). Membrane protein
+architects: the role of the BAM complex in outer membrane protein assembly. Nat Rev
+Microbiol 7, 206-214.
+Kubitschek, H.E. (1969). Growth during the bacterial cell cycle: analysis of cell size distribution.
+Biophys. J. 9, 792-809.
+Kurland, C.G., and Dong, H. (1996). Bacterial growth inhibition by overproduction of protein.
+Mol Microbiol 21, 1-4.
+Laursen, B.S., Sorensen, H.P., Mortensen, K.K., and Sperling-Petersen, H.U. (2005). Initiation of
+protein synthesis in bacteria. Microbiol Mol Biol Rev 69, 101-123.
+Lopez-Campistrous, A., Semchuk, P., Burke, L., Palmer-Stone, T., Brokx, S.J., Broderick, G.,
+Bottorff, D., Bolch, S., Weiner, J.H., and Ellison, M.J. (2005). Localization, annotation, and
+comparison of the Escherichia coli K-12 proteome under two states of growth. Mol. Cell.
+Proteomics 4, 1205-1209.
+Lu, P., Vogel, C., Wang, R., Yao, X., and Marcotte, E.M. (2007). Absolute protein expression
+profiling estimates the relative contributions of transcriptional and translational regulation.
+Nat. Biotechnol. 25, 117-124.
+Marcus, M., and Minc, H. (1964). A survey of matrix theory and matrix inequalities (New York,
+Dover Publications).
+Miklos, A.C., Sarkar, M., Wang, Y., and Pielak, G.J. (2011). Protein crowding tunes protein
+stability. J Am Chem Soc 133, 7116-7120.
+Miller, O.L., Jr., Hamkalo, B.A., and Thomas, C.A., Jr. (1970). Visualization of bacterial genes in
+action. Science 169, 392-395.
+Northrup, S.H., and Erickson, H.P. (1992). Kinetics of protein-protein association explained by
+Brownian dynamics computer simulation. Proc. Natl. Acad. Sci. U. S. A. 89, 3338-3342.
+Ouyang, Z., and Liang, J. (2008). Predicting protein folding rates from geometric contact and
+amino acid sequence. Protein Sci. 17, 1256-1263.
+Plaxco, K.W., Simons, K.T., and Baker, D. (1998). Contact order, transition state placement and
+the refolding rates of single domain proteins. J. Mol. Biol. 277, 985-994.
+Powers, E.T., and Powers, D.L. (2006). The kinetics of nucleated polymerizations at high
+concentrations: amyloid fibril formation near and above the "supercritical concentration".
+Biophys. J. 91, 122-132.
+Ruusala, T., Andersson, D., Ehrenberg, M., and Kurland, C.G. (1984). Hyper-accurate ribosomes
+inhibit growth. EMBO J 3, 2575-2580.
+Sanden, A.M., Prytz, I., Tubulekas, I., Forberg, C., Le, H., Hektor, A., Neubauer, P., Pragai, Z.,
+Harwood, C., Ward, A., et al. (2003). Limiting factors in Escherichia coli fed-batch production of
+recombinant proteins. Biotechnol Bioeng 81, 158-166.
+Siller, E., DeZwaan, D.C., Anderson, J.F., Freeman, B.C., and Barral, J.M. (2010). Slowing bacterial
+translation speed enhances eukaryotic protein folding efficiency. J. Mol. Biol. 396, 1310-1318.
+Szabo, A., Langer, T., Schroder, H., Flanagan, J., Bukau, B., and Hartl, F.U. (1994). The ATP
+hydrolysis-dependent reaction cycle of the Escherichia coli Hsp70 system DnaK, DnaJ, and GrpE.
+Proc Natl Acad Sci U S A 91, 10345-10349.
+
+                                                43
+Taniguchi, Y., Choi, P.J., Li, G.W., Chen, H., Babu, M., Hearn, J., Emili, A., and Xie, X.S. (2010).
+Quantifying E. coli proteome and transcriptome with single-molecule sensitivity in single cells.
+Science 329, 533-538.
+Taylor, G., Hoare, M., Gray, D.R., and Marston, F.A.O. (1986). Size and density of protein
+inclusion bodies. Bio-Technol 4, 553-557.
+Teter, S.A., Houry, W.A., Ang, D., Tradler, T., Rockabrand, D., Fischer, G., Blum, P.,
+Georgopoulos, C., and Hartl, F.U. (1999). Polypeptide flux through bacterial Hsp70: DnaK
+cooperates with trigger factor in chaperoning nascent chains. Cell 97, 755-765.
+Thomas, J.G., and Baneyx, F. (1998). Roles of the Escherichia coli small heat shock proteins IbpA
+and IbpB in thermal stress management: comparison with ClpA, ClpB, and HtpG in vivo. J.
+Bacteriol. 180, 5165-5172.
+Van Bogelen, R.A., Abshire, K.Z., Pertsemlidis, A., Clark, R.L., and Neidhardt, F.C. (1996). Gene-
+protein database of Escherichia coli K-12, edition 6. In Escherichia coli and Salmonella: cellular
+and molecular biology, F.C. Neidhardt, R. Curtiss III, J.L. Ingraham, E.C.C. Lin, K.B. Low, B.
+Magasanik, W.S. Reznikoff, M. Riley, M. Schaechter, and H.E. Umbarger, eds. (Washington, D.
+C., ASM Press), pp. 2067-2117.
+Wegrzyn, R.D., and Deuerling, E. (2005). Molecular guardians for newborn proteins: ribosome-
+associated chaperones and their role in protein folding. Cell Mol Life Sci 62, 2727-2738.
+Woldringh, C.L., de Jong, M.A., van den Berg, W., and Koppes, L. (1977). Morphological analysis
+of the division cycle of two Escherichia coli substrains during slow growth. J. Bacteriol. 131, 270-
+279.
+Zaritsky, A., Woldringh, C.L., Helmstetter, C.E., and Grover, N.B. (1993). Dimensional
+rearrangement of Escherichia coli B/r cells during a nutritional shift-down. J. Gen. Microbiol.
+139, 2711-2714.
+Zengel, J.M., Young, R., Dennis, P.P., and Nomura, M. (1977). Role of ribosomal protein S12 in
+peptide chain elongation: analysis of pleiotropic, streptomycin-resistant mutants of Escherichia
+coli. J Bacteriol 129, 1320-1329.
+Zouridis, H., and Hatzimanikatis, V. (2007). A model for protein translation: polysome self-
+organization leads to maximum protein synthesis rates. Biophys. J. 92, 717-730.
+
+
+
+
+                                                44
+

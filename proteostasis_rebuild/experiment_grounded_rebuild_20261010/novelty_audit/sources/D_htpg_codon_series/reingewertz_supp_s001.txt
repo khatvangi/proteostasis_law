@@ -1,0 +1,105 @@
+Supplementary Information for
+
+
+
+Synonymous and non-synonymous codon substitutions can alleviate dependence on
+
+GroEL for folding
+
+
+
+
+Tali Haviv Reingewertz, Miki Ben-Maimon, Zohar Zafrir, Tamir Tuller and Amnon
+Horovitz
+
+
+Amnon Horovitz
+Email: Amnon.Horovitz@weizmann.ac.il
+
+
+This PDF file includes:
+
+       Figure S1
+       Figure S2
+       Figure S3
+       Figure S4
+       Figure S5
+
+
+
+
+                                                                                1
+Figure S1. Growth curves of mDHFR variants in the presence of arabinose vs. glucose.
+Clones expressing mDHFR variants which appeared to support E. coli growth on plates,
+upon GroEL depletion, were sequenced and grown in liquid medium containing antibiotics,
+TMP, DAP and either glucose or arabinose. It may be seen that cells expressing the
+mDHFR mutants G18S or F32L mutants, for example, grow better in liquid medium
+containing glucose vs. arabinose, compared to cells expressing wild-type mDHFR.
+
+                                                                                     2
+Figure S2. Ribbon diagram of the crystal structure of mDHFR (PDB ID: 3d84). The
+positions of the missense mutations in the protein backbone are shown in cyan and the
+mutations are indicated in red using the single-letter code for amino acids. The proline
+residues corresponding to the silent mutation sites are shown in purple. The figure was
+generated using PyMOL.
+
+
+
+
+                                                                                      3
+Figure S3. Steady-state kinetics of dihydrofolic acid (DHF) reduction by the mDHFR
+
+variants. Shown are representative plots of initial rates of DHF reduction by the mDHFR
+
+variants as a function of dihydrofolate concentration. The initial rates were obtained from
+
+the linear phase of the reactivation curves and the data were fitted to the Michaelis-Menten
+
+equation.
+
+
+
+
+                                                                                          4
+Figure S4. Bioinformatic analyses of the nucleotide sequences of DHFR in mollicutes
+
+with or without GroEL. Shown are the average values of CAI (A) and tAI (B) for the
+
+organisms with GroEL (GroEL+, blue plots) and without GroEL (GroEL-, olive yellow
+
+plots). The two silent mutations are marked by purple arrows. The inset shows the color
+
+coding for dots that indicate positions in GroEL+ sequences with high levels of selection
+
+for fast (red) and slow (orange) translated codons, and positions in GroEL- sequences with
+
+high levels of selection for fast (purple) and slow (blue) translated codons.        The two
+
+statistical tests used to find significant points (the p-values p1 and p2) are described in the
+
+Methods.
+
+
+
+
+                                                                                             5
+Figure S5. Effects of synonymous mutations on the levels of expression of mDHFR.
+Overnight cultures of MGM100 cells expressing the appropriate mutant and containing
+0.2% arabinose, 100 µg/ml ampicillin and 30 µg/ml kanamycin were diluted 1:100, grown
+to OD600 of 0.6 at 37 °C and expression was then induced by adding IPTG. Cells were then
+grown for another 4 hours at 37 °C, pelleted and samples were then prepared for Western
+blotting. The ponceau red staining on the left shows that the samples in the different lanes
+correspond to similar numbers of cells. Western blotting of these samples using an anti-
+His tag antibody (right panel) was employed to determine the expression levels of the
+different mutants. The slightly higher levels of expression of the proteins with the two
+synonymous mutations at positions 27 and 129, relative to wild-type mDHFR, is consistent
+with codon usage improving protein folding yields. Synonymous mutations at positions
+74 and 161, which do not affect GroEL dependence, also lead to somewhat higher
+expression levels, thus indicating that release from GroEL dependence is not a simple
+function of expression level.
+
+
+
+
+                                                                                          6
+

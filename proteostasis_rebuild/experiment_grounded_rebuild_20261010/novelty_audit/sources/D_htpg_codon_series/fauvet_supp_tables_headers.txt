@@ -1,0 +1,18 @@
+Table_2.xlsx Mass Fractions 1341 13
+   ('Table S2: Absolute quantities of 1339 significantly quantified proteins in the four E. coli variants, expressed as mass fractions (sheet 1) and molarity (µM, sheet 2)\nNumbers show means and standard deviations for five biological replicates', None, None, None, None, None, None, None, None, None, None, None)
+   ('Uniprot ID', 'Gene Name', 'Protein Name', 'Essential Gene', 'Category', 'WT mean mass fraction', 'WT mass fraction SD', '∆KJ mean mass fraction', '∆KJ mass fraction SD', '∆KJG mean mass fraction', '∆KJG mass fraction SD', '∆G mean mass fraction')
+   ('P08622', 'dnaJ', 'Chaperone protein DnaJ', 'no', 'Chaperones', 0.00040340352023192854, 5.521984956129002e-05, 0, 0, 0, 0, 0.0004461901464041499)
+Table_2.xlsx Molarity 1340 13
+   ('Uniprot ID', 'Gene Name', 'Protein Name', 'Essential Gene', 'Category', 'WT mean molarity (µM)', 'WT molarity SD', '∆KJ mean molarity (µM)', '∆KJ molarity SD', '∆KJG mean molarity (µM)', '∆KJG molarity SD', '∆G mean molarity (µM)')
+   ('P00350', 'gnd', '6-phosphogluconate dehydrogenase, decarboxylating', 'no', 'Others', 17.767118283994925, 1.5324165076516605, 21.727612469159315, 1.0072865531670856, 22.347996137891954, 0.8877669767996967, 16.862400592600096)
+   ('P00363', 'frdA', 'Fumarate reductase flavoprotein subunit', 'no', 'Cellular Respiration', 5.7859166458145355, 0.2591471376752145, 0.16365852742240494, 0.038746739974954314, 0.3815593973579004, 0.20989802501227217, 5.153913747648778)
+Table_3.xlsx Pellet mass fractions 1341 13
+   ('Table S3: Normalized pellet mass fractions (means & standard deviations, five biological replicates), indicating the quantities of insoluble proteins for each of the 1339 significantly quantified proteins in the four E. coli strains', None, None, None, None, None, None, None, None, None, None, None)
+   ('Uniprot ID', 'Gene Name', 'Protein Name', 'Essential Gene', 'Category', 'WT mean pellet mass fraction', 'WT pellet mass fraction SD', '∆KJ mean pellet mass fraction', '∆KJ pellet mass fraction SD', '∆KJG mean pellet mass fraction', '∆KJG pellet mass fraction SD', '∆G mean pellet mass fraction')
+   ('P08622', 'dnaJ', 'Chaperone protein DnaJ', 'no', 'Chaperones', 7.866040724421709e-05, 5.1275492045200204e-06, 0, 0, 0, 0, 7.466373632592025e-05)
+Table_4.xlsx Sheet1 163 10
+   ('Table S4: Proteins with statistically significant (FDR < 0.05) solubility difference between WT and KJ, and with a solubility difference larger than 10 percent points', None, None, None, None, None, None, None, None, None)
+   ('Uniprot ID', 'Protein Name', 'Gene Name', 'Category ', 'WT mean pellet mass fraction', 'WT  pellet mass fraction STD', 'ΔKJ mean pellet mass fraction', 'ΔKJ  pellet mass fraction STD', 'WT mean solubility (%)', 'ΔKJ mean solubility (%)')
+   ('P05719', 'Type-1 restriction enzyme EcoKI specificity protein', 'hsdS', 'Others', 0, 0, 1.932365919873187e-05, 1.5484754459740886e-06, 100, 33.95608301396568)
+Table_4.xlsx Sheet2 1 1
+Table_4.xlsx Sheet3 1 1

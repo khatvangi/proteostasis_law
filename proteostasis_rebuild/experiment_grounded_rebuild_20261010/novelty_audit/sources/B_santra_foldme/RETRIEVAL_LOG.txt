@@ -1,0 +1,8 @@
+retrieved 2026-10-10
+santra2017_main.txt  <- raw_html/PMC5380058.html (https://pmc.ncbi.nlm.nih.gov/articles/PMC5380058/), tags stripped; equations flattened (MathML lost: Eq.1 reads "τ0=kf+kum+kmukfkmu" = (kf+kum+kmu)/(kf*kmu))
+foldme2017_main.txt  <- raw_html/PMC5664499.html, tags stripped
+foldme2017_SI.txt    <- SI Materials and Methods + Figs S1-S9 legends embedded inline in PMC HTML (not the PNAS SI PDF)
+FAILED:
+ santra2017 SI (pnas.1620646114.sapp.pdf, 5MB): PMC bin link -> proof-of-work then reCAPTCHA; PNAS suppl -> 403 Cloudflare; Europe PMC fullTextXML 500 / supplementaryFiles "not open access"; eScholarship 42s2k1qw -> 403; PubMed MCP -> abstract only
+ PDFs of both main articles: PMC PoW / PNAS 403 (HTML used instead)
+ foldme2017 original SI PDF: PNAS 403 (inline PMC SI text used)

@@ -1,0 +1,25 @@
+,,,,,,,,,,,,
+,Table S4. (Related to Figure 6). Codon-usage in E. coli's folA gene,,,,,,,,,,,
+,,,,,,,,,,,,
+,Amino Acid,codon,frequency,codon,frequency,codon,frequency,codon,frequency,codon,frequency,most frequent codon
+,A,GCA,1.0,GCC,4.0,GCG,7.0,GCT,1.0,,,GCG
+,C,TGC,1.0,TGT,1.0,,,,,,,TGC
+,D,GAC,5.0,GAT,8.0,,,,,,,GAT
+,E,GAA,9.0,GAG,3.0,,,,,,,GAA
+,F,TTC,4.0,TTT,2.0,,,,,,,TTC
+,G,GGA,1.0,GGC,5.0,GGT,4.0,,,,,GGC
+,H,CAC,2.0,CAT,3.0,,,,,,,CAT
+,I,ATC,7.0,ATT,5.0,,,,,,,ATC
+,K,AAA,5.0,AAG,1.0,,,,,,,AAA
+,L,CTC,2.0,CTG,5.0,TTA,2.0,TTG,2.0,,,CTG
+,M,ATG,5.0,,,,,,,,,ATG
+,N,AAC,4.0,AAT,2.0,,,,,,,AAC
+,P,CCA,3.0,CCC,1.0,CCG,5.0,CCT,1.0,,,CCG
+,Q,CAA,2.0,CAG,2.0,,,,,,,CAA
+,R,CGC,6.0,CGG,2.0,CGT,1.0,,,,,CGC
+,S,AGC,3.0,AGT,2.0,TCA,1.0,TCG,2.0,TCT,1.0,AGC
+,T,ACC,3.0,ACG,3.0,,,,,,,ACC
+,V,GTA,4.0,GTG,5.0,GTT,2.0,,,,,GTG
+,W,TCG,5.0,,,,,,,,,TGG
+,Y,TAC,1.0,,,,,,,,,TAC
+,STOP,TAA,1.0,,,,,,,,,TAA

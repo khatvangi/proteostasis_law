@@ -1,0 +1,8 @@
+retrieval log 2026-10-10 (untrusted downloads, nothing executed)
+Bershtein et al. 2013 Mol Cell 49:133, PMC3545112 (NIHMS421592)
+  PMC page listed supplement-01.doc and -02..-05.xls (no -06). Fetched with curl + PMC proof-of-work cookie obtained in headless browser.
+  `file`: all are genuine Composite Document File V2 (Word / Excel), not HTML. Main PDF nihms421592.pdf also fetched.
+  libreoffice --convert-to csv failed ("source file could not be loaded"); xls converted with xlrd 2.0.2 installed to /tmp/xlrdpkg (not into any env).
+  .doc -> NIHMS421592-supplement-01.txt via libreoffice txt:Text. Empty Sheet2/Sheet3 CSVs deleted.
+Santra, Dill, de Graff 2019 PNAS, PMC6825304
+  pnas.1906592116.sapp.pdf (12 pp) -> santra2019_SI.txt; main PDF -> santra2019_main.txt

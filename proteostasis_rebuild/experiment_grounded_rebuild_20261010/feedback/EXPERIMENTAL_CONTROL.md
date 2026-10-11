@@ -27,8 +27,9 @@ central chaperone-mediated loop is still not fully understood (Guisbert 2008).
 
 - **Loop gain.** No retrieved paper gives the gain from free-chaperone change to steady σ32 output
   in the sense used in MINIMAL_DYNAMICS.md. Tomoyasu 1998 shows the loop is *sensitive* (<1.5-fold
-  perturbations matter; <1,500 client molecules are detected). That is qualitative evidence of high
-  gain, not a number.
+  perturbations matter; <1,500 client molecules are detected). That is qualitative evidence of
+  sensitivity, not a number. It is **not** evidence that G > 1 in the sense of MINIMAL_DYNAMICS §3,
+  so whether the native loop has a finite delay limit at all is unknown.
 - **Delay** from σ32 activation to functional, assembled DnaK/GroEL — UNMEASURED here.
 - **Maximum regulon output** in exponential growth without heat. Zhang 2014's ~6×/~4× are with a
   plasmid-overexpressed, feedback-blind mutant in BL21(DE3), an engineered state; they are a lower

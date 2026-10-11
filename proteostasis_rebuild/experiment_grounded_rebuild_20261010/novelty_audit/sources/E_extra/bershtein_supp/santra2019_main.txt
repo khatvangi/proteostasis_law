@@ -1,0 +1,527 @@
+Proteostasis collapse is a driver of cell aging
+and death
+Mantu Santraa,b,1 , Ken A. Dilla,c,d,2 , and Adam M. R. de Graffa,e,1
+a
+ Laufer Center for Physical and Quantitative Biology, Stony Brook University, Stony Brook, NY 11794-5252; b Department of Chemical, Biological &
+Macro-Molecular Sciences, S. N. Bose National Centre for Basic Sciences, Kolkata-700106, India; c Department of Physics and Astronomy, Stony Brook
+University, Stony Brook, NY 11794-3800; d Department of Chemistry, Stony Brook University, Stony Brook, NY 11794-3400; and e Babraham Research Campus,
+Methuselah Health UK Ltd., Cambridge, United Kingdom CB22 3AT
+
+Contributed by Ken A. Dill, September 13, 2019 (sent for review April 17, 2019; reviewed by Uri Alon and Anat Ben-Zvi)
+
+What molecular processes drive cell aging and death? Here, we                 regulation and protein production and disposal becomes increas-
+model how proteostasis—i.e., the folding, chaperoning, and main-              ingly compromised with age” (21). Proteostasis is a natural
+tenance of protein function—collapses with age from slowed                    culprit in aging because it is a front line of response to stress
+translation and cumulative oxidative damage. Irreparably dam-                 and because proteins are the primary repairers of the cell and
+aged proteins accumulate with age, increasingly distracting the               sustainers of the genome (10). It has been noted that “all known
+chaperones from folding the healthy proteins the cell needs. The              gerontogenes confer resistance to stress” (22). Protein damage is
+tipping point to death occurs when replenishing good proteins                 a key measure of such resistance, as survival of radiation is bet-
+no longer keeps up with depletion from misfolding, aggregation,               ter predicted by protein oxidation than by DNA damage (23, 24).
+and damage. The model agrees with experiments in the worm                     Damage to proteins can lead to loss of their stability and function
+Caenorhabditis elegans that show the following: Life span short-              (25–27) and to impaired protein synthesis (24) and degradation
+
+
+
+
+                                                                                                                                                                          COMPUTATIONAL BIOLOGY
+ens nonlinearly with increased temperature or added oxidant                   (28). While protein damage is only one of a broad set of changes
+
+
+
+
+                                                                                                                                                                             BIOPHYSICS AND
+concentration, and life span increases in mutants having more                 impacting the proteome with age (15, 29), it is an important com-
+chaperones or proteasomes. It predicts observed increases in cel-             ponent. We focus not on the genetics and biochemistry of any
+lular oxidative damage with age and provides a mechanism for                  particular gene or protein, but on the cell-wide biophysics of how
+the Gompertz-like rise in mortality observed in humans and other              proteins fold (30), the impact of temperature and oxidation (25,
+organisms. Overall, the model shows how the instability of pro-               31), and how proteostasis declines with age.
+teins sets the rate at which damage accumulates with age and                     Previous models of proteostasis have focused primarily on
+upends a cell’s normal proteostasis balance.                                  the mechanism of heat-shock activation (20, 32) or the means
+                                                                              by which chaperone systems promote folding (33–35). Others
+proteostasis | aging | oxidative damage | misfolding | chaperones             have looked for broader principles determining folding yield
+                                                                              (36) or partitioning between folding and degradation (37). While
+                                                                              these studies have contributed to a solid understanding of pro-
+I  n higher organisms, cells age and die by natural processes.
+   What are the molecular mechanisms that drive it? It has been
+difficult to disentangle causes from effects because aging impacts
+                                                                              tein properties upstream of damage, their downstream proper-
+                                                                              ties and impact remain poorly studied (20, 32). Our modeling
+                                                                              addresses the critical impact of protein conformation on oxi-
+most cellular biomolecules. Oxidative damage is known to play a
+                                                                              dizability (38–40) and the role of damaged protein in diverting
+key role. Much of what is known about cellular aging comes from
+“bottom-up” experiments, by perturbing a few genes at a time—
+by knockouts, knock-ins, or point mutations or by gene-to-gene                     Significance
+comparisons using sequence databases (1). Our interest here is in
+the “top-down” question of the aging mechanism, which we take                      Cells and organisms grow old and die. We develop a biophysi-
+to be a more system-wide failure in the cell. Any single gene can-                 cal model of the mechanism. Young cells are kept healthy by the
+not reverse aging or abolish life span limits. Oxidative damage                    positive processes of protein synthesis, degradation, and chap-
+is indiscriminate and nonspecific in which class of biomolecule                    eroning (the activity of keeping proteins properly folded). But,
+it hits or its spatial location in the cell. We take the mechanism                 with age, negative processes increase: Oxidative damage accu-
+of aging and longevity to be more about a general and stochastic                   mulates randomly in the cell’s proteins, healthy synthesis and
+destruction than a pinpoint action.                                                degradation slow down, and—like overfilled garbage cans—
+   Theories of cell aging are diverse (1–5). Some theories                         chaperone capacity is exceeded. The chaperones are distracted
+are gene-centric, attributing primary importance to deleteri-                      trying to fold irreversibly damaged proteins, leading to accu-
+ous changes to DNA that accumulate throughout life (6). Such                       mulating misfolded and aggregated proteins in the cell. The
+changes include mutations (7) and the progressive shortening of                    tipping point to death happens when the negative overwhelms
+telomeres (8, 9). Other theories are epigenetic, focusing on how                   the positive. The model makes several quantitative predictions
+changes to DNA and DNA-binding proteins affect how genes are                       of the life span of the worm Caenorhabditis elegans.
+read. These changes include DNA methylation, histone modifi-
+cation, and loss of chromosomal organization (1). Further, the                Author contributions: M.S., K.A.D., and A.M.R.d.G. designed research; M.S. and
+significant depletion of histone levels and changes in their stoi-            A.M.R.d.G. performed research; M.S. and A.M.R.d.G. analyzed data; and M.S., K.A.D.,
+chiometry (10) could alter transcription factor binding (11). Such            and A.M.R.d.G. wrote the paper. y
+
+changes may be responsible for the loss of proper messenger                   Reviewers: U.A., Weizmann Institute; and A.B.-Z., Ben-Gurion University of the Negev.y
+RNA and protein stoichiometry observed with age (12–16).                      The authors declare no competing interest.y
+   Another view is that aging results from declining protein                  This open access article is distributed under Creative Commons Attribution-NonCommercial-
+quality-control systems involved in protein synthesis, degrada-               NoDerivatives License 4.0 (CC BY-NC-ND).y
+                                                                              1
+tion, and chaperoning that normally protect the proteins in the                   M.S. and A.M.R.d.G. contributed equally to this work.y
+cell’s proteome (17–20). Central to proteostasis, the decline in              2
+                                                                                  To whom correspondence may be addressed. Email: dill@laufercenter.org.y
+protein quality control is implicated in more than 50 diseases                This article contains supporting information online at www.pnas.org/lookup/suppl/doi:10.
+of abnormal protein deposition (proteinopathies), for which the               1073/pnas.1906592116/-/DCSupplemental.y
+principal risk factor is advancing age, “probably because cell                First published October 16, 2019.
+
+
+
+www.pnas.org/cgi/doi/10.1073/pnas.1906592116                                                   PNAS | October 29, 2019 | vol. 116 | no. 44 | 22173–22178
+the limited chaperone resources away from the folding of their                      Synthesis
+undamaged counterparts (40, 41).
+
+Premises of the Proteostasis Collapse Model
+Here is our model of proteostasis collapse with age. The mathe-
+matical details, parameters, and justifications are given in Mate-
+                                                                                                                             Undamaged
+rials and Methods and SI Appendix. First, each protein in the                N
+                                                                                                                              proteins
+cell has a rate of folding, unfolding, misfolding, and aggrega-
+tion. Many of these rates are known (33, 43, 44). Here, we
+considered a single type of average protein—namely, ones that                            U
+are clients of the HSP70 chaperone system, because of exper-
+iments (45) and theory (40) showing that these proteins are
+the dominant targets of protein oxidation. Second, we modeled                                      M
+the trafficking of proteins on and off of chaperones. Many of               Oxidative
+these rates, too, are known (46–49). Third, whereas these first 2           damage
+aspects—folding and chaperone trafficking—describe only nor-                                                             A
+mal proteostasis in young healthy cells, we included also a slow,
+cumulative oxidative-damage component that is known for cell
+growth and protein degradation (50, 51). Some of this damage
+will be irreversible, leading to proteins that cannot reach their
+functional native structures and thus are biased toward misfold-
+ing and aggregation. Of necessity, we leave out many details, such
+as the folding of membrane proteins, the mitochondrial gener-                                                                Damaged
+ation of energy, and regulatory processes. It is not our goal to                                                              proteins
+model everything. Here are the premises:
+                                                                                       Uox
+1) Each protein in a cell has an intrinsic propensity to fold or
+   misfold. Most proteins carry out their function only when in
+   their properly folded, native conformation (17–19). Here, we                                   Mox
+   model the folding process of an average HSP70 chaperone-
+   dependent protein as it transitions between 4 conformational
+   states: its folded, functional native state (N), unfolded state
+                                                                                                                         Aox
+   (U), misfolded state (M), and aggregated state (A) (Fig. 1).
+   The interconversion processes are modeled by using cou-
+   pled Ordinary Differential Equations (ODEs) (Materials and
+   Methods and SI Appendix). The transition rates and equilibria     Fig. 1. Proteostasis model of cell aging. In the model, proteins convert
+   between these states were previously determined (33, 40, 42),     between native (N), unfolded (U), misfolded (M), and aggregated (A)
+   as well as their dependencies on temperature (SI Appendix).       states (upper plane) with rates estimated from experimental data (33, 42).
+2) Each protein sustains damage at a rate determined by its          Chaperone-dependent folding of newly synthesized or thermally unfolded
+   foldedness. A principal cause of proteome aging is oxidative      proteins compete with the processes of protein oxidation, aggregation, and
+                                                                     degradation, collectively defining the quality of the proteome and pro-
+   damage (27, 52). Both experimental (38, 39) and theoretical
+                                                                     teostasis at a given age. The lower plane describes the interconversion of
+   (40) studies support the idea that nonnative conformations        oxidatively damaged unfolded (Uox ), misfolded (Mox ), and aggregated (Aox )
+   are the major target of oxidative damage. As in previous work     states. Chaperones are represented by yellow disks.
+   (40), the flux of damage Jdam = kdam [U ], where kdam is the
+   rate constant of damage, scaling proportionately to reactive
+   oxygen species (ROS) levels, and [U] is the concentration of
+   unfolded protein (see SI Appendix, Table S1 for parameter            hence ROS) has been shown to significantly amplify the heat-
+   values). Once oxidized, proteins are assumed to be unable to         shock response during the periods of high mistranslation, a
+   fold, as shown in Fig. 1, consistent with experiments (45).          process evoked when chaperones become titrated (45). Due
+3) Chaperones modulate the foldedness and damage levels of              to the inability of irreversibly damaged proteins to fold, their
+                                                                        repeated binding to chaperones creates a futile cycle that can
+   their client proteins. Chaperones are proteins that help other
+                                                                        only be terminated by their degradation or aggregation.
+   proteins (their clients) fold. By binding to nonnative con-
+                                                                     5) Proteome health also depends on the rates of synthesis and
+   formations and giving them a fast route to folding, ATP-
+                                                                        degradation of proteins. To complete the model, we there-
+   dependent chaperones are responsible for maintaining a high
+                                                                        fore need to know how the rates of cell growth kgr (t) and
+   degree of foldedness (53). The collective effect of these chap-
+                                                                        degradation kdeg (t) change with age, t. Given the highly regu-
+   erones, called foldases, is modeled by taking the kinetics and
+                                                                        lated nature of these processes, it is outside the scope of the
+   concentrations of their dominant member, the HSP70 chaper-
+                                                                        current model to predict them from first principles. Instead,
+   ones (12) (SI Appendix). Given that nonnative conformations
+                                                                        since both have been measured experimentally (12, 50) (SI
+   are thought to be the major target of oxidation, chaperones
+                                                                        Appendix, Fig. S1), we take them as inputs to the model,
+   play a key role in controlling damage levels (40, 45).                                                                            o −λgr t
+4) Chaperones can become preoccupied handling damaged pro-              approximating the data using exponential fits: kgr = kgr       e
+   teins that are unable to fold, preventing them from helping
+                                                                                     o
+                                                                        and kdeg = kdeg e −λdeg t , where kgr
+                                                                                                           o       o
+                                                                                                              and kdeg are the initial values.
+   their undamaged client proteins that are either newly syn-           The decay constants are determined from fitting the exper-
+   thesized or spontaneously unfolded (54–56). Experimental             imental data, giving values at 20 ◦ C of λgr = 0.4 d−1 and
+   support for this assumption includes the increased chaper-           λdeg = 0.14 d−1 , respectively. These rates are assumed to
+   one binding observed for proteins with disease-causing point         scale with temperature following Arrhenius kinetics, doubling
+   mutations, which mirror the destabilizing effects of side-chain      roughly every 8 ◦ C, as observed for enzymatic processes (SI
+   oxidation (25, 57, 58). Further, the presence of oxygen (and         Appendix, Eq. S4 and Table S1).
+
+22174 | www.pnas.org/cgi/doi/10.1073/pnas.1906592116                                                                                 Santra et al.
+A                                   B                                            with experiments, which find: 1) an exponential rise in dam-
+                                                                                 age levels (Fig. 2B) (25, 27); 2) increased protein misfolding
+                                                                                 (59); and, finally, 3) the rapid onset of aggregation that appears
+                                                                                 to grow exponentially (60) before reaching a plateau (12). The
+                                                                                 model is also qualitatively consistent with the observed Gom-
+                                                                                 pertzian, time-dependent mortality rate and associated survival
+                                                                                 probability (Fig. 2 C and D), although it does lack late-life
+                                                                                 slowing in mortality seen experimentally (61, 62) and modeled
+                                                                                 elsewhere (62). For discussion of the mortality rate µ(t) and
+C                                   D                                            survival probability S (t), see SI Appendix.
+
+                                                                                 How Does Life Span Depend on Environmental Properties?
+                                                                                 Life Span Shortens with Increasing Temperature. In simple organ-
+                                                                                 isms, life span has a remarkable and strong dependence on
+                                                                                 temperature (51, 61). Maintained at higher temperatures, organ-
+                                                                                 ismal life span shortens considerably. For example, Caenorhabdi-
+                                                                                 tis elegans grown at 20 ◦ C lives about 22 d, yet at 25 ◦ C, they live
+                                                                                 only 10 d (61). Qualitatively, such observations appear to sup-
+Fig. 2. In cell aging, oxidative damage leads to increased misfolding and        port the Rate-of-Living Hypothesis (63)—namely, that life span
+aggregation, which eventually causes cell death. (A) The age-dependent           is shorter at higher temperatures because of faster metabolism,
+slowing of synthesis and degradation causes the accumulation of dam-
+                                                                                 which, in turn, is expected from the physical chemistry of Arrhe-
+aged (black line), misfolded (orange line), and aggregated (red line) states
+and depletion of the native (blue line) state. Progressive cell aging causes
+                                                                                 nius kinetics dictating the temperature-dependent acceleration
+
+
+
+
+                                                                                                                                                                            COMPUTATIONAL BIOLOGY
+proteostasis to transition through 2 phases: 1) the progressive titration of     of biochemical reactions (64, 65). In that theory, the rate of aging
+                                                                                 is proportional to the speed of these reactions, so a plot of the
+
+
+
+
+                                                                                                                                                                               BIOPHYSICS AND
+chaperones by damaged proteins, causing the accumulation of misfolded
+protein, followed by 2) misfolded proteins crossing their solubility thresh-     logarithm of the inverse life span (which is a rate of living) vs. 1/T
+old, triggering late-life aggregation (the region inside the vertical dashed     (T is the absolute temperature) should give a straight line with
+lines). (B) The gradual increase of protein damage with age in different         a slope equal to the activation energy of the process. However,
+organisms, as measured by carbonyl content. The black line indicates the         Fig. 3C shows that life span follows a more complex behavior
+percentage of damaged protein predicted by the current model. (C) Age-
+dependent mortality rate data at T = 20.1 ◦ C (red symbols). The black
+line is the theoretical fit to the data. (D) Predicted survival curve in wild-
+type Caenorhabditis elegans at T = 20 ◦ C. The vertical dashed line shows
+the point of 50% survival and is taken as the average life span of the           A                                           B
+organism.
+
+
+
+   By solving the ODEs (SI Appendix and Materials and Meth-
+ods) with the parameters described above, we can compute how
+the rates of trafficking, folding, and aggregation of an average
+HSP70 chaperone client protein changes over time as oxidative
+damage accumulates. Below, we show the resulting predictions
+for several properties—the survival probability S (t) reflecting                 C                                           D
+the fraction of the population remaining alive at time t; the cor-
+responding mortality rate µ = −d (lnS )/dt describing the death
+rate per individual; the distribution of protein between folded,
+misfolded, aggregated, and damaged states; and their depen-
+dence on temperature or added oxidizing agent—and compare
+them to corresponding experiments in the worm. The model
+gives a picture of how proteostasis collapse contributes to cell
+aging and death.
+How Does Proteostasis Decline with Age?                                          Fig. 3. Temperature dependence of survival probability and life span is dic-
+Misfolding and Aggregation Grow Nonlinearly with Age. Fig. 2A                    tated by the fundamental properties of proteins. (A) Predicted decay of life
+shows predicted properties as a function of age. Healthy                         span with increasing temperature (black line), compared with experimental
+                                                                                 data from Stroustrup et al. (61) (red circles) and Van Voorhies and Ward
+proteostasis in young cells (the first few days in the worm) is
+                                                                                 (51) (orange triangles). (B) Predicted rates of mortality at different tem-
+achieved by the dilution of damaged proteins due to the high                     peratures (solid lines) compared with experimental data from Stroustrup
+rates of growth. However, fast growth is short-lived, with pro-                  et al. (61) (symbols). The temperatures are, from black to orange, 20 ◦ C
+tein synthesis rates declining 10-fold over the reproductive time                (20.1 ◦ C), 22.1 ◦ C (23.7 ◦ C), 25.5 ◦ C (25.2 ◦ C), 28.3 ◦ C (29.1 ◦ C), 28.9 ◦ C
+window (12). As the synthesis of new protein slows with age, the                 (30 ◦ C), 30 ◦ C (30.9 ◦ C), 31.3 ◦ C (31.3 ◦ C), and 32.4 ◦ C (32.5 ◦ C); the values in
+production of healthy protein no longer keeps up with the rate of                the brackets are those reported in Stroustrup et al. (61). (C) The inverse life
+oxidative damage, causing damage levels to rise (Fig. 2 A and B).                span as a function of inverse absolute temperature shows distinct regions in
+Rising damage results in increased misfolding of the proteome                    which different processes dominate life-span behavior. The blue line repre-
+(Fig. 2A, orange curve), as chaperones become increasingly pre-                  sents the prediction of the current model. The green line is the prediction
+                                                                                 in the absence of the slowed growth rate observed experimentally at high
+occupied in futile attempts to refold irreversibly damaged pro-
+                                                                                 temperatures (SI Appendix, Fig. S2, orange line). The cyan curve represents
+teins. This leaves fewer chaperones to fold the healthy undam-                   the prediction if damaged proteins are not allowed to bind and effectively
+aged proteins the cell needs to function. As misfolded proteins                  deplete chaperones. (D) With increasing temperature, the average unfold-
+approach their solubility limit, the concentration of aggregates                 ing rate of proteins (black line) increases faster than enzymatic processes
+increases exponentially (Fig. 2A, red curve) before reaching                     like protein synthesis, shown at 1, 2, and 3 d of adulthood (blue, green, and
+a plateau. This predicted sequence of events is consistent                       red lines, respectively).
+
+
+Santra et al.                                                                                          PNAS | October 29, 2019 | vol. 116 | no. 44 | 22175
+A                                         B                                        dangerous feedback loop that may explain why the heat-shock
+                                                                                   response is highly sensitive to the presence of damaging free
+                                                                                   radicals (41).
+                                                                                      The increasing diversion of chaperones away from the folding
+                                                                                   of newly synthesized proteins may also be why, above 28 ◦ C, an
+                                                                                   additional behavior is observed experimentally: Growth begins
+                                                                                   to slow (SI Appendix, Fig. S2). In this extreme heat, slowing
+                                                                                   growth may be one of the few mechanisms the cell has to dimin-
+                                                                                   ish the folding burden and delay proteostasis collapse. To test
+                                                                                   this, we modeled aging with (blue) and without (green) slowed
+Fig. 4. Effect of oxidative damage on survival probability and life span.          growth (Fig. 3C). The difference between the 2 curves suggests
+(A) The predicted dependence of life span on the concentration of exter-           that slower synthesis provides a modest benefit to life span, pre-
+nal oxidant, tBuOOH (black solid line), compared with experimental data            dicted to make a 2-fold difference by T = 35 ◦ C. It reiterates
+[red circles; Stroustrup et al. (61)]. Beyond a critical concentration (0.5 mM),   a key result observed throughout our modeling—namely, that
+life span drops sharply in an approximately power-law fashion. (B) The             proteostasis capacity is tightly coupled to the rate of protein
+age-dependent rise in protein damage is shown for 3 concentrations of              synthesis.
+tBuOOH (indicated by vertical dashed lines in A). The vertical dashed lines           In short, while our model does show a component of life span
+in B indicate the average life span.
+                                                                                   that is attributable to the rate-of-living via metabolic speed-up, it
+                                                                                   also shows an additional component based on cell stresses. As the
+                                                                                   cell is stressed by heat, proteins unfold, misfold, and aggregate.
+than the Rate-of-Living Hypothesis would predict. Our model                        Chaperones are recruited, but with age, the synthesis of “good
+gives the following interpretation.                                                protein” and the chaperoning of those spontaneously unfold-
+Heating at normal temperatures between 15 ◦ C and 24 ◦ C                           ing ultimately succumb to damage levels, at which bad protein
+increases metabolism. Across the proteome, and across species,                     becomes overwhelming.
+enzymatic rates are known to roughly double for every 8 ◦ C
+rise in temperature, following Arrhenius kinetics (SI Appendix,                    Life Span Shortens with Added Oxidant Concentration. Since oxi-
+Eq. S4). Around room temperature, the dominant proteosta-                          dation is a well-known aging agent, adding an oxidant to cells
+sis processes—synthesis, folding, degradation, and their rates of                  should decrease their life span, as shown in recent experiments
+decay—all scale similarly with temperature, causing life span                      (61). To explore the behavior predicted from the proteosta-
+to scale inversely with metabolic rate. Thus, over this nar-                       sis model, we assumed that damage to the proteome occurs in
+row temperature range, life span scales consistently with the                      linear proportion to the amount of oxidant, consisting of the
+Rate-of-Living Hypothesis (63).                                                    basal level of ROS made by the cell as well as that from the
+At Temperatures from 24 ◦ C to 28 ◦ C, Protein Unfolding Rates                     added oxidant tert-butyl hydroperoxide (tBuOOH). The dam-
+Begin to Exceed Synthesis Rates. Protein unfolding rates have                                                             o
+                                                                                   age rate can be expressed as kdam = kdam  (1 + [tBuOOH ]
+                                                                                                                                            ), where
+                                                                                                                                      co
+a steeper temperature dependence than other proteostasis pro-                        o
+                                                                                   kdam is the rate of damage in the absence of tBuOOH and co is
+cesses, roughly doubling every 4 ◦ C (66, 67). By using kinetics                   a constant with units of concentration, determined by the best
+inferred previously for HSP70 clients (33), unfolding rates are                    fit to experimental data. Fig. 4A shows that the predicted life
+predicted to catch up to the rates of protein synthesis in early                   span (black curve) agrees well with the experimental measure-
+adulthood within this temperature range (Fig. 3D). This rapid                      ments [red points; Stroustrup et al. (61)]. Life span changes
+acceleration of spontaneous unfolding of proteins is a central                     very little at low levels of tBuOOH, as it makes only a small
+reason why greater chaperone levels are beneficial at higher                       contribution to the overall damage rate. However, beyond a crit-
+temperatures, regulated through the heat-shock response (68).                      ical value, life span drops sharply. The age-dependent rise in
+Yet, oddly, this stress response is turned off very early in                       protein damage is shown in Fig. 4B for 3 values of [tBuOOH]
+C. elegans adulthood (69). Other stress-response pathways such                     (shown by vertical dashed lines in Fig. 4A). Consistent with
+as the mitochondrial unfolded protein response and the endo-                       the experimental observation, the extent of damage at death
+plasmic reticulum unfolded protein response are also strongly                      (Fig. 4B, vertical dashed lines) increases with shortening life
+down-regulated (59) by a mechanism that can be modulated by                        span (74, 75).
+gonadal signaling (70–72) and dietary restriction (73). Given that
+a single temperature was used to raise the worms (61), our model
+therefore uses a single, constant chaperone level for all adult
+temperature conditions and ages (12).                                              A                                       B
+Heating at Temperatures Above 28 ◦ C Rapidly Fills Available
+Chaperone Capacity, Forcing Protein Synthesis to Slow. Life span
+is predicted to shorten much more rapidly at temperatures above
+28 ◦ C, as unfolding loads begin to overshadow synthesis (SI
+Appendix, Effective Parameters). The temperature dependence of
+the total unfolding burden faced by the cell thus transitions from
+a synthesis-dominated regime, where the burden doubles every
+8 ◦ C, to an unfolding-dominated regime, where the burden dou-
+bles every 4 ◦ C. At such high unfolding loads, we hypothesized
+that life span might be particularly sensitive to the burden from                  Fig. 5. Increased chaperone capacity extends life span. (A) Chaperone
+damaged proteins. To test this, we modeled aging with (blue)                       dependence of relative (rel.) life span (τ /τo , where τo is the life span with
+                                                                                   wild-type [WT] chaperone level) at T = 20 ◦ C (blue line), T = 25 ◦ C (orange
+and without (cyan) the ability for damaged proteins to bind
+                                                                                   line), and T = 30 ◦ C (red line). The predicted increase of life span (orange
+chaperones. Consistent with our hypothesis, chaperone distrac-                     line) quantitatively captures the experimentally observed life span exten-
+tion by damaged proteins begins decreasing life span between                       sion at T = 25 ◦ C (black triangles) (77). (B) The temperature dependence of
+T = 28 ◦ C and 31 ◦ C (Fig. 3C). This sensitivity is further com-                  life-span extension due to a 2-fold increase in chaperone level with (solid
+pounded by the rising levels of unfolded, oxidation-prone pro-                     line) and without (dashed line) the ability of chaperones to bind, and thus
+teins at these temperatures. Together, these processes provide a                   be titrated by, damaged protein.
+
+
+22176 | www.pnas.org/cgi/doi/10.1073/pnas.1906592116                                                                                                  Santra et al.
+A                                           B                                             significantly (83) (Fig. 6A). The amount of benefit also showed
+                                                                                          nonmonotonic behavior due to chaperone diversion by dam-
+                                                                                          aged proteins (Fig. 6B). Consistent with these predictions, up-
+                                                                                          regulating 26S proteasomal activity showed negligible benefits at
+                                                                                          20 ◦ C, yet increased life span by 25% at 25 ◦ C (71). However,
+                                                                                          experiments showed continued life-span benefit at 34 ◦ C, where
+                                                                                          death normally occurs in less than a day, suggesting that our
+                                                                                          model may not be adequately capturing certain processes under
+                                                                                          such severe stress conditions.
+
+Fig. 6. Increased degradation capacity extends life span. (A) Increasing                  Conclusions. We describe how proteostasis declines with age in
+degradation capacity is predicted to increase life span at different temper-              the worm C. elegans. The model explains 2 remarkable exper-
+atures. The black symbols are experimental data at T = 20 ◦ C. (83). rel.,                imental results from ref. 61—namely, that worms’ life span
+relative; WT, wild type. (B) The benefit of increased degradation capacity                decreases by 2 orders of magnitude when they are grown in heat
+depends highly on temperature (solid line). The dashed line is the model                  or added oxidant. Most importantly, the model gives an under-
+prediction in the absence of chaperone diversion.
+                                                                                          lying mechanistic explanation for how this dependence emerges
+                                                                                          from well-known properties of protein-folding kinetics and the
+How Does Life Span Depend on Cellular Properties?                                         targeting of nonnative protein conformations by oxidants. This,
+                                                                                          in turn, provides a mechanism for one of the most prominent fea-
+Chaperone Overexpression Can Extend Life Span. The model gives
+                                                                                          tures of aging—namely, the nonlinear increase in death rate with
+an accounting for how chaperone levels can affect a cell’s                                age, called Gompertz Law. With age, the abundances of irrepara-
+aging and longevity. Chaperones reduce the levels of unfolded,                            bly damaged proteins are predicted to increase, distracting the
+oxidation-prone conformations, thereby decreasing the rates of
+
+
+
+
+                                                                                                                                                                                         COMPUTATIONAL BIOLOGY
+                                                                                          chaperones from folding the healthy proteins the cell needs. The
+protein damage and aggregation (76). Proteins are susceptible                             tipping point to death occurs when replenishing good proteins no
+
+
+
+
+                                                                                                                                                                                            BIOPHYSICS AND
+to damage when they are synthesized, as well as during each                               longer keeps up with losses from damage and aggregation. The
+thermal unfolding event, which occurs in our model at a rate                              progressive aging of the proteome is seen to be a direct conse-
+ku ≈ 0.4 d−1 at T = 20 ◦ C (SI Appendix, Table S1). To explore                            quence of slowed protein synthesis and turnover, relative to the
+this dependence more precisely, we predicted life span for chap-                          relentless onslaught of damage.
+erone levels ranging from 80 to 300% of the wild-type value at
+3 different temperatures, as shown in Fig. 5A. The model pre-                             Materials and Methods
+dicts that at T = 25 ◦ C, an 80% increase in chaperone level can
+                                                                                          To run the model, a numerical differential equation solver in Mathematica
+increase life span by ≈45%. This is in quantitative agreement                             was applied to the equations describing the folding, misfolding, chaperoning,
+with the experimental observation (77). Extension of life span                            damage, aggregation, or degradation of protein (SI Appendix). Growth rate
+by increasing chaperone levels has also been observed in other                            kgr was initialized at 20 ◦ C by using values in SI Appendix, Table S1. Protein
+studies on C. elegans (78, 79), fruit flies (80), and mice (81).                          concentration was held constant by using the following relation between syn-
+Although there are apparent exceptions, such as the acceleration                          thesis [σ(t)], growth [kgr (t)], and degradation flux [Jdeg (t)], σ(t) = kgr (t)[P] +
+of neurodegeneration upon overexpression of HSP90 in mice                                 Jdeg (t), where [P] is the desired total concentration of the protein. The con-
+(82), it should be noted that HSP90 can be a negative regulator                           centration of chaperone was kept constant over time (SI Appendix, Table S1).
+of the HSP70 chaperones studied here. Interestingly, life-span                            Prior to allowing the system to age (t > 0), the system was equilibrated at
+                                                                                          T = 20 ◦ C for long enough (10 d) to make sure that the system reached steady
+extension from increased chaperone availability is predicted to
+                                                                                          state, as indicated by the time independence of concentrations of proteins,
+have a strong nonlinear temperature dependence, rising sharply                            chaperones, and chaperone-bound complexes. At this point, corresponding
+above 28 ◦ C (Fig. 5B, solid line), coincident with the sharp rise                        to the starting point of C. elegans adulthood, we imposed the age-dependent
+in chaperone diversion and the inhibition of protein synthesis                            decay of growth and degradation (SI Appendix, Table S1). The simulation
+observed experimentally (SI Appendix, Fig. S2). To test if dam-                           was carried out for a further 1 d, keeping temperature fixed at 20 ◦ C in the
+aged proteins play a central role in this model behavior, we                              absence of external oxidative stress. After the end of this day, we imposed the
+turned off the ability of damaged proteins to bind chaperones.                            change corresponding to the stress of interest (temperature, oxidative dam-
+When we did, the strong nonlinear behavior largely disappeared                            age, chaperone level, or proteasome level) by changing the associated param-
+(Fig. 5B, dashed line). As chaperones cannot be strongly up-                              eters in SI Appendix, Table S1. Following the experimental convention of
+                                                                                          Stroustrup et al. (61), we defined this time as t = 0.
+regulated in adult worms (69), Fig. 5B shows the importance
+                                                                                             The current model predicts damage level with increasing age. The dam-
+of freeing up chaperone capacity by decreasing synthesis at high                          age level is generally considered as a biomarker of aging. To predict the
+temperatures.                                                                             mortality rate, we assumed that it was proportional to the damage level
+                                                                                          following the relation: µ(t) = µo fD (t)α , where fD (t) is the fraction of dam-
+Overexpressing the Degradation Machinery Extends Life Span. The                           aged protein, and µo and α are constants which are obtained by fitting the
+model also predicts the dependence of cellular life span on                               experimental data shown in Fig. 2C (see SI Appendix for further details).
+degradation rates. Proteasome overexpression has been shown
+to extend life span by directly ridding the cell of protein dam-                          ACKNOWLEDGMENTS. This work was supported by the Laufer Center for
+                                                                                          Physical and Quantitative Biology and by NSF Grant PHY1205881. We thank
+age and indirectly by controlling the levels of regulatory proteins                       Dr. Meng-Qiu Dong for her valuable insight that helped initiate this work;
+(83). By up-regulating degradation capacity in the model, we                              Dr. Sarina Bromberg for assistance with figures; and the reviewers for their
+found—similar to chaperones—that life span can be extended                                helpful comments.
+
+
+1. C. Lopez-Otin, M. Blasco, L. Partridge, M. Serrano, G. Kroemer, The hallmarks of       5. J. McAuley, R. Taylor, A. Simonds, S. Chawda, Respiratory difficulty with palatal, laryn-
+   aging. Cell 153, 1194–1217 (2013).                                                        geal and respiratory muscle tremor in adult-onset Alexander’s disease. BMJ Case Rep.,
+2. T. Kirkwood, Understanding the odd science of aging. Cell 120, 437–447                    10.1136/bcr-2016-218484 (2017).
+   (2005).                                                                                6. J. Hoeijmakers, DNA damage, aging, and cancer. N. Engl. J. Med. 361, 1475–1485
+3. A. Kowald, T. Kirkwood, A network theory of ageing: The interactions of defective         (2009).
+   mitochondria, aberrant proteins, free radicals and scavengers in the ageing process.   7. R. Bahar et al., Increased cell-to-cell variation in gene expression in ageing mouse
+   Mutat. Res. 316, 209–236 (1996).                                                          heart. Nature 441, 1011–1014 (2006).
+4. C. Soti, P. Csermely, Aging and molecular chaperones. Exp. Gerontol. 38, 1037–1040     8. E. Blackburn, C. Greider, J. Szostak, Telomeres and telomerase: The path from maize,
+   (2003).                                                                                   Tetrahymena and yeast to human cancer and aging. Nat. Med. 12, 1133–1138 (2006).
+
+
+
+Santra et al.                                                                                                    PNAS | October 29, 2019 | vol. 116 | no. 44 | 22177
+ 9. B. Jesus et al., Telomerase gene therapy in adult and old mice delays aging and               48. D. Bimston et al., BAG-1, a negative regulator of hsp70 chaperone activity, uncouples
+    increases longevity without increasing cancer. EMBO Mol. Med. 4, 691–704 (2012).                  nucleotide hydrolysis from substrate release. EMBO J. 17, 6871–6878 (1998).
+10. J. Feser et al., Elevated histone expression promotes life span extension. Mol. Cell 39,      49. L. Sun et al., The lid domain of Caenorhabditis elegans Hsc70 influences ATP turnover,
+    724–735 (2010).                                                                                   cofactor binding and protein folding activity. PLoS One 7, e33980 (2012).
+11. Y. Field et al., Distinct modes of regulation by chromatin encoded through                    50. G. Depuydt, N. Shanmugam, M. Rasulova, I. Dhondt, B. P. Braeckman, Increased pro-
+    nucleosome positioning signals. PLoS Comput. Biol. 4, e1000216 (2008).                            tein stability and decreased protein turnover in the Caenorhabditis elegans ins/IGF-1
+12. D. Walther et al., Widespread proteome remodeling and aggregation in aging C.                     daf-2 mutant. J. Gerontol. Ser.A 71, 1553–1559 (2016).
+    elegans. Cell 161, 919–932 (2015).                                                            51. W. Van Voorhies, S. Ward, Genetic and environmental conditions that increase
+13. R. Houtkooper et al., Mitonuclear protein imbalance as a conserved longevity                      longevity in Caenorhabditis elegans decrease metabolic rate. Proc. Natl. Acad. Sci.
+    mechanism. Nature 497, 451–457 (2013).                                                            U.S.A. 96, 11399–11403 (1999).
+14. G. Janssens et al., Protein biogenesis machinery is a driver of replicative aging in yeast.   52. M. Radman, Protein damage, radiation sensitivity and aging. DNA Repair 44, 186–192
+    eLife 4, e08527 (2015).                                                                           (2016).
+15. S. Rangaraju et al., Suppression of transcriptional drift extends C. elegans lifespan by      53. N. B. Nillegoda, A. S. Wentink, B. Bukau, Protein disaggregation in multicellular
+    postponing the onset of mortality. eLife 4, e08833 (2015).                                        organisms. Trends Biochem. Sci.. 43, 285–300 (2018).
+16. V. Narayan et al., Deep proteome analysis identifies age-related processes in C.              54. S. Kim, E. A. Nollen, K. Kitagawa, V. P. Bindokas, R. I. Morimoto, Polyglutamine
+    elegans. Cell Systems 3, 144–159 (2016).                                                          protein aggregates are dynamic. Nat. Cell Biol. 4, 826–831 (2002).
+17. W. Balch, R. I. Morimoto, A. Dillin, J. Kelly, Adapting proteostasis for disease              55. T. Gidalevitz, A. Ben-Zvi, K. H. Ho, H. R. Brignull, R. I. Morimoto, Progressive disruption
+    intervention. Science 319, 916–919 (2008).                                                        of cellular protein folding in models of polyglutamine diseases. Science 311, 1471–
+18. E. Powers, R. Morimoto, A. Dillin, J. Kelly, W. Balch, Biological and chemical                    1474 (2006).
+    approaches to diseases of proteostasis deficiency. Annu. Rev. Biochem. 78, 959–991            56. A. Yu et al., Protein aggregation can inhibit clathrin-mediated endocytosis by
+    (2009).                                                                                           chaperone competition. Proc. Natl. Acad. Sci. U.S.A. 111, E1481–E1490 (2014).
+19. R. Taylor, A. Dillin, Aging as an event of proteostasis collapse. Cold Spring Harbor          57. G. Karras et al., Hsp90 shapes the consequences of human genetic variation. Cell 168,
+    Perspect. Biol. 3, a004440 (2011).                                                                856–866 (2017).
+20. C. Proctor, I. Lorimer, Modelling the role of the Hsp70/Hsp90 system in the                   58. N. Tokuriki, F. Stricher, J. Schymkowitz, L. Serrano, D. Tawfik, The stability effects of
+    maintenance of protein homeostasis. PLoS One 6, e22038 (2011).                                    protein mutations appear to be universally distributed. J. Mol. Biol. 369, 1318–1332
+21. L. Walker, H. LeVine III, Corruption and spread of pathogenic proteins in                         (2007).
+    neurodegenerative diseases. J. Biol. Chem. 287, 33109–33115 (2012).                           59. A. Ben-Zvi, E. Miller, R. Morimoto, Collapse of proteostasis represents an early
+22. J. Vanfleteren, B. Braeckman, Mechanisms of life span determination in                            molecular event in Caenorhabditis elegans aging. Proc. Natl. Acad. Sci. U.S.A. 106,
+    Caenorhabditis elegans. Neurobiol. Aging 20, 487–502 (1999).                                      14914–14919 (2009).
+23. A. Krisko, M. Radman, Protein damage and death by radiation in Escherichia coli and           60. D. David et al., Widespread protein aggregation as an inherent part of aging in C.
+    Deinococcus radiodurans. Proc. Natl. Acad. Sci. U.S.A. 107, 14373–14377 (2010).                   elegans. PLoS Biol. 8, e1000450 (2010).
+24. A. Krisko, M. Radman, Phenotypic and genetic consequences of protein damage. PLoS             61. N. Stroustrup et al., The temporal scaling of Caenorhabditis elegans ageing. Nature
+    Genet. 9, e1003810 (2013).                                                                        530, 103–107 (2016).
+25. A. de Graff, M. Hazoglou, K. Dill, Highly charged proteins: The Achilles’ heel of aging       62. O. Karin, A. Agrawal, Z. Porat, V. Krizhanovsky, U. Alon, Senescent cells and the
+    proteomes. Structure 24, 329–336 (2016).                                                          dynamics of aging. bioRxiv (13 April 2019).
+26. D. Petrov, B. Zagrovic, Microscopic analysis of protein oxidative damage: Effect of           63. R. Pearl, The Rate of Living (University of London Press Ltd., London, U.K., 1928).
+    carbonylation on structure, dynamics, and aggregability of villin headpiece. J. Am.           64. H. Suda, K. Sato, Y. Shimizu, A further test of the equation of lifespan by C. ele-
+    Chem. Soc. 133, 7016–7024 (2011).                                                                 gans: Effective activation energy for aging and lifespan. Exp. Gerontol. 46, 569–578
+27. E. Stadtman, Protein oxidation and aging. Science 257, 1220–1224 (1992).                          (2011).
+28. N. Sitte et al., Proteasome inhibition by lipofuscin/ceroid during postmitotic aging of       65. H. Suda, K. Sato, S. Yanase, Timing mechanism and effective activation energy con-
+    fibroblasts. FASEB J. 14, 1490–1498 (2000).                                                       cerned with aging and lifespan in the long-lived and thermosensory mutants of
+29. D. L. Hatfield, Redox pioneer: Professor Vadim N. Gladyshev. Antioxid. Redox                      Caenorhabditis elegans. Mech. Ageing Dev. 133, 600–610 (2012).
+    Signaling 25, 1–9 (2016).                                                                     66. M. Guo, Y. Xu, M. Gruebele, Temperature dependence of protein folding kinetics in
+30. K. Ghosh, A. de Graff, L. Sawle, K. Dill, Role of proteome physical chemistry in cell             living cells. Proc. Natl. Acad. Sci. U.S.A. 109, 17863–17867 (2012).
+    behavior. J. Phys. Chem. B 120, 9549–9563 (2016).                                             67. M. Holtzer et al., Temperature dependence of the folding and unfolding kinetics of
+31. L. Sawle, K. Ghosh, How do thermophilic proteins and proteomes withstand high                     the GCN4 leucine zipper via 13C-NMR. Biophys. J. 80, 939–951 (2001).
+    temperature? Biophys. J. 101, 217–227 (2011).                                                 68. S. Lindquist, The heat-shock response. Ann. Rev. Biochem. 55, 1151–1191 (1986).
+32. C. J. Proctor et al., Modelling the actions of chaperones and their role in ageing.           69. J. Labbadia, R. Morimoto, Repression of the heat shock response is a programmed
+    Mech. Ageing Dev.. 126, 119–131 (2005).                                                           event at the onset of reproduction. Mol. Cell 59, 639–650 (2015).
+33. M. Santra, D. Farrell, K. Dill, Bacterial proteostasis balances energy and chaperone          70. N. Shemesh, N. Shai, A. Ben-Zvi, Germline stem cell arrest inhibits the collapse of
+    utilization efficiently. Proc. Natl. Acad. Sci. U.S.A. 114, E2654–E2661 (2017).                   somatic proteostasis early in Caenorhabditis elegans adulthood. Aging Cell 12, 814–
+34. E. T. Powers, D. L. Powers, L. M. Gierasch, FoldEco: A model for proteostasis in E. coli.         822 (2013).
+    Cell Rep. 1, 265–276 (2012).                                                                  71. D. Vilchez et al., RPN-6 determines C. elegans longevity under proteotoxic stress
+35. K. Chen et al., Thermosensitivity of growth is determined by chaperone-mediated                   conditions. Nature 489, 263–270 (2012).
+    proteome reallocation. Proc. Natl. Acad. Sci. U.S.A. 114, 11548–11553 (2017).                 72. L. R. Lapierre, A. Meléndez, M. Hansen, Autophagy links lipid metabolism to longevity
+36. S. Chakrabarti, C. Hyeon, X. Ye, G. H. Lorimer, D. Thirumalai, Molecular chaperones               in C. elegans. Autophagy 8, 144–146 (2012).
+    maximize the native state yield on biological times by driving substrates out of              73. N. Shpigel, N. Shemesh, M. Kishner, A. Ben-Zvi, Dietary restriction and gonadal
+    equilibrium. Proc. Natl. Acad. Sci. U.S.A. 114, E10919–E10927 (2017).                             signaling differentially regulate post-development quality control functions in
+37. S. Bershtein, W. Mu, A. W. Serohijos, J. Zhou, E. I. Shakhnovich, Protein quality control         Caenorhabditis elegans. Aging Cell 18, e12891 (2019).
+    acts on folding intermediates to shape the effects of mutations on organismal fitness.        74. H. Adachi, Y. Fujiwara, N. Ishii, Effects of oxygen on protein carbonyl and aging in
+    Mol. Cell 49, 133–144 (2013).                                                                     Caenorhabditis elegans mutants with long (age-1) and short (mev-1) life spans. J.
+38. M. Girod et al., Structural basis of protein oxidation resistance: A lysozyme study.              Gerontol. Ser. A 53A, B240–B244 (1998).
+    PLoS One 9, e101642 (2014).                                                                   75. K. Yasuda, H. Adachi, Y. Fujiwara, N. Ishii, Protein carbonyl accumulation in aging
+39. A. Vidovic, F. Supek, A. Nikolic, A. Krisko, Signatures of conformational stability and           Dauer formation-defective (daj) mutants of Caenorhabditis elegans. J. Gerontol. Ser.
+    oxidation resistance in proteomes of pathogenic bacteria. Cell Rep. 7, 1393–1400                  A 54A, 847–851 (1999).
+    (2014).                                                                                       76. H. H. Kampinga, S. Bergink, Heat shock proteins as potential targets for protective
+40. M. Santra, K. Dill, A. de Graff, How do chaperones protect a cell’s proteins from                 strategies in neurodegeneration. Lancet Neurol. 15, 748–759 (2016).
+    oxidative damage? Cell Systems 6, 743–751 (2018).                                             77. K. Yokoyama et al., Extended longevity of Caenorhabditis elegans by knocking in
+41. A. Fredriksson, M. Ballesteros, S. Dukan, T. Nystrom, Induction of the heat shock reg-            extra copies of hsp70F, a homolog of mot-2 (mortalin)/mthsp70/Grp75. FEBS Lett. 516,
+    ulon in response to increased mistranslation requires oxidative modification of the               53–57 (2002).
+    malformed proteins. Mol. Microbiol. 59, 350–359 (2006).                                       78. A. L. Hsu, C. T. Murphy, C. Kenyon, Regulation of aging and age-related disease by
+42. M. Kerner et al., Proteome-wide analysis of chaperonin-dependent protein folding in               DAF-16 and heat-shock factor. Science 300, 1142–1145 (2003).
+    Escherichia coli. Cell 122, 209–220 (2005).                                                   79. J. F. Morley, R. I. Morimoto, Regulation of longevity in Caenorhabditis elegans by heat
+43. K. Ghosh, K. A. Dill, Computing protein stabilities from their chain lengths. Proc. Natl.         shock factor and molecular chaperones. Mol. Biol. Cell 15, 657–664 (2004).
+    Acad. Sci. U.S.A. 106, 10649–10654 (2009).                                                    80. G. Morrow, M. Samson, S. Michaud, R. Tanguay, Overexpression of the small mito-
+44. G. C. Rollins, K. A. Dill, General mechanism of two-state protein folding kinetics. J.            chondrial Hsp22 extends Drosophila life span and increases resistance to oxidative
+    Am. Chem. Soc. 136, 11420–11427 (2014).                                                           stress. FASEB J. 18, 598–599 (2017).
+45. A. Fredriksson, M. Ballesteros, S. Dukan, T. Nystrom, Defense against protein car-            81. N. V. Bobkova et al., Exogenous Hsp70 delays senescence and improves cognitive
+    bonylation by Dnak/Dnaj and proteases of the heat shock regulon. J. Bacteriol. 187,               function in aging mice. Proc. Natl. Acad. Sci. U.S.A. 112, 16006–16011 (2015).
+    4207–4213 (2005).                                                                             82. L. Blair et al., Accelerated neurodegeneration through chaperone-mediated
+46. J. Hohfeld, Y. Minami, F. U. Hartl, Hip, a novel cochaperone involved in the eukaryotic           oligomerization of tau. J. Clin. Investig. 123, 4158–4169 (2013).
+    Hsc70/Hsp40 reaction cycle. Cell 83, 589–598 (1995).                                          83. N. Chondrogianni, K. Georgila, K. Kourtis, N. Tavernarakis, E. Gonos, 20S protea-
+47. J. Hohfeld, S. Jentsch, GrpE-like regulation of the hsc70 chaperone by the                        some activation promotes life span extension and resistance to proteotoxicity in
+    anti-apoptotic protein BAG-1. EMBO J. 16, 6209–6216 (1997).                                       Caenorhabditis elegans. FASEB J. 29, 611–622 (2015).
+
+
+
+22178 | www.pnas.org/cgi/doi/10.1073/pnas.1906592116                                                                                                                               Santra et al.
+

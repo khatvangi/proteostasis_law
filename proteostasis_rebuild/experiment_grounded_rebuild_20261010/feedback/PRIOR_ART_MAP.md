@@ -13,7 +13,7 @@
 | Growth-rate dilution can turn a circuit bistable when expression slows growth | Klumpp, Zhang & Hwa 2009 Cell 139:1366 [10.1016/j.cell.2009.12.001](https://doi.org/10.1016/j.cell.2009.12.001); Tan, Marguet & You 2009 Nat Chem Biol 5:842 [10.1038/nchembio.218](https://doi.org/10.1038/nchembio.218) |
 | Protein allocation as a bounded proteome fraction under growth | Scott et al. 2010 Science 330:1099 [10.1126/science.1192588](https://doi.org/10.1126/science.1192588) |
 | Finite-capacity chaperone networks with folding/degradation/aggregation competition, growth coupling and collapse | FoldEco, Santra/Farrell/Dill 2017, FoldME — listed by the sibling `theory/PRIOR_ART.md`; not re-retrieved here |
-| Proportional feedback reduces error by 1+loop gain; high gain plus delay gives Hopf oscillation; actuator saturation caps what any controller can deliver | textbook control theory |
+| Proportional feedback reduces error by 1+loop gain; high gain plus delay gives Hopf oscillation; actuator saturation caps what any controller can deliver | textbook control theory. The exact two-variable statement (stable at every delay iff G ≤ 1) follows from the standard crossing-frequency method for retarded delay equations; I have not checked whether the El-Samad/Kurata models state it |
 
 I did not read the El-Samad/Kurata model equations, only their abstracts, so I cannot say which of the
 algebra in MINIMAL_DYNAMICS.md they already contain. Assume most of §1–§3 is there in some form.
@@ -25,8 +25,9 @@ Little, and none of it is new biology. It is framing that the project needs:
 1. **σ32 senses spare capacity directly** (spare capacity = k × free chaperone). Simple identity, but it
    is the bridge between the static inequality and the dynamic controller.
 2. **An explicit three-way split** — admissible vs implemented vs productive — with the bookkeeping
-   identity L = served + degraded + diluted, and a tested demonstration that degradation can close the
-   balance while lowering folded output. This is what the earlier static `B_total ≤ C_buffer` framing
+   identity L = served + degraded + diluted, and a proof (constant growth, fixed production) that raising
+   degradation always lowers chaperone-served flux while the balance still closes. "Served" is chaperone
+   turnover, not folded output; the model has no native-product state. This is what the earlier static `B_total ≤ C_buffer` framing
    could not distinguish.
 3. **The one-input / two-machine rank limit**: σ32 can move pools only along one curve, so an
    admissible allocation needing a different GroEL:DnaK ratio is unreachable by this controller, and

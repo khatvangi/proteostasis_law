@@ -67,7 +67,8 @@ class TestConservationAndBounds(unittest.TestCase):
             self.assertAlmostEqual(sum(fb.findFluxPartition(U, C, p)), p["L"], places=9)
 
     def test_load_above_max_service_is_never_fully_served(self):
-        # whatever the gains, served flux <= k*Cmax, so the excess stays unserved
+        # at equilibria only: served flux <= k*Cmax, so the excess stays unserved.
+        # trajectories that start above Cmax can exceed it transiently (TestCeiling)
         rng = np.random.default_rng(3)
         for _ in range(100):
             p = drawParams(rng)
@@ -80,7 +81,8 @@ class TestConservationAndBounds(unittest.TestCase):
 
     def test_degradation_balances_the_books_by_destroying_clients(self):
         # raising the protease route lowers U* and the chaperone-served flux, while
-        # the influx balance still closes: balance is not productive folding
+        # the influx balance still closes. "served" is chaperone turnover; the model
+        # has no native-product state, so this says nothing about native yield
         p = dict(BASE, L=15.0)
         served, deg = [], []
         for d in [0.0, 0.1, 1.0, 10.0]:
@@ -145,7 +147,7 @@ class TestSensitivityAndDelay(unittest.TestCase):
         self.assertGreater(hits, 10)
 
     def test_weak_loop_without_crossing_is_stable_for_every_delay(self):
-        a, b, c, e, mu = 1.0, 0.1, 0.1, 0.05, 0.5   # G < 1 and a^2+mu^2 > e^2
+        a, b, c, e, mu = 1.0, 0.1, 0.1, 0.05, 0.5   # G < 1 (which already forces e < mu)
         self.assertLess(fb.findLoopGain(a, b, c, e, mu), 1)
         self.assertIsNone(fb.findCriticalDelay(a, b, c, e, mu))
 
@@ -164,6 +166,151 @@ class TestGrowthToxicity(unittest.TestCase):
         self.assertGreater(eq[2][1], 0.99 * fb.findCapMax(p))
         # raising load slightly removes the served state altogether
         self.assertEqual(len(fb.findEquilibria(dict(p, L=0.32, delta=0.0005))), 1)
+
+
+def drawLoop(rng):
+    # random positive linear loop terms a, b, c, e, mu over two decades
+    return tuple(10 ** rng.uniform(-1, 1, size=5))
+
+
+def findOscillatingHistory(t):
+    # nonconstant history on [-tau, 0], so stability is not checked from one special start
+    return 1e-3 * np.cos(3.0 * t), 1e-3 * np.sin(1.7 * t)
+
+
+class TestDelayTheorem(unittest.TestCase):
+    """linear, local result: stable at every delay iff G <= 1; G > 1 -> stable iff tau < tau*."""
+
+    def test_crossing_polynomial_signs_follow_the_gain(self):
+        rng = np.random.default_rng(10)
+        weak = strong = 0
+        for _ in range(5000):
+            a, b, c, e, mu = drawLoop(rng)
+            G = fb.findLoopGain(a, b, c, e, mu)
+            A2 = a * a + mu * mu - e * e
+            A0 = (a * mu) ** 2 - (e * a + b * c) ** 2
+            self.assertAlmostEqual(A0 / ((a * mu) ** 2 * (1 - G * G)), 1.0, places=6)
+            if G <= 1:
+                weak += 1
+                # G <= 1 -> e*a < a*mu (since b*c > 0) -> e < mu -> A2 > 0; and A0 >= 0
+                self.assertLess(e, mu)
+                self.assertGreater(A2, 0)
+                self.assertIsNone(fb.findCriticalDelay(a, b, c, e, mu))
+            else:
+                strong += 1
+                zs = [z for z in np.roots([1.0, A2, A0]) if abs(z.imag) < 1e-12 and z.real > 0]
+                self.assertEqual(len(zs), 1)                  # A0 < 0: exactly one positive root
+                self.assertGreater(2 * zs[0].real + A2, 0)    # F'(z+) > 0: every crossing destabilises
+                w, tau = fb.findCriticalDelay(a, b, c, e, mu)
+                s = 1j * w
+                f = (s + a) * (s + mu) + (e * s + e * a + b * c) * np.exp(-s * tau)
+                self.assertLess(abs(f), 1e-8 * max(1.0, abs((s + a) * (s + mu))))
+        self.assertGreater(weak, 500)
+        self.assertGreater(strong, 500)
+
+    def test_equality_case_has_no_crossing_and_still_decays(self):
+        # G = 1 exactly: A0 = 0, roots z = 0 and z = -A2. z = 0 would be s = 0, but
+        # f(0) = a*mu*(1+G) = 2 a mu != 0, so there is no crossing at any finite delay
+        a, b, c, e, mu = 1.0, 1.0, 0.5, 0.5, 1.0
+        self.assertAlmostEqual(fb.findLoopGain(a, b, c, e, mu), 1.0, places=12)
+        self.assertIsNone(fb.findCriticalDelay(a, b, c, e, mu))
+        self.assertAlmostEqual(a * mu + e * a + b * c, 2 * a * mu, places=12)
+        self.assertLess(fb.findLinearDdeGrowth(a, b, c, e, mu, 1.0, 120, hist=findOscillatingHistory), 0)
+
+    def test_weak_gain_is_stable_at_every_delay(self):
+        # G = 0.5: decays from a nonconstant history at short, medium and long delay
+        a, b, c, e, mu = 1.0, 1.0, 0.2, 0.3, 1.0
+        self.assertAlmostEqual(fb.findLoopGain(a, b, c, e, mu), 0.5, places=12)
+        self.assertIsNone(fb.findCriticalDelay(a, b, c, e, mu))
+        for tau in [0.5, 5.0, 20.0]:
+            g = fb.findLinearDdeGrowth(a, b, c, e, mu, tau, 10 * tau + 60, hist=findOscillatingHistory)
+            self.assertLess(g, 0, msg=f"tau={tau}")
+
+    def test_strong_gain_is_unstable_at_every_delay_beyond_tau_star(self):
+        # e < mu and e^2 < a^2+mu^2 both hold, yet G = 2.5 > 1, so a finite tau* exists.
+        # stable just below tau*, unstable just above and further out (crossings never reverse)
+        a, b, c, e, mu = 1.0, 1.0, 2.0, 0.5, 1.0
+        self.assertGreater(fb.findLoopGain(a, b, c, e, mu), 1)
+        w, tau = fb.findCriticalDelay(a, b, c, e, mu)
+        self.assertAlmostEqual(tau, 1.2666, places=3)
+        T = 60 * (2 * np.pi / w)
+        H = findOscillatingHistory
+        self.assertLess(fb.findLinearDdeGrowth(a, b, c, e, mu, 0.9 * tau, T, hist=H), 0)
+        for f in [1.1, 2.0, 3.0]:
+            self.assertGreater(fb.findLinearDdeGrowth(a, b, c, e, mu, f * tau, T, hist=H), 0,
+                               msg=f"{f} tau*")
+
+
+class TestCeiling(unittest.TestCase):
+    """Cmax = (b0+bm)/mu attracts and is forward-invariant; it is not an absolute bound."""
+    P = dict(L=5.0, k=2.0, K=1.0, mu=0.5, delta=0.0, b0=0.05, bm=1.0, Ks=1.0, n=2)
+
+    def test_pool_starting_at_or_below_ceiling_stays_below(self):
+        p = self.P
+        Cmax = fb.findCapMax(p)
+        for U0, C0 in [(0.0, Cmax), (10.0, Cmax), (1.0, 0.0), (50.0, 0.5 * Cmax)]:
+            _, _, C = fb.findTrajectory(U0, C0, p, 20)
+            self.assertLessEqual(C.max(), Cmax * (1 + 1e-9))
+
+    def test_initial_pool_above_ceiling_exceeds_it_and_serves_above_k_cmax(self):
+        # counterexample to "the pool can never exceed Cmax": a pre-induced start
+        p = self.P
+        Cmax = fb.findCapMax(p)
+        C0 = 3 * Cmax
+        t, U, C = fb.findTrajectory(1.0, C0, p, 20)
+        served = p["k"] * C * U / (p["K"] + U)
+        self.assertGreater(t[C > Cmax].max(), 3.0)            # above the ceiling for t > 3
+        self.assertGreater(served.max(), p["k"] * Cmax)       # served above k*Cmax ...
+        self.assertGreater(served.max(), p["L"])              # ... and above the influx
+        # the true statement: the excess decays at least as fast as exp(-mu t)
+        self.assertTrue(np.all(C - Cmax <= (C0 - Cmax) * np.exp(-p["mu"] * t) + 1e-9))
+        self.assertLess(C[-1], Cmax)
+
+    def test_growth_upshift_starts_pool_above_its_new_ceiling(self):
+        # nonconstant growth: steady state at mu = 0.25, then mu steps to 0.5
+        p = self.P
+        U0, C0 = fb.findEquilibria(dict(p, mu=0.25))[0]
+        Cmax = fb.findCapMax(p)
+        self.assertGreater(C0, Cmax)
+        t, _, C = fb.findTrajectory(U0, C0, p, 20)
+        self.assertGreater(t[C > Cmax].max(), 1.0)
+        self.assertLess(C[-1], Cmax)
+
+
+class TestModelAssumptions(unittest.TestCase):
+    def test_sigma_derivative_at_zero_free_chaperone(self):
+        for Ks in [0.5, 2.0]:
+            self.assertAlmostEqual(fb.findSigmaActivity(0.0, Ks, 1)[1], -1.0 / Ks, places=12)
+            self.assertEqual(fb.findSigmaActivity(0.0, Ks, 2)[1], 0.0)
+            self.assertEqual(fb.findSigmaActivity(0.0, Ks, 4)[1], 0.0)
+            self.assertEqual(fb.findSigmaActivity(0.0, Ks, 0.5)[1], -np.inf)
+        # and the closed form matches finite differences away from zero
+        rng = np.random.default_rng(11)
+        for _ in range(50):
+            F, Ks, n, h = rng.uniform(0.01, 5), rng.uniform(0.1, 5), rng.choice([0.5, 1, 2, 4]), 1e-6
+            fd = (fb.findSigmaActivity(F + h, Ks, n)[0] - fb.findSigmaActivity(F - h, Ks, n)[0]) / (2 * h)
+            self.assertAlmostEqual(fb.findSigmaActivity(F, Ks, n)[1] / fd, 1.0, places=5)
+
+    def test_collapse_rests_on_synthesis_proportional_to_growth(self):
+        # growth mode: synthesis = mu(U)*P*(...) so it vanishes when growth stops ...
+        p = dict(mode="growth", P=10.0, phi0=0.01, phim=0.05, k=0.1, K=1.0, mu=0.0,
+                 Ks=1.0, n=2, L=0.25, delta=0.001)
+        self.assertEqual(fb.findProduction(1.0, 0.1, p), 0.0)
+        # ... and at the collapsed state of the bistable case synthesis is ~1000x below
+        # the served state, because growth (and with it synthesis) has nearly stopped
+        q = dict(p, mu=0.1, Ktox=5.0, ntox=2, Uscan=1e5)
+        eq = fb.findEquilibria(q)
+        self.assertEqual(len(eq), 3)
+        syn = [fb.findProduction(U, fb.findFree(C, U, q["K"]), q) for U, C in eq]
+        self.assertLess(syn[2], 1e-2 * syn[0])
+        # fixed mode, the opposite assumption: no ceiling as growth stops
+        f = dict(BASE)
+        caps = [fb.findCapMax(dict(f, mu=m)) for m in [0.5, 0.05, 0.005]]
+        self.assertAlmostEqual(caps[2] / caps[0], 100.0, places=9)
+        with self.assertRaises(ValueError):
+            fb.findProduction(1.0, 0.1, dict(f, Ktox=5.0))
+        with self.assertRaises(ValueError):
+            fb.findLoopTerms(1.0, 0.5, q)
 
 
 if __name__ == "__main__":

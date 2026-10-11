@@ -1,0 +1,182 @@
+{
+ "L1_moving_quota": {
+  "P_moving": 3.3000000000000003,
+  "P_static": 1.2,
+  "min_gap_moving": 0.0,
+  "min_gap_static": -1.9088582125901852
+ },
+ "L3_symbolic": {
+  "crossing_hits_req": true,
+  "ode_solution_matches": true
+ },
+ "L3_window_example": {
+  "t_lo": 0.7636363529037167,
+  "t_up": 3.218875824868201
+ },
+ "L4_parallel": {
+  "bottleneck_min_passes": false,
+  "lp_feasible": true
+ },
+ "L4_pooling": {
+  "pooled_feasible": true,
+  "qualified_feasible": false
+ },
+ "L4_serial": {
+  "hall_union_passes": true,
+  "lp_feasible": false
+ },
+ "L4_serial_certificate": {
+  "('capacity', 'A')": 0.0,
+  "('capacity', 'B')": 1.0,
+  "('demand', 'i')": 1.0,
+  "('supply', 'i')": 0.0
+ },
+ "L6_coregulated": {
+  "Y_at_0": 0.2314025193688397,
+  "Y_at_1": 0.2546730314088151,
+  "Y_best": 0.3160933298110729,
+  "u_best": 0.31
+ },
+ "L8_cotranslational_symbolic": true,
+ "L8_margin_sensitivity": {
+  "fd_G": -0.7499996252935404,
+  "fd_K": 0.0,
+  "pred_G": -0.7499999999999999,
+  "pred_K": -0.0,
+  "theta": 1.5,
+  "w_G": 1.5,
+  "w_K": 0.0,
+  "x": [
+   0.49999999999999994,
+   0.9375
+  ]
+ },
+ "L8_two_client": {
+  "Y_sigma1_0": [
+   0.16446901957090992,
+   0.6470240130217576
+  ],
+  "Y_sigma1_0.3": [
+   0.4053583081159468,
+   0.6257259120346337
+  ],
+  "free_0": [
+   1.6454340394667921,
+   0.924364589122666
+  ],
+  "free_0.3": [
+   1.7855252069896173,
+   1.1203335198328914
+  ]
+ },
+ "L9_energy": {
+  "budgets": [
+   0.5,
+   1.0,
+   2.0,
+   3.0,
+   4.0,
+   6.0,
+   10.0
+  ],
+  "margin": [
+   0.2999999999999999,
+   0.5999999999999999,
+   0.8714285714285713,
+   1.1428571428571426,
+   1.414285714285714,
+   1.74,
+   1.74
+  ],
+  "margin_without_energy_row": 1.7400000000000002
+ },
+ "S1_comparison": [
+  {
+   "MH": 0.0,
+   "Y_realized": 0.8982084616831358,
+   "committed_H": 0.1,
+   "margin_LP": 1.6315789473684221,
+   "occupancy_G": 0.36146480204016457,
+   "occupancy_H": 0.0
+  },
+  {
+   "MH": 0.5,
+   "Y_realized": 0.6917393933561797,
+   "committed_H": 0.1,
+   "margin_LP": 1.6315789473684221,
+   "occupancy_G": 0.2709484490505451,
+   "occupancy_H": 0.5271723084420806
+  },
+  {
+   "MH": 2.0,
+   "Y_realized": 0.39206517832468546,
+   "committed_H": 0.1,
+   "margin_LP": 1.6315789473684221,
+   "occupancy_G": 0.13539869344001934,
+   "occupancy_H": 0.31963874376332996
+  },
+  {
+   "MH": 5.0,
+   "Y_realized": 0.23434662999377748,
+   "committed_H": 0.1,
+   "margin_LP": 1.6315789473684221,
+   "occupancy_G": 0.06260769132952589,
+   "occupancy_H": 0.16692188614123254
+  }
+ ],
+ "S1_low_occupancy": {
+  "0.01": {
+   "Y": 0.00010098970108053167,
+   "max_occupancy": 9.998980206013328e-07
+  },
+  "0.03": {
+   "Y": 0.0009261179837130582,
+   "max_occupancy": 2.6974289012072713e-05
+  },
+  "0.1": {
+   "Y": 0.010871711479646148,
+   "max_occupancy": 0.0009882485343970346
+  }
+ },
+ "S1_sign_symbolic": true,
+ "S1_two_machine_sign_exceptions": {
+  "evaluated": 400,
+  "exceptions": 21
+ },
+ "S2_ceiling_worst_excess": 1.7763568394002505e-15,
+ "S2_post_shock_equilibrium": {
+  "max_real_eigenvalue": -0.06520390678783974,
+  "rhs_residual": 3.941291737419306e-14
+ },
+ "S2_race": {
+  "M0": 2.03623814299764,
+  "Mc": 26.0,
+  "N0": 28.565407134081646,
+  "Nreq": 12.0,
+  "Nss_post": 18.989552686451987,
+  "bound_guarantees_violation_by_t": 1.04,
+  "first_violation_t": 1.03,
+  "lam": 1.085,
+  "mass_error": 7.958078640513122e-13,
+  "max_N_minus_bound": 0.0,
+  "min_N": 6.544021285893617,
+  "min_bound": 6.601873277946673,
+  "min_free_machine": 0.003641407966269661,
+  "min_state": 0.054541792957864495,
+  "mu": 0.035,
+  "post_shock_occupancy": 0.9927952503000679,
+  "steady_bound_full_induction": 36.40552995391705,
+  "t_min_bound": 3.02
+ },
+ "S2_race_forced_max_induction": {
+  "Nss_post": 22.723176994815585,
+  "first_violation_t": 1.04,
+  "mass_error": 1.2505552149377763e-12,
+  "max_N_minus_bound": 0.0,
+  "min_N": 6.595228017434772
+ },
+ "S2_symbolic": {
+  "initial_value": true,
+  "solves_comparison_ode": true
+ }
+}

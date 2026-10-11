@@ -1,0 +1,25 @@
+FoldEcoSlim rate equations (S1)-(S14), Pobre et al. 2019 Protein Sci 28:1324, Supporting Information (PRO-28-1324-s001.docx).
+PROVENANCE: equations are MathType OLE images in the docx; pandoc text shows "[]". Rendered with LibreOffice to
+raw/supp_docx_pdf/PRO-28-1324-s001.pdf; page images raw/supp_docx_pdf/page-06.png, page-07.png. Transcribed by eye
+from those images on 2026-10-10 -- check against the PNGs before relying on any term.
+
+Per protein/cluster i:
+(S1) d[Ui]/dt = sigma_i - [Ui](k_f,i + k_agg,i + k_K,in[K] + k_G,in,i[G] + k_D,in[D] + lambda)
+               + k_u,i[Ni] + k_K,out[K:Ui] + k_G,out[G:Ui] + k_D,out[D:Ui]
+(S2) d[Ni]/dt = k_f,i[Ui] - k_u,i[Ni] + k_G,out[G:Ni] - lambda[Ni]
+(S3) d[Ai]/dt = k_agg,i[Ui] - k_K,in[K][Ai] + k_K,out[K:Ai] - lambda[Ai]
+(S4) d[Deg_i]/dt = k_D,deg[D:Ui] - lambda[Deg_i]
+(S5) d[D:Ui]/dt = k_D,in[D][Ui] - k_D,out[D:Ui] - k_D,deg[D:Ui] - lambda[D:Ui]
+(S6) d[G:Ui]/dt = k_G,in,i[G][Ui] - k_G,out[G:Ui] - gamma_i k_f,i[G:Ui] + k_u,i[G:Ni] - lambda[G:Ui]
+(S7) d[G:Ni]/dt = gamma_i k_f,i[G:Ui] - k_u,i[G:Ni] - k_G,out[G:Ni] - lambda[G:Ni]
+(S8) d[K:Ui]/dt = k_K,in[K][Ui] - k_K,out[K:Ui] + k_K,disagg,i[K:Ai] - lambda[K:Ui]
+(S9) d[K:Ai]/dt = k_K,in[K][Ai] - k_K,out[K:Ai] - k_K,disagg,i[K:Ai] - lambda[K:Ai]
+
+Proteostasis network components:
+(S10) d[H]/dt   = sigma_H - k_K,in,H[K][H] + k_K,out,H[K:H] - lambda[H]
+(S11) d[K:H]/dt = k_K,in,H[K][H] - k_K,out,H[K:H] - k_K:H,deg[K:H] - lambda[K:H]
+(S12) d[D]/dt = sigma_D - SUM_i k_D,in[D][Ui] + (k_D,out + k_D,deg) SUM_i [D:Ui] - lambda[D]
+(S13) d[G]/dt = sigma_G - SUM_i k_G,in,i[G][Ui] + SUM_i k_G,out([G:Ui] + [G:Ni]) - lambda[G]
+(S14) d[K]/dt = sigma_K - k_K,in,H[K][H] + k_K,out,H[K:H] + k_K:H,deg[K:H]
+               - SUM_i k_K,in[K]([Ui] + [Ai]) + SUM_i k_K,out([K:Ui] + [K:Ai]) - lambda[K]
+with sigma_D = rho_D[H], sigma_G = rho_G[H], sigma_K = rho_K[H] (verbatim text, supp. p.7).

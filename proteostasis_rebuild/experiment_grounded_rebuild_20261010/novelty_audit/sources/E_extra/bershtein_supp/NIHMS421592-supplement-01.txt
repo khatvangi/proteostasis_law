@@ -1,0 +1,88 @@
+﻿
+Supplement
+
+
+
+
+
+
+
+
+
+Supplemental Figures (Titles and Legends)
+Figure S1 (Related to Figures 1 and 2). The effect of ClpP and HslV deletion on growth rates of DHFR mutant strains. (see Experimental Procedures) (A) ClpP, a protease component in ClpPA, ClpPX, and ClpPAX complexes of ATP-dependent proteases, and (B) HslV, a protease component of HslUV ATP-dependent protease were deleted in wt and W133V, I155A, V75H+I155A DHFR mutant strains, and the effect of the deletion on growth rates was tested at 42oC. Error bars represent s.d. of 16 independent measurements.
+Figure S2 (Related to Figure 2 and 3). Activity of protein quality control system does not correlate with changes in protein stability to unfolding. Change in growth rates of DHFR mutant strains induced at 42oC by (A) lon deletion or (B) GroEL/ES over-expression does not correlate with the G values measured in vitro for the same protein mutants. Change in growth rate is calculated by subtracting the growth rates under endogenous conditions from the growth rates upon lon deletion or GroEL/ES over-expression. Error bars for changes in the growth rate were calculated by summation of the relative s.d. values. (C) Intermediate folding fraction measured by bis-ANS at 42oC for DHFR mutant proteins does not correlate with their G values. (D) Oligomerization propensity of the DHFR mutant proteins does not correlate with the fraction of folding intermediates measured by bis-ANS fluorescent at 42oC. Oligomerization propensity and G values are from . The bis-ANS fluorescent data is normalized against the signal obtained for wtDHFR (arbitrary set to 1). 
+Figure S3 (Related to Figure 3 and 5). Bis-ANS profiling of DHFR proteins during thermal unfolding. Bis-ANS fluorescent probe was used in vitro to monitor the population of folding intermediates during thermal unfolding of the purified DHFR proteins (25oC -70oC). (see Experimental Procedures). Most proteins have a defined transition through a folding intermediate (Tm, mid-transition temperature). 
+Figure S4 (Related to Figure 3). Aggregation status during thermal unfolding. Aggregation profile of wt, W133V, V75H+I155A, and I91L+I155A DHFR proteins was measured during thermal unfolding (25oC -70oC) in the presence of Proteostat dye (see Supplemental Experimental Procedure). Concentration of the proteins, buffer composition, and range and rate of temperature increase were the same as used with bis-ANS profiling (see Experimental Procedure). 
+Figure S5 (Related to Figure 4). Enzyme kinetics. Enzymatic activity of 30 nM wt and V75H+I155A DHFR proteins was measured in vitro by following the linear drop in the NADPH absorbance at 340 nm with time, V0 (mOD/min), see Supplemental Experimental Procedures. Error bars represent s.d. of 3 independent measurements.
+Figure S6 (Related to Figure 5). The effect of lon deletion on the abundance of DHFR proteins in the insoluble fraction of cell lysates. Western blot of the insoluble fraction of DHFR proteins extracted from strains grown at 42oC (see Supplemental Experimental Procedures) Deletion of Lon protease in the DHFR mutant strains with pronounced bis-ANS signal (see Figure 3, Figure S3, Table S2) resulted in the accumulation of mutant DHFR proteins in the insoluble fraction. Prior to the lon deletion, this fraction is undetectable. 
+Figure S7 (Related to Figures 1,2, 6, and 7). Growth rate dependence on temperature. WT MG1655 E. coli strain was grown at various temperatures (26 – 48oC) in LB. The derived growth rates are shown as a function of temperature (presented as 1000/T, Kelvin, to emphasize the Arrhenius behavior). The dashed red line is a linear fit to a 30 – 42oC temperature range. Error bars represent standard deviation of 16 independent measurements. Error bars represent s.d. of 16 independent measurements
+
+
+Supplemental Tables Legends
+
+Table S1 (Related to Figure 2). Growth rates of E. coli strains expressing mutant DHFR
+Table S2 (Related to Figure 3). bis-ANS fluorescence of the E. coli's mutant DHFR proteins
+Table S3 (Related to Figure 6). Growth rates of E. coli strains with folA gene replaced by the homologous DHFR sequences
+Table S4. (Related to Figure 6). Codon-usage in E. coli's folA gene
+
+
+Supplemental Experimental Procedures
+
+Selection of mutants and the conditions for the study
+To determine the role of folding stability, we had to restrict our choice of mutations to those that would have minimal effect on the enzymatic activity. Using structural and sequence analysis, we selected 10 loci, most buried in the hydrophobic core of the C-terminal part of the protein, located at least 4 Å away from the substrate and cofactor binding sites. Out of the 16 single mutant DHFR proteins generated, 13 were found slightly to severely destabilized (with apparent G values ranging between 0.18 to 2.87 kcal/mol) with only a mild change in the catalytic activity (up to 2-3 fold in the  kcat/KM values for most mutants) . To further increase the destabilization, 10 multiple DHFR mutants were created by combining 4 most destabilizing single substitutions. We were able to express and purify 19 out of total of 26 DHFR mutants for the in vitro analysis. Next, each mutant folA gene was incorporated at its endogenous locus in the MG1655 E. coli chromosome without perturbing the integrity of the gene’s regulatory region (see Supplemental Experimental Procedures below and ), thus providing total of 26 mutant E. coli strains carrying specific mutations in the folA gene. The effect of the endogenous folA mutations on fitness was determined by measuring growth rates of each mutant at 300C, 370C, and 420C (see Experimental Procedures, and Table S1). Being a gut bacteria, E. coli inhabit environments with very different temperature profiles that shift from a host core body temperature (37-38oC for mammals, 40-45oC for birds)  to water sediments (ambient temperature). In our view, it is more relevant, therefore, to consider a range of temperatures with regard to fitness effects, rather than following a single conventional temperature (37oC).  This view is consistent with the “Red Queen effect” hypothesis in protein homeostasis that states that quality control machinery should be switched on at all times (and not only at the elevated temperatures, or other stressful conditions) to sustain foldable (functional) proteome . We found that for the MG1655 E. coli strain used in our experiments, the temperature dependence of growth rates follows the Arrhenius law ) in the range of 30-42oC, with maximal (optimal) growth rate reached at 42oC (Figure S7). Arrhenius temperature dependence of the growth rates indicates that metabolic activity is the main limiting factor that determines organismal fitness under the given conditions .
+ 
+ 
+
+Site-directed chromosomal mutagenesis of the folA gene
+The method is described at greater length in our recent publication  Briefly, the folA gene carrying the desired mutation(s) with an entire endogenous regulatory region  (191 bp separating the stop codon of the upstream kefC gene and the start codon of folA gene) was ligated into a pKD13 plasmid flanked by two different antibiotic markers (genes encoding for kanamycin (kanR) and chloramphenicol (cmR) resistances). The entire cassette was then amplified with two primers tailed with 50 nucleotides homologous to the chromosomal region intended for recombination (kefC gene upstream and apaH gene downstream of folA). The amplified product was transformed into BW25113 strain with induced Red helper plasmids, and the recombinants selected on plates carrying both antibiotics. Strains carrying the desired mutation in the chromosome were verified by sequencing. Identified chromosomal mutations were then moved to MG1655 strain by P1 transduction and double antibiotic selection (kan and cm) and again verified by sequencing. 
+
+Protein expression and purification
+The folA genes carrying the mutations and a C-terminal His-tag were cloned in pET24 expression vector under an inducible T7 promoter, transformed into BL21(DE3) cells and expressed by a standard protocol. The recombinant proteins were purified on Ni-NTA columns (Qiagen) to over 95% purity.
+
+Measuring the intracellular protein abundance
+Cells were grown in supplemented M9 medium for 6 hours at 30oC, chilled on ice for 30 min and lysed with BugBuster (Novagen). The insoluble fraction was separated by centrifugation, solubilized by Inclusion Body Solubilization Reagent (Thermo Scientific), and dialyzed against PBS. The overall amount of protein in the lysates was estimated by the BCA protein assay kit (Pierce). DHFR amounts in the soluble and insoluble fractions were determined by SDS-PAGE followed by Western Blot using Rabbit-anti E.coli’s DHFR polyclonal antibodies (custom raised by Pacific Immunology) by measuring densities of the DHFR bands.
+ 
+Estimating the aggregation propensity
+The aggregation propensity in a range of temperatures was determined in vitro by thermal unfolding of the DHFR proteins in the presence of Proteostat aggregation dye (Enzo Life Sciences) by a fluorescence signal. To this end, 2   of a DHFR protein (10 mM K-phoshate buffer pH8.2, 0.2 mM EDTA, 1 mM beta-mercaptoethanol, 750  NADPH) in the presence of 3  Proteostat dye were heated from 25oC to 70oC  at 0.2oC/min. The fluorescence signal that emanated from the dye was monitored (excitation 550 nm, emission 600 nm) (Cary-eclipse fluorescence spectrophotometer, Varian). 
+
+Enzymatic activity
+Initial velocity V0 of the DHFR catalyzed reaction was measured by following the linear drop in NADPH absorbance at 340 nm (mOD/min). To this end, purified enzymes (30 nM) were pre-incubated with 120   NADPH in MTEN buffer (50 mM 2-(N-morpholino)ethanesulfonic acid, 25 mM tris(hydroxymethyl)aminomethane, 25mM ethanolamine, and 100 mM sodium chloride, pH7) for 15 min at room temperature.  The reaction was initiated by addition of dihydrofolate (120  final concentration). 
+
+A kinetic model of the DHFR proteostasis
+We consider 3 forms of DHFR in the cytoplasm: (i) folded protein [F], (ii) Intermediate bound to GroEL IB (iii) free, unbound protein in the I state susceptible to Lon degradation and capture by GroEL IU. GroEL releases native proteins and we assume that there is excess of GroEL, so that DHFR molecules in the I form do not compete for free GroEL in cytoplasm. There is a steady-state production level of native folded proteins, C molecules per unit time. The kinetic equations are: 
+              (S1)
+Where square brackets denote the concentrations of corresponding forms of DHFR and all kinetic constants (which depend on concentrations of GroEL and Lon as appropriate) are defined above, except , the rate at which GroEL releases folded proteins. 
+We consider the steady-state solution where all time derivatives vanish and neglect the loss of DHFR to aggregation (a condition which will be relaxed in future studies) to get: 
+   (S2)
+Leading to the following expression for the concentration of the folded form
+
+
+
+
+ (S3)
+
+Where     is an “effective’’ folding rate which takes into account the effects of 
+GroEL and Lon. We note that the expression agrees with the intuition that the effective folding rate increases due to the action of GroEL. As regards the dependence of   on  it is also intuitive: increase of degradation of I essentially shifts the ratio of F to I towards F. 
+
+The model allows evaluating the effect of mutations on the protein abundance. In the experiment we measure the abundance of folded proteins in the soluble fraction, [F]. We assume that at 300C spontaneous folding from I to F is faster than GroEL or Lon turnover i.e.  at 300C (this condition may be violated at higher temperature such as 420C when GroEL is overexpressed and 
+the folding rate may be slower) so that    at 300C. Further, we postulate that at 300C and wt lon and GroEL levels the dominant degradation path is through lon degradation of the I state rather than direct degradation of the folded state, i.e. that  . In this case the expression Eq (8) for the abundance of the folded protein simplifies to give Eq (3) of main text.
+
+Mutations affect the rates of folding  and unfolding  and the equilibrium constant between I and F, , and (Eq. 3) of main text shows how these changes affect the abundance of the folded protein in the cytoplasm. Clearly the effect of mutations on the abundance of folded protein in active cytoplasm is dramatically different from that in the equilibrium solution where  (Eq. 2). For each mutant the in vitro ANS fluorescence experiments report on its as presented in (Eq. 2) and relates directly the ANS signal to abundance as presented in Eq.2 of main text. 
+The growth rate relates to the abundance of folded DHFR [F] through the experimentally derived relation (Eq. 1) of main text. Substituting the expression of [F] (Eq. S3) into (Eq. 1) we obtain (Eq. 4) of main text which related growth rates to Lon and GroEL action and kinetic constants of the protein.  
+
+
+Supplementary References
+
+Bershtein, S., Mu, W., and Shakhnovich, E.I. (2012). Soluble oligomerization provides a beneficial fitness effect on destabilizing mutations. Proc Natl Acad Sci U S A 109, 4857-4862.
+England, J.L., Lucent, D., and Pande, V.S. (2008). A role for confined water in chaperonin function. Journal of the American Chemical Society 130, 11838-11839.
+Guenther, S., Grobbel, M., Lubke-Becker, A., Goedecke, A., Friedrich, N.D., Wieler, L.H., and Ewers, C. (2010). Antimicrobial resistance profiles of Escherichia coli from common European wild bird species. Vet Microbiol 144, 219-225.
+Horwich, A.L., and Fenton, W.A. (2009). Chaperonin-mediated protein folding: using a central cavity to kinetically assist polypeptide chain folding. Q Rev Biophys 42, 83-116.
+Kendeigh, S.C. (1969). Energy Responses of Birds to Their Thermal Environments. Wilson Bull 81, 441-&.
+Neidhardt, F.C., Ingraham, J.L., and Schaechter, M. (1990). Physiology of the bacterial cell : a molecular approach (Sunderland, Mass.: Sinauer Associates).
+Torre-Bueno, J.R. (1976). Temperature regulation and heat dissipation during flight in birds. J Exp Biol 65, 471-482.
+Tyagi, N.K., Fenton, W.A., Deniz, A.A., and Horwich, A.L. (2011). Double mutant MBP refolds at same rate in free solution as inside the GroEL/GroES chaperonin chamber when aggregation in free solution is prevented. FEBS letters 585, 1969-1972.
+Vendruscolo, M. (2012). Proteome folding and aggregation. Curr Opin Struct Biol 22, 138-143.
+Zwietering, M.H., Jongenburger, I., Rombouts, F.M., and van 't Riet, K. (1990). Modeling of the bacterial growth curve. Applied and environmental microbiology 56, 1875-1881.
+
+

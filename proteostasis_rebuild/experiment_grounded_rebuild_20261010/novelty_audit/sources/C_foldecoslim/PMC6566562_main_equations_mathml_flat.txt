@@ -1,0 +1,25 @@
+SOURCE: MathML textContent (flattened, fractions lost) of main-text Eqs 1-6, PMC6566562 HTML, retrieved 2026-10-10 via browser fetch of https://pmc.ncbi.nlm.nih.gov/articles/PMC6566562/
+
+pro3639-disp-0001
+
+MATHML_TEXT: ZSS,i=1+QN,i+QA,i+QB,i+QD,i,
+
+pro3639-disp-0002
+
+MATHML_TEXT: QN,i=kf,iku,i+λ+kG,outku,i+λ×γikf,iγikf,i+ku,i+kG,out+λ×kG,in,iGkG,out+λ=kf,iku,i+λ+Γi.
+
+pro3639-disp-0003
+
+MATHML_TEXT: QA,i=kagg,iλ+kK,inK×kK,disagg,ikK,inK+kK,out+kK,disagg,i+λ=kagg,iλ+κi.
+
+pro3639-disp-0004
+
+MATHML_TEXT: QB,i=kK,inKkK,out+λ1+kagg,i×kK,disagg,ikK,inK×kK,disagg,i+λkK,inK+kK,in+kK,disagg,i+λ+kG,in,iGkG,out+λ+kD,inDkD,out+kD,deg+λ,
+
+pro3639-disp-0005
+
+MATHML_TEXT: QD,i=kD,inDλkD,degkD,out+kD,deg+λ.
+
+pro3639-disp-0006
+
+MATHML_TEXT: fN,i=QN,iZss,i=QN,i1+QN,i+QA,i+QB,i+QD,i.

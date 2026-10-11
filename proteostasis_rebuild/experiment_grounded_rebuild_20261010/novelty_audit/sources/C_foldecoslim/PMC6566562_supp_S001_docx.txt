@@ -1,0 +1,263 @@
+Kristine Faye R. Pobre,¹ David L. Powers,² Kingshuk Ghosh,³ Lila M. Gierasch,^(1,)* Evan T. Powers^(4,)*
+
+¹Departments of Chemistry and Biochemistry & Molecular Biology, University of Massachusetts-Amherst, Amherst, MA 01003, USA
+
+²Department of Mathematics, Clarkson University, Potsdam, NY 13699, USA
+
+³Department of Physics and Astronomy, University of Denver, Denver, CO 80208
+
+⁴Department of Chemistry, The Scripps Research Institute, La Jolla, CA 92037, USA
+
+Figure S1. A contour plot showing the effects of mutations on proteostasis as measured by the fraction of a test protein derived from cluster 12 that achieves the native state at steady state (f_(N,test-12)). The thermodynamic effects of the mutations are measured on the x-axis by the change in the folding equilibrium constant (Δ ln K_(f,test-12); note that the corresponding change in free energy is shown along the top of the plot). The kinetic effects of the mutations are measured by the φ-values of the mutations (where φ = Δln k_(f,test-12) / Δln K_(f,test-12)). Two sets of contours are shown. The solid contours are for constant values of f_(N,test-12). The dashed contours are for Δln k_(f,test-12). Note that these two sets of contours almost overlay each other.
+
+[]
+
+Figure S2. Time courses of expression of WT* and Y133S MmCRABP1 in E. coli with or without the gene for Lon protease. Red lines and data points: total MmCRABP1 concentrations per cell. Blue lines and data points: soluble MmCRABP1 concentrations per cell. The difference between the total and soluble protein concentrations is the aggregated protein concentration (red shaded area). The fractions of soluble protein at the 2 h time point for all variants are indicated on the plots. Error bars indicate the standard errors of the mean.
+
+[]
+
+Table S1. Protein-specific folding and chaperoning parameters and fractional abundances for the clusters in our coarse-grained proteome model. See also Figure 2.
+
+  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Cluster (category^(a))   k_(f,i) (s⁻¹)   k_(u,i) (s⁻¹)   K_(f,i)   ΔG_(f,i) (kcal mol⁻¹)   k_(agg,i) (s⁻¹)   k_(K,disagg,i) (s⁻¹)   k_(G,in,i) (µM⁻¹ s⁻¹)   Abundance
+  ------------------------ --------------- --------------- --------- ----------------------- ----------------- ---------------------- ----------------------- -----------
+  1 (3)                    130             1.7×10⁻⁵        7.4×10⁶   −9.4                    8.5               0.011                  1.0×10⁻³                0.078
+
+  2 (1)                    430             0.29            1500      −4.3                    0.044             0.014                  9.0×10⁻⁴                0.040
+
+  3 (1)                    87              0.016           5600      −5.1                    0.020             0.011                  1.0×10⁻³                0.133
+
+  4 (1)                    440             0.57            780       −3.9                    8.5×10⁻⁶          0.011                  1.0×10⁻³                0.059
+
+  5 (1)                    14              0.0030          4700      −5.0                    0.050             0.011                  1.0×10⁻³                0.081
+
+  6 (1)                    18              0.074           250       −3.3                    0.0025            0.011                  1.0×10⁻³                0.047
+
+  7 (4)                    35              0.014           2500      −4.6                    0.82              0.017                  12                      0.031
+
+  8 (2)                    0.83            3.0×10⁻⁹        2.8×10⁸   −11.5                   0.055             0.012                  1.1×10⁻³                0.207
+
+  9 (3)                    2.5             7.0×10⁻⁶        3.5×10⁵   −7.6                    1.3               0.065                  3.7                     0.032
+
+  10 (3)                   0.05            3.7×10⁻⁶        1.3×10⁴   −5.6                    0.0029            0.011                  1.0×10⁻³                0.035
+
+  11 (1)                   0.30            0.0047          64        −2.5                    0.0013            0.011                  1.0×10⁻³                0.073
+
+  12 (2)                   1.0             2.1×10⁻⁶        4.9×10⁵   −7.8                    1.3×10⁻⁵          0.011                  1.0×10⁻³                0.103
+
+  13 (1)                   2.0             0.0052          380       −3.5                    0.0076            0.011                  1.0×10⁻³                0.009
+
+  14 (1)                   13              0.00067         2.0×10⁴   −5.8                    0.26              0.011                  1.0×10⁻³                0.029
+
+  15 (1)                   3700            8.9             410       −3.6                    0.0031            0.011                  1.0×10⁻³                0.029
+
+  16 (2)                   0.07            1.5×10⁻⁷        4.9×10⁵   −7.8                    0.36              0.0019                 60                      0.014
+  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+^(a)Mutation response category as defined by the how f_(N,i) depends on the thermodynamic (Δln K_(f,i)) and kinetic (φ) effects of a mutation as manifested in the shapes of the contour lines in Figure 3.
+
+Table S2. Protein-dependent folding and chaperoning parameters for the proteome. This table is contained in the associated Excel file.
+
+Supplementary Methods
+
+Rate Equations for FoldEcoSlim
+
+The rate equations for FoldEcoSlim for each protein or cluster of proteins “i” are as follows:
+
+[]
+
+[]
+
+[]
+
+[]
+
+[]
+
+[]
+
+[]
+
+[]
+
+[]
+
+All rate constants are defined in Figure 1. [Deg] is the concentration of protein per cell that has been degraded. The rate equations for the proteostasis network components H, D, G, and K are as follows:
+
+[]
+
+[]
+
+[]
+
+[]
+
+[]
+
+Again, the rate constants in these equations are defined in Figure 1. The synthesis rates for D, G, and K, symbolized above by σ_(D), σ_(G), and σ_(K), are each proportional to the concentration of the transcription factor H; thus, σ_(D) = ρ_(D)[H], σ_(G) = ρ_(G)[H], and σ_(K) = ρ_(K)[H], where the quantities ρ represent the responsiveness of the promoters for D, G, and K to transcription mediated by H. The values of σ_(H), k_(K:H,deg), ρ_(D), ρ_(G), and ρ_(K) are set to yield steady state concentrations of D, G, and K that roughly match the measured concentrations of Lon, GroEL, and DnaK respectively in the context of the background proteome. The values used for protein-dependent parameters (i.e., those that have a subscript “i” in the rate equations above) are given in Table S1. The values used for protein-independent parameters are as follows: λ = 0.00053 s⁻¹; σ_(H) = 0.00318 µM s⁻¹; k_(K,in,H) = 1 µM⁻¹ s⁻¹; k_(K,out,H) = 0.1 s⁻¹; k_(K:H,deg) = 0.01 s⁻¹; ρ_(D) = 0.000533 s⁻¹; ρ_(G) = 0.002667 s⁻¹; ρ_(K) = 0.0333 s⁻¹; k_(D,in) = 0.1 µM⁻¹ s⁻¹; k_(D,out) = 0.1 s⁻¹; k_(D,deg) = 0.2 s⁻¹; k_(G,out) = 0.1 s⁻¹; k_(K,in) = 1 µM⁻¹ s⁻¹; k_(K,out) = 0.1 s⁻¹. These parameters values were chosen to reflect the values used in our previous work with FoldEco.¹ For each protein or protein cluster i, the synthesis rate is equal to the protein’s fractional proteomic abundance times the overall (non-proteostasis network) protein synthesis rate, or σ_(i) = f_(abundance,i) × σ_(tot) where σ_(tot) = 3.975 µM s⁻¹.
+
+Parametrizing the Background Proteome
+
+Modeling the background proteome requires estimates of key parameters for as many proteins as possible, including abundances, folding and aggregation rate constants, and competence for chaperoning. New mass spectrometry-based methods have enabled such proteome-wide estimates to be made for protein stabilities in a number of systems, including E. coli.^(2,3) These measurements of folding equilibrium constants (K_(f,i)) can be combined with estimates of protein folding rate constants (k_(f,i)) to calculate unfolding rate constants (k_(u,i); since k_(u,i) = k_(f,i)/K_(f,i)). The necessary folding rate constants are not available from direct experimental measurements, but it has been shown that the topologies of protein structures explain much of the variability in folding rate constants, so this information can be used to predict folding rate constants for proteins whose structure is known.⁴⁻⁸ Thus, folding rate constants were estimated as described previously⁸ and used in combination with folding equilibrium constants to calculate unfolding rate constants for the hundreds of E. coli proteins for which X-ray crystal structures have been reported. For multi-domain proteins, the rate constant for the slowest folding domain was used, since this would likely be the rate limiting step in the overall folding of such a protein.
+
+With estimates of k_(f,i) and k_(u,i) in hand, proteome-wide solubility measurements made in cell-free translation systems by Niwa and co-workers⁹ can be used to estimate rate constants for aggregation, k_(agg,i). Since these solubility measurements were made in the absence of chaperones and proteases, FoldEcoSlim can be used with all parameters set to 0 except k_(f,i) and k_(u,i) and the synthesis rate (σ_(i), which can be determined from the total amount of protein synthesized in the experiment) and solved for the value of k_(agg,i) that reproduces the observed extent of aggregation. A complete set of estimates for k_(f,i), k_(u,i), and k_(agg,i) were obtained in this way for 640 proteins representing 37% of the E. coli proteome by mass.
+
+The aptitude for chaperoning was measured for many of the less soluble proteins examined by Niwa and co-workers by adding the DnaK/DnaJ/GrpE or GroEL/GroES systems to the same cell-free translation system and measuring the increase in solubility.¹⁰ Given the wide distribution of DnaK binding sites in the E. coli proteome (on average, each protein has over 20),¹¹ we assumed that the rate constant for the initial binding step (k_(K,in)) is substrate independent, as we^(1,12) and others^(13,14) have done previously. Thus, we account for a protein’s aptitude for chaperoning by K entirely with the parameter k_(K,disagg,i), the rate constant for conversion of K:A_(i) to K:U_(i). Using the estimates of k_(f,i), k_(u,i), and k_(agg,i) obtained as described above, k_(K,disagg,i) was varied to find the value that reproduced the observed increase in solubility in the presence of the DnaK/DnaJ/GrpE system. In contrast to the DnaK/DnaJ/GrpE system, the GroEL/GroES system seems to be more selective in its substrates. This assertion is consistent with the observation that only ~250 proteins co-immunoprecipitate with GroEL¹⁵ (of which ~60 are obligate substrates¹⁶). Thus, we varied the rate constant for substrates entering the GroEL/GroES cycle (k_(G,in,i)) to find the value that reproduced the observed increase in solubility in the presence of the GroEL/GroES system. There were 120 proteins for which estimates of k_(f,i), k_(u,i), and k_(agg,i) as well as measurements of chaperone efficacy were available. The remaining proteins were well behaved in the cell free translation system,^(9,10) and therefore unlikely to be substantial contributors to the burden on the proteostasis network. For modeling purposes, they were assigned the median value of the estimates for k_(K,disagg,i) (0.0037 s⁻¹) and a minimal value for k_(G,in,i) (10⁻³ M⁻¹ s⁻¹).
+
+Individually tracking each of the 640 proteins for which full parameter sets were available would be excessively computationally expensive, even in a relatively simple model like FoldEcoSlim. We therefore coarse-grained the proteome by clustering the proteins into 16 groups based on the similarities between their parameters. The clusters were assigned the abundance-weighted mean parameters of their members. The fractional abundance of the clusters was calculated by dividing the sum of the abundances of the cluster members (as determined by mass spectrometry by Schmidt and co-workers for E. coli growing in LB media¹⁷) by the sum of the abundances of all the proteins in the dataset. One cluster (cluster 16) was set aside to contain the obligate GroEL substrates, as defined by Fujiwara and co-workers.¹⁶
+
+The resulting proteome produced an unrealistically high amount of protein aggregation (~12% of the proteome). However, there are chaperone systems in E. coli that suppress aggregation in vivo that are not included in FoldEcoSlim (for example, ClpB¹⁸ and IbpA/IbpB¹⁹). In addition, it is possible that the cytosolic environment is more solubilizing for proteins than the environment of the in vitro translation system in which the solubilities were originally measured. To account for these factors, we found that a decrease in the aggregation rate constants (by a factor of about 7) and an increase in the efficiencies of the DnaK/DnaJ/GrpE cycle (by a factor of about 3) across the proteome mitigated the excessive aggregation that we observed. The final protein-dependent parameters for the protein clusters are displayed in Figure 2 and are listed in Table S1. The un-adjusted parameters for individual proteins are listed in Table S2.
+
+The Contribution of the GroEL/GroES System to Proteostasis Depends on the Relative Rates of Substrate Folding and Release
+
+In terms of the pseudo-state sum, the GroEL/GroES system influences proteostasis primarily through Q_(N,i) and the DnaK/DnaJ/GrpE system primarily through Q_(A,i) (both systems contribute to Q_(B,i), but this is not a major contributor to Z_(SS,i) under normal conditions). The assistance that the GroEL/GroES system provides to protein folding is expressed in the term Γ_(i) in the expression for Q_(N,i)
+
+[]
+
+For simplicity, we will assume in the analysis that follows that folding for proteins of interest is not enhanced by the GroEL cavity (γ_(i) = 1), and we will ignore the factor γ_(i) hereafter. The magnitude of Γ_(i) depends on the product of three factors, the first of which is k_(G,out) / (k_(u,i) + λ). This factor represents the relative rate of release of natively folded protein from the GroEL cavity compared to the rate of unfolding of native protein. The native state can only accumulate substantially from GroEL-assisted folding if k_(G,out) > (k_(u,i) + λ); if this relation is not true, the protein will unfold faster than it is released from GroEL.
+
+The second factor is k_(f,i) / (k_(f,i) + k_(u,i) + k_(G,out) + λ). This factor is equal to the fraction of the GroEL-bound protein that is in the native state and it approaches its maximum of 1 when the intra-cavity folding rate constant (k_(f,i)) is much faster than unfolding (k_(u,i)), release from the cavity (k_(G,out)) and cell division (λ). It decreases from 1 if either k_(u,i) or k_(G,out) approaches or exceeds k_(f,i). The former condition would indicate native state instability. The latter, more likely condition would indicate that folding cannot reach completion on the time scale of the ATP-driven GroEL/GroES conformational cycle.
+
+The last factor is k_(G,in,i) [G] / (k_(G,out) + λ). In the numerator, the free concentration of G is largely determined by the folding load exerted by the proteome as a whole and is not strongly influenced by the properties of any individual substrate (as long as that substrate’s expression level is not too high). Thus, in the analysis of the effects of mutations on a low-to-moderately expressed individual protein, [G] will be roughly constant and k_(G,in,i) [G] can be treated as a pseudo-first order rate constant which we will denote k’_(G,in,i). In the denominator, k_(G,out) is set by the ATP hydrolysis rate of the GroEL/GroES complex (~0.1 s⁻¹),²⁰ which is two hundred-fold greater than λ even for very rapidly dividing cells, so k_(G,out) + λ ≈ k_(G,out). Given these approximations, the third factor becomes k’_(G,in,i) / k_(G,out), which is essentially the substrate binding equilibrium constant for the GroEL/GroES system.
+
+Two limiting situations are of interest for GroEL chaperoning. The first is for fast-folding proteins for which k_(f,i) >> k_(u,i) + k_(G,out) + λ and the second factor in Γ_(i) is ~1. In this case,
+
+[]
+
+and Q_(N,i) can be written
+
+[]
+
+The factor in parenthesis, 1 + k’_(G,in,i)/k_(f,i) represents the increase in Q_(N,i) due to the GroEL/GroES system. This result indicates that the GroEL/GroES system will be ineffective for fast-folding proteins if the pseudo-first order rate constant for substrate binding is not greater than or at least comparable to the rate constant for folding. In fact, the k_(f,i) values for which this requirement is true and that meet the criterion for the approximation are quite constrained. Recall that the approximation requires that k_(f,i) >> 0.1 s⁻¹, since k_(G,out) = 0.1 s⁻¹ and k_(f,i) must be >> k_(G,out) + k_(u,i) + λ. Thus, for 1 + k’_(G,in,i)/k_(f,i) to be substantially greater than 1, k’_(G,in,i) ≥ k_(f,i) >> 0.1 s⁻¹. This requires very fast binding to GroEL, especially considering that the steady state concentration of G is ~95 nM, so k_(G,in,i) ≥ k_(f,i)/[G] >> 0.1 s⁻¹ / 95 nM = 1.05 × 10⁶ M⁻¹ s⁻¹. Thus, the bimolecular rate constant for substrate binding would have to be at least 10⁷ M⁻¹ s⁻¹ for a fast-folding protein to benefit significantly from GroEL chaperoning. This circumstance is not implausible, but none of the clusters in our model of the proteome meet all these criteria. In other words, there are no fast-folding proteins in our model that benefit greatly from the GroEL/GroES system. The closest are the proteins in cluster 7, for which k_(f,i) = 35 s⁻¹ (so the approximation k_(f,i) >> k_(u,i) + k_(G,out) + λ is valid), but k’_(G,in,i) = k_(G,in,i) [G] = 1.2 × 10⁷ M⁻¹ s⁻¹ × 95 nM = 1.1 s⁻¹, so 1 + k’_(G,in)/k_(f) is only 1.031. Substrate binding is not fast enough in this cluster to contribute substantially to unassisted folding and the GroEL system only increases Q_(N,i) by ~3%. We note, however, that this situation can change for mutants of this protein, which can explain the unique appearance of the contour plots of f_(N,i) as a function of Δln K_(f,i) and φ for cluster 7 in Figure 3; see below for further discussion.
+
+The second limiting situation is for proteins that fold slowly on the time scale of substrate release from the GroEL cavity (k_(G,out) >> k_(f,i) + k_(u,i) + λ) and the second factor in Γ_(i) is therefore ~k_(f,i)/k_(G,out). Recalling that we have assumed that γ_(i) = 1, k_(G,in,i) [G] ~ k’_(G,in,i), and k_(G,out) + λ ~ k_(G,out), this limiting case leads to the following approximation for Γ_(i):
+
+[]
+
+and for Q_(N,i):
+
+[]
+
+Again, the factor in parenthesis, 1 + k’_(G,in,i)/k_(G,out) represents the increase in Q_(N,i) due to the GroEL/GroES system. This result indicates that the effect of the GroEL/GroES system is simply proportional to its ability to bind the substrate. In this regime, the GroEL/GroES system provides a parallel channel for folding the protein of interest, but in an environment in which the protein is safeguarded from aggregation and degradation. Thus, the flux from the unfolded to the native state increases by a factor proportional to the amount of unfolded protein to which the GroEL/GroES system can bind. When substrate binding by the GroEL/GroES system is favorable, this factor can be substantial. The proteins in cluster 16—which, as noted above, contains the obligate GroEL/GroES substrates—bind substantially to the GroEL/GroES system and have γ_(i)k_(f,i) + k_(u,i) << k_(G,out). For the proteins in this cluster 1 + k’_(G,in,i)/k_(G,out) = 48.3, so Q_(N,i) is magnified by a factor of almost fifty which enables 93% of the protein in this cluster to be natively folded at steady state (f_(N,i) = 0.93). In the absence of the GroEL/GroES system, f_(N,i) would be 0.28 and more than half of the protein that is synthesized would aggregate.
+
+Comparing equations and , it is clear that the effect of GroEL on proteostasis is greater for proteins that fold slowly. For a protein with a given ratio of k_(f,i)/k_(u,i)—that is, with a given thermodynamic stability—that falls into the fast-folding regime described above (k_(f,i) >> k_(u,i) + k_(G,out) + λ) the value of Q_(N,i) will increase as k_(f,i) decreases (recall that k_(u,i) also decreases in this scenario to maintain a constant K_(f,i)). At first this will be because the GroEL/GroES multiplier for the protein, the quantity 1 + k_(G,in,i)/k_(f,i), increases. As k_(f,i) continues to decrease, however, the protein will eventually cross over from the fast- to the slow-folding regime and the multiplier will asymptotically approach 1 + k_(G,in,i)/k_(G,out). This behavior is observed in the plot of f_(N,i) vs. Δln K_(f,i) and φ for cluster 7 in Figure 3. The curvatures of the contours at higher φ-values indicate that highly destabilizing mutations are less deleterious when they primarily diminish the folding rate. Thus, the GroEL/GroES system inverts the usual effects of mutations.
+
+The DnaK/DnaJ/GrpE System Is the Primary Means of Suppressing Aggregation Even in Fast-Dividing Bacteria
+
+The DnaK/DnaJ/GrpE system influences proteostasis by dispersing aggregates. It can also bind to unfolded proteins, but, rather than helping them to fold, it tends to release them in a state that is still unfolded (if anything, it is an even more expanded state²¹⁻²³). Thus, among the steady state constants in the pseudo-state sum of a given protein, the DnaK/DnaJ/GrpE system contributes to Q_(A,i) (for aggregates) and Q_(B,i) (for chaperone-bound proteins). As noted above, Q_(B,i) rarely makes substantial contributions to Z_(SS,i); thus, we will focus on Q_(A,i).
+
+The impact of aggregation on proteostasis of a protein of interest is proportional to Q_(A,i); as Q_(A,i) increases, the extent of aggregation increases since
+
+[]
+
+where f_(A,i) is the fraction of a given protein that is aggregated at steady state. Also, since Q_(A,i) appears in the denominator of the expression for f_(N,i), the fraction of natively folded protein (see Equation (6) in the main text). Therefore, f_(N,i) decreases as Q_(A,i) increases. As shown in Equation (3) in the main text, Q_(A,i) increases as the rate constant for aggregation, k_(agg,i), increases. This is balanced by two processes that can diminish aggregation: dilution by cell growth, represented by the rate constant λ in the denominator of Q_(A,i); and disaggregation by the DnaK/DnaJ/GrpE system, represented by the effective rate constant κ_(i), where
+
+[]
+
+Since the denominator of Q_(A,i) is simply the sum of κ_(i) and λ (see Equation (3)) the relative contributions of these two processes to mitigating protein aggregation manifest themselves in the relative values of the parameters that represent them.
+
+We have been using λ = 0.00053 s⁻¹ for bacteria under optimal conditions for cell growth, corresponding to a doubling time of ~20 minutes. Most of the parameters in κ_(i) are protein-independent constants, like k_(K,in), k_(K,out) and λ. In addition, the free concentration of K, like that of G, is largely determined by the proteomic burden of unfolded protein and is unlikely to be affected by a mutation in a protein that is expressed at a low to moderate level. Thus, k_(K,in)[K] can be treated as a pseudo-first order rate constant when analyzing the behavior of mutant test proteins, where k_(K,in) [K] = 1 μM⁻¹ s⁻¹ × 64 nM = 0.064 s⁻¹. Also, k_(K,out) = 0.1 s⁻¹ and as noted above λ = 0.00053 s⁻¹. With this information, κ_(i) can be expressed as follows
+
+[]
+
+The parameter k_(K,disagg,i), representing the efficiency with which the DnaK/DnaJ/GrpE system disperses aggregates, is protein dependent. However, for 14 out of the 16 clusters in our proteome model, k_(K,disagg,i) is between 0.011 s⁻¹ and 0.017 s⁻¹ and κ_(i) is therefore between 0.004 s⁻¹ and 0.006 s⁻¹. Importantly, this is about 8- to 10-fold larger than λ, so λ can be ignored without too great a loss in accuracy in the denominator of Q_(A,i). In other words, Q_(A,i) ≈ k_(agg,i)/κ. This analysis shows that the extent of aggregation is primarily determined by the balance between the rates of aggregation and disaggregation, and that dilution of aggregates by cell division is a much less efficient mechanism for suppressing aggregation than the DnaK/DnaJ/GrpE system, even in fast-dividing bacteria.
+
+The clusters that do not fall in the range quoted above for k_(K,disagg,i) are cluster 9, for which k_(K,disagg,9) = 0.065 s⁻¹ and cluster 16, for which k_(K,disagg,16) = 0.0019 s⁻¹. The former cluster therefore contains proteins that are preferred clients for the DnaK/DnaJ/GrpE system. In fact, this is the most highly aggregation-prone cluster of proteins, with aggregation being almost as fast as folding (k_(f,9) = 2.45 s^(–1) vs. k_(agg,9) = 1.27 s^(–1)), so disaggregation by the DnaK/DnaJ/GrpE system is particularly important for these proteins. The latter cluster represents proteins that are very inefficiently disaggregated by the DnaK/DnaJ/GrpE system, but these proteins are, probably not coincidentally, the favored substrates of the GroEL/GroES system.
+
+Protein Degradation Can Suppress Aggregation, but Suppresses Native Folding Equally
+
+Proteases like Lon in E. coli dispose of proteins that are not folded and are therefore vulnerable to misfolding and aggregation. The extent of degradation is determined by the steady state constant Q_(D,i), which is defined in Equation (5) in the main text. In FoldEcoSlim, the value of Q_(D,i) is largely protein independent. The free concentration of D, which is in the numerator of the expression for Q_(D,i), should be unaffected by mutations in proteins that are not abundant. Thus, we can set [D] = 73 nM. Using k_(D,in) = 0.1 s⁻¹, k_(D,out) = 0.1 s⁻¹, and k_(D,deg) = 0.2 s⁻¹, the value of Q_(D,i) for all proteins should be
+
+[]
+
+(Recall that, as discussed above, the parameters for degradation were adjusted to match the observed rate of protein turnover in E. coli.^(24,25)) Given this value of Q_(D,i), a substantial fraction of any protein with a value of Q_(N,i) that is not much greater than 9.17 will be degraded. Because of this, mutations that decrease Q_(N,i) can lead to excessive degradation and loss of function. In addition, it is important to note that manipulations of the proteostasis network that increase the levels of general proteases like Lon will succeed in decreasing protein aggregation because Q_(D,i) is in the denominator of f_(A,i) (see Equation (3)) However, Q_(D,i) is also in the denominator of f_(N,I) (see Equation (2)), so increasing Q_(D,i) will also decrease f_(N,i). The former goal cannot be achieved by increasing proteolysis without the latter consequence. For a degradation system to be able to selectively decrease aggregation, it must directly degrade aggregates as the eukaryotic autophagy system does.²⁶
+
+Fitting the MmCRABP1 Folding Mechanism into the Folding Scheme in FoldEcoSlim.
+
+As noted in the main text, MmCRABP1 folds via three step pathway: rapid formation of an aggregation-prone hydrophobically collapsed intermediate (I₁), followed by a re-arrangement to a aggregation-resistant intermediate with native-like topology (I₂), and then a final annealing to the native state (here we ignore a low-amplitude fourth phase due to proline isomerization):²⁷⁻³⁴
+
+[]
+
+Many of these parameters have been measured for a wide range of MmCRABP1 mutants.²⁷ To fit this mechanism into the folding scheme in FoldEcoSlim, we will collect the (aggregation-prone) unfolded and hydrophobic collapse states together as the U “super-state” and the (aggregation-resistant) native-like intermediate and native states together as the N super-state.
+
+[]
+
+Where the k_(f,eff) and k_(u,eff) are the effective folding and unfolding rates between the U and N super-states. Hydrophobic collapse is rapid and greatly favors the collapsed I₁ state, so we simplify this scheme to
+
+[]
+
+Thus, the effective folding rate k_(f,eff) = k_(I1-I2) while k_(u,eff) is equal to k_(I2-I1) multiplied by the fraction of the N super-state that is actually in the I₂ form. Since the unfolding of I₂ is much slower than equilibration between I₂ and N (k_(I1-I2) << k_(I2-N)),²⁷ this fraction is f_(I2) = 1 / (1 + K_(I2-N)) = k_(N-I2) / (k_(N-I2) + k_(I2-N)) where K_(I2-N) = [N]/[I₂] = k_(I2-N)/k_(N-I2) is the equilibrium constant between I₂ and N. Thus, k_(u,eff) = f_(I2) k_(I2-I1) = k_(I2-I1) k_(N-I2) / (k_(N-I2) + k_(I2-N))
+
+All of the rate constants needed to calculate k_(f,eff) and k_(u,eff) for the WT*, M9A, V67A, and L118V MmCRABP1 were measured by, or can be inferred from measurements made by, Budyak and co-workers.²⁷ The necessary values of k_(f,eff) = k_(I1-I2) are reported in Table S1 of that work (where they are denoted k_(I2)). For calculating k_(u,eff), the necessary values of k_(N-I2) are reported in Table 1 of that work (where they are denoted k_(U)) while the values of k_(I2-N) are reported in Table S1 (where they are denoted k_(N)). For Y133S MmCRABP1, k_(N-I2) is in Table 1 of Budyak and co-workers²⁷ and k_(I2-N) is reported by Pobre³⁵ (see Table 2.1A of that work). The value of k_(I1-I2) is not directly reported, but since the values of k_(I1-I2) and k_(I2-N) reported by Budyak and co-workers²⁷ are correlated, consistent with the transition states having similar topologies (ln k_(I1-I2) = 1.91 + 1.12 k_(I2-N); R² = 0.54; data not shown), the value of k_(I1-I2) for Y133S MmCRABP1 can be estimated from its value of k_(I2-N). This estimate for k_(I1-I2) for Y133S MmCRABP1 is given in Table 1 of this work.
+
+References
+
+(1) Powers, E. T.; Powers, D. L.; Gierasch, L. M. FoldEco: a model for proteostasis in E. coli. Cell Rep. 2012, 1, 265-276.
+
+(2) Leuenberger, P.; Ganscha, S.; Kahraman, A.; Cappelletti, V.; Boersema, P. J.; von Mering, C.; Claassen, M.; Picotti, P. Cell-wide analysis of protein thermal unfolding reveals determinants of thermostability. Science 2017, 355.
+
+(3) Mateus, A.; Bobonis, J.; Kurzawa, N.; Stein, F.; Helm, D.; Hevler, J.; Typas, A.; Savitski, M. M. Thermal proteome profiling in bacteria: probing protein state in vivo. Mol Syst Biol 2018, 14, e8242.
+
+(4) Ivankov, D. N.; Garbuzynskiy, S. O.; Alm, E.; Plaxco, K. W.; Baker, D.; Finkelstein, A. V. Contact order revisited: influence of protein size on the folding rate. Protein Sci 2003, 12, 2057-2062.
+
+(5) Ouyang, Z.; Liang, J. Predicting protein folding rates from geometric contact and amino acid sequence. Protein Sci 2008, 17, 1256-1263.
+
+(6) Plaxco, K. W.; Simons, K. T.; Baker, D. Contact order, transition state placement and the refolding rates of single domain proteins. J Mol Biol 1998, 277, 985-994.
+
+(7) Rustad, M.; Ghosh, K. Why and how does native topology dictate the folding speed of a protein? J Chem Phys 2012, 137, 205104.
+
+(8) Zou, T.; Williams, N.; Ozkan, S. B.; Ghosh, K. Proteome folding kinetics is limited by protein halflife. PLoS One 2014, 9, e112701.
+
+(9) Niwa, T.; Ying, B. W.; Saito, K.; Jin, W.; Takada, S.; Ueda, T.; Taguchi, H. Bimodal protein solubility distribution revealed by an aggregation analysis of the entire ensemble of Escherichia coli proteins. Proc Natl Acad Sci U S A 2009, 106, 4201-4206.
+
+(10) Niwa, T.; Kanamori, T.; Ueda, T.; Taguchi, H. Global analysis of chaperone effects using a reconstituted cell-free translation system. Proc Natl Acad Sci U S A 2012, 109, 8937-8942.
+
+(11) Srinivasan, S. R.; Gillies, A. T.; Chang, L.; Thompson, A. D.; Gestwicki, J. E. Molecular chaperones DnaK and DnaJ share predicted binding sites on most proteins in the E. coli proteome. Mol Biosyst 2012, 8, 2323-2333.
+
+(12) Cho, Y.; Zhang, X.; Pobre, K. F.; Liu, Y.; Powers, D. L.; Kelly, J. W.; Gierasch, L. M.; Powers, E. T. Individual and collective contributions of chaperoning and degradation to protein homeostasis in E. coli. Cell Rep 2015, 11, 321-333.
+
+(13) Santra, M.; Dill, K. A.; de Graff, A. M. R. How Do Chaperones Protect a Cell's Proteins from Oxidative Damage? Cell Syst 2018, 6, 743-751 e743.
+
+(14) Santra, M.; Farrell, D. W.; Dill, K. A. Bacterial proteostasis balances energy and chaperone utilization efficiently. Proc Natl Acad Sci U S A 2017, 114, E2654-E2661.
+
+(15) Kerner, M. J.; Naylor, D. J.; Ishihama, Y.; Maier, T.; Chang, H. C.; Stines, A. P.; Georgopoulos, C.; Frishman, D.; Hayer-Hartl, M.; Mann, M.; Hartl, F. U. Proteome-wide analysis of chaperonin-dependent protein folding in Escherichia coli. Cell 2005, 122, 209-220.
+
+(16) Fujiwara, K.; Ishihama, Y.; Nakahigashi, K.; Soga, T.; Taguchi, H. A systematic survey of in vivo obligate chaperonin-dependent substrates. EMBO J 2010, 29, 1552-1564.
+
+(17) Schmidt, A.; Kochanowski, K.; Vedelaar, S.; Ahrne, E.; Volkmer, B.; Callipo, L.; Knoops, K.; Bauer, M.; Aebersold, R.; Heinemann, M. The quantitative and condition-dependent Escherichia coli proteome. Nat Biotechnol 2016, 34, 104-110.
+
+(18) Doyle, S. M.; Genest, O.; Wickner, S. Protein rescue from aggregates by powerful molecular chaperone machines. Nat. Rev. Mol. Cell. Biol. 2013, 14, 617-629.
+
+(19) Matuszewska, M.; Kuczynska-Wisnik, D.; Laskowska, E.; Liberek, K. The small heat shock protein IbpA of Escherichia coli cooperates with IbpB in stabilization of thermally aggregated proteins in a disaggregation competent state. J Biol Chem 2005, 280, 12292-12298.
+
+(20) Horwich, A. L.; Fenton, W. A. Chaperonin-mediated protein folding: using a central cavity to kinetically assist polypeptide chain folding. Q. Rev. Biophys. 2009, 42, 83-116.
+
+(21) Kellner, R.; Hofmann, H.; Barducci, A.; Wunderlich, B.; Nettels, D.; Schuler, B. Single-molecule spectroscopy reveals chaperone-mediated expansion of substrate protein. Proc Natl Acad Sci U S A 2014, 111, 13355-13360.
+
+(22) Sekhar, A.; Rosenzweig, R.; Bouvignies, G.; Kay, L. E. Mapping the conformation of a client protein through the Hsp70 functional cycle. Proc Natl Acad Sci U S A 2015, 112, 10395-10400.
+
+(23) Sekhar, A.; Rosenzweig, R.; Bouvignies, G.; Kay, L. E. Hsp70 biases the folding pathways of client proteins. Proc Natl Acad Sci U S A 2016, 113, E2794-2801.
+
+(24) Mandelstam, J. Turnover of protein in growing and non-growing populations of Escherichia coli. Biochem J 1958, 69, 110-119.
+
+(25) Pine, M. J. Steady-state measurement of the turnover of amino acid in the cellular proteins of growing Escherichia coli: existence of two kinetically distinct reactions. J Bacteriol 1970, 103, 207-215.
+
+(26) Mizushima, N.; Komatsu, M. Autophagy: renovation of cells and tissues. Cell 2011, 147, 728-741.
+
+(27) Budyak, I. L.; Krishnan, B.; Marcelino-Cruz, A. M.; Ferrolino, M. C.; Zhuravleva, A.; Gierasch, L. M. Early folding events protect aggregation-prone regions of a beta-rich protein. Structure 2013, 21, 476-485.
+
+(28) Clark, P. L.; Liu, Z. P.; Zhang, J.; Gierasch, L. M. Intrinsic tryptophans of CRABPI as probes of structure and folding. Protein Sci 1996, 5, 1108-1117.
+
+(29) Clark, P. L.; Weston, B. F.; Gierasch, L. M. Probing the folding pathway of a beta-clam protein with single-tryptophan constructs. Fold Des 1998, 3, 401-412.
+
+(30) Ignatova, Z.; Gierasch, L. M. Monitoring protein stability and aggregation in vivo by real-time fluorescent labeling. Proc Natl Acad Sci U S A 2004, 101, 523-528.
+
+(31) Ignatova, Z.; Gierasch, L. M. Aggregation of a slow-folding mutant of a beta-clam protein proceeds through a monomeric nucleus. Biochemistry 2005, 44, 7266-7274.
+
+(32) Kleywegt, G. J.; Bergfors, T.; Senn, H.; Le Motte, P.; Gsell, B.; Shudo, K.; Jones, T. A. Crystal structures of cellular retinoic acid binding proteins I and II in complex with all-trans-retinoic acid and a synthetic retinoid. Structure 1994, 2, 1241-1258.
+
+(33) Liu, Z. P.; Rizo, J.; Gierasch, L. M. Equilibrium folding studies of cellular retinoic acid binding protein, a predominantly beta-sheet protein. Biochemistry 1994, 33, 134-142.
+
+(34) Clark, P. L.; Liu, Z. P.; Rizo, J.; Gierasch, L. M. Cavity formation before stable hydrogen bonding in the folding of a beta-clam protein. Nat Struct Biol 1997, 4, 883-886.
+
+(35) Pobre, K. F. R. Exploring the impact of the E. coli proteostasis network on the folding fate of proteins with different intrinsic biophysical properties. University of Massachusetts, Amherst, 2015.

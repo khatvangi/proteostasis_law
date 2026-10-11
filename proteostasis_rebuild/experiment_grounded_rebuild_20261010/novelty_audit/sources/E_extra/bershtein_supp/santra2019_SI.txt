@@ -1,0 +1,539 @@
+Supplementary Information for
+Proteostasis collapse is a driver of cell aging and death
+
+Mantu Santra, Ken A. Dill and Adam M.R. de Graff
+
+
+Corresponding Ken A. Dill.
+E-mail: dill@laufercenter.org
+
+
+
+
+Supporting Information Text
+The NUMA model of proteostasis collapse in cell aging
+Chaperones maintain proteins and proteomes in highly folded states by binding non-native conformations at their exposed
+hydrophobic regions and providing them with a faster route to folding (1). However, damaged and destabilized proteins, which
+have problems folding, are known to bind to chaperones much more frequently (2), thus decreasing chaperone availability for
+undamaged proteins and potentially leading to proteostasis collapse. The NUMA model is a minimal model that captures
+these behaviors.
+   Figure 1 depicts our model. It has two planes of folding dynamics, one for undamaged protein (the top panel) and a second
+for damaged protein (the bottom panel). First, here’s a brief summary. Undamaged proteins flow within the undamaged plane
+as they fold and unfold, are trafficked through chaperone, or degrade or aggregate. The undamaged plane rate parameters are
+given in Table S1. Damage can occur, causing an unfolded protein from the undamaged plane to transition irreversibly to the
+damaged plane. Once a protein enters the damaged plane, it traffics in that plane with all the same rate parameters as it
+would have had in the undamaged plane, except for one difference: damaged proteins are unable to fold. This is due to the loss
+of stability suggested by experiment (3) and theory (4) upon modification of a single side chain, the most frequent form of
+oxidation (Table S1). Therefore, damaged protein can either aggregate via misfolding or be degraded.
+   The central point of the two-plane dynamics is to express how damage events slowly and irretrievably destabilize the folding
+of the proteome as the cell ages. In addition, the model supposes that this has functional consequences. Biologically, damaged
+proteins hinder the cell through two parallel mechanisms: (i) loss of protein function and (ii) destabilization of the proteome
+resulting in chaperone titration and aggregation, collectively creating a gain of toxic function. The NUMA model specifically
+focuses on the effect of destabilization, not the loss of function. The time-dependent populations of each conformational state
+of the NUMA model are given in the Equations section.
+
+
+Age dependence of cell growth and protein degradation
+The rates of cell growth kgr (t) and protein degradation kdeg (t) change with age, t. These dynamics play important roles in
+proteostasis collapse, as they constrain the rate at which proteins are turned over and hence the rate at which damage is
+diluted (growth) or cleared (degradation). But, rather than attempt to model the origins of the age dependence of kgr (t) and
+kdeg (t) - which may reflect a complex trade-off between reproductive yield and longevity regulated by the germline - here we
+simply take their experimental values at 20◦ C as inputs and explore their consequences on proteostasis collapse (5). The data
+used is shown in Fig. S1 and is approximated by an exponential function.
+
+Folding, misfolding, aggregation, chaperoning and damage. Understanding the principles of proteostasis requires consideration
+of the timescales of its processes. In our model, we have coarse-grained the folding landscape into several critical states, namely
+those that are functional and native (N ), unfolded (U ), misfolded (M ) and aggregated (A), as shown in Fig. 1. We assign
+transition rates between these states that reflect typical values across the experimental literature. Here, we discuss the sources.
+
+Stability of the native state. The folding stability, ∆G, of a protein has been shown both experimentally and theoretically to
+depend on many factors, including hydrophobicity and chain length (6). Folding stability is also highly temperature-dependent,
+having a roughly inverted parabolic relationship that becomes zero at the hot and cold denaturation points of roughly 50◦ C and
+−20◦ C, respectively, and reaches a typical peak stability ∆Gmax ≈ 10 kT at intermediate temperatures T∆Gmax ≈ 10 − 20◦ C
+(7). This can be expressed as
+                                                                                   
+                                                                 (T − T∆Gmax )2
+                                            ∆G = ∆Gmax      1−                                                                [S1]
+                                                               (Tmelt − T∆Gmax )2
+
+where the values of ∆Gmax , T∆Gmax and Tmelt (hot denaturation) are given in Table S1.
+
+Mantu Santra, Ken A. Dill and Adam M.R. de Graff                                                                           1 of 12
+www.pnas.org/cgi/doi/10.1073/pnas.1906592116
+Unfolding. Proteins have finite stability and are prone to spontaneous unfolding, even when in their native conformation. The
+rate of this unfolding, ku , has been determined experimentally using a number of approaches that suggest, for small proteins,
+an unfolding barrier with an activation energy Ea of roughly 100kJ/mol (8). Using the Arrhenius equation
+
+                                                       ku = ku,o e−Ea /RT                                                      [S2]
+
+relating the barrier crossing rate to the standard attempt frequency ku,o = 6.2 × 1012 s−1 gives ku ≈ 1 d−1 (at 20◦ C). Given
+that proteins typically form protein-protein complexes with a mildly stabilizing effect (9), the estimate of ku ≈ 1 d−1 serves
+as an upper limit for the average unfolding rate. We found an unfolding rate of 0.4 d−1 at 20◦ C provides dynamics close to
+experimental data when used in combination with experimental HSP70 concentrations (Table S1).
+
+Folding. The folding rate, kf , can be determined from the unfolding rate and the folding stability according to
+
+                                                        kf = ku e∆G/RT                                                         [S3]
+
+At 20◦ C, near the peak stability, an unfolding rate ku = 0.4 d−1 and folding stability ∆G = 24.5 kJ/mol give a folding rate
+kf = 0.1 s−1 that corresponds to a folding time of roughly 5-10 seconds. This is comparable to the estimated cycle time of the
+eukaryotic HSP70 (see Chaperoning in SI).
+
+Misfolding. Proteins that require the help of foldases are characterized by high rates of misfolding, kum , that greatly exceed the
+rate of proper folding (10), due in part to the higher number of possible misfolding states. These proteins therefore require
+many chaperone binding events to fold. We assume here that misfolding is 30 times faster than folding, i.e. kum = 30 kf ,
+consistent with the high number of chaperone-mediated folding cycles required for folding, as inferred in previous studies (1).
+
+Unmisfolding. We assume that misfolded proteins have comparable folding stability to native proteins. Thus, a similar relation
+to that in Eq.S3 can be written for the misfolded state. The sole difference is the 30-fold faster inter-conversion between
+misfolded and unfolded structures due to the 30-fold faster misfolding rate compared to the folding rate. The unmisfolding rate
+can thus be written as kmu = 30 ku . This rate, amounting to once every 2 hours (for ku = 0.4 d−1 ), is much slower than the
+rate at which an HSP70 would detect and bind the non-native protein (Table S1), and thus does not serve as a major route to
+refolding.
+
+Aggregation. The aggregation process is modeled by two-step Finke-Watzky type kinetics (11). The nucleation kinetics are
+considered to be a binary collision process where two misfolded proteins collide and form aggregate. This binary-collision
+model gives a nucleation flux ka [M ]2 . The value of ka is chosen to be comparable to the experimental values, but is not tightly
+constrained by the available data. The growth is treated similar to nucleation where two molecules collide and form aggregate,
+except that in this case one of the molecules is already aggregated (A). In other words, aggregates catalyze the conversion of
+misfolded proteins to aggregate with a flux kg [M ][A].
+
+Degradation. Proteins in their non-native states are more prone to degradation compared to their native counterpart. It involves
+multiple steps involving binding of proteins by ubiquitin and then, with the help of ATP, the proteins are degraded into either
+small peptides or amino acids. The degradation in our model is simple; it approximates the whole process by single-step first
+order kinetics where the flux of degradation is proportional to the concentration of degradable protein: kdeg [P ] (Fig. 1). The
+rate constant of degradation used in the model is given in Table S1.
+
+Chaperoning. There are multiple chaperones in C. elegans. Even in simple organisms, such as E. Coli, there are three major
+chaperones: trigger factor (TF), DnaK/J/GrpE (KJE or HSP70) and GroEL/S (GroE or HSP60). The mechanism of
+chaperoning is highly complex. Although all the chaperones help the client proteins in their folding pathways, the mechanism
+as well as the efficiency of their actions are different. Similar to E. coli, the cells in C. elegans also synthesize HSP70- and
+HSP60-class chaperones which are conserved in both structure and function. Per complex, previous studies found HSP60 to be
+more efficient in folding a misfolded protein compared to HSP70. In contrast, due in part to its higher chaperoning rate per
+unit mass, HSP70 was found to be the most critical chaperone in preventing protein damage, which is a potential threat in cell
+aging (12). In our current study, we thus consider only HSP70 chaperone and its simplified kinetics through which it folds its
+non-native client proteins. The kinetics follow a two-step process whereby the HSP70 binds the non-native client and then
+releases it to either a native or non-native state based on the rates folding and misfolding.
+    Chaperone kinetics and binding affinities were estimated from experiments. We take chaperone kinetics to be roughly an
+order of magnitude slower than those found in well-studied prokaryotes like E. coli (1, 10) (Table S1). The slower kinetics
+reflect the difference in speed observed between prokaryotic and eukaryotic chaperones, which may be a response to the slower
+natural folding rate of eukaryotic proteins due to their longer average chain length (13, 14). Proteins that do not require
+chaperones to fold are not modeled here, as they are predicted to fold too quickly to suffer significant aggregation (1) or damage
+(12), and thus are not expected to be as sensitive to the slowing protein turnover rates associated with aging, nor play a central
+role in proteostasis decline.
+
+2 of 12                                                                       Mantu Santra, Ken A. Dill and Adam M.R. de Graff
+Protein damage. In our model, oxidative damage is assumed to occur only to unfolded proteins. Proteins are unfolded several
+times during their existence – upon being synthesized and when unfolding spontaneously due to their finite stability. The
+                                  o
+damage rate is given by kdam = kdam               o
+                                      [U ], with kdam  = 0.012 s−1 (Table S1). Given that damage is modeled as occurring only
+                                            o
+to undamaged protein, it is the ratio of kdam   to the protective mechanisms of chaperone binding, folding and misfolding that
+determines the fraction of proteins that become damaged during post-synthesis folding or upon spontaneous unfolding.
+
+Proteomes are susceptible to heat and oxidative damage
+While models of proteostasis commonly include interactions between folding non-native proteins and chaperones (1, 14, 15), as
+captured by the top plane in Fig. 1, our approach is unique in two major respects. First, our model captures the biophysical
+dependencies that control the sensitivity of protein conformation to changes in temperature and, in turn, the differential
+sensitivity of conformations to oxidative damage (4, 7, 12). While proteins are often assumed to be highly stable, experiments
+have shown that they unfold spontaneously on timescales of hours to days. Thus, while our proteostasis model averages over the
+protein-to-protein heterogeneity within a proteome by modeling a single average protein, it captures the biophysical properties
+shared across proteomes that dictate their common response to temperature and oxidation and - we hypothesize - controls
+lifespan.
+
+Heat stress. Temperature affects the dynamics of proteostasis in multiple ways. First, it is a general property of enzymes that
+their rates increase with temperature following Arrhenius behavior (7, 16). This can be written as
+                                                     o
+                                                    kcat = kcat,o e−E1 /RT                                                  [S4]
+where kcat,o is the catalytic rate in the high-temperature limit. Protein degradation and chaperoning activities are assumed to
+follow Eq.S4.
+    While the concerted increase in catalytic rates given by Eq.S4 has often been cited as predicting a corresponding shortening
+in lifespan, in line with the Rate-of-Living Hypothesis (17), this conclusion is not necessarily justified. The reason is that
+not all processes scale at the same rate with temperature. Specifically, protein unfolding grows much more rapidly with
+temperature than any of the proteostasis mechanisms to counteract it, roughly doubling with every 4◦ C increase in temperature
+(18, 19). Due to this more rapid increase, the folding burden of a cell shifts from primarily folding newly synthesized proteins
+at low temperatures to refolding spontaneously unfolded protein at high temperatures (Fig. 3D). As an attempt to cope
+with the increasing unfolding burden, cells decrease growth rates at high temperatures (Fig. S2). Thus, unlike the Arrhenius
+temperature dependence of other biological processes, the growth rate follows a non-Arrhenius behavior at high temperature.
+                                                 o               kgr,o
+                                                kgr =                                                                       [S5]
+                                                        [eE1 /RT + e(A−E2 /RT ) ]
+The present study accounts for these different temperature dependencies (Eqs.S4-S5) and predicts their consequences on
+lifespan (Fig. 3).
+
+Oxidative stress. Figure 4A shows how lifespan depends on the concentration of the oxidant tBuOOH, which is assumed here
+to create a proportional amount of ROS. This can be expressed by writing the rate constant of damage as
+                                                                         [tBuOOH]
+                                                                                   
+                                                        o
+                                                kdam = kdam 1+                                                              [S6]
+                                                                             co
+where co is fitting parameter corresponding to the concentration of tBuOOH at which the damage rate is double its basal,
+physiological value. A value of co = 0.5 mM is used here (Table S1).
+
+Mortality rate and survival probability
+The progressive accumulation of damaged protein with age has been widely observed across species (4). Thus, the extent of
+damage is considered a general biomarker of aging. Many studies in wild-type and mutant C. elegans have revealed that the
+extent of damage in short-lived mutants are almost universally higher than their long-lived counterparts (20), with the few
+exceptions potentially resulting from the low solubility of the damaged proteins (21). Given that toxicity is commonly believed
+to arise from oligomers several protein molecules in size – with oxidized proteins being particularly toxic (22, 23) – we model
+mortality rate µ(t) in terms of the fraction of protein that is damaged, fD (t), namely
+                                                        µ(t) = µo fD (t)α                                                   [S7]
+Both α, which determines the non-linear, cooperative nature of the toxicity, and µo , its overall scale, are determined from
+the slope and magnitude of the experimental mortality curve at 20.1◦ C (Fig. 2C, black circles). The values of µo and α are
+reported in Table S1. Interestingly, the value of α is close to the value found in a previous study to capture the relationships
+between damage level and the rate of mortality and mutation rates (α ≈ 5 − 10) in irradiated bacteria (22). The mortality
+rates at other temperatures are predicted using the same values of α and µo as at 20.1◦ C. From the mortality rate µ(t), the
+survival probability S(t) is obtained by using following relation:
+                                                                     Rt
+                                                                 −        dt µ(t)
+                                                      S(t) = e       0                                                      [S8]
+
+Mantu Santra, Ken A. Dill and Adam M.R. de Graff                                                                         3 of 12
+Tests of assumptions, sensitivities, and factors deliberately left out of the model
+Damaged protein. Our model assumes that damaged proteins are not able to fold, and thus are trapped in aggregation-prone
+conformations. While this is true for heavily damaged proteins, those with only a single oxidized side chain are more likely to
+be only mildly destabilized by 1-2 kcal/mol, comparable to that observed with single point mutations (4). While we chose not
+to allow folding of damaged proteins to be consistent with past work (12), future models could explore the response to partial
+destabilization from oxidation. A destabilized, rather than fully blocked, native state would be expected to result in greater
+accumulation of damaged protein than in the present model. It would also allow loss of function to be explicitly modeled,
+which was not the focus of the present work.
+
+Mortality. Our model assumes that mortality scales as a power law with the amount of oxidative damage to proteins. While
+damage-centric theories of aging have been supported by many lines of evidence (24), some observations are claimed to
+contradict it. Most notably, mutant worms have been found that display heightened damage with no change, or even slight
+increases, in lifespan (25). Higher levels of damage have also been observed in some long-lived organisms like the naked mole-rat
+(21) and deer mouse (26). However, two key points may resolve these apparent contradictions. First, in the case of the naked
+mole-rat, further investigation found that the high damage levels were limited to only a few highly abundant proteins, and thus
+uncharacteristic of the proteome (21). Second, the higher chaperone content is strongly associated with long-lived organisms
+(27) and may increase youthful damage levels by keeping mildly oxidized proteins folded and phenotypically silent, buffering
+the cell from their negative consequences in a manner analogous to that proposed by Susan Lindquist for point mutants (2).
+Indeed, soluble damage levels of young animals are not good predictors of the longevity of a species (21), even if total damage
+levels are predictive of impending death (4, 24, 28).
+   To test whether the model predictions are sensitive to the exact nature of the toxic species, we reran our simulations taking
+only oxidized aggregates as the cause of mortality. While the temperature and oxidant dependence of lifespan changed modestly,
+the major findings remain the same. The most important fact is that the Gompertzian behavior of mortality remains the same
+(Fig. 2C). Human diseases too follow a Gompertzian trend, suggesting a similar underlying mechanism. Whereas some diseases
+are caused by frailties of particular proteins, aging may result from the system-wide frailty of the whole proteome.
+
+Effective parameters. A key goal of constructing simplified biological models is to identify the minimal set of parameters needed
+to capture observed behavior. While the number of model parameters, summarized in Table S1, is by no means small, they
+coalesce into a much smaller set of effective parameters that dictate the model behavior explored in this work. Two effective
+parameters predominate.
+    The first is chaperone capacity relative to basal requirements (the fold-surplus). This effective parameter is determined
+by chaperone concentration, chaperone kinetics, and protein stability. Our estimates suggest a roughly 5-fold spare capacity
+at 20◦ C (8 µM out of 45 µM of chaperone is bound to non-native protein), as summarized in Fig. S3. This spare capacity
+is reasonable, given that: (i) the spare capacity of another key chaperone system, HSP90, is also expressed at least 5- to
+10-fold beyond the minimum requirements for growth (29), and (ii) a 5-fold spare capacity allows roughly two 8◦ C doublings
+in unfolding rate before there is no capacity left to fold newly translated protein, consistent with sythesis rates plummeting
+around 35◦ C (Fig. S2). This spare capacity is not wasted at lower temperatures, however, as it determines the time an
+unfolded, damage-prone protein needs to wait for help, which has previously been shown to affect damage levels (12, 30). The
+net result of this effective parameter is to determing the temperature at which lifespan begins to deviate strongly from the
+Arrhenius rate-of-living expectation, shown in Fig. 3A and 3C. The rapid decline beyond 28◦ C therefore constrains our model
+and informs us on mechanism, rather than being an independent model prediction.
+    The second effective parameter is the damage rate relative to a protein’s dwell time in the unfolded state. This quantity is
+more meaningful to model behavior than the damage rate alone, which is poorly characterized and certain to vary greatly
+between proteins. Importantly, this effective parameter determines the degree of chaperone titration by damaged proteins.
+While not known exactly experimentally, chaperone titration by damaged protein has been shown to significantly amplify
+induction of the heat shock response (which senses chaperone titration). By running our model with and without the ability
+of damaged proteins to bind chaperes, we demonstrated that our effective parameter value is sufficient to moderately affect
+sensitivity to chaperone or proteasome expression levels (Figs. 5B and 6B). These predictions serve to motivate future
+experimental testing.
+
+Potential improvements. Here are some potential sources of future improvements to the model. (i) We model a single ATP-
+dependent folding mechanism representing HSP70-class chaperones. In reality, proteins are folded through a cooperative
+network of several ATP-dependent chaperone classes, as explored previously in E. coli (1). While the overall network behavior
+can likely be captured to a first approximation by an effective folding capacity similar to the one explored here, the relative
+importance of upstream (HSP70) and downstream (HSP90) chaperoning on proteome health and longevity is worth exploring.
+(ii) Small heat-shock proteins are not currently treated. One possible consequence of their absence from our model is a lower
+effective solubility of damaged proteins and, as a result, a lower predicted level of soluble damaged protein (Fig. 2B). (iii) We
+have not modeled the clearance of aggregates, which will be particularly important when modeling organisms with lifespans
+considerably longer than the typical protein half-life. (iv) Degradation of soluble proteins is treated quite simply here (Fig. 1)
+due to limitations in the current understanding of factors determining protein half-life. However, the triage decision of whether
+to refold or degrade an unfolded protein, and thus the trade-off between maximizing yield vs. minimizing damage, poses an
+interesting topic for exploration. (v) We have made the simplifying approximation that the decay constants controlling the
+
+4 of 12                                                                      Mantu Santra, Ken A. Dill and Adam M.R. de Graff
+age-dependence of growth and degradation are ROS-independent. Future models should aim to derive these decay constants
+from first principles based, for example, on the degree of chaperone titration. Such a treatment could also seek to explore
+how the exponential decay in growth and degradation rates even under standard conditons may arise from an evolutionary
+optimization of reproductive fitness for a given resource availability.
+
+Equations
+Undamaged protein
+d[N ]               kce kf [CU ]
+      = kf [U ] +                − (kgr + ku )[N ]                                                                               [S9]
+ dt               kce + kum + kf
+                        2
+d[U ]                 kce [CU ]
+      = kgr [P ] +                + kmu [M ] + ku [N ] + kdeg ([M ] + [Mox ] + [Uox ]) − kdam [U ]
+ dt                kce + kum + kf                                                                                              [S10]
+      − (kf + kum + kgr + kcb [C])[U ]
+
+d[M ]    kce kum [CU ]
+      =                + kum [U ] − (kgr + kmu + kdeg + kcb [C])[M ] − (kg ([A] + [Aox ]) + 2ka ([M ] + [Mox ]))[M ]           [S11]
+ dt     kce + kum + kf
+d[A]
+     = −kgr [A] + (kg [A] + kg [Aox ] + 2 ka [M ] + 2 ka [Mox ])[M ]                                                           [S12]
+ dt
+
+Damaged protein
+d[Uox ]            k2 [CUox ]
+        =kgr [P ] + ce        + kmu [Mox ] + kdam [U ] − (kf + kum + kgr + kdeg + kcb [C])[Uox ]                               [S13]
+  dt                kce + kum
+
+d[Mox ] kce kum [CUox ]
+       =                + kum [Uox ] − (kgr + kmu + kdeg + kcb [C])[Mox ] − (kg ([A] + [Aox ]) + 2ka ([M ] + [Mox ]))[Mox ]
+  dt      kce + kum
+                                                                                                                               [S14]
+
+d[Aox ]
+        = −kgr [Aox ] + (kg ([A] + [Aox ]) + 2 ka ([M ] + [Mox ]))[Mox ]                                                       [S15]
+  dt
+
+Chaperoning
+                       2                                                            2
+d[C]                  kce            kce kum           kce kf                      kce      kce kum
+                                                                                                             
+      = kgr +                  +                +                [CU ] + kgr +           +           [CUox ]
+ dt             kce + kum + kf   kce + kum + kf   kce + kum + kf               kce + kum   kce + kum                           [S16]
+        − kcb ([U ] + [Uox ] + [M ] + [Mox ])[C]
+                        2
+d[CU ]                 kce            kce kum           kce kf
+                                                                              
+       = − kgr +                +                +                [CU ] + kcb ([U ] + [M ])[C]                                 [S17]
+  dt             kce + kum + kf   kce + kum + kf   kce + kum + kf
+                        2
+d[CUox ]               kce      kce kum
+                                                  
+         = − kgr +           +           [CUox ] + kcb ([Uox ] + [Mox ])[C]                                                    [S18]
+   dt              kce + kum   kce + kum
+
+
+
+
+Mantu Santra, Ken A. Dill and Adam M.R. de Graff                                                                              5 of 12
+                          1.5
+Growth rate, kgr Hd -1L
+
+
+
+
+                          1.0
+
+                                                              æ
+                          0.5
+                                                                                                           æ
+                                                                                                                                                        æ
+                          0.0
+
+                                                                                 Adult age, t HdL
+                             0                                            2             4         6                                                                                    8
+
+           Fig. S1. Growth rate declines markedly with age. The growth rate of wild-type C. elegans decays exponentially with age (black circles, extracted from Ref.(5)). The blue line
+           represents the exponential fit to the data, giving a decay constant γ = 0.4 d−1 , and is an input in the present study. The red arrow indicates the first day of adulthood and is
+           taken as the starting point in our model.
+
+
+
+
+           6 of 12                                                                                                  Mantu Santra, Ken A. Dill and Adam M.R. de Graff
+                   5.0
+
+
+                   2.0
+kgr  kgr,20
+
+
+
+
+                                                                                                                     æ æ
+                                                                                                       æ                                 æ
+                   1.0                                                                    æ
+                                                                           æ
+                   0.5                                       æ
+                                æ
+
+
+                                                            Temperature, T H°CL
+                                     10                     15   20     25     30                                                                                   35
+
+      Fig. S2. Growth rate deviates from Arrhenius behavior at high temperature. Experimentally measured growth rates (blue circles) (31) and the corresponding non-Arrhenius
+      fit (black line, Eq. S5) deviate significantly from Arrhenius behavior (orange line) above 28◦ C .
+
+
+
+
+      Mantu Santra, Ken A. Dill and Adam M.R. de Graff                                                                                                              7 of 12
+                          25
+Chaperone occupied HΜML
+
+
+
+
+                          20
+
+                          15
+
+                          10
+
+                            5
+                            20                                22                               24                               26                               28
+                                                                          Temperature, T°C
+            Fig. S3. Chaperone requirements rise rapidly above the temperature of maximum protein stability. As growth temperature deviates from the region of maximum protein
+            stability (10 − 20◦ C ), the model predicts a highly non-linear increase in the amount of chaperone required to maintain the same level of proteome foldedness. Total HSP70
+            chaperone concentration is 45 µM (Table S1).
+
+
+
+
+            8 of 12                                                                                               Mantu Santra, Ken A. Dill and Adam M.R. de Graff
+                                                                                       Survival probability, SHtL
+ Survival probability, SHtL
+
+
+
+
+                               1.                                                                                    1.                                           B
+                                                                          A
+                              0.8                                                                                   0.8
+                              0.6                                                                                   0.6
+                              0.4                                                                                   0.4
+                              0.2                                                                                   0.2
+                               0                                                                                     0
+                                0   5   10    15     20             25          30                                    0   0.5        1                1.5                2
+                                        Adult age, t HdL                                                                            tΤ
+                                                                                       Survival probability, SHtL
+ Survival probability, SHtL
+
+
+
+
+                               1                                                                                     1                                            D
+                                                                          C
+                              0.8                                                                                   0.8
+                              0.6                                                                                   0.6
+                              0.4                                                                                   0.4
+                              0.2                                                                                   0.2
+                               0                                                                                     0
+                                0   5   10    15    20              25          30                                    0   0.5        1                1.5                2
+                                        Adult age,t HdL                                                                             tΤ
+Fig. S4. Scaling of lifespan with temperature and ROS. (A) Predicted survival curves at the same temperatures as the mortality curves in Fig. 3B, namely 20.1◦ C , 22.1,
+25.5, 28.3, 28.9, 30, 31.3 and 32.4◦ C , from black to orange. (B) These survival probabilities, when temporally scaled to the 50% survival time τ , are similar but show a
+gradual broadening at higher temperature, as observed experimentally (32). (C) and (D) are the same as (A) and (B),respectively, except that ROS level is varied rather than
+temperature. The concentrations of ROS are, from black to orange, 0 mM, 0.2, 0.5, 1, 1.5, 3, 6, 10 mM.
+
+
+
+
+Mantu Santra, Ken A. Dill and Adam M.R. de Graff                                                                                                                  9 of 12
+                           Table S1. List of Parameters
+
+              Parameter                  Value              Reference
+                   E1            17 kcal/mol (71 kJ/mol)      (31)
+                   E2           68 kcal/mol (284 kJ/mol)      (31)
+                    A                        141              (31)
+                   Ea           30 kcal/mol (125 kJ/mol)      (33)
+           kgro
+                (T = 20◦ C)               1.15 d−1            (34)
+                   λgr                     0.4 d−1            (34)
+             o
+           kdeg  (T = 20◦ C)              3.85 d−1          This work
+                  λdeg                    0.14 d−1            (34)
+            ku (T = 20◦ C)                0.4 d−1           This work
+                ∆Gmax          5.9 kcal/mol (24.5 kJ/mol)      (7)
+                T∆Gmax                      18◦ C              (7)
+                  Tmelt                     45◦ C            (7, 35)
+                                          −5
+                   ka              4 × 10      µM −1 s−1    This work
+                   kg              2 × 10−2 µM −1 s−1       This work
+                   kcb                0.25 µM −1 s−1        This work
+            kce (T = 20◦ C)                0.1 s−1            (36)
+                   o
+                  kdam                   0.012 s−1            (12)
+                    co                    0.5 mM            This work
+                   Np                       1500            This work
+                   [P ]                     1 µM              (10)
+                   [C]                     45 µM              (37)
+                   µo                 9.5 × 10−6 d−1        This work
+                    α                        6.4            This work
+
+
+
+
+10 of 12                                              Mantu Santra, Ken A. Dill and Adam M.R. de Graff
+References
+
+ 1. Santra M, Farrell D, Dill K (2017) Bacterial proteostasis balances energy and chaperone utilization efficiently. Proc Natl
+    Acad Sci USA 114:E2654–E2661.
+ 2. Karras G, et al. (2017) Hsp90 shapes the consequences of human genetic variation. Cell 168:856—-866.
+ 3. Tokuriki N, Stricher F, Schymkowitz J, Serrano L, Tawfik D (2007) The stability effects of protein mutations appear to be
+    universally distributed. Journal of Molecular Biology 369:1318–1332.
+ 4. de Graff A, Hazoglou M, Dill K (2016) Highly charged proteins: The achilles’ heel of aging proteomes. Structure 24:329–336.
+ 5. Van Voorhies W, Ward S (1999) Genetic and environmental conditions that increase longevity in caenorhabditis elegans
+    decrease metabolic rate. Proc. Natl. Acad. Sci. U.S.A. 96:11399–11403.
+ 6. Ghosh K, de Graff A, Sawle L, Dill K (2016) Role of proteome physical chemistry in cell behavior. The Journal of Physical
+    Chemistry B 120:9549–9563.
+ 7. Sawle L, Ghosh K (2011) How do thermophilic proteins and proteomes withstand high temperature? Biophysical Journal
+    101:217–227.
+ 8. Peterson ME, Eisenthal R, Danson MJ, Spence A, Daniel RM (2004) A new intrinsic thermal parameter for enzymes
+    reveals true temperature optima. The Journal of Biological Chemistry 279(20):20717–20722.
+ 9. Dixit PD, Maslov S (2013) Evolutionary capacitance and control of protein stability in protein-protein interaction networks.
+    PLOS Computational Biology 9(4):1–9.
+10. Kerner M, et al. (2005) Proteome-wide analysis of chaperonin-dependent protein folding in escherichia coli. Cell 122:209–220.
+11. Morris AM, Watzky MA, Finke RG (2009) Protein aggregation kinetics, mechanism, and curve-fitting: A review of the
+    literature. Biochimica et Biophysica Acta 1794:375–397.
+12. Santra M, Dill K, de Graff A (2018) How do chaperones protect a cell’s proteins from oxidative damage? Cell Systems
+    6(6):743–751.
+13. Zou T, Williams N, Ozkan SB, Ghosh K (2014) Proteome folding kinetics is limited by protein halflife. Plos One
+    9(11):e112701.
+14. Chen K, et al. (2017) Thermosensitivity of growth is determined by chaperone-mediated proteome reallocation. Proc Natl
+    Acad Sci USA 114(43):11548–11553.
+15. Kirkwood T (2005) Understanding the odd science of aging. Cell 120:437–447.
+16. Ghosh K, Dill KA (2010) Cellular proteomes have broad distributions of protein stability. Biophysical Journal 99:3996–4002.
+17. Pearl R (1928) The rate of living. (University of London Press Ltd.).
+18. Guo M, Xu Y, Gruebele M (2012) Temperature dependence of protein folding kinetics in living cells. Proc. Natl. Acad.
+    Sci. USA 109(44):17863—-17867.
+19. Holtzer M, et al. (2001) Temperature dependence of the folding and unfolding kinetics of the gcn4 leucine zipper via
+    13c-nmr. Biophysical Journal 80:939–951.
+20. Adachi H, Fujiwara Y, Ishii N (1998) Effects of oxygen on protein carbonyl and aging in caenorhabditis elegans mutants
+    with long (age-1) and short (mev-1) life spans. Journal of Gerontology: Biological Sciences 53A(4):B240–244.
+21. Bhattacharya A, et al. (2011) Attenuation of liver insoluble protein carbonyls: indicator of a longevity determinant? Aging
+    Cell 10:720–723.
+22. Krisko A, Radman M (2013) Phenotypic and genetic consequences of protein damage. PLoS Genet 9(9):e1003810.
+23. Radman M (2016) Protein damage, radiation sensitivity and aging. DNA Repair 44:186–192.
+24. Krisko A, Radman M (2019) Protein damage, ageing and age-related diseases. Open Biology 9(3):180249.
+25. Van Raamsdonk JM, Hekimi S (2009) Deletion of the mitochondrial superoxide dismutase sod-2 extends lifespan in
+    caenorhabditis elegans. Plos Genetics 5:e1000361.
+26. Shi Y, et al. (2013) Reduced mitochondrial ros, enhanced antioxidant defense, and distinct age-related changes in oxidative
+    damage in muscles of long-lived peromyscus leucopus. Am J Physiol Regul Integr Comp Physiol 304:R343–R355.
+27. Salway KD, Gallagher EJ, Page MM, Stuart JA (2011) Higher levels of heat shock proteins in longer-lived mammals and
+    birds. Mechanisms of Ageing and Development 132(287—297).
+28. Stadtman E (1992) Protein oxidation and aging. Science 257:1220–1224.
+29. Borkovich KA, Farrelly FW, Finkelstein, D. B. Taulien J, Lindquist S (1989) hsp82 is an essential protein that is required
+    in higher concentrations for growth of cells at higher temperatures. Mol Cell Biol. 9(9):3919–3930.
+30. Fredriksson A, Ballesteros M, Dukan S, Nystrom T (2006) Induction of the heat shock regulon in response to increased
+    mistranslation requires oxidative modification of the malformed proteins. Molecular Microbiology 59:350–359.
+31. Begasse ML, Leaver M, Vazquez F, Grill SW, Hyman AA (2015) Temperature dependence of cell division timing accounts
+    for a shift in the thermal limits of c. elegans and c. briggsae. Cell Reports 10:647–653.
+32. Stroustrup N, et al. (2016) The temporal scaling of caenorhabditis elegans ageing. Nature 530:103—-107.
+33. Mayor U, Johnson CM, Daggett V, Fersht AR (2000) Protein folding and unfolding in microseconds to nanonseconds by
+    experiment and simulation. Proc. Natl. Acad. Sci., USA 97(25):13518–13522.
+34. Depuydt G, Shanmugam N, Rasulova M, Dhondt I, Braeckman B (2016) Increased protein stability and decreased protein
+    turnover in the caenorhabditis elegans ins/igf-1 daf-2 mutant. Journals of Gerontology Series a-Biological Sciences and
+    Medical Sciences 71:1553–1559.
+35. Leuenberger P, et al. (2017) Cell-wide analysis of protein thermal unfolding reveals determinants of thermostability.
+    Science 355(6327).
+
+Mantu Santra, Ken A. Dill and Adam M.R. de Graff                                                                        11 of 12
+36. Sun L, et al. (2012) The lid domain of caenorhabditis elegans hsc70 influences atp turnover, cofactor binding and protein
+    folding activity. Plos One 7:e33980.
+37. Wang M, Herrmann C, Simonovic M, Szklarczyk D, von Mering C (2015) Version 4.0 of paxdb: Protein abundance data,
+    integrated across model organisms, tissues, and cell-lines. Proteomics 15(18):3163–3168.
+
+
+
+
+12 of 12                                                                  Mantu Santra, Ken A. Dill and Adam M.R. de Graff
+

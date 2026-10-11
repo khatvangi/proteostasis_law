@@ -21,6 +21,13 @@ dynamics
   production, mode "growth":  mu(U)*P*(phi0 + phim*h(F)) (allocation x growth)
   h(F) = 1/(1+(F/Ks)^n)       sigma32 activity, repressed by free chaperone
 
+  both production modes are ASSUMPTIONS. "growth" makes chaperone synthesis stop
+  when growth stops; "fixed" keeps it going and then has no ceiling at mu -> 0.
+  neither is measured for E. coli under load.
+
+  "served" = k*C*U/(K+U) is chaperone turnover. the model has no native-product or
+  aggregate state, so served flux is NOT native protein output.
+
   L      client influx needing service
   k      max turnover per chaperone
   K      client load at half-saturation of the chaperone
@@ -33,9 +40,13 @@ from scipy.optimize import brentq
 
 def findSigmaActivity(F, Ks, n):
     # hill repression of sigma32 activity by free chaperone; returns h and dh/dF
+    # dh/dF = -(n/Ks)(F/Ks)^(n-1)/(1+r)^2. at F = 0 this is -1/Ks for n = 1,
+    # 0 for n > 1 and -inf for n < 1 (the old code returned 0 for every n)
     r = (F / Ks) ** n
     h = 1.0 / (1.0 + r)
-    dh = -n * r / (F * (1.0 + r) ** 2) if F > 0 else 0.0
+    if F == 0 and n < 1:
+        return h, -np.inf
+    dh = -(n / Ks) * (F / Ks) ** (n - 1) / (1.0 + r) ** 2
     return h, dh
 
 
@@ -72,7 +83,11 @@ def findRates(U, C, p, Fdelayed=None):
 
 
 def findCapMax(p):
-    # largest chaperone pool feedback can ever hold: h = 1 everywhere
+    # ceiling of the attracting band [CapMin, CapMax] (h = 1 everywhere).
+    # NOT an absolute bound: dC/dt <= mu*(CapMax - C) only gives
+    # C(t) - CapMax <= (C(0) - CapMax)*exp(-mu t), so the pool stays below it only
+    # if it starts below it and mu (and, in growth mode, P) stay constant.
+    # in fixed mode CapMax = (b0+bm)/mu diverges as growth stops
     if p.get("mode", "fixed") == "growth":
         return p["P"] * (p["phi0"] + p["phim"])
     return (p["b0"] + p["bm"]) / p["mu"]
@@ -93,7 +108,12 @@ def findLoopTerms(U, C, p):
       x' =  c u(t-tau) - e x(t-tau) - mu x
     a: client removal slope   b: service gain per chaperone
     c: load -> synthesis gain e: chaperone self-repression gain via free pool
+
+    the terms are local to one equilibrium; results built on them (loop gain,
+    critical delay) are linear and local, not global.
     """
+    if p.get("mode", "fixed") != "fixed" or p.get("Ktox") is not None:
+        raise ValueError("loop terms are derived for fixed production and constant growth")
     K, k, mu = p["K"], p["k"], p["mu"]
     F = findFree(C, U, K)
     _, dh = findSigmaActivity(F, p["Ks"], p["n"])
@@ -157,18 +177,24 @@ def findFluxPartition(U, C, p):
 
 
 def findLoopGain(a, b, c, e, mu):
-    # zero-frequency loop gain G = (e*a + b*c)/(a*mu)
+    # zero-frequency loop gain G = (e*a + b*c)/(a*mu); det J = a*mu*(1+G).
+    # linear result (MINIMAL_DYNAMICS.md section 3): stable at every delay iff G <= 1
     return (e * a + b * c) / (a * mu)
 
 
 def findCriticalDelay(a, b, c, e, mu):
     """smallest delay at which a root of
        (s+a)(s+mu) + (e s + e a + b c) exp(-s tau) = 0
-    crosses the imaginary axis. returns (omega, tau) or None if stable for all tau."""
+    crosses the imaginary axis. returns (omega, tau) or None if no crossing exists.
+
+    crossings need |P(iw)| = |Q(iw)|, i.e. z = w^2 solves z^2 + A2 z + A0 = 0.
+    z = 0 is excluded: it would mean s = 0, and f(0) = a*mu*(1+G) > 0 is never zero
+    (this is the G = 1 boundary case, where A0 = 0)."""
     A2 = a * a + mu * mu - e * e
     A0 = (a * mu) ** 2 - (e * a + b * c) ** 2
     zs = np.roots([1.0, A2, A0])
-    zs = [z.real for z in zs if abs(z.imag) < 1e-12 and z.real > 0]
+    ztol = 1e-12 * (abs(A2) + np.sqrt(abs(A0)) + 1.0)
+    zs = [z.real for z in zs if abs(z.imag) < 1e-12 and z.real > ztol]
     best = None
     for z in zs:
         w = np.sqrt(z)
@@ -181,13 +207,18 @@ def findCriticalDelay(a, b, c, e, mu):
     return best
 
 
-def findLinearDdeGrowth(a, b, c, e, mu, tau, T, dt=1e-3):
-    # euler integration of the linearised delayed loop; returns log of |x| growth
+def findLinearDdeGrowth(a, b, c, e, mu, tau, T, dt=1e-3, hist=None):
+    # euler integration of the linearised delayed loop; returns log of |x| growth.
+    # hist(t) -> (u, x) on t in [-tau, 0]; default is a constant history u = 1e-3
     nd = int(round(tau / dt))
     n = int(round(T / dt))
     u = np.zeros(n + nd + 1)
     x = np.zeros(n + nd + 1)
-    u[: nd + 1] = 1e-3      # constant history
+    if hist is None:
+        u[: nd + 1] = 1e-3
+    else:
+        for i in range(nd + 1):
+            u[i], x[i] = hist((i - nd) * dt)
     for i in range(nd, n + nd):
         ud, xd = u[i - nd], x[i - nd]
         u[i + 1] = u[i] + dt * (-a * u[i] - b * x[i])
@@ -195,3 +226,17 @@ def findLinearDdeGrowth(a, b, c, e, mu, tau, T, dt=1e-3):
     amp = lambda s: np.max(np.abs(np.r_[u[s], x[s]]))
     m = n // 4
     return np.log(amp(slice(-m, None)) / amp(slice(nd + m, nd + 2 * m)))
+
+
+def findTrajectory(U0, C0, p, T, npts=4001, mu=None):
+    # undelayed nonlinear trajectory (tau = 0). mu(t), if given, overrides p["mu"]
+    # so a growth-rate step can be imposed; returns t, U(t), C(t)
+    from scipy.integrate import solve_ivp
+
+    def rhs(t, y):
+        q = p if mu is None else dict(p, mu=mu(t))
+        return findRates(y[0], y[1], q)
+
+    t = np.linspace(0, T, npts)
+    sol = solve_ivp(rhs, [0, T], [U0, C0], t_eval=t, rtol=1e-9, atol=1e-12)
+    return sol.t, sol.y[0], sol.y[1]

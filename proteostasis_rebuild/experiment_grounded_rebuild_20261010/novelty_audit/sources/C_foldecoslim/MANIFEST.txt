@@ -1,0 +1,11 @@
+C_foldecoslim source manifest (retrieved 2026-10-10)
+PMC6566562_main_text_pmc_html.txt   Pobre et al. 2019 main text + refs, innerText of PMC HTML (equations blank; see next)
+PMC6566562_main_equations_mathml_flat.txt  Eqs 1-6 flattened MathML from PMC HTML
+PMC6566562_supp_S001_docx.txt       Supporting Information (docx -> pandoc plain text; equation images show as [])
+PMC6566562_supp_ODEs_transcribed.txt  ODEs S1-S14 transcribed from rendered docx images (raw/supp_docx_pdf/page-06/07.png)
+PMC6566562_supp_S002_xlsx.tsv.txt   Table S2 (644 rows incl. header/notes; per-protein parameters, un-adjusted)
+PMC6863698_erratum.txt              Erratum (acknowledgment only)
+PMC8502207_fulltext.txt             Powers & Gierasch 2021 JMB review, from NCBI efetch JATS XML (raw/PMC8502207.efetch.xml)
+raw/                                original downloads (docx, xlsx, efetch XML, browser JSON dumps)
+FAILED: Europe PMC fullTextXML and supplementaryFiles for both PMCIDs (500 / "not open access"); PMC PDF of PRO-28-1324 (reCAPTCHA);
+        Wiley pdfdirect (bot block). Main text taken from PMC HTML instead.

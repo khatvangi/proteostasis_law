@@ -1,0 +1,20 @@
+retrieval log, 2026-10-10 (all downloads are untrusted data; nothing executed)
+
+FoldEco, Powers ET, Powers DL, Gierasch LM 2012 Cell Rep 1:265-276, doi 10.1016/j.celrep.2012.02.011, PMID 22509487, PMC3324317 (NIHMS362482)
+  OK   NCBI efetch db=pmc id=3324317 -> raw/PMC3324317_oa.xml -> foldeco2012_pmc.txt (main text, figure legends, refs)
+  OK   PMC HTML page -> raw/PMC3324317_pmc.html
+  FAIL Europe PMC fullTextXML -> HTTP 500 (raw/FAILED_epmc_fullTextXML_PMC3324317.json)
+  FAIL Europe PMC supplementaryFiles -> "Article with id PMC3324317 is not open access one"
+  FAIL plain curl of PMC supplement -> PoW challenge page; europepmc.org bin/ and cell.com mmc1 -> HTTP 403
+  OK   PMC supplement NIHMS362482-supplement-01.pdf (46 pp, Extended Experimental Procedures + Tables S1-S7 + figure legends)
+       fetched with curl after passing PMC proof-of-work cookie in a headless browser -> raw/foldeco2012_supp_EEP.pdf -> foldeco2012_supp.txt
+       NOTE: equations S1-S45 are images in the PDF; pdftotext gives only equation numbers, not bodies.
+  NOT RETRIEVED: Mathematica code/notebook, Excel tables (Tables S3/S5 full lists) - only the PDF supplement is linked in PMC
+  FAIL http://foldeco.scripps.edu -> no response (connection failed/timeout 30 s)
+
+Dickson A, Brooks CL III 2013 PLoS Comput Biol 9(11):e1003324, doi 10.1371/journal.pcbi.1003324, PMID 24244134, PMC3828153
+  OK   Europe PMC fullTextXML -> raw/PMC3828153_fulltext.xml -> chaperone_transitions2013_pmc.txt
+       NOTE: inline math symbols are MathML/images and appear blank in the text dump (e.g. "rate constants ( and )")
+  FAIL Europe PMC supplementaryFiles -> HTTP 500
+  OK   PLOS supplementary files s001-s006 (Figures S1-S6, EPS) and s007 (Text S1, PDF) -> raw/pcbi.1003324.s00*
+       Text S1 -> chaperone_transitions2013_supp_TextS1.txt

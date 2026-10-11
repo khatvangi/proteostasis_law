@@ -1,0 +1,26 @@
+test_growth_upshift_starts_pool_above_its_new_ceiling (test_feedback.TestCeiling.test_growth_upshift_starts_pool_above_its_new_ceiling) ... ok
+test_initial_pool_above_ceiling_exceeds_it_and_serves_above_k_cmax (test_feedback.TestCeiling.test_initial_pool_above_ceiling_exceeds_it_and_serves_above_k_cmax) ... ok
+test_pool_starting_at_or_below_ceiling_stays_below (test_feedback.TestCeiling.test_pool_starting_at_or_below_ceiling_stays_below) ... ok
+test_degradation_balances_the_books_by_destroying_clients (test_feedback.TestConservationAndBounds.test_degradation_balances_the_books_by_destroying_clients) ... ok
+test_growth_coupled_ceiling_is_an_allocation_not_a_rate (test_feedback.TestConservationAndBounds.test_growth_coupled_ceiling_is_an_allocation_not_a_rate) ... ok
+test_influx_equals_served_plus_degraded_plus_diluted (test_feedback.TestConservationAndBounds.test_influx_equals_served_plus_degraded_plus_diluted) ... ok
+test_load_above_max_service_is_never_fully_served (test_feedback.TestConservationAndBounds.test_load_above_max_service_is_never_fully_served) ... ok
+test_crossing_polynomial_signs_follow_the_gain (test_feedback.TestDelayTheorem.test_crossing_polynomial_signs_follow_the_gain) ... ok
+test_equality_case_has_no_crossing_and_still_decays (test_feedback.TestDelayTheorem.test_equality_case_has_no_crossing_and_still_decays) ... ok
+test_strong_gain_is_unstable_at_every_delay_beyond_tau_star (test_feedback.TestDelayTheorem.test_strong_gain_is_unstable_at_every_delay_beyond_tau_star) ... ok
+test_weak_gain_is_stable_at_every_delay (test_feedback.TestDelayTheorem.test_weak_gain_is_stable_at_every_delay) ... ok
+test_growth_inhibition_can_create_a_collapsed_second_state (test_feedback.TestGrowthToxicity.test_growth_inhibition_can_create_a_collapsed_second_state) ... ok
+test_collapse_rests_on_synthesis_proportional_to_growth (test_feedback.TestModelAssumptions.test_collapse_rests_on_synthesis_proportional_to_growth) ... ok
+test_sigma_derivative_at_zero_free_chaperone (test_feedback.TestModelAssumptions.test_sigma_derivative_at_zero_free_chaperone) ... ok
+test_feedback_divides_steady_state_error_by_one_plus_loop_gain (test_feedback.TestSensitivityAndDelay.test_feedback_divides_steady_state_error_by_one_plus_loop_gain) ... ok
+test_high_gain_loop_destabilises_beyond_critical_delay (test_feedback.TestSensitivityAndDelay.test_high_gain_loop_destabilises_beyond_critical_delay) ... ok
+test_loop_gain_above_one_always_has_a_finite_critical_delay (test_feedback.TestSensitivityAndDelay.test_loop_gain_above_one_always_has_a_finite_critical_delay) ... ok
+test_weak_loop_without_crossing_is_stable_for_every_delay (test_feedback.TestSensitivityAndDelay.test_weak_loop_without_crossing_is_stable_for_every_delay) ... ok
+test_box_is_positively_invariant (test_feedback.TestSignsAndUniqueness.test_box_is_positively_invariant) ... ok
+test_divergence_negative_everywhere_in_box (test_feedback.TestSignsAndUniqueness.test_divergence_negative_everywhere_in_box) ... ok
+test_jacobian_sign_pattern_and_stability_without_delay (test_feedback.TestSignsAndUniqueness.test_jacobian_sign_pattern_and_stability_without_delay) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 126.539s
+
+OK
