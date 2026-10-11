@@ -1,0 +1,5 @@
+file	rows	columns	malformed_rows	preview_rows	bytes	sha256
+proteinGroups_aggregates.txt	2920	289	0	3	21528149	2df6174e7cbf1c50f97f9c533b5a597f4250a5d217202e4e2e42e696d30a954e
+proteinGroups_proteomes.txt	2553	361	0	3	22232443	a7677bf64d2e292566b6bbaf2f8900a5a20028ab6f16c95c62bdeaef151ec19b
+proteinGroups_pulldown.txt	795	119	0	3	1130886	4a6f775d7c151b18d177036e925372f8a24db786a2ac176c121a7e997b2ff44c
+proteinGroups_wtcontrol.txt	2284	120	0	3	8108235	efdac61aed826db0b59f4db362cfa2d80ad5cf8a3619fc8fb660542189d0b76c

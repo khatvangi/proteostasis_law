@@ -1,0 +1,890 @@
+file	column_index	column	definition	preview_nonempty
+proteinGroups_aggregates.txt	1	Protein IDs	Semicolon-delimited protein-group accessions; not necessarily one unique protein	3
+proteinGroups_aggregates.txt	2	Majority protein IDs	Semicolon-delimited protein-group accessions; not necessarily one unique protein	3
+proteinGroups_aggregates.txt	3	Peptide counts (all)	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	4	Peptide counts (razor+unique)	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	5	Peptide counts (unique)	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	6	Protein names	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	7	Gene names	Semicolon-delimited gene annotations; not a unique join key	3
+proteinGroups_aggregates.txt	8	Fasta headers	Search-database descriptions; not independent wet-lab strain evidence	3
+proteinGroups_aggregates.txt	9	Number of proteins	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	10	Peptides	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	11	Razor + unique peptides	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	12	Unique peptides	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	13	Peptides A_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	14	Peptides A_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	15	Peptides A_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	16	Peptides A_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	17	Peptides A_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	18	Peptides A_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	19	Peptides A_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	20	Peptides A_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	21	Peptides A_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	22	Peptides B_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	23	Peptides B_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	24	Peptides B_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	25	Peptides B_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	26	Peptides B_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	27	Peptides B_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	28	Peptides B_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	29	Peptides B_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	30	Peptides B_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	31	Peptides C_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	32	Peptides C_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	33	Peptides C_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	34	Peptides C_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	35	Peptides C_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	36	Peptides C_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	37	Peptides C_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	38	Peptides C_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	39	Peptides C_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	40	Peptides D_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	41	Peptides D_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	42	Peptides D_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	43	Peptides D_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	44	Peptides D_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	45	Peptides D_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	46	Peptides D_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	47	Peptides D_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	48	Peptides D_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	49	Razor + unique peptides A_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	50	Razor + unique peptides A_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	51	Razor + unique peptides A_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	52	Razor + unique peptides A_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	53	Razor + unique peptides A_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	54	Razor + unique peptides A_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	55	Razor + unique peptides A_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	56	Razor + unique peptides A_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	57	Razor + unique peptides A_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	58	Razor + unique peptides B_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	59	Razor + unique peptides B_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	60	Razor + unique peptides B_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	61	Razor + unique peptides B_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	62	Razor + unique peptides B_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	63	Razor + unique peptides B_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	64	Razor + unique peptides B_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	65	Razor + unique peptides B_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	66	Razor + unique peptides B_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	67	Razor + unique peptides C_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	68	Razor + unique peptides C_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	69	Razor + unique peptides C_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	70	Razor + unique peptides C_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	71	Razor + unique peptides C_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	72	Razor + unique peptides C_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	73	Razor + unique peptides C_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	74	Razor + unique peptides C_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	75	Razor + unique peptides C_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	76	Razor + unique peptides D_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	77	Razor + unique peptides D_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	78	Razor + unique peptides D_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	79	Razor + unique peptides D_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	80	Razor + unique peptides D_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	81	Razor + unique peptides D_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	82	Razor + unique peptides D_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	83	Razor + unique peptides D_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	84	Razor + unique peptides D_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	85	Unique peptides A_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	86	Unique peptides A_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	87	Unique peptides A_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	88	Unique peptides A_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	89	Unique peptides A_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	90	Unique peptides A_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	91	Unique peptides A_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	92	Unique peptides A_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	93	Unique peptides A_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	94	Unique peptides B_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	95	Unique peptides B_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	96	Unique peptides B_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	97	Unique peptides B_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	98	Unique peptides B_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	99	Unique peptides B_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	100	Unique peptides B_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	101	Unique peptides B_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	102	Unique peptides B_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	103	Unique peptides C_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	104	Unique peptides C_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	105	Unique peptides C_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	106	Unique peptides C_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	107	Unique peptides C_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	108	Unique peptides C_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	109	Unique peptides C_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	110	Unique peptides C_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	111	Unique peptides C_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	112	Unique peptides D_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	113	Unique peptides D_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	114	Unique peptides D_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	115	Unique peptides D_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	116	Unique peptides D_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	117	Unique peptides D_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	118	Unique peptides D_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	119	Unique peptides D_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	120	Unique peptides D_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	121	Sequence coverage [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	122	Unique + razor sequence coverage [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	123	Unique sequence coverage [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	124	Mol. weight [kDa]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	125	Sequence length	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	126	Sequence lengths	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	127	Q-value	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	128	Score	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	129	Identification type A_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	130	Identification type A_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	131	Identification type A_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	132	Identification type A_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	133	Identification type A_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	134	Identification type A_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	135	Identification type A_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	136	Identification type A_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	137	Identification type A_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	138	Identification type B_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	139	Identification type B_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	140	Identification type B_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	141	Identification type B_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	142	Identification type B_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	143	Identification type B_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	144	Identification type B_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	145	Identification type B_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	146	Identification type B_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	147	Identification type C_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	148	Identification type C_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	149	Identification type C_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	150	Identification type C_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	151	Identification type C_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	152	Identification type C_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	153	Identification type C_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	154	Identification type C_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	155	Identification type C_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	156	Identification type D_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	157	Identification type D_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	158	Identification type D_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	159	Identification type D_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	160	Identification type D_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	161	Identification type D_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	162	Identification type D_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	163	Identification type D_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_aggregates.txt	164	Identification type D_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	165	Sequence coverage A_ed_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	166	Sequence coverage A_ed_dclpB_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	167	Sequence coverage A_ed_dclpB_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	168	Sequence coverage A_ed_dclpB_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	169	Sequence coverage A_ed_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	170	Sequence coverage A_ed_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	171	Sequence coverage A_wt_dclpB_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	172	Sequence coverage A_wt_dclpB_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	173	Sequence coverage A_wt_dclpB_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	174	Sequence coverage B_ed_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	175	Sequence coverage B_ed_dclpB_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	176	Sequence coverage B_ed_dclpB_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	177	Sequence coverage B_ed_dclpB_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	178	Sequence coverage B_ed_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	179	Sequence coverage B_ed_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	180	Sequence coverage B_wt_dclpB_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	181	Sequence coverage B_wt_dclpB_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	182	Sequence coverage B_wt_dclpB_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	183	Sequence coverage C_ed_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	184	Sequence coverage C_ed_dclpB_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	185	Sequence coverage C_ed_dclpB_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	186	Sequence coverage C_ed_dclpB_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	187	Sequence coverage C_ed_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	188	Sequence coverage C_ed_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	189	Sequence coverage C_wt_dclpB_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	190	Sequence coverage C_wt_dclpB_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	191	Sequence coverage C_wt_dclpB_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	192	Sequence coverage D_ed_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	193	Sequence coverage D_ed_dclpB_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	194	Sequence coverage D_ed_dclpB_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	195	Sequence coverage D_ed_dclpB_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	196	Sequence coverage D_ed_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	197	Sequence coverage D_ed_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	198	Sequence coverage D_wt_dclpB_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	199	Sequence coverage D_wt_dclpB_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	200	Sequence coverage D_wt_dclpB_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	201	Intensity	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	202	Intensity A_ed_blank	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	203	Intensity A_ed_dclpB_blank	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	204	Intensity A_ed_dclpB_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	205	Intensity A_ed_dclpB_Val	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	206	Intensity A_ed_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	207	Intensity A_ed_Val	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	208	Intensity A_wt_dclpB_blank	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	209	Intensity A_wt_dclpB_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	210	Intensity A_wt_dclpB_Val	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	211	Intensity B_ed_blank	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	212	Intensity B_ed_dclpB_blank	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	213	Intensity B_ed_dclpB_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	214	Intensity B_ed_dclpB_Val	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	215	Intensity B_ed_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	216	Intensity B_ed_Val	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	217	Intensity B_wt_dclpB_blank	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	218	Intensity B_wt_dclpB_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	219	Intensity B_wt_dclpB_Val	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	220	Intensity C_ed_blank	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	221	Intensity C_ed_dclpB_blank	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	222	Intensity C_ed_dclpB_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	223	Intensity C_ed_dclpB_Val	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	224	Intensity C_ed_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	225	Intensity C_ed_Val	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	226	Intensity C_wt_dclpB_blank	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	227	Intensity C_wt_dclpB_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	228	Intensity C_wt_dclpB_Val	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	229	Intensity D_ed_blank	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	230	Intensity D_ed_dclpB_blank	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	231	Intensity D_ed_dclpB_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	232	Intensity D_ed_dclpB_Val	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	233	Intensity D_ed_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	234	Intensity D_ed_Val	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	235	Intensity D_wt_dclpB_blank	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	236	Intensity D_wt_dclpB_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	237	Intensity D_wt_dclpB_Val	MS signal intensity in arbitrary units	3
+proteinGroups_aggregates.txt	238	iBAQ	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	239	iBAQ A_ed_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	240	iBAQ A_ed_dclpB_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	241	iBAQ A_ed_dclpB_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	242	iBAQ A_ed_dclpB_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	243	iBAQ A_ed_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	244	iBAQ A_ed_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	245	iBAQ A_wt_dclpB_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	246	iBAQ A_wt_dclpB_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	247	iBAQ A_wt_dclpB_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	248	iBAQ B_ed_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	249	iBAQ B_ed_dclpB_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	250	iBAQ B_ed_dclpB_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	251	iBAQ B_ed_dclpB_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	252	iBAQ B_ed_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	253	iBAQ B_ed_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	254	iBAQ B_wt_dclpB_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	255	iBAQ B_wt_dclpB_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	256	iBAQ B_wt_dclpB_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	257	iBAQ C_ed_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	258	iBAQ C_ed_dclpB_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	259	iBAQ C_ed_dclpB_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	260	iBAQ C_ed_dclpB_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	261	iBAQ C_ed_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	262	iBAQ C_ed_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	263	iBAQ C_wt_dclpB_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	264	iBAQ C_wt_dclpB_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	265	iBAQ C_wt_dclpB_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	266	iBAQ D_ed_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	267	iBAQ D_ed_dclpB_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	268	iBAQ D_ed_dclpB_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	269	iBAQ D_ed_dclpB_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	270	iBAQ D_ed_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	271	iBAQ D_ed_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	272	iBAQ D_wt_dclpB_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	273	iBAQ D_wt_dclpB_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	274	iBAQ D_wt_dclpB_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_aggregates.txt	275	MS/MS count	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	276	Only identified by site	MaxQuant flag; + marks flagged group; retain in preview, exclude before inference	0
+proteinGroups_aggregates.txt	277	Reverse	MaxQuant flag; + marks flagged group; retain in preview, exclude before inference	0
+proteinGroups_aggregates.txt	278	Potential contaminant	MaxQuant flag; + marks flagged group; retain in preview, exclude before inference	0
+proteinGroups_aggregates.txt	279	id	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	280	Peptide IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	281	Peptide is razor	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	282	Mod. peptide IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	283	Evidence IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	284	MS/MS IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	285	Best MS/MS	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_aggregates.txt	286	Ixx site IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	1
+proteinGroups_aggregates.txt	287	Oxidation (M) site IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	1
+proteinGroups_aggregates.txt	288	Ixx site positions	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	1
+proteinGroups_aggregates.txt	289	Oxidation (M) site positions	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	1
+proteinGroups_proteomes.txt	1	Protein IDs	Semicolon-delimited protein-group accessions; not necessarily one unique protein	3
+proteinGroups_proteomes.txt	2	Majority protein IDs	Semicolon-delimited protein-group accessions; not necessarily one unique protein	3
+proteinGroups_proteomes.txt	3	Peptide counts (all)	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	4	Peptide counts (razor+unique)	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	5	Peptide counts (unique)	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	6	Protein names	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_proteomes.txt	7	Gene names	Semicolon-delimited gene annotations; not a unique join key	2
+proteinGroups_proteomes.txt	8	Fasta headers	Search-database descriptions; not independent wet-lab strain evidence	2
+proteinGroups_proteomes.txt	9	Number of proteins	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	10	Peptides	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	11	Razor + unique peptides	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	12	Unique peptides	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	13	Peptides A_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	14	Peptides A_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	15	Peptides A_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	16	Peptides A_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	17	Peptides A_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	18	Peptides A_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	19	Peptides A_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	20	Peptides A_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	21	Peptides A_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	22	Peptides B_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	23	Peptides B_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	24	Peptides B_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	25	Peptides B_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	26	Peptides B_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	27	Peptides B_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	28	Peptides B_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	29	Peptides B_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	30	Peptides B_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	31	Peptides C_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	32	Peptides C_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	33	Peptides C_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	34	Peptides C_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	35	Peptides C_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	36	Peptides C_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	37	Peptides C_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	38	Peptides C_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	39	Peptides C_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	40	Peptides D_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	41	Peptides D_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	42	Peptides D_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	43	Peptides D_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	44	Peptides D_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	45	Peptides D_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	46	Peptides D_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	47	Peptides D_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	48	Peptides D_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	49	Razor + unique peptides A_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	50	Razor + unique peptides A_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	51	Razor + unique peptides A_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	52	Razor + unique peptides A_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	53	Razor + unique peptides A_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	54	Razor + unique peptides A_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	55	Razor + unique peptides A_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	56	Razor + unique peptides A_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	57	Razor + unique peptides A_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	58	Razor + unique peptides B_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	59	Razor + unique peptides B_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	60	Razor + unique peptides B_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	61	Razor + unique peptides B_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	62	Razor + unique peptides B_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	63	Razor + unique peptides B_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	64	Razor + unique peptides B_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	65	Razor + unique peptides B_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	66	Razor + unique peptides B_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	67	Razor + unique peptides C_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	68	Razor + unique peptides C_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	69	Razor + unique peptides C_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	70	Razor + unique peptides C_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	71	Razor + unique peptides C_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	72	Razor + unique peptides C_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	73	Razor + unique peptides C_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	74	Razor + unique peptides C_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	75	Razor + unique peptides C_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	76	Razor + unique peptides D_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	77	Razor + unique peptides D_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	78	Razor + unique peptides D_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	79	Razor + unique peptides D_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	80	Razor + unique peptides D_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	81	Razor + unique peptides D_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	82	Razor + unique peptides D_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	83	Razor + unique peptides D_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	84	Razor + unique peptides D_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	85	Unique peptides A_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	86	Unique peptides A_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	87	Unique peptides A_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	88	Unique peptides A_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	89	Unique peptides A_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	90	Unique peptides A_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	91	Unique peptides A_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	92	Unique peptides A_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	93	Unique peptides A_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	94	Unique peptides B_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	95	Unique peptides B_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	96	Unique peptides B_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	97	Unique peptides B_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	98	Unique peptides B_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	99	Unique peptides B_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	100	Unique peptides B_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	101	Unique peptides B_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	102	Unique peptides B_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	103	Unique peptides C_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	104	Unique peptides C_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	105	Unique peptides C_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	106	Unique peptides C_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	107	Unique peptides C_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	108	Unique peptides C_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	109	Unique peptides C_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	110	Unique peptides C_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	111	Unique peptides C_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	112	Unique peptides D_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	113	Unique peptides D_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	114	Unique peptides D_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	115	Unique peptides D_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	116	Unique peptides D_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	117	Unique peptides D_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	118	Unique peptides D_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	119	Unique peptides D_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	120	Unique peptides D_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	121	Sequence coverage [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	122	Unique + razor sequence coverage [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	123	Unique sequence coverage [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	124	Mol. weight [kDa]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	125	Sequence length	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	126	Sequence lengths	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	127	Q-value	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	128	Score	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	129	Identification type A_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	130	Identification type A_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	131	Identification type A_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	132	Identification type A_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_proteomes.txt	133	Identification type A_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_proteomes.txt	134	Identification type A_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_proteomes.txt	135	Identification type A_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	136	Identification type A_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	137	Identification type A_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	138	Identification type B_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	139	Identification type B_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	140	Identification type B_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_proteomes.txt	141	Identification type B_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	1
+proteinGroups_proteomes.txt	142	Identification type B_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	143	Identification type B_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_proteomes.txt	144	Identification type B_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	145	Identification type B_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	146	Identification type B_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	147	Identification type C_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	148	Identification type C_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	149	Identification type C_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_proteomes.txt	150	Identification type C_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_proteomes.txt	151	Identification type C_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_proteomes.txt	152	Identification type C_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_proteomes.txt	153	Identification type C_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	154	Identification type C_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	155	Identification type C_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_proteomes.txt	156	Identification type D_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	157	Identification type D_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_proteomes.txt	158	Identification type D_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	159	Identification type D_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_proteomes.txt	160	Identification type D_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_proteomes.txt	161	Identification type D_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_proteomes.txt	162	Identification type D_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	163	Identification type D_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	164	Identification type D_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_proteomes.txt	165	Sequence coverage A_ed_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	166	Sequence coverage A_ed_dclpB_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	167	Sequence coverage A_ed_dclpB_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	168	Sequence coverage A_ed_dclpB_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	169	Sequence coverage A_ed_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	170	Sequence coverage A_ed_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	171	Sequence coverage A_wt_dclpB_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	172	Sequence coverage A_wt_dclpB_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	173	Sequence coverage A_wt_dclpB_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	174	Sequence coverage B_ed_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	175	Sequence coverage B_ed_dclpB_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	176	Sequence coverage B_ed_dclpB_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	177	Sequence coverage B_ed_dclpB_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	178	Sequence coverage B_ed_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	179	Sequence coverage B_ed_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	180	Sequence coverage B_wt_dclpB_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	181	Sequence coverage B_wt_dclpB_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	182	Sequence coverage B_wt_dclpB_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	183	Sequence coverage C_ed_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	184	Sequence coverage C_ed_dclpB_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	185	Sequence coverage C_ed_dclpB_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	186	Sequence coverage C_ed_dclpB_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	187	Sequence coverage C_ed_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	188	Sequence coverage C_ed_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	189	Sequence coverage C_wt_dclpB_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	190	Sequence coverage C_wt_dclpB_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	191	Sequence coverage C_wt_dclpB_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	192	Sequence coverage D_ed_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	193	Sequence coverage D_ed_dclpB_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	194	Sequence coverage D_ed_dclpB_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	195	Sequence coverage D_ed_dclpB_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	196	Sequence coverage D_ed_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	197	Sequence coverage D_ed_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	198	Sequence coverage D_wt_dclpB_blank [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	199	Sequence coverage D_wt_dclpB_Nva [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	200	Sequence coverage D_wt_dclpB_Val [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	201	Intensity	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	202	Intensity A_ed_blank	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	203	Intensity A_ed_dclpB_blank	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	204	Intensity A_ed_dclpB_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	205	Intensity A_ed_dclpB_Val	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	206	Intensity A_ed_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	207	Intensity A_ed_Val	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	208	Intensity A_wt_dclpB_blank	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	209	Intensity A_wt_dclpB_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	210	Intensity A_wt_dclpB_Val	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	211	Intensity B_ed_blank	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	212	Intensity B_ed_dclpB_blank	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	213	Intensity B_ed_dclpB_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	214	Intensity B_ed_dclpB_Val	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	215	Intensity B_ed_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	216	Intensity B_ed_Val	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	217	Intensity B_wt_dclpB_blank	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	218	Intensity B_wt_dclpB_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	219	Intensity B_wt_dclpB_Val	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	220	Intensity C_ed_blank	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	221	Intensity C_ed_dclpB_blank	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	222	Intensity C_ed_dclpB_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	223	Intensity C_ed_dclpB_Val	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	224	Intensity C_ed_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	225	Intensity C_ed_Val	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	226	Intensity C_wt_dclpB_blank	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	227	Intensity C_wt_dclpB_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	228	Intensity C_wt_dclpB_Val	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	229	Intensity D_ed_blank	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	230	Intensity D_ed_dclpB_blank	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	231	Intensity D_ed_dclpB_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	232	Intensity D_ed_dclpB_Val	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	233	Intensity D_ed_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	234	Intensity D_ed_Val	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	235	Intensity D_wt_dclpB_blank	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	236	Intensity D_wt_dclpB_Nva	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	237	Intensity D_wt_dclpB_Val	MS signal intensity in arbitrary units	3
+proteinGroups_proteomes.txt	238	iBAQ	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	239	iBAQ A_ed_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	240	iBAQ A_ed_dclpB_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	241	iBAQ A_ed_dclpB_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	242	iBAQ A_ed_dclpB_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	243	iBAQ A_ed_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	244	iBAQ A_ed_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	245	iBAQ A_wt_dclpB_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	246	iBAQ A_wt_dclpB_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	247	iBAQ A_wt_dclpB_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	248	iBAQ B_ed_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	249	iBAQ B_ed_dclpB_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	250	iBAQ B_ed_dclpB_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	251	iBAQ B_ed_dclpB_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	252	iBAQ B_ed_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	253	iBAQ B_ed_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	254	iBAQ B_wt_dclpB_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	255	iBAQ B_wt_dclpB_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	256	iBAQ B_wt_dclpB_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	257	iBAQ C_ed_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	258	iBAQ C_ed_dclpB_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	259	iBAQ C_ed_dclpB_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	260	iBAQ C_ed_dclpB_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	261	iBAQ C_ed_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	262	iBAQ C_ed_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	263	iBAQ C_wt_dclpB_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	264	iBAQ C_wt_dclpB_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	265	iBAQ C_wt_dclpB_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	266	iBAQ D_ed_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	267	iBAQ D_ed_dclpB_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	268	iBAQ D_ed_dclpB_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	269	iBAQ D_ed_dclpB_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	270	iBAQ D_ed_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	271	iBAQ D_ed_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	272	iBAQ D_wt_dclpB_blank	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	273	iBAQ D_wt_dclpB_Nva	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	274	iBAQ D_wt_dclpB_Val	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_proteomes.txt	275	LFQ intensity A_ed_blank	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	276	LFQ intensity A_ed_dclpB_blank	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	277	LFQ intensity A_ed_dclpB_Nva	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	278	LFQ intensity A_ed_dclpB_Val	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	279	LFQ intensity A_ed_Nva	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	280	LFQ intensity A_ed_Val	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	281	LFQ intensity A_wt_dclpB_blank	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	282	LFQ intensity A_wt_dclpB_Nva	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	283	LFQ intensity A_wt_dclpB_Val	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	284	LFQ intensity B_ed_blank	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	285	LFQ intensity B_ed_dclpB_blank	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	286	LFQ intensity B_ed_dclpB_Nva	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	287	LFQ intensity B_ed_dclpB_Val	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	288	LFQ intensity B_ed_Nva	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	289	LFQ intensity B_ed_Val	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	290	LFQ intensity B_wt_dclpB_blank	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	291	LFQ intensity B_wt_dclpB_Nva	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	292	LFQ intensity B_wt_dclpB_Val	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	293	LFQ intensity C_ed_blank	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	294	LFQ intensity C_ed_dclpB_blank	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	295	LFQ intensity C_ed_dclpB_Nva	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	296	LFQ intensity C_ed_dclpB_Val	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	297	LFQ intensity C_ed_Nva	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	298	LFQ intensity C_ed_Val	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	299	LFQ intensity C_wt_dclpB_blank	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	300	LFQ intensity C_wt_dclpB_Nva	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	301	LFQ intensity C_wt_dclpB_Val	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	302	LFQ intensity D_ed_blank	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	303	LFQ intensity D_ed_dclpB_blank	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	304	LFQ intensity D_ed_dclpB_Nva	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	305	LFQ intensity D_ed_dclpB_Val	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	306	LFQ intensity D_ed_Nva	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	307	LFQ intensity D_ed_Val	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	308	LFQ intensity D_wt_dclpB_blank	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	309	LFQ intensity D_wt_dclpB_Nva	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	310	LFQ intensity D_wt_dclpB_Val	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_proteomes.txt	311	MS/MS count A_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	312	MS/MS count A_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	313	MS/MS count A_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	314	MS/MS count A_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	315	MS/MS count A_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	316	MS/MS count A_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	317	MS/MS count A_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	318	MS/MS count A_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	319	MS/MS count A_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	320	MS/MS count B_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	321	MS/MS count B_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	322	MS/MS count B_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	323	MS/MS count B_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	324	MS/MS count B_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	325	MS/MS count B_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	326	MS/MS count B_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	327	MS/MS count B_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	328	MS/MS count B_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	329	MS/MS count C_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	330	MS/MS count C_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	331	MS/MS count C_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	332	MS/MS count C_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	333	MS/MS count C_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	334	MS/MS count C_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	335	MS/MS count C_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	336	MS/MS count C_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	337	MS/MS count C_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	338	MS/MS count D_ed_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	339	MS/MS count D_ed_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	340	MS/MS count D_ed_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	341	MS/MS count D_ed_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	342	MS/MS count D_ed_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	343	MS/MS count D_ed_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	344	MS/MS count D_wt_dclpB_blank	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	345	MS/MS count D_wt_dclpB_Nva	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	346	MS/MS count D_wt_dclpB_Val	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	347	MS/MS count	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	348	Only identified by site	MaxQuant flag; + marks flagged group; retain in preview, exclude before inference	1
+proteinGroups_proteomes.txt	349	Reverse	MaxQuant flag; + marks flagged group; retain in preview, exclude before inference	0
+proteinGroups_proteomes.txt	350	Potential contaminant	MaxQuant flag; + marks flagged group; retain in preview, exclude before inference	1
+proteinGroups_proteomes.txt	351	id	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	352	Peptide IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	353	Peptide is razor	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	354	Mod. peptide IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	355	Evidence IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	356	MS/MS IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	357	Best MS/MS	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_proteomes.txt	358	Ixx site IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	0
+proteinGroups_proteomes.txt	359	Oxidation (M) site IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	1
+proteinGroups_proteomes.txt	360	Ixx site positions	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	0
+proteinGroups_proteomes.txt	361	Oxidation (M) site positions	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	1
+proteinGroups_pulldown.txt	1	Protein IDs	Semicolon-delimited protein-group accessions; not necessarily one unique protein	3
+proteinGroups_pulldown.txt	2	Majority protein IDs	Semicolon-delimited protein-group accessions; not necessarily one unique protein	3
+proteinGroups_pulldown.txt	3	Peptide counts (all)	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	4	Peptide counts (razor+unique)	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	5	Peptide counts (unique)	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	6	Protein names	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	1
+proteinGroups_pulldown.txt	7	Gene names	Semicolon-delimited gene annotations; not a unique join key	1
+proteinGroups_pulldown.txt	8	Fasta headers	Search-database descriptions; not independent wet-lab strain evidence	1
+proteinGroups_pulldown.txt	9	Number of proteins	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	10	Peptides	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	11	Razor + unique peptides	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	12	Unique peptides	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	13	Peptides PD1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	14	Peptides PD2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	15	Peptides PD3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	16	Peptides PD4	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	17	Peptides PD5	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	18	Peptides PD6	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	19	Razor + unique peptides PD1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	20	Razor + unique peptides PD2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	21	Razor + unique peptides PD3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	22	Razor + unique peptides PD4	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	23	Razor + unique peptides PD5	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	24	Razor + unique peptides PD6	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	25	Unique peptides PD1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	26	Unique peptides PD2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	27	Unique peptides PD3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	28	Unique peptides PD4	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	29	Unique peptides PD5	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	30	Unique peptides PD6	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	31	Sequence coverage [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	32	Unique + razor sequence coverage [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	33	Unique sequence coverage [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	34	Mol. weight [kDa]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	35	Sequence length	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	36	Sequence lengths	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	37	Q-value	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	38	Score	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	39	Ratio H/L	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	40	Ratio H/L normalized	Normalized heavy/light DnaK pull-down/background enrichment; PD condition key unresolved; not residence time	3
+proteinGroups_pulldown.txt	41	Ratio H/L variability [%]	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	42	Ratio H/L count	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	43	Ratio H/L iso-count	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	44	Ratio H/L type	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	45	Ratio H/L PD1	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	46	Ratio H/L PD2	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	47	Ratio H/L PD3	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	48	Ratio H/L PD4	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	49	Ratio H/L PD5	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	50	Ratio H/L PD6	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	51	Ratio H/L normalized PD1	Normalized heavy/light DnaK pull-down/background enrichment; PD condition key unresolved; not residence time	3
+proteinGroups_pulldown.txt	52	Ratio H/L normalized PD2	Normalized heavy/light DnaK pull-down/background enrichment; PD condition key unresolved; not residence time	3
+proteinGroups_pulldown.txt	53	Ratio H/L normalized PD3	Normalized heavy/light DnaK pull-down/background enrichment; PD condition key unresolved; not residence time	3
+proteinGroups_pulldown.txt	54	Ratio H/L normalized PD4	Normalized heavy/light DnaK pull-down/background enrichment; PD condition key unresolved; not residence time	3
+proteinGroups_pulldown.txt	55	Ratio H/L normalized PD5	Normalized heavy/light DnaK pull-down/background enrichment; PD condition key unresolved; not residence time	3
+proteinGroups_pulldown.txt	56	Ratio H/L normalized PD6	Normalized heavy/light DnaK pull-down/background enrichment; PD condition key unresolved; not residence time	3
+proteinGroups_pulldown.txt	57	Ratio H/L variability [%] PD1	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	58	Ratio H/L variability [%] PD2	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	59	Ratio H/L variability [%] PD3	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	60	Ratio H/L variability [%] PD4	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	61	Ratio H/L variability [%] PD5	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	62	Ratio H/L variability [%] PD6	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	63	Ratio H/L count PD1	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	64	Ratio H/L count PD2	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	65	Ratio H/L count PD3	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	66	Ratio H/L count PD4	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	67	Ratio H/L count PD5	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	68	Ratio H/L count PD6	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	69	Ratio H/L iso-count PD1	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	70	Ratio H/L iso-count PD2	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	71	Ratio H/L iso-count PD3	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	72	Ratio H/L iso-count PD4	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	73	Ratio H/L iso-count PD5	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	74	Ratio H/L iso-count PD6	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	75	Ratio H/L type PD1	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	76	Ratio H/L type PD2	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	77	Ratio H/L type PD3	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	78	Ratio H/L type PD4	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	79	Ratio H/L type PD5	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	80	Ratio H/L type PD6	MaxQuant isotope-channel ratio or ratio statistic; consult publisher processing methods	3
+proteinGroups_pulldown.txt	81	Sequence coverage PD1 [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	82	Sequence coverage PD2 [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	83	Sequence coverage PD3 [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	84	Sequence coverage PD4 [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	85	Sequence coverage PD5 [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	86	Sequence coverage PD6 [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	87	Intensity	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	88	Intensity L	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	89	Intensity H	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	90	Intensity PD1	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	91	Intensity L PD1	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	92	Intensity H PD1	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	93	Intensity PD2	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	94	Intensity L PD2	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	95	Intensity H PD2	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	96	Intensity PD3	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	97	Intensity L PD3	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	98	Intensity H PD3	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	99	Intensity PD4	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	100	Intensity L PD4	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	101	Intensity H PD4	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	102	Intensity PD5	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	103	Intensity L PD5	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	104	Intensity H PD5	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	105	Intensity PD6	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	106	Intensity L PD6	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	107	Intensity H PD6	MS signal intensity in arbitrary units	3
+proteinGroups_pulldown.txt	108	Only identified by site	MaxQuant flag; + marks flagged group; retain in preview, exclude before inference	0
+proteinGroups_pulldown.txt	109	Reverse	MaxQuant flag; + marks flagged group; retain in preview, exclude before inference	0
+proteinGroups_pulldown.txt	110	Potential contaminant	MaxQuant flag; + marks flagged group; retain in preview, exclude before inference	2
+proteinGroups_pulldown.txt	111	id	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	112	Peptide IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	113	Peptide is razor	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	114	Mod. peptide IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	115	Evidence IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	116	MS/MS IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	117	Best MS/MS	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_pulldown.txt	118	Oxidation (M) site IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_pulldown.txt	119	Oxidation (M) site positions	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_wtcontrol.txt	1	Protein IDs	Semicolon-delimited protein-group accessions; not necessarily one unique protein	3
+proteinGroups_wtcontrol.txt	2	Majority protein IDs	Semicolon-delimited protein-group accessions; not necessarily one unique protein	3
+proteinGroups_wtcontrol.txt	3	Peptide counts (all)	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	4	Peptide counts (razor+unique)	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	5	Peptide counts (unique)	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	6	Protein names	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_wtcontrol.txt	7	Gene names	Semicolon-delimited gene annotations; not a unique join key	2
+proteinGroups_wtcontrol.txt	8	Fasta headers	Search-database descriptions; not independent wet-lab strain evidence	2
+proteinGroups_wtcontrol.txt	9	Number of proteins	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	10	Peptides	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	11	Razor + unique peptides	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	12	Unique peptides	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	13	Peptides control 1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	14	Peptides control 2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	15	Peptides control 3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	16	Peptides Nva 1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	17	Peptides Nva 2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	18	Peptides Nva 3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	19	Peptides Val 1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	20	Peptides Val 2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	21	Peptides Val 3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	22	Razor + unique peptides control 1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	23	Razor + unique peptides control 2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	24	Razor + unique peptides control 3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	25	Razor + unique peptides Nva 1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	26	Razor + unique peptides Nva 2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	27	Razor + unique peptides Nva 3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	28	Razor + unique peptides Val 1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	29	Razor + unique peptides Val 2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	30	Razor + unique peptides Val 3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	31	Unique peptides control 1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	32	Unique peptides control 2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	33	Unique peptides control 3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	34	Unique peptides Nva 1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	35	Unique peptides Nva 2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	36	Unique peptides Nva 3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	37	Unique peptides Val 1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	38	Unique peptides Val 2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	39	Unique peptides Val 3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	40	Sequence coverage [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	41	Unique + razor sequence coverage [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	42	Unique sequence coverage [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	43	Mol. weight [kDa]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	44	Sequence length	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	45	Sequence lengths	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	46	Q-value	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	47	Score	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	48	Identification type control 1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	1
+proteinGroups_wtcontrol.txt	49	Identification type control 2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	50	Identification type control 3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_wtcontrol.txt	51	Identification type Nva 1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_wtcontrol.txt	52	Identification type Nva 2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	53	Identification type Nva 3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	54	Identification type Val 1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_wtcontrol.txt	55	Identification type Val 2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	1
+proteinGroups_wtcontrol.txt	56	Identification type Val 3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	2
+proteinGroups_wtcontrol.txt	57	Sequence coverage control 1 [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	58	Sequence coverage control 2 [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	59	Sequence coverage control 3 [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	60	Sequence coverage Nva 1 [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	61	Sequence coverage Nva 2 [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	62	Sequence coverage Nva 3 [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	63	Sequence coverage Val 1 [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	64	Sequence coverage Val 2 [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	65	Sequence coverage Val 3 [%]	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	66	Intensity	MS signal intensity in arbitrary units	3
+proteinGroups_wtcontrol.txt	67	Intensity control 1	MS signal intensity in arbitrary units	3
+proteinGroups_wtcontrol.txt	68	Intensity control 2	MS signal intensity in arbitrary units	3
+proteinGroups_wtcontrol.txt	69	Intensity control 3	MS signal intensity in arbitrary units	3
+proteinGroups_wtcontrol.txt	70	Intensity Nva 1	MS signal intensity in arbitrary units	3
+proteinGroups_wtcontrol.txt	71	Intensity Nva 2	MS signal intensity in arbitrary units	3
+proteinGroups_wtcontrol.txt	72	Intensity Nva 3	MS signal intensity in arbitrary units	3
+proteinGroups_wtcontrol.txt	73	Intensity Val 1	MS signal intensity in arbitrary units	3
+proteinGroups_wtcontrol.txt	74	Intensity Val 2	MS signal intensity in arbitrary units	3
+proteinGroups_wtcontrol.txt	75	Intensity Val 3	MS signal intensity in arbitrary units	3
+proteinGroups_wtcontrol.txt	76	iBAQ peptides	Theoretical peptide-count denominator; NOT a replicate intensity	3
+proteinGroups_wtcontrol.txt	77	iBAQ	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_wtcontrol.txt	78	iBAQ control 1	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_wtcontrol.txt	79	iBAQ control 2	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_wtcontrol.txt	80	iBAQ control 3	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_wtcontrol.txt	81	iBAQ Nva 1	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_wtcontrol.txt	82	iBAQ Nva 2	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_wtcontrol.txt	83	iBAQ Nva 3	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_wtcontrol.txt	84	iBAQ Val 1	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_wtcontrol.txt	85	iBAQ Val 2	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_wtcontrol.txt	86	iBAQ Val 3	Intensity-based absolute quantification proxy in instrument units; not cell counts, mass fraction or flux	3
+proteinGroups_wtcontrol.txt	87	LFQ intensity control 1	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_wtcontrol.txt	88	LFQ intensity control 2	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_wtcontrol.txt	89	LFQ intensity control 3	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_wtcontrol.txt	90	LFQ intensity Nva 1	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_wtcontrol.txt	91	LFQ intensity Nva 2	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_wtcontrol.txt	92	LFQ intensity Nva 3	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_wtcontrol.txt	93	LFQ intensity Val 1	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_wtcontrol.txt	94	LFQ intensity Val 2	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_wtcontrol.txt	95	LFQ intensity Val 3	MaxQuant label-free relative abundance; not synthesis rate or throughput	3
+proteinGroups_wtcontrol.txt	96	MS/MS count control 1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	97	MS/MS count control 2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	98	MS/MS count control 3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	99	MS/MS count Nva 1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	100	MS/MS count Nva 2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	101	MS/MS count Nva 3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	102	MS/MS count Val 1	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	103	MS/MS count Val 2	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	104	MS/MS count Val 3	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	105	MS/MS count	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	106	Only identified by site	MaxQuant flag; + marks flagged group; retain in preview, exclude before inference	0
+proteinGroups_wtcontrol.txt	107	Reverse	MaxQuant flag; + marks flagged group; retain in preview, exclude before inference	0
+proteinGroups_wtcontrol.txt	108	Potential contaminant	MaxQuant flag; + marks flagged group; retain in preview, exclude before inference	1
+proteinGroups_wtcontrol.txt	109	id	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	110	Peptide IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	111	Peptide is razor	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	112	Mod. peptide IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	113	Evidence IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	114	MS/MS IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	115	Best MS/MS	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
+proteinGroups_wtcontrol.txt	116	Ixx site IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	0
+proteinGroups_wtcontrol.txt	117	Oxidation (M) site IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	0
+proteinGroups_wtcontrol.txt	118	Ixx site positions	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	0
+proteinGroups_wtcontrol.txt	119	Oxidation (M) site positions	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	0
+proteinGroups_wtcontrol.txt	120	Taxonomy IDs	Verbatim MaxQuant annotation/QC field; unused in Stage I decision; no biological meaning inferred	3
