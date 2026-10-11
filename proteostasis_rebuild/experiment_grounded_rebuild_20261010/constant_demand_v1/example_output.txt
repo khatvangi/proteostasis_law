@@ -1,0 +1,13 @@
+HYPOTHETICAL scalar example
+  D=1.8e+06 fu/min  a=600.0 fu/(molecule min)  lam=0.02/min
+  Nreq=3000 molecules  Preq=60.00 molecules/min
+  Pmax (LP, allocable routing) = 95.00  -> aPmax/lam = 2.85e+06
+  GOOD: P_real=89.03  Q_sus=2.67e+06  occK=2.1%  occG=24.1%  route fluxes spont=8.8, K=85.9, G=5.3
+  POOR: P_real=43.68  Q_sus=1.31e+06  occK=0.4%  occG=6.8%  route fluxes spont=78.5, K=15.6, G=5.9
+  POOR, start installed N0=5000: N*=2184, falls below Nreq after 61.9 min
+  POOR with both pools doubled: P_real=52.57
+HYPOTHETICAL vector example (two clients, shared G, maintained machines)
+  R=60000 aa/min lam_m=0.02 D=1.0xD0: feasible=True
+  R=60000 aa/min lam_m=0.02 D=1.5xD0: feasible=False  certificate verified=True  binding prices u=[0.0, 0.0, 0.9654] w=[0.0143, 0.0203]
+  R=48000 aa/min lam_m=0.02 D=1.0xD0: feasible=False  certificate verified=True  binding prices u=[0.0, 0.9939, 0.0059] w=[0.0001, 0.0001]
+  R=48000 aa/min lam_m=0.0 D=1.0xD0: feasible=True

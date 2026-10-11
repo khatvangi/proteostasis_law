@@ -1,0 +1,17 @@
+test_realized_never_exceeds_potential (test_model.TestRouting.test_realized_never_exceeds_potential) ... ok
+test_same_counts_poor_routing_fails_without_saturation (test_model.TestRouting.test_same_counts_poor_routing_fails_without_saturation) ... ok
+test_condition_is_necessary_and_sufficient (test_model.TestScalar.test_condition_is_necessary_and_sufficient) ... ok
+test_installed_capacity_decays_to_sustainable (test_model.TestScalar.test_installed_capacity_decays_to_sustainable) ... ok
+test_required_supply_scales_with_turnover_not_with_service (test_model.TestScalar.test_required_supply_scales_with_turnover_not_with_service) ... ok
+test_route_feedback_breaks_sufficiency_not_necessity (test_model.TestScalar.test_route_feedback_breaks_sufficiency_not_necessity) ... ok
+test_steady_state_is_exact_and_attracting (test_model.TestScalar.test_steady_state_is_exact_and_attracting) ... ok
+test_hall_counting_passes_but_serial_route_is_infeasible (test_model.TestVector.test_hall_counting_passes_but_serial_route_is_infeasible) ... ok
+test_lp_reduces_to_scalar_condition (test_model.TestVector.test_lp_reduces_to_scalar_condition) ... ok
+test_machine_maintenance_can_decide_feasibility (test_model.TestVector.test_machine_maintenance_can_decide_feasibility) ... ok
+test_tampered_certificate_is_rejected (test_model.TestVector.test_tampered_certificate_is_rejected) ... ok
+test_vector_example_feasibility_and_certificates (test_model.TestVector.test_vector_example_feasibility_and_certificates) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.414s
+
+OK
