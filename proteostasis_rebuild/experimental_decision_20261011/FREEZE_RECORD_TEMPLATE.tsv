@@ -1,0 +1,100 @@
+gate_id	parameter	units	requirement	value	evidence_file	evidence_sha256	locked_at_utc	locked_by	approval_signature
+G0	G0_decision	decision	Public processed data remain non-confirmatory; confirmatory cultures must be new and excluded from pilot tuning. No old gate is reinterpreted.	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G1	G1_decision	decision	Sequence identity and assay standards pass; nascent error increase has a positive lower 95% CI in ED NVA vs ED NONE and an ED-specific exposure increment; primary spectrum is distinguishable. Otherwise no causal-error primary.	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G2	G2_decision	decision	Functional ADD HIGH increment is positive with a lower 95% CI; equivalence CIs for machine-induced differences in nascent errors/spectrum, reporter synthesis, growth and REP toxicity lie inside independently locked margins. Otherwise only total perturbation effects are interpretable.	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G3	G3_decision	decision	Capture specificity/preservation, linear range, blank, mass-balance and precursor QC pass frozen numerical limits; primary reporter association above validated quantification limit. Failure means primary mechanistic observable not identifiable; do not substitute aggregates.	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	G4_decision	decision	Pilot-only variance, delta, equivalence margins, doses, timings, panel, QC limits, n and allocation/code hashes frozen before new confirmatory cultures. If feasible n cannot resolve delta, stop for feasibility.	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G5	G5_decision	decision	All earlier gates pass: upper 95% CI(Theta)<−delta supports the bounded sign hypothesis; lower CI>−delta rejects a reduction of at least delta; lower CI>0 is an opposite-sign falsifier. Otherwise inconclusive.	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G6	G6_decision	decision	Reduction in association is called productive relief only if pulse-cohort functional yield is identifiable through an independent pulse-cohort activity assay or a validated conditional synthesis-stop preserving physiology, with validated error-dependent specific activity, an independently supported increase in new-native yield and no explanation solely by synthesis suppression, degradation, death or failed recovery. Otherwise association relief only; no new-native yield claim when pulse-cohort functional yield is UNIDENTIFIABLE.	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G0	new_culture_provenance	manifest	New cultures excluded from pilot tuning; no old-gate reinterpretation	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G0	pilot_access_log	manifest	Timestamp analysts and all prior pilot access	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G0	confirmation_independence	manifest	New independent inoculations after signed freeze	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G1	sequence_identity	QC	Allele repair, cassette junctions, reporter sequence/copy number and lineage/background verification	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G1	nascent_error_increase	frequency	ED NVA vs ED NONE lower 95% CI positive	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G1	ED_specific_error_increment	frequency	ED exposure increment exceeds REP	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G1	primary_spectrum_resolution	QC	Same-sequence Ile/Val/Nva standards; do not identify isomers from precursor mass	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G1	peptide_standard_identity	lot	Cognate/error peptide identity, purity, concentration, lots	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G1	site_localization_limit	score	Validated localization criterion	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G1	peptide_FDR_limit	fraction	Validated decoy/FDR threshold	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G1	response_factors	calibration	Peptide/isotope response factors and uncertainty	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G1	precursor_enrichment_limit	fraction	Measured precursor enrichment and uptake criteria	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G1	precursor_clearance_limit	fraction	Validated chase clearance and isotope recycling	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G1	pulse_exchange_SOP	version	Same total amino-acid composition; no induced stress	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G1	late_pulse_requirement	rule	Separate matched aliquot if precursor/recycling warrants	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G1	error_LOD_LOQ	amount	Substitution-specific detection/quantification limits	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G2	functional_capacity_increment	activity	ADD HIGH increment lower 95% CI positive; lock magnitude	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G2	functional_ClpB_SOP	version	ATP-dependent aggregate reactivation with ATP omission and matched EMPTY	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G2	ClpB_abundance_plateau	amount	Verify actual abundance independently of IPTG	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G2	machine_abundance_panel	panel	ClpB, DnaK, DnaJ, GrpE; transcript is not capacity	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G2	growth_rate_margin	difference	Independent scientifically acceptable equivalence bound	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G2	viable_fraction_loss_margin	fraction	Independent acceptable viable-fraction loss	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G2	synthesis_ratio_margin	ratio	Protein-specific reporter synthesis equivalence	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G2	NVA_error_frequency_margin	frequency	Machine-induced Nva incidence differences	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G2	VAL_error_frequency_margin	frequency	Machine-induced Val incidence differences	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G2	spectrum_component_margins	vector	Prespecified validated components; no post hoc deletion	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G2	REP_toxicity_margin	difference	REP exposures vs NONE toxicity equivalence	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G2	reporter_perturbation_margin	difference	Reporter/strain qualification against unmodified parent	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G2	G2_comparison_family	family	HIGH vs LOW within each allele/exposure/cassette; ED vs REP at exposure; REP exposures vs NONE	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G2	G2_multiplicity	method	Simultaneous 95% CIs; Bonferroni over locked family; nonsignificance is not equivalence	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G2	endogenous_synthesis_panel	panel	Validated prespecified panel including off-target substitutions	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G3	capture_specificity_limit	fraction	DnaK IP vs isotype; indirect association caveat retained	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G3	capture_preservation_limit	QC	Quench, lysis timing, mixing and non-fixed comparison validation	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G3	capture_dead_time_limit	min	Compatible with six chase times	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G3	capture_linear_range	amount	Validated linear range for primary association	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G3	capture_recovery_limit	fraction	Input/spike and recovered-DnaK calibration; preserve biological DnaK variation	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G3	background_limit	amount	Process blanks and isotype subtraction	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G3	mass_balance_limit	fraction	Total/soluble/pellet recovery and contamination checks	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G3	association_LOD_LOQ	amount	Primary reporter association above validated LOQ	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G3	DnaK_recovery_calibration	calibration	Analytical recovery only; not occupancy	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G3	cell_equivalent_calibration	calibration	Cell counts, growth dilution and original-culture equivalents	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G3	calibration_covariance	matrix	Shared standards covariance; common uncertainty does not shrink with n	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G3	withdrawal_volume_limit	mL	Pilot-validated total longitudinal withdrawal	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G3	aliquot_volume_minima	mL	Each assay minimum input and collection volume before inoculation	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G3	sampling_mode	mode	Repeated aliquots or terminal sister cultures; preserve clustered unit	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G3	batch_QC_limits	QC	Pooled references, blanks, standards and batch acceptance	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	NVA_dose	mM	Lowest common passing dose; screen proposed 0,0.1,0.3,1 without burden direction	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	VAL_dose	mM	Separate dose selection using same rule	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	HIGH_IPTG_dose	uM	Lowest qualifying functional increment; LOW=0 added IPTG	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	induction_duration	min	Same elapsed time in EMPTY; abundance plateau	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	medium_formulation	SOP	Common M9; all ingredients, carbon, salts, pH, osmolarity, Lys/Arg and Ile/Leu/Val	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	temperature	C	Proposed constant 30 C; no heat shock	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	aeration_vessel_fill_mixing	SOP	Validated aerobic SOP	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	exposure_growth_window	range	Fixed exponential growth window	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	pulse_timing	min	Proposed 20-25 min	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	collection_grid	min	B0=-1; chase 0,2,5,10,20,40; regenerate balanced sheet after any pilot revision	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	sigma_U	cohort_fraction_min	Pilot-only upper SD confidence bound; justify distribution	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	variance_bound_method	method	Chi-square under justified normality; otherwise more pilot blocks	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	delta	cohort_fraction_min	Scientifically important reduction independent of observed pilot Theta	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	planning_distance_d	cohort_fraction_min	Distance from decision boundary justified without favorable pilot effect	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	power_and_precision	criterion	Two-sided alpha .05; 90% power; t refinement and G1/G2 precision	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	confirmation_n_blocks	integer	Largest power/precision requirement; 24n cultures plus QC	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	feasible_n_limit	integer	Stop if feasible n cannot resolve delta	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	confirmation_lineage_balance	allocation	Balanced lineages across independent day blocks	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	estimator_and_clustering	method	Block t interval or single prespecified hierarchical/robust alternative	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	uncertainty_method	method	Calibration-inclusive and biological intervals; G5 uses wider	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	secondary_Holm_family	family	Val, stress, aggregates; enumerate if inferential p-values supplied	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	missing_and_censored_rule	rule	No zero imputation; conservative bounds; inconclusive if decision not robust	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	technical_failure_rule	rule	Blind retained-material repeat; irrecoverable cell/block missing	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	replacement_rule	rule	Non-outcome-dependent complete balanced block replacement; report every attempt	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	randomization_seed	seed	Archive before inoculation	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	randomization_key_sha256	sha256	Separate blinded allocation key	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	protocol_sha256	sha256	Final protocol	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	analysis_plan_sha256	sha256	Final analysis plan	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	source_list_sha256	sha256	Final source anchors	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	sample_sheet_sha256	sha256	Expanded finalized sheet; unique IDs	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	analysis_code_sha256	sha256	Future prespecified analysis code; checker is not analysis code	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	freeze_timestamp	UTC	All signatures precede confirmation inoculation	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G4	analysts_and_signatures	identity	Document prior access and signed lock; no interim significance stopping	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G5	decision_CI_rule	rule	Upper 95% CI<-delta support; lower CI>-delta rejects specified reduction; lower CI>0 opposite sign; otherwise inconclusive	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G5	prior_gate_evidence	manifest	G0-G4 pass; Val/aggregate/stress cannot rescue primary failure	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G6	pulse_cohort_function_identifiability	validation	Independent cohort activity assay OR validated conditional synthesis-stop preserving physiology; otherwise UNIDENTIFIABLE	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G6	specific_activity_calibration	activity_per_molecule	Error-dependent calibration; total activity is not pulse-cohort active count	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G6	activity_linearity_substrate	range	Assay linearity, substrate excess, dilution and calibration	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G6	activity_matrix_spike_recovery	fraction	Matrix interference and blank control	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G6	old_and_postpulse_reporter_contributions	validation	Total function includes pre-pulse and unlabeled post-pulse synthesis	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G6	new_native_yield_increase	interval	Only after identifiability; independently supported increase	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G6	competing_synthesis_loss_bound	ratio	Bound suppression; do not claim equivalence from nonsignificance	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G6	competing_degradation_loss_bound	fraction	Bound dilution, recycling and extraction before interpreting disappearance	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G6	competing_death_loss_bound	fraction	Acceptable viable-count bounds	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G6	competing_recovery_loss_bound	fraction	Acceptable fractionation/capture recovery bounds	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
+G6	synthesis_stop_physiology_validation	validation	If used, independent error/synthesis/growth/stress/chaperone preservation; not assumed neutral	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK	PENDING_LOCK
