@@ -154,6 +154,13 @@
    "n": 104
   },
   "filtered_E1b_aggregate_down": "104",
+  "E1b_aggregate_down_all": "200",
+  "cool_wt_given_cool_dko_pos": {
+   "+": 77,
+   "0": 0,
+   "-": 17,
+   "n": 94
+  },
   "serial_E1b_max_abs_dY": 0.0,
   "clpb_signs_invariant": 197,
   "D1_dA_pp_range": [

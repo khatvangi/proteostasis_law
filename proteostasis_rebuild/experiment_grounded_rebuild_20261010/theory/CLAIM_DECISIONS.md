@@ -20,6 +20,8 @@ source. "Earlier work" means the canonical `../envelope-paper/manuscript/MANUSCR
 | "98.7% single cut" and the multi-stage saturation ordering | **dropped** | artefacts of hand-set route probabilities and a preference ordering (`network_failure_test/REPORT.md`) |
 | the cell optimizes / allocates efficiently | **refused** | no evidence licenses it here, and §3 shows an optimizing model makes the wrong call on chaperone-deletion suppression. The word "optimizes" does not appear as a claim |
 | universal collapse thresholds, or several of them | **refused** | the threshold exists only with a sequestration coefficient β that has never been measured in vivo |
+| overload "runaway", "two steady states or none", unbounded aggregate above L_crit | **withdrawn (2026-10-10)** | artefact of letting free chaperone go negative. With the pool capped there is always a finite stable high state when μ + δ > 0, and bistability needs k_c M^tot > k_a + μ as well as β > 0 (CORRECTIONS.md) |
+| decline to μ → 0 is graceful | **withdrawn as a general claim** | with growth-proportional synthesis, slow growth is never viable and the viable range can close at μ* > 0; graceful decline needs basal synthesis and a stable closure (EQUATIONS A3.2) |
 | a death cutoff | **refused** | failure is defined as no state meeting the quota; what happens then needs more equations |
 | temperature as a monotone load multiplier | **refused** | Kanemori's plating data is non-monotone in temperature |
 | calibrated E. coli parameters | **refused** | abundances are exponential-phase, kinetics are in vitro, error rates are standing frequencies. No phase-matched set exists |

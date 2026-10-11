@@ -8,8 +8,10 @@ Read in this order:
 4. `PRIOR_ART.md` — FoldEco / Santra / FoldME scope, and what is left to test
 5. `CLAIM_DECISIONS.md` — what was dropped, narrowed, refused
 6. `FALSIFICATION_REGISTER.md` — three pre-registered predictions and the blockers
+7. `CORRECTIONS.md` — errors found by the independent A6/A7 audit and what replaced them
 
-Verify:  `python checks.py`  (10 checks, writes `checks.json`, exit 0 on pass)
+Verify:  `python checks.py`  (22 checks, ~20 s, writes `checks.json`, exit 0 on pass; reads
+`../independent_review/results_a6_a7.json` for one cross-check)
 
 No parameter in this directory is an E. coli estimate. No manuscript is to be drafted until a
 prediction in the register has been run. Nothing outside this directory was modified.

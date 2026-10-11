@@ -66,30 +66,65 @@ since growth integrates everything. It would not refute the quota or occupancy c
 
 ---
 
-## P3. Hysteresis under a graded load sweep, only if sequestration is real
+## P3. A bounded hysteresis loop under a graded load sweep, only if sequestration is real and capture is fast enough
 
-**Prediction.** Ramp an aggregation-prone load up and then back down through the same levels. If
-aggregates hold chaperone (β > 0), the down-ramp retraces a different curve and a high-aggregate
-state persists at loads that were previously fine — a saddle-node with history dependence
-(L_crit = (μ+δ)a²/(4bk_a)). If β = 0, up and down coincide; overload shows smooth decline or a
-single kink, no hysteresis.
+*Revised 2026-10-10 after the independent audit (CORRECTIONS.md). The earlier P3 predicted a
+saddle-node "runaway". That came from letting free chaperone go negative, and it is withdrawn.*
 
-**Minimum readouts.** One inducible aggregation-prone substrate with ~6 graded induction levels,
-up then down, measuring growth rate and insoluble fraction at each step. Plus **one measurement
-that is currently missing entirely**: how much chaperone is held in the insoluble fraction per
-aggregated chain (β) — a co-sedimentation stoichiometry.
+**Prediction (reduced model, EQUATIONS A6, Theorem A6).** Ramp an aggregation-prone load up, then
+back down through the same levels. Hysteresis appears only if **both** conditions hold:
+(i) aggregates hold chaperone (β > 0), and (ii) at full pool, chaperone capture beats spontaneous
+aggregation plus dilution (k_c M^tot > k_a + μ). Where it appears, it has a definite shape:
+- on the way up, the insoluble fraction jumps at L_crit;
+- on the way down, it stays high until the lower load L_sat;
+- the upper branch is **finite and linear in load**, A_hi = k_a L/((k_a + μ)(μ + δ)), with no
+  divergence while growth or aggregate clearance continues;
+- on the upper branch the chaperone held in the insoluble fraction **plateaus at the total pool**;
+- the loop's relative width is ((x − 1)/(x + 1))², with x = k_c M^tot/(k_a + μ).
+
+If (i) fails, or (ii) fails, the up and down sweeps coincide, with a smooth response or a single
+kink.
+
+**Minimum readouts.** One inducible aggregation-prone substrate, up then down. Use a fine load
+ladder near the transition, not ~6 levels: the loop can be a few percent of L_crit wide (2.8 % at
+x = 1.4). Six coarse levels can step straight over it, and a null from them would be
+uninformative. At each step measure the following.
+1. **Growth rate μ**, because dilution enters both L_crit and A_hi.
+2. **Insoluble fraction of the substrate**, for A.
+3. **Chaperone in the insoluble fraction per aggregated chain** (co-sedimentation stoichiometry,
+   for β), and **whether it saturates at the total pool**. This tests the cap directly. Unbounded
+   growth of held chaperone past M^tot would contradict mass balance and would mean the assay is
+   wrong.
+4. **Aggregate clearance after induction is switched off** (a chase), for μ + δ.
+5. **The capture-versus-aggregation ratio at low load**: the fraction of the substrate aggregating
+   with the chaperone present versus depleted or deleted, which bounds k_c M^tot against
+   k_a + μ. Condition (ii) is checked against this measurement before the sweep is read.
 
 **Competing calls.** FoldEco contains the sequestration mechanism (KJE binds aggregates 1:1) but
-reports no bistability; Santra and FoldME report none. A no-feedback model predicts no hysteresis
-at any load.
+reports no bistability. Santra and FoldME report none. That is consistent with condition (ii)
+failing at their parameters, but this has not been checked and is not claimed. A no-feedback model
+predicts no hysteresis at any load. A "runaway" model predicts unbounded growth of the insoluble
+fraction above threshold while μ > 0. The corrected theory rules that out unless μ + δ → 0.
 
-**Killed if.** No hysteresis appears at any load while β is measured to be substantially non-zero;
-or hysteresis appears where β ≈ 0 (which would mean a different feedback and the named mechanism
-is wrong).
+**Killed if.**
+- β is measured clearly non-zero, condition (ii) is measured to hold, the ladder is fine enough to
+  resolve the predicted width, and no loop appears.
+- A loop appears where β ≈ 0, or where condition (ii) clearly fails. That would mean a different
+  feedback is operating, and the named mechanism would be wrong.
+- The upper branch keeps growing at fixed load while μ + δ is measurably positive. That would
+  falsify the capped-pool model itself.
 
-**A negative result means** the specific sequestration feedback is not operative, which is a
-genuine result and must be reported as such. It is **not** evidence that proteostasis has no
-thresholds — and the theory explicitly declines to claim universal collapse thresholds either way.
+**A negative result means** the sequestration feedback, or the capture condition, is not operative
+at that load. That is a real result and must be reported as such. It is **not** evidence that
+proteostasis has no thresholds, and the theory declines to claim universal thresholds either way.
+
+**Does the hysteresis prediction survive the correction?** Yes, mathematically, in narrower form.
+The runaway and "two states or none" are gone. A loop between two finite states survives, under
+one more unmeasured condition than before, and with an upper branch whose level is predicted in
+closed form. It is now a sharper and more falsifiable claim, but a more fragile one: the window may
+be narrow, and the fold condition (ii) holds only in the reduced model. With the client-bound term,
+recycling of disaggregated chains, or several pools, it has not been derived. **No experiment has
+been run.** The verdict is "survives as a conditional prediction", not "supported".
 
 ---
 
@@ -108,7 +143,9 @@ thresholds — and the theory explicitly declines to claim universal collapse th
 
 1. **No in-vivo arrival flux or service time** for any machine–client pair. Until then the
    occupancy condition has an unknown left side and no margin may be quoted.
-2. **β unmeasured**, so no collapse threshold.
+2. **β and k_c unmeasured**, so neither the existence of the A6 loop (k_c M^tot > k_a + μ) nor its
+   loads (L_sat, L_crit) can be stated, and no collapse threshold is claimed. The fold condition is
+   derived only for the reduced one-variable model: client-bound term omitted, δ lumped.
 3. **Babu S2 unretrieved**, so P2 is blocked on existing data.
 4. **Calloni and Kerner supplements unretrieved**, so client-resolved demand remains unavailable.
 5. **No phase-matched parameter set exists.** Abundances are exponential-phase; kinetic rates are
@@ -116,6 +153,9 @@ thresholds — and the theory explicitly declines to claim universal collapse th
    calibrated.**
 6. **σ32 regulation is not in the model**, so every overload statement is open-loop.
 7. **Multi-client sign transfer under shared saturated pools is unproven** (EQUATIONS A8, Result 4).
+8. **Growth closure μ(x) unspecified.** Under strictly growth-proportional synthesis, slow growth is
+   never viable (EQUATIONS A3.2), so "graceful decline to μ → 0" is not a prediction. Basal
+   synthesis must be measured, or bounded, before any slow-growth claim.
 
 Drafting rule: the manuscript waits until at least one of P1–P3 has been run, and the novelty
 claims in PRIOR_ART §"what this work could newly test" have had a targeted citation search.

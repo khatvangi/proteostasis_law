@@ -246,6 +246,10 @@ def summarize1(rows):
         S['filtered_' + k] = tally(k, ok)
     S['filtered_E1b_aggregate_down'] = sum(r['E1b_aggregate_down'] for r in
                                            rows if ok(r))
+    S['E1b_aggregate_down_all'] = sum(r['E1b_aggregate_down'] for r in rows)
+    # does the 23 C viability direction (dKO better cold) fix the WT sign?
+    S['cool_wt_given_cool_dko_pos'] = tally('cool_wt_dY',
+                                            lambda r: r['cool_dko_dY'] == 1)
     S['serial_E1b_max_abs_dY'] = max(abs(r['serial_E1b_dY']) for r in rows)
     S['clpb_signs_invariant'] = sum(r['clpb_signs_invariant'] for r in rows)
     pp = [r['D1_dA_pp'] for r in rows]

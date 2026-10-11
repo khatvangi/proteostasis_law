@@ -71,24 +71,215 @@
       "pool": 1.0
     }
   },
-  "sequestration_saddle_node": {
+  "a6_symbolic_fold_and_cap": {
     "pass": true,
     "detail": {
-      "saddle-node": [
-        {
-          "A": "a/(2*b)",
-          "L": "a**2*m/(4*b*k_a)"
-        }
-      ],
-      "b=0 steady state": "[L*k_a/(a*m)]"
+      "A_c = a/(2b)": true,
+      "L_crit = m a^2/(4 b ka)": true,
+      "A_max - A_c = (kc Mtot - ka - mu)/(2 kc beta)": true,
+      "L_crit - L_sat = m (kc Mtot - ka - mu)^2/(4 kc beta ka)": true,
+      "pole a/b lies a0/(kc beta) beyond A_max": true,
+      "A_hi = ka L/((ka+mu)(mu+delta))": true,
+      "loop width (L_crit - L_sat)/L_crit = ((kc Mtot - a0)/(kc Mtot + a0))^2": true,
+      "beta=0: unique steady state ka L/(a m)": true,
+      "L_crit": "(delta + mu)*(M_tot*k_c + k_a + mu)**2/(4*beta*k_a*k_c)",
+      "L_sat": "M_tot*(delta + mu)*(k_a + mu)/(beta*k_a)"
     }
   },
-  "bistable_below_none_above": {
+  "a6_capped_root_counts_three_state_window": {
     "pass": true,
     "detail": {
+      "L_sat, L_crit": [
+        2.1875,
+        2.25
+      ],
+      "A_max": 1.75,
+      "steady states (A, stable) at 0.9 / 0.99 / 1.1 L_crit": {
+        "0.9": [
+          [
+            1.025658350974743,
+            true
+          ]
+        ],
+        "0.99": [
+          [
+            1.35,
+            true
+          ],
+          [
+            1.65,
+            false
+          ],
+          [
+            1.782,
+            true
+          ]
+        ],
+        "1.1": [
+          [
+            1.98,
+            true
+          ]
+        ]
+      },
+      "brute-force sign changes": {
+        "0.9": 1,
+        "0.99": 3,
+        "1.1": 1
+      },
+      "A_hi closed form at 1.1 L_crit": 1.98
+    }
+  },
+  "a6_no_fold_without_capture_condition": {
+    "pass": true,
+    "detail": {
+      "kc Mtot, ka + mu": [
+        1.1,
+        1.9
+      ],
+      "distinct root counts over 300 loads in [0.01, 3] L_crit": [
+        1
+      ]
+    }
+  },
+  "a6_high_state_finite_and_attracting": {
+    "pass": true,
+    "detail": {
+      "A(t_end) from A=0 at 1.1 L_crit": 1.98,
+      "A_hi closed form": 1.98,
+      "min free chaperone along trajectory": 0.0,
+      "uncapped formula Mtot - beta A at the end (unphysical)": -0.22999999999999998
+    }
+  },
+  "a6_hysteresis_loop_between_Lsat_and_Lcrit": {
+    "pass": true,
+    "detail": {
+      "up-jump load": 2.262890625,
       "L_crit": 2.25,
-      "roots at 0.9 L_crit": 2,
-      "roots at 1.1 L_crit": 0
+      "down-jump load": 2.1916015625,
+      "L_sat": 2.1875,
+      "grid step": 0.014257812499999911,
+      "max A on sweep (finite)": 2.7,
+      "A_hi closed form at top load": 2.7,
+      "loop width / L_crit": 0.027777777777777776
+    }
+  },
+  "a6_unbounded_only_without_removal": {
+    "pass": true,
+    "detail": {
+      "A(200) with mu = delta = 0": 898.4687499875004,
+      "A_max": 1.75
+    }
+  },
+  "a6_random_topology_local_2000": {
+    "pass": true,
+    "detail": {
+      "violations": {
+        "no_root": 0,
+        "more_than_3": 0,
+        "stable_ne_unstable_plus_1": 0,
+        "above_Lcrit_not_unique_high": 0,
+        "three_roots_not_iff_condition": 0
+      }
+    }
+  },
+  "a6_matches_independent_audit": {
+    "pass": true,
+    "detail": {
+      "L_crit": true,
+      "L_sat": true,
+      "roots at 0.99 L_crit": true,
+      "A_hi at 1.1 L_crit": true,
+      "up / down jump loads": true,
+      "auditor 20,000-draw sweep: zero violations": true,
+      "auditor bistable cases": 1796
+    }
+  },
+  "a1_conservation_and_positivity": {
+    "pass": true,
+    "detail": {
+      "max |(U+N+A+C+D) - integral(s - mu pools)|": 1.9895196601282805e-13,
+      "min over all pools and times": 0.0,
+      "max C / Mtot": 0.35926297049752615,
+      "min free chaperone": 0.0,
+      "uncapped Mtot - C - beta A at end (cap active if < 0)": -0.1133294186729924
+    }
+  },
+  "a1_positivity_from_boundary": {
+    "pass": true,
+    "detail": {
+      "min over pools and times": -1.9110543237467207e-13
+    }
+  },
+  "a3_native_quota_includes_degradation": {
+    "pass": true,
+    "detail": {
+      "steady-state residual": 1.1673836390807047e-13,
+      "productive flux P": 1.5679976512037945,
+      "(mu + ku + kdN) N": 1.5679976512037486,
+      "(mu + ku) N, old quota (wrong)": 1.2762771579565393
+    }
+  },
+  "a7_face_condition_symbolic": {
+    "pass": true,
+    "detail": {
+      "d(N - N_req(mu))/dt on the face": "P - (k_dN + k_u + mu(t))*N_req(mu(t)) - Derivative(N_req(mu(t)), mu(t))*Derivative(mu(t), t)"
+    }
+  },
+  "a7_moving_quota_counterexample_and_fix": {
+    "pass": true,
+    "detail": {
+      "old A7.1 slack at t=0": 0.0,
+      "corrected face value at t=0 with P_old": -1.0,
+      "min gap N - N_req, P_old": -1.8804515765383014,
+      "P meeting corrected condition on whole face": 3.3000000000000003,
+      "min gap, P_new": 0.0
+    }
+  },
+  "a7_feasible_growth_interval": {
+    "pass": true,
+    "detail": {
+      "y_crit = (sqrt n0 + sqrt(n1 k))^2/s0 symbolic": true,
+      "mu* = sqrt(k n0/n1) symbolic": true,
+      "intervals": {
+        "kdN=0.0": {
+          "y_crit": 0.20944271909999154,
+          "mu_star": 0.22360679774997896,
+          "interval 1.5 y_crit": [
+            0.05457025071989048,
+            0.916250142530046
+          ],
+          "interval 1.01 y_crit": [
+            0.18016990409204067,
+            0.27751582736291663
+          ],
+          "interval 0.99 y_crit": null
+        },
+        "kdN=0.05": {
+          "y_crit": 0.23954451150103329,
+          "mu_star": 0.2738612787525831,
+          "interval 1.5 y_crit": [
+            0.06964161941767132,
+            1.0769422168400786
+          ],
+          "interval 1.01 y_crit": [
+            0.22226550307404322,
+            0.3374342800061748
+          ],
+          "interval 0.99 y_crit": null
+        }
+      },
+      "matches auditor (kdN = 0)": true,
+      "low end with s_basal = 0.9 / 1.1 x k n0 / y": [
+        [
+          0.006578918990965069,
+          1.1400049172667839
+        ],
+        [
+          0.0,
+          1.1530881093822183
+        ]
+      ]
     }
   }
 }
