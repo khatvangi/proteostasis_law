@@ -1,0 +1,289 @@
+{
+ "meta": {
+  "seed": 20261010,
+  "N1": 200,
+  "N2": 200,
+  "cap_grid": [
+   0.1,
+   0.3,
+   1.0,
+   3.0,
+   10.0
+  ],
+  "groel_over": 5.0,
+  "ranges": {
+   "kf": [
+    -1,
+    3
+   ],
+   "agg": [
+    -1,
+    4
+   ],
+   "cap": [
+    0,
+    4
+   ],
+   "exit": [
+    0,
+    3
+   ],
+   "hand": [
+    0,
+    3
+   ],
+   "disp": [
+    0,
+    3
+   ],
+   "disagg": [
+    -1,
+    3
+   ],
+   "fH": [
+    -1,
+    2
+   ],
+   "phi": [
+    -3,
+    -1
+   ]
+  },
+  "eps": 1e-09,
+  "pools_uM": {
+   "TF": 14.5782,
+   "DnaK": 10.8803,
+   "GroEL": 0.949851,
+   "HtpG": 0.612733,
+   "HslUV": 0.022750051176097724,
+   "ClpB": 0.0116582
+  },
+  "mu": 0.000161111,
+  "s_P": 0.477724,
+  "P_T": 2965.18,
+  "GroES7": 1.23648,
+  "input_sha256": {
+   "WO-07/bundles.tsv": "bee6960c27b40a78560894a1878690aa3d5e2eb312482931a1d94ba4d7f812d8",
+   "machine_abundance.tsv": "edce6dd9026d813efd9942b85c2da7a74ec13a79c8134863957270b38f75b081"
+  }
+ },
+ "one_client": {
+  "n": 200,
+  "theorem_agree_routes": 800,
+  "GroELx2_dY": {
+   "+": 125,
+   "0": 0,
+   "-": 75,
+   "n": 200
+  },
+  "GroELx2_dA": {
+   "+": 45,
+   "0": 0,
+   "-": 155,
+   "n": 200
+  },
+  "kf_dY": {
+   "+": 200,
+   "0": 0,
+   "-": 0,
+   "n": 200
+  },
+  "kf_dA": {
+   "+": 0,
+   "0": 0,
+   "-": 200,
+   "n": 200
+  },
+  "kf_dDepG": {
+   "+": 8,
+   "0": 0,
+   "-": 115,
+   "n": 123
+  },
+  "kf_dDepK": {
+   "+": 0,
+   "0": 0,
+   "-": 139,
+   "n": 139
+  },
+  "dTF_dA": {
+   "+": 200,
+   "0": 0,
+   "-": 0,
+   "n": 200
+  },
+  "dDnaK_dA": {
+   "+": 200,
+   "0": 0,
+   "-": 0,
+   "n": 200
+  },
+  "dGroEL_dA": {
+   "+": 152,
+   "0": 0,
+   "-": 48,
+   "n": 200
+  },
+  "dHslUV_dA": {
+   "+": 200,
+   "0": 0,
+   "-": 0,
+   "n": 200
+  },
+  "dHtpG_dA": {
+   "+": 200,
+   "0": 0,
+   "-": 0,
+   "n": 200
+  },
+  "D1_dA": {
+   "+": 200,
+   "0": 0,
+   "-": 0,
+   "n": 200
+  },
+  "D1_dIns_with_complexes": {
+   "+": 35,
+   "0": 0,
+   "-": 165,
+   "n": 200
+  },
+  "D2_dA": {
+   "+": 200,
+   "0": 0,
+   "-": 0,
+   "n": 200
+  },
+  "cool_wt_dY": {
+   "+": 99,
+   "0": 0,
+   "-": 101,
+   "n": 200
+  },
+  "cool_dko_dY": {
+   "+": 94,
+   "0": 0,
+   "-": 106,
+   "n": 200
+  },
+  "dHtpG_dY_fH0": {
+   "+": 100,
+   "0": 0,
+   "-": 0,
+   "n": 100
+  },
+  "dHtpG_dY_fHpos": {
+   "+": 91,
+   "0": 0,
+   "-": 9,
+   "n": 100
+  },
+  "E1a": 140,
+  "E1b": 150,
+  "E2a": 184,
+  "E2b": 200,
+  "pass_all_filters": 104,
+  "pass_fH0": 55,
+  "pass_fHpos": 49,
+  "filtered_GroELx2_dY": {
+   "+": 72,
+   "0": 0,
+   "-": 32,
+   "n": 104
+  },
+  "filtered_kf_dDepG": {
+   "+": 3,
+   "0": 0,
+   "-": 67,
+   "n": 70
+  },
+  "filtered_D1_dA": {
+   "+": 104,
+   "0": 0,
+   "-": 0,
+   "n": 104
+  },
+  "filtered_D2_dA": {
+   "+": 104,
+   "0": 0,
+   "-": 0,
+   "n": 104
+  },
+  "filtered_cool_dko_dY": {
+   "+": 46,
+   "0": 0,
+   "-": 58,
+   "n": 104
+  },
+  "filtered_cool_wt_dY": {
+   "+": 51,
+   "0": 0,
+   "-": 53,
+   "n": 104
+  },
+  "filtered_E1b_aggregate_down": 104,
+  "serial_E1b_max_abs_dY": 0.0,
+  "clpb_signs_invariant": 197,
+  "D1_dA_pp_range": [
+   2.475471735917415e-14,
+   1.0341430185978638e-06,
+   1.4607997460441091
+  ],
+  "dkj_CH_plus_CV_max_uM": 0.634809734621191
+ },
+ "two_client": {
+  "n": 200,
+  "dHtpG": {
+   "always+": 140,
+   "always-": 2,
+   "reverses": 58,
+   "zero": 0
+  },
+  "s2x2": {
+   "always+": 46,
+   "always-": 28,
+   "reverses": 126,
+   "zero": 0
+  },
+  "kf2x2": {
+   "always+": 30,
+   "always-": 49,
+   "reverses": 121,
+   "zero": 0
+  },
+  "GroELx2": {
+   "always+": 83,
+   "always-": 51,
+   "reverses": 66,
+   "zero": 0
+  },
+  "dHtpG_fH1zero_n": 100,
+  "dHtpG_fH1zero_any_negative": 16,
+  "dHtpG_alone_any_negative_fH1zero": 0,
+  "D1_dA": {
+   "1": 199,
+   "0": 0,
+   "-1": 1
+  },
+  "pooled_vs_resolved_dHtpG": {
+   "disagree": 19,
+   "resolved_nonzero": 200,
+   "pooled_nonzero": 200
+  },
+  "pooled_vs_resolved_GroELx2": {
+   "disagree": 69,
+   "resolved_nonzero": 200,
+   "pooled_nonzero": 200
+  },
+  "pooled_vs_resolved_dko_GroEL": {
+   "disagree": 52,
+   "resolved_nonzero": 200,
+   "pooled_nonzero": 200
+  },
+  "pooled_vs_resolved_swap": {
+   "disagree": 200,
+   "resolved_nonzero": 200,
+   "pooled_nonzero": 0
+  }
+ }
+}

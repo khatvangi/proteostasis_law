@@ -1,0 +1,94 @@
+{
+  "htpg_sign_rule": {
+    "pass": true,
+    "detail": {
+      "dY/dH divided by claimed sign expression": "k_H*(k_dis + mu)**2/(G*k_G*k_dis*p_G + G*k_G*mu*p_G + H*k_H*k_dis + H*k_H*mu + k_a*mu + k_dis*k_f + k_dis*mu + k_f*mu + mu**2)**2",
+      "min over 20000 log-uniform draws": 1.1696075713829011e-08
+    }
+  },
+  "htpg_both_signs_realised": {
+    "pass": true,
+    "detail": {
+      "dY/dH, strong alternative folding (kf=1,G=1,ka=0.2,q=0.5)": -0.046296283362501356,
+      "dY/dH, aggregation-dominated (kf=0.01,G=0.01,ka=5,q=0.2)": 0.10344640752335543
+    }
+  },
+  "htpg_lowers_aggregate": {
+    "pass": true,
+    "detail": {
+      "dA/dH": "-k_H*k_a*s*(k_dis + mu)/(G*k_G*k_dis*p_G + G*k_G*mu*p_G + H*k_H*k_dis + H*k_H*mu + k_a*mu + k_dis*k_f + k_dis*mu + k_f*mu + mu**2)**2",
+      "max over 20000 draws": -1.8563837076193545e-11
+    }
+  },
+  "groel_sign": {
+    "pass": true,
+    "detail": {
+      "dY/dG": {
+        "aG=0": 0.08333331247278863,
+        "aG=0.6,pG=0.1 (unproductive exit to aggregate, fast spontaneous folder)": -0.05807157954507147
+      },
+      "symbolic dY/dG at aG=0": "k_G*p_G*(k_dis + mu)*(H*k_H*k_dis*q + H*k_H*mu*q + k_a*mu + k_dis*mu + mu**2)/(G*k_G*k_dis*p_G + G*k_G*mu*p_G + H*k_H*k_dis + H*k_H*mu + k_a*mu + k_dis*k_f + k_dis*mu + k_f*mu + mu**2)**2"
+    }
+  },
+  "saturation_preserves_sign": {
+    "pass": true,
+    "detail": {
+      "H_free increasing in H_tot": true,
+      "yield decreasing in H_tot (harm regime)": true,
+      "fraction of H_tot bound at H_tot=0.05": 0.9275502772350536
+    }
+  },
+  "feasible_not_sufficient": {
+    "pass": true,
+    "detail": {
+      "best native flux over capacity region F": 1.0,
+      "quota": 0.8,
+      "realised native flux": 0.2820512820512821,
+      "realised occupancies (GroEL, HtpG) / pool": [
+        0.05128205128205129,
+        0.15384615384615385
+      ]
+    }
+  },
+  "deletion_can_help_only_kinetically": {
+    "pass": true,
+    "detail": {
+      "LP optimum with / without HtpG": [
+        1.0,
+        1.0
+      ],
+      "realised native with / without HtpG": [
+        0.2820512820512821,
+        0.888888888888889
+      ]
+    }
+  },
+  "littles_law_occupancy": {
+    "pass": true,
+    "detail": {
+      "sum J*tau": 0.6524921818586505,
+      "bound complexes": 0.6524921817756371,
+      "pool": 1.0
+    }
+  },
+  "sequestration_saddle_node": {
+    "pass": true,
+    "detail": {
+      "saddle-node": [
+        {
+          "A": "a/(2*b)",
+          "L": "a**2*m/(4*b*k_a)"
+        }
+      ],
+      "b=0 steady state": "[L*k_a/(a*m)]"
+    }
+  },
+  "bistable_below_none_above": {
+    "pass": true,
+    "detail": {
+      "L_crit": 2.25,
+      "roots at 0.9 L_crit": 2,
+      "roots at 1.1 L_crit": 0
+    }
+  }
+}
