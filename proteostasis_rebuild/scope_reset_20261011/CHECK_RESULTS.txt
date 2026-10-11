@@ -1,0 +1,30 @@
+Translation-associated proteostasis: mathematical checks
+All witnesses illustrative; no physiological headroom, fit or wet-lab validation.
+Python: 3.12.11 SymPy: 1.14.0
+test_01_client_conservation_exact (__main__.Accounting.test_01_client_conservation_exact) ... ok
+test_02_cumulative_sinks (__main__.Accounting.test_02_cumulative_sinks) ... ok
+test_03_machine_balance (__main__.Accounting.test_03_machine_balance) ... ok
+test_04_aggregation_transfers_not_creates (__main__.Accounting.test_04_aggregation_transfers_not_creates) ... ok
+test_05_counterfactual_outcome_identity (__main__.Accounting.test_05_counterfactual_outcome_identity) ... ok
+test_06_incremental_workload_can_have_either_sign (__main__.Accounting.test_06_incremental_workload_can_have_either_sign) ... ok
+test_07_changed_environment_requires_full_difference (__main__.Accounting.test_07_changed_environment_requires_full_difference) ... ok
+test_08_dimensions_with_chain_site_stoichiometry (__main__.Accounting.test_08_dimensions_with_chain_site_stoichiometry) ... ok
+test_09_all_zero_faces_point_inward (__main__.Accounting.test_09_all_zero_faces_point_inward) ... ok
+test_10_fixed_pool_boundary (__main__.Accounting.test_10_fixed_pool_boundary) ... ok
+test_11_multiclient_pool_boundary (__main__.Accounting.test_11_multiclient_pool_boundary) ... ok
+test_12_steady_occupancy_identity (__main__.Accounting.test_12_steady_occupancy_identity) ... ok
+test_13_native_identity_includes_degradation (__main__.Accounting.test_13_native_identity_includes_degradation) ... ok
+test_14_positive_dilution_bounds_mass (__main__.Accounting.test_14_positive_dilution_bounds_mass) ... ok
+test_15_zero_dilution_removal_absent_counterexample (__main__.Accounting.test_15_zero_dilution_removal_absent_counterexample) ... ok
+test_16_signal_does_not_force_induction (__main__.Accounting.test_16_signal_does_not_force_induction) ... ok
+test_17_more_capture_not_necessarily_more_native (__main__.Accounting.test_17_more_capture_not_necessarily_more_native) ... ok
+test_18_feasibility_not_realized_output (__main__.Accounting.test_18_feasibility_not_realized_output) ... ok
+test_19_symbolic_conservation_and_machine_identity (__main__.Accounting.test_19_symbolic_conservation_and_machine_identity) ... ok
+test_20_symbolic_steady_occupancy_and_boundary_signs (__main__.Accounting.test_20_symbolic_steady_occupancy_and_boundary_signs) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.352s
+
+OK
+COUNTS: 20 run; 20 passed; 0 failed; 0 errors; 0 skipped
+SCIENTIFIC STATUS: bookkeeping checked; empirical validation unavailable.
