@@ -1,0 +1,17 @@
+fraction	stage	n
+aggregates	raw_rows	2920
+aggregates	excluded_reverse_overlapping	120
+aggregates	excluded_contaminant_overlapping	47
+aggregates	excluded_site_only_overlapping	141
+aggregates	excluded_ambiguous_overlapping	49
+aggregates	excluded_duplicate_accession_overlapping	0
+aggregates	excluded_union	229
+aggregates	eligible_unique	2691
+proteomes	raw_rows	2553
+proteomes	excluded_reverse_overlapping	98
+proteomes	excluded_contaminant_overlapping	35
+proteomes	excluded_site_only_overlapping	127
+proteomes	excluded_ambiguous_overlapping	28
+proteomes	excluded_duplicate_accession_overlapping	0
+proteomes	excluded_union	192
+proteomes	eligible_unique	2361

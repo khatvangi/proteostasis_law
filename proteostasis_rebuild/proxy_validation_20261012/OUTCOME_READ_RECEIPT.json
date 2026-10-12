@@ -1,0 +1,5 @@
+{
+  "utc": "2026-10-12T18:14:06.757165+00:00",
+  "protocol_sha256": "b3835f6f85b3a7d7cebbcfdb324bcfb7a32930dc37a82288cc7310b04867ec9b",
+  "stage": "before full raw table reads; header inspection occurred after freeze"
+}

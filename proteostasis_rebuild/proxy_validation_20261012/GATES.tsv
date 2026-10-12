@@ -1,0 +1,15 @@
+gate	status	detail
+protocol_unchanged	PASS	Protocol hash matches freeze record
+aggregates_archive_hash	PASS	Actual bytes match historical metadata SHA256
+aggregates_schema	PASS	Required identity, QC and 24 iBAQ columns present
+aggregates_metadata	PASS	A-D labels and condition identities agree with SAMPLE_COLUMNS.tsv
+proteomes_archive_hash	PASS	Actual bytes match historical metadata SHA256
+proteomes_schema	PASS	Required identity, QC and 24 iBAQ columns present
+proteomes_metadata	PASS	A-D labels and condition identities agree with SAMPLE_COLUMNS.tsv
+primary_nonempty	PASS	1489 complete-positive matched proteins
+secondary_nonempty	PASS	1484 complete-positive matched proteins
+common_nonempty	PASS	1437 complete-positive matched proteins
+normalization	PASS	All sample shares sum to one within 1e-12; finite strictly positive input and denominators
+pairing_and_biological_n	LIMITATION	Culture independence and pairing unauthenticated; descriptive fraction means only
+absolute_burden_capacity_headroom	LIMITATION	Not identified by compositional iBAQ; no aggregate mass or site-time calibration
+preregistration_confirmation	LIMITATION	Exploratory existing archives; historical gate remains VOID

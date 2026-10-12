@@ -1,0 +1,13 @@
+test_contrast_sign (__main__.ProxyTests.test_contrast_sign) ... ok
+test_controls_and_robustness (__main__.ProxyTests.test_controls_and_robustness) ... ok
+test_filtering (__main__.ProxyTests.test_filtering) ... ok
+test_independent_fraction_averaging (__main__.ProxyTests.test_independent_fraction_averaging) ... ok
+test_independent_raw_reconstruction (__main__.ProxyTests.test_independent_raw_reconstruction) ... ok
+test_protocol_and_input_hashes (__main__.ProxyTests.test_protocol_and_input_hashes) ... ok
+test_scale_invariance_and_zero_rejection (__main__.ProxyTests.test_scale_invariance_and_zero_rejection) ... ok
+test_summary_and_specificity (__main__.ProxyTests.test_summary_and_specificity) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 3.441s
+
+OK

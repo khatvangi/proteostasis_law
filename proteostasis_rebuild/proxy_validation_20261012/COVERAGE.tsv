@@ -1,0 +1,4 @@
+universe	n	eligible_shared	fraction_shared	aggregate_complete	proteome_complete	required_measurements_per_protein
+primary	1489	2221	0.670418730301666	1787	1932	32
+secondary	1484	2221	0.668167492120666	1745	1986	32
+common	1437	2221	0.647005853219271	1721	1913	48

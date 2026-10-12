@@ -1,21 +1,28 @@
-# Start here: completed proxy-only dossier
+# Bounded exploratory reanalysis — 2026-10-12
 
-Read [ONE_INTEGRATED_REPORT.md](ONE_INTEGRATED_REPORT.md). It replaces the prospective wet-lab route with a bounded published-evidence assessment; previous files remain unchanged.
+Start with [FINAL_PROXY_REPORT.md](FINAL_PROXY_REPORT.md). This is the new archival reanalysis, not preregistration confirmation. The historical VOID gate was not changed.
 
-**Conditional theoretical constraints proved. Biological proxy support established for named phenomena. Full capacity threshold/headroom not demonstrated.** Old Gate 3 remains **VOID**. Martens and Hilser 2025 is a **non-peer-reviewed preprint**. Synonymous translation efficiency is not mistranslation.
+Primary result: 1,489 proteins; median interaction −0.4145, Q1 −1.2125, Q3 +0.2294 log2 units; 32.50% positive. Median direction survives all specified omissions. This is relative redistribution, not bulk aggregate mass or quantitative headroom.
 
-- [Evidence matrix](PROXY_EVIDENCE_MATRIX.tsv): measured quantities, proxies, confounds and paper-by-paper inequality audit.
-- [Published numbers](PUBLISHED_NUMBERS.tsv): extracted values, reported uncertainty and provenance; no digitized plots.
-- [Source ledger](SOURCE_LEDGER.tsv), [source notes](SOURCE_NOTES.md), and [HTTP attempts](HTTP_RETRIEVAL.tsv): exact citations, local source hashes, access outcomes. No response bytes means no data checksum.
-- [Registered relation](PREREGISTERED_PROXY_RELATION.md): one retrospective numerical test; **NOT EXECUTABLE**, because matched Luc/DnaK protein cells were not authenticated.
-- [Adversarial audit](ADVERSARIAL_PROXY_AUDIT.md) and [check results](CHECK_RESULTS.txt): limits and verification.
+Reproduce from any directory (Python, NumPy and pandas; exact versions in RUN_ENVIRONMENT.json):
 
-Reproduce offline checks with standard Python:
-
-```sh
-python proxy_validation_20261012/REPRODUCIBLE_PROXY_CHECKS.py
+```bash
+OPENBLAS_NUM_THREADS=1 python /storage/kiran-stuff/proteostasis_law/proteostasis_rebuild/proxy_validation_20261012/PROXY_ANALYSIS.py
+OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 python /storage/kiran-stuff/proteostasis_law/proteostasis_rebuild/proxy_validation_20261012/TEST_PROXY_ANALYSIS.py
+python /storage/kiran-stuff/proteostasis_law/proteostasis_rebuild/proxy_validation_20261012/BUILD_PROXY_REPORT.py
 ```
 
-Run from the parent working directory, or use the script's absolute path from anywhere. It writes only CHECK_RESULTS.txt here. Algebraic witnesses are not biological data. The retrieval script records capped, processed/small-source requests; it is not needed for the offline checks. `build_dossier.py` records the table assembly, not a biological analysis pipeline. Tool captures preserve the accessible indexed source record; they are not original supplement bytes.
+Scripts read fixed archival paths and write only next to themselves. No download is needed. Rerunning changes RUN_ENVIRONMENT.json's timestamp, so the delivered manifest then requires regeneration. A hash/schema/empty-set failure stops analysis and writes ANALYSIS_BLOCKER.txt; do not treat old result files as valid after a failed rerun. GATES.tsv is overwritten each run and records the current gate state.
 
-All new files are in this one directory. The external append-only idea ledger could not be written under the task's write boundary; [LEDGER_PENDING.md](LEDGER_PENDING.md) preserves an append-ready result. No further branch, experiment, simulation or decision is required to complete this dossier.
+- PROTOCOL.md, PROTOCOL_FREEZE.json, OUTCOME_READ_RECEIPT.json: frozen choices and run sequence.
+- PROXY_ANALYSIS.py, ANALYSIS_RUN.txt: executed analysis and console summary.
+- primary/secondary/common_PROTEIN_RESULTS.tsv: Y values and interactions.
+- *_shares.tsv: per-sample compositions for each fixed universe.
+- DISTRIBUTION_SUMMARY.tsv, ROBUSTNESS_PROTEINS.tsv, NEGATIVE_CONTROL_PROTEINS.tsv: descriptive results and controls.
+- FILTER_QC.tsv, EXCLUSIONS.tsv, SAMPLE_QC.tsv, COVERAGE.tsv, DENOMINATOR_QC.tsv: exclusions, zeros, coverage and denominators.
+- GATES.tsv: computational passes and inferential limitations.
+- SOURCE_HASHES.tsv, SHA256SUMS: input and delivery SHA256 hashes.
+- TEST_PROXY_ANALYSIS.py, PROXY_TEST_RESULTS.txt: eight passing tests, including independent raw reconstruction.
+- PROXY_LITERATURE.tsv: sources and access limits; PROXY_LEDGER_PENDING.md: append-ready ledger entries, not centrally appended.
+
+Verify delivery from this directory with `sha256sum -c SHA256SUMS`. The manifest covers regular files in this directory except itself and its verification log; it includes preserved earlier dossier files for inventory, not as new results. Earlier files such as PREREGISTERED_PROXY_RELATION.md and ONE_INTEGRATED_REPORT.md predate this run and do not establish preregistration for it. README_PREEXISTING.md preserves the earlier landing page. The new report governs interpretation of this reanalysis.
