@@ -1,0 +1,153 @@
+Resilience and proteome response of Escherichia coli to high levels of isoleucine mistranslation - ScienceDirect (https://www.sciencedirect.com/science/article/abs/pii/S0141813024008717)
+citeturn6search0 [wordlim: 200] Crawled: 2 months ago; Faithful protein biosynthesis depends on several processes in the cell: DNA replication, transcription, and translation (reviewed in [1]).Errors in one of these processes can lead to mistranslation, i.e. to a substitution of the amino acid encoded by the genome. ... The overall fidelity of translation depends on two crucial processes: the loading of the correct amino acid (aa) to the tRNA, which is catalysed by aminoacyl-tRNA synthetases (aaRS), and the accurate recognition of the codon and anticodon during the elongation step on the ribosome. ... Mechanisms of cellular proteostasis ensure correct protein folding and the degradation of misfolded, non-functional proteins (reviewed in [13]). ... In contrast, Val is a β-branched proteinogenic amino acid that is highly abundant in the cell [20]. ... In this study, we combine a thorough analysis of the proteome response to mistranslation with a proteome-wide quantification of mistranslation.
+
+Here we investigate the effects of isoleucine mistranslation on cellular proteostasis. Isoleucine primarily plays a structural role in proteins, as it is mostly buried in the hydrophobic core of proteins, with a preference for β-sheets [21]. We investigated the effects of proteome-wide Ile substitution with two amino acids that are structural isomers. Nva has a linear side chain and is excluded from protein synthesis. Moreover, it was found in Miller experiments simulating primordial conditions of the early Earth's atmosphere [22], which raises the question of why it was removed from the genetic code in the first place. In contrast, Val is a β-branched proteinogenic amino acid that is highly abundant in the cell [20]. Previously, we have shown that Ile-to-Nva mistranslation is slightly but reproducibly more toxic to E. coli than Ile-to-Val [5].
+
+In this study, we combine a thorough analysis of the proteome response to mistranslation with a proteome-wide quantification of mistranslation. Using high-resolution mass spectrometry, we identified the biological processes most affected by isoleucine mistranslation. To evaluate the structural effects of isoleucine substitution, we analysed DnaK interactors and protein aggregates under mistranslating and non-mistranslating conditions in Escherichia coli. DnaK was chosen as the model chaperone for our experiments because it plays a central role and has the most interactors [14].
+
+We show that Escherichia coli is resilient to unexpectedly high mistranslation levels (up to 20 %). However, such high mistranslation levels threaten the fitness and survival of E. coli, and the bacteria respond by upregulating cellular apparatuses for maintaining proteostasis and utilising the disaggregase ClpB. Long-term mistranslation stress provokes the SOS response and filamentation of E. coli cells.
+
+
+--------------------------------------------------------------------------------
+Resilience and proteome response of Escherichia coli to high levels of isoleucine mistranslation. (https://pubmed.ncbi.nlm.nih.gov/38340920/)
+citeturn6search1 [wordlim: 200] Published: 2.7 years ago; Crawled: 2 months ago; # Resilience and proteome response of Escherichia coli to high levels of isoleucine mistranslation. ...   * Interfaculty Institute of Cell Biology, University of Tuebingen, Auf der Morgenstelle 15, 72076 Tuebingen, Germany. ... When mistranslation was induced by the addition of Val or Nva to the growth medium, an Ile-to-Val or Ile-to-Nva substitution of up to 20 % was measured by high-resolution mass spectrometry.This mistranslation level impaired bacterial growth, promoted the SOS response and filamentation during stationary phase, caused global proteome dysregulation and upregulation of the cellular apparatus for maintaining proteostasis, including the major chaperones (GroES/EL, DnaK/DnaJ/GrpE and HtpG), the disaggregase ClpB and the proteases (Lon, HslV/HslU, ClpA, ClpS). ... Our data show that E. coli can sustain high isoleucine mistranslation levels and remain viable despite excessive protein aggregation and severely impaired translational fidelity.
+# Resilience and proteome response of Escherichia coli to high levels of isoleucine mistranslation.
+
+International journal of biological macromolecules
+
+PMID: 38340920
+
+Publication date: 2024 Mar
+
+Article date: 2024 02 08
+
+Publication status: ppublish
+
+Journal abbreviation: Int J Biol Macromol
+
+Journal country: Netherlands
+
+Journal NLM unique ID: 7909578
+
+Journal linking ISSN: 0141-8130
+
+ISSN: 1879-0003
+
+Volume: 262
+
+Issue: Pt 1
+
+Pages: 130068
+
+## Identifiers
+
+  * PII: S0141-8130(24)00871-7
+  * DOI: 10.1016/j.ijbiomac.2024.130068
+
+## Authors
+
+  * Marija Pranjic
+  * Philipp Spät
+  * Maja Semanjski Curkovic
+  * Boris Macek
+  * Ita Gruic-Sovulj
+  * Marko Mocibob
+
+## Affiliations
+
+  * Department of Chemistry, Faculty of Science, University of Zagreb, Horvatovac 102a, 10 000 Zagreb, Croatia.
+  * Interfaculty Institute of Cell Biology, University of Tuebingen, Auf der Morgenstelle 15, 72076 Tuebingen, Germany.
+  * Department of Chemistry, Faculty of Science, University of Zagreb, Horvatovac 102a, 10 000 Zagreb, Croatia. Electronic address: gruic@chem.pmf.hr.
+  * Department of Chemistry, Faculty of Science, University of Zagreb, Horvatovac 102a, 10 000 Zagreb, Croatia. Electronic address: mocibob@chem.pmf.hr.
+
+## Languages
+
+  * eng
+
+## Publication types
+
+  * Journal Article
+
+## Abstract
+
+Accurate pairing of amino acids and tRNAs is a prerequisite for faithful translation of genetic information during protein biosynthesis. Here we present the effects of proteome-wide mistranslation of isoleucine (Ile) by canonical valine (Val) or non-proteinogenic norvaline (Nva) in a genetically engineered Escherichia coli strain with an editing-defective isoleucyl-tRNA synthetase (IleRS). Editing-defective IleRS efficiently mischarges both Val and Nva to tRNAIle and impairs the translational accuracy of Ile decoding. When mistranslation was induced by the addition of Val or Nva to the growth medium, an Ile-to-Val or Ile-to-Nva substitution of up to 20 % was measured by high-resolution mass spectrometry. This mistranslation level impaired bacterial growth, promoted the SOS response and filamentation during stationary phase, caused global proteome dysregulation and upregulation of the cellular apparatus for maintaining proteostasis, including the major chaperones (GroES/EL, DnaK/DnaJ/GrpE and HtpG), the disaggregase ClpB and the proteases (Lon, HslV/HslU, ClpA, ClpS). --------------------------------------------------------------------------------
+GEO Accession viewer (https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE104303)
+citeturn6search2 [wordlim: 200] Published: 2.0 years ago; Crawled: today; GSE104303_mRNA_mapped_read_counts.tsv.gz 47.4 Kb TSV
+Series GSE104303 Query DataSets for GSE104303
+Status Public on Oct 27, 2024
+Title Chaperone saturation mediates translation and protein folding efficiency
+Organisms Escherichia coli; Escherichia coli str. K-12 substr. MG1655
+Experiment type Other
+Expression profiling by high throughput sequencing
+Summary Whether the emergence of a nascent protein from the ribosome and the formation of structural elements are synchronized has been a longstanding question. Paradoxically, kinetically efficient translation can induce mis-folding and aggregation despite the presence of molecular chaperones, which in Escherichia coli are induced by unfolded protein via σ32. The molecular mechanisms mediating translation efficiency and protein folding efficiency remain poorly understood. Using ribosome profiling and protein quantitation, we show that synonymous changes to Firefly Luciferase (Luc) mRNA have a direct effect on its translation efficiency. These changes alone cause up to a 70-fold difference in Luc protein levels. GSM2794769 pACYC177 plasmid / fast/slow Luciferase rep 1
+GSM2794770 pACYC177 plasmid / fast/slow Luciferase rep 2
+GSM2794771 pACYC177 plasmid / fast/slow Luciferase rep 3
+GSM2794772 pACYC177 plasmid / slow_in/fast Luciferase rep 1
+GSM2794773 pACYC177 plasmid / slow_in/fast Luciferase rep 2
+GSM2794774 pACYC177 plasmid / fast_in/slow Luciferase rep 1
+GSM2794775 pACYC177 plasmid / fast_in/slow Luciferase rep 2
+GSM2891751 pACYC177 plasmid / no insert rep 1
+GSM2891752 pACYC177 plasmid / slow Luciferase rep 1
+GSM2891753 pACYC177 plasmid / WT Luciferase rep 1
+GSM2891754 pACYC177 plasmid / harmonized Luciferase rep 1
+GSM2891755 pACYC177 plasmid / fast Luciferase rep 1
+Relations
+BioProject PRJNA412310
+SRA SRP118966
+Download family Format
+SOFT formatted family file(s) SOFTImage: Help
+MINiML formatted family file(s) MINiMLImage: Help
+Series Matrix File(s) TXTImage: Help
+Supplementary file Size File type/resource
+GSE104303_mRNA_mapped_read_counts.tsv.gz 47.4 Kb TSV
+GSE104303_mapped_read_counts.tsv.gz 177.6 Kb TSV
+SRA Run SelectorImage: Help
+Processed data are available on Series record
+Raw data are available in SRA--------------------------------------------------------------------------------
+Chaperone saturation mediates translation and protein folding efficiency - PMC (https://pmc.ncbi.nlm.nih.gov/articles/PMC12262517/)
+citeturn6search3 [wordlim: 200] Published: 1.3 years ago; Crawled: last month; As expected, only the Luc S_{2–16}F_{17–550} sample, which combines poor translation efficiency at the start of the mRNA with high translation efficiency and rapid clearing of ribosomes across the remainder of the mRNA, shows an increase in the abundance of ribosome-protected tmRNA (Figure 1 i). ... Individually, we note a significant increase in the translation of σ^{32} regulon mRNAs, including those coding for the major chaperones DnaK, DnaJ, GroEL, and GroES (Figure 2 d–f). ... For all physiological experiments (ribosome profiling, mRNA sequencing, enzyme assays, immunoblotting) MOPS buffered medium (Neidhardt et al., 1974) plates (0.6% glycerol, 0.2% casamino acids, 100 μg/ml ampicillin) were streaked with E. coli MG1655 (Yale CGSC # 6300; F-, λ-, rph-1) cells bearing one of the pACYC177-derived plasmids and grown at 37°C (Table S1). ... 10.5936/csbj.201204006 [DOI] [PMC free article] [PubMed] [Google Scholar]
+R3136S), and the assemblies were performed as instructed by the kit (New England Biolabs cat. no. E2611).
+
+#### Polymerase chain reactions
+
+Amplification of DNA by PCR was performed using Q5 (New England Biolabs cat. no. M0491) or Phusion (New England Biolabs cat. no. E0553) polymerase (200 μM dNTP, 10 μM forward primer, 10 μM reverse primer, 1–50 ng DNA, 0.02 U/μl enzyme) in 50 μl reactions as directed by Tables S2 & S3, using a Veriti 96-well thermocycler (Applied Biosystems). E. coli MG1655 chromosomal DNA was prepared using the GeneJet Genomic DNA Purification Kit (ThermoFisher cat. no. K0721).
+
+#### Ribosome profiling
+
+200 ml of MOPS buffered medium, in pre-warmed 2 L flasks, were inoculated by diluting the overnight cultures more than one thousandfold and set to shake at 37°C in an Innova 40 incubator shaker (New Brunswick Scientific) at 200 RPM. Once the cultures reached an OD_{600} of 0.40 – 0.65 (measured using a Shimadzu UV-1800 spectrophotometer; 1 OD_{600} = 6 × 10^{8} cells / mL) they were filtered through a pre-warmed 0.22 μm nitrocellulose filter paper and 90 mm glass filtration system (Kontes) with vacuum (Whatman cat. no. 7182–009); the filtration took about 1 min. --------------------------------------------------------------------------------
+ (https://www.croris.hr/crosbi/publikacija/prilog-casopis/821559)
+citeturn6search4 [wordlim: 200] Crawled: last month; Pranjić, Marija; Spät, Philipp; Šemanjski Čurković, Maja; Maček, Boris; Gruić-Sovulj, Ita; Močibob, Marko Resilience and proteome response of Escherichia coli to high levels of isoleucine mistranslation // International journal of biological macromolecules, 262 (2024), 1; 130068, 12. doi: 10.1016/j.ijbiomac.2024.130068 ... When mistranslation was induced by the addition of Val or Nva to the growth medium, an Ile-to-Val or Ile-to-Nva substitution of up to 20 % was measured by high-resolution mass spectrometry. ... Our data show that E. coli can sustain high isoleucine mistranslation levels and remain viable despite excessive protein aggregation and severely impaired translational fidelity.
+--------------------------------------------------------------------------------
+high temperature protein G - Drugs, Indications, Patents - Synapse (https://synapse.patsnap.com/target/f13636a483734762b6bf61a20e6b2afc)
+citeturn6search5 [wordlim: 200] Published: 1.4 years ago; Crawled: 4 months ago; Resilience and proteome response of Escherichia coli to high levels of isoleucine mistranslation ... Accurate pairing of amino acids and tRNAs is a prerequisite for faithful translation of genetic information during protein biosynthesis. ... When mistranslation was induced by the addition of Val or Nva to the growth medium, an Ile-to-Val or Ile-to-Nva substitution of up to 20 % was measured by high-resolution mass spectrometry.
+--------------------------------------------------------------------------------
+PXD041341 - Resiliance and proteome response of Escherichia coli to high levels of isoleucine mistranslation - OmicsDI (https://www.omicsdi.org/dataset/jpost/PXD041341)
+citeturn6search6 [wordlim: 200] Published: 2.6 years ago; Crawled: 3 months ago; ABSTRACT: Correct pairing of amino acids and tRNA is prerequisite for correct translation of genetic information during protein biosynthesis. ... Upload file(s) to Galaxy server  |  | Items per page:5 1 - 5 of 20 ... ### Resilience and proteome response of Escherichia coli to high levels of isoleucine mistranslation.
+--------------------------------------------------------------------------------
+Περιγραφή: Resilience and proteome response of Escherichia coli to high levels of isoleucine mistranslation. :: Library Catalog (https://vufind2.lib.aegean.gr/EdsRecord/cmedm%2C38340920?sid=28751583)
+citeturn6search7 [wordlim: 200] Published: 2.7 years ago; Crawled: last month; # Resilience and proteome response of Escherichia coli to high levels of isoleucine mistranslation. ... Συγγραφείς:  | Pranjic M; Department of Chemistry, Faculty of Science, University of Zagreb, Horvatovac 102a, 10 000 Zagreb, Croatia., Spät P; Interfaculty Institute of Cell Biology, University of Tuebingen, Auf der Morgenstelle 15, 72076 Tuebingen, Germany., Semanjski Curkovic M; Interfaculty Institute of Cell Biology, University of Tuebingen, Auf der Morgenstelle 15, 72076 Tuebingen, Germany., Macek B; Interfaculty Institute of Cell Biology, University of Tuebingen, Auf der Morgenstelle 15, 72076 Tuebingen, Germany., Gruic-Sovulj I; Department of Chemistry, Faculty of Science, University of Zagreb, Horvatovac 102a, 10 000 Zagreb, Croatia. ... Ιατρικοί όροι (MeSH):  | Escherichia coli*/genetics , Escherichia coli*/metabolism , Resilience, Psychological*, Proteome/metabolism ; Isoleucine-tRNA Ligase/chemistry ; Isoleucine-tRNA Ligase/genetics ; Isoleucine-tRNA Ligase/metabolism ; RNA, Transfer/genetics ; RNA, Transfer/metabolism ; Isoleucine ; Protein Aggregates ... When mistranslation was induced by the addition of Val or Nva to the growth medium, an Ile-to-Val or Ile-to-Nva substitution of up to 20 % was measured by high-resolution mass spectrometry.
+--------------------------------------------------------------------------------
+Functional Meta-Analysis of the Proteomic Responses of Arabidopsis Seedlings to the Spaceflight Environment Reveals Multi-Dimensional Sources of Variability across Spaceflight Experiments - PMC (https://pmc.ncbi.nlm.nih.gov/articles/PMC10573023/)
+citeturn6search8 [wordlim: 200] Published: 3.1 years ago; Crawled: 2 months ago; The color gradient represents log2 fold change (L_{2}FC_{protein}), with red depicting more abundant proteins in spaceflight than on Earth and blue depicting less abundant protein in spaceflight than on Earth.The principal components 1–4 explained just 26.76%, 21.85%, 20.15%, and 16.58%, respectively, of the variability noted among the four datasets, and this indicates that the determinant of the proteome response of the Arabidopsis plant to the spaceflight environment is multi-dimensional and the data do not have a single dominant direction of variability.
+--------------------------------------------------------------------------------
+TBX22 - Drugs, Indications, Patents - Synapse (https://synapse.patsnap.com/target/245e8675eb343dc793ea16021898ee45)
+citeturn6search9 [wordlim: 200] Published: 1.9 years ago; Crawled: 3 months ago; Resilience and proteome response of Escherichia coli to high levels of isoleucine mistranslation ... Accurate pairing of amino acids and tRNAs is a prerequisite for faithful translation of genetic information during protein biosynthesis.
+--------------------------------------------------------------------------------
+The Gcn2–eIF2α pathway connects iron and amino acid homeostasis in <i>Saccharomyces cerevisiae</i> (https://ouci.dntb.gov.ua/en/works/lDNwALg7/)
+citeturn6search10 [wordlim: 200] Crawled: 3 months ago; This bulk translational inhibition depends on the uncharged tRNA sensing Gcn1-Gcn20 complex. ... ##### Resilience and proteome response of Escherichia coli to high levels of isoleucine mistranslation
+--------------------------------------------------------------------------------
+Ević V, Rokov-Plavec J. Interplay between mistranslation and oxidative stress in Escherichia coli (https://arhiv.imi.hr/index.php/arhiv/article/download/1696/695/7730)
+citeturn6search12 [wordlim: 200] Published: 2.3 years ago; Cell-specific differences in the requirements for translation quality ... 20. ... defective tRNA synthetase causes protein misfolding and ... Resilience and proteome response of Escherichia coli to
+--------------------------------------------------------------------------------
+Ević V, Rokov-Plavec J. Interplay between mistranslation and oxidative stress in Escherichia coli (https://sciendo-parsed.s3.eu-central-1.amazonaws.com/66867d82244b564e1b9f5b97/10.2478_aiht-2024-75-3834.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIA6AP2G7AKCEBXLDVB%2F20251011%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20251011T125948Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEGwaDGV1LWNlbnRyYWwtMSJHMEUCIQCs3Ipkka129vtWyLhJHTIjaqNultrQ5GUpluXmFvPbFAIgfgXu1R8QAz7XB0Xeiy8SY8mJIxPHvBlGDci8W1N4IaUqvAUIFRACGgw5NjMxMzQyODk5NDAiDCagaYU3v%2FANIVDq8SqZBcCayNunpjVl64u6Z6gPCZrjpdrlhdMbJl0pZs5b6eKflgnEzDJVwWrxrcr5sFGJP3feR937hm9%2BuFDLrIJlOzSEXCIOH0dw3R0Tug%2FrUl%2FSEBQ01MZxKFs0IpAg9oQN0ot6XWNJr0FUYIWaZFlq2eSATwmoA%2FvVkUphUqrim%2BV4rw%2F7%2BLBq9zWvOhz%2BCh8F9ORoBZpalt0Kcon355vTKbGwJQZqSlZxaWhL6FSqa4OYDgaDK%2BdxSdiYBn%2BLcMf6moV%2Bhm0U4agk8bBDn2eHvkfhbQga6f0biHmU657sFCWr0vDPRPw%2BjTJGngiGecd5eMZ5h0YnqjdKSMscqnnpV%2BwHlp09Jdtw2O1PsGnW%2Fw%2BMKiBxUxHjKyEnQonps6ARxXyXPccQzKKM45WRk9%2Fc%2BpF4%2B4Pzf0jDY%2BNDrkS9j4R3LdBYlpzm3ShqNiael7l1w1wBGEO%2BczYDSJd8gwL%2FYLTEefVx32hua8az49o8h1XUijQZYVM3ZgrgxabxhPq2h0%2BQtR244NNwu71bb8%2FbP8wcgJiYYs%2FjWqzVniYMr4OVwv7RXxtkqlHbuDnZTBgI1Dun7c5EiLweVafk%2FcmoSipa9PSfvjyNxPM6n8UJIKOYfKig7VnCXJJl5wbbqYQv2vADxRgq4pLwJzla8WDEldZzAeqNOWy5Hso1KkuvRCN73m1v5RF0TwuYLIWaCI%2B7lkHjSDmAKSLpBx9fKTIPjxbVbp8TezY5T2tlaf%2F7lR57eK%2BgddFxkF4NsrnoKeqPVqPzhucGG1xTLcW6Q6sgGX6k7lWXJipk%2BNDMF2NYrsD13FLEcu4aCnZ2U4nszcxoUsV4wGmbUK0%2B%2F8%2FJZ2f6c2MbD%2BIzkd4i6jZfzyAzuAwsqR933EpE0rJcMJ6SqccGOrEB1oCjWLBV19XeYHlzT368MArHg9aVahW5Ou%2Bn5y4IHpjz1FLj7s4RwFxdLXUu9MXrsUvTDvVak5KJN4XxId7spw4ffa78XTsvUZYV6X1uwuOH0VdBC4MKhu7j%2FPqhqHHYSBKiAJ36asHi%2BWv6M4gKe4%2BoGnzUQXeU1syFQ0ywWAgqlOWTJ4oMMfSzstUZhYGO10PX4Wiqct3SJwVo0jOVbNGLa8794SYXC%2F1aIYAxBE%2Fa&X-Amz-Signature=b4f27b1379815c14bce717a2380c8b461e0a24aef3b1d769199216f86bed40a8&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+citeturn6search13 [wordlim: 200] Published: 11 months ago; project of the Croatian Science Foundation “Young researchers’ ... Aminoacyl-tRNA synthetase - a molecular multitasker. ... first crystal structure and novel protein interactor of plant aminoacyl- ... aminoacyl-tRNA synthetase causes protein mistranslation and affects ... dysregulation of the Escherichia coli proteome. mBio 2019;10:e02921– ... Cell-specific differences in the requirements for translation quality ... 20. ... Resilience and proteome response of Escherichia coli to
+--------------------------------------------------------------------------------
+Ević V, Rokov-Plavec J. Interplay between mistranslation and oxidative stress in *Escherichia coli* (https://hrcak.srce.hr/file/459717)
+citeturn6search14 [wordlim: 200] Published: 2.3 years ago; Crawled: 2.3 years ago; Author VE received funds from the project of the Croatian Science Foundation “Young researchers’ career development – Training New Doctoral Students” (DOK-2018-09-1578). ... Protein-protein interactions of seryl-tRNA synthetases with emphasis on human counterparts and their connection to health and disease. ... Double-sieving-defective aminoacyl-tRNA synthetase causes protein mistranslation and affects cellular physiology and development. ... Cell-specific differences in the requirements for translation quality control. ... 20. ... Resilience and proteome response of *Escherichia coli* to high levels of isoleucine mistranslation. ... Innate immune and chemically triggered oxidative stress modifies translational fidelity.
+--------------------------------------------------------------------------------
+Ević V, Rokov-Plavec J. Interplay between mistranslation and oxidative stress in Escherichia coli (https://sciendo-parsed.s3.eu-central-1.amazonaws.com/66867d82244b564e1b9f5b97/10.2478_aiht-2024-75-3834.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIA6AP2G7AKMSW2Q53E%2F20251002%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20251002T185421Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDGV1LWNlbnRyYWwtMSJGMEQCIHw%2BaM1FaKspAmZqfPFtFno2CA4gu7kt2dX8tfjByrQ8AiAgM1slPvf4vHO7flTyDmy%2FZcfeROVBVh27hncYFU%2FSCyq9BQgzEAIaDDk2MzEzNDI4OTk0MCIM2RukpQ0rk%2Bo%2BkxVcKpoFDp8HFQvOud6gfWumpKDwW5thK2n%2BT5lPl%2BdPABp2Pw%2Fm1vogWftLAVrIGX9cLKS9AT5gPE7ENyM%2F4Z92%2Bi7aF1hoXGRhGzXXFD%2FKlnXJnzV9QpSl4Uk%2FlMi2zRO9%2FerHJzoWhNHsTmyoqwccuYjRjySSZyi7aABl2otlgVsAbZcUxybxzCDtKZo1AisSbZ%2FEixizJnAlr8s8BABvsAWHDMjVVCcEMMnJtl3%2F4eGbdZModKeu8c3cpXHMLZPGMBC3IkFDZA%2FvI3XI2HRBYdnMCEQPDy%2FHdR3ZZXw9ePG%2FMS11jDFjfKaQZ%2Foomdj0GtHUz3Lqyj%2B%2Fygx9taCCja9nZe8XizVQi5rwB%2FPOGtfsgzVmqUsPFB0TZhH6IxAKZrpxCEPLrFjFiqWaLw6hrBTTqj9blESpewVMyhidWx1EkJ2GFTR1c43PDyDNmHEVdbH%2FWGGcXpWIW0BubSmnS2qzdi3NUybvhne3X3H0YYu5gBvnlGYd%2BIX%2BT8ZsAEeJIbRG8AhgZ%2BrkS1Ssqt0NmWYbnJ46nQNXZ%2FRwY3Wd0MNj8os3U56eT7Dh7x%2B3B9WDQJzJlknBqtqlBpl6O3taiv5Nc%2FMD0rww24yk4SKcn94PS3uI2zOKUps8RvBnYV9H2HPdOl9DuHtb%2FZYv3CwpbwcSC7CUO42GYVxR0Du7PPxZBeTbIWirFbT0D4%2F%2F6bJgkVd%2F87QTCLJeWqu%2Bzr7aBHL3b8sshD5XSXaQTMJJod2gbmz9zrKhAmkBar0NLYXJrPk0TtTAsSDbYAIKqk8oXXPFpvOc5NvWb%2BQdsds1epwkyYpO0lIFbMPs6rxtfN0TeJ4PLudyaAb9WmwlHVOazxjQjzt3RnMW6pMIYcSJ4gBjgsJ3eFvTBP66BrDBMOn%2B%2BsYGOrIBV99wQiMmB4g%2BXtsqVZ3FhyeqNCdBGWgwG1GJXbNn7FIz9jzZl%2BtAkuqaahWuF0CL8sa7fm%2BOD6Axo3k%2FtlYXoRNPr0gewYTfDwhGkJv4dh%2BxlFuciV%2BcF6fHRPEOViOAqRUYpZDVICbt3XS1ocVKYLaGpGjxdkHkF537tv5gGW6cWMVM9kibYnTWqvbDrn3IQcC0uqmviHQmLCXZhGWHT69Hp4NKVt03dFc6eg%2BiYCr2iQ%3D%3D&X-Amz-Signature=94e933d41102e3697ba8690f9b778a5355e1b5b4ae38cf12e92d42fa5e98c5da&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+citeturn6search15 [wordlim: 200] Published: last year; Interplay between mistranslation and oxidative stress in Escherichia coli ... project of the Croatian Science Foundation “Young researchers’ ... RNA ... Aminoacyl-tRNA synthetase - a molecular multitasker. ... on human counterparts and their connection to health and disease. ... first crystal structure and novel protein interactor of plant aminoacyl- ... Cell-specific differences in the requirements for translation quality ... 20. ... Resilience and proteome response of Escherichia coli to
+--------------------------------------------------------------------------------
+Frontiers | Omics and precision livestock farming for heat stress resilience: integrating molecular biomarkers with real-time phenotyping for climate-smart livestock systems (https://www.frontiersin.org/journals/animal-science/articles/10.3389/fanim.2026.1810017/full)
+citeturn6search11 [wordlim: 200] Published: 4 months ago; Crawled: today; These responses are coupled with metabolic reprogramming and increased expression of heat shock proteins (HSP70/90), suggesting a dynamic balance between oxidative challenge and adaptive compensation. ... In pigs, hypothalamic proteomic profiling reveals differential expression of proteins associated with cellular stress responses, cytoskeletal organization, and inflammatory pathways, highlighting potential disruption or reorganization of neuroendocrine control under thermal challenge (Yue et al., 2020). ... For example, melatonin supplementation in heat-stressed ewes enhances antioxidant capacity, regulates inflammatory responses, and supports energy metabolism and reproductive function (Bouroutzika et al., 2024), indicating that oxidative and inflammatory pathways are amenable to physiological regulation rather than representing irreversible damage.
+

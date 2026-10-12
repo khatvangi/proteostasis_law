@@ -1,0 +1,24 @@
+source	condition	quantity	value	uncertainty	uncertainty_type	unit	anchor	limitations
+R24	Wild-type	spontaneous_refolding_k1	0.17	0.02	reported fitted-parameter SE	min^-1	Table 1; reingewertz_readable.txt:119-121	in vitro; all mutants nonsynonymous; no new inference
+R24	V2F	spontaneous_refolding_k1	0.24	0.03	reported fitted-parameter SE	min^-1	Table 1; reingewertz_readable.txt:119-121	in vitro; all mutants nonsynonymous; no new inference
+R24	N6H	spontaneous_refolding_k1	0.69	0.03	reported fitted-parameter SE	min^-1	Table 1; reingewertz_readable.txt:119-121	in vitro; all mutants nonsynonymous; no new inference
+R24	N14I	spontaneous_refolding_k1	0.26	0.1	reported fitted-parameter SE	min^-1	Table 1; reingewertz_readable.txt:119-121	in vitro; all mutants nonsynonymous; no new inference
+R24	I17V	spontaneous_refolding_k1	0.49	0.1	reported fitted-parameter SE	min^-1	Table 1; reingewertz_readable.txt:119-121	in vitro; all mutants nonsynonymous; no new inference
+R24	I17N	spontaneous_refolding_k1	1.02	0.3	reported fitted-parameter SE	min^-1	Table 1; reingewertz_readable.txt:119-121	in vitro; all mutants nonsynonymous; no new inference
+R24	G18S	spontaneous_refolding_k1	2.64	0.12	reported fitted-parameter SE	min^-1	Table 1; reingewertz_readable.txt:119-121	in vitro; all mutants nonsynonymous; no new inference
+R24	F32L	spontaneous_refolding_k1	0.72	0.02	reported fitted-parameter SE	min^-1	Table 1; reingewertz_readable.txt:119-121	in vitro; all mutants nonsynonymous; no new inference
+R24	G54S	spontaneous_refolding_k1	3.24	0.12	reported fitted-parameter SE	min^-1	Table 1; reingewertz_readable.txt:119-121	in vitro; all mutants nonsynonymous; no new inference
+R24	R55T	spontaneous_refolding_k1	0.2	0.03	reported fitted-parameter SE	min^-1	Table 1; reingewertz_readable.txt:119-121	in vitro; all mutants nonsynonymous; no new inference
+R24	S93C	spontaneous_refolding_k1	0.41	0.13	reported fitted-parameter SE	min^-1	Table 1; reingewertz_readable.txt:119-121	in vitro; all mutants nonsynonymous; no new inference
+R24	D146N	spontaneous_refolding_k1	5.98	0.24	reported fitted-parameter SE	min^-1	Table 1; reingewertz_readable.txt:119-121	in vitro; all mutants nonsynonymous; no new inference
+P24	max reported	Ile substitution	20	NA	no CI authenticated	percent	SOURCE_NOTES.md:8	author-reported upper range, not all-residue error
+MH25	construct range	Luc protein fold range	70	NA	approximate maximum	fold	SOURCE_NOTES.md:13	denominator not paired to response range
+MH25	response range	chaperone response	2	NA	approximate upper range	fold	SOURCE_NOTES.md:13	not a measured DnaK occupancy
+R24	P27 before	CAI	1.0	NA	computed index	dimensionless	reingewertz_readable.txt:139	not measured rate
+R24	P27 after	CAI	0.362	NA	computed index	dimensionless	reingewertz_readable.txt:139	not measured rate
+R24	P27 before	tAI	0.165	NA	computed index	dimensionless	reingewertz_readable.txt:139	not measured rate
+R24	P27 after	tAI	0.125	NA	computed index	dimensionless	reingewertz_readable.txt:139	not measured rate
+R24	P129 before	local folding energy	-6.5	NA	computed prediction	kcal/mol	reingewertz_readable.txt:156	not measured elongation
+R24	P129 after	local folding energy	-7.1	NA	computed prediction	kcal/mol	reingewertz_readable.txt:156	not measured elongation
+F21	delta dnaKJ	insoluble fraction	20.5	NA	total covariance unavailable	percent	Fauvet fulltext:73	not pure aggregate
+F21	delta dnaKJ delta htpG	insoluble fraction	18.9	NA	total covariance unavailable	percent	Fauvet fulltext:73	no total-contrast significance

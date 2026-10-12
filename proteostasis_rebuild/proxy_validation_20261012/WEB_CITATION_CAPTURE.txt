@@ -1,0 +1,372 @@
+Chaperone saturation mediates translation and protein folding efficiency - PMC (https://pmc.ncbi.nlm.nih.gov/articles/PMC12262517/)
+citeturn4search0 [wordlim: 200] Published: 1.3 years ago; Crawled: last month; The National Library of Medicine is running a pilot to include preprints that result from research funded by NIH in PMC and PubMed. ... PMCID: PMC12262517  PMID: 40667059 ... These changes alone cause up to a 70-fold difference in Luc protein levels. ... To resolve how kinetically efficient Luc translation causes Luc protein folding defects, we performed ribosome profiling on E. coli expressing synonymously re-coded Luc mRNA variants that were modified to change the translation efficiency, but not the amino acid sequence (Table S1) (Methods and Supplementary Information).
+
+#### This is a preprint.
+
+It has not yet been peer reviewed by a journal.
+
+The National Library of Medicine is running a pilot to include preprints that result from research funded by NIH in PMC and PubMed.
+
+[Button: bioRxiv]
+
+[Preprint]. 2025 Jun 28:2025.06.25.661590. [Version 1] doi: 10.1101/2025.06.25.661590
+
+# Chaperone saturation mediates translation and protein folding efficiency
+
+Andrew T Martens
+
+### Andrew T Martens
+
+^{(1)}Department of Biology, Johns Hopkins University, Baltimore, MD 21218, USA
+
+^{(2)}Department of Systems Biology, Harvard Medical School, Boston, MA 02115 USA
+
+Find articles by Andrew T Martens
+
+^{1,}^{2,}^{†}, Vincent J Hilser
+
+### Vincent J Hilser
+
+^{(1)}Department of Biology, Johns Hopkins University, Baltimore, MD 21218, USA
+
+Find articles by Vincent J Hilser
+
+^{1,}^{†}
+
+  * [Button: Author information]
+  * [Button: Copyright and License information]
+
+^{(1)}Department of Biology, Johns Hopkins University, Baltimore, MD 21218, USA
+
+^{(2)}Department of Systems Biology, Harvard Medical School, Boston, MA 02115 USA
+
+Author Contributions
+
+A.T.M. and V.J.H designed the experiments. A.T.M. performed the experiments and analyzed the data. A.T.M. and V.J.H. wrote the manuscript.
+
+^{†}
+
+To whom correspondence should be addressed: andrew_martens@hms.harvard.edu and hilser@jhu.edu
+
+This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License, which allows reusers to copy and distribute the material in any medium or format in unadapted form only, for noncommercial purposes only, and only so long as attribution is given to the creator.
+
+PMC Copyright notice
+
+PMCID: PMC12262517  PMID: 40667059
+
+## Abstract
+
+Whether the emergence of a nascent protein from the ribosome and the formation of structural elements are synchronized has been a longstanding question (Chaney and Clark, 2015; Deane and Saunders, 2011; Levinthal, 1968; Marin, 2008; Sauna and Kimchi-Sarfaty, 2011; Spencer and Barral, 2012; Tsai et al., 2008; Zhang and Ignatova, 2011). Paradoxically, kinetically efficient translation can induce mis-folding and aggregation despite the presence of molecular chaperones (Siller et al., 2010; Spencer et al., 2012), which in Escherichia coli are induced by unfolded protein (Parsell and Sauer, 1989) via σ^{32} (Craig and Gross, 1991). The molecular mechanisms mediating translation efficiency and protein folding efficiency remain poorly understood. Using ribosome profiling (Ingolia et al., 2009) and protein quantitation, we show that synonymous changes to Firefly Luciferase (Luc) mRNA have a direct effect on its translation efficiency. These changes alone cause up to a 70-fold difference in Luc protein levels. However, increased Luc protein is met with at most a ~2-fold increase in chaperone levels, revealing that the σ^{32} transcriptional response has saturable properties. This response is found to be poised near its midpoint (where it is most sensitive to perturbation) when Luc mRNA has an intermediate translation efficiency. These results suggest not only that chaperone saturation limits the ability of cells to maintain protein folding homeostasis when challenged with highly efficient translation, but that translation efficiency and protein folding efficiency evolved for mutual sensitivity.
+
+Keywords: translation kinetics, genetic code, protein folding, molecular chaperones
+
+Classification: systems biology, synthetic biology, protein biophysics
+
+## Results
+
+Ribosome profiling provides two related types of information: the relative statistics for ribosome occupancy at each codon position in a given mRNA, which should relate to the local translation elongation rate (Martens et al., 2015), and the allocation of ribosomes to each mRNA as a fraction of all ribosomes, which relates to the amount of protein produced (Li et al., 2014). To resolve how kinetically efficient Luc translation causes Luc protein folding defects, we performed ribosome profiling on E. coli expressing synonymously re-coded Luc mRNA variants that were modified to change the translation efficiency, but not the amino acid sequence (Table S1) (Methods and Supplementary Information). This test set contains several variants which have been demonstrated to have different aggregation propensities and experimentally determined translation rates (Spencer et al., 2012), as well as 4 new hybrid Luc constructs, each of which contains a transition between high and low translation efficiency regimes. Two constructs contain transitions (from high to low, and low to high) at codon 16, near the start codon, while two other constructs contain a transition at codon 293, in the center of the sequence. If these transitions decrease or increase the efficiency of translation, they should decrease or increase, respectively, the spacing between consecutive ribosomes, and cause corresponding increases or decreases, respectively, in average ribosome occupancy along the mRNA. The test set also includes two “wild-type” constructs, one with the native codons as found in the firefly mRNA (Luc WT_{P. pyralis}), and the other recoded to match the translation efficiency from the firefly into E. coli (Luc WT_{E. coli}) (Spencer et al., 2012).
+
+--------------------------------------------------------------------------------
+Urinary Proteomics and Systems Biology Link Eight Proteins to the Higher Risk of Hypertension and Related Complications in Blacks Versus Whites - PubMed (https://pubmed.ncbi.nlm.nih.gov/39580674)
+citeturn4search1 [wordlim: 200] Published: 1.9 years ago; Crawled: 5 months ago; 2025 Jun. ... De-Wei An^{  1   2   3 }, Dries S Martens^{  4 }, Gontse G Mokwatsi^{  5 }, Yu-Ling Yu^{  2   3 }, Babangida S Chori^{  4   6 }, Agnieszka Latosinska^{  7 }, Godsent Isiguzo^{  8 }, Susanne Eder^{  9 }, Dong-Yan Zhang^{  1   2   3 }, Gert Mayer^{  9 }, Ruan Kruger^{  5 }, Jana Brguljan-Hitij^{  10 }, Christian Delles^{  11 }, Catharina M C Mels^{  5 }, Katarzyna Stolarz-Skrzypek^{  12 }, Marek Rajzer^{  12 }, Peter Verhamme^{  13 }, Aletta E Schutte^{  5   14 }, Tim S Nawrot^{  3   4 }, Yan Li^{  1 }, Harald Mischak^{  7 }, Augustine N Odili^{  6 }, Jan A Staessen^{  1   2   15 } ...   * PMCID: PMC12205296
+# Urinary Proteomics and Systems Biology Link Eight Proteins to the Higher Risk of Hypertension and Related Complications in Blacks Versus Whites
+
+De-Wei An et al. Proteomics. 2025 Jun.
+
+Show details
+
+Display options
+
+Display options
+
+Format [Select]
+
+[Button: Proteomics ]
+
+Actions
+
+  * Search in PubMed
+  * Search in NLM Catalog
+  * Add to Search
+
+. 2025 Jun;25(11-12):e202400207.
+
+doi: 10.1002/pmic.202400207. Epub 2024 Nov 24.
+
+### Authors
+
+De-Wei An^{  1   2   3 }, Dries S Martens^{  4 }, Gontse G Mokwatsi^{  5 }, Yu-Ling Yu^{  2   3 }, Babangida S Chori^{  4   6 }, Agnieszka Latosinska^{  7 }, Godsent Isiguzo^{  8 }, Susanne Eder^{  9 }, Dong-Yan Zhang^{  1   2   3 }, Gert Mayer^{  9 }, Ruan Kruger^{  5 }, Jana Brguljan-Hitij^{  10 }, Christian Delles^{  11 }, Catharina M C Mels^{  5 }, Katarzyna Stolarz-Skrzypek^{  12 }, Marek Rajzer^{  12 }, Peter Verhamme^{  13 }, Aletta E Schutte^{  5   14 }, Tim S Nawrot^{  3   4 }, Yan Li^{  1 }, Harald Mischak^{  7 }, Augustine N Odili^{  6 }, Jan A Staessen^{  1   2   15 }
+--------------------------------------------------------------------------------
+Spatially restricted and ontogenically distinct hepatic macrophages are required for tissue repair - PubMed (https://pubmed.ncbi.nlm.nih.gov/40482642/)
+citeturn4search2 [wordlim: 200] Published: 1.3 years ago; Crawled: 2 months ago; Epub 2025 Jun 6. ... Federico F De Ponti, Anna Bujko, Zhuangzhuang Liu, Paul J Collins, Sara Schuermans, Christian Maueröder, Seraja Amstelveen, Tinne Thoné, Liesbet Martens, John G McKendrick, Pieter A Louwe, Ana Sànchez Cruz, Wouter Saelens, Kylie P Matchett, Kathryn J Waller, Christian Zwicker, Aimée Bugler-Lamb, Bavo Vanneste, Fleur Parmentier, Mushida Binte Abdul Latib, Anneleen Remmerie, Lenard Kertesz, Anneke Kremer, Jérémy Verbeke, David Højland Ipsen, Dominik Reinhard Pfister, Zhaoyuan Liu, Martin Guilliams, Neil C Henderson, Kodi Ravichandran, Pedro E Marques, Charlotte L Scott
+
+### Full text links
+
+Elsevier Science
+
+Full text links
+
+. 2025 Jul 8;58(7):1867-1868.
+
+doi: 10.1016/j.immuni.2025.05.013. Epub 2025 Jun 6.
+
+# Spatially restricted and ontogenically distinct hepatic macrophages are required for tissue repair
+
+Federico F De Ponti, Anna Bujko, Zhuangzhuang Liu, Paul J Collins, Sara Schuermans, Christian Maueröder, Seraja Amstelveen, Tinne Thoné, Liesbet Martens, John G McKendrick, Pieter A Louwe, Ana Sànchez Cruz, Wouter Saelens, Kylie P Matchett, Kathryn J Waller, Christian Zwicker, Aimée Bugler-Lamb, Bavo Vanneste, Fleur Parmentier, Mushida Binte Abdul Latib, Anneleen Remmerie, Lenard Kertesz, Anneke Kremer, Jérémy Verbeke, David Højland Ipsen, Dominik Reinhard Pfister, Zhaoyuan Liu, Martin Guilliams, Neil C Henderson, Kodi Ravichandran, Pedro E Marques, Charlotte L Scott
+--------------------------------------------------------------------------------
+Blood Pressure Targets During General Anaesthesia in High‐Risk Patients—A Randomised Clinical Feasibility Trial - PMC (https://pmc.ncbi.nlm.nih.gov/articles/PMC13459152/)
+citeturn4search3 [wordlim: 200] Crawled: last month; Clinical reasons included concerns about applying the interventions in patients with significant comorbidities or patients undergoing spine or shoulder surgery in the prone or beach chair position (Figure 1; Table S4). ... 60 mmHg, N = 119  | 70 mmHg, N = 122  | 80 mmHg, N = 122 ... Chronic pain  | 65 (13%)  | 23 (19%)  | 21 (17%)  | 14 (11%)  | 7 (5.8%)
+Surgical characteristics, reason for hospital admission, preoperative vital signs and preoperative biomarkers are provided in the supplement material (Tables S3 and S5–S8).
+
+#### TABLE 1.
+
+Baseline patient and surgical characteristics.
+
+Characteristics  | Overall, N = 483  | MAP targets  | 90% of systolic blood pressure, N = 120
+--- | --- | --- | ---
+60 mmHg, N = 119  | 70 mmHg, N = 122  | 80 mmHg, N = 122
+--- | --- | ---
+Age, years  | 73 (66; 78)  | 72 (67; 78)  | 73 (64; 80)  | 72 (62; 77)  | 74 (68; 79)
+Male sex  | 294 (61%)  | 64 (54%)  | 72 (59%)  | 76 (62%)  | 82 (68%)
+Body mass index, kg/m^{2}  | 27 (24; 31)  | 27 (24; 31)  | 27 (24; 31)  | 27 (24; 31)  | 28 (24; 31)
+Systolic blood pressure, mmHg  | 133 (122; 147)  | 139 (124; 154)  | 134 (122; 146)  | 130 (123; 146)  | 130 (119; 140)
+Diastolic blood pressure, mmHg  | 77 (69; 85)  | 78 (70; 85)  | 75 (67; 84)  | 80 (70; 86)  | 75 (67; 82)
+ASA classification ^{a}
+3  | 456 (94%)  | 116 (97%)  | 110 (90%)  | 118 (97%)  | 112 (93%)
+--------------------------------------------------------------------------------
+GEO Accession viewer (https://ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE92803)
+citeturn4search4 [wordlim: 200] Published: 9.8 years ago; Crawled: 3 days ago; For data usage terms and conditions, please refer to http://www.genome.gov/27528022 and http://www.genome.gov/Pages/Research/ENCODE/ENCODE_Data_Use_Policy_for_External_Users_03-07-14.pdf ... Supplementary file Size File type/resource
+Series GSE92803 Query DataSets for GSE92803
+Status Public on Jan 10, 2017
+Title ChIP-seq from A549 (ENCSR384KPP)
+Project GGR
+Organism Homo sapiens
+Experiment type Genome binding/occupancy profiling by high throughput sequencing
+Summary CTCF ChIP-seq on A549 cell line treated with 100 nM dexamethasone for 2 hours.
+For data usage terms and conditions, please refer to http://www.genome.gov/27528022 and http://www.genome.gov/Pages/Research/ENCODE/ENCODE_Data_Use_Policy_for_External_Users_03-07-14.pdf
+ 
+Overall design https://www.encodeproject.org/ENCSR384KPP/
+ 
+Citation(s) 22955616
+BioProject PRJNA356880
+Submission date Dec 22, 2016
+Last update date May 15, 2019
+Contact name ENCODE DCC
+E-mail(s) encode-help@lists.stanford.edu
+Organization name ENCODE DCC
+Street address 300 Pasteur Dr
+City Stanford
+State/province CA
+ZIP/Postal code 94305-5120
+Country USA
+ 
+Platforms (1)
+GPL16791 Illumina HiSeq 2500 (Homo sapiens)
+Samples (3)
+GSM2437780 ChIP-seq from A549 (ENCLB579MEV)
+GSM2437781 ChIP-seq from A549 (ENCLB105XXA)
+GSM2437782 ChIP-seq from A549 (ENCLB813OYH)
+Download family Format
+SOFT formatted family file(s) SOFTImage: Help
+MINiML formatted family file(s) MINiMLImage: Help
+Series Matrix File(s) TXTImage: Help
+Supplementary file Size File type/resource
+GSE92803_RAW.tar (custom download) 427.5 Mb TAR (of BED, BIGWIG, TXT)
+SRA Run SelectorImage: Help
+Raw data provided as supplementary file--------------------------------------------------------------------------------
+Far Eastern Shipping Co vs CA : 130068 : April 20, 1999 : Atty. Puno: En Banc (https://chanrobles.com/scresolutions/resolutions/1999/april/130068.php)
+citeturn4search5 [wordlim: 200] Published: 27.5 years ago; Crawled: 3 weeks ago; 130068.April 20, 1999]
+
+[ G.R. No. 130068. April 20, 1999]
+
+FAR EASTERN SHIPPING CO. vs. CA, et al.
+
+EN BANC
+
+Gentlemen:
+
+Quoted hereunder, for your information, is a resolution of this Court dated APR 20, 1999.
+
+G.R. No. 130068 (Far Eastern Shipping Co., vs. Court of Appeals and Philippine Authority.)
+
+G.R. No. 130150 (Manila Pilots Association vs. Philippine Ports Authority and Far Eastern Shipping Co.)
+
+Before this Court is a Motion for Partial Reconsideration (Re: Admonition, Warning and Spreading of copies of the Decision upon the personal record of ASG Roman G. Del Rosario in the Office of the Bar Confidant) of the Decision of this Court dated October 1, 1998 filed by Assistant Solicitor General Roman G. Del Rosario.
+
+The decretal portion of the questioned decision reads as follows:
+
+"WHEREFORE, in view of all the foregoing, the consolidated petitions for review are DENIED and the assailed decision of the Court of Appeals is AFFIRMED in toto.
+
+"Counsel for FESC, the law firm of Del Rosario and Del Rosario, specifically its associate, Atty. --------------------------------------------------------------------------------
+immgent_integration_git/GEO_queries.Rmd at main · zemmourlab/immgent_integration_git · GitHub (https://github.com/zemmourlab/immgent_integration_git/blob/main/GEO_queries.Rmd)
+citeturn4search6 [wordlim: 200] Published: last year; Crawled: 2 weeks ago; weblink = paste0("https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi? ... # Weblink = paste0("https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi? ... # `Link to Supplementary Files` = gsm_supp_links(gsm_name, delay = RATE_DELAY)
+# Weblink = paste0("https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=", gse_id),
+
+GSE = gse_id,
+
+`Study Title` = title,
+
+GSM = gsm_name,
+
+`Sample Name` = gsm_meta$title %||% gsm_name,
+
+`Cells Profiled`= cells_profiled_from_gsm(gsm_obj),
+
+Contributors = contrib
+
+# `Link to Supplementary Files` = gsm_supp_links(gsm_name, delay = RATE_DELAY)
+
+)
+
+})
+
+rows
+
+}
+
+# Safely map over many GSEs
+
+gsm_tbl = map_dfr(gse_tbl$accession, ~ tryCatch(expand_gse_to_gsm(.x), error = function(e) NULL))
+
+write.csv(gsm_tbl, sprintf("%s/geo_mouse_10x_Tcells_gsm_table.csv", dest_dir), row.names = FALSE)
+
+saveRDS(gsm_tbl, file = sprintf("%s/geo_mouse_10x_Tcells_gsm_table.Rds", dest_dir))
+
+```
+
+Add classifier of T cells in a column
+
+```{r}
+
+df = gsm_tbl
+
+df2 <- df %>%
+
+rowwise() %>%
+
+mutate(
+
+.text_for_class = text_blob(cur_data()),
+
+Tcell_subset_category = classify_subset(.text_for_class)
+
+) %>%
+
+ungroup() %>%
+
+select(-.text_for_class)
+
+gsm_tbl = df2
+
+write.csv(gsm_tbl, sprintf("%s/geo_mouse_10x_Tcells_gsm_table.csv", dest_dir), row.names = FALSE)
+--------------------------------------------------------------------------------
+1300680079 Source Electronic Components | netCOMPONENTS (https://www.netcomponents.com/sitemap/1300680079.html)
+citeturn4search7 [wordlim: 200] Published: 3 months ago; Crawled: 3 months ago; 1300680034  | 2  | 2  | 2  | 20
+
+#### Part Number: 1300680079
+
+Part Number  | Country/Region  | Suppliers  | Line Items  | Total Qty
+--- | --- | --- | --- | ---
+1300680079  | US  | 4  | 4  | 14
+1300680079  | CN  | 1  | 1  | 4,800
+1300680079  | PL  | 1  | 1  | 7
+
+#### Other Parts
+
+Part Number  | Countries/Regions  | Suppliers  | Line Items  | Total Qty
+--- | --- | --- | --- | ---
+1300680094  | 3  | 5  | 5  | 3,440
+1300680099  | 3  | 3  | 3  | 12,434
+1300680019  | 1  | 2  | 2  | 3
+1300680034  | 2  | 2  | 2  | 20
+130068-0069  | 1  | 2  | 2  | 2
+1300680070  | 1  | 1  | 1  | 3,500
+1300680077  | 1  | 1  | 1  | 14,300
+1300680074  | 1  | 1  | 1  | 6,300
+1300680068  | 1  | 1  | 1  | 19,300
+1300680048  | 1  | 1  | 1  | 17,800
+
+#### Possible Component Manufacturers*
+
+Brad Harrison (Brad) (Woodhead) (Molex)
+
+Woodhead Industries Inc (Advanced Interconnect Inc) (Molex)
+
+Molex
+
+Woodhead (Molex Industrial)
+
+AFlextech (Molex GPI)
+
+Interconnect Systems (ISI Pkg) (Bittware) (Nallatech) (Hestia) (Molex)
+
+* This symbol ( ) will appear next to the manufacturer if a datasheet is available for the part. Registered members can click on the datasheet icon to locate the datasheet for the part.
+
+Page Created: 6/20/2026--------------------------------------------------------------------------------
+Weight management in cardiology practice: challenges and opportunities. (https://pubmed.ncbi.nlm.nih.gov/42771123/)
+citeturn4search8 [wordlim: 200] Published: 2 weeks ago; Crawled: 6 days ago; Martens are members of the working group on medication (WG Geneesmiddelen); working group on cardiovascular prevention and cardiac rehabilitation (WG CPH); and Dutch multidisciplinary cardiovascular risk management guidelines committee, on behalf of the of the Netherlands Society of Cardiology (NVvC). ... 2024 Oct 31;391(17):1573-1583; PMID: 39476339 ... 2025 Jun 5;392(21):2089-2099; PMID: 40305708 ... 2026 Jun 6;407(10545):2305-2318; PMID: 42119587
+Drs M.J.G. Leening and F.M.A.C. Martens are members of the working group on medication (WG Geneesmiddelen); working group on cardiovascular prevention and cardiac rehabilitation (WG CPH); and Dutch multidisciplinary cardiovascular risk management guidelines committee, on behalf of the of the Netherlands Society of Cardiology (NVvC).
+
+## References
+
+  * N Engl J Med. 2012 Jan 5;366(1):54-63; PMID: 22216842
+  * Eur Heart J. 2022 May 21;43(20):1955-1969; PMID: 35243488
+  * N Engl J Med. 2024 Oct 31;391(17):1573-1583; PMID: 39476339
+  * J Am Coll Cardiol. 2024 Mar 5;83(9):956-958; PMID: 38418010
+  * JAMA Cardiol. 2025 Jan 1;10(1):96-98; PMID: 39556764
+  * EClinicalMedicine. 2026 May 28;96:103992; PMID: 42256676
+  * N Engl J Med. 2025 Jun 5;392(21):2089-2099; PMID: 40305708
+  * N Engl J Med. 2024 Jul 25;391(4):299-310; PMID: 38856224
+  * Circulation. 2021 May 25;143(21):e984-e1010; PMID: 33882682
+  * Diabetes Obes Metab. 2022 Aug;24(8):1553-1564; PMID: 35441470
+  * N Engl J Med. 2025 Jan 30;392(5):427-437; PMID: 39555826
+  * Eur Heart J. 2024 Oct 7;45(38):4063-4098; PMID: 39210706
+  * Lancet. 2026 Jun 6;407(10545):2305-2318; PMID: 42119587
+  * Eur Heart J. 2026 Aug 29;:; PMID: 42666091
+  * N Engl J Med. 2024 Oct 3;391(13):1193-1205; PMID: 38912654
+  * N Engl J Med. 2023 Dec 14;389(24):2221-2232; PMID: 37952131
+  * Diabetes Care. 2025 May 1;48(5):846-859; PMID: 40156846
+  * Am J Kidney Dis. 2025 May;85(5):555-569.e1; PMID: 39863261
+  * Eur J Prev Cardiol. 2022 Dec 7;29(17):2218-2237; PMID: 36007112
+  * Ned Tijdschr Geneeskd. 2021 Mar 16;165:; PMID: 33793134
+  * N Engl J Med. 2012 Mar 29;366(13):1259-60; author reply 1260; PMID: 22455433
+  * N Engl J Med. 2012 Mar 29;366(13):1258-9; author reply 1260; PMID: 22455432
+  * Neth Heart J. 2025 Jul;33(7-8):216-225; PMID: 40634662
+  * Lancet. 2026 Feb 28;407(10531):892-908; PMID: 41547366
+  * N Engl J Med. 2023 Sep 21;389(12):1069-1084; PMID: 37622681--------------------------------------------------------------------------------
+Get GEO supplemental file URL for a given GEO accession — getGEOSuppFileURL • GEOquery (https://seandavi.github.io/GEOquery/reference/getGEOSuppFileURL.html)
+citeturn4search9 [wordlim: 200] Crawled: last month; A character(1) URL of the accession's supplementary-file directory on the NCBI GEO FTP site. ...     #> [1] "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE161nnn/GSE161228/suppl/"
+--------------------------------------------------------------------------------
+SCS 130068 - Static Shield Bag, 1300 Series Metal-In, High Puncture, 6x8, 100/Pkg | TEquipment (https://www.tequipment.net/SCS/130068/ESD-Bags/)
+citeturn4search10 [wordlim: 200] Crawled: 4 months ago; The SCS 130068 protects ESD-sensitive contents from electrostatic fields and electrostatic discharges (ESD), meets ANSI/ESD S20.20 and ANSI/ESD S11.4 requirements for ESD shielding packaging inside and outside an ESD Protected Area (EPA), has a >22lb puncture strength average providing physical protection for contents, allows usage throughout an ESD Protected Area and grounding when placed on a grounded surface or handled by a grounded operator, and meets the requirements of ANSI/ESD S541 for quality control purposes.
+--------------------------------------------------------------------------------
+Michael Martens, PhD | Associate Professor | Medical College of Wisconsin (https://www.mcw.edu/academic-profiles/michael-martens-phd)
+citeturn4search11 [wordlim: 200] Crawled: last month; [9] Muffly L, Pasquini MC, Martens M, Brazauskas R, Zhu X, Adekola K, Aljurf M, Artz A, Bajel A, Ballen KK, Battiwalla M, Beitnjaneh A, Cahn J-Y, Carabasi M, Chen Y-B, Chhabra S, Ciurea SO, Copelan EA, D’Souza A, Edwards J, Freytes CO, Fung HC, Gale RP, Giralt SA, Hashmi SK, Hematti P, Hildebrandt GC, Ho VT, Jakubowski AA, Lazarus HM, McCarthy PM, Olin RL, Olsson R, Rezvani A, Rizzieri DA, Seftel M, Seo S, Sorror ML, Szer J, Wood, WA. ... 2026 Jun 09;10(11):3945-3959 PMID: 41941698 PMCID: PMC13235446 SCOPUS ID: 2-s2.0-105040358681 04/06/2026
+--------------------------------------------------------------------------------
+1：BPAのリスク評価への使⽤が有⽤と考えられる⽂献 (https://www.fsc.go.jp/fsciis/attachedFile/download?fileId=440&retrievalId=kai20260522so1)
+citeturn4search12 [wordlim: 200] Published: 4 months ago; Martens, ... 2025 Jun
+--------------------------------------------------------------------------------
+Impact Report (https://pxphub.org/wp-content/uploads/2025/08/CIHR-IMHA-Impact-Report-Accessible-EN.pdf)
+citeturn4search13 [wordlim: 200] Published: 9 months ago; 2023 Feb 1 [cited 2025 Jun ... https://pubmed.ncbi.nlm.nih. ... Rae Martens. ... 2025 Jun 17 [cited 2025 Jun
+--------------------------------------------------------------------------------
+Where to find processed reads (https://www.reddit.com/r/bioinformatics/comments/199nlrh)
+citeturn4reddit14 [wordlim: 200] Published: 2.7 years ago; Crawled: 2.7 years ago; A random example: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi? ... The supplementary isn't the necessary data I want/require.
+--------------------------------------------------------------------------------
+Supplementary File 2: FORESEE Data Overview and Preparation (https://d3amtssd1tejdt.cloudfront.net/2019/27256/2/SupplementaryFile2.pdf)
+citeturn4search15 [wordlim: 200] Published: 10 months ago; [29] https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi? ... [32] https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?
+--------------------------------------------------------------------------------
+92781913 (https://www.medrxiv.org/content/10.1101/2025.09.11.25335472v1.full.pdf)
+citeturn4search16 [wordlim: 200] Published: 4 months ago; 17;361(25):2436-48. doi:10.1056/NEJMoa0908355 ... 2020 Jun;6(5):< Missing page number>. doi: 10.2144/fsoa-2019-0156 ... Martens P, Dupont M, Dauw J, Nijst P, Herbots L, Dendale P, et al. ... 2025 Jun 10;333(22):1965. doi:
+--------------------------------------------------------------------------------
+Immune Netw. 2025 Jun;25(3):e21 (https://www.immunenetwork.org/pdf/10.4110/in.2025.25.e21)
+citeturn4search17 [wordlim: 200] Published: last year; Ubiquitin D regulates IRE1α/c-Jun N-terminal Kinase (JNK) protein-dependent ... 	122. ... Martens S, Fracchiolla D. ... https://doi.org/10.4110/in.2025.25.e2115/17
+--------------------------------------------------------------------------------
+Veille scientifique (https://www.rfmtn.fr/wp-content/uploads/2025/09/VeilleSemaine27-2025.pdf)
+citeturn4search18 [wordlim: 200] Published: 11 months ago; 2025 Jun 24;44(6):115776. doi: 10.1016/j.celrep.2025.115776. ... 2025 Jun 3. ... Martens DE, van Oers MM, Pijlman GP.
+--------------------------------------------------------------------------------
+Supplementary information for "Quantum supremacy using a programmable superconducting processor" (https://arxiv.org/abs/1910.11333)
+citeturn4academia19 [wordlim: 200] Published: 7.0 years ago; Title: Supplementary information for "Quantum supremacy using a programmable superconducting processor"
+--------------------------------------------------------------------------------
+Table Retrieval May Not Necessitate Table-specific Model Design (https://arxiv.org/abs/2205.09843)
+citeturn4academia20 [wordlim: 200] Published: 4.4 years ago; First, we perform an analysis on a table-based portion of the Natural Questions dataset (NQ-table), and find that structure plays a negligible role in more than 70% of the cases.
+

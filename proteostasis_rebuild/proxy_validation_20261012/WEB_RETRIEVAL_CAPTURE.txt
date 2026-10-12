@@ -1,0 +1,16 @@
+Internal Error ()
+citeturn5view0 [wordlim: 200] Source: open({"ref_id":"https://pmc.ncbi.nlm.nih.gov/articles/instance/12262517/bin/NIHPP2025.06.25.661590V1-supplement-1.pdf","lineno":null}); Total lines: 1
+L0: URL https://pmc.ncbi.nlm.nih.gov/articles/instance/12262517/bin/NIHPP2025.06.25.661590V1-supplement-1.pdf is not accessible via this tool.
+--------------------------------------------------------------------------------
+Internal Error ()
+citeturn5view1 [wordlim: 200] Source: open({"ref_id":"https://ftp.ncbi.nlm.nih.gov/geo/series/GSE104nnn/GSE104303/suppl/","lineno":null}); Total lines: 1
+L0: URL https://ftp.ncbi.nlm.nih.gov/geo/series/GSE104nnn/GSE104303/suppl/ is not accessible via this tool.
+--------------------------------------------------------------------------------
+Internal Error ()
+citeturn5view2 [wordlim: 200] Source: open({"ref_id":"https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE104303&view=full","lineno":null}); Total lines: 1
+L0: URL https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE104303&view=full is not accessible via this tool.
+--------------------------------------------------------------------------------
+Internal Error ()
+citeturn5view3 [wordlim: 200] Source: open({"ref_id":"https://www.sciencedirect.com/science/article/abs/pii/S0141813024008717","lineno":null}); Total lines: 1
+L0: Failed to fetch https://www.sciencedirect.com/science/article/abs/pii/S0141813024008717: (403) Forbidden
+

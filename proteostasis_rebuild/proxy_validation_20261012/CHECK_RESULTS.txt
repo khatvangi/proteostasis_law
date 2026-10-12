@@ -1,0 +1,36 @@
+PROXY-ONLY CHECK RESULTS
+Standard Python; exact algebraic witnesses are not biological simulations.
+
+PASS	internal client transfers cancel exactly
+PASS	steady-state mass balance implies s >= mu P
+PASS	zero dilution and zero losses forbid positive-source steady state
+PASS	source and dilution units agree
+PASS	visit rate times sites/visit times residence equals site concentration
+PASS	reject adding aggregate concentration to processing flux
+PASS	reject equating dimensionless induction with occupancy
+PASS	binding rate units k F U equal chain flux
+PASS	competition activity a=gamma*k*U/q dimensionless
+PASS	admitted visit residence identity
+PASS	finite pool leaves nonnegative free sites
+PASS	bound state equations stationary
+PASS	shared-pool conservation at equilibrium
+PASS	competitor increase displaces other fixed client
+PASS	strict derivative sign requires occupied focal client
+PASS	separate pools give zero cross displacement
+PASS	feedback can reverse fixed-pool sign inference
+PASS	cited local originals and registration retain SHA256
+PASS	all 12 Table 1 k1 and SE cells transcribed exactly
+PASS	matrix includes all required claim classes
+PASS	integrated report within requested 2000-3000 words
+PASS	old VOID and missing arm stated in report
+PASS	preprint status explicit
+PASS	small processed GEO files both attempted
+PASS	no checksum invented for absent HTTP bytes
+PASS	required dossier files exist
+
+Automated checks: 26 PASS / 0 FAIL / 0 ERROR
+Report word count: 2107
+Biological Prediction A: NOT EXECUTABLE (matched published numerical protein cells not retrieved/authenticated).
+Prediction B: published descriptive Table 1 reproduction target; no new inferential reanalysis.
+Old Gate 3: VOID (unchanged).
+No biological threshold/headroom test passed or was estimated.

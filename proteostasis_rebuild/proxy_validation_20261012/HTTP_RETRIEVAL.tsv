@@ -1,0 +1,8 @@
+utc	url	http_status	bytes	sha256	saved_as	note
+2026-10-12T13:33:40.047275+00:00	https://pmc.ncbi.nlm.nih.gov/articles/PMC12262517/	NO_HTTP_RESPONSE	0	NA_NO_BYTES		URLError(gaierror(-2, 'Name or service not known'))
+2026-10-12T13:33:40.048671+00:00	https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12262517/fullTextXML	NO_HTTP_RESPONSE	0	NA_NO_BYTES		URLError(gaierror(-2, 'Name or service not known'))
+2026-10-12T13:33:40.049190+00:00	https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE104303&targ=self&form=text&view=full	NO_HTTP_RESPONSE	0	NA_NO_BYTES		URLError(gaierror(-2, 'Name or service not known'))
+2026-10-12T13:33:40.049490+00:00	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE104nnn/GSE104303/suppl/	NO_HTTP_RESPONSE	0	NA_NO_BYTES		URLError(gaierror(-2, 'Name or service not known'))
+2026-10-12T13:33:40.049761+00:00	https://pmc.ncbi.nlm.nih.gov/articles/instance/12262517/bin/NIHPP2025.06.25.661590V1-supplement-1.pdf	NO_HTTP_RESPONSE	0	NA_NO_BYTES		URLError(gaierror(-2, 'Name or service not known'))
+2026-10-12T13:33:40.050029+00:00	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE104nnn/GSE104303/suppl/GSE104303_mRNA_mapped_read_counts.tsv.gz	NO_HTTP_RESPONSE	0	NA_NO_BYTES		URLError(gaierror(-2, 'Name or service not known'))
+2026-10-12T13:33:40.050272+00:00	https://ftp.ncbi.nlm.nih.gov/geo/series/GSE104nnn/GSE104303/suppl/GSE104303_mapped_read_counts.tsv.gz	NO_HTTP_RESPONSE	0	NA_NO_BYTES		URLError(gaierror(-2, 'Name or service not known'))

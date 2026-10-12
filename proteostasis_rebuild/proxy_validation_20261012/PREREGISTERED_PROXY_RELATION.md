@@ -1,0 +1,8 @@
+# Frozen analysis rule — 2026-10-12
+Written before this run retrieves numerical figure/supplement cells. This is a retrospective registration: the published narrative and approximate 70-fold/2-fold contrast are already known. It is not outcome-blind confirmation.
+
+Only one numerical relation may be analysed: measured Luc protein burden versus DnaK protein response across the matched synonymous Luc constructs in Martens and Hilser 2025, same condition and baseline. Include every eligible construct; no selection by outcome. Use published tabular numerical cells only, never screenshot digitization, inferred bar heights, nominal codon adaptation as burden, or transcript counts as protein amounts.
+
+Require >=3 distinct positive measured Luc levels L and matched DnaK protein levels C, clear baseline, same sampling conditions, and replicate identities or reported errors. Sort by L (tie: average with provenance). Compute endpoint secants s_low=(C2-C1)/(L2-L1) and s_high=(Cn-C[n-1])/(Ln-L[n-1]); predicted upregulation with flattening means Cn>C1 and s_low>s_high>=0. This is a prespecified descriptive curvature contrast, not a threshold estimator. If replicate cells permit, enumerate/delete-one biological replicate sensitivity; otherwise report provided errors without inventing covariance or confidence intervals. Lack of identifiable paired cells means NOT EXECUTABLE, not support. Never replace DnaK by the most positive chaperone. No nonlinear mechanistic fitting.
+
+A second, tabular-only falsifiable prediction is stated in the integrated report for Reingewertz; it is not an additional reanalysis in this run.
