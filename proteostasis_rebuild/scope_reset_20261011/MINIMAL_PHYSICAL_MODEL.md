@@ -1,3 +1,5 @@
+> **ARCHIVED 2026-10-14 — CLOSED, DO NOT REVIVE. Read /storage/kiran-stuff/proteostasis_law/000_CLOSED_DO_NOT_REVIVE.md first. Numbers in this file include withdrawn claims.**
+
 # Minimal physical accounting
 
 Date: 2026-10-11. **Derived conditional bookkeeping**, not fitted biology. No universal threshold and no measured in-vivo headroom.

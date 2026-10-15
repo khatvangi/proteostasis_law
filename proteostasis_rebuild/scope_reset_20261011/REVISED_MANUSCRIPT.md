@@ -1,3 +1,5 @@
+> **ARCHIVED 2026-10-14 — CLOSED, DO NOT REVIVE. Read /storage/kiran-stuff/proteostasis_law/000_CLOSED_DO_NOT_REVIVE.md first. Numbers in this file include withdrawn claims.**
+
 # Translation-associated proteostasis burden: theoretical reassessment and experimental constraints
 
 Hannah E. Rebbeck, Janak Paudyal, and Boggavarapu Kiran

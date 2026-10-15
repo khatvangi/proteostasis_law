@@ -1,3 +1,5 @@
+> **ARCHIVED 2026-10-14 — CLOSED, DO NOT REVIVE. Read /storage/kiran-stuff/proteostasis_law/000_CLOSED_DO_NOT_REVIVE.md first. Numbers in this file include withdrawn claims.**
+
 # Complete integrated research report: translation-associated proteostasis burden
 
 11 October 2026. **Scientific reconstruction finished; new biological validation unavailable. Manuscript verdict: theoretical reassessment and experimental constraints / not submission-ready.** All changes are confined to this directory. Earlier branches retain their historical contents, including claims now withdrawn.

@@ -1,3 +1,5 @@
+> **ARCHIVED 2026-10-14 — CLOSED, DO NOT REVIVE. Read /storage/kiran-stuff/proteostasis_law/000_CLOSED_DO_NOT_REVIVE.md first. Numbers in this file include withdrawn claims.**
+
 # Final exploratory proxy report
 
 The specified proxy does **not** show a positive median Nva × ClpB-deletion interaction. Across 1,489 matched complete-positive proteins, the median is **−0.4145 log2 units**, quartiles **−1.2125 and +0.2294**, and **32.50%** are positive. This is a descriptive relative-redistribution result, not evidence that deletion lowers total aggregation. The Nva-versus-Val comparison provides no clear positive Nva-specific location shift under this estimand.
